@@ -1,6 +1,6 @@
 # DESIGN.md — visual system canon
 
-**STATUS: DRAFT v0.9 — codifies the ludiq.org-grammar direction implemented on `index.html` v4 (2026-07-11). Locks to v1.0 when P-A approves homepage v4. If P-A rejects v4, this file gets rewritten to the new reference — do not sweep other pages until locked.**
+**STATUS: DRAFT v0.95 — P-A REJECTED homepage v4's raw-ludiq look (2026-07-11, verdict session): "the landing page is worse, I like the previous styling better but wanted bigger fonts and layout." The direction is the HYBRID this file already describes: Zodiak/Switzer warm-paper voice at ludiq scale (18-22px, big images, color blocks). Implemented on `index.html` v5, `map.html` v3, `type.html` (commit bc1b90d). Locks to v1.0 when P-A approves this round. Tokens live in index.html v5 `:root`.**
 
 Every agent building or restyling ANY page reads this first. Machine-readable tokens + rules below; human canon will additionally live in a Google Slides brand guideline (via Gamma → PPTX) later.
 
@@ -9,7 +9,7 @@ Every agent building or restyling ANY page reads this first. Machine-readable to
 - `moodboard/Whole moodboard.png` (+ Dear Alice stills) — palette, vibe: solarpunk warmth
 - P-A verbatim steers: "mostly bright, not dark" · "pale background with colored sections or graphic elements in colors" · "minimalism of some of these but also the colors and vibes" · "sings of warmth, hope and modernity"
 
-## Palette (tokens live in `index.html` v4 `:root` — copy from there)
+## Palette (tokens live in `index.html` v5 `:root` — copy from there)
 | Token | Hex | Use |
 |---|---|---|
 | --paper | #f6f2e7 | Default page ground (pale, warm). Most of every page. |
@@ -33,7 +33,7 @@ Every agent building or restyling ANY page reads this first. Machine-readable to
 ## Layout grammar (Ludiq)
 - Max width 1320px, generous gutters (`clamp(20px,4.5vw,80px)`).
 - Flat saturated **color-block sections** with rounded corners (**24–28px radius**) — the "colored sections" P-A asked for.
-- Organic/arch-shaped image frames (arches, rounded windows) mixing illustration + photo.
+- Image frames: rounded rectangles (24px) as the default (v5). Organic/arch shapes were part of the rejected raw-ludiq v4 — reintroduce only if P-A asks.
 - Poster-minimalism per moodboard: one bold element per section, generous negative space. Storybook illustration energy CONTAINED in framed moments — never full-bleed busy scenes.
 - Subtle ground washes allowed: radial sky-wash top corner, warm wash bottom (see index v4 body background).
 
