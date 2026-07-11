@@ -505,7 +505,9 @@ const INSPIRATION = {
         { img: "images/book-village-effect.jpg", title: "The Village Effect", meta: "Susan Pinker · 2014",
           note: "Face-to-face community predicts lifespan as strongly as not smoking. The biological case that proximity to people is a health intervention, not a lifestyle choice." },
         { img: "images/book-palaces.jpg", title: "Palaces for the People", meta: "Eric Klinenberg · 2018",
-          note: "Coined 'social infrastructure' — the physical spaces that decide how often people meet. Co-living is social infrastructure at the most intimate scale there is." }
+          note: "Coined 'social infrastructure' — the physical spaces that decide how often people meet. Co-living is social infrastructure at the most intimate scale there is." },
+        { title: "The More Beautiful World Our Hearts Know Is Possible", meta: "Charles Eisenstein · 2013",
+          note: "The philosophical backbone of this site's manifesto: the Story of Separation we were handed, and the Story of Interbeing underneath it. Read the talk piece it inspired on the Manifesto page." }
       ]
     },
     {

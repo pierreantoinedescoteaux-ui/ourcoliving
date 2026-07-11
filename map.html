@@ -335,15 +335,8 @@ img{display:block;max-width:100%}
 <body>
 <div class="grain" aria-hidden="true"></div>
 
-<div class="bar">
-  <a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>
-  <div class="barlinks">
-    <a href="manifesto.html">Manifesto</a>
-    <a class="on" href="map.html">Atlas</a>
-    <a href="design.html">Design for Connection</a>
-    <a href="about.html">About</a>
-  </div>
-</div>
+<div data-sitenav></div>
+<script src="site-nav.js"></script>
 
 <header class="head">
   <span class="eyebrow">The atlas · 12 models</span>
@@ -449,8 +442,19 @@ img{display:block;max-width:100%}
     var s=track.querySelector(".slide");
     return s ? s.getBoundingClientRect().width+16 : 400;
   }
-  document.getElementById("caroPrev").addEventListener("click",function(){track.scrollBy({left:-slideW(),behavior:"smooth"});});
-  document.getElementById("caroNext").addEventListener("click",function(){track.scrollBy({left:slideW(),behavior:"smooth"});});
+  /* infinite: both arrows wrap around the ends. Edge detection is
+     geometric (first/last slide position) because scroll-snap means
+     scrollLeft never reads exactly 0 or max. */
+  function caroAtStart(){var s=track.firstElementChild;return s&&s.getBoundingClientRect().left>=track.getBoundingClientRect().left-12;}
+  function caroAtEnd(){var s=track.lastElementChild;return s&&s.getBoundingClientRect().right<=track.getBoundingClientRect().right+12;}
+  document.getElementById("caroPrev").addEventListener("click",function(){
+    if(caroAtStart()) track.scrollTo({left:track.scrollWidth,behavior:"smooth"});
+    else track.scrollBy({left:-slideW(),behavior:"smooth"});
+  });
+  document.getElementById("caroNext").addEventListener("click",function(){
+    if(caroAtEnd()) track.scrollTo({left:0,behavior:"smooth"});
+    else track.scrollBy({left:slideW(),behavior:"smooth"});
+  });
   /* gentle auto-advance; pauses on hover / touch / manual scroll */
   var caroPaused=false, caroEl=document.getElementById("caro");
   caroEl.addEventListener("mouseenter",function(){caroPaused=true;});
@@ -458,8 +462,7 @@ img{display:block;max-width:100%}
   caroEl.addEventListener("touchstart",function(){caroPaused=true;},{passive:true});
   setInterval(function(){
     if(caroPaused||activeSlug)return;
-    var max=track.scrollWidth-track.clientWidth-8;
-    if(track.scrollLeft>=max) track.scrollTo({left:0,behavior:"smooth"});
+    if(caroAtEnd()) track.scrollTo({left:0,behavior:"smooth"});
     else track.scrollBy({left:slideW(),behavior:"smooth"});
   },4500);
 

@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Why co-living — Pierre-Antoine Descoteaux</title>
+<title>Why co-living â€” Pierre-Antoine Descoteaux</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
 <style>
-/* WHY — hope, then the honest middle, then hope again.
-   Paper → night → paper. */
+/* WHY â€” hope, then the honest middle, then hope again.
+   Paper â†’ night â†’ paper. */
 :root{
   --paper:#f4efe4;--paper-2:#ece3d3;
   --ink:#211c17;--ink-soft:#6b6154;
@@ -91,7 +91,7 @@ a{color:inherit;text-decoration:none}
 .way h3{font-family:var(--serif);font-weight:400;font-size:1.15rem}
 .way .go{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf-deep);white-space:nowrap}
 .way p{font-size:.88rem;color:var(--ink-soft);margin-top:6px;font-style:italic}
-.way.mine h3::after{content:" ★";color:var(--clay)}
+.way.mine h3::after{content:" â˜…";color:var(--clay)}
 
 /* close */
 .close{padding:clamp(40px,7vh,80px) 0 clamp(90px,14vh,150px);text-align:center}
@@ -134,7 +134,7 @@ a{color:inherit;text-decoration:none}
   <div class="vignette">
     <div class="vtext" id="vignette"></div>
     <div class="vimg">
-      <img id="vImg" alt="A long shared table under a tree — the future drawn as it could feel" loading="lazy">
+      <img id="vImg" alt="A long shared table under a tree â€” the future drawn as it could feel" loading="lazy">
       <div class="credit" id="vCredit"></div>
     </div>
   </div>
@@ -158,7 +158,7 @@ a{color:inherit;text-decoration:none}
 <!-- BACK TO HOPE: THE TWELVE WAYS -->
 <section class="ways"><div class="wrap">
   <span class="eyebrow" id="waysKicker"></span>
-  <h2>Twelve ways in — each one teaching the others.</h2>
+  <h2>Twelve ways in â€” each one teaching the others.</h2>
   <p class="lede" id="waysLede"></p>
   <div class="wgrid" id="ways"></div>
 </div></section>
@@ -172,7 +172,8 @@ a{color:inherit;text-decoration:none}
   <div class="ctas" id="closeCtas"></div>
 </div></section>
 
-<script src="data.js"></script>
+<script src="site-nav.js"></script>
+  <script src="data.js"></script>
 <script src="map-data.js"></script>
 <script src="knowledge-data.js"></script>
 <script>
@@ -204,8 +205,8 @@ a{color:inherit;text-decoration:none}
   document.getElementById("ways").innerHTML=COLIVING_TYPES.map(function(t){
     var k=TYPE_KNOWLEDGE[t.slug]||{};
     return '<a class="way'+(t.mine?" mine":"")+'" href="type.html?t='+esc(t.slug)+'">'+
-      '<div class="wt"><h3>'+esc(t.name)+'</h3><span class="go">Field guide →</span></div>'+
-      '<p>“'+esc(k.teaches||"")+'”</p></a>';
+      '<div class="wt"><h3>'+esc(t.name)+'</h3><span class="go">Field guide â†’</span></div>'+
+      '<p>â€œ'+esc(k.teaches||"")+'â€</p></a>';
   }).join("");
 
   document.getElementById("closeKicker").textContent=WHY.close.kicker;

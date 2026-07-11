@@ -119,10 +119,7 @@ function renderProject() {
   }).join("");
 
   document.querySelector("#app").innerHTML = `
-    <nav class="nav"><div class="wrap">
-      <a class="brand" href="index.html">${esc(SITE.name)}</a>
-      <div class="links"><a href="manifesto.html">Manifesto</a><a href="map.html">Atlas</a><a href="design.html">Design for Connection</a><a href="about.html">About</a></div>
-    </div></nav>
+    ${navHTML()}
 
     <div class="wrap"><a class="back" href="index.html#work">← All work</a></div>
 
@@ -147,19 +144,21 @@ function renderProject() {
   `;
 }
 
-/* ---------- shared nav + footer (used by the Story page) ---------- */
+/* ---------- shared nav + footer — delegated to site-nav.js when loaded ---------- */
 function navHTML() {
+  if (window.SITENAV) { SITENAV.injectCss(); return SITENAV.html(); }
   return `<nav class="nav"><div class="wrap">
     <a class="brand" href="index.html">${esc(SITE.name)}</a>
     <div class="links">
       <a href="manifesto.html">Manifesto</a>
-      <a href="map.html">Atlas</a>
+      <a href="map.html">Coliving Atlas</a>
       <a href="design.html">Design for Connection</a>
       <a href="about.html">About</a>
     </div>
   </div></nav>`;
 }
 function footerHTML() {
+  if (window.SITENAV) return SITENAV.footerHtml();
   return `<footer class="footer"><div class="wrap">
     <h2>Let's talk about your space.</h2>
     <a class="mail" href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a>

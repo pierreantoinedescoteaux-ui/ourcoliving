@@ -25,6 +25,34 @@ const DFC_INTRO = {
   lede: "Every room quietly tells people how to act. Name the feeling you want — then design backwards. [edit]"
 };
 
+/* "Designing what?" — the two scales of design, before the themes. */
+const DFC_WHAT = {
+  eyebrow: "First, a distinction",
+  title: "Designing what, exactly?",
+  blocks: [
+    {
+      name: "The spaces we live in",
+      scale: "Architecture & interior design",
+      body: "Rooms, light, furniture, thresholds — the scale you actually control. You can move a sofa tonight and change how your household behaves by the weekend. Most of this page lives here. [edit]"
+    },
+    {
+      name: "The communities we live in",
+      scale: "Urbanism",
+      body: "Streets, shared courtyards, who lives near whom — more systemic, slower to move, mostly decided above any one household. Harder to control, but it shapes everything downstream. [edit]",
+      link: { label: "The Atlas maps this scale", href: "map.html" }
+    }
+  ]
+};
+
+/* Future section — for now a deliberate dead link (designers.html not built yet). */
+const DFC_INSPIRE = {
+  eyebrow: "Future section",
+  line: "People far better than me at these decisions — the architects and interior designers this page borrows from. [edit]",
+  label: "Designers that inspire me",
+  href: "designers.html",
+  note: "coming soon"
+};
+
 /* Six feelings. accent = { main, deep, pop, wash } hexes from DESIGN.md palette;
    promptColors = the duotone in words, baked into every generation prompt. */
 const DFC_THEMES = [

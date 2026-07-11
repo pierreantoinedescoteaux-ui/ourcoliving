@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -7,12 +7,13 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
 <style>
-/* DESIGN FOR CONNECTION v2 — theme carousel + expanding tactics band. Bright, ludiq scale. */
+/* DESIGN FOR CONNECTION v2.1 — compact overlay carousel + scroll-through theme sections.
+   Bright, ludiq scale. */
 :root{
   --paper:#f6f2e7;--card:#fffdf8;
   --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
-  --green:#5c9e4a;--green-deep:#3c6b32;
-  --sky:#7fb6c9;--sky-wash:#e3eff3;
+  --green:#5c9e4a;--green-deep:#3c6b32;--green-wash:#e7f0e2;
+  --sky:#7fb6c9;--sky-wash:#e3eff3;--sky-deep:#3d7286;
   --gold:#d99a3d;--gold-deep:#8f6215;
   --sun:#f7c948;--sun-soft:#fbe29a;
   --clay:#b5613c;--clay-deep:#8f4a2c;
@@ -21,10 +22,11 @@
   --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
   --max:1320px;--gutter:clamp(20px,4.5vw,80px);
   --slide-w:min(1080px,76vw);
+  --navh:64px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-html,body{overflow-x:hidden}
+html,body{overflow-x:clip} /* clip, not hidden — hidden silently kills position:sticky (site-wide bug found R13) */
 body{
   background:
     radial-gradient(120% 70% at 10% -5%, var(--sky-wash) 0%, transparent 50%),
@@ -48,40 +50,57 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 @media(max-width:680px){.nav .links a:not(.on){display:none}}
 
 /* ---------- hero: few words, huge ---------- */
-.hero{padding:clamp(80px,13vh,160px) 0 clamp(50px,8vh,90px);text-align:left}
+.hero{padding:clamp(70px,11vh,140px) 0 clamp(40px,6vh,70px);text-align:left}
 .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,7.2vw,6.6rem);line-height:1.02;letter-spacing:-.02em;margin:18px 0 clamp(20px,3.5vh,36px);max-width:15ch}
 .hero h1 em{font-style:italic;color:var(--green-deep)}
 .hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:46ch}
 
 /* ---------- image placeholder (until generation MCP lands) ---------- */
 .ph{position:relative;width:100%;aspect-ratio:16/9;border-radius:24px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center;gap:10px;padding:clamp(16px,2.4vw,34px);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(16px,2.4vw,34px);
   border:2px dashed var(--ph-accent,var(--green));background:var(--ph-wash,var(--sky-wash))}
 .ph .ph-k{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ph-deep,var(--green-deep))}
 .ph .ph-scene{font-size:clamp(.82rem,1vw,.95rem);line-height:1.5;color:var(--ink-soft);max-width:60ch;font-style:italic}
 .ph .ph-dot{position:absolute;top:16px;right:18px;width:14px;height:14px;border-radius:50%;background:var(--ph-accent,var(--green));opacity:.85}
+.slot-img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:24px;display:block}
 .notice{display:flex;gap:10px;align-items:baseline;margin-top:12px;font-size:clamp(.88rem,1.05vw,1rem);line-height:1.5;color:var(--ink-soft)}
 .notice .n-k{flex:none;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ph-deep,var(--green-deep))}
 
-/* ---------- Designing for… carousel ---------- */
-.designing{padding:clamp(30px,5vh,60px) 0 0}
+/* ---------- Designing what? — the two scales ---------- */
+.what{padding:clamp(20px,4vh,50px) 0 0}
+.what h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.8vw,3.2rem);line-height:1.05;letter-spacing:-.015em;margin-top:12px}
+.w-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,32px);margin-top:clamp(18px,3vh,32px)}
+@media(max-width:820px){.w-grid{grid-template-columns:1fr}}
+.w-block{border-radius:28px;padding:clamp(24px,3vw,44px)}
+.w-block.space{background:var(--sky-wash)}
+.w-block.community{background:var(--green-wash)}
+.w-scale{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+.w-block.space .w-scale{color:var(--sky-deep)}
+.w-block.community .w-scale{color:var(--green-deep)}
+.w-block h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1;margin:8px 0 12px}
+.w-block p{font-size:clamp(.95rem,1.15vw,1.08rem);color:var(--ink-soft)}
+.w-block a{display:inline-block;margin-top:14px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep)}
+.w-block a:hover{text-decoration:underline}
+
+/* ---------- Designing for… carousel (compact, title overlays image) ---------- */
+.designing{padding:clamp(50px,8vh,90px) 0 0}
 .designing .head{margin-bottom:clamp(24px,4vh,44px)}
 .designing h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.6vw,4rem);line-height:1.05;letter-spacing:-.015em}
 .designing h2 em{font-style:italic;color:var(--gold-deep)}
 
 .caro{position:relative;overflow:hidden;padding-bottom:10px}
+.caro.hidden{display:none}
 .caro .track{display:flex;align-items:stretch;gap:clamp(16px,2vw,32px);transition:transform .55s cubic-bezier(.22,.8,.3,1);will-change:transform}
 .slide{flex:0 0 var(--slide-w);cursor:pointer;opacity:.28;filter:saturate(.75);transform:scale(.965);transition:opacity .45s,transform .45s,filter .45s}
-.slide.active{opacity:1;filter:none;transform:none;cursor:pointer}
-.slide .s-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:18px 0 6px}
-.slide h3{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.4vw,3.8rem);line-height:1;letter-spacing:-.015em}
-.slide h3 .of{font-style:italic;font-weight:300;color:var(--ink-faint);font-size:.55em;display:block;margin-bottom:6px}
-.slide .tagline{font-size:clamp(.95rem,1.2vw,1.1rem);font-weight:600;color:var(--s-deep,var(--green-deep))}
-.slide .blurb{margin-top:10px;font-size:clamp(.95rem,1.15vw,1.08rem);color:var(--ink-soft);max-width:62ch}
-.slide .open-btn{margin-top:16px;display:inline-flex;align-items:center;gap:10px;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--s-deep,var(--green-deep));padding:12px 22px;border:1.5px solid currentColor;border-radius:99px;transition:background .25s,color .25s}
+.slide.active{opacity:1;filter:none;transform:none}
+.slide .s-media{position:relative}
+.s-cap{position:absolute;left:clamp(14px,1.8vw,26px);bottom:clamp(14px,1.8vw,26px);max-width:min(80%,600px);
+  background:rgba(255,253,248,.87);backdrop-filter:blur(6px);border-radius:20px;padding:clamp(14px,1.6vw,22px) clamp(18px,2vw,28px)}
+.s-cap .of{display:block;font-family:var(--serif);font-style:italic;font-weight:300;color:var(--ink-faint);font-size:clamp(.95rem,1.2vw,1.15rem);margin-bottom:2px}
+.s-cap h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,3.2rem);line-height:1;letter-spacing:-.015em}
+.s-cap .tagline{display:block;margin-top:6px;font-size:clamp(.88rem,1.05vw,1rem);font-weight:600;color:var(--s-deep,var(--green-deep))}
+.s-cap .open-btn{margin-top:12px;display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--s-deep,var(--green-deep));padding:10px 18px;border:1.5px solid currentColor;border-radius:99px;transition:background .25s,color .25s,border-color .25s}
 .slide.active .open-btn:hover{background:var(--s-main,var(--green));border-color:var(--s-main,var(--green));color:#fff}
-.slide .open-btn .arr{transition:transform .3s}
-.slide.expanded .open-btn .arr{transform:rotate(180deg)}
 
 .caro .c-arrow{position:absolute;top:calc(var(--slide-w)*9/16/2);transform:translateY(-50%);z-index:5;width:52px;height:52px;border-radius:50%;background:var(--card);border:1px solid var(--line-strong);font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -12px rgba(34,48,31,.35);transition:background .2s}
 .caro .c-arrow:hover{background:var(--sun-soft)}
@@ -89,46 +108,66 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .caro .c-next{right:calc(var(--gutter)*.4)}
 .caro .dots{display:flex;justify-content:center;gap:10px;margin-top:22px}
 .caro .dots button{width:10px;height:10px;border-radius:50%;background:var(--line-strong);transition:transform .25s,background .25s}
-.caro .dots button.on{background:var(--dot-c,var(--green));transform:scale(1.35)}
+.caro .dots button.on{transform:scale(1.35)}
 
-/* ---------- expanding tactics band ---------- */
-.band{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.22,.8,.3,1)}
-.band.open{max-height:4000px}
-.band .band-in{margin:clamp(26px,4vh,50px) 0 0;background:var(--b-wash,var(--sky-wash));border-radius:28px;padding:clamp(26px,3.5vw,56px) 0}
-.band .b-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;padding:0 clamp(22px,3vw,52px);margin-bottom:clamp(18px,3vh,34px)}
-.band .b-head h4{font-family:var(--serif);font-weight:300;font-size:clamp(1.7rem,3.4vw,3rem);line-height:1.05}
-.band .b-head h4 em{font-style:italic;color:var(--b-deep,var(--green-deep))}
-.band .b-close{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--b-deep,var(--green-deep));padding:10px 18px;border:1.5px solid currentColor;border-radius:99px}
-.band .b-close:hover{background:rgba(255,255,255,.5)}
-.rail{display:flex;gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;padding:4px clamp(22px,3vw,52px) 18px;scrollbar-width:thin}
+/* ---------- open state: scroll-through theme sections ---------- */
+.bankAll{display:none}
+.bankAll.on{display:block}
+.tsec{background:var(--w,var(--sky-wash));border-radius:28px;margin-bottom:clamp(18px,3vh,32px);padding-bottom:clamp(20px,2.5vh,34px)}
+.t-head{position:sticky;top:var(--navh);z-index:6;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:clamp(16px,2vw,26px) clamp(22px,3vw,52px);background:var(--w,var(--sky-wash));border-radius:28px 28px 0 0}
+.t-head .of{display:block;font-family:var(--serif);font-style:italic;font-weight:300;color:var(--ink-soft);font-size:clamp(.95rem,1.2vw,1.15rem)}
+.t-head h4{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,3.2rem);line-height:1;letter-spacing:-.015em;color:var(--ink)}
+.t-head .t-right{display:flex;align-items:center;gap:16px}
+.t-head .t-count{font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--d,var(--green-deep))}
+.t-head .t-close{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--d,var(--green-deep));padding:9px 16px;border:1.5px solid currentColor;border-radius:99px}
+.t-head .t-close:hover{background:rgba(255,255,255,.55)}
+.t-blurb{padding:0 clamp(22px,3vw,52px);font-size:clamp(.95rem,1.15vw,1.08rem);color:var(--ink-soft);max-width:75ch;margin:2px 0 clamp(16px,2.5vh,26px)}
+.rail{display:flex;gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;padding:4px clamp(22px,3vw,52px) 16px;scrollbar-width:thin}
 .rail::-webkit-scrollbar{height:8px}
 .rail::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px}
 .tcard{flex:0 0 min(520px,82vw);scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,2vw,28px);display:flex;flex-direction:column}
 .tcard h5{font-family:var(--serif);font-weight:400;font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.1;margin-top:18px}
 .tcard .t-line{font-weight:600;font-size:clamp(1rem,1.2vw,1.12rem);margin-top:8px}
 .tcard .t-more{font-size:clamp(.92rem,1.05vw,1rem);color:var(--ink-soft);margin-top:8px;line-height:1.6}
-.rail-hint{padding:0 clamp(22px,3vw,52px);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
+.rail-hint{padding:0 clamp(22px,3vw,52px);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
 
-/* ---------- budget section ---------- */
-.budget{padding:clamp(90px,13vh,160px) 0 clamp(40px,6vh,70px)}
-.budget .block{background:var(--sun-soft);border-radius:28px;padding:clamp(30px,4.5vw,70px)}
-.budget h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.4vw,4.8rem);line-height:1.02;letter-spacing:-.018em;margin:14px 0 18px;max-width:18ch}
-.budget .lede{font-size:clamp(1rem,1.3vw,1.2rem);color:var(--ink);opacity:.8;max-width:56ch;margin-bottom:clamp(30px,5vh,54px)}
-.budget .b-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.6vw,36px)}
-@media(max-width:900px){.budget .b-grid{grid-template-columns:1fr}}
+/* ---------- budget (collapsible) ---------- */
+.budget{padding:clamp(70px,10vh,130px) 0 0}
+.budget .block{background:var(--sun-soft);border-radius:28px;padding:clamp(26px,3.5vw,54px)}
+.bud-head{display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;text-align:left}
+.bud-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,4.4vw,3.8rem);line-height:1.05;letter-spacing:-.018em;margin:10px 0 8px;max-width:20ch}
+.bud-head .sub{font-size:clamp(.95rem,1.2vw,1.1rem);color:var(--ink);opacity:.75}
+.bud-arrow{flex:none;width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .4s}
+.budget.open .bud-arrow{transform:rotate(180deg)}
+.bud-body{max-height:0;overflow:hidden;transition:max-height .7s cubic-bezier(.22,.8,.3,1)}
+.budget.open .bud-body{max-height:9000px}
+.bud-body .lede{font-size:clamp(1rem,1.3vw,1.2rem);color:var(--ink);opacity:.8;max-width:56ch;margin:clamp(18px,3vh,30px) 0 clamp(26px,4vh,44px)}
+.b-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.6vw,36px)}
+@media(max-width:900px){.b-grid{grid-template-columns:1fr}}
 .bcard{background:var(--card);border-radius:24px;padding:clamp(18px,2.2vw,30px)}
 .bcard .b-theme{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--bc-deep,var(--green-deep))}
 .bcard h5{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.2vw,1.95rem);line-height:1.1;margin:6px 0 14px}
 .bcard .t-line{font-weight:600;font-size:clamp(1rem,1.2vw,1.12rem);margin-top:14px}
 .bcard .t-more{font-size:clamp(.92rem,1.05vw,1rem);color:var(--ink-soft);margin-top:8px;line-height:1.6}
 
-.growing{text-align:center;padding:clamp(30px,5vh,60px) var(--gutter) clamp(80px,11vh,130px);color:var(--ink-faint);font-size:.9rem}
+/* ---------- designers that inspire me (future) ---------- */
+.inspire{padding:clamp(40px,7vh,80px) 0 0}
+.i-block{background:var(--card);border:1px solid var(--line-strong);border-radius:28px;padding:clamp(26px,3.5vw,50px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.i-block p{font-size:clamp(.98rem,1.2vw,1.12rem);color:var(--ink-soft);max-width:52ch;margin-top:8px}
+.i-link{font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.9rem);color:var(--clay-deep);white-space:nowrap}
+.i-link:hover{text-decoration:underline}
+.i-note{display:block;text-align:right;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px}
+
+.growing{text-align:center;padding:clamp(50px,7vh,90px) var(--gutter) clamp(80px,11vh,130px);color:var(--ink-faint);font-size:.9rem}
 .growing b{color:var(--green-deep)}
 .growing a{color:var(--clay-deep);font-weight:600}
 
 @media(max-width:680px){
-  :root{--slide-w:86vw}
+  :root{--slide-w:86vw;--navh:56px}
   .caro .c-arrow{display:none}
+  .s-cap{left:10px;bottom:10px;max-width:calc(100% - 20px);padding:12px 16px}
+  .t-head .t-right{width:100%;justify-content:space-between}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -139,21 +178,16 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 <body>
 <div class="grain" aria-hidden="true"></div>
 
-<nav class="nav">
-  <a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>
-  <div class="links">
-    <a href="manifesto.html">Manifesto</a>
-    <a href="map.html">Atlas</a>
-    <a class="on" href="design.html">Design for Connection</a>
-    <a href="about.html">About</a>
-  </div>
-</nav>
+<div data-sitenav></div>
+<script src="site-nav.js"></script>
 
 <header class="hero"><div class="wrap">
   <span class="eyebrow" id="eyebrow"></span>
   <h1 id="heroTitle"></h1>
   <p class="lede" id="lede"></p>
 </div></header>
+
+<section class="what"><div class="wrap" id="whatBox"></div></section>
 
 <section class="designing">
   <div class="wrap head"><h2>Designing <em>for&hellip;</em></h2></div>
@@ -163,10 +197,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     <div class="track" id="track"></div>
     <div class="dots" id="dots"></div>
   </div>
-  <div class="wrap"><div class="band" id="band"><div class="band-in" id="bandIn"></div></div></div>
+  <div class="wrap"><div class="bankAll" id="bankAll"></div></div>
 </section>
 
-<section class="budget"><div class="wrap"><div class="block" id="budgetBlock"></div></div></section>
+<section class="budget" id="budget"><div class="wrap"><div class="block" id="budgetBlock"></div></div></section>
+
+<section class="inspire"><div class="wrap"><div class="i-block" id="inspireBlock"></div></div></section>
 
 <p class="growing">A <b>growing bank</b> — ways of designing get added as they prove themselves. Have one to suggest? <a href="mailto:pierreantoinedescoteaux@gmail.com">Send it &rarr;</a></p>
 
@@ -178,37 +214,55 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
 
   var THEMES=DFC_THEMES;
-  var current=0, expanded=false;
+  var current=0, bankOpen=false, bankRendered=false;
 
   document.getElementById("eyebrow").textContent=DFC_INTRO.eyebrow;
   document.getElementById("heroTitle").innerHTML=DFC_INTRO.titleHtml;
   document.getElementById("lede").textContent=noEdit(DFC_INTRO.lede);
 
-  /* placeholder block: dashed frame + scene description; notice caption is separate, permanent */
-  function ph(img,acc){
+  /* image slot: real <img> when src exists, dashed placeholder with the scene otherwise */
+  function slot(img,acc){
+    if(img.src)return '<img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(img.scene)+'" loading="lazy">';
     return '<div class="ph" style="--ph-accent:'+acc.main+';--ph-deep:'+acc.deep+';--ph-wash:'+acc.wash+'">'+
       '<span class="ph-dot" aria-hidden="true"></span>'+
       '<span class="ph-k">Image — to generate</span>'+
       '<p class="ph-scene">'+esc(img.scene)+'</p>'+
-    '</div>'+
-    '<p class="notice" style="--ph-deep:'+acc.deep+'"><span class="n-k">What to notice</span><span>'+esc(img.notice)+'</span></p>';
+    '</div>';
+  }
+  function noticeLine(img,acc){
+    return '<p class="notice" style="--ph-deep:'+acc.deep+'"><span class="n-k">What to notice</span><span>'+esc(img.notice)+'</span></p>';
   }
 
-  /* ------- carousel ------- */
+  /* ------- designing what? ------- */
+  document.getElementById("whatBox").innerHTML=
+    '<span class="eyebrow">'+esc(DFC_WHAT.eyebrow)+'</span>'+
+    '<h2>'+esc(DFC_WHAT.title)+'</h2>'+
+    '<div class="w-grid">'+DFC_WHAT.blocks.map(function(b,i){
+      return '<div class="w-block '+(i===0?"space":"community")+'">'+
+        '<span class="w-scale">'+esc(b.scale)+'</span>'+
+        '<h3>'+esc(b.name)+'</h3>'+
+        '<p>'+esc(noEdit(b.body))+'</p>'+
+        (b.link?'<a href="'+esc(b.link.href)+'">'+esc(b.link.label)+' &rarr;</a>':"")+
+      '</div>';
+    }).join("")+'</div>';
+
+  /* ------- carousel (compact slides, title overlays image) ------- */
   var track=document.getElementById("track");
   track.innerHTML=THEMES.map(function(t,i){
-    return '<article class="slide" data-i="'+i+'" id="'+esc(t.slug)+'" style="--s-main:'+t.accent.main+';--s-deep:'+t.accent.deep+'">'+
-      ph(t.image,t.accent)+
-      '<div class="s-head"><h3><span class="of">Designing for</span>'+esc(t.name)+'</h3>'+
-      '<span class="tagline">'+esc(t.tagline)+'</span></div>'+
-      '<p class="blurb">'+esc(noEdit(t.blurb))+'</p>'+
-      '<button class="open-btn" data-open="'+i+'">'+t.tactics.length+' ways to design for it <span class="arr">&darr;</span></button>'+
+    return '<article class="slide" data-i="'+i+'" style="--s-main:'+t.accent.main+';--s-deep:'+t.accent.deep+'">'+
+      '<div class="s-media">'+slot(t.image,t.accent)+
+        '<div class="s-cap"><span class="of">Designing for</span><h3>'+esc(t.name)+'</h3>'+
+        '<span class="tagline">'+esc(t.tagline)+'</span>'+
+        '<button class="open-btn">'+t.tactics.length+' ways to design for it <span class="arr">&darr;</span></button></div>'+
+      '</div>'+
+      noticeLine(t.image,t.accent)+
     '</article>';
   }).join("");
 
   var dots=document.getElementById("dots");
   dots.innerHTML=THEMES.map(function(t,i){return '<button data-i="'+i+'" aria-label="'+esc(t.name)+'"></button>';}).join("");
 
+  var caro=document.getElementById("caro");
   function layout(){
     var slides=track.children;
     if(!slides.length)return;
@@ -216,87 +270,128 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     var gap=parseFloat(getComputedStyle(track).gap)||24;
     var offset=(window.innerWidth-sw)/2 - current*(sw+gap);
     track.style.transform="translateX("+offset+"px)";
-    for(var i=0;i<slides.length;i++){slides[i].classList.toggle("active",i===current);slides[i].classList.toggle("expanded",i===current&&expanded);}
+    for(var i=0;i<slides.length;i++)slides[i].classList.toggle("active",i===current);
     var db=dots.children;
-    for(var j=0;j<db.length;j++){db[j].classList.toggle("on",j===current);db[j].style.setProperty("--dot-c",THEMES[j].accent.main);}
-    dots.querySelectorAll("button")[current].style.background=THEMES[current].accent.main;
+    for(var j=0;j<db.length;j++){db[j].classList.toggle("on",j===current);db[j].style.background=(j===current)?THEMES[j].accent.main:"";}
   }
-
-  function setCurrent(i,keepOpen){
+  function setCurrent(i){
     current=(i+THEMES.length)%THEMES.length;
-    if(!keepOpen){/* switching theme while open: swap band content */}
-    if(expanded)renderBand();
     layout();
-    if(location.hash!=="#"+THEMES[current].slug)history.replaceState(null,"","#"+THEMES[current].slug);
+    if(!bankOpen&&location.hash!=="#"+THEMES[current].slug)history.replaceState(null,"","#"+THEMES[current].slug);
   }
 
-  /* ------- expanding band ------- */
-  var band=document.getElementById("band"), bandIn=document.getElementById("bandIn");
-  function renderBand(){
-    var t=THEMES[current];
-    bandIn.style.setProperty("--b-wash",t.accent.wash);
-    bandIn.style.setProperty("--b-deep",t.accent.deep);
-    bandIn.innerHTML=
-      '<div class="b-head"><h4>Ways to design for <em>'+esc(t.name.toLowerCase())+'</em></h4>'+
-      '<button class="b-close" id="bClose">Close &uarr;</button></div>'+
-      '<div class="rail">'+t.tactics.map(function(x){
-        return '<div class="tcard" id="'+esc(t.slug)+'-'+esc(x.slug)+'">'+
-          ph(x.image,t.accent)+
-          '<h5>'+esc(x.name)+'</h5>'+
-          '<p class="t-line">'+esc(x.line)+'</p>'+
-          '<p class="t-more">'+esc(noEdit(x.more))+'</p>'+
-        '</div>';
-      }).join("")+'</div>'+
-      '<p class="rail-hint">Scroll sideways &rarr;</p>';
-    var c=document.getElementById("bClose");
-    if(c)c.addEventListener("click",function(){toggle(false);});
+  /* ------- open state: all themes stacked, scroll flows through ------- */
+  var bankAll=document.getElementById("bankAll");
+  function renderBank(){
+    bankAll.innerHTML=THEMES.map(function(t,i){
+      return '<section class="tsec" id="sec-'+esc(t.slug)+'" data-i="'+i+'" style="--w:'+t.accent.wash+';--d:'+t.accent.deep+'">'+
+        '<div class="t-head"><div><span class="of">Designing for</span><h4>'+esc(t.name)+'</h4></div>'+
+        '<div class="t-right"><span class="t-count">'+(i+1)+' / '+THEMES.length+'</span>'+
+        '<button class="t-close">Overview &uarr;</button></div></div>'+
+        '<p class="t-blurb">'+esc(noEdit(t.blurb))+'</p>'+
+        '<div class="rail">'+t.tactics.map(function(x){
+          return '<div class="tcard" id="'+esc(t.slug)+'-'+esc(x.slug)+'">'+
+            slot(x.image,t.accent)+noticeLine(x.image,t.accent)+
+            '<h5>'+esc(x.name)+'</h5>'+
+            '<p class="t-line">'+esc(x.line)+'</p>'+
+            '<p class="t-more">'+esc(noEdit(x.more))+'</p>'+
+          '</div>';
+        }).join("")+'</div>'+
+        '<p class="rail-hint">Scroll sideways &rarr;</p>'+
+      '</section>';
+    }).join("");
+    bankRendered=true;
   }
-  function toggle(open){
-    expanded=(open===undefined)?!expanded:open;
-    if(expanded){renderBand();band.classList.add("open");
-      setTimeout(function(){band.scrollIntoView({behavior:"smooth",block:"nearest"});},250);}
-    else band.classList.remove("open");
+  function openBank(i,instant){
+    if(!bankRendered)renderBank();
+    bankOpen=true;current=i;
+    caro.classList.add("hidden");
+    bankAll.classList.add("on");
+    var sec=document.getElementById("sec-"+THEMES[i].slug);
+    if(sec)sec.scrollIntoView({behavior:instant?"auto":"smooth",block:"start"});
+    history.replaceState(null,"","#"+THEMES[i].slug);
+  }
+  function closeBank(){
+    bankOpen=false;
+    bankAll.classList.remove("on");
+    caro.classList.remove("hidden");
     layout();
+    document.querySelector(".designing").scrollIntoView({behavior:"auto",block:"start"});
   }
+
+  /* hash follows the section you're reading */
+  var io=new IntersectionObserver(function(entries){
+    if(!bankOpen)return;
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var i=+en.target.dataset.i;current=i;
+        history.replaceState(null,"","#"+THEMES[i].slug);
+      }
+    });
+  },{rootMargin:"-40% 0px -50% 0px"});
+  var ioArmed=false;
+  function armIO(){if(ioArmed)return;ioArmed=true;
+    Array.prototype.forEach.call(bankAll.querySelectorAll(".tsec"),function(s){io.observe(s);});}
 
   /* ------- events ------- */
   track.addEventListener("click",function(e){
     var slide=e.target.closest(".slide");if(!slide)return;
     var i=+slide.dataset.i;
     if(i!==current){setCurrent(i);return;}
-    if(e.target.closest(".open-btn")){toggle();return;}
+    openBank(i);armIO();
+  });
+  bankAll.addEventListener("click",function(e){
+    if(e.target.closest(".t-close"))closeBank();
   });
   document.getElementById("prevBtn").addEventListener("click",function(){setCurrent(current-1);});
   document.getElementById("nextBtn").addEventListener("click",function(){setCurrent(current+1);});
   dots.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setCurrent(+b.dataset.i);});
   document.addEventListener("keydown",function(e){
+    if(bankOpen){if(e.key==="Escape")closeBank();return;}
     if(e.key==="ArrowLeft")setCurrent(current-1);
     if(e.key==="ArrowRight")setCurrent(current+1);
-    if(e.key==="Escape"&&expanded)toggle(false);
   });
-  window.addEventListener("resize",layout);
+  window.addEventListener("resize",function(){if(!bankOpen)layout();});
 
-  /* ------- budget ------- */
+  /* ------- budget (collapsible) ------- */
+  var budgetSec=document.getElementById("budget");
   var byslug={};THEMES.forEach(function(t){byslug[t.slug]=t;});
   document.getElementById("budgetBlock").innerHTML=
-    '<span class="eyebrow" style="color:var(--gold-deep)">'+esc(DFC_BUDGET.eyebrow)+'</span>'+
-    '<h2>'+esc(DFC_BUDGET.title)+'</h2>'+
-    '<p class="lede">'+esc(noEdit(DFC_BUDGET.lede))+'</p>'+
-    '<div class="b-grid">'+DFC_BUDGET.items.map(function(b){
-      var t=byslug[b.theme]||THEMES[0];
-      return '<div class="bcard" style="--bc-deep:'+t.accent.deep+'">'+
-        '<span class="b-theme">'+esc(t.name)+'</span>'+
-        '<h5>'+esc(b.name)+'</h5>'+
-        ph(b.image,t.accent)+
-        '<p class="t-line">'+esc(b.line)+'</p>'+
-        '<p class="t-more">'+esc(noEdit(b.more))+'</p>'+
-      '</div>';
-    }).join("")+'</div>';
+    '<button class="bud-head" id="budHead" aria-expanded="false">'+
+      '<div><span class="eyebrow" style="color:var(--gold-deep)">'+esc(DFC_BUDGET.eyebrow)+'</span>'+
+      '<h2>'+esc(DFC_BUDGET.title)+'</h2>'+
+      '<p class="sub">'+esc(DFC_BUDGET.sub)+'</p></div>'+
+      '<span class="bud-arrow" aria-hidden="true">&darr;</span>'+
+    '</button>'+
+    '<div class="bud-body">'+
+      '<p class="lede">'+esc(noEdit(DFC_BUDGET.lede))+'</p>'+
+      '<div class="b-grid">'+DFC_BUDGET.items.map(function(b){
+        var t=byslug[b.theme]||THEMES[0];
+        return '<div class="bcard" style="--bc-deep:'+t.accent.deep+'">'+
+          '<span class="b-theme">'+esc(t.name)+'</span>'+
+          '<h5>'+esc(b.name)+'</h5>'+
+          slot(b.image,t.accent)+noticeLine(b.image,t.accent)+
+          '<p class="t-line">'+esc(b.line)+'</p>'+
+          '<p class="t-more">'+esc(noEdit(b.more))+'</p>'+
+        '</div>';
+      }).join("")+'</div>'+
+    '</div>';
+  document.getElementById("budHead").addEventListener("click",function(){
+    var open=budgetSec.classList.toggle("open");
+    this.setAttribute("aria-expanded",open?"true":"false");
+  });
 
-  /* ------- init (deep link: #theme opens it expanded) ------- */
+  /* ------- designers that inspire me (future — deliberate dead link) ------- */
+  document.getElementById("inspireBlock").innerHTML=
+    '<div><span class="eyebrow" style="color:var(--clay-deep)">'+esc(DFC_INSPIRE.eyebrow)+'</span>'+
+    '<p>'+esc(noEdit(DFC_INSPIRE.line))+'</p></div>'+
+    '<div><a class="i-link" href="'+esc(DFC_INSPIRE.href)+'">'+esc(DFC_INSPIRE.label)+' &rarr;</a>'+
+    '<span class="i-note">'+esc(DFC_INSPIRE.note)+'</span></div>';
+
+  /* ------- init (deep link: #theme opens the scroll-through view there) ------- */
   var h=location.hash.replace("#","");
   var idx=THEMES.findIndex(function(t){return t.slug===h;});
-  if(idx>=0){current=idx;expanded=true;renderBand();band.classList.add("open");}
+  if(idx>=0){openBank(idx,true);armIO();}
   layout();
   setTimeout(layout,300); /* after fonts settle */
 })();

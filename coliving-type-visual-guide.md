@@ -1,84 +1,115 @@
 # Coliving type visual guide + Gemini prompts (12)
 
-Master reference for the 12 field-guide diagrams. Two parts: (A) what each type IS and its
-single distinguishing visual axis (so they don't blur), (B) the ready-to-use prompt.
+Master reference for the 12 field-guide diagrams. Each is drawn as **"the anatomy of a
+[type]"** — a loose hand-drawn diagram with 3–5 hand-lettered arrows pointing to the parts
+that define that model. Two parts below: (A) what each type is + its anatomy, (B) the
+ready-to-use prompt.
 
 **Workflow:** attach the Green Tea Town image in Gemini as a style reference, then paste:
 "Using the exact art style, brushwork, loose hand-drawn feeling and color mood of the
 reference image (do NOT copy its composition), draw: [prompt]." 16:9. Save as
 `images/generated/diagram-<slug>.jpg`.
 
-**Anti-sameness levers used:** each type differs on setting / era / scale / activity /
-framing — not just building shape. Framing is varied on purpose (aerial vs elevation vs
-street vs interior vs map). Scale is played with: some epic and zoomed-out, some intimate.
+**Consistency lock:** every prompt ends with the SAME style block, word-for-word — only the
+subject, framing, colors, and anatomy labels change. Keeps the 12 a cohesive set.
+
+**Arrows/labels:** ⚠️ AI often garbles lettering — if labels come out messy, regenerate
+with "arrows and circles only, no lettering." The definitions/categories aren't final
+(some overlap, and that's fine for now) — this is the current cut to test.
 
 ---
 
-## A. Differentiation reference
+## A. Anatomy reference
 
-| # | Type | What it is (precise) | Distinguishing visual axis | Scale | Framing |
-|---|---|---|---|---|---|
-| 1 | Ecovillage | Purpose-built *sustainable* settlement, off-grid ethos | Eco-architecture + permaculture, organic non-grid layout | Wide | High aerial |
-| 2 | Cohousing | Private modern homes + one shared common house, resident-run | Two facing rows on a car-free lane + common house | Mid | Low oblique aerial |
-| 3 | Housing co-op | One urban apartment building, collectively *owned* | Single mid-rise block, balconies, roof garden, ground café | Tall | Straight-on elevation |
-| 4 | Baugruppen | A group self-*builds* one infill building together | Under construction: scaffolding, crane, people with plans | Mid | Eye-level street |
-| 5 | Kibbutz | Israeli *collective* — shared everything + farming | Communal dining hall + fields/factory, arid Mediterranean | Epic | Very wide aerial |
-| 6 | Intergenerational | One family home + attached granny/in-law suite | Main house with a smaller attached suite (ADU) | Intimate | 3/4 of one house |
-| 7 | Hacker house | Coworking *inside* a home, builders/makers | INTERIOR: living room turned into a work/build room | Intimate | Interior scene |
-| 8 | Operator coliving | Managed studios + amenities, corporate | Sleek glass tower, tiny studios + glowing amenity floors | Tall | Straight-on elevation |
-| 9 | Entrepreneur house | Founders live + build a company together | Grand villa: long networking table + pitch/event space | Intimate-grand | Interior / cutaway |
-| 10 | Rural coliving | Converted *old European* countryside + new additions | Spanish/Italian old stone farmhouses + modern builds, hills | Wide | Aerial over hills |
-| 11 | Network village | Modern tech *campus* hub (Google-park energy) | Several sleek low buildings around green courtyards | Epic | Wide aerial |
-| 12 | Student co-op | Cheap, scrappy, resident-run student house | Big rambling old house, joyfully messy, bikes + laundry | Intimate | 3/4 eye-level |
+| # | Type | What it is (precise) | Anatomy (the 3–5 defining parts → arrows) | Scale · Framing |
+|---|---|---|---|---|
+| 1 | Ecovillage | Purpose-built settlement chasing food + energy independence, low impact | food production (gardens/food-forest/greenhouse) · renewable energy + storage (solar+battery/wind) · eco-homes w/ green roofs · shared commons · water/compost loop | Wide · high aerial |
+| 2 | Cohousing | Private homes + a shared common house, resident-run | private homes · common house (shared kitchen/dining) · car-free shared street · resident-managed · parking at edge | Mid · low oblique aerial |
+| 3 | Housing co-op | One building, collectively *owned* by residents | one building · private units · shared roof garden + common room · equal ownership shares · ground café | Tall · straight elevation |
+| 4 | Baugruppen | A building-group self-*designs & builds* one infill building | the building group (families) · shared plans/design · infill site between buildings · scaffolding/crane · shared amenities they chose | Mid · eye-level street |
+| 5 | Kibbutz | Israeli *collective* — shared life + farming | communal dining hall · modest homes · working farm fields/orchards · shared factory/industry · arid Med. setting | Epic · very wide aerial |
+| 6 | Intergenerational | Family home with an attached elder suite | main family house · attached elder suite (own door) · shared garden + connecting door · 3 generations · shared kitchen | Intimate · 3/4 of one house |
+| 7 | Hacker house | ~6 AI/CS people who live *and* build together | ~6 residents (researchers/coders) · bedrooms · big open work/build room (desks, monitors) · wall of whiteboards · prototyping corner | Intimate · interior |
+| 8 | Operator coliving | Company-managed studios + amenities | many tiny private studios · operator-run · big amenity floors (gym/lounge/coworking) · all-inclusive/flexible · services | Tall · straight elevation |
+| 9 | Entrepreneur house | Founders live together to build companies | founders living in · long networking table · pitch/whiteboard wall · demo/event corner · private bedrooms | Intimate-grand · cutaway |
+| 10 | Rural coliving | Converted *old European* countryside + new builds | old stone farmhouses (Spanish/Italian) · modern additions · coworking barn/studio · food (vines/olives/veg) · shared courtyard | Wide · aerial over hills |
+| 11 | Network village | A modern tech-*campus* hub | several campus buildings · green courtyards · café/amphitheatre commons · shared work hub · bike/walk paths | Epic · wide aerial |
+| 12 | Student co-op | Cheap, self-run student house | many student residents · communal kitchen · chore wheel (self-governance) · study nooks · bikes + laundry | Intimate · 3/4 eye-level |
 
 ---
 
 ## B. Prompts
 
-### 1 — Ecovillage  (leaf green · pop: honey gold)
+*(Style block after each subject is identical everywhere — the consistency lock.)*
 
-A wide high aerial of a purpose-built ecovillage sprawled organically across the land — a dozen eco-homes with living green roofs, curved earth-built walls and solar panels, scattered in no grid and threaded by winding footpaths, ringed by lush permaculture gardens, a food forest, ponds, a wind turbine, and a car-free green commons near the middle. New, sustainable, deliberately organic and asymmetrical. Loose hand-drawn sketch: wobbly uneven lines, visible pencil, watercolor blooms and drips, rough edges. Mostly bare cream paper (#f6f2e7); leaf green dominant, sparse honey-gold pops on a few roofs. No text. 16:9.
+### 1 — The anatomy of an Ecovillage
 
-### 2 — Cohousing  (sky blue · pop: honey gold)
+A wide high aerial "anatomy" diagram of a purpose-built ecovillage built for food and energy independence — a loose organic cluster of eco-homes with living green roofs, big vegetable gardens, a food-forest and a greenhouse, a solar array with battery sheds and a wind turbine, a rainwater/compost system, and a car-free green commons near the middle; a few tiny residents tending gardens.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) food gardens / food-forest, (2) solar + energy storage, (3) wind turbine, (4) green-roof homes, (5) shared commons.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with leaf green (#5c9e4a) dominant across light-to-deep tints and only a few sparse pops of honey gold; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-A low oblique aerial down a single car-free pedestrian lane with two loose rows of modern private houses facing each other, porches opening onto a shared green strip, one bigger common house set crooked at the far end, a small parking cluster shoved to a corner. Ordinary suburban, tidy but hand-drawn wobbly — rows not parallel, asymmetrical, off-center. Loose sketch: wandering uneven lines, visible pencil under-drawing, watercolor blooms, rough edges. Mostly bare cream paper (#f6f2e7); sky blue dominant, sparse honey-gold pops on the common house and a door. No text. 16:9.
+### 2 — The anatomy of Cohousing
 
-### 3 — Housing co-op  (honey gold · pop: leaf green)
+A low oblique aerial "anatomy" diagram of a cohousing community — two loose rows of modern private homes facing each other across a car-free shared pedestrian street, porches opening onto the green, one bigger common house (shared kitchen and dining) crooked at the far end, and a small parking cluster pushed to a corner; rows not parallel, hand-drawn wobbly.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) private homes, (2) common house, (3) car-free shared street, (4) shared gardens, (5) edge parking.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with sky blue (#7fb6c9) dominant across light-to-deep tints and only a few sparse pops of honey gold; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-A straight-on elevation of one tall city apartment block, five or six storeys, seen flat from the street — a wonky hand-drawn stack of balconies (each slightly different, none identical), a leafy shared roof garden bursting off the top, a lively ground-floor café with big windows and spilling plants. Just one building, tall and narrow in the frame, off-square and imperfect. Loose sketch: uneven lines of varying weight, visible pencil, watercolor blooms and drips. Mostly bare cream paper (#f6f2e7); honey gold dominant, sparse leaf-green pops in the roof garden. No text. 16:9.
+### 3 — The anatomy of a Housing co-op
 
-### 4 — Baugruppen  (terracotta clay · pop: sky blue)
+A straight-on elevation "anatomy" diagram of one tall city apartment building that its residents collectively own — a wonky stack of private-unit balconies (each slightly different), a shared roof garden bursting off the top, a shared common room and laundry mid-building, and a lively ground-floor café; one building, tall and narrow, off-square.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) private units, (2) shared roof garden, (3) common room / laundry, (4) equal ownership, (5) ground café.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with honey gold (#d99a3d) dominant across light-to-deep tints and only a few sparse pops of leaf green; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-An eye-level street view of one skinny apartment building mid-construction, wedged between two older city buildings — scaffolding poles all askew, a small crane leaning overhead, half-finished floors with exposed concrete beams, and on the sidewalk a little huddle of ordinary people (families, an architect) bent over big rolled drawings on a trestle table, building it themselves. Busy, lopsided, human. Loose hand-drawn sketch: scratchy uneven lines, visible pencil, watercolor blooms and drips, rough edges. Mostly bare cream paper (#f6f2e7); terracotta clay dominant, sparse sky-blue pops on the drawings and a tarp. No text. 16:9.
+### 4 — The anatomy of a Baugruppen
 
-### 5 — Kibbutz  (wheat gold · pop: leaf green)
+An eye-level street "anatomy" diagram of a building-group self-building one skinny infill apartment between two older city buildings — scaffolding and a small leaning crane, half-finished floors with exposed beams, and on the sidewalk a huddle of the families and their architect bent over big rolled plans on a trestle table; busy, lopsided, human.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) the building group, (2) shared plans, (3) infill site, (4) scaffolding / crane, (5) chosen amenities.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with terracotta clay (#b5613c) dominant across light-to-deep tints and only a few sparse pops of sky blue; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-An epic, very wide aerial of an Israeli kibbutz in a dry Mediterranean landscape — a large communal dining hall as the civic heart (biggest roof, off-center), a loose scatter of modest homes both older and newer, a small factory shed, and vast working farm fields, orchard rows, greenhouses and date palms stretching unevenly to arid hills on the horizon. Collective, agricultural, expansive. Loose hand-drawn sketch: wobbly lines, visible pencil, watercolor blooms, rough edges. Mostly bare cream paper (#f6f2e7); warm wheat-gold dominant, sparse leaf-green pops on a few irrigated fields. No text. 16:9.
+### 5 — The anatomy of a Kibbutz
 
-### 6 — Intergenerational  (honey gold · pop: terracotta clay)
+An epic very wide aerial "anatomy" diagram of an Israeli kibbutz in a dry Mediterranean landscape — a large communal dining hall as the civic heart (biggest roof, off-center), a loose scatter of modest homes, a small factory shed, and vast working farm fields, orchard rows, greenhouses and date palms stretching to arid hills.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) communal dining hall, (2) modest homes, (3) farm fields / orchards, (4) shared factory, (5) collective land.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with warm wheat-gold (#f7c948) dominant across light-to-deep tints and only a few sparse pops of leaf green; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-An intimate three-quarter view of ONE ordinary family house with a smaller granny/in-law suite attached to its side — the main home for the family, the little attached suite (its own door, window and small porch) for the grandparents, a shared garden and a connecting door between them. Tiny figures: grandparents on the suite porch, kids in the yard. Warm, domestic, small-scale, hand-drawn and slightly wonky. Loose sketch: uneven lines, visible pencil, watercolor blooms and drips. Mostly bare cream paper (#f6f2e7); honey gold dominant, sparse terracotta-clay pops on the suite roof. No text. 16:9.
+### 6 — The anatomy of Intergenerational housing
 
-### 7 — Hacker house  (sky blue · pop: terracotta clay)
+An intimate three-quarter "anatomy" diagram of one ordinary family house with a smaller elder suite attached to its side — the main home for the family, the attached suite (its own door, window and little porch) where the grandparents live, a shared garden and a connecting inner door between the two; tiny figures of grandparents on the suite porch, parents and kids in the main house and yard.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) main family house, (2) attached elder suite, (3) private entrance, (4) shared garden, (5) connecting door.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with honey gold (#d99a3d) dominant across light-to-deep tints and only a few sparse pops of terracotta clay; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-An INTERIOR scene, inside a shared house — an ordinary living room and dining room that have been taken over as a coworking / build space: long desks pushed together, laptops and monitors, a wall of scribbled whiteboards, cables, a soldering/prototyping corner, sticky notes, a couch shoved aside, mugs everywhere. Cosy domestic bones, scrappy maker energy, cluttered and asymmetrical. Loose hand-drawn sketch: wobbly uneven lines, visible pencil, watercolor blooms, rough edges. Mostly bare cream paper (#f6f2e7); sky blue dominant, sparse terracotta-clay pops on a chair or mug. No text. 16:9.
+### 7 — The anatomy of a Hacker house
 
-### 8 — Operator coliving  (sky-teal · pop: honey gold)
+An interior "anatomy" diagram inside a shared house where about six residents — AI researchers and computer scientists — both live and work together: a big living/dining room turned into an open build-and-code space with long desks, laptops and monitors, a wall of scribbled whiteboards, cables, a soldering/prototyping corner, and a couple of bunk bedrooms glimpsed off to the side; six tiny figures hunched at desks or talking at a whiteboard.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) ~6 residents, (2) shared work desks, (3) whiteboard wall, (4) prototyping corner, (5) bedrooms.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with sky blue (#7fb6c9) dominant across light-to-deep tints and only a few sparse pops of terracotta clay; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-A straight-on elevation of a single sleek glass residential tower, tall and skinny in the frame — a long stack of tiny identical studio windows climbing up, broken by one or two double-height amenity floors glowing warmly (a lounge, a gym, a coworking room glimpsed through glass). Modern, glossy, corporate — but hand-drawn so it leans a little and the windows wobble, off-square, imperfect. Loose sketch: uneven lines, visible pencil, soft watercolor washes with a few drips. Mostly bare cream paper (#f6f2e7); cool sky-teal dominant, sparse honey-gold pops in the glowing amenity floors. No text. 16:9.
+### 8 — The anatomy of Operator coliving
 
-### 9 — Entrepreneur house  (sun yellow · pop: terracotta clay)
+A straight-on elevation "anatomy" diagram of a single sleek glass residential tower run by a coliving operator — a long stack of tiny identical private studios climbing up, broken by one or two double-height amenity floors glowing warmly (a lounge, a gym, a coworking room seen through glass), with a lobby and services at the base; modern and glossy but hand-drawn so it leans and the windows wobble.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) tiny private studios, (2) operator-run, (3) amenity floors, (4) gym / lounge, (5) all-inclusive services.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with cool sky-teal (#7fb6c9 leaning teal) dominant across light-to-deep tints and only a few sparse pops of honey gold; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-A cutaway of one grand, stylish villa opened like a dollhouse — a founders' house for building a company: a very long communal dinner/networking table down the centre strewn with laptops and glasses, a pitch wall with hand-drawn charts and sticky notes, a small demo/event corner with chairs, plants and warm lamps, a few polished bedrooms above. Upscale and social, bigger and more refined than a scrappy hacker house. Loose hand-drawn sketch: uneven confident lines, visible pencil, watercolor blooms and drips. Mostly bare cream paper (#f6f2e7); sun yellow dominant, glowing around the long table, sparse terracotta-clay pops. No text. 16:9.
+### 9 — The anatomy of an Entrepreneur house
 
-### 10 — Rural coliving  (leaf green · pop: honey gold)
+A cutaway "anatomy" diagram of one grand villa where founders live together to build companies — a very long communal networking/work table down the centre strewn with laptops and glasses, a pitch wall with hand-drawn charts and sticky notes, a small demo/event corner with chairs and warm lamps, plants, and a few polished private bedrooms above; upscale and social, bigger than a scrappy hacker house.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) founders living in, (2) long networking table, (3) pitch wall, (4) demo / event corner, (5) private bedrooms.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with sun yellow (#f7c948) dominant across light-to-deep tints and only a few sparse pops of terracotta clay; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-A wide aerial over rolling Mediterranean countryside — a cluster of converted OLD European buildings (Spanish/Italian honey-stone farmhouses with terracotta-tile roofs, a small chapel, a stone barn) mixed with a few clean modern timber-and-glass additions grafted on, plus vineyards, olive terraces, a courtyard with long tables, and cypress trees. Old-meets-new, warm, rustic, informal, asymmetrical. Loose hand-drawn sketch: wandering uneven lines, visible pencil, watercolor blooms and drips, rough edges. Mostly bare cream paper (#f6f2e7); leaf green dominant in the land, sparse honey-gold pops on the old stone roofs. No text. 16:9.
+### 10 — The anatomy of Rural coliving
 
-### 11 — Network village  (honey gold · pop: sky blue)
+A wide aerial "anatomy" diagram over rolling Mediterranean countryside — a cluster of converted OLD European buildings (Spanish/Italian honey-stone farmhouses with terracotta-tile roofs, a stone barn) fused with a few clean modern timber-and-glass additions, a coworking barn/studio, vineyards, olive terraces and vegetable plots, and a shared courtyard with long tables under cypress trees; old-meets-new, rustic.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) old stone farmhouse, (2) modern addition, (3) coworking barn, (4) food (vines/olives/veg), (5) shared courtyard.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with leaf green (#5c9e4a) dominant across light-to-deep tints and only a few sparse pops of honey gold; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-An epic wide aerial of a modern tech-campus hub, Google/Apple-park energy — several sleek low contemporary buildings with green living roofs arranged loosely around landscaped courtyards, tree-lined paths, a café pavilion, bike racks, an amphitheatre lawn, tiny people walking and cycling, generous greenery threading between. Large-scale, polished but leafy, deliberately non-symmetrical and organic in layout. Loose hand-drawn sketch: wobbly lines, visible pencil, watercolor blooms, rough edges. Mostly bare cream paper (#f6f2e7); honey gold dominant on the buildings and paths, sparse sky-blue pops on a pond or glass canopy. No text. 16:9.
+### 11 — The anatomy of a Network village
 
-### 12 — Student co-op  (terracotta clay · pop: sun yellow)
+An epic wide aerial "anatomy" diagram of a modern tech-campus hub, Google/Apple-park energy — several sleek low contemporary buildings with green living roofs arranged loosely around landscaped courtyards, tree-lined bike-and-walk paths, a café pavilion, an amphitheatre lawn, and a central shared work hub, with tiny people walking and cycling and generous greenery between.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) campus buildings, (2) green courtyards, (3) café / amphitheatre, (4) shared work hub, (5) bike + walk paths.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with honey gold (#d99a3d) dominant across light-to-deep tints and only a few sparse pops of sky blue; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.
 
-An intimate three-quarter eye-level view of one tall old rambling student rowhouse crammed with life — bikes piled and tangled at the front steps, laundry strung across a leaning balcony, string lights, mismatched curtains, a front-wall cutaway showing a chaotic communal kitchen and messy study nooks, a round chore-wheel disc on the wall (no readable text). Scrappy, cheap, joyfully messy, lopsided and asymmetrical. Loose hand-drawn sketch: scratchy uneven lines, visible pencil, watercolor blooms and drips, rough edges. Mostly bare cream paper (#f6f2e7); terracotta clay dominant, sparse sun-yellow pops on the chore wheel and a window. No text. 16:9.
+### 12 — The anatomy of a Student co-op
+
+An intimate three-quarter eye-level "anatomy" diagram of one tall old rambling student house that its residents run themselves — bikes piled at the front steps, laundry strung across a leaning balcony, string lights, mismatched curtains, a front-wall cutaway showing a big chaotic communal kitchen, messy study nooks, and a round chore-wheel disc on the wall; scrappy, cheap, joyfully messy, lopsided.
+Anatomy — hand-drawn arrows/circles with short 1–3 word labels point to these parts: (1) student residents, (2) communal kitchen, (3) chore wheel, (4) study nooks, (5) bikes + laundry.
+Style: loose hand-drawn annotated concept sketch matching the reference image's brushwork and mood — wobbly uneven ink lines of varying weight, visible pencil under-drawing, soft watercolor blooms and drips, rough imperfect edges. Mostly bare warm-cream paper (#f6f2e7); near-monochrome with terracotta clay (#b5613c) dominant across light-to-deep tints and only a few sparse pops of sun yellow; most of the drawing is line-on-paper, not filled. Asymmetrical, off-center, organic — never tidy or symmetrical. No text beyond the short anatomy labels. 16:9 horizontal.

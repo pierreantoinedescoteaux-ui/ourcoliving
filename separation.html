@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The story we were handed — a talk piece</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* TALK PIECE — one long-form essay: the Story of Separation vs the
+   Story of Interbeing, in ten movements. Anchors #<slug> receive the
+   manifesto bubbles' "Go deeper" links. Opinion-piece register, not
+   wiki. First piece of the future writing room. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --sun-soft:#fbe29a;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:760px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.66;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(16px,3vh,26px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,5.6vw,4.6rem);line-height:1.03;letter-spacing:-.02em;margin:16px 0 22px}
+.stand{font-size:clamp(1.02rem,1.35vw,1.2rem);color:var(--ink-soft)}
+.stand p{margin-bottom:1em}
+.bookrow{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin:clamp(22px,3.5vh,34px) 0;flex-wrap:wrap}
+.bookrow .bmark{flex:0 0 40px;height:54px;border-radius:5px;background:linear-gradient(150deg,var(--gold),var(--sun-soft));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;color:#fff;font-size:1.2rem}
+.bookrow .bt{flex:1;min-width:220px}
+.bookrow .bt b{display:block;font-family:var(--serif);font-weight:400;font-size:1rem;line-height:1.25}
+.bookrow .bt span{font-size:.78rem;color:var(--ink-faint)}
+.bookrow a{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px;white-space:nowrap}
+.bookrow a:hover{opacity:.75}
+.mov{padding:clamp(34px,5vh,54px) 0 0;border-top:1px solid var(--line);margin-top:clamp(34px,5vh,54px)}
+.mov:first-of-type{border-top:0;margin-top:0}
+.mov .no{font-family:var(--serif);font-style:italic;color:var(--gold-deep);font-size:.95rem}
+.mov .grayline{font-family:var(--serif);font-style:italic;font-weight:300;color:#8a877f;font-size:clamp(1.05rem,1.4vw,1.25rem);margin:10px 0 6px}
+.mov h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.7rem);line-height:1.08;letter-spacing:-.015em;margin:6px 0 14px}
+.mov .vil{border-left:3px solid var(--green);padding:4px 0 4px 16px;color:var(--ink-soft);font-size:.95rem;margin:0 0 22px}
+.mov .photo{border-radius:var(--r);overflow:hidden;margin:0 0 22px;box-shadow:0 24px 56px -32px rgba(23,58,44,.5)}
+/* fixed height so lazy-loading never shifts anchor positions */
+.mov .photo img{width:100%;height:clamp(220px,32vw,360px);object-fit:cover}
+.mov p{margin-bottom:1.1em;color:#3c4636}
+.mov .reads{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.mov .reads a{font-size:.74rem;font-weight:600;color:var(--clay-deep);background:rgba(143,74,44,.08);border-radius:99px;padding:7px 14px;transition:background .25s}
+.mov .reads a:hover{background:rgba(143,74,44,.16)}
+.outro{margin:clamp(44px,6vh,70px) 0 clamp(30px,4vh,40px);padding:clamp(26px,4vw,40px);background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-align:center}
+.outro p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.4;color:#3c4636;max-width:40ch;margin:0 auto 18px}
+.outro .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.outro .ctas a{font-size:.85rem;font-weight:600;padding:13px 24px;border:2px solid rgba(34,48,31,.3);border-radius:99px;transition:all .3s}
+.outro .ctas a:hover{border-color:var(--green-deep);color:var(--green-deep)}
+:target{scroll-margin-top:90px}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+
+<header class="head wrap">
+  <span class="eyebrow">A talk piece · from the manifesto</span>
+  <h1>The story we were handed, and the story underneath.</h1>
+  <div class="stand" id="stand"></div>
+  <div class="bookrow">
+    <div class="bmark">E</div>
+    <div class="bt"><b>The More Beautiful World Our Hearts Know Is Possible</b><span>Charles Eisenstein · 2013 — the book behind this piece</span></div>
+    <a href="inspiration.html">On my bookshelf →</a>
+  </div>
+</header>
+
+<main class="wrap" id="movs"></main>
+
+<div class="wrap">
+  <div class="outro">
+    <p>None of this asks you to believe anything. It only asks you to notice which story you’re living in — and that the other one already has addresses.</p>
+    <div class="ctas">
+      <a href="manifesto.html">← Back to the manifesto</a>
+      <a href="projects.html">See the real communities</a>
+      <a href="inspiration.html">The bookshelf</a>
+    </div>
+  </div>
+</div>
+
+<script src="manifesto-data.js"></script>
+<script src="site-nav.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+
+document.getElementById("stand").innerHTML=[
+  "In 2013, Charles Eisenstein published a book with a title that sounds naive on purpose: <em>The More Beautiful World Our Hearts Know Is Possible</em>. I keep coming back to it because it names something I felt in every shared house I’ve ever lived in — that our loneliness isn’t a personal failure. It’s the perfectly logical output of a story. [edit]",
+  "He calls it the <b>Story of Separation</b>: you are a self sealed inside your skin, the world is indifferent, resources are scarce, and more for you is less for me. Nobody teaches it in school; it’s simply the water we swim in — it built our suburbs, our mortgages, our nursing homes and our calendars. Against it he sets the <b>Story of Interbeing</b>: we are made of each other, gifts create bonds that transactions can’t, and security was always a matter of relationship. [edit]",
+  "What follows are ten places where the old story runs through an ordinary life — and what I’ve watched happen, up close, when people simply stop living by it. This is not a book summary. It’s the argument of this whole website, laid out once, properly. [edit]"
+].map(function(p){return "<p>"+noEdit(p)+"</p>";}).join("");
+
+document.getElementById("movs").innerHTML=MANIFESTO.stories.map(function(s,i){
+  var reads=(s.read||[]).map(function(r){
+    return '<a href="'+esc(r.href)+'" target="_blank" rel="noopener">'+esc(r.label)+' →</a>';
+  }).join("");
+  return '<section class="mov" id="'+esc(s.slug)+'">'+
+    '<span class="no">'+["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]+"</span>"+
+    '<p class="grayline">“'+esc(s.gray)+'”</p>'+
+    "<h2>"+esc(s.flip)+"</h2>"+
+    '<p class="vil">'+esc(s.village)+"</p>"+
+    '<div class="photo"><img loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.imgAlt||"")+'"></div>'+
+    s.essay.map(function(p){return "<p>"+esc(noEdit(p))+"</p>";}).join("")+
+    '<div class="reads">'+reads+"</div>"+
+    "</section>";
+}).join("");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real communities — the projects that inspire me</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* PROJECTS LIBRARY v1 — every real community referenced on the site,
+   aggregated at runtime from map-data.js (atlas examples) + data.js
+   (INSPIRATION landmark projects). No own data file = no duplication. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --sun-soft:#fbe29a;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1240px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(10px,2vh,16px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.4rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px;max-width:16ch}
+.lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:clamp(26px,4vh,40px) 0 clamp(22px,3vh,32px)}
+.filters button{border:1.5px solid rgba(34,48,31,.22);background:transparent;border-radius:99px;padding:8px 16px;
+  font-family:var(--grotesk);font-size:.78rem;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:all .25s}
+.filters button:hover{border-color:var(--green-deep);color:var(--green-deep)}
+.filters button.onf{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
+.filters button .n{opacity:.55;font-weight:500;margin-left:4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:clamp(50px,7vh,80px)}
+@media(max-width:1020px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,box-shadow .3s,transform .3s}
+.pcard:hover{border-color:var(--green);box-shadow:0 20px 48px -22px rgba(34,48,31,.32);transform:translateY(-3px)}
+.pcard .ph{height:150px;background:linear-gradient(140deg,#e9efdc,#dfe9ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pcard .ph img{width:100%;height:100%;object-fit:cover}
+.pcard .ph .mark{font-family:var(--serif);font-style:italic;font-weight:300;font-size:2.2rem;color:var(--green-deep);opacity:.55}
+.pcard .bd{padding:20px 22px 20px;display:flex;flex-direction:column;flex:1}
+.pcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,1.6vw,1.4rem);line-height:1.15}
+.pcard .meta{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:5px 0 10px}
+.pcard .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.pcard .tag{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);background:#eef2e2;border-radius:99px;padding:3px 10px}
+.pcard .tag.gold{color:var(--gold-deep);background:var(--sun-soft)}
+.pcard p{font-size:.88rem;color:var(--ink-soft);line-height:1.55;flex:1}
+.pcard .row{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px}
+.pcard .row a{font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
+.pcard .row a:hover{opacity:.75}
+.pcard .row a.guide{color:var(--green-deep)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+
+<header class="head wrap">
+  <span class="eyebrow">Hope · real communities</span>
+  <h1>The library of projects that inspire me.</h1>
+  <p class="lede">Every community referenced anywhere on this site, gathered in one place — proof that the other story isn’t hypothetical. Filter by the shape of co-living they embody.</p>
+</header>
+
+<main class="wrap">
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<script src="data.js"></script>
+<script src="map-data.js"></script>
+<script src="site-nav.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+/* not projects — they live on the resources directory */
+var EXCLUDE=["global ecovillage network","foundation for intentional community"];
+/* same place, two names across data files */
+var ALIAS={"nightingale housing":"nightingale","the collective old oak":"the collective old oak"};
+
+function keyOf(name){
+  var k=String(name).toLowerCase().trim();
+  return ALIAS[k]||k;
+}
+
+var byKey={}, order=[];
+COLIVING_TYPES.forEach(function(t){
+  (t.examples||[]).forEach(function(ex){
+    var k=keyOf(ex.name);
+    if(EXCLUDE.indexOf(k)>=0) return;
+    if(!byKey[k]){ byKey[k]={name:ex.name,meta:ex.place||"",note:ex.note||"",img:ex.img||"",url:ex.url||"",types:[],slug:""}; order.push(k); }
+    var e=byKey[k];
+    if(e.types.indexOf(t.short)<0) e.types.push(t.short);
+    if(!e.img&&ex.img) e.img=ex.img;
+    if(!e.url&&ex.url) e.url=ex.url;
+    e._tslugs=e._tslugs||{}; e._tslugs[t.short]=t.slug;
+  });
+});
+(INSPIRATION.groups.find(function(g){return g.key==="projects";})||{items:[]}).items.forEach(function(p){
+  var k=keyOf(p.title);
+  if(EXCLUDE.indexOf(k)>=0) return;
+  if(!byKey[k]){ byKey[k]={name:p.title,meta:p.meta||"",note:p.note||"",img:p.img||"",url:"",types:[],slug:p.slug||""}; order.push(k); }
+  var e=byKey[k];
+  if(e.types.indexOf("Landmark")<0) e.types.push("Landmark");
+  if(!e.img&&p.img) e.img=p.img;
+  if(!e.meta&&p.meta) e.meta=p.meta;
+  if(p.slug) e.slug=p.slug;
+  if(p.note&&p.note.length>(e.note||"").length) e.note=p.note;
+});
+
+var TYPE_SLUG={}; COLIVING_TYPES.forEach(function(t){TYPE_SLUG[t.short]=t.slug;});
+var allTypes=[]; order.forEach(function(k){byKey[k].types.forEach(function(t){if(allTypes.indexOf(t)<0)allTypes.push(t);});});
+allTypes.sort(function(a,b){return a==="Landmark"?1:b==="Landmark"?-1:a.localeCompare(b);});
+
+var cur="all";
+var fEl=document.getElementById("filters"), gEl=document.getElementById("grid");
+function count(t){return order.filter(function(k){return byKey[k].types.indexOf(t)>=0;}).length;}
+function draw(){
+  fEl.innerHTML='<button type="button" class="'+(cur==="all"?"onf":"")+'" data-k="all">All <span class="n">'+order.length+"</span></button>"+
+    allTypes.map(function(t){
+      return '<button type="button" class="'+(t===cur?"onf":"")+'" data-k="'+esc(t)+'">'+esc(t)+' <span class="n">'+count(t)+"</span></button>";
+    }).join("");
+  var list=order.filter(function(k){return cur==="all"||byKey[k].types.indexOf(cur)>=0;});
+  gEl.innerHTML=list.map(function(k){
+    var e=byKey[k];
+    var links="";
+    if(e.url) links+='<a href="'+esc(e.url)+'" target="_blank" rel="noopener">Website →</a>';
+    if(e.slug) links+='<a href="detail.html?item='+esc(e.slug)+'">Case study →</a>';
+    var g=e.types.filter(function(t){return t!=="Landmark";})[0];
+    if(g&&TYPE_SLUG[g]) links+='<a class="guide" href="type.html?t='+esc(TYPE_SLUG[g])+'">Field guide →</a>';
+    return '<div class="pcard">'+
+      '<div class="ph">'+(e.img?'<img loading="lazy" src="'+esc(e.img)+'" alt="'+esc(e.name)+'">':'<span class="mark">'+esc(e.name.charAt(0))+"</span>")+"</div>"+
+      '<div class="bd"><h3>'+esc(e.name)+"</h3>"+
+      (e.meta?'<div class="meta">'+esc(e.meta)+"</div>":"")+
+      '<div class="tags">'+e.types.map(function(t){return '<span class="tag'+(t==="Landmark"?" gold":"")+'">'+esc(t)+"</span>";}).join("")+"</div>"+
+      "<p>"+esc(e.note)+"</p>"+
+      (links?'<div class="row">'+links+"</div>":"")+
+      "</div></div>";
+  }).join("");
+}
+fEl.addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  cur=b.getAttribute("data-k"); draw();
+});
+draw();
+})();
+</script>
+</body>
+</html>

@@ -32,7 +32,7 @@ Each: an isometric/cutaway illustration that visually explains how the model org
 | network-village | several houses across a map connected by paths/links, one shared hub | proposed — awaiting MCP |
 | student-coop | big shared student house: chore wheel energy, communal kitchen, study corners | proposed — awaiting MCP |
 
-### Manifesto v3 (2026-07-11) — `manifesto.html` + `assumption.html`
+### Manifesto v3 (2026-07-11) — `manifesto.html` + `separation.html` (the talk piece; replaced assumption.html)
 
 | Slot | Concept to show | Current placeholder | Status |
 |---|---|---|---|
@@ -51,6 +51,14 @@ Each: an isometric/cutaway illustration that visually explains how the model org
 
 Target files: `images/generated/story-<slug>.jpg` → wire via `MANIFESTO.stories[].img` in `manifesto-data.js`. Hero → `images/generated/manifesto-hero.jpg` → `MANIFESTO.heroImg.src`.
 
+### Design for Connection v2 (2026-07-11) — `design.html` (36 slots)
+
+6 theme heroes + 24 tactic images + 6 budget-move images, all 16:9, all currently designed placeholders that render their scene description on-page. **Source of truth for every scene + notice caption: `design-data.js`** (each image = `{scene, notice}`; add a `src` key when generated and the page swaps the placeholder for the image automatically — no HTML change needed).
+
+- Duotone per theme (also in `DFC_THEMES[].promptColors`): connection = honey gold + leaf-green pops · intimacy = terracotta + gold · mindfulness = sky blue + leaf green · collaboration = leaf green + sky · creativity = sun yellow + terracotta · focus = deep forest + gold.
+- Generation workflow: same as field-guide diagrams (`coliving-type-visual-guide.md` — Green Tea Town style reference in Gemini), scene from `design-data.js` + the `DFC_STYLE` tail with MAIN/POP replaced by the theme's duotone.
+- Target files: `images/generated/dfc-<theme>.jpg` (theme heroes), `dfc-<theme>-<tactic>.jpg` (tactics), `dfc-budget-<theme>.jpg` (budget moves).
+- Status: all 36 proposed — awaiting P-A's image MCP.
+
 ### Backlog (not yet specced)
 - Home hero alternative (currently Dear Alice still — proprietary, credited; revisit before deploy)
-- Design for Connection per-pattern photos/illustrations — after pattern bank grows
