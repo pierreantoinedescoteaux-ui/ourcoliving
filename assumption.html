@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manifesto — go deeper</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* ASSUMPTION DEEP PAGE — one story from the manifesto, expanded.
+   Bright, big type, hybrid skin. Renders MANIFESTO.stories[?a=slug]. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;
+  --clay-deep:#8f4a2c;--sun-soft:#fbe29a;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:860px;--gutter:clamp(20px,5vw,88px);--r:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/* clip, NOT hidden — hidden kills position:sticky (see manifesto.html) */
+html,body{overflow-x:clip}
+body{background:
+    radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),
+    var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.62;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px var(--gutter);background:rgba(246,242,231,.88);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.nav .brand{font-family:var(--serif);font-size:1rem;font-weight:700}
+.nav .links{display:flex;gap:clamp(14px,2.4vw,30px)}
+.nav .links a{font-size:.8rem;font-weight:500;padding:4px 0}
+.nav .links a.on{color:var(--green-deep);font-weight:600}
+.nav .links a:hover{color:var(--green-deep)}
+@media(max-width:680px){.nav .links a:not(.on){display:none}}
+
+.head{padding:clamp(50px,8vh,90px) 0 clamp(20px,3vh,30px)}
+.gray-line{font-family:var(--serif);font-style:italic;font-weight:300;color:#8a877f;font-size:clamp(1.1rem,1.6vw,1.4rem);margin:20px 0 6px}
+.gray-line .lbl{display:block;font-family:var(--grotesk);font-style:normal;font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#a09d94;margin-bottom:8px}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.4vw,4.4rem);line-height:1.04;letter-spacing:-.02em;margin:18px 0 18px}
+.village{border-left:3px solid var(--green);padding:6px 0 6px 18px;color:var(--ink-soft);font-size:clamp(1rem,1.3vw,1.15rem);margin:26px 0}
+.photo{border-radius:var(--r);overflow:hidden;margin:clamp(26px,4vh,40px) 0;box-shadow:0 30px 70px -38px rgba(23,58,44,.5)}
+.photo img{width:100%;max-height:440px;object-fit:cover}
+.essay p{margin:0 0 1.15em;color:#3c4636}
+.reads{margin:clamp(30px,4vh,44px) 0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px 26px}
+.reads .k{font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--green-deep);margin-bottom:12px}
+.reads a{display:block;font-size:.95rem;font-weight:600;color:var(--clay-deep);padding:7px 0;border-bottom:1px dashed rgba(143,74,44,.25)}
+.reads a:last-child{border-bottom:0}
+.reads a:hover{color:var(--ink)}
+.pager{display:flex;justify-content:space-between;gap:14px;margin:clamp(36px,5vh,56px) 0 clamp(60px,9vh,100px)}
+.pager a{flex:1;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 20px;font-size:.85rem;transition:border-color .3s,box-shadow .3s}
+.pager a:hover{border-color:var(--green);box-shadow:0 14px 34px -20px rgba(34,48,31,.3)}
+.pager a .d{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:4px}
+.pager a.next{text-align:right}
+.backrow{text-align:center;margin-bottom:70px}
+.backrow a{font-size:.85rem;font-weight:600;padding:13px 26px;border:2px solid rgba(34,48,31,.3);border-radius:99px;transition:all .3s}
+.backrow a:hover{border-color:var(--green-deep);color:var(--green-deep)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="nav">
+  <a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>
+  <div class="links">
+    <a class="on" href="manifesto.html">Manifesto</a>
+    <a href="map.html">Atlas</a>
+    <a href="design.html">Design for Connection</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
+
+<header class="head wrap">
+  <span class="eyebrow" id="crumb"></span>
+  <p class="gray-line"><span class="lbl">The story we were handed</span><span id="gray"></span></p>
+  <h1 id="flip"></h1>
+  <p class="village" id="village"></p>
+</header>
+
+<main class="wrap">
+  <div class="photo"><img id="photo" src="" alt=""></div>
+  <div class="essay" id="essay"></div>
+  <div class="reads" id="reads"></div>
+  <div class="pager" id="pager"></div>
+  <div class="backrow"><a href="manifesto.html">← Back to the manifesto</a></div>
+</main>
+
+<script src="manifesto-data.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+var slug=new URLSearchParams(location.search).get("a");
+var S=MANIFESTO.stories;
+var idx=S.findIndex(function(s){return s.slug===slug;});
+if(idx<0){ location.replace("manifesto.html"); return; }
+var s=S[idx];
+document.title=s.flip+" — Manifesto";
+document.getElementById("crumb").textContent="From the manifesto · "+(idx+1)+" / "+S.length;
+document.getElementById("gray").textContent="“"+s.gray+"”";
+document.getElementById("flip").textContent=s.flip;
+document.getElementById("village").textContent=s.village;
+var ph=document.getElementById("photo"); ph.src=s.img; ph.alt=s.imgAlt||"";
+document.getElementById("essay").innerHTML=s.essay.map(function(p){return "<p>"+esc(noEdit(p))+"</p>";}).join("");
+document.getElementById("reads").innerHTML='<div class="k">Go deeper</div>'+s.read.map(function(r){
+  return '<a href="'+esc(r.href)+'" target="_blank" rel="noopener">'+esc(r.label)+' →</a>';
+}).join("");
+var prev=S[(idx-1+S.length)%S.length], next=S[(idx+1)%S.length];
+document.getElementById("pager").innerHTML=
+  '<a href="assumption.html?a='+esc(prev.slug)+'"><span class="d">← Previous</span>'+esc(prev.flip)+'</a>'+
+  '<a class="next" href="assumption.html?a='+esc(next.slug)+'"><span class="d">Next →</span>'+esc(next.flip)+'</a>';
+})();
+</script>
+</body>
+</html>

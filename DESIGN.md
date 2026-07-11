@@ -44,6 +44,7 @@ Every agent building or restyling ANY page reads this first. Machine-readable to
 ## Imagery
 - Order per AGENT-RULES.md: interactive/code-built → generated (ASSETS.md pipeline, shared style anchor) → licensed photo (log CREDITS.md).
 - Generated-image style anchor lives in `ASSETS.md` — keep the two files consistent.
+- **Generated diagrams are near-monochrome (duotone).** Each illustration uses exactly ONE main accent color (across its full range of tints and shades) plus ONE secondary accent (small highlights only) on the neutral paper ground (#f6f2e7) — a calm monochrome-poster feel, never the full palette in a single image. Both accents stay within the palette above. Assign a distinct main accent per subject so the set reads cohesive but each type is still distinguishable.
 - Real house photos: P-A's curation bar — only shots that survive an architect's eye; dedupe by function.
 
 ## Banned moves
