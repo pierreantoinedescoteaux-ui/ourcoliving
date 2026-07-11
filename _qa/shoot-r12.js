@@ -18,8 +18,8 @@ const root = "file:///C:/Users/User/coliving-portfolio/";
     await page.waitForTimeout(1300);
     await page.evaluate(async () => {
       const h = document.documentElement.scrollHeight;
-      for (let y = 0; y <= h; y += 400) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 50)); }
-      window.scrollTo(0, 0);
+      for (let y = 0; y <= h; y += 400) { window.scrollTo({ top: y, behavior: "auto" }); await new Promise(r => setTimeout(r, 90)); }
+      window.scrollTo({ top: 0, behavior: "auto" });
     });
     await page.waitForTimeout(800);
     if (opts.hover) { await page.hover(opts.hover).catch(e => console.log("hover fail", e.message)); await page.waitForTimeout(700); }

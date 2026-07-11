@@ -91,17 +91,18 @@ img{display:block;max-width:100%}
   position:absolute;left:22px;right:22px;bottom:18px;color:#fdfaf0;
   font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.3vw,2.2rem);
   line-height:1.05;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.35);
-  transition:transform .45s cubic-bezier(.2,.8,.3,1);
+  transition:opacity .3s ease;
 }
 .slide .def{
   position:absolute;left:22px;right:22px;bottom:18px;color:rgba(253,250,240,.95);
   opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .45s cubic-bezier(.2,.8,.3,1);
 }
+.slide .def h5{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,1.9vw,1.8rem);line-height:1.05;letter-spacing:-.01em;margin-bottom:8px;text-shadow:0 2px 18px rgba(0,0,0,.35)}
 .slide .def p{font-size:clamp(.9rem,1.05vw,1.02rem);line-height:1.45;text-shadow:0 1px 12px rgba(0,0,0,.4);margin-bottom:10px}
 .slide .def .open{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fdfaf0;border-bottom:2px solid var(--gold);padding-bottom:3px}
 .slide .def .open:hover{color:var(--gold)}
 @media(hover:hover){
-  .slide:hover .title{transform:translateY(-64px)}
+  .slide:hover .title{opacity:0}
   .slide:hover .scrim{background:linear-gradient(to top,rgba(20,30,18,.88) 0%,rgba(20,30,18,.45) 55%,rgba(20,30,18,.08) 80%)}
   .slide:hover .def{opacity:1;transform:none}
 }
@@ -429,7 +430,7 @@ img{display:block;max-width:100%}
       (k.hero?'<img src="'+esc(k.hero.src)+'" alt="'+esc(t.name)+'" loading="lazy">':"")+
       '<div class="scrim"></div>'+
       '<div class="title">'+esc(t.name)+'</div>'+
-      '<div class="def"><p>'+esc(t.tagline)+'</p>'+
+      '<div class="def"><h5>'+esc(t.name)+'</h5><p>'+esc(t.tagline)+'</p>'+
       '<a class="open" href="type.html?t='+esc(t.slug)+'">Open the field guide →</a></div>'+
       '</div>';
   }).join("");
