@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pierre-Antoine Descoteaux — Co-living space designer & community builder</title>
+
+<!-- Distinctive free type: Zodiak (editorial contrast serif) + Switzer (grotesk) via Fontshare -->
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,700,300&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   MAISON — architectural monograph in motion
+   Self-contained proof-of-concept homepage. No build step.
+   ============================================================ */
+:root{
+  --paper:#f4efe4;
+  --paper-2:#ece3d3;
+  --ink:#211c17;
+  --ink-soft:#6b6154;
+  --clay:#b5613c;
+  --clay-deep:#8f4a2c;
+  --line:rgba(33,28,23,.14);
+  --line-strong:rgba(33,28,23,.28);
+  --serif:"Zodiak","Fraunces",Georgia,"Times New Roman",serif;
+  --grotesk:"Switzer","Inter",system-ui,-apple-system,sans-serif;
+  --max:1440px;
+  --gutter:clamp(20px,5vw,88px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:hidden}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--grotesk);
+  font-size:clamp(16px,1.05vw,18px);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--clay);color:var(--paper)}
+
+/* ---- grain / paper texture over everything ---- */
+.grain{
+  position:fixed;inset:0;z-index:9998;pointer-events:none;
+  opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+}
+
+/* ---- scroll progress ---- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--clay);z-index:9999}
+
+/* ---- utility ---- */
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-family:var(--grotesk);font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--clay-deep)}
+.serif{font-family:var(--serif)}
+
+/* image with graceful fallback */
+.figure{position:relative;overflow:hidden;background:var(--paper-2)}
+.figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.figure.noimg::after{
+  content:attr(data-label);
+  position:absolute;inset:0;display:grid;place-items:center;padding:1.5em;
+  font-family:var(--grotesk);font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-soft);text-align:center;
+  background:
+    repeating-linear-gradient(45deg,transparent 0 11px,rgba(33,28,23,.05) 11px 12px),
+    var(--paper-2);
+}
+
+/* ============================================================ NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--gutter);
+  transition:background .5s ease,padding .5s ease,box-shadow .5s ease;
+  mix-blend-mode:normal;
+}
+.nav.solid{background:rgba(244,239,228,.82);backdrop-filter:blur(12px);padding:14px var(--gutter);box-shadow:0 1px 0 var(--line)}
+.nav .brand{font-family:var(--serif);font-size:1.02rem;font-weight:700;letter-spacing:-.01em}
+.nav .brand small{font-family:var(--grotesk);font-weight:500;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--clay-deep);display:block;margin-top:2px}
+.nav .links{display:flex;gap:clamp(14px,2.4vw,34px);align-items:center}
+.nav .links a{font-size:.82rem;font-weight:500;letter-spacing:.02em;position:relative;padding:4px 0}
+.nav .links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--clay);transition:width .4s cubic-bezier(.16,1,.3,1)}
+.nav .links a:hover::after{width:100%}
+.nav .links a.cta{color:var(--clay-deep);font-weight:600}
+@media(max-width:720px){.nav .links a:not(.cta){display:none}}
+
+/* ============================================================ HERO */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:140px var(--gutter) 60px}
+.hero .side{
+  position:absolute;top:50%;right:calc(var(--gutter) - 8px);transform:translateY(-50%) rotate(180deg);
+  writing-mode:vertical-rl;font-family:var(--grotesk);font-size:.68rem;font-weight:600;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);
+}
+.hero .side b{color:var(--clay-deep)}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:clamp(24px,4vh,48px)}
+.hero-eyebrow .rule{height:1px;width:clamp(40px,8vw,110px);background:var(--line-strong)}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2.9rem,8.2vw,8.4rem);
+  line-height:.98;letter-spacing:-.025em;
+  max-width:16ch;
+}
+.hero h1 .accent{font-style:italic;color:var(--clay-deep)}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line > span{display:block;will-change:transform}
+.hero-foot{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,80px);align-items:flex-end;margin-top:clamp(36px,6vh,72px)}
+.hero-intro{font-family:var(--grotesk);font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.55;color:var(--ink-soft);max-width:46ch}
+.hero-places{font-family:var(--grotesk);font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.hero-places span{color:var(--clay-deep)}
+.scrollcue{position:absolute;left:var(--gutter);bottom:34px;font-size:.66rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;gap:10px}
+.scrollcue .dot{width:6px;height:6px;border-radius:50%;background:var(--clay);animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(6px);opacity:.4}}
+
+/* ============================================================ SECTION SCAFFOLD */
+.section{position:relative;padding:clamp(80px,13vh,180px) 0}
+.sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:clamp(48px,8vh,96px)}
+.sec-num{font-family:var(--serif);font-size:clamp(2.4rem,6vw,5.2rem);line-height:1;color:var(--clay);opacity:.9}
+.sec-title{font-family:var(--grotesk);font-size:.78rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+.sec-lead{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.7rem);line-height:1.18;letter-spacing:-.015em;max-width:22ch;margin-left:auto}
+@media(max-width:860px){.sec-lead{max-width:none;margin-left:0;margin-top:8px}}
+
+/* ============================================================ INTENTIONS — alternating spreads */
+.spread{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center;
+  padding:clamp(48px,9vh,120px) 0;position:relative;
+}
+.spread + .spread{border-top:1px solid var(--line)}
+.spread .txt{position:relative;z-index:2}
+.spread:nth-child(even) .txt{order:2}
+.spread .ghost{
+  position:absolute;font-family:var(--serif);font-size:clamp(9rem,26vw,26rem);line-height:.7;
+  color:var(--ink);opacity:.05;z-index:0;top:-.1em;left:-.06em;pointer-events:none;
+}
+.spread h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4vw,3.3rem);line-height:1.02;letter-spacing:-.02em;margin-bottom:.5em;position:relative;z-index:2}
+.spread p{font-size:clamp(1rem,1.15vw,1.1rem);color:var(--ink-soft);max-width:44ch;position:relative;z-index:2}
+.spread .tag{display:inline-block;margin-top:1.6em;font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--clay-deep);border-top:1px solid var(--clay);padding-top:10px}
+.cluster{position:relative;height:clamp(340px,52vh,620px)}
+.cluster .figure{position:absolute;border-radius:2px;box-shadow:0 30px 60px -30px rgba(33,28,23,.45)}
+.cluster .f1{width:74%;height:82%;top:0;left:0;z-index:1}
+.cluster .f2{width:52%;height:56%;right:0;bottom:0;z-index:2;border:6px solid var(--paper)}
+@media(max-width:860px){
+  .spread{grid-template-columns:1fr}
+  .spread:nth-child(even) .txt{order:0}
+  .cluster{height:64vw;min-height:300px}
+}
+
+/* ============================================================ WORK */
+.work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(20px,3vw,44px)}
+.pcard{position:relative;display:block;overflow:hidden}
+.pcard.big{grid-column:span 7}
+.pcard.small{grid-column:span 5}
+.pcard.wide{grid-column:span 12;display:grid;grid-template-columns:1.3fr 1fr;gap:0;align-items:stretch;border-top:1px solid var(--line);padding-top:0}
+@media(max-width:860px){.pcard.big,.pcard.small,.pcard.wide{grid-column:1/-1;display:block}}
+.pcard .figure{aspect-ratio:4/3;border-radius:2px}
+.pcard.wide .figure{aspect-ratio:16/10;min-height:260px}
+.pcard:hover .figure img{transform:scale(1.05)}
+.pcard .pmeta{padding:20px 4px 0;display:flex;flex-direction:column;justify-content:center}
+.pcard.wide .pmeta{padding:0 0 0 clamp(24px,4vw,56px)}
+.pcard .idx{font-family:var(--serif);font-size:.9rem;color:var(--clay);margin-bottom:10px}
+.pcard h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.5rem);line-height:1.02;letter-spacing:-.02em}
+.pcard .place{margin-top:8px;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.pcard .psum{margin-top:14px;color:var(--ink-soft);font-size:.98rem;max-width:40ch}
+.pcard .featured{position:absolute;top:16px;left:16px;z-index:3;background:var(--clay);color:var(--paper);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:6px 11px;border-radius:2px}
+.pcard .arrow{margin-top:18px;font-size:.78rem;font-weight:600;letter-spacing:.06em;color:var(--ink);display:inline-flex;gap:8px;align-items:center}
+.pcard .arrow .a{transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.pcard:hover .arrow .a{transform:translateX(8px);color:var(--clay-deep)}
+
+/* ============================================================ ABOUT */
+.about{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,96px);align-items:center}
+@media(max-width:860px){.about{grid-template-columns:1fr}}
+.about .portrait{position:relative}
+.about .portrait .figure{aspect-ratio:4/5;border-radius:2px;box-shadow:0 40px 80px -40px rgba(33,28,23,.5)}
+.about .portrait .cap{position:absolute;bottom:-14px;right:-14px;background:var(--paper);border:1px solid var(--line);padding:12px 16px;font-size:.64rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.about blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.22;letter-spacing:-.015em}
+.about blockquote .accent{font-style:italic;color:var(--clay-deep)}
+.about .bio{margin-top:1.6em;color:var(--ink-soft);max-width:48ch}
+.about .mini-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:2em}
+.about .mini-gallery .figure{aspect-ratio:1;border-radius:2px}
+
+/* ============================================================ CONTACT */
+.contact{background:var(--ink);color:var(--paper);padding:clamp(90px,16vh,200px) 0;position:relative;overflow:hidden}
+.contact ::selection{background:var(--clay);color:var(--ink)}
+.contact .ghost-word{position:absolute;bottom:-.28em;left:50%;transform:translateX(-50%);font-family:var(--serif);font-size:clamp(6rem,22vw,20rem);line-height:1;color:#fff;opacity:.04;pointer-events:none;white-space:nowrap}
+.contact .inner{position:relative;z-index:2;text-align:center}
+.contact .eyebrow{color:var(--clay)}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,6vw,5.6rem);line-height:1.02;letter-spacing:-.02em;margin:.4em 0 .7em}
+.contact h2 .accent{font-style:italic}
+.contact .mail{display:inline-flex;align-items:center;gap:14px;font-family:var(--grotesk);font-size:clamp(1rem,1.6vw,1.3rem);font-weight:500;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:8px;transition:border-color .4s}
+.contact .mail:hover{border-color:var(--clay)}
+.contact .mail .a{color:var(--clay);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.contact .mail:hover .a{transform:translateX(8px)}
+.contact .fine{margin-top:clamp(60px,12vh,120px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress"></div>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="index.html">Pierre-Antoine Descoteaux<small>Co-living · Space · Community</small></a>
+  <div class="links">
+    <a href="#intentions">Intentions</a>
+    <a href="#work">Work</a>
+    <a href="story.html">Story</a>
+    <a href="hope.html">Hope</a>
+    <a href="inspiration.html">Inspiration</a>
+    <a href="map.html">Atlas</a>
+    <a href="#contact" class="cta">Contact →</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="side" aria-hidden="true">Portfolio — <b>2026</b></div>
+
+  <div class="hero-eyebrow" data-load>
+    <span class="rule"></span>
+    <span class="eyebrow">Co-living space designer &amp; community builder</span>
+  </div>
+
+  <h1 aria-label="I design co-living spaces around how people actually live, work, and connect.">
+    <span class="line"><span>I design co-living</span></span>
+    <span class="line"><span>spaces around how</span></span>
+    <span class="line"><span>people <span class="accent serif">actually</span> live,</span></span>
+    <span class="line"><span>work, and connect.</span></span>
+  </h1>
+
+  <div class="hero-foot">
+    <p class="hero-intro" data-load>For the last several years I've built and run co-living houses for entrepreneurs in Vancouver and Montreal — where spatial design meets human behavior, and a building's bones become a community.</p>
+    <div class="hero-places" data-load><span>Montréal</span> &nbsp;·&nbsp; <span>Vancouver</span> &nbsp;·&nbsp; Est. 2020</div>
+  </div>
+
+  <div class="scrollcue" aria-hidden="true"><span class="dot"></span> Scroll</div>
+</header>
+
+<!-- ===================== INTENTIONS ===================== -->
+<section class="section" id="intentions">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="sec-num serif">01</span>
+      <span class="sec-title">Intentions</span>
+      <p class="sec-lead">I don't design for budget — I design for behavior.</p>
+    </div>
+
+    <!-- Mindfulness -->
+    <div class="spread" data-spread>
+      <div class="txt">
+        <span class="ghost serif" aria-hidden="true">01</span>
+        <h3>Mindfulness<br>&amp; stillness</h3>
+        <p>Every house needs a place that asks nothing of you. In Vancouver I built a Japanese meditation garden — a maple, a Buddhist figure, a ring of river stones — that held the same calm through summer, autumn, and snow. Inside, in Montreal, a floor-seated room built around stillness: low light, plants, tatami, no screens.</p>
+        <span class="tag">The room that resets a high-output household</span>
+      </div>
+      <div class="cluster">
+        <div class="figure f1" data-parallax="-40" data-label="Meditation garden — Vancouver"><img src="images/garden-summer.jpg" alt="Meditation garden in summer, Vancouver" loading="lazy"></div>
+        <div class="figure f2" data-parallax="40" data-label="Stillness room — Montreal"><img src="images/mtl-stillness-room.jpg" alt="Floor-seated stillness room, Montreal" loading="lazy"></div>
+      </div>
+    </div>
+
+    <!-- Community -->
+    <div class="spread" data-spread>
+      <div class="txt">
+        <span class="ghost serif" aria-hidden="true">02</span>
+        <h3>Community<br>&amp; gathering</h3>
+        <p>The thing I'm proudest of isn't a room — it's that strangers became a household. I programmed the social life that did it: brunches, live-music nights, sports, big dinners. The spaces were designed to make gathering the path of least resistance.</p>
+        <span class="tag">Where strangers became a household</span>
+      </div>
+      <div class="cluster">
+        <div class="figure f1" data-parallax="-40" data-label="Brunch jam session — Montreal"><img src="images/mtl-brunch-jam.jpg" alt="Brunch jam session, Montreal" loading="lazy"></div>
+        <div class="figure f2" data-parallax="40" data-label="House dinner — Montreal"><img src="images/mtl-formal-dinner.jpg" alt="House dinner, Montreal" loading="lazy"></div>
+      </div>
+    </div>
+
+    <!-- Work -->
+    <div class="spread" data-spread>
+      <div class="txt">
+        <span class="ghost serif" aria-hidden="true">03</span>
+        <h3>Focused &amp;<br>collaborative work</h3>
+        <p>These are houses of entrepreneurs, so the spaces hold two opposite needs: heads-down focus and real collaboration. I zoned for both — quiet rooms that protect deep work, shared tables that pull people into each other's problems — so the house itself pushed everyone's goals forward.</p>
+        <span class="tag">A house that moves your work forward</span>
+      </div>
+      <div class="cluster">
+        <div class="figure f1" data-parallax="-40" data-label="Coworking room — Montreal"><img src="images/mtl-coworking.jpg" alt="Coworking room, Montreal" loading="lazy"></div>
+        <div class="figure f2" data-parallax="40" data-label="Quiet corner — Montreal"><img src="images/mtl-bookshelf.jpg" alt="Quiet reading corner, Montreal" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SELECTED WORK ===================== -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="sec-num serif">02</span>
+      <span class="sec-title">Selected work</span>
+      <p class="sec-lead">Three houses. One question: how do people live well together?</p>
+    </div>
+
+    <div class="work-grid">
+      <!-- Montreal — featured big -->
+      <a class="pcard big" href="project.html?p=montreal" data-reveal>
+        <span class="featured">Featured</span>
+        <div class="figure" data-label="Montreal living room"><img src="images/mtl-living-room.jpg" alt="Montreal co-living house living room" loading="lazy"></div>
+        <div class="pmeta">
+          <span class="idx serif">01</span>
+          <h2>Montreal Co-living House</h2>
+          <div class="place">Montreal, QC · 2023 – present</div>
+          <p class="psum">A five-person house I've designed and run for three years — where I did the most hands-on spatial design and rebuilding.</p>
+          <span class="arrow">Read the case study <span class="a">→</span></span>
+        </div>
+      </a>
+
+      <!-- Dunbar — small -->
+      <a class="pcard small" href="project.html?p=growth-hub-dunbar" data-reveal>
+        <div class="figure" data-label="Growth Hub Dunbar exterior"><img src="images/dunbar-exterior.jpg" alt="Growth Hub Dunbar exterior, Vancouver" loading="lazy"></div>
+        <div class="pmeta">
+          <span class="idx serif">02</span>
+          <h2>Growth Hub — Dunbar</h2>
+          <div class="place">Vancouver, BC</div>
+          <p class="psum">The first house I built and ran: six entrepreneurs in a former art-collector's home, turned into a living-and-working community.</p>
+          <span class="arrow">Read the case study <span class="a">→</span></span>
+        </div>
+      </a>
+
+      <!-- Shaughnessy — wide, typographic placeholder (no photo yet) -->
+      <a class="pcard wide" href="project.html?p=growth-hub-shaughnessy" data-reveal>
+        <div class="figure noimg" data-label="Photography — forthcoming"></div>
+        <div class="pmeta">
+          <span class="idx serif">03</span>
+          <h2>Growth Hub — Shaughnessy</h2>
+          <div class="place">Vancouver, BC</div>
+          <p class="psum">Scaling the model into a 14,000&nbsp;sq&nbsp;ft estate: nine bedrooms plus a guest house on the property.</p>
+          <span class="arrow">Read the case study <span class="a">→</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="sec-num serif">03</span>
+      <span class="sec-title">About</span>
+    </div>
+
+    <div class="about">
+      <div class="portrait" data-reveal>
+        <div class="figure" data-parallax="-24" data-label="Pierre-Antoine Descoteaux"><img src="images/about-portrait.jpg" alt="Portrait of Pierre-Antoine Descoteaux" loading="lazy"></div>
+        <span class="cap">Pierre-Antoine · Montréal</span>
+      </div>
+      <div data-reveal>
+        <blockquote>I don't come from architecture — I come from <span class="accent">living inside</span> these places and shaping them around the people in them.</blockquote>
+        <p class="bio">For the last several years I've built and run houses in Montreal and Vancouver where strangers become a community. My work sits where spatial design meets human behavior: how a room invites focus or conversation, how privacy and shared space get balanced, how a building's bones can be turned into a home.</p>
+        <div class="mini-gallery">
+          <div class="figure" data-label=""><img src="images/about-1.jpg" alt="" loading="lazy"></div>
+          <div class="figure" data-label=""><img src="images/about-2.jpg" alt="" loading="lazy"></div>
+          <div class="figure" data-label=""><img src="images/about-3.jpg" alt="" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<footer class="contact" id="contact">
+  <div class="ghost-word serif" aria-hidden="true">Maison</div>
+  <div class="wrap inner">
+    <span class="eyebrow">Let's build something together</span>
+    <h2 data-reveal>Let's talk<br>about your <span class="accent serif">space.</span></h2>
+    <a class="mail" href="mailto:pierreantoinedescoteaux@gmail.com">pierreantoinedescoteaux@gmail.com <span class="a">→</span></a>
+    <div class="fine">
+      <span>© Pierre-Antoine Descoteaux</span>
+      <span>Co-living · Space · Community</span>
+      <span>Montréal / Vancouver</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== MOTION (progressive enhancement) ===================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  // Graceful image fallback -> labeled placeholder
+  document.querySelectorAll(".figure img").forEach(function(img){
+    img.addEventListener("error",function(){ img.style.display="none"; img.parentElement.classList.add("noimg"); });
+  });
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasGSAP = typeof window.gsap !== "undefined";
+
+  // Nav solid on scroll + progress bar (works even without GSAP)
+  var nav = document.getElementById("nav"), progress = document.getElementById("progress");
+  function onScroll(){
+    var y = window.scrollY || 0;
+    nav.classList.toggle("solid", y > 60);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (y/h*100) : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  if(reduce || !hasGSAP){ return; } // content already fully visible; enhancement stops here
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Smooth scroll (Lenis) wired into ScrollTrigger
+  if(typeof window.Lenis !== "undefined"){
+    var lenis = new Lenis({ duration:1.1, easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));} });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  var ease = "power3.out";
+
+  // Hero headline: per-line clip reveal
+  gsap.set(".hero h1 .line > span", {yPercent:120});
+  gsap.set("[data-load]", {opacity:0, y:20});
+  var tl = gsap.timeline({delay:.15});
+  tl.to(".hero h1 .line > span", {yPercent:0, duration:1.1, ease:ease, stagger:.09})
+    .to("[data-load]", {opacity:1, y:0, duration:.9, ease:ease, stagger:.12}, "-=.7");
+
+  // Generic reveals
+  gsap.utils.toArray("[data-reveal]").forEach(function(el){
+    gsap.from(el, {opacity:0, y:40, duration:1, ease:ease,
+      scrollTrigger:{trigger:el, start:"top 82%"}});
+  });
+
+  // Intention spreads: text rise + image cluster settle
+  gsap.utils.toArray("[data-spread]").forEach(function(sp){
+    var st = {trigger:sp, start:"top 78%"};
+    gsap.from(sp.querySelectorAll(".txt > *"), {opacity:0, y:34, duration:.9, ease:ease, stagger:.08, scrollTrigger:st});
+    gsap.from(sp.querySelectorAll(".cluster .figure"), {opacity:0, scale:.94, duration:1.1, ease:ease, stagger:.14, scrollTrigger:st});
+  });
+
+  // Parallax on flagged figures (image drifts within its frame)
+  gsap.utils.toArray("[data-parallax]").forEach(function(el){
+    var amt = parseFloat(el.getAttribute("data-parallax")) || 0;
+    var target = el.querySelector("img") || el;
+    gsap.fromTo(target, {y:-amt}, {y:amt, ease:"none",
+      scrollTrigger:{trigger:el, start:"top bottom", end:"bottom top", scrub:true}});
+  });
+
+  ScrollTrigger.refresh();
+})();
+</script>
+</body>
+</html>

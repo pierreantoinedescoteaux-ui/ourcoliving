@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Atlas of Living Together — Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE ATLAS v2 — bright daylight survey chart.
+   Paper + sky + bright green; ink only as text.
+   Hover a node → mini card pops from the point.
+   Click a node → centered rectangular modal (not full screen).
+   Vanilla JS, no dependencies.
+   ============================================================ */
+:root{
+  --paper:#f6f2e7;
+  --card:#fffdf8;
+  --ink:#22301f;             /* deep green-ink text */
+  --ink-soft:#5c6b57;
+  --ink-faint:#93a08d;
+  --green:#5c9e4a;           /* bright leaf */
+  --green-deep:#3c6b32;
+  --sky:#7fb6c9;
+  --sky-wash:#e3eff3;
+  --gold:#d99a3d; --gold-deep:#8f6215;
+  --clay:#b5613c; --clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);
+  --line-strong:rgba(34,48,31,.3);
+  --gridline:rgba(90,140,160,.25);
+  --serif:"Zodiak",Georgia,serif;
+  --grotesk:"Switzer",system-ui,-apple-system,sans-serif;
+  --gutter:clamp(18px,4vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{
+  background:
+    radial-gradient(120% 70% at 85% -5%, var(--sky-wash) 0%, transparent 50%),
+    radial-gradient(100% 60% at 5% 100%, #f0e8d2 0%, transparent 45%),
+    var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(17px,1.35vw,20px);line-height:1.55;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+
+.wrap{max-width:1500px;margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--green-deep)}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:22px var(--gutter);border-bottom:1px solid var(--line)}
+.bar .brand{font-family:var(--serif);font-size:1rem;font-weight:700}
+.bar .barlinks{display:flex;gap:clamp(14px,2.4vw,30px)}
+.bar .barlinks a{font-size:.78rem;font-weight:500;color:var(--ink-soft);transition:color .3s;padding:4px 0}
+.bar .barlinks a:hover{color:var(--ink)}
+.bar .barlinks a.on{color:var(--green-deep);font-weight:600}
+@media(max-width:640px){.bar .barlinks a:not(.on){display:none}}
+
+/* ---------- header ---------- */
+.head{padding:clamp(44px,7vh,96px) var(--gutter) clamp(24px,4vh,44px);max-width:1500px;margin:0 auto}
+.head h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6.4vw,5.6rem);line-height:1;letter-spacing:-.02em;max-width:14ch;margin-top:18px}
+.head h1 em{font-style:italic;color:var(--green-deep)}
+.head .sub{margin-top:22px;max-width:58ch;color:var(--ink-soft);font-size:clamp(.95rem,1.15vw,1.08rem)}
+.head .sub b{color:var(--ink);font-weight:600}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:clamp(16px,3vw,44px);padding:24px var(--gutter);max-width:1500px;margin:0 auto;border-top:1px solid var(--line)}
+.ctl label{display:block;font-size:.62rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+.ctl select{
+  appearance:none;-webkit-appearance:none;background:transparent;color:var(--ink);
+  font-family:var(--grotesk);font-size:.95rem;font-weight:500;
+  border:0;border-bottom:1px solid var(--line-strong);padding:6px 26px 8px 0;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%233c6b32'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 4px center;
+}
+.ctl select:focus{outline:none;border-color:var(--green)}
+.ctl select option{background:var(--card);color:var(--ink)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.presets .p{font-size:.7rem;font-weight:600;letter-spacing:.08em;padding:8px 14px;border:1px solid var(--line-strong);border-radius:99px;color:var(--ink-soft);transition:all .3s;background:var(--card)}
+.presets .p:hover{border-color:var(--green);color:var(--ink)}
+.presets .p.on{background:var(--green);border-color:var(--green);color:#fff;font-weight:700}
+@media(max-width:760px){.presets{margin-left:0}}
+
+/* ---------- the chart ---------- */
+.stage{position:relative;max-width:1500px;margin:0 auto;padding:0 var(--gutter) 34px}
+.chart{
+  position:relative;width:100%;
+  height:clamp(480px,72vh,760px);
+  border:1px solid var(--line-strong);border-radius:24px;
+  background:
+    linear-gradient(var(--gridline) 1px,transparent 1px),
+    linear-gradient(90deg,var(--gridline) 1px,transparent 1px),
+    linear-gradient(160deg,#fdfaf2 0%,var(--sky-wash) 100%);
+  background-size:10% 10%,10% 10%,100% 100%;
+  transition:opacity .4s;
+}
+.chart::before,.chart::after{content:"";position:absolute;background:var(--line-strong);pointer-events:none}
+.chart::before{left:50%;top:0;bottom:0;width:1px}
+.chart::after{top:50%;left:0;right:0;height:1px}
+
+.axl{position:absolute;font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);z-index:5;pointer-events:none;transition:opacity .3s}
+.axl b{color:var(--green-deep);font-weight:700}
+.axl.xlo{left:14px;bottom:12px}
+.axl.xhi{right:14px;bottom:12px;text-align:right}
+.axl.ylo{left:14px;bottom:44px;writing-mode:vertical-rl;transform:rotate(180deg)}
+.axl.yhi{left:14px;top:14px;writing-mode:vertical-rl;transform:rotate(180deg)}
+.plate{position:absolute;right:16px;top:12px;font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--ink-faint);pointer-events:none}
+
+/* ---------- nodes ---------- */
+.node{
+  position:absolute;transform:translate(-50%,-50%);z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  transition:left 1s cubic-bezier(.22,1,.36,1),top 1s cubic-bezier(.22,1,.36,1),opacity .5s,filter .5s;
+}
+.node .mark{position:relative;width:14px;height:14px}
+.node .dot{position:absolute;inset:2px;border-radius:50%;background:var(--green);box-shadow:0 2px 8px rgba(60,107,50,.4);transition:transform .35s,background .35s}
+.node .ring{position:absolute;inset:-7px;border:1.5px solid rgba(92,158,74,.4);border-radius:50%;transition:all .35s}
+.node .lab{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:var(--ink-soft);transition:color .3s}
+.node.up{flex-direction:column-reverse}
+.node:hover{z-index:40}
+.node:hover .dot{transform:scale(1.5)}
+.node:hover .ring{inset:-11px;border-color:var(--green)}
+.node:hover .lab{color:var(--ink)}
+.node:focus-visible{outline:none}
+.node:focus-visible .ring{border-color:var(--green-deep);inset:-11px}
+.node.mine .dot{background:var(--clay)}
+.node.mine .ring{border-color:rgba(181,97,60,.5)}
+.node.mine .lab::after{content:"★ my practice";display:block;font-size:.56rem;letter-spacing:.2em;color:var(--clay-deep);margin-top:2px}
+
+.stage.focused .node{opacity:.18;filter:grayscale(.8)}
+.stage.focused .node.active{opacity:1;filter:none;z-index:45}
+.stage.focused .node.active .dot{transform:scale(1.9)}
+.stage.focused .chart{opacity:.75}
+.stage.focused .axl{opacity:.3}
+
+/* ---------- hover mini-card ---------- */
+.hcard{
+  position:absolute;z-index:50;width:250px;pointer-events:none;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  box-shadow:0 18px 45px -12px rgba(34,48,31,.35);
+  opacity:0;transform:translate(-50%,-100%) translateY(6px) scale(.94);
+  transform-origin:bottom center;
+  transition:opacity .22s ease,transform .22s cubic-bezier(.2,.9,.3,1.3);
+}
+.hcard.show{opacity:1;transform:translate(-50%,-100%) translateY(-14px) scale(1)}
+.hcard.below{transform:translate(-50%,0) translateY(-6px) scale(.94);transform-origin:top center}
+.hcard.below.show{transform:translate(-50%,0) translateY(22px) scale(1)}
+.hcard .hphoto{height:110px;background:linear-gradient(140deg,var(--sky-wash),#f0e8d2)}
+.hcard .hphoto img{width:100%;height:100%;object-fit:cover;display:block}
+.hcard .hbody{padding:12px 14px 14px}
+.hcard h4{font-family:var(--serif);font-weight:400;font-size:1.02rem;line-height:1.15;margin-bottom:5px}
+.hcard p{font-size:.78rem;color:var(--ink-soft);line-height:1.45}
+.hcard .hint{margin-top:8px;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep)}
+
+/* ---------- centered modal ---------- */
+.backdrop{position:fixed;inset:0;background:rgba(34,48,31,.35);backdrop-filter:blur(4px);z-index:80;opacity:0;pointer-events:none;transition:opacity .4s}
+.backdrop.open{opacity:1;pointer-events:auto}
+.modal{
+  position:fixed;left:50%;top:50%;z-index:90;
+  width:min(760px,94vw);max-height:86vh;
+  background:var(--card);border:1px solid var(--line);border-radius:28px;
+  box-shadow:0 40px 90px -20px rgba(34,48,31,.45);
+  overflow-y:auto;overscroll-behavior:contain;
+  opacity:0;pointer-events:none;
+  transform:translate(-50%,-50%) scale(.95) translateY(14px);
+  transition:opacity .35s ease,transform .35s cubic-bezier(.2,.9,.3,1.15);
+}
+.modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.modal .mhero{height:clamp(150px,24vh,230px);background:linear-gradient(140deg,var(--sky-wash),#f0e8d2);position:relative}
+.modal .mhero img{width:100%;height:100%;object-fit:cover;display:block}
+.modal .close{
+  position:absolute;top:14px;right:14px;z-index:5;
+  width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;font-size:1.05rem;
+  background:rgba(255,253,248,.92);color:var(--ink);border:1px solid var(--line);
+  transition:all .3s;
+}
+.modal .close:hover{transform:rotate(90deg);color:var(--green-deep)}
+.modal .m-in{padding:clamp(22px,3.5vw,38px)}
+.modal .idx{font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--green-deep)}
+.modal h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px}
+.modal .tagline{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.4;color:var(--gold-deep);margin-bottom:18px}
+.modal .body p{color:var(--ink-soft);margin-bottom:.9em;font-size:.95rem}
+.fnotes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+@media(max-width:560px){.fnotes{grid-template-columns:1fr}}
+.fnote{border:1px solid var(--line);border-radius:16px;padding:15px 18px;background:var(--paper)}
+.fnote .k{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--green-deep);margin-bottom:6px}
+.fnote .v{font-size:.84rem;color:var(--ink-soft);line-height:1.5}
+.sig{margin:22px 0}
+.sig .k{font-size:.62rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.sigrow{display:grid;grid-template-columns:88px 1fr 88px;align-items:center;gap:12px;margin-bottom:10px}
+.sigrow .e{font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+.sigrow .e.r{text-align:right}
+.sigrow .track{position:relative;height:2px;background:rgba(34,48,31,.12);border-radius:2px}
+.sigrow .pin{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:var(--green);transform:translate(-50%,-50%) scale(0);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.modal.open .sigrow .pin{transform:translate(-50%,-50%) scale(1)}
+.exs{margin-top:22px}
+.exs .k{font-size:.62rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
+.ex{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:8px;transition:border-color .3s,background .3s}
+.ex .exthumb{flex:0 0 96px;height:70px;border-radius:4px;overflow:hidden;background:var(--sky-wash)}
+.ex .exthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ex .exmain{flex:1;min-width:0}
+.ex:hover{border-color:var(--green);background:rgba(92,158,74,.06)}
+.ex .t{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ex .n{font-family:var(--serif);font-size:1.05rem}
+.ex .pl{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+.ex .note{font-size:.82rem;color:var(--ink-soft);margin-top:4px;line-height:1.5}
+.ex .go{font-size:.7rem;font-weight:700;color:var(--green-deep);margin-top:8px;display:inline-block}
+.ex.guide{border-color:var(--gold);background:rgba(217,154,61,.07)}
+.ex.guide:hover{border-color:var(--gold-deep)}
+.ex.guide .go{color:var(--gold-deep)}
+
+/* ---------- legend ---------- */
+.legend{max-width:1500px;margin:0 auto;padding:8px var(--gutter) 60px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--ink-faint);font-size:.74rem}
+.legend .hint b{color:var(--green-deep)}
+
+/* ---------- the library ---------- */
+.library{max-width:1500px;margin:0 auto;padding:clamp(48px,8vh,90px) var(--gutter) 90px;border-top:1px solid var(--line)}
+.library .lhead{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.library .lnum{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--gold-deep)}
+.library h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.7rem,3.6vw,3rem);letter-spacing:-.02em}
+.library .lsub{color:var(--ink-soft);max-width:60ch;margin-bottom:clamp(26px,4vh,44px)}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.lcard{display:flex;gap:18px;border:1px solid var(--line);border-radius:20px;background:var(--card);padding:20px;transition:border-color .3s,box-shadow .3s}
+.lcard:hover{border-color:var(--green);box-shadow:0 14px 34px -16px rgba(34,48,31,.3)}
+.lcard .cov{flex:0 0 64px;height:96px;background:var(--sky-wash);border-radius:4px;display:grid;place-items:center;overflow:hidden}
+.lcard .cov img{width:100%;height:100%;object-fit:contain}
+.lcard .cov .mark{width:26px;height:26px;border:1.5px solid var(--green);border-radius:50%}
+.lcard .t{font-family:var(--serif);font-size:1.05rem;line-height:1.2}
+.lcard .m{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin:6px 0 8px}
+.lcard .n2{font-size:.8rem;color:var(--ink-soft);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lcard .deep{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-top:8px;display:inline-block}
+.library .lmore{margin-top:24px}
+.library .lmore a{font-size:.78rem;font-weight:600;color:var(--green-deep);border-bottom:1px solid transparent;transition:border-color .3s}
+.library .lmore a:hover{border-color:var(--green-deep)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:760px){
+  .node .lab{font-size:.56rem;letter-spacing:.08em}
+  .chart{height:max(430px,80vw)}
+  .axl.ylo,.axl.yhi{display:none}
+  .hcard{display:none} /* touch devices: tap opens modal directly */
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="bar">
+  <a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>
+  <div class="barlinks">
+    <a href="manifesto.html">Manifesto</a>
+    <a class="on" href="map.html">Atlas</a>
+    <a href="design.html">Design for Connection</a>
+    <a href="about.html">About</a>
+  </div>
+</div>
+
+<header class="head">
+  <span class="eyebrow">Field survey · 12 models</span>
+  <h1>An atlas of <em>living together.</em></h1>
+  <p class="sub">Every way humans share a roof, charted. Pick the axes, redraw the territory, hover any point for a first look, and click for the field notes. <b>Positions are my read of each model — argue with me.</b></p>
+</header>
+
+<div class="controls">
+  <div class="ctl">
+    <label for="ax">Horizontal axis</label>
+    <select id="ax"></select>
+  </div>
+  <div class="ctl">
+    <label for="ay">Vertical axis</label>
+    <select id="ay"></select>
+  </div>
+  <div class="presets" id="presets"></div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="chart" id="chart">
+    <span class="plate">Pl. I — the co-living territory</span>
+    <span class="axl xlo" id="xlo"></span>
+    <span class="axl xhi" id="xhi"></span>
+    <span class="axl yhi" id="yhi"></span>
+    <span class="axl ylo" id="ylo"></span>
+  </div>
+  <div class="hcard" id="hcard" aria-hidden="true"></div>
+</div>
+
+<div class="legend">
+  <span class="hint"><b>Hover</b> for a first look · <b>click</b> for field notes · <b>Esc</b> to close</span>
+  <span>Scored on 8 properties · positions are editorial, not census</span>
+</div>
+
+<section class="library" id="library">
+  <div class="lhead">
+    <span class="lnum">Pl. II</span>
+    <h2>The library behind the map.</h2>
+  </div>
+  <p class="lsub">The books and thinkers that shaped how I read this territory. Three go deeper as full case studies.</p>
+  <div class="lgrid" id="lgrid"></div>
+  <p class="lmore">Projects and models live on the map above · <a href="inspiration.html">browse the full shelf →</a></p>
+</section>
+
+<div class="backdrop" id="backdrop"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Co-living model details">
+  <div id="modalIn"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="map-data.js"></script>
+<script src="knowledge-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var chart=document.getElementById("chart"),
+      stage=document.getElementById("stage"),
+      modal=document.getElementById("modal"),
+      modalIn=document.getElementById("modalIn"),
+      backdrop=document.getElementById("backdrop"),
+      hcard=document.getElementById("hcard"),
+      selX=document.getElementById("ax"), selY=document.getElementById("ay"),
+      presetsEl=document.getElementById("presets");
+
+  var axisX="ecoTech", axisY="centralization", activeSlug=null;
+
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  function kOf(t){return (typeof TYPE_KNOWLEDGE!=="undefined"&&TYPE_KNOWLEDGE[t.slug])||{};}
+
+  /* ---- axis selects ---- */
+  Object.keys(MAP_PROPS).forEach(function(k){
+    var p=MAP_PROPS[k];
+    selX.add(new Option(p.label,k));
+    selY.add(new Option(p.label,k));
+  });
+  selX.value=axisX; selY.value=axisY;
+
+  /* ---- preset chips ---- */
+  MAP_PRESETS.forEach(function(pr,i){
+    var b=document.createElement("button");
+    b.className="p"+(i===0?" on":"");
+    b.textContent=pr.name;
+    b.addEventListener("click",function(){
+      axisX=pr.x; axisY=pr.y; selX.value=pr.x; selY.value=pr.y;
+      markPreset(); layout();
+    });
+    presetsEl.appendChild(b);
+  });
+  function markPreset(){
+    var chips=presetsEl.children;
+    for(var i=0;i<chips.length;i++){
+      var pr=MAP_PRESETS[i];
+      chips[i].classList.toggle("on", pr.x===axisX && pr.y===axisY);
+    }
+  }
+
+  /* ---- nodes ---- */
+  COLIVING_TYPES.forEach(function(t,i){
+    var n=document.createElement("button");
+    n.className="node"+(t.mine?" mine":"")+(i%2?" up":"");
+    n.setAttribute("data-slug",t.slug);
+    n.setAttribute("aria-label",t.name);
+    n.innerHTML='<span class="mark"><span class="ring"></span><span class="dot"></span></span><span class="lab">'+esc(t.short)+'</span>';
+    n.addEventListener("click",function(e){e.stopPropagation();hideCard();open(t.slug);});
+    n.addEventListener("mouseenter",function(){showCard(t,n);});
+    n.addEventListener("mouseleave",hideCard);
+    n.addEventListener("focus",function(){showCard(t,n);});
+    n.addEventListener("blur",hideCard);
+    chart.appendChild(n);
+    t._el=n;
+  });
+
+  /* ---- hover mini-card ---- */
+  function showCard(t,n){
+    if(activeSlug)return;
+    var k=kOf(t);
+    hcard.innerHTML=
+      (k.hero?'<div class="hphoto"><img src="'+esc(k.hero.src)+'" alt="" onerror="this.parentElement.remove()"></div>':"")+
+      '<div class="hbody"><h4>'+esc(t.name)+'</h4><p>'+esc(t.tagline)+'</p>'+
+      '<div class="hint">Click for field notes →</div></div>';
+    /* position over the node, inside the stage */
+    var leftPct=parseFloat(n.style.left), topPct=parseFloat(n.style.top);
+    var r=chart.getBoundingClientRect(), s=stage.getBoundingClientRect();
+    var x=(r.left-s.left)+r.width*leftPct/100;
+    var y=(r.top-s.top)+r.height*topPct/100;
+    var below=topPct<40; /* node high on the chart → show card below the point */
+    hcard.classList.toggle("below",below);
+    /* clamp horizontally so the card never leaves the stage */
+    var half=125, minX=(r.left-s.left)+half+4, maxX=(r.left-s.left)+r.width-half-4;
+    x=Math.max(minX,Math.min(maxX,x));
+    hcard.style.left=x+"px";
+    hcard.style.top=y+"px";
+    hcard.classList.add("show");
+  }
+  function hideCard(){hcard.classList.remove("show");}
+
+  /* ---- layout ---- */
+  function layout(){
+    var px=MAP_PROPS[axisX], py=MAP_PROPS[axisY];
+    document.getElementById("xlo").innerHTML="&larr; <b>"+esc(px.low)+"</b>";
+    document.getElementById("xhi").innerHTML="<b>"+esc(px.high)+"</b> &rarr;";
+    document.getElementById("yhi").innerHTML="<b>"+esc(py.high)+"</b> &rarr;";
+    document.getElementById("ylo").innerHTML="&larr; <b>"+esc(py.low)+"</b>";
+    COLIVING_TYPES.forEach(function(t){
+      var x=t.scores[axisX], y=t.scores[axisY];
+      t._el.style.left=(6+x*0.88)+"%";
+      t._el.style.top=(6+(100-y)*0.88)+"%";
+    });
+  }
+  selX.addEventListener("change",function(){axisX=selX.value;markPreset();layout();});
+  selY.addEventListener("change",function(){axisY=selY.value;markPreset();layout();});
+
+  /* ---- centered modal ---- */
+  function sigRows(t){
+    return Object.keys(MAP_PROPS).map(function(k){
+      var p=MAP_PROPS[k];
+      return '<div class="sigrow">'+
+        '<span class="e">'+esc(p.low)+'</span>'+
+        '<span class="track"><span class="pin" style="left:'+t.scores[k]+'%"></span></span>'+
+        '<span class="e r">'+esc(p.high)+'</span></div>';
+    }).join("");
+  }
+  function open(slug){
+    var idx=-1, t=null;
+    COLIVING_TYPES.forEach(function(x,i){ if(x.slug===slug){t=x;idx=i;} });
+    if(!t) return;
+    var k=kOf(t);
+    activeSlug=slug;
+    stage.classList.add("focused");
+    COLIVING_TYPES.forEach(function(x){ x._el.classList.toggle("active",x.slug===slug); });
+
+    modalIn.innerHTML=
+      '<div class="mhero">'+(k.hero?'<img src="'+esc(k.hero.src)+'" alt="'+esc(k.hero.cap||t.name)+'" onerror="this.remove()">':"")+
+        '<button class="close" id="mClose" aria-label="Close">&times;</button></div>'+
+      '<div class="m-in">'+
+      '<div class="idx">No. '+String(idx+1).padStart(2,"0")+' / '+COLIVING_TYPES.length+(t.mine?' &nbsp;·&nbsp; ★ my practice':'')+'</div>'+
+      '<h2>'+esc(t.name)+'</h2>'+
+      '<p class="tagline">'+esc(t.tagline)+'</p>'+
+      '<div class="body">'+t.body.map(function(p){return "<p>"+esc(p)+"</p>";}).join("")+'</div>'+
+      '<div class="fnotes">'+
+        '<div class="fnote"><div class="k">Who it’s for</div><div class="v">'+esc(t.who)+'</div></div>'+
+        '<div class="fnote"><div class="k">Watch out</div><div class="v">'+esc(t.watch)+'</div></div>'+
+      '</div>'+
+      '<a class="ex guide" href="type.html?t='+esc(t.slug)+'">'+
+        '<div class="t"><span class="n">Read the full field guide</span><span class="pl">Deep dive</span></div>'+
+        '<p class="note">Origins, what it teaches the rest of the map, and how it handles governance, financing, space, community and operations.</p>'+
+        '<span class="go">Open →</span></a>'+
+      '<div class="sig"><div class="k">Where it sits on every axis</div>'+sigRows(t)+'</div>'+
+      '<div class="exs"><div class="k">Go see it &mdash; '+t.examples.length+' examples</div>'+
+        t.examples.map(function(ex){
+          var ext=/^https?:/i.test(ex.url);
+          return '<a class="ex" href="'+esc(ex.url)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
+            (ex.img?'<span class="exthumb"><img src="'+esc(ex.img)+'" alt="" loading="lazy" onerror="this.parentElement.remove()"></span>':"")+
+            '<span class="exmain"><span class="t"><span class="n">'+esc(ex.name)+'</span><span class="pl">'+esc(ex.place)+'</span></span>'+
+            '<p class="note">'+esc(ex.note)+'</p>'+
+            '<span class="go">'+(ext?"Visit":"Read the case study")+' &rarr;</span></span></a>';
+        }).join("")+
+      '</div></div>';
+
+    modal.classList.add("open");
+    backdrop.classList.add("open");
+    modal.scrollTop=0;
+    document.getElementById("mClose").addEventListener("click",close);
+    try{ history.replaceState(null,"","#"+slug); }catch(e){}
+  }
+  function close(){
+    activeSlug=null;
+    modal.classList.remove("open");
+    backdrop.classList.remove("open");
+    stage.classList.remove("focused");
+    COLIVING_TYPES.forEach(function(x){ x._el.classList.remove("active"); });
+    try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  }
+  backdrop.addEventListener("click",close);
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&activeSlug) close(); });
+
+  /* ---- init ---- */
+  layout();
+  COLIVING_TYPES.forEach(function(t,i){
+    t._el.style.opacity="0";
+    setTimeout(function(){ t._el.style.opacity="1"; }, 150+i*70);
+  });
+  var want=(location.hash||"").replace("#","") || new URLSearchParams(location.search).get("focus");
+  if(want && COLIVING_TYPES.some(function(t){return t.slug===want;})) setTimeout(function(){ open(want); }, 600);
+
+  /* ---- library ---- */
+  try{
+    var books=(INSPIRATION.groups.find(function(g){return g.key==="books";})||{}).items||[];
+    document.getElementById("lgrid").innerHTML=books.map(function(b){
+      var deep=b.slug && typeof DETAILS!=="undefined" && DETAILS[b.slug];
+      var href=deep?('detail.html?item='+encodeURIComponent(b.slug)):null;
+      var inner=
+        '<div class="cov">'+(b.img?'<img src="'+esc(b.img)+'" alt="" loading="lazy" onerror="this.remove()">':'<span class="mark"></span>')+'</div>'+
+        '<div><div class="t">'+esc(b.title)+'</div><div class="m">'+esc(b.meta)+'</div>'+
+        '<p class="n2">'+esc(b.note)+'</p>'+
+        (deep?'<span class="deep">Read the case study →</span>':"")+'</div>';
+      return href?('<a class="lcard" href="'+href+'">'+inner+'</a>'):('<div class="lcard">'+inner+'</div>');
+    }).join("");
+  }catch(e){ document.getElementById("library").style.display="none"; }
+})();
+</script>
+</body>
+</html>

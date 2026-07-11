@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manifesto — Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* MANIFESTO — hope-first. Bright. Structure v1; bold visual pass comes
+   after P-A's moodboard. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky:#7fb6c9;--sky-wash:#e3eff3;
+  --gold:#d99a3d;--gold-deep:#8f6215;
+  --clay:#b5613c;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);--line-strong:rgba(34,48,31,.3);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1240px;--gutter:clamp(20px,5vw,88px);
+  /* ludiq grammar */
+  --r:28px;
+  --sun:#f7c948;--sun-soft:#fbe29a;
+  --forest:#173a2c;--forest-2:#1f4a38;
+  --sky-b:#bfdde6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{
+  background:
+    radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),
+    radial-gradient(100% 60% at 5% 100%, #f0e8d2 0%, transparent 45%),
+    var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,22px);line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px var(--gutter);background:rgba(246,242,231,.88);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.nav .brand{font-family:var(--serif);font-size:1rem;font-weight:700}
+.nav .links{display:flex;gap:clamp(14px,2.4vw,30px)}
+.nav .links a{font-size:.8rem;font-weight:500;padding:4px 0}
+.nav .links a.on{color:var(--green-deep);font-weight:600}
+.nav .links a:hover{color:var(--green-deep)}
+@media(max-width:680px){.nav .links a:not(.on){display:none}}
+
+.hero{padding:clamp(70px,11vh,140px) 0 clamp(40px,7vh,80px)}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.7rem,7.4vw,7rem);line-height:.98;letter-spacing:-.02em;margin:18px 0 clamp(24px,4vh,44px);max-width:13ch}
+.hero h1 em{font-style:italic;color:var(--gold-deep)}
+.hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:52ch}
+
+.whatifs{padding:clamp(30px,5vh,60px) 0 clamp(50px,8vh,100px)}
+.whatifs .block{background:var(--sun);color:var(--forest);border-radius:var(--r);padding:clamp(28px,4.5vw,64px)}
+.whatifs .wi{font-family:var(--serif);font-weight:300;font-size:clamp(1.35rem,2.8vw,2.3rem);line-height:1.3;letter-spacing:-.01em;padding:clamp(16px,2.5vh,26px) 0;border-bottom:1px solid rgba(23,58,44,.2);max-width:30ch}
+.whatifs .wi:last-child{border-bottom:0}
+.whatifs .wi em{font-style:italic;color:var(--forest-2)}
+.whatifs .wi:nth-child(even){margin-left:auto;text-align:right}
+@media(max-width:720px){.whatifs .wi:nth-child(even){margin-left:0;text-align:left}}
+
+.assump{padding:clamp(50px,9vh,110px) 0;border-top:1px solid var(--line)}
+.assump h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,4.4vw,3.8rem);line-height:1.05;letter-spacing:-.02em;max-width:18ch;margin:16px 0 12px}
+.assump .lede{color:var(--ink-soft);max-width:58ch;margin-bottom:clamp(36px,6vh,64px)}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:860px){.agrid{grid-template-columns:1fr}}
+.acard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3vw,36px);transition:box-shadow .3s,border-color .3s}
+.acard:hover{border-color:var(--green);box-shadow:0 18px 44px -20px rgba(34,48,31,.3)}
+.acard .no{font-family:var(--serif);font-style:italic;color:var(--gold-deep);font-size:.95rem}
+.acard h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2.1vw,1.7rem);line-height:1.15;margin:10px 0 4px}
+.acard h3::before{content:"“";color:var(--ink-faint)}
+.acard h3::after{content:"”";color:var(--ink-faint)}
+.acard .k{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green-deep);margin:14px 0 8px}
+.acard p{font-size:.96rem;color:var(--ink-soft);line-height:1.6}
+.acard .reads{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+.acard .reads a{font-size:.72rem;font-weight:600;color:var(--clay-deep);border-bottom:1px solid rgba(143,74,44,.3);padding-bottom:2px;transition:border-color .3s}
+.acard .reads a:hover{border-color:var(--clay-deep)}
+
+.close{padding:clamp(40px,6vh,70px) 0 clamp(70px,10vh,110px);text-align:center}
+.close .block{background:var(--forest);color:var(--paper);border-radius:var(--r);padding:clamp(40px,6vw,80px) clamp(24px,4vw,64px)}
+.close .eyebrow{color:var(--sun)}
+.close h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.4vw,4.6rem);line-height:1.02;letter-spacing:-.02em;margin:16px auto 22px;max-width:16ch}
+.close h2 em{font-style:italic;color:var(--sun)}
+.close .body{color:rgba(244,239,228,.8);max-width:56ch;margin:0 auto clamp(34px,5vh,50px)}
+.close .img{max-width:860px;margin:0 auto clamp(34px,5vh,50px)}
+.close .img img{border-radius:20px;box-shadow:0 40px 80px -40px rgba(0,0,0,.5)}
+.close .credit{margin-top:10px;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,228,.5)}
+.close .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.close .ctas a{font-size:.9rem;font-weight:600;padding:15px 28px;border:2px solid rgba(244,239,228,.4);border-radius:99px;color:var(--paper);transition:all .3s}
+.close .ctas a:hover{border-color:var(--sun);color:var(--sun)}
+.close .ctas a.primary{background:var(--sun);border-color:var(--sun);color:var(--forest)}
+.close .ctas a.primary:hover{background:var(--sun-soft);border-color:var(--sun-soft)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="nav">
+  <a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>
+  <div class="links">
+    <a class="on" href="manifesto.html">Manifesto</a>
+    <a href="map.html">Atlas</a>
+    <a href="design.html">Design for Connection</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow" id="eyebrow"></span>
+  <h1>What if we built for <em>connection?</em></h1>
+  <p class="lede" id="lede"></p>
+</div></header>
+
+<section class="whatifs"><div class="wrap"><div class="block" id="whatifs"></div></div></section>
+
+<section class="assump"><div class="wrap">
+  <span class="eyebrow" id="aKicker"></span>
+  <h2 id="aTitle"></h2>
+  <p class="lede" id="aLede"></p>
+  <div class="agrid" id="agrid"></div>
+</div></section>
+
+<section class="close"><div class="wrap"><div class="block">
+  <span class="eyebrow" id="cKicker"></span>
+  <h2>Imagine first. <em>Then build.</em></h2>
+  <p class="body" id="cBody"></p>
+  <div class="img"><img src="images/solarpunk-feast.jpg" alt="A long shared table under a tree — the future drawn as it could feel" loading="lazy"><div class="credit">Still from “Dear Alice” — The Line studio</div></div>
+  <div class="ctas" id="cCtas"></div>
+</div></div></section>
+
+<script src="manifesto-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+
+  document.getElementById("eyebrow").textContent=MANIFESTO.eyebrow;
+  document.getElementById("lede").textContent=noEdit(MANIFESTO.lede);
+
+  document.getElementById("whatifs").innerHTML=MANIFESTO.whatifs.map(function(w){
+    return '<div class="wi">'+esc(w).replace(/^What if/,'<em>What if</em>')+'</div>';
+  }).join("");
+
+  var ai=MANIFESTO.assumptionsIntro;
+  document.getElementById("aKicker").textContent=ai.kicker;
+  document.getElementById("aTitle").textContent=ai.title;
+  document.getElementById("aLede").textContent=ai.lede;
+  document.getElementById("agrid").innerHTML=MANIFESTO.assumptions.map(function(a,i){
+    var reads=(a.read||[]).map(function(r){
+      return '<a href="'+esc(r.href)+'" target="_blank" rel="noopener">'+esc(r.label)+' →</a>';
+    }).join("");
+    return '<div class="acard" id="'+esc(a.slug)+'">'+
+      '<span class="no">0'+(i+1)+'</span>'+
+      '<h3>'+esc(a.assumption)+'</h3>'+
+      '<div class="k">The crack</div>'+
+      '<p>'+esc(a.crack)+'</p>'+
+      (reads?'<div class="reads">'+reads+'</div>':"")+
+      '</div>';
+  }).join("");
+
+  document.getElementById("cKicker").textContent=MANIFESTO.close.kicker;
+  document.getElementById("cBody").textContent=noEdit(MANIFESTO.close.body);
+  document.getElementById("cCtas").innerHTML=MANIFESTO.close.ctas.map(function(c,i){
+    return '<a class="'+(i===0?"primary":"")+'" href="'+esc(c.href)+'">'+esc(c.label)+'</a>';
+  }).join("");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pierre-Antoine Descoteaux — Building for connection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE DOOR — homepage v4, built to the ludiq.org reference:
+   ivory ground, big friendly type (22px body), flat color blocks,
+   rounded corners, organic shapes, few words, image-forward.
+   Home's only job: make hope feel possible, then route.
+   ============================================================ */
+:root{
+  --ivory:#fffdf2;
+  --forest:#173a2c;        /* deep green — text + blocks */
+  --forest-2:#1f4a38;
+  --leaf:#5c9e4a;
+  --sun:#f7c948;           /* warm yellow */
+  --sun-soft:#fbe29a;
+  --coral:#e8603c;
+  --sky:#bfdde6;
+  --sky-soft:#e4f0f3;
+  --ink-on-light:#173a2c;
+  --cream-on-dark:#fffdf2;
+  --r:28px;                /* the rounded signature */
+  --grotesk:"Lexend",system-ui,-apple-system,sans-serif;
+  --max:1280px;--gutter:clamp(20px,4.5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ivory);color:var(--ink-on-light);
+  font-family:var(--grotesk);
+  font-size:clamp(18px,1.5vw,22px);       /* BIG body — ludiq standard */
+  line-height:1.55;font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--sun);color:var(--forest)}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+
+/* reveal (light, CSS + IO) */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------------- nav ---------------- */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,253,242,.92);backdrop-filter:blur(10px);border-bottom:2px solid rgba(23,58,44,.08)}
+.nav .in{max-width:var(--max);margin:0 auto;padding:16px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav .brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.nav .links{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px)}
+.nav .links a{font-size:.82rem;font-weight:500;padding:6px 0;border-bottom:2px solid transparent;transition:border-color .25s}
+.nav .links a:hover{border-color:var(--leaf)}
+.nav .cta{background:var(--forest);color:var(--cream-on-dark);padding:11px 22px;border-radius:99px;font-size:.82rem;font-weight:600;transition:background .3s;border:0}
+.nav .cta:hover{background:var(--coral)}
+@media(max-width:760px){.nav .links a:not(.cta){display:none}}
+
+/* ---------------- hero ---------------- */
+.hero{padding:clamp(48px,8vh,110px) 0 clamp(40px,6vh,80px)}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center}
+@media(max-width:880px){.hero .grid{grid-template-columns:1fr}}
+.kicker{display:inline-flex;align-items:center;gap:10px;background:var(--sun-soft);color:var(--forest);font-size:.78rem;font-weight:600;padding:9px 18px;border-radius:99px;margin-bottom:26px}
+.kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.hero h1{font-weight:700;font-size:clamp(2.5rem,5.6vw,4.6rem);line-height:1.04;letter-spacing:-.03em;max-width:13ch}
+.hero h1 .hl{color:var(--leaf);position:relative;white-space:nowrap}
+.hero h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.18em;background:var(--sun);z-index:-1;border-radius:4px}
+.hero .sub{margin-top:26px;font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.5;color:rgba(23,58,44,.78);max-width:34ch;font-weight:300}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:99px;font-size:.95rem;font-weight:600;transition:transform .25s,background .3s,color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn.solid{background:var(--forest);color:var(--cream-on-dark)}
+.btn.solid:hover{background:var(--forest-2)}
+.btn.line{border:2px solid var(--forest);color:var(--forest)}
+.btn.line:hover{background:var(--sun-soft)}
+.hero .visual{position:relative}
+.hero .visual .frame{border-radius:var(--r) var(--r) 50% 50% / var(--r) var(--r) 34% 34%;overflow:hidden;aspect-ratio:1/1.02;box-shadow:0 30px 60px -30px rgba(23,58,44,.4)}
+@media(max-width:880px){.hero .visual .frame{aspect-ratio:4/3}}
+.hero .visual .frame img{width:100%;height:100%;object-fit:cover}
+.hero .visual .stamp{position:absolute;left:-16px;bottom:26px;background:var(--sun);color:var(--forest);border-radius:20px;padding:16px 22px;font-size:.8rem;font-weight:600;line-height:1.35;box-shadow:0 14px 30px -14px rgba(23,58,44,.4);max-width:230px;transform:rotate(-2deg)}
+.hero .visual .credit{margin-top:12px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(23,58,44,.45);text-align:right}
+
+/* ---------------- photo band ---------------- */
+.band{padding:clamp(20px,4vh,50px) 0}
+.band .strip{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px}
+@media(max-width:760px){.band .strip{grid-template-columns:1fr 1fr}.band .strip .p1{grid-column:1/-1}}
+.band .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3}
+.band .ph.p1{aspect-ratio:16/9}
+.band .ph img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.band .ph:hover img{transform:scale(1.05)}
+.band .cap{margin-top:14px;font-size:.85rem;color:rgba(23,58,44,.6);font-weight:300}
+
+/* ---------------- doors (color blocks) ---------------- */
+.doors{padding:clamp(50px,8vh,100px) 0}
+.doors h2{font-weight:700;font-size:clamp(1.8rem,3.6vw,2.9rem);letter-spacing:-.025em;line-height:1.08;max-width:20ch;margin-bottom:clamp(30px,5vh,50px)}
+.doors h2 em{font-style:normal;color:var(--coral)}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:880px){.dgrid{grid-template-columns:1fr}}
+.door{border-radius:var(--r);padding:clamp(26px,3vw,40px);min-height:340px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.door:hover{transform:translateY(-6px);box-shadow:0 30px 50px -25px rgba(23,58,44,.45)}
+.door .tag{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.75}
+.door h3{font-weight:700;font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.1;letter-spacing:-.02em;margin:14px 0 12px}
+.door p{font-size:.95rem;line-height:1.5;font-weight:300;opacity:.9;max-width:30ch}
+.door .go{display:inline-flex;align-items:center;gap:10px;font-size:.9rem;font-weight:700;margin-top:24px}
+.door .go .a{transition:transform .3s}
+.door:hover .go .a{transform:translateX(7px)}
+.door.d-manifesto{background:var(--sun);color:var(--forest)}
+.door.d-atlas{background:var(--forest);color:var(--cream-on-dark)}
+.door.d-design{background:var(--sky);color:var(--forest)}
+/* atlas door: little constellation */
+.door.d-atlas .dots{position:absolute;inset:auto 18px 74px auto;width:120px;height:90px;opacity:.9}
+.door.d-atlas .dots span{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--sun)}
+.door.d-atlas .dots span:nth-child(2){left:40px;top:30px;background:var(--coral)}
+.door.d-atlas .dots span:nth-child(3){left:80px;top:8px;background:var(--sky)}
+.door.d-atlas .dots span:nth-child(4){left:24px;top:64px;background:var(--leaf)}
+.door.d-atlas .dots span:nth-child(5){left:96px;top:52px}
+
+/* ---------------- stats ---------------- */
+.stats{background:var(--forest);color:var(--cream-on-dark);border-radius:var(--r);margin:0 var(--gutter)}
+@media(min-width:1281px){.stats{max-width:var(--max);margin:0 auto}}
+.stats .in{padding:clamp(40px,6vh,70px) clamp(24px,4vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px)}
+@media(max-width:880px){.stats .in{grid-template-columns:repeat(2,1fr)}}
+.stat .n{font-weight:800;font-size:clamp(2.6rem,5vw,4.4rem);line-height:1;letter-spacing:-.03em;color:var(--sun)}
+.stat .l{margin-top:10px;font-size:.88rem;font-weight:300;opacity:.85;max-width:20ch}
+
+/* ---------------- about teaser ---------------- */
+.me{padding:clamp(60px,9vh,110px) 0}
+.me .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,72px);align-items:center}
+@media(max-width:880px){.me .grid{grid-template-columns:1fr}}
+.me .pframe{border-radius:50% 50% var(--r) var(--r) / 38% 38% var(--r) var(--r);overflow:hidden;aspect-ratio:4/5;max-width:380px}
+.me .pframe img{width:100%;height:100%;object-fit:cover}
+.me h2{font-weight:700;font-size:clamp(1.8rem,3.6vw,2.9rem);letter-spacing:-.025em;line-height:1.1;max-width:18ch}
+.me p{margin-top:20px;font-size:clamp(1rem,1.3vw,1.15rem);font-weight:300;color:rgba(23,58,44,.78);max-width:44ch}
+.me .ctas{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+
+/* ---------------- footer ---------------- */
+.foot{background:var(--forest);color:var(--cream-on-dark);border-radius:var(--r) var(--r) 0 0;margin-top:clamp(30px,5vh,60px)}
+.foot .in{max-width:var(--max);margin:0 auto;padding:clamp(56px,9vh,100px) var(--gutter) 40px;text-align:center}
+.foot h2{font-weight:700;font-size:clamp(2rem,4.6vw,3.6rem);letter-spacing:-.03em;line-height:1.05;max-width:16ch;margin:0 auto 18px}
+.foot h2 .hl{color:var(--sun)}
+.foot p{font-weight:300;opacity:.85;max-width:40ch;margin:0 auto 34px;font-size:1rem}
+.foot .btn.sun{background:var(--sun);color:var(--forest)}
+.foot .btn.sun:hover{background:var(--sun-soft)}
+.foot .fine{margin-top:clamp(50px,8vh,80px);padding-top:24px;border-top:1px solid rgba(255,253,242,.15);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.72rem;font-weight:300;opacity:.6}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="in">
+  <a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>
+  <div class="links">
+    <a href="manifesto.html">Manifesto</a>
+    <a href="map.html">Atlas</a>
+    <a href="design.html">Design for Connection</a>
+    <a href="about.html">About</a>
+    <a class="cta" href="mailto:pierreantoinedescoteaux@gmail.com">Say hello</a>
+  </div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap grid">
+  <div>
+    <span class="kicker rv"><span class="dot"></span> Co-living · space design · community</span>
+    <h1 class="rv">What if we built for <span class="hl">connection?</span></h1>
+    <p class="sub rv">Homes where strangers become a household, elders stay at the centre of life, and the table is long enough for everyone.</p>
+    <div class="ctas rv">
+      <a class="btn solid" href="manifesto.html">Read the manifesto →</a>
+      <a class="btn line" href="map.html">Explore the atlas</a>
+    </div>
+  </div>
+  <div class="visual rv">
+    <div class="frame"><img src="images/solarpunk-feast.jpg" alt="A long shared table under a tree — all generations eating together"></div>
+    <div class="stamp">This future already exists — in pieces, all over the world. I map them.</div>
+    <div class="credit">Still — “Dear Alice”, The Line</div>
+  </div>
+</div></header>
+
+<!-- PHOTO BAND — real houses, real people -->
+<section class="band"><div class="wrap">
+  <div class="strip">
+    <div class="ph p1 rv"><img src="images/mtl-brunch-jam.jpg" alt="A brunch jam session in the Montreal house" loading="lazy"></div>
+    <div class="ph rv"><img src="images/garden-summer.jpg" alt="The meditation garden we built in Vancouver" loading="lazy"></div>
+    <div class="ph rv"><img src="images/crew-poolside.jpg" alt="The Vancouver house crew" loading="lazy"></div>
+  </div>
+  <p class="cap rv">Not renderings — my houses. Montreal &amp; Vancouver, 2020 to now.</p>
+</div></section>
+
+<!-- THE THREE DOORS -->
+<section class="doors"><div class="wrap">
+  <h2 class="rv">A manifesto, a map, and a design bank — <em>free to use, built to share.</em></h2>
+  <div class="dgrid">
+    <a class="door d-manifesto rv" href="manifesto.html">
+      <div><span class="tag">The manifesto</span>
+      <h3>Re-question how we live.</h3>
+      <p>13 assumptions about housing and family we inherited without asking — and the cracks in every one.</p></div>
+      <span class="go">Start reading <span class="a">→</span></span>
+    </a>
+    <a class="door d-atlas rv" href="map.html">
+      <div><span class="tag">The atlas</span>
+      <h3>12 ways to live together.</h3>
+      <p>Every co-living model mapped on 8 axes — ecovillages to hacker houses — with field guides and real places to visit.</p></div>
+      <div class="dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="go">Open the map <span class="a">→</span></span>
+    </a>
+    <a class="door d-design rv" href="design.html">
+      <div><span class="tag">Design for connection</span>
+      <h3>Space shapes behaviour.</h3>
+      <p>A growing bank of patterns: name the life you want, then design backwards — from nooks to neighbourhoods.</p></div>
+      <span class="go">See the patterns <span class="a">→</span></span>
+    </a>
+  </div>
+</div></section>
+
+<!-- STATS -->
+<section class="stats rv"><div class="in">
+  <div class="stat"><div class="n">12</div><div class="l">co-living models mapped &amp; field-guided</div></div>
+  <div class="stat"><div class="n">13</div><div class="l">assumptions about how we live, re-questioned</div></div>
+  <div class="stat"><div class="n">4</div><div class="l">houses built &amp; run — Montreal &amp; Vancouver</div></div>
+  <div class="stat"><div class="n">30+</div><div class="l">real projects &amp; books to explore, linked</div></div>
+</div></section>
+
+<!-- ABOUT TEASER -->
+<section class="me"><div class="wrap grid">
+  <div class="pframe rv"><img src="images/about-portrait.jpg" alt="Pierre-Antoine Descoteaux" loading="lazy"></div>
+  <div>
+    <h2 class="rv">Hi, I'm Pierre-Antoine. I don't come from architecture — I come from living inside these places.</h2>
+    <p class="rv">For five years I've turned ordinary houses into communities of entrepreneurs in Montreal and Vancouver — designing every room around how people actually live, work and connect.</p>
+    <div class="ctas rv">
+      <a class="btn solid" href="about.html">My story &amp; work →</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer class="foot"><div class="in">
+  <h2 class="rv">Let's build the <span class="hl">next piece</span> together.</h2>
+  <p class="rv">Building something in the co-living world — or looking for someone who designs for how people actually live?</p>
+  <a class="btn sun rv" href="mailto:pierreantoinedescoteaux@gmail.com">pierreantoinedescoteaux@gmail.com →</a>
+  <div class="fine">
+    <span>© Pierre-Antoine Descoteaux</span>
+    <span>Manifesto · Atlas · Design for Connection · About</span>
+    <span>Montréal / Vancouver</span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+  "use strict";
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll(".rv").forEach(function(el,i){
+    el.style.transitionDelay=(i%4)*70+"ms";
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
