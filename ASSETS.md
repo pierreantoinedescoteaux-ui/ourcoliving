@@ -63,3 +63,17 @@ Target files: `images/generated/story-<slug>.jpg` → wire via `MANIFESTO.storie
 
 ### Backlog (not yet specced)
 - Home hero alternative (currently Dear Alice still — proprietary, credited; revisit before deploy)
+
+## About / Story — photo slots (R19)
+
+Swap in by adding `src:` to the chapter's image in about-data.js — placeholder auto-replaces.
+
+- story:stone-house — WANTED from P-A — PHOTO WANTED — childhood photo: P-A as a kid building something (fort, Lego, sandcastle) or playing outside in Drummondville. Grainy family photo is perfect — the realness is the point.
+- story:organizer — WANTED from P-A — PHOTO WANTED — teenage P-A with the improv team, on stage, or coaching tennis. A tournament group shot works.
+- story:way-in — WANTED from P-A — PHOTO WANTED — Sway Accessories era: a product shot, a market stand, or P-A at a case competition (Jeux du commerce / Happening Marketing podium).
+- story:facilitator — WANTED from P-A — PHOTO WANTED — an Alliance event at ULaval: a room of students mid-workshop, or P-A speaking/facilitating.
+- story:scale — WANTED from P-A — PHOTO WANTED — the UN HLPF 2019 delegate badge/floor shot, or a ReImagine17 team retreat photo — people, not logos.
+- story:tokyo — WANTED from P-A — PHOTO WANTED — the Tokyo share-house common room, or a group dinner there. Even a bad phone photo carries it.
+- story:rooms-that-move — WANTED from P-A — PHOTO WANTED — a C2 event floor shot (the immersive staging) with P-A in it if possible, or P-A at work during the event.
+- story:hard-chapter — WANTED from P-A — PHOTO WANTED — Bridge2AI era: late-night office/accelerator shot, the SF trip, or a whiteboard covered in scheduling diagrams. Honest > polished.
+- story:now — WANTED from P-A — PHOTO WANTED — recent: P-A hiking / trail running, or hosting a dinner at the Montréal house. Warm, outdoors or golden-hour indoors.

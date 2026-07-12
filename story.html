@@ -1,24 +1,211 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Story</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,380..600;1,9..144,400..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My story &mdash; Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;--green-wash:#e7f0e2;
+  --sky:#7fb6c9;--sky-wash:#e3eff3;--sky-deep:#3d7286;
+  --gold:#d99a3d;--gold-deep:#8f6215;
+  --sun:#f7c948;--sun-soft:#fbe29a;
+  --clay:#b5613c;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);--line-strong:rgba(34,48,31,.3);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1320px;--gutter:clamp(20px,4.5vw,80px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{
+  background:
+    radial-gradient(120% 70% at 10% -5%, var(--sky-wash) 0%, transparent 50%),
+    radial-gradient(100% 60% at 95% 100%, #f0e8d2 0%, transparent 45%),
+    var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,22px);line-height:1.6;-webkit-font-smoothing:antialiased
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+
+/* ---- scroll reveals ---- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---- hero ---- */
+.hero{padding:clamp(60px,10vh,120px) 0 clamp(40px,6vh,70px);text-align:center}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,6.4vw,6rem);line-height:1.02;letter-spacing:-.02em;margin:14px 0 clamp(16px,2.5vh,28px)}
+.hero h1 em{font-style:italic;color:var(--green-deep)}
+.hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:54ch;margin:0 auto;line-height:1.65}
+
+/* ---- image slots ---- */
+.slot-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:24px;display:block}
+.ph{position:relative;width:100%;aspect-ratio:4/3;border-radius:24px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(16px,2.4vw,34px);
+  border:2px dashed var(--gold);background:#fdf3d5}
+.ph .ph-k{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep)}
+.ph .ph-scene{font-size:clamp(.82rem,1vw,.95rem);line-height:1.5;color:var(--ink-soft);font-style:italic}
+.ph .ph-dot{position:absolute;top:16px;right:18px;width:14px;height:14px;border-radius:50%;background:var(--gold);opacity:.85}
+
+/* ---- chapters ---- */
+.chapters{padding:clamp(20px,3vh,40px) 0}
+.chap{
+  display:grid;
+  grid-template-columns:44% 1fr;
+  gap:clamp(24px,3.5vw,56px);
+  align-items:start;
+  margin-bottom:clamp(70px,11vh,130px);
+  scroll-margin-top:90px;
+}
+/* alternate: odd chapters image-left, even chapters image-right */
+.chap.img-right{grid-template-columns:1fr 44%}
+.chap.img-right .chap-img{order:2}
+.chap.img-right .chap-text{order:1}
+@media(max-width:760px){
+  .chap,.chap.img-right{grid-template-columns:1fr}
+  .chap.img-right .chap-img{order:1}
+  .chap.img-right .chap-text{order:2}
+  .chap .chap-img{order:1}
+  .chap .chap-text{order:2}
+}
+.chap-ghost{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--ink-faint);margin-bottom:8px;letter-spacing:.02em}
+.chap-kicker{font-size:.66rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--green-deep);margin-bottom:10px;display:block}
+.chap h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.05;letter-spacing:-.015em;margin-bottom:clamp(14px,2vh,22px)}
+.chap-story p{color:var(--ink-soft);line-height:1.65;font-size:clamp(.95rem,1.15vw,1.1rem);margin-bottom:1em}
+.chap-story p:last-child{margin-bottom:0}
+.stayed{margin-top:clamp(18px,2.5vh,28px);padding-top:14px;border-top:1px solid var(--line-strong)}
+.stayed .stayed-label{font-size:.6rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:6px}
+.stayed .stayed-line{font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.35;color:var(--gold-deep)}
+
+/* ---- transparency band ---- */
+.trans-band{
+  margin:clamp(40px,6vh,70px) 0;
+  background:#fdf3d5;
+  border-radius:28px;
+  padding:clamp(40px,6vw,80px) clamp(28px,4vw,60px);
+}
+.trans-band .tb-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px;display:block}
+.trans-band .tb-line{font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.8rem,3.4vw,3.4rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink);margin-bottom:18px}
+.trans-band .tb-body{font-size:clamp(.95rem,1.15vw,1.1rem);color:var(--ink-soft);max-width:66ch;line-height:1.65}
+
+/* ---- close section ---- */
+.close-sec{padding:clamp(40px,6vh,70px) 0 clamp(70px,10vh,120px);text-align:center}
+.close-sec .c-line{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:1.1;letter-spacing:-.015em;max-width:22ch;margin:0 auto 14px}
+.close-sec .c-sub{font-size:clamp(.95rem,1.1vw,1.05rem);color:var(--ink-soft);margin-bottom:28px}
+.btn-pill{display:inline-block;background:var(--green-deep);color:#fff;font-family:var(--grotesk);font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px 32px;border-radius:99px;text-decoration:none;transition:background .25s ease}
+.btn-pill:hover{background:var(--green)}
+.close-links{margin-top:28px;display:flex;justify-content:center;gap:clamp(20px,3vw,44px);flex-wrap:wrap}
+.close-links a{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep)}
+.close-links a:hover{text-decoration:underline}
+</style>
 </head>
 <body>
-  <div id="app"></div>
-  <script src="site-nav.js"></script>
-  <script src="data.js"></script>
-  <script src="app.js"></script>
-  <script>
-    renderStory();
-    window.addEventListener("hashchange", renderStory);
-  </script>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+<script src="site-nav.js"></script>
+
+<main>
+  <section class="hero reveal"><div class="wrap">
+    <span class="eyebrow">My story</span>
+    <h1>Ten rooms, <em>one thread.</em></h1>
+    <p class="lede" id="sLede"></p>
+  </div></section>
+
+  <div class="wrap">
+    <div class="chapters" id="sChapters"></div>
+    <div class="close-sec reveal" id="sClose"></div>
+  </div>
+</main>
+
+<script src="about-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+
+  function slot(img){
+    if(img&&img.src){
+      return '<img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(img.scene||"")+'" loading="lazy">';
+    }
+    return '<div class="ph">'+
+      '<span class="ph-dot" aria-hidden="true"></span>'+
+      '<span class="ph-k">Photo &mdash; wanted</span>'+
+      '<p class="ph-scene">'+esc(img&&img.scene||"")+'</p>'+
+    '</div>';
+  }
+
+  // Lede from ABOUT_THREAD
+  document.getElementById("sLede").textContent = noEdit(ABOUT_THREAD.line);
+
+  // Chapters
+  var chapHtml = "";
+  var transBandInserted = false;
+
+  ABOUT_CHAPTERS.forEach(function(ch, i){
+    var num = String(i+1).padStart(2,"0");
+    var isRight = i % 2 === 1; // alternate: even index = img-left, odd = img-right
+    var cls = "chap reveal" + (isRight ? " img-right" : "");
+
+    var storyHtml = ch.story.map(function(p){ return '<p>'+esc(noEdit(p))+'</p>'; }).join("");
+
+    chapHtml +=
+      '<section class="'+cls+'" id="'+esc(ch.slug)+'">'+
+        '<div class="chap-img">'+slot(ch.image)+'</div>'+
+        '<div class="chap-text">'+
+          '<div class="chap-ghost">No. '+num+'</div>'+
+          '<span class="chap-kicker">'+esc(ch.years)+'</span>'+
+          '<h2>'+esc(noEdit(ch.title))+'</h2>'+
+          '<div class="chap-story">'+storyHtml+'</div>'+
+          '<div class="stayed">'+
+            '<span class="stayed-label">What stayed</span>'+
+            '<p class="stayed-line">'+esc(noEdit(ch.stayed))+'</p>'+
+          '</div>'+
+        '</div>'+
+      '</section>';
+
+    // Insert transparency band AFTER the "houses" chapter
+    if(ch.slug === "houses" && !transBandInserted){
+      transBandInserted = true;
+      chapHtml +=
+        '<div class="trans-band reveal">'+
+          '<span class="tb-kicker">'+esc(ABOUT_TRANSPARENCY.kicker)+'</span>'+
+          '<div class="tb-line">'+esc(noEdit(ABOUT_TRANSPARENCY.line))+'</div>'+
+          '<p class="tb-body">'+esc(noEdit(ABOUT_TRANSPARENCY.body))+'</p>'+
+        '</div>';
+    }
+  });
+
+  document.getElementById("sChapters").innerHTML = chapHtml;
+
+  // Close section
+  document.getElementById("sClose").innerHTML =
+    '<p class="c-line">'+esc(noEdit(ABOUT_CTA.line))+'</p>'+
+    '<p class="c-sub">'+esc(ABOUT_CTA.sub)+'</p>'+
+    '<a class="btn-pill" href="mailto:'+esc(ABOUT_CTA.email)+'">'+esc(ABOUT_CTA.email)+'</a>'+
+    '<div class="close-links">'+
+      '<a href="work.html">Work &amp; case studies &rarr;</a>'+
+      '<a href="about.html">Back to About &rarr;</a>'+
+    '</div>';
+
+  // Scroll reveals — run after DOM is populated
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);} });
+  },{threshold:0.15});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+})();
+</script>
 </body>
 </html>
