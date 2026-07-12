@@ -190,13 +190,13 @@ const MANIFESTO = {
       slug: "another-story",
       gray: "This is just how things are.",
       flip: "Another story is already being lived.",
-      village: "Thousands already live this way — cohousing, ecovillages, shared houses. The Atlas maps them.",
+      village: "Thousands already live this way — cohousing, ecovillages, shared houses. The Coliving Atlas maps them.",
       img: "images/proj-trudeslund.jpg",
       imgAlt: "Trudeslund cohousing, Denmark — the other story, built",
       x: 70, y: 1690, tone: 4,
       essay: [
         "Eisenstein says we live in “a space between stories”: the old one no longer produces meaning or safety, but the new one hasn’t fully formed — so its institutions keep running on habit, hollow, while everyone privately senses that “normal isn’t coming back.” The loneliness of this moment is the loneliness of sensing it first.",
-        "But the new story isn’t hypothetical. It has addresses: Danish common houses, Zurich co-ops, kibbutzim, farmhouses full of founders, a living room in Montreal. “A miracle is something impossible from an old story and possible from a new one.” The Atlas on this site maps them."
+        "But the new story isn’t hypothetical. It has addresses: Danish common houses, Zurich co-ops, kibbutzim, farmhouses full of founders, a living room in Montreal. “A miracle is something impossible from an old story and possible from a new one.” The Coliving Atlas on this site maps them."
       ],
       read: [
         { label: "Why we need utopias — Ghodsee interview", href: "https://www.currentaffairs.org/news/2023/10/why-we-need-utopias" },
@@ -233,9 +233,12 @@ const MANIFESTO = {
       by: "Charles Eisenstein, The More Beautiful World Our Hearts Know Is Possible"
     },
     ctas: [
-      { label: "Explore the atlas", href: "map.html" },
-      { label: "How design shapes behaviour", href: "design.html" },
-      { label: "About me", href: "about.html" }
+      { label: "Explore the Coliving Atlas", href: "map.html",
+        keys: "12 shapes of living together · interactive map · field guides" },
+      { label: "How design shapes behaviour", href: "design.html",
+        keys: "design patterns · connection, intimacy, focus · budget-friendly moves" },
+      { label: "About me", href: "about.html",
+        keys: "my story · the houses I've run · get in touch" }
     ]
   },
 

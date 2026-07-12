@@ -75,7 +75,7 @@ a{color:inherit;text-decoration:none}
 /* spark title — STICKY: follows the reader through the whole gray field */
 .whatif{position:sticky;top:86px;z-index:6;pointer-events:none;display:block;text-align:center;
   font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:clamp(3rem,8.5vw,7.5rem);line-height:1;color:var(--gold-deep);letter-spacing:-.02em;
+  font-size:clamp(2.6rem,6.5vw,5.5rem);line-height:1;color:var(--gold-deep);letter-spacing:-.02em;
   margin:clamp(12px,2.5vh,26px) auto 0;opacity:0;transform:translateY(14px) scale(.94);
   transition:opacity .9s cubic-bezier(.34,1.56,.64,1),transform .9s cubic-bezier(.34,1.56,.64,1);
   text-shadow:0 2px 30px rgba(246,242,231,.9)}
@@ -98,9 +98,14 @@ a{color:inherit;text-decoration:none}
 .vine .leaf{fill:var(--green);opacity:clamp(0,calc((var(--p) - var(--th))*4),1);transform-origin:center;transition:opacity 1s ease}
 .vine .leaf.d{fill:var(--green-deep)}
 
-/* bubbles — each lives in a tall band and STICKS below the "What if…"
-   while its band scrolls through, so ideas stay on screen */
-.fieldbed{position:relative;width:100%;z-index:2;padding-bottom:6vh}
+/* bubbles — they arrive close together, dock into a cluster slot below the
+   "What if…" and ALL stay pinned (like the What if itself) until the next
+   section pushes the field away */
+.fieldbed{position:relative;width:100%;max-width:1560px;margin:0 auto;z-index:2;
+  padding-top:2vh;--rowgap:min(24vh,240px)}
+/* pin dwell: a real content spacer (NOT padding — sticky is constrained to
+   the parent's CONTENT box, padding gives the cluster no stick range) */
+.fieldtail{height:96vh}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
 .bvinesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
@@ -108,12 +113,15 @@ a{color:inherit;text-decoration:none}
 .bvinesvg .bleaf{fill:var(--green);opacity:0;transition:opacity .7s ease}
 .bvinesvg .bleaf.d{fill:var(--green-deep)}
 .bvinesvg .bleaf.on{opacity:.85}
-.bband{position:relative;height:56vh}
-.bband:last-of-type{height:74vh}
-.bub{position:sticky;top:var(--dock,230px);width:min(330px,86vw);z-index:2;margin-left:var(--bx,8%)}
+/* desktop: bands dissolve (display:contents) so each bubble's sticky range
+   runs to the END of the fieldbed — once docked at its cluster slot it never
+   scrolls away until the whole field does */
+.bband{display:contents}
+.bub{position:sticky;top:calc(var(--dock,200px) + var(--row,0)*var(--rowgap) + var(--jy,0px));
+  width:clamp(230px,23vw,300px);z-index:calc(3 + var(--i,0));margin-left:var(--bx,8%);margin-top:24vh}
 .bub .gray{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;border:0;cursor:pointer;
-  min-height:190px;padding:34px 30px;font-family:var(--serif);font-weight:300;font-style:italic;
-  font-size:clamp(1.05rem,1.35vw,1.3rem);line-height:1.4;color:#57544d;
+  min-height:150px;padding:26px 22px;font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(.95rem,1.1vw,1.15rem);line-height:1.4;color:#57544d;
   background:var(--gtone);box-shadow:0 14px 34px -18px rgba(60,58,50,.4);
   animation:drift var(--dur) ease-in-out var(--del) infinite alternate;
   transition:transform .3s,box-shadow .3s}
@@ -125,22 +133,27 @@ a{color:inherit;text-decoration:none}
 .frag{position:absolute;left:50%;top:50%;width:12px;height:12px;pointer-events:none;z-index:5}
 
 /* popped card */
-.bub .cardp{display:none;width:100%;border-radius:22px;padding:22px 22px 20px;background:var(--ctone);
+.bub .cardp{display:none;width:100%;border-radius:22px;padding:18px 18px 16px;background:var(--ctone);
   box-shadow:0 24px 54px -24px rgba(34,48,31,.4);cursor:pointer}
 .bub.pop .gray{display:none}
 .bub.pop .cardp{display:block;animation:bloom .55s cubic-bezier(.34,1.56,.64,1)}
 @keyframes bloom{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
-.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,1.7vw,1.55rem);line-height:1.22;color:var(--ink)}
-.cardp .vil{margin-top:10px;font-size:.85rem;line-height:1.5;color:var(--ink-soft)}
-.cardp .im{margin-top:14px;border-radius:14px;overflow:hidden}
-.cardp .im img{width:100%;height:110px;object-fit:cover}
-.cardp .deep{display:inline-block;margin-top:13px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
+.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1.1rem,1.35vw,1.3rem);line-height:1.22;color:var(--ink)}
+.cardp .vil{margin-top:8px;font-size:.8rem;line-height:1.45;color:var(--ink-soft)}
+.cardp .im{margin-top:10px;border-radius:14px;overflow:hidden}
+.cardp .im img{width:100%;height:70px;object-fit:cover}
+.cardp .deep{display:inline-block;margin-top:10px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
 .cardp .deep:hover{opacity:.75}
 
 @media(max-width:900px){
-  .bband{height:62vh}
+  /* mobile: no room for a full pinned cluster — bubbles flow through their
+     own (shorter) bands, docking under the What if one after another */
+  .bband{display:block;position:relative;height:44vh}
+  .bband:last-of-type{height:64vh}
+  .bub{position:sticky;top:var(--dock,200px);width:min(330px,86vw);margin-top:0}
   .bband:nth-of-type(odd) .bub{margin-left:3vw}
   .bband:nth-of-type(even) .bub{margin-left:11vw}
+  .fieldtail{height:10vh}
 }
 
 /* ---------- VILLAGE SCENE ---------- */
@@ -196,6 +209,16 @@ a{color:inherit;text-decoration:none}
 .close .ctas a:hover{border-color:var(--ink);background:rgba(255,253,248,.5)}
 .close .ctas a.primary{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
 .close .ctas a.primary:hover{background:var(--forest);border-color:var(--forest)}
+/* hover keywords — a small pill above each door saying what's behind it */
+.close .ctas a{position:relative}
+.close .ctas .tip{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translate(-50%,6px);
+  white-space:nowrap;background:var(--ink);color:var(--paper);font-size:.72rem;font-weight:500;letter-spacing:.02em;
+  padding:8px 14px;border-radius:10px;opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;box-shadow:0 10px 24px -12px rgba(23,58,44,.5)}
+.close .ctas .tip::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--ink)}
+.close .ctas a:hover .tip,.close .ctas a:focus-visible .tip{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){.close .ctas .tip{display:none}}
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -380,13 +403,17 @@ document.getElementById("whatifTxt").textContent=fi.sparkTitle;
 var bed=document.getElementById("fieldbed");
 var field=document.getElementById("field");
 /* insertAdjacentHTML, NOT innerHTML= — the #bvine svg already lives in the bed.
-   Each bubble lives in its own tall band and docks (sticky) below the What if. */
-var BX=[5,52,26,60,8,44,64,14,48,30]; /* organic left offsets, % */
+   Desktop: each bubble docks into its own CLUSTER SLOT (4 columns × rows)
+   below the What if and stays pinned there until the field ends.
+   Mobile: bands are real boxes again (CSS) and bubbles flow through. */
+var BX=[3,28,51,77, 5,26,53,75, 20,58]; /* cluster left offsets, % (4-col grid, organic) */
+var JY=[-10,8,-4,12];                   /* per-column vertical jitter, px */
 bed.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
   var t=TONES[s.tone%TONES.length];
   var dx=(i%2?-1:1)*(6+(i%3)*3), dy=(i%3?-1:1)*(5+(i%2)*4);
-  return '<div class="bband" style="--bx:'+(BX[i]||10)+'%">'+
-    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px">'+
+  var row=Math.floor(i/4), jy=JY[i%4]+row*4;
+  return '<div class="bband" style="--bx:'+(BX[i]!=null?BX[i]:(3+(i%4)*24.5))+'%">'+
+    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--row:'+row+';--jy:'+jy+'px;--i:'+i+'">'+
     '<button class="gray" type="button" aria-expanded="false">'+esc(s.gray)+'</button>'+
     '<div class="cardp">'+
       '<div class="flip">'+esc(s.flip)+'</div>'+
@@ -395,6 +422,9 @@ bed.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
       '<a class="deep" href="separation.html#'+esc(s.slug)+'">Go deeper →</a>'+
     '</div></div></div>';
 }).join(""));
+/* dwell spacer AFTER the last bubble — keeps the whole cluster pinned for a
+   stretch of scroll before the village section pushes the field away */
+bed.insertAdjacentHTML("beforeend",'<div class="fieldtail" aria-hidden="true"></div>');
 
 var popped=0,total=MANIFESTO.stories.length;
 function burst(bub,acc){
@@ -456,8 +486,11 @@ function dockCalc(){
 function dockPops(){
   bubs.forEach(function(bub){
     if(bub.classList.contains("pop")||bub.dataset.manual) return;
+    /* per-bubble threshold: its own resolved sticky top (cluster slots sit
+       at different heights) — computed style returns the used px value */
+    var st=parseFloat(getComputedStyle(bub).top); if(isNaN(st)) st=dockY;
     var r=bub.getBoundingClientRect();
-    if(r.top<=dockY+30&&r.bottom>0) pop(bub);
+    if(r.top<=st+30&&r.bottom>0) pop(bub);
   });
 }
 dockCalc();
@@ -577,7 +610,8 @@ document.getElementById("clTitle").textContent=cl.title;
 document.getElementById("clBody").innerHTML=cl.body.map(function(b){return '<p class="body">'+esc(noEdit(b))+'</p>';}).join("");
 document.getElementById("clQuote").innerHTML='“'+esc(cl.quote.text)+'”<footer>— '+esc(cl.quote.by)+'</footer>';
 document.getElementById("clCtas").innerHTML=cl.ctas.map(function(c,i){
-  return '<a class="'+(i===0?"primary":"")+'" href="'+esc(c.href)+'">'+esc(c.label)+'</a>';
+  return '<a class="'+(i===0?"primary":"")+'" href="'+esc(c.href)+'">'+esc(c.label)+
+    (c.keys?'<span class="tip" aria-hidden="true">'+esc(c.keys)+'</span>':'')+'</a>';
 }).join("");
 })();
 </script>
