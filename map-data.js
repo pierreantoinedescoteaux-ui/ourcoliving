@@ -74,6 +74,7 @@ const COLIVING_TYPES = [
       { img: "images/model-findhorn.jpg", name: "Findhorn", place: "Scotland", note: "The 60-year proof of concept — from caravan park to full eco-settlement.", url: "https://www.findhorn.org" },
       { img: "images/ex-auroville.jpg", name: "Auroville", place: "India", note: "The most ambitious version ever attempted — a planned universal township.", url: "https://auroville.org" },
       { img: "images/ex-evi-ithaca.jpg", name: "EcoVillage Ithaca", place: "New York", note: "The polished North American model: three cohousing neighborhoods on shared land.", url: "https://ecovillageithaca.org" },
+      { img: "images/ex-tamera.jpg", name: "Tamera", place: "Portugal", note: "A 200-person peace-research ecovillage that re-watered its own valley — one of Europe's most complete intentional communities.", url: "https://www.tamera.org/our-facilities/" },
       { name: "Global Ecovillage Network", place: "Worldwide", note: "The directory — thousands of them, mapped.", url: "https://ecovillage.org" }
     ]
   },
@@ -144,7 +145,9 @@ const COLIVING_TYPES = [
     watch: "Total sharing means total governance. The model bends toward the institution, not the individual.",
     examples: [
       { img: "images/model-kibbutz.jpg", name: "Kibbutz movement", place: "Israel", note: "The full history — rise, crisis, reinvention.", url: "https://en.wikipedia.org/wiki/Kibbutz" },
-      { img: "images/ex-degania.jpg", name: "Degania Alef", place: "Israel", note: "The first one, founded 1910.", url: "https://en.wikipedia.org/wiki/Degania_Alef" }
+      { img: "images/ex-degania.jpg", name: "Degania Alef", place: "Israel", note: "The first one, founded 1910.", url: "https://en.wikipedia.org/wiki/Degania_Alef" },
+      { img: "images/ex-nir-david.jpg", name: "Nir David", place: "Israel", note: "A working kibbutz in the Jezreel Valley — some of the best first-person writing on what communal life actually costs and gives.", url: "https://medium.com/globetrotters/nir-david-life-on-a-kibbutz-69a93d3ba654" },
+      { img: "images/ex-neot-smadar.jpg", name: "Neot Smadar", place: "Israel", note: "A desert kibbutz in the Arava, founded 1989 — one of the few still running full income-sharing, famous for its art.", url: "https://en.wikipedia.org/wiki/Neot_Smadar" }
     ]
   },
   {
@@ -162,7 +165,9 @@ const COLIVING_TYPES = [
     examples: [
       { img: "images/ex-humanitas.jpg", name: "Humanitas Deventer", place: "Netherlands", note: "The care home where students live free — the model everyone cites.", url: "https://www.humanitasdeventer.nl" },
       { img: "images/ex-bridge-meadows.jpg", name: "Bridge Meadows", place: "Portland, OR", note: "Elders + foster families, designed as one community.", url: "https://bridgemeadows.org" },
-      { name: "Generations United", place: "USA", note: "The advocacy hub for shared intergenerational sites.", url: "https://www.gu.org" }
+      { name: "Generations United", place: "USA", note: "The advocacy hub for shared intergenerational sites.", url: "https://www.gu.org" },
+      { name: "Hogeweyk", place: "Netherlands", note: "A village-scale dementia care home where residents live in real streets and shops — radical normalcy for the people who need care most.", url: "https://www.bethecareconcept.com/en/hogeweyk-dementia-village-hogeweyk-netherlands/" },
+      { img: "images/intergen-japan.jpg", name: "Fujisawa care model", place: "Japan", note: "Daycare children and elderly residents share daily programming — one of the most studied designs for cross-generational contact.", url: "https://www.toyproject.net/2017/04/innovative-intergenerational-care-in-fujisawa-japan/" }
     ]
   },
   {
@@ -215,7 +220,8 @@ const COLIVING_TYPES = [
     watch: "It runs on the host's energy. The design has to make community self-sustaining, or the host burns out.",
     examples: [
       { img: "images/dunbar-exterior.jpg", name: "Growth Hub", place: "Vancouver", note: "My houses — six to nine entrepreneurs, living and working as one community.", url: "https://www.growthhub.house" },
-      { img: "images/mtl-living-room.jpg", name: "Montreal house", place: "Montreal", note: "Three years of hands-on spatial design — the full case study is on this site.", url: "project.html?p=montreal" }
+      { img: "images/mtl-living-room.jpg", name: "Montreal house", place: "Montreal", note: "Three years of hands-on spatial design — the full case study is on this site.", url: "project.html?p=montreal" },
+      { name: "The Residency", place: "USA", note: "Curated live-work cohorts for founders and creators — the entrepreneur house, franchised gently.", url: "https://www.livetheresidency.com/" }
     ]
   },
   {
@@ -251,7 +257,8 @@ const COLIVING_TYPES = [
     examples: [
       { img: "images/ex-esmeralda.jpg", name: "Edge Esmeralda", place: "Healdsburg, CA", note: "A month-long pop-up village prototyping a future permanent town.", url: "https://www.edgeesmeralda.com" },
       { name: "Zuzalu", place: "Montenegro (2023)", note: "The two-month pop-up that started the movement.", url: "https://zuzalu.city" },
-      { img: "images/ex-culdesac.jpg", name: "Culdesac", place: "Tempe, AZ", note: "A car-free neighborhood built from scratch — adjacent proof that new urban fabric is possible.", url: "https://culdesac.com" }
+      { img: "images/ex-culdesac.jpg", name: "Culdesac", place: "Tempe, AZ", note: "A car-free neighborhood built from scratch — adjacent proof that new urban fabric is possible.", url: "https://culdesac.com" },
+      { img: "images/ex-network-school.jpg", name: "Network School", place: "Malaysia", note: "Balaji's live-in school and co-living community — a network-state proof of concept, running since 2024.", url: "https://balajis.com/p/network-school-2025" }
     ]
   },
   {
@@ -269,7 +276,8 @@ const COLIVING_TYPES = [
     examples: [
       { img: "images/ex-cloyne.jpg", name: "Berkeley Student Cooperative", place: "California", note: "The giant — 17 houses, since 1933.", url: "https://www.bsc.coop" },
       { name: "NASCO", place: "North America", note: "The federation connecting campus co-ops across the continent.", url: "https://www.nasco.coop" },
-      { img: "images/ex-icc-annarbor.jpg", name: "ICC Ann Arbor", place: "Michigan", note: "The oldest continuous student co-op system in North America.", url: "https://icc.coop" }
+      { img: "images/ex-icc-annarbor.jpg", name: "ICC Ann Arbor", place: "Michigan", note: "The oldest continuous student co-op system in North America.", url: "https://icc.coop" },
+      { img: "images/ex-campus1-mtl.jpg", name: "Campus1 MTL", place: "Montréal", note: "Purpose-built student co-living downtown — communal programming baked in from day one.", url: "https://campus1mtl.ca/montreal-student-housing/" }
     ]
   }
 ];

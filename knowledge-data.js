@@ -19,6 +19,7 @@ const THEMES = {
 const TYPE_KNOWLEDGE = {
   "ecovillage": {
     hero: { src: "images/model-findhorn.jpg", cap: "Findhorn ecovillage, Scotland" },
+    diagram: { src: "images/generated/diagram-ecovillage.jpg", cap: "How an ecovillage organizes: homes clustered around a commons, gardens and energy systems at the edges" },
     origin: "Born from the 1960s–70s back-to-the-land movement and matured through permaculture; the Global Ecovillage Network formalized it in 1995. The oldest sites are now on their third generation.",
     teaches: "A community can own its whole stack — food, energy, decisions — and live lighter for it.",
     best: ["governance", "operations"],
@@ -32,6 +33,7 @@ const TYPE_KNOWLEDGE = {
   },
   "cohousing": {
     hero: { src: "images/proj-trudeslund.jpg", cap: "Trudeslund cohousing, Denmark" },
+    diagram: { src: "images/generated/diagram-cohousing.jpg", cap: "Cohousing layout: private homes ring shared kitchen, dining, and outdoor spaces" },
     origin: "Denmark, 1972: Sættedammen was built after Bodil Graae's essay argued 'children should have a hundred parents.' Architect-led, resident-designed — and copied worldwide ever since.",
     teaches: "Design the common house right and community becomes the default instead of the effort.",
     best: ["space", "community"],
@@ -45,6 +47,7 @@ const TYPE_KNOWLEDGE = {
   },
   "housing-coop": {
     hero: { src: "images/model-kalkbreite.jpg", cap: "Kalkbreite cooperative, Zurich" },
+    diagram: { src: "images/generated/diagram-housing-coop.jpg", cap: "Housing co-op structure: residents collectively own the building through a share model" },
     origin: "Rooted in 19th-century worker cooperatives; scaled by Zurich and Vienna across the 20th century until co-ops became ordinary civic infrastructure — a fifth of Zurich lives in one.",
     teaches: "Take the building off the market and the community stops being a commodity.",
     best: ["financing", "governance"],
@@ -58,6 +61,7 @@ const TYPE_KNOWLEDGE = {
   },
   "baugruppen": {
     hero: { src: "images/type-baugruppen.jpg", cap: "A Berlin Baugruppe - resident-developed housing" },
+    diagram: { src: "images/generated/diagram-baugruppen.jpg", cap: "Baugruppen model: households co-develop a building together, each owning their unit" },
     origin: "Germany after reunification: groups in Berlin, Freiburg and Tübingen started acting as their own developers in the 1990s–2000s, and cities began zoning for them on purpose.",
     teaches: "Cut out the developer and you can afford both beauty and neighbours.",
     best: ["financing", "space"],
@@ -70,7 +74,8 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "kibbutz": {
-    hero: { src: "images/model-kibbutz.jpg", cap: "Kibbutz communal life, Israel" },
+    hero: { src: "images/ex-nir-david.jpg", cap: "Kibbutz Nir David, Israel" },
+    diagram: { src: "images/generated/diagram-kibbutz.jpg", cap: "Kibbutz organization: communal dining, work, and childcare at the center; member homes around the perimeter" },
     origin: "Degania, 1910: Zionist-socialist pioneers built full income-sharing villages. At the peak, hundreds of kibbutzim housed over 100,000 people; most privatized after the 1980s crisis.",
     teaches: "Total sharing works — and shows exactly where its limits are.",
     best: ["community", "operations"],
@@ -83,7 +88,8 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "intergenerational": {
-    hero: { src: "images/type-intergenerational.jpg", cap: "Anna Haag multigenerational house, Stuttgart" },
+    hero: { src: "images/intergen-japan.jpg", cap: "Multigenerational household, Fujisawa, Japan" },
+    diagram: { src: "images/generated/diagram-intergenerational.jpg", cap: "Intergenerational living: mixed-age households share amenities designed for all life stages" },
     origin: "Age-mixed households were humanity's default until about 1950. The deliberate version is recent: Humanitas Deventer began housing students inside a Dutch care home in 2012, and the model went global.",
     teaches: "The generations are each other's missing resource — housing can broker the trade.",
     best: ["community", "financing"],
@@ -97,6 +103,7 @@ const TYPE_KNOWLEDGE = {
   },
   "hacker-house": {
     hero: { src: "images/type-hacker-house.jpg", cap: "A hackerspace commons - Tirana, Albania" },
+    diagram: { src: "images/generated/diagram-hacker-house.jpg", cap: "Hacker house layout: shared workspaces and social zones maximize serendipitous collaboration" },
     origin: "The Bay Area collectivized its garage myth through the 2000s–2010s — Rainbow Mansion, countless unnamed leases — and the AI wave revived it at full intensity.",
     teaches: "Curation is a technology: pick the right ten people and the house does the rest.",
     best: ["operations", "community"],
@@ -109,7 +116,8 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "operator-coliving": {
-    hero: { src: "images/proj-collective.jpg", cap: "The Collective Old Oak, London" },
+    hero: { src: "images/ex-cohabs-1.jpg", cap: "Cohabs — design-forward operator coliving, Brussels & NYC" },
+    diagram: { src: "images/generated/diagram-operator-coliving.jpg", cap: "Operator coliving: amenity-rich shared floors above private bedrooms, managed by a host" },
     origin: "The 2015–16 venture wave — The Collective, WeLive, Common — bet that loneliness was a product problem. The crash taught the survivors (Habyt, Cohabs) to run leaner and promise less.",
     teaches: "You can buy convenience, but belonging has to be built — this model proves both halves.",
     best: ["operations", "space"],
@@ -123,6 +131,7 @@ const TYPE_KNOWLEDGE = {
   },
   "entrepreneur-house": {
     hero: { src: "images/mtl-living-room.jpg", cap: "My Montreal house — the living room" },
+    diagram: { src: "images/generated/diagram-entrepreneur-house.jpg", cap: "Founder house: co-working, event, and living spaces fused in a single building" },
     origin: "The middle path between the hacker house's chaos and the operator's sterility — one lived-in house, one intentional host, a curated handful of builders. My own practice sits here. [edit]",
     teaches: "One person with intention can curate a household that changes its members' trajectories.",
     best: ["community", "space"],
@@ -136,6 +145,7 @@ const TYPE_KNOWLEDGE = {
   },
   "rural-coliving": {
     hero: { src: "images/rooral-hero.jpg", cap: "Rooral, Benarraba, Spain" },
+    diagram: { src: "images/generated/diagram-rural-coliving.jpg", cap: "Rural coliving: land-based living with shared infrastructure and working farmland" },
     origin: "Remote work met rural depopulation: Sende opened in a 30-person Galician hamlet in 2013, Rooral followed in Andalusia in 2020, and a movement of village revivals is forming behind them.",
     teaches: "Urban loneliness and rural decline are the same problem — move the people, and both start to heal.",
     best: ["community", "operations"],
@@ -148,7 +158,8 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "network-village": {
-    hero: { src: "images/type-network-village.jpg", cap: "Seaside, Florida - a town built from scratch" },
+    hero: { src: "images/ex-network-school.jpg", cap: "Network School — a real network village node" },
+    diagram: { src: "images/generated/diagram-network-village.jpg", cap: "Network village: a distributed mesh of nodes — each a home base in a different city" },
     origin: "Internet communities deciding to become physical: Zuzalu's two-month pop-up in Montenegro (2023) lit the fuse; Esmeralda and a wave of 'network villages' are now iterating toward permanence.",
     teaches: "Community can precede place — the internet lets a village form before it lands.",
     best: ["financing", "governance"],
@@ -161,7 +172,8 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "student-coop": {
-    hero: { src: "images/type-student-coop.jpg", cap: "Cloyne Court, Berkeley Student Cooperative" },
+    hero: { src: "images/ex-campus1-mtl.jpg", cap: "Campus1 Montréal — student cooperative housing" },
+    diagram: { src: "images/generated/diagram-student-coop.jpg", cap: "Student co-op: democratically run housing with shared cooking, governance, and study spaces" },
     origin: "Depression-era students who couldn't afford rent started running their own houses — Berkeley's system dates to 1933 — and NASCO federated the movement across North America.",
     teaches: "Governance is learnable — give nineteen-year-olds a house and they'll learn democracy by doing dishes.",
     best: ["governance", "financing"],

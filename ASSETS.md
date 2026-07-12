@@ -19,18 +19,18 @@ Each: an isometric/cutaway illustration that visually explains how the model org
 
 | Slug | Concept to show | Status |
 |---|---|---|
-| ecovillage | whole settlement: clustered homes + food gardens + energy + commons at centre | proposed — awaiting MCP |
-| cohousing | private homes ringing a common house + shared courtyard | proposed — awaiting MCP |
-| housing-coop | one apartment building, units + shared spaces, ownership shared across all floors | proposed — awaiting MCP |
-| baugruppen | group of families co-designing/building one infill building (construction cutaway) | proposed — awaiting MCP |
-| kibbutz | village around communal dining hall + working fields | proposed — awaiting MCP |
-| intergenerational | one big house / block mixing elders, families, students; shared kitchen at heart | proposed — awaiting MCP |
-| hacker-house | one house: bedrooms + big open work/build space with desks & whiteboards | proposed — awaiting MCP |
-| operator-coliving | apartment tower: small private studios + large managed amenity floors | proposed — awaiting MCP |
-| entrepreneur-house | shared house where living room doubles as studio/workshop; long dinner table | proposed — awaiting MCP |
-| rural-coliving | countryside farmhouse: coworking barn + gardens + guest rooms | proposed — awaiting MCP |
-| network-village | several houses across a map connected by paths/links, one shared hub | proposed — awaiting MCP |
-| student-coop | big shared student house: chore wheel energy, communal kitchen, study corners | proposed — awaiting MCP |
+| ecovillage | whole settlement: clustered homes + food gardens + energy + commons at centre | generated → placed (2026-07-11) |
+| cohousing | private homes ringing a common house + shared courtyard | generated → placed (2026-07-11) |
+| housing-coop | one apartment building, units + shared spaces, ownership shared across all floors | generated → placed (2026-07-11) |
+| baugruppen | group of families co-designing/building one infill building (construction cutaway) | generated → placed (2026-07-11) |
+| kibbutz | village around communal dining hall + working fields | generated → placed (2026-07-11) |
+| intergenerational | one big house / block mixing elders, families, students; shared kitchen at heart | generated → placed (2026-07-11) |
+| hacker-house | one house: bedrooms + big open work/build space with desks & whiteboards | generated → placed (2026-07-11) |
+| operator-coliving | apartment tower: small private studios + large managed amenity floors | generated → placed (2026-07-11) |
+| entrepreneur-house | shared house where living room doubles as studio/workshop; long dinner table | generated → placed (2026-07-11) |
+| rural-coliving | countryside farmhouse: coworking barn + gardens + guest rooms | generated → placed (2026-07-11) |
+| network-village | several houses across a map connected by paths/links, one shared hub | generated → placed (2026-07-11) |
+| student-coop | big shared student house: chore wheel energy, communal kitchen, study corners | generated → placed (2026-07-11) |
 
 ### Manifesto v3 (2026-07-11) — `manifesto.html` + `separation.html` (the talk piece; replaced assumption.html)
 

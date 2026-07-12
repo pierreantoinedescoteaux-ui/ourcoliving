@@ -19,6 +19,7 @@
       { label: "Hope: books of inspiration", href: "inspiration.html" }
     ]},
     { label: "Coliving Atlas", href: "map.html", key: "atlas", sub: [
+      { label: "The map — every shape charted", href: "map.html#map" },
       { label: "Field guides — the 12 models", href: "type.html?t=ecovillage" },
       { label: "Resources directory", href: "resources.html" }
     ]},

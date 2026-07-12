@@ -301,6 +301,21 @@ img{display:block;max-width:100%}
 .legend{max-width:1500px;margin:0 auto;padding:8px var(--gutter) 60px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--ink-faint);font-size:.8rem}
 .legend .hint b{color:var(--green-deep)}
 
+/* ---------- chart title ---------- */
+.maphead{max-width:1500px;margin:0 auto;padding:clamp(40px,6vh,70px) var(--gutter) 6px;border-top:1px solid var(--line)}
+.maphead .mnum{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--gold-deep)}
+.maphead h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,4.2vw,3.5rem);letter-spacing:-.02em;margin:8px 0 10px}
+.maphead p{color:var(--ink-soft);max-width:62ch;font-size:clamp(.95rem,1.15vw,1.08rem)}
+.maphead a{position:relative;top:-90px}
+
+/* ---------- doors: where to go from here ---------- */
+.doors{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.door{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px 26px;transition:border-color .3s,box-shadow .3s,transform .3s}
+.door:hover{border-color:var(--green);box-shadow:0 18px 44px -22px rgba(34,48,31,.3);transform:translateY(-3px)}
+.door .dt{font-family:var(--serif);font-weight:400;font-size:1.25rem;line-height:1.15;margin-bottom:6px}
+.door .dd{font-size:.85rem;color:var(--ink-soft);line-height:1.5;margin-bottom:12px}
+.door .da{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep)}
+
 /* ---------- the library ---------- */
 .library{max-width:1500px;margin:0 auto;padding:clamp(48px,8vh,90px) var(--gutter) 90px;border-top:1px solid var(--line)}
 .library .lhead{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:12px}
@@ -351,6 +366,12 @@ img{display:block;max-width:100%}
   <button class="arrow next" id="caroNext" aria-label="Next">→</button>
 </section>
 
+<section class="maphead"><a id="map"></a>
+  <span class="mnum">Pl. I — the survey chart</span>
+  <h2>Every shape, charted.</h2>
+  <p>Twelve ways to share a roof, placed on two axes at a time. Pick the axes — or a preset lens — then hover a symbol for a first look and click for the full field notes.</p>
+</section>
+
 <div class="controls">
   <div class="ctl">
     <label for="ax">Horizontal axis</label>
@@ -382,11 +403,17 @@ img{display:block;max-width:100%}
 <section class="library" id="library">
   <div class="lhead">
     <span class="lnum">Pl. II</span>
-    <h2>The library behind the map.</h2>
+    <h2>Where to go from here.</h2>
   </div>
-  <p class="lsub">The books and thinkers that shaped how I read this territory. Three go deeper as full case studies.</p>
-  <div class="lgrid" id="lgrid"></div>
-  <p class="lmore">Projects and models live on the map above · <a href="inspiration.html">browse the full shelf →</a></p>
+  <p class="lsub">The atlas is one room of a bigger library. These are the others.</p>
+  <div class="doors">
+    <a class="door" href="type.html?t=ecovillage"><div class="dt">The field guides</div><div class="dd">Twelve deep dives — one per shape on the chart, with layout anatomy and who it's for.</div><span class="da">Open the first guide →</span></a>
+    <a class="door" href="projects.html"><div class="dt">Real communities</div><div class="dd">Every project referenced on this site, filterable by shape.</div><span class="da">Browse the library →</span></a>
+    <a class="door" href="inspiration.html"><div class="dt">The bookshelf</div><div class="dd">The books behind how I read this whole territory.</div><span class="da">See the books →</span></a>
+    <a class="door" href="resources.html"><div class="dt">Resources directory</div><div class="dd">The organizations that already mapped communities, know-how and people.</div><span class="da">Find your way in →</span></a>
+    <a class="door" href="design.html"><div class="dt">Design for Connection</div><div class="dd">How space itself creates the behaviour — the design bank.</div><span class="da">See the patterns →</span></a>
+    <a class="door" href="separation.html"><div class="dt">The talk piece</div><div class="dd">The philosophy underneath it all: the story we were handed, and the one underneath.</div><span class="da">Read it →</span></a>
+  </div>
 </section>
 
 <div class="backdrop" id="backdrop"></div>
@@ -596,20 +623,7 @@ img{display:block;max-width:100%}
   var want=(location.hash||"").replace("#","") || new URLSearchParams(location.search).get("focus");
   if(want && COLIVING_TYPES.some(function(t){return t.slug===want;})) setTimeout(function(){ open(want); }, 600);
 
-  /* ---- library ---- */
-  try{
-    var books=(INSPIRATION.groups.find(function(g){return g.key==="books";})||{}).items||[];
-    document.getElementById("lgrid").innerHTML=books.map(function(b){
-      var deep=b.slug && typeof DETAILS!=="undefined" && DETAILS[b.slug];
-      var href=deep?('detail.html?item='+encodeURIComponent(b.slug)):null;
-      var inner=
-        '<div class="cov">'+(b.img?'<img src="'+esc(b.img)+'" alt="" loading="lazy" onerror="this.remove()">':'<span class="mark"></span>')+'</div>'+
-        '<div><div class="t">'+esc(b.title)+'</div><div class="m">'+esc(b.meta)+'</div>'+
-        '<p class="n2">'+esc(b.note)+'</p>'+
-        (deep?'<span class="deep">Read the case study →</span>':"")+'</div>';
-      return href?('<a class="lcard" href="'+href+'">'+inner+'</a>'):('<div class="lcard">'+inner+'</div>');
-    }).join("");
-  }catch(e){ document.getElementById("library").style.display="none"; }
+  /* library grid replaced by static "Where to go from here" doors (R15) */
 })();
 </script>
 </body>

@@ -120,6 +120,18 @@ img{display:block;max-width:100%}
 .pager a:hover{color:var(--green-deep)}
 .pager .lab{display:block;font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:6px}
 
+/* floating guide-to-guide arrows — frozen mid-page for fast browsing */
+.fgarrow{position:fixed;top:50%;transform:translateY(-50%);z-index:90;width:54px;height:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--line-strong);
+  color:var(--ink);font-size:1.15rem;box-shadow:0 14px 34px -14px rgba(34,48,31,.4);transition:all .25s}
+.fgarrow:hover{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
+.fgarrow.l{left:14px}.fgarrow.r{right:14px}
+.fgarrow .tip{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px 10px;opacity:0;transition:opacity .25s;pointer-events:none}
+.fgarrow:hover .tip{opacity:1}
+@media(max-width:1000px){.fgarrow{display:none}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -164,6 +176,11 @@ img{display:block;max-width:100%}
   document.getElementById("pager").innerHTML=
     '<a href="type.html?t='+esc(prev.slug)+'"><span class="lab">← Previous</span>'+esc(prev.name)+'</a>'+
     '<a href="type.html?t='+esc(next.slug)+'" style="text-align:right"><span class="lab">Next →</span>'+esc(next.name)+'</a>';
+
+  /* floating mid-page arrows: guide-to-guide browsing without scrolling */
+  document.body.insertAdjacentHTML("beforeend",
+    '<a class="fgarrow l" href="type.html?t='+esc(prev.slug)+'" aria-label="Previous field guide">←<span class="tip">'+esc(prev.short||prev.name)+'</span></a>'+
+    '<a class="fgarrow r" href="type.html?t='+esc(next.slug)+'" aria-label="Next field guide">→<span class="tip">'+esc(next.short||next.name)+'</span></a>');
 })();
 </script>
 </body>

@@ -47,3 +47,28 @@ ex-humanitas.jpg, ex-bridge-meadows.jpg — possibly official-site images (treat
 - Nightingale Melbourne + R50 Berlin — agent stopped before fetching; source later or via moodboard.
 - Zuzalu — no publicly accessible photo exists.
 - Org/directory entries (Global Ecovillage Network, Co-op Housing International, Generations United, NASCO, kibbutz-movement generic) — text-only by design.
+
+## Real-project photos — batch C (P-A-provided, 2026-07-11)
+
+| File | Project | Source | Status |
+|---|---|---|---|
+| ex-network-school.jpg | Network School | https://balajis.com/p/network-school-2025 | P-A-provided, origin article; verify license before public deploy |
+| ex-cohabs-1.jpg | Cohabs | https://cohabs.com/new-header | P-A-provided, origin article; verify license before public deploy |
+| ex-cohabs-2.jpg | Cohabs | https://cohabs.com/new-header | P-A-provided, origin article; verify license before public deploy |
+| ex-hf0-2.jpg | HF0 | https://www.bloomberg.com/news/features/2025-04-15/hf0-startup-accelerator-uses-meditation-to-push-founders | P-A-provided, origin article; verify license before public deploy |
+| ex-hf0-sf.jpg | HF0 | https://sfstandard.com/2023/01/23/inside-sfs-most-competitive-hacker-house-where-workers-eat-sleep-and-breathe-tech/ | P-A-provided, origin article; verify license before public deploy |
+| ex-hf0-3.jpg | HF0 | https://www.hf0.com/ | P-A-provided, origin article; verify license before public deploy |
+| ex-tamera.jpg | Tamera ecovillage, Portugal | https://www.tamera.org/our-facilities/ | P-A-provided, origin article; verify license before public deploy |
+| ex-nir-david.jpg | Kibbutz Nir David | https://medium.com/globetrotters/nir-david-life-on-a-kibbutz-69a93d3ba654 | P-A-provided, origin article; verify license before public deploy |
+| ex-campus1-mtl.jpg | Campus1 MTL | https://campus1mtl.ca/montreal-student-housing/ | P-A-provided, origin article; verify license before public deploy |
+| intergen-japan.jpg | Fujisawa intergenerational housing, Japan | https://www.toyproject.net/2017/04/innovative-intergenerational-care-in-fujisawa-japan/ | P-A-provided, origin article; verify license before public deploy |
+| ex-neot-smadar.jpg | Kibbutz Neot Smadar | origin TBC by P-A | P-A-provided, origin article; verify license before public deploy |
+| cohousing-afternoon.jpg | Cohousing community | origin TBC by P-A | P-A-provided, origin article; verify license before public deploy |
+| cohousing-denmark.jpg | Cohousing Denmark | https://www.pbs.org/newshour/show/cohousing-communities-help-prevent-social-isolation | P-A-provided, origin article; verify license before public deploy |
+| coop-denmark.jpg | Housing Co-op Denmark | origin TBC by P-A | P-A-provided, origin article; verify license before public deploy |
+| student-housing-1.jpg | Student housing | origin TBC by P-A | P-A-provided, origin article; verify license before public deploy |
+| book-more-beautiful-world.jpg | The More Beautiful World Our Hearts Know Is Possible (Eisenstein) | publisher cover | publisher cover; verify license before public deploy |
+
+## Field-guide anatomy diagrams (P-A-generated, 2026-07-11)
+
+diagram-ecovillage.jpg, diagram-cohousing.jpg, diagram-housing-coop.jpg, diagram-baugruppen.jpg, diagram-kibbutz.jpg, diagram-intergenerational.jpg, diagram-hacker-house.jpg, diagram-operator-coliving.jpg, diagram-entrepreneur-house.jpg, diagram-rural-coliving.jpg, diagram-network-village.jpg, diagram-student-coop.jpg — P-A-generated illustrations (own asset).
