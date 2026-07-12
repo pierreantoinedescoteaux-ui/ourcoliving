@@ -102,8 +102,15 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .s-cap .of{display:block;font-family:var(--serif);font-style:italic;font-weight:300;color:var(--ink-faint);font-size:clamp(.95rem,1.2vw,1.15rem);margin-bottom:2px}
 .s-cap h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,3.2rem);line-height:1;letter-spacing:-.015em}
 .s-cap .tagline{display:block;margin-top:6px;font-size:clamp(.88rem,1.05vw,1rem);font-weight:600;color:var(--s-deep,var(--green-deep))}
-.s-cap .open-btn{margin-top:12px;display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--s-deep,var(--green-deep));padding:10px 18px;border:1.5px solid currentColor;border-radius:99px;transition:background .25s,color .25s,border-color .25s}
-.slide.active .open-btn:hover{background:var(--s-main,var(--green));border-color:var(--s-main,var(--green));color:#fff}
+/* the ONE open/collapse control — always lives at the top-right of the
+   theme's rectangle, closed or open, so it never jumps around */
+.toggle-pill{position:absolute;top:clamp(12px,1.6vw,22px);right:clamp(12px,1.6vw,22px);z-index:4;
+  display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--s-deep,var(--green-deep));background:rgba(255,253,248,.88);backdrop-filter:blur(6px);
+  padding:11px 18px;border:1.5px solid currentColor;border-radius:99px;
+  opacity:0;pointer-events:none;transition:opacity .35s,background .25s,color .25s,border-color .25s}
+.slide.active .toggle-pill{opacity:1;pointer-events:auto}
+.toggle-pill:hover{background:var(--s-main,var(--green));border-color:var(--s-main,var(--green));color:#fff}
 
 .caro .c-arrow{position:absolute;top:calc(var(--slide-w)*9/16/2);transform:translateY(-50%);z-index:5;width:52px;height:52px;border-radius:50%;background:var(--card);border:1px solid var(--line-strong);font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -12px rgba(34,48,31,.35);transition:background .2s}
 .caro .c-arrow:hover{background:var(--sun-soft)}
@@ -113,25 +120,38 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .caro .dots button{width:10px;height:10px;border-radius:50%;background:var(--line-strong);transition:transform .25s,background .25s}
 .caro .dots button.on{transform:scale(1.35)}
 
-/* ---------- open state: one full-width theme at a time, prev/next on the sides ---------- */
+/* ---------- open state: one full-width theme at a time, its image shaded
+   into the section background, drag (click-and-hold) to swipe, and a
+   preview sliver of the neighbour theme frozen at each screen edge ---------- */
 .bankAll{display:none;position:relative}
 .bankAll.on{display:block}
-.tsec{display:none;background:var(--w,var(--sky-wash));border-radius:28px;margin-bottom:clamp(18px,3vh,32px);padding-bottom:clamp(20px,2.5vh,34px);scroll-margin-top:calc(var(--navh) + 14px)}
-.tsec.cur{display:block;animation:secIn .45s cubic-bezier(.22,.8,.3,1)}
+.tsec{display:none;border-radius:28px;margin-bottom:clamp(18px,3vh,32px);padding-bottom:clamp(20px,2.5vh,34px);scroll-margin-top:calc(var(--navh) + 14px);transition:transform .35s cubic-bezier(.22,.8,.3,1)}
+.tsec.cur{display:block;animation:secIn .45s cubic-bezier(.22,.8,.3,1);cursor:grab}
+.tsec.cur:active{cursor:grabbing}
+.tsec.dragging{transition:none;user-select:none}
 @keyframes secIn{from{opacity:0;transform:translateX(var(--dir,44px))}to{opacity:1;transform:none}}
-.b-arrow{position:absolute;top:min(36vh,320px);z-index:7;width:54px;height:54px;border-radius:50%;background:var(--card);border:1px solid var(--line-strong);font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -12px rgba(34,48,31,.35);transition:background .2s}
-.b-arrow:hover{background:var(--sun-soft)}
-.b-prev{left:-16px}
-.b-next{right:-16px}
+/* preview slivers — half out of the screen edge, frozen mid-viewport */
+.peek{position:fixed;top:50%;transform:translateY(-50%);z-index:60;width:112px;height:190px;border-radius:20px;overflow:hidden;
+  background-size:cover;background-position:center;border:1px solid var(--line-strong);
+  box-shadow:0 18px 44px -18px rgba(34,48,31,.5);cursor:pointer;padding:0;
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,left .3s,right .3s}
+.peek::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(23,32,20,.72),rgba(23,32,20,.15))}
+.peek .pk-name{position:absolute;left:11px;right:11px;bottom:30px;color:#fdfaf0;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;line-height:1.3}
+.peek .pk-arr{position:absolute;bottom:8px;left:11px;color:#fdfaf0;font-size:.9rem}
+.peek-r .pk-arr{left:auto;right:11px}
+.peek-r .pk-name{text-align:right}
+.peek-l{left:-56px}.peek-r{right:-56px}
+.peek-l:hover{left:-16px}.peek-r:hover{right:-16px}
+.peek.showp{opacity:1;visibility:visible}
 .m-pager{display:none}
 .t-head{position:sticky;top:var(--navh);z-index:6;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
-  padding:clamp(16px,2vw,26px) clamp(22px,3vw,52px);background:var(--w,var(--sky-wash));border-radius:28px 28px 0 0}
+  padding:clamp(16px,2vw,26px) clamp(22px,3vw,52px);background:rgba(246,242,231,.86);backdrop-filter:blur(10px);border-radius:28px 28px 0 0}
 .t-head .of{display:block;font-family:var(--serif);font-style:italic;font-weight:300;color:var(--ink-soft);font-size:clamp(.95rem,1.2vw,1.15rem)}
 .t-head h4{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,3.2rem);line-height:1;letter-spacing:-.015em;color:var(--ink)}
 .t-head .t-right{display:flex;align-items:center;gap:16px}
 .t-head .t-count{font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--d,var(--green-deep))}
-.t-head .t-close{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--d,var(--green-deep));padding:9px 16px;border:1.5px solid currentColor;border-radius:99px}
-.t-head .t-close:hover{background:rgba(255,255,255,.55)}
+.t-head .t-close{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--d,var(--green-deep));padding:9px 16px;border:1.5px solid currentColor;border-radius:99px;background:rgba(255,253,248,.75)}
+.t-head .t-close:hover{background:#fffdf8}
 .t-blurb{padding:0 clamp(22px,3vw,52px);font-size:clamp(.95rem,1.15vw,1.08rem);color:var(--ink-soft);max-width:75ch;margin:2px 0 clamp(16px,2.5vh,26px)}
 .t-list{display:flex;flex-direction:column;gap:clamp(34px,5.5vh,64px);padding:6px clamp(22px,3vw,52px) 16px}
 .titem{display:grid;grid-template-columns:minmax(300px,540px) 1fr;gap:clamp(20px,3vw,48px);align-items:start}
@@ -178,7 +198,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   .caro .c-arrow{display:none}
   .s-cap{left:10px;bottom:10px;max-width:calc(100% - 20px);padding:12px 16px}
   .t-head .t-right{width:100%;justify-content:space-between}
-  .b-arrow{display:none}
+  .peek{display:none}
   .m-pager{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:2px 4px 10px}
   .m-pager button{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);padding:10px 16px;border:1.5px solid currentColor;border-radius:99px}
   .m-pager .mp-count{font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--ink-faint)}
@@ -229,7 +249,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
 
   var THEMES=DFC_THEMES;
-  var current=0, bankOpen=false, bankRendered=false;
+  var N=THEMES.length;
+  /* the collapsed carousel renders THREE identical sets of slides so it
+     can loop forever in both directions — `pos` is the clone index
+     (kept inside the middle set), `current` the real theme index. */
+  var pos=N, current=0, bankOpen=false, bankRendered=false;
 
   document.getElementById("eyebrow").textContent=DFC_INTRO.eyebrow;
   document.getElementById("heroTitle").innerHTML=DFC_INTRO.titleHtml;
@@ -269,51 +293,69 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       '</div>';
     }).join("")+'</div>';
 
-  /* ------- carousel (compact slides, title overlays image) ------- */
+  /* ------- carousel (compact slides, title overlays image, infinite both ways) ------- */
   var track=document.getElementById("track");
-  track.innerHTML=THEMES.map(function(t,i){
-    return '<article class="slide" data-i="'+i+'" style="--s-main:'+t.accent.main+';--s-deep:'+t.accent.deep+'">'+
+  var oneSet=THEMES.map(function(t,i){
+    return '<article class="slide" data-t="'+i+'" style="--s-main:'+t.accent.main+';--s-deep:'+t.accent.deep+'">'+
       '<div class="s-media">'+slot(t.image,t.accent)+
+        '<button class="toggle-pill">'+t.tactics.length+' ways to design for it <span class="arr">&darr;</span></button>'+
         '<div class="s-cap"><span class="of">Designing for</span><h3>'+esc(t.name)+'</h3>'+
-        '<span class="tagline">'+esc(t.tagline)+'</span>'+
-        '<button class="open-btn">'+t.tactics.length+' ways to design for it <span class="arr">&darr;</span></button></div>'+
+        '<span class="tagline">'+esc(t.tagline)+'</span></div>'+
       '</div>'+
-      noticeLine(t.image,t.accent)+
     '</article>';
   }).join("");
+  track.innerHTML=oneSet+oneSet+oneSet; /* three identical sets = seamless loop */
 
   var dots=document.getElementById("dots");
   dots.innerHTML=THEMES.map(function(t,i){return '<button data-i="'+i+'" aria-label="'+esc(t.name)+'"></button>';}).join("");
 
   var caro=document.getElementById("caro");
-  function layout(){
+  function layout(animate){
     var slides=track.children;
     if(!slides.length)return;
     var sw=slides[0].getBoundingClientRect().width;
     var gap=parseFloat(getComputedStyle(track).gap)||24;
-    var offset=(window.innerWidth-sw)/2 - current*(sw+gap);
-    track.style.transform="translateX("+offset+"px)";
-    for(var i=0;i<slides.length;i++)slides[i].classList.toggle("active",i===current);
+    if(animate===false)track.style.transition="none";
+    track.style.transform="translateX("+((window.innerWidth-sw)/2 - pos*(sw+gap))+"px)";
+    if(animate===false){void track.offsetWidth;track.style.transition="";}
+    for(var i=0;i<slides.length;i++)slides[i].classList.toggle("active",i===pos);
     var db=dots.children;
     for(var j=0;j<db.length;j++){db[j].classList.toggle("on",j===current);db[j].style.background=(j===current)?THEMES[j].accent.main:"";}
   }
-  function setCurrent(i){
-    current=(i+THEMES.length)%THEMES.length;
-    layout();
+  var normT;
+  function setPos(p,instant){
+    pos=p; current=((pos%N)+N)%N;
+    layout(instant===true?false:undefined);
+    clearTimeout(normT);
+    normT=setTimeout(function(){ /* once the slide settles, hop back into the middle set — identical clones, invisible */
+      if(pos<N||pos>=2*N){pos=N+current;layout(false);}
+    },600);
     if(!bankOpen&&location.hash!=="#"+THEMES[current].slug)history.replaceState(null,"","#"+THEMES[current].slug);
   }
+  function goTheme(i){ /* nearest clone of theme i, so dots take the short way round */
+    var best=pos,bd=1e9;
+    [i,i+N,i+2*N].forEach(function(c){var d=Math.abs(c-pos);if(d<bd){bd=d;best=c;}});
+    setPos(best);
+  }
 
-  /* ------- open state: one theme at a time, prev/next on the sides, swipe on mobile ------- */
+  /* ------- open state: one theme at a time, image shaded into the section
+     background, drag to swipe, neighbour previews frozen at the edges ------- */
   var bankAll=document.getElementById("bankAll");
+  var peekL=null,peekR=null;
+  /* the theme's carousel image becomes the section background: visible up
+     top under a paper shade, dissolving into the theme's faint tint */
+  function secBg(t){
+    var tint=faint(t.accent.main);
+    if(!(t.image&&t.image.src))return "background:"+tint;
+    return "background:linear-gradient(to bottom, rgba(246,242,231,.62), rgba(246,242,231,.94) min(52vw,560px), "+tint+" min(72vw,860px)), url('"+esc(t.image.src)+"') top center / 100% auto no-repeat, "+tint;
+  }
   function renderBank(){
     bankAll.innerHTML=
-      '<button class="b-arrow b-prev" aria-label="Previous theme">&larr;</button>'+
-      '<button class="b-arrow b-next" aria-label="Next theme">&rarr;</button>'+
       THEMES.map(function(t,i){
-        return '<section class="tsec" id="sec-'+esc(t.slug)+'" data-i="'+i+'" style="--w:'+faint(t.accent.main)+';--d:'+t.accent.deep+'">'+
+        return '<section class="tsec" id="sec-'+esc(t.slug)+'" data-i="'+i+'" style="--d:'+t.accent.deep+';'+secBg(t)+'">'+
           '<div class="t-head"><div><span class="of">Designing for</span><h4>'+esc(t.name)+'</h4></div>'+
           '<div class="t-right"><span class="t-count">'+(i+1)+' / '+THEMES.length+'</span>'+
-          '<button class="t-close">Overview &uarr;</button></div></div>'+
+          '<button class="t-close">Collapse &uarr;</button></div></div>'+
           '<p class="t-blurb">'+esc(noEdit(t.blurb))+'</p>'+
           '<div class="t-list">'+t.tactics.map(function(x){
             return '<div class="titem" id="'+esc(t.slug)+'-'+esc(x.slug)+'">'+
@@ -325,9 +367,29 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
           }).join("")+'</div>'+
         '</section>';
       }).join("")+
+      '<button class="peek peek-l" aria-label="Previous theme"><span class="pk-name"></span><span class="pk-arr">&larr;</span></button>'+
+      '<button class="peek peek-r" aria-label="Next theme"><span class="pk-name"></span><span class="pk-arr">&rarr;</span></button>'+
       '<div class="m-pager"><button class="mp-prev">&larr; Prev</button><span class="mp-count"></span><button class="mp-next">Next &rarr;</button></div>';
+    peekL=bankAll.querySelector(".peek-l");
+    peekR=bankAll.querySelector(".peek-r");
     bankRendered=true;
   }
+  function setPeek(el,t){
+    el.style.backgroundImage=(t.image&&t.image.src)?"url('"+t.image.src+"')":"none";
+    el.style.backgroundColor=t.accent.main;
+    el.querySelector(".pk-name").textContent=t.name;
+  }
+  function peekVis(){
+    if(!peekL)return;
+    var on=false;
+    if(bankOpen){
+      var r=bankAll.getBoundingClientRect(), mid=window.innerHeight*0.5;
+      on=r.top<mid&&r.bottom>mid;
+    }
+    peekL.classList.toggle("showp",on);
+    peekR.classList.toggle("showp",on);
+  }
+  window.addEventListener("scroll",peekVis,{passive:true});
   function showSec(i,dir,instant){
     current=(i+THEMES.length)%THEMES.length;
     var secs=bankAll.querySelectorAll(".tsec");
@@ -339,6 +401,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       sec.classList.add("cur");
       if(!instant)sec.scrollIntoView({behavior:"auto",block:"nearest"});
     }
+    setPeek(peekL,THEMES[(current-1+N)%N]);
+    setPeek(peekR,THEMES[(current+1)%N]);
+    peekVis();
     var mc=bankAll.querySelector(".mp-count");
     if(mc)mc.textContent=(current+1)+" / "+THEMES.length;
     history.replaceState(null,"","#"+THEMES[current].slug);
@@ -359,7 +424,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     designingEl.classList.remove("open");
     bankAll.classList.remove("on");
     caro.classList.remove("hidden");
-    layout();
+    peekVis();
+    setPos(N+current,true); /* re-centre the collapsed carousel on the same theme */
     designingEl.scrollIntoView({behavior:"auto",block:"start"});
   }
   /* swipe left/right on mobile */
@@ -369,22 +435,51 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
     if(Math.abs(dx)>56&&Math.abs(dx)>Math.abs(dy)*1.4)showSec(current+(dx<0?1:-1),dx<0?1:-1);
   },{passive:true});
+  /* click-and-hold drag to swipe between themes (desktop) */
+  var drag={on:false,x:0,dx:0,sec:null,moved:false};
+  bankAll.addEventListener("pointerdown",function(e){
+    if(e.pointerType==="touch"||e.button!==0)return; /* touch keeps the swipe above */
+    if(e.target.closest("a,button"))return;
+    var sec=e.target.closest(".tsec"); if(!sec)return;
+    drag.on=true;drag.x=e.clientX;drag.dx=0;drag.sec=sec;drag.moved=false;
+    sec.classList.add("dragging");
+    if(bankAll.setPointerCapture)try{bankAll.setPointerCapture(e.pointerId);}catch(err){}
+  });
+  bankAll.addEventListener("pointermove",function(e){
+    if(!drag.on)return;
+    drag.dx=e.clientX-drag.x;
+    if(Math.abs(drag.dx)>6)drag.moved=true;
+    drag.sec.style.transform="translateX("+(drag.dx*0.35)+"px)"; /* damped — the section follows the hand */
+  });
+  function endDrag(){
+    if(!drag.on)return;
+    drag.on=false;
+    var dx=drag.dx;
+    drag.sec.classList.remove("dragging");
+    drag.sec.style.transform="";
+    if(Math.abs(dx)>90)showSec(current+(dx<0?1:-1),dx<0?1:-1);
+  }
+  bankAll.addEventListener("pointerup",endDrag);
+  bankAll.addEventListener("pointercancel",endDrag);
+  bankAll.addEventListener("click",function(e){ /* a real drag must not fire the click underneath */
+    if(drag.moved){drag.moved=false;e.stopPropagation();e.preventDefault();}
+  },true);
 
   /* ------- events ------- */
   track.addEventListener("click",function(e){
     var slide=e.target.closest(".slide");if(!slide)return;
-    var i=+slide.dataset.i;
-    if(i!==current){setCurrent(i);return;}
-    openBank(i);
+    var ci=Array.prototype.indexOf.call(track.children,slide);
+    if(ci!==pos){setPos(ci);return;} /* side slide: bring it to the centre */
+    openBank(current);
   });
   bankAll.addEventListener("click",function(e){
     if(e.target.closest(".t-close")){closeBank();return;}
-    if(e.target.closest(".b-prev")||e.target.closest(".mp-prev")){showSec(current-1,-1);return;}
-    if(e.target.closest(".b-next")||e.target.closest(".mp-next")){showSec(current+1,1);return;}
+    if(e.target.closest(".peek-l")||e.target.closest(".mp-prev")){showSec(current-1,-1);return;}
+    if(e.target.closest(".peek-r")||e.target.closest(".mp-next")){showSec(current+1,1);return;}
   });
-  document.getElementById("prevBtn").addEventListener("click",function(){setCurrent(current-1);});
-  document.getElementById("nextBtn").addEventListener("click",function(){setCurrent(current+1);});
-  dots.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setCurrent(+b.dataset.i);});
+  document.getElementById("prevBtn").addEventListener("click",function(){setPos(pos-1);});
+  document.getElementById("nextBtn").addEventListener("click",function(){setPos(pos+1);});
+  dots.addEventListener("click",function(e){var b=e.target.closest("button");if(b)goTheme(+b.dataset.i);});
   document.addEventListener("keydown",function(e){
     if(bankOpen){
       if(e.key==="Escape")closeBank();
@@ -392,10 +487,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       if(e.key==="ArrowRight")showSec(current+1,1);
       return;
     }
-    if(e.key==="ArrowLeft")setCurrent(current-1);
-    if(e.key==="ArrowRight")setCurrent(current+1);
+    if(e.key==="ArrowLeft")setPos(pos-1);
+    if(e.key==="ArrowRight")setPos(pos+1);
   });
-  window.addEventListener("resize",function(){if(!bankOpen)layout();});
+  window.addEventListener("resize",function(){if(!bankOpen)layout(false);});
 
   /* ------- budget (collapsible) ------- */
   var budgetSec=document.getElementById("budget");
@@ -435,9 +530,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   /* ------- init (deep link: #theme opens that theme's full section) ------- */
   var h=location.hash.replace("#","");
   var idx=THEMES.findIndex(function(t){return t.slug===h;});
-  if(idx>=0)openBank(idx,true);
-  layout();
-  setTimeout(layout,300); /* after fonts settle */
+  if(idx>=0){current=idx;pos=N+idx;openBank(idx,true);}
+  layout(false);
+  setTimeout(function(){layout(false);},300); /* after fonts settle */
 })();
 </script>
 </body>

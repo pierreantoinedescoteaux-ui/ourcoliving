@@ -115,20 +115,23 @@ const COLIVING_TYPES = [
     ]
   },
   {
-    slug: "baugruppen",
-    name: "Baugruppe (building group)",
-    short: "Baugruppe",
-    tagline: "Skip the developer: friends hire an architect and build their own apartment house.",
-    scores: { ecoTech: 38, centralization: 28, financing: 55, difficulty: 78, independence: 78, scale: 45, permanence: 88, cost: 55 },
+    slug: "intergenerational",
+    name: "Intergenerational housing",
+    short: "Intergenerational",
+    tagline: "Students living rent-free in care homes. Grandparents on the ground floor. The oldest idea, made deliberate.",
+    scores: { ecoTech: 18, centralization: 48, financing: 35, difficulty: 40, independence: 50, scale: 30, permanence: 75, cost: 25 },
     body: [
-      "A German invention: a group of future residents acts as its own developer — buying the plot, hiring the architect, cutting the developer margin (often 20–30%) out of the price.",
-      "The result is housing shaped by the people who'll live in it: shared roof terraces, common rooms, flexible walls. Community is a by-product of having survived a construction project together."
+      "Humans lived in age-mixed households for all of history until about 1950. This model re-engineers that on purpose: pairing young people who need cheap housing with older people who need presence.",
+      "The Dutch cracked the famous version — students live free in a care home in exchange for 30 hours a month of being a good neighbor. Loneliness drops on both sides of the deal."
     ],
-    who: "Organized, patient people with access to financing who want a custom home and built-in neighbors.",
-    watch: "You're the developer now — every risk a developer carries, you carry.",
+    who: "Students, young workers, and elders — anyone the housing market has priced out of connection.",
+    watch: "It lives or dies on matching and expectations. 'Being neighborly' has to be defined.",
     examples: [
-      { name: "R50", place: "Berlin", note: "The famous one — 19 households, raw concrete, shared everything.", url: "https://www.archdaily.com/593154/r50-nil-cohousing-ifau-und-jesko-fezer-heide-and-von-beckerath" },
-      { img: "images/ex-spreefeld.jpg", name: "Spreefeld", place: "Berlin", note: "Riverside building group with cluster flats and public ground floors.", url: "https://en.wikipedia.org/wiki/Baugruppe" }
+      { img: "images/ex-humanitas.jpg", name: "Humanitas Deventer", place: "Netherlands", note: "The care home where students live free — the model everyone cites.", url: "https://www.humanitasdeventer.nl" },
+      { img: "images/ex-bridge-meadows.jpg", name: "Bridge Meadows", place: "Portland, OR", note: "Elders + foster families, designed as one community.", url: "https://bridgemeadows.org" },
+      { name: "Generations United", place: "USA", note: "The advocacy hub for shared intergenerational sites.", url: "https://www.gu.org" },
+      { name: "Hogeweyk", place: "Netherlands", note: "A village-scale dementia care home where residents live in real streets and shops — radical normalcy for the people who need care most.", url: "https://www.bethecareconcept.com/en/hogeweyk-dementia-village-hogeweyk-netherlands/" },
+      { img: "images/intergen-japan.jpg", name: "Fujisawa care model", place: "Japan", note: "Daycare children and elderly residents share daily programming — one of the most studied designs for cross-generational contact.", url: "https://www.toyproject.net/2017/04/innovative-intergenerational-care-in-fujisawa-japan/" }
     ]
   },
   {
@@ -151,23 +154,20 @@ const COLIVING_TYPES = [
     ]
   },
   {
-    slug: "intergenerational",
-    name: "Intergenerational housing",
-    short: "Intergenerational",
-    tagline: "Students living rent-free in care homes. Grandparents on the ground floor. The oldest idea, made deliberate.",
-    scores: { ecoTech: 18, centralization: 48, financing: 35, difficulty: 40, independence: 50, scale: 30, permanence: 75, cost: 25 },
+    slug: "baugruppen",
+    name: "Baugruppe (building group)",
+    short: "Baugruppe",
+    tagline: "Skip the developer: friends hire an architect and build their own apartment house.",
+    scores: { ecoTech: 38, centralization: 28, financing: 55, difficulty: 78, independence: 78, scale: 45, permanence: 88, cost: 55 },
     body: [
-      "Humans lived in age-mixed households for all of history until about 1950. This model re-engineers that on purpose: pairing young people who need cheap housing with older people who need presence.",
-      "The Dutch cracked the famous version — students live free in a care home in exchange for 30 hours a month of being a good neighbor. Loneliness drops on both sides of the deal."
+      "A German invention: a group of future residents acts as its own developer — buying the plot, hiring the architect, cutting the developer margin (often 20–30%) out of the price.",
+      "The result is housing shaped by the people who'll live in it: shared roof terraces, common rooms, flexible walls. Community is a by-product of having survived a construction project together."
     ],
-    who: "Students, young workers, and elders — anyone the housing market has priced out of connection.",
-    watch: "It lives or dies on matching and expectations. 'Being neighborly' has to be defined.",
+    who: "Organized, patient people with access to financing who want a custom home and built-in neighbors.",
+    watch: "You're the developer now — every risk a developer carries, you carry.",
     examples: [
-      { img: "images/ex-humanitas.jpg", name: "Humanitas Deventer", place: "Netherlands", note: "The care home where students live free — the model everyone cites.", url: "https://www.humanitasdeventer.nl" },
-      { img: "images/ex-bridge-meadows.jpg", name: "Bridge Meadows", place: "Portland, OR", note: "Elders + foster families, designed as one community.", url: "https://bridgemeadows.org" },
-      { name: "Generations United", place: "USA", note: "The advocacy hub for shared intergenerational sites.", url: "https://www.gu.org" },
-      { name: "Hogeweyk", place: "Netherlands", note: "A village-scale dementia care home where residents live in real streets and shops — radical normalcy for the people who need care most.", url: "https://www.bethecareconcept.com/en/hogeweyk-dementia-village-hogeweyk-netherlands/" },
-      { img: "images/intergen-japan.jpg", name: "Fujisawa care model", place: "Japan", note: "Daycare children and elderly residents share daily programming — one of the most studied designs for cross-generational contact.", url: "https://www.toyproject.net/2017/04/innovative-intergenerational-care-in-fujisawa-japan/" }
+      { name: "R50", place: "Berlin", note: "The famous one — 19 households, raw concrete, shared everything.", url: "https://www.archdaily.com/593154/r50-nil-cohousing-ifau-und-jesko-fezer-heide-and-von-beckerath" },
+      { img: "images/ex-spreefeld.jpg", name: "Spreefeld", place: "Berlin", note: "Riverside building group with cluster flats and public ground floors.", url: "https://en.wikipedia.org/wiki/Baugruppe" }
     ]
   },
   {

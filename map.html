@@ -213,37 +213,42 @@ img{display:block;max-width:100%}
 .backdrop.open{opacity:1;pointer-events:auto}
 .modal{
   position:fixed;left:50%;top:50%;z-index:90;
-  width:min(980px,95vw);max-height:90vh;
-  background:var(--card);border:1px solid var(--line);border-radius:28px;
-  box-shadow:0 40px 90px -20px rgba(34,48,31,.45);
-  overflow-y:auto;overscroll-behavior:contain;
+  width:min(980px,95vw);
   opacity:0;pointer-events:none;
   transform:translate(-50%,-50%) scale(.95) translateY(14px);
   transition:opacity .35s ease,transform .35s cubic-bezier(.2,.9,.3,1.15);
 }
 .modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
-.modal .mhero{height:clamp(180px,30vh,300px);background:linear-gradient(140deg,var(--sky-wash),#f0e8d2);position:relative}
-.modal .mhero img{width:100%;height:100%;object-fit:cover;display:block}
-.modal .close{
-  position:absolute;top:16px;right:16px;z-index:5;
-  width:44px;height:44px;border-radius:50%;
-  display:grid;place-items:center;font-size:1.15rem;
-  background:rgba(255,253,248,.92);color:var(--ink);border:1px solid var(--line);
+/* the scrolling "page" lives in its own layer so the tool buttons
+   beside it stay frozen while the content scrolls */
+.modal .mscroll{
+  max-height:90vh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--card);border:1px solid var(--line);border-radius:28px;
+  box-shadow:0 40px 90px -20px rgba(34,48,31,.45);
+}
+.modal .mtools{position:absolute;top:6px;right:-66px;display:flex;flex-direction:column;gap:12px;z-index:5}
+.modal .mtool{
+  width:50px;height:50px;border-radius:50%;
+  display:grid;place-items:center;font-size:1.25rem;
+  background:var(--card);color:var(--ink);border:1px solid var(--line-strong);
+  box-shadow:0 12px 28px -12px rgba(34,48,31,.45);
   transition:all .3s;
 }
-.modal .close:hover{transform:rotate(90deg);color:var(--green-deep)}
+.modal .mtool svg{width:21px;height:21px}
+.modal .mtool.close:hover{transform:rotate(90deg);color:var(--green-deep)}
+.modal .mtool.full{color:var(--green-deep)}
+.modal .mtool.full:hover{background:var(--green);border-color:var(--green);color:#fff;transform:translateY(-2px)}
+@media(max-width:1130px){ /* no room beside the card — dock inside its top-right corner */
+  .modal .mtools{right:12px;top:12px;flex-direction:row-reverse}
+  .modal .mtool{background:rgba(255,253,248,.94)}
+}
+.modal .mhero{height:clamp(180px,30vh,300px);background:linear-gradient(140deg,var(--sky-wash),#f0e8d2);position:relative}
+.modal .mhero img{width:100%;height:100%;object-fit:cover;display:block}
 .modal .m-in{padding:clamp(24px,4vw,48px)}
 .modal .mtop{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .modal .idx{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--green-deep)}
 .modal h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.02;letter-spacing:-.02em;margin:8px 0 12px}
 .modal .tagline{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.4;color:var(--gold-deep);margin-bottom:8px;max-width:38ch}
-.modal .fullpage{
-  flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;margin-top:6px;
-  background:var(--green);color:#fff;font-size:.85rem;font-weight:700;
-  padding:13px 24px;border-radius:99px;transition:background .3s,transform .25s;white-space:nowrap;
-}
-.modal .fullpage:hover{background:var(--green-deep);transform:translateY(-2px)}
-
 /* guide body inside the popup */
 .modal .k{font-size:.66rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
 .modal .grid2{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(24px,4vw,56px);align-items:start;padding:clamp(22px,3.5vh,40px) 0;border-top:1px solid var(--line);margin-top:22px}
@@ -439,7 +444,13 @@ img{display:block;max-width:100%}
 
 <div class="backdrop" id="backdrop"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Co-living model field notes">
-  <div id="modalIn"></div>
+  <div class="mscroll" id="mscroll"><div id="modalIn"></div></div>
+  <div class="mtools">
+    <button class="mtool close" id="mClose" aria-label="Close">&times;</button>
+    <a class="mtool full" id="mFull" href="#" aria-label="Open as full page" title="Open as full page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+    </a>
+  </div>
 </div>
 
 <script src="data.js"></script>
@@ -504,15 +515,25 @@ img{display:block;max-width:100%}
     if(kids.length<=CARO_N) return track.scrollWidth/SETS;
     return kids[CARO_N].offsetLeft - kids[0].offsetLeft;
   }
-  function centerStart(){ var w=oneSetW(); if(w) track.scrollLeft=w; }
+  /* instant (invisible) scroll positioning — the track has CSS
+     scroll-behavior:smooth, so a bare scrollLeft assignment ANIMATES.
+     That was the "carousel moves a ton on load" bug: centering on the
+     middle set played as a huge visible scroll. Suspend smooth first. */
+  function jumpBy(dx){
+    track.style.scrollBehavior="auto";
+    track.scrollLeft+=dx;
+    track.style.scrollBehavior="";
+  }
+  function centerStart(){ var w=oneSetW(); if(w) jumpBy(w-track.scrollLeft); }
   /* keep the position inside the middle set — jump by exactly one set
      (identical content) whenever we drift toward an edge. */
   function recenter(){
     var w=oneSetW(); if(!w) return;
-    if(track.scrollLeft < w*0.5)      track.scrollLeft += w;
-    else if(track.scrollLeft > w*1.5) track.scrollLeft -= w;
+    if(track.scrollLeft < w*0.5)      jumpBy(w);
+    else if(track.scrollLeft > w*1.5) jumpBy(-w);
   }
-  requestAnimationFrame(centerStart);
+  centerStart(); /* before first paint — no visible motion */
+  window.addEventListener("load",centerStart);
   window.addEventListener("resize",centerStart);
   var recenterT;
   track.addEventListener("scroll",function(){
@@ -521,8 +542,8 @@ img{display:block;max-width:100%}
        so we can never run off the end or snap back to the start. */
     var w=oneSetW();
     if(w){
-      if(track.scrollLeft > w*1.9)      track.scrollLeft -= w;
-      else if(track.scrollLeft < w*0.1) track.scrollLeft += w;
+      if(track.scrollLeft > w*1.9)      jumpBy(-w);
+      else if(track.scrollLeft < w*0.1) jumpBy(w);
     }
     clearTimeout(recenterT);
     recenterT=setTimeout(recenter,120); /* gentle recentre once motion settles */
@@ -534,17 +555,8 @@ img{display:block;max-width:100%}
   document.getElementById("caroNext").addEventListener("click",function(){
     recenter(); track.scrollBy({left:slideW(),behavior:"smooth"});
   });
-  /* gentle auto-advance — keeps drifting right forever; pauses on
-     hover / touch / while a field-notes popup is open. */
-  var caroPaused=false, caroEl=document.getElementById("caro");
-  caroEl.addEventListener("mouseenter",function(){caroPaused=true;});
-  caroEl.addEventListener("mouseleave",function(){caroPaused=false;});
-  caroEl.addEventListener("touchstart",function(){caroPaused=true;},{passive:true});
-  setInterval(function(){
-    if(caroPaused||activeSlug)return;
-    recenter();
-    track.scrollBy({left:slideW(),behavior:"smooth"});
-  },4500);
+  /* auto-advance removed (P-A, R18): the carousel only moves when the
+     reader moves it. */
 
   /* ---- axis selects ---- */
   Object.keys(MAP_PROPS).forEach(function(k){
@@ -638,22 +650,26 @@ img{display:block;max-width:100%}
     COLIVING_TYPES.forEach(function(x){ x._el.classList.toggle("active",x.slug===slug); });
 
     modalIn.innerHTML=
-      '<div class="mhero">'+(k.hero?'<img src="'+esc(k.hero.src)+'" alt="'+esc(k.hero.cap||t.name)+'" onerror="this.remove()">':"")+
-        '<button class="close" id="mClose" aria-label="Close">&times;</button></div>'+
+      '<div class="mhero">'+(k.hero?'<img src="'+esc(k.hero.src)+'" alt="'+esc(k.hero.cap||t.name)+'" onerror="this.remove()">':"")+'</div>'+
       '<div class="m-in">'+
       '<div class="mtop"><div>'+
         '<div class="idx">No. '+String(idx+1).padStart(2,"0")+' / '+COLIVING_TYPES.length+(t.mine?' &nbsp;·&nbsp; ★ my practice':'')+'</div>'+
         '<h2>'+esc(t.name)+'</h2>'+
         '<p class="tagline">'+esc(t.tagline)+'</p>'+
-      '</div>'+
-      '<a class="fullpage" href="type.html?t='+esc(t.slug)+'">Open as full page ↗</a></div>'+
+      '</div></div>'+
       guideBodyHTML(t,k)+
       '</div>';
 
+    document.getElementById("mFull").href="type.html?t="+esc(t.slug);
     modal.classList.add("open");
     backdrop.classList.add("open");
-    modal.scrollTop=0;
-    document.getElementById("mClose").addEventListener("click",close);
+    /* open with the hero image already scrolled away — a sliver of
+       padding above the "No. xx / 12" line (P-A, R18). Scroll up
+       still reveals the photo. */
+    var ms=document.getElementById("mscroll");
+    ms.scrollTop=0;
+    var mtop=modalIn.querySelector(".mtop");
+    if(mtop) ms.scrollTop=Math.max(0, mtop.offsetTop-18);
     try{ history.replaceState(null,"","#"+slug); }catch(e){}
   }
   function close(){
@@ -665,6 +681,7 @@ img{display:block;max-width:100%}
     try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
   }
   backdrop.addEventListener("click",close);
+  document.getElementById("mClose").addEventListener("click",close);
   document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&activeSlug) close(); });
 
   /* ---- init ---- */

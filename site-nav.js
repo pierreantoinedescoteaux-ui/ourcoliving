@@ -14,7 +14,6 @@
 
   var ITEMS = [
     { label: "Manifesto", href: "manifesto.html", key: "manifesto", sub: [
-      { label: "The story we were handed — the essay", href: "separation.html" },
       { label: "Hope: real communities", href: "projects.html" },
       { label: "Hope: books of inspiration", href: "inspiration.html" }
     ]},
@@ -23,7 +22,9 @@
       { label: "Field guides — the 12 models", href: "type.html?t=ecovillage" },
       { label: "Resources directory", href: "resources.html" }
     ]},
-    { label: "Design for Connection", href: "design.html", key: "design", sub: [] },
+    { label: "Design for Connection", href: "design.html", key: "design", sub: [
+      { label: "The story we were handed — the essay", href: "separation.html" }
+    ]},
     { label: "About", href: "about.html", key: "about", sub: [
       { label: "My story", href: "story.html" },
       { label: "Work & case studies", href: "work.html" }
@@ -31,7 +32,7 @@
   ];
 
   var PAGE_KEY = {
-    "manifesto.html": "manifesto", "separation.html": "manifesto", "projects.html": "manifesto",
+    "manifesto.html": "manifesto", "separation.html": "design", "projects.html": "manifesto",
     "inspiration.html": "manifesto", "detail.html": "manifesto",
     "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas",
     "design.html": "design",
@@ -64,14 +65,19 @@
 ".snav .mpanel a{display:block;font-family:'Switzer',system-ui,sans-serif;font-size:.95rem;font-weight:600;color:#22301f;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(34,48,31,.08)}" +
 ".snav .mpanel a.subm{font-weight:400;font-size:.86rem;color:#5c6b57;padding-left:16px}" +
 "@media(max-width:900px){.snav .top{display:none}.snav .mbtn{display:inline-block}}" +
-".sfooter{margin-top:clamp(50px,8vh,90px);border-top:1px solid rgba(34,48,31,.14);background:rgba(246,242,231,.6);padding:clamp(36px,6vh,60px) clamp(20px,5vw,88px) clamp(30px,5vh,46px);text-align:center;font-family:'Switzer',system-ui,sans-serif;color:#22301f}" +
-".sfooter .note{font-family:'Zodiak',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.5vw,1.3rem);color:#3c4636;max-width:46ch;margin:0 auto 6px}" +
-".sfooter .sig{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#8f6215;margin-bottom:22px}" +
-".sfooter .flinks{display:flex;gap:clamp(12px,2.5vw,26px);justify-content:center;flex-wrap:wrap;margin-bottom:26px}" +
-".sfooter .flinks a{font-size:.78rem;font-weight:500;color:#5c6b57;text-decoration:none}" +
+".sfooter{margin-top:clamp(50px,8vh,90px);border-top:1px solid rgba(34,48,31,.14);background:rgba(246,242,231,.7);padding:clamp(36px,6vh,60px) clamp(20px,5vw,88px) clamp(18px,3vh,26px);font-family:'Switzer',system-ui,sans-serif;color:#22301f}" +
+".sfooter .frow{display:flex;justify-content:space-between;align-items:flex-start;gap:28px 60px;flex-wrap:wrap;max-width:1500px;margin:0 auto}" +
+".sfooter .note{font-family:'Zodiak',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(1.15rem,1.8vw,1.5rem);color:#3c4636;margin:0 0 8px}" +
+".sfooter .sig{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#8f6215}" +
+".sfooter .flinks{display:grid;grid-template-columns:repeat(2,minmax(150px,auto));gap:10px 42px}" +
+".sfooter .flinks a{font-size:.82rem;font-weight:500;color:#5c6b57;text-decoration:none}" +
 ".sfooter .flinks a:hover{color:#3c6b32}" +
-".sfooter .up{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(34,48,31,.3);background:transparent;color:#22301f;font-size:1.05rem;cursor:pointer;transition:all .3s}" +
-".sfooter .up:hover{border-color:#3c6b32;color:#3c6b32;transform:translateY(-3px)}";
+".sfooter .fbase{max-width:1500px;margin:clamp(26px,4vh,40px) auto 0;padding-top:14px;border-top:1px solid rgba(34,48,31,.1);font-size:.74rem;color:#93a08d;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}" +
+"@media(max-width:640px){.sfooter .flinks{grid-template-columns:1fr 1fr;gap:10px 24px}}" +
+/* back-to-top: frozen in the bottom-right corner of every page */
+".stotop{position:fixed;right:clamp(14px,2.2vw,26px);bottom:clamp(14px,2.6vh,26px);z-index:75;width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(34,48,31,.3);background:rgba(255,253,248,.92);backdrop-filter:blur(6px);color:#22301f;font-size:1.1rem;cursor:pointer;box-shadow:0 12px 30px -14px rgba(34,48,31,.4);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .35s,visibility .35s,transform .35s,color .3s,border-color .3s}" +
+".stotop.show{opacity:1;visibility:visible;transform:none}" +
+".stotop:hover{border-color:#3c6b32;color:#3c6b32;transform:translateY(-3px)}";
 
   function navHtml() {
     var act = activeKey();
@@ -95,18 +101,42 @@
   }
 
   function footerHtml() {
+    var yr = new Date().getFullYear();
     return '<footer class="sfooter">' +
-      '<p class="note">This site is built for hope and for love — a bet that we can still choose to live closer to each other.</p>' +
-      '<div class="sig">— Pierre-Antoine Descoteaux</div>' +
-      '<div class="flinks">' +
-        '<a href="manifesto.html">Manifesto</a>' +
-        '<a href="map.html">Coliving Atlas</a>' +
-        '<a href="projects.html">Real communities</a>' +
-        '<a href="resources.html">Resources</a>' +
-        '<a href="mailto:' + EMAIL + '">Say hello</a>' +
+      '<div class="frow">' +
+        '<div class="fbrand">' +
+          '<p class="note">This site is built for hope and love.</p>' +
+          '<div class="sig">Pierre-Antoine Descoteaux</div>' +
+        "</div>" +
+        '<nav class="flinks" aria-label="Footer">' +
+          '<a href="manifesto.html">Manifesto</a>' +
+          '<a href="map.html">Coliving Atlas</a>' +
+          '<a href="design.html">Design for Connection</a>' +
+          '<a href="projects.html">Real communities</a>' +
+          '<a href="resources.html">Resources</a>' +
+          '<a href="about.html">About</a>' +
+          '<a href="mailto:' + EMAIL + '">Say hello</a>' +
+        "</nav>" +
       "</div>" +
-      '<button class="up" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:\'smooth\'})">↑</button>' +
+      '<div class="fbase"><span>&copy; ' + yr + ' Pierre-Antoine Descoteaux</span></div>' +
       "</footer>";
+  }
+
+  /* back-to-top button — mounted on EVERY page that loads this script
+     (static shells and app.js pages alike), frozen bottom-right.
+     Fades in once there is anything to go back up from. */
+  function mountToTop() {
+    if (document.querySelector(".stotop")) return;
+    var b = document.createElement("button");
+    b.className = "stotop";
+    b.type = "button";
+    b.setAttribute("aria-label", "Back to top");
+    b.textContent = "↑";
+    b.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    document.body.appendChild(b);
+    function onScroll() { b.classList.toggle("show", window.scrollY > 300); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 
   function injectCss() {
@@ -119,6 +149,7 @@
 
   function init() {
     injectCss();
+    mountToTop();
     var slots = document.querySelectorAll("[data-sitenav]");
     if (slots.length) {
       slots.forEach ? slots.forEach(fill) : Array.prototype.forEach.call(slots, fill);
