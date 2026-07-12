@@ -77,7 +77,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .w-scale{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
 .w-block.space .w-scale{color:var(--sky-deep)}
 .w-block.community .w-scale{color:var(--green-deep)}
-.w-block h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1;margin:8px 0 12px}
+.w-block h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1;margin:8px 0 6px}
+.w-sub{font-family:var(--serif);font-style:italic;font-size:clamp(.95rem,1.15vw,1.1rem);color:var(--ink-soft);margin-bottom:14px}
+.w-block .slot-img{margin-bottom:14px}
 .w-block p{font-size:clamp(.95rem,1.15vw,1.08rem);color:var(--ink-soft)}
 .w-block a{display:inline-block;margin-top:14px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep)}
 .w-block a:hover{text-decoration:underline}
@@ -85,6 +87,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 /* ---------- Designing for… carousel (compact, title overlays image) ---------- */
 .designing{padding:clamp(50px,8vh,90px) 0 0}
 .designing .head{margin-bottom:clamp(24px,4vh,44px)}
+.designing.open .head{display:none} /* the pinned section title takes over — no duplication */
 .designing h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.6vw,4rem);line-height:1.05;letter-spacing:-.015em}
 .designing h2 em{font-style:italic;color:var(--gold-deep)}
 
@@ -110,10 +113,17 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .caro .dots button{width:10px;height:10px;border-radius:50%;background:var(--line-strong);transition:transform .25s,background .25s}
 .caro .dots button.on{transform:scale(1.35)}
 
-/* ---------- open state: scroll-through theme sections ---------- */
-.bankAll{display:none}
+/* ---------- open state: one full-width theme at a time, prev/next on the sides ---------- */
+.bankAll{display:none;position:relative}
 .bankAll.on{display:block}
-.tsec{background:var(--w,var(--sky-wash));border-radius:28px;margin-bottom:clamp(18px,3vh,32px);padding-bottom:clamp(20px,2.5vh,34px)}
+.tsec{display:none;background:var(--w,var(--sky-wash));border-radius:28px;margin-bottom:clamp(18px,3vh,32px);padding-bottom:clamp(20px,2.5vh,34px);scroll-margin-top:calc(var(--navh) + 14px)}
+.tsec.cur{display:block;animation:secIn .45s cubic-bezier(.22,.8,.3,1)}
+@keyframes secIn{from{opacity:0;transform:translateX(var(--dir,44px))}to{opacity:1;transform:none}}
+.b-arrow{position:absolute;top:min(36vh,320px);z-index:7;width:54px;height:54px;border-radius:50%;background:var(--card);border:1px solid var(--line-strong);font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -12px rgba(34,48,31,.35);transition:background .2s}
+.b-arrow:hover{background:var(--sun-soft)}
+.b-prev{left:-16px}
+.b-next{right:-16px}
+.m-pager{display:none}
 .t-head{position:sticky;top:var(--navh);z-index:6;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
   padding:clamp(16px,2vw,26px) clamp(22px,3vw,52px);background:var(--w,var(--sky-wash));border-radius:28px 28px 0 0}
 .t-head .of{display:block;font-family:var(--serif);font-style:italic;font-weight:300;color:var(--ink-soft);font-size:clamp(.95rem,1.2vw,1.15rem)}
@@ -123,14 +133,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .t-head .t-close{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--d,var(--green-deep));padding:9px 16px;border:1.5px solid currentColor;border-radius:99px}
 .t-head .t-close:hover{background:rgba(255,255,255,.55)}
 .t-blurb{padding:0 clamp(22px,3vw,52px);font-size:clamp(.95rem,1.15vw,1.08rem);color:var(--ink-soft);max-width:75ch;margin:2px 0 clamp(16px,2.5vh,26px)}
-.rail{display:flex;gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;padding:4px clamp(22px,3vw,52px) 16px;scrollbar-width:thin}
-.rail::-webkit-scrollbar{height:8px}
-.rail::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px}
-.tcard{flex:0 0 min(520px,82vw);scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,2vw,28px);display:flex;flex-direction:column}
-.tcard h5{font-family:var(--serif);font-weight:400;font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.1;margin-top:18px}
-.tcard .t-line{font-weight:600;font-size:clamp(1rem,1.2vw,1.12rem);margin-top:8px}
-.tcard .t-more{font-size:clamp(.92rem,1.05vw,1rem);color:var(--ink-soft);margin-top:8px;line-height:1.6}
-.rail-hint{padding:0 clamp(22px,3vw,52px);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.t-list{display:flex;flex-direction:column;gap:clamp(34px,5.5vh,64px);padding:6px clamp(22px,3vw,52px) 16px}
+.titem{display:grid;grid-template-columns:minmax(300px,540px) 1fr;gap:clamp(20px,3vw,48px);align-items:start}
+@media(max-width:820px){.titem{grid-template-columns:1fr}}
+.titem h5{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.5vw,2.1rem);line-height:1.1}
+.titem .t-line{font-weight:600;font-size:clamp(1.02rem,1.25vw,1.15rem);margin-top:8px}
+.titem .t-more{font-size:clamp(.95rem,1.1vw,1.03rem);color:var(--ink-soft);margin-top:10px;line-height:1.65;max-width:58ch}
 
 /* ---------- budget (collapsible) ---------- */
 .budget{padding:clamp(70px,10vh,130px) 0 0}
@@ -138,7 +146,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .bud-head{display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;text-align:left}
 .bud-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,4.4vw,3.8rem);line-height:1.05;letter-spacing:-.018em;margin:10px 0 8px;max-width:20ch}
 .bud-head .sub{font-size:clamp(.95rem,1.2vw,1.1rem);color:var(--ink);opacity:.75}
-.bud-arrow{flex:none;width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .4s}
+.bud-cta{flex:none;display:inline-flex;align-items:center;gap:12px;font-size:.76rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);padding:14px 22px;border:1.5px solid var(--ink);border-radius:99px;white-space:nowrap;transition:background .25s}
+.bud-head:hover .bud-cta{background:rgba(255,255,255,.5)}
+.bud-arrow{display:inline-block;transition:transform .4s}
 .budget.open .bud-arrow{transform:rotate(180deg)}
 .bud-body{max-height:0;overflow:hidden;transition:max-height .7s cubic-bezier(.22,.8,.3,1)}
 .budget.open .bud-body{max-height:9000px}
@@ -168,6 +178,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   .caro .c-arrow{display:none}
   .s-cap{left:10px;bottom:10px;max-width:calc(100% - 20px);padding:12px 16px}
   .t-head .t-right{width:100%;justify-content:space-between}
+  .b-arrow{display:none}
+  .m-pager{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:2px 4px 10px}
+  .m-pager button{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);padding:10px 16px;border:1.5px solid currentColor;border-radius:99px}
+  .m-pager .mp-count{font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--ink-faint)}
+  .bud-cta{padding:11px 16px;font-size:.68rem}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -222,7 +237,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
   /* image slot: real <img> when src exists, dashed placeholder with the scene otherwise */
   function slot(img,acc){
-    if(img.src)return '<img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(img.scene)+'" loading="lazy">';
+    if(img.src)return '<img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(img.scene)+'" loading="lazy"'+(img.pos?' style="object-position:'+esc(img.pos)+'"':'')+'>';
     return '<div class="ph" style="--ph-accent:'+acc.main+';--ph-deep:'+acc.deep+';--ph-wash:'+acc.wash+'">'+
       '<span class="ph-dot" aria-hidden="true"></span>'+
       '<span class="ph-k">Image — to generate</span>'+
@@ -233,14 +248,22 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     return '<p class="notice" style="--ph-deep:'+acc.deep+'"><span class="n-k">What to notice</span><span>'+esc(img.notice)+'</span></p>';
   }
 
+  /* very faint solid tint of a theme color over the paper ground (solid so sticky headers cover content) */
+  function faint(hex){
+    var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16),a=.1;
+    return "rgb("+Math.round(r*a+246*(1-a))+","+Math.round(g*a+242*(1-a))+","+Math.round(b*a+231*(1-a))+")";
+  }
+
   /* ------- designing what? ------- */
   document.getElementById("whatBox").innerHTML=
     '<span class="eyebrow">'+esc(DFC_WHAT.eyebrow)+'</span>'+
     '<h2>'+esc(DFC_WHAT.title)+'</h2>'+
-    '<div class="w-grid">'+DFC_WHAT.blocks.map(function(b,i){
-      return '<div class="w-block '+(i===0?"space":"community")+'">'+
+    '<div class="w-grid">'+DFC_WHAT.blocks.map(function(b){
+      return '<div class="w-block '+esc(b.kind)+'">'+
         '<span class="w-scale">'+esc(b.scale)+'</span>'+
         '<h3>'+esc(b.name)+'</h3>'+
+        (b.sub?'<p class="w-sub">'+esc(b.sub)+'</p>':"")+
+        (b.image?slot(b.image,{main:"#5c9e4a",deep:"#3c6b32",wash:"#e7f0e2"}):"")+
         '<p>'+esc(noEdit(b.body))+'</p>'+
         (b.link?'<a href="'+esc(b.link.href)+'">'+esc(b.link.label)+' &rarr;</a>':"")+
       '</div>';
@@ -280,74 +303,95 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     if(!bankOpen&&location.hash!=="#"+THEMES[current].slug)history.replaceState(null,"","#"+THEMES[current].slug);
   }
 
-  /* ------- open state: all themes stacked, scroll flows through ------- */
+  /* ------- open state: one theme at a time, prev/next on the sides, swipe on mobile ------- */
   var bankAll=document.getElementById("bankAll");
   function renderBank(){
-    bankAll.innerHTML=THEMES.map(function(t,i){
-      return '<section class="tsec" id="sec-'+esc(t.slug)+'" data-i="'+i+'" style="--w:'+t.accent.wash+';--d:'+t.accent.deep+'">'+
-        '<div class="t-head"><div><span class="of">Designing for</span><h4>'+esc(t.name)+'</h4></div>'+
-        '<div class="t-right"><span class="t-count">'+(i+1)+' / '+THEMES.length+'</span>'+
-        '<button class="t-close">Overview &uarr;</button></div></div>'+
-        '<p class="t-blurb">'+esc(noEdit(t.blurb))+'</p>'+
-        '<div class="rail">'+t.tactics.map(function(x){
-          return '<div class="tcard" id="'+esc(t.slug)+'-'+esc(x.slug)+'">'+
-            slot(x.image,t.accent)+noticeLine(x.image,t.accent)+
-            '<h5>'+esc(x.name)+'</h5>'+
-            '<p class="t-line">'+esc(x.line)+'</p>'+
-            '<p class="t-more">'+esc(noEdit(x.more))+'</p>'+
-          '</div>';
-        }).join("")+'</div>'+
-        '<p class="rail-hint">Scroll sideways &rarr;</p>'+
-      '</section>';
-    }).join("");
+    bankAll.innerHTML=
+      '<button class="b-arrow b-prev" aria-label="Previous theme">&larr;</button>'+
+      '<button class="b-arrow b-next" aria-label="Next theme">&rarr;</button>'+
+      THEMES.map(function(t,i){
+        return '<section class="tsec" id="sec-'+esc(t.slug)+'" data-i="'+i+'" style="--w:'+faint(t.accent.main)+';--d:'+t.accent.deep+'">'+
+          '<div class="t-head"><div><span class="of">Designing for</span><h4>'+esc(t.name)+'</h4></div>'+
+          '<div class="t-right"><span class="t-count">'+(i+1)+' / '+THEMES.length+'</span>'+
+          '<button class="t-close">Overview &uarr;</button></div></div>'+
+          '<p class="t-blurb">'+esc(noEdit(t.blurb))+'</p>'+
+          '<div class="t-list">'+t.tactics.map(function(x){
+            return '<div class="titem" id="'+esc(t.slug)+'-'+esc(x.slug)+'">'+
+              '<div class="t-media">'+slot(x.image,t.accent)+noticeLine(x.image,t.accent)+'</div>'+
+              '<div class="t-text"><h5>'+esc(x.name)+'</h5>'+
+              '<p class="t-line">'+esc(x.line)+'</p>'+
+              '<p class="t-more">'+esc(noEdit(x.more))+'</p></div>'+
+            '</div>';
+          }).join("")+'</div>'+
+        '</section>';
+      }).join("")+
+      '<div class="m-pager"><button class="mp-prev">&larr; Prev</button><span class="mp-count"></span><button class="mp-next">Next &rarr;</button></div>';
     bankRendered=true;
   }
+  function showSec(i,dir,instant){
+    current=(i+THEMES.length)%THEMES.length;
+    var secs=bankAll.querySelectorAll(".tsec");
+    for(var k=0;k<secs.length;k++)secs[k].classList.remove("cur");
+    var sec=document.getElementById("sec-"+THEMES[current].slug);
+    if(sec){
+      sec.style.setProperty("--dir",(dir<0?"-44px":"44px"));
+      void sec.offsetWidth;
+      sec.classList.add("cur");
+      if(!instant)sec.scrollIntoView({behavior:"auto",block:"nearest"});
+    }
+    var mc=bankAll.querySelector(".mp-count");
+    if(mc)mc.textContent=(current+1)+" / "+THEMES.length;
+    history.replaceState(null,"","#"+THEMES[current].slug);
+  }
+  var designingEl=document.querySelector(".designing");
   function openBank(i,instant){
     if(!bankRendered)renderBank();
-    bankOpen=true;current=i;
+    bankOpen=true;
+    designingEl.classList.add("open");
     caro.classList.add("hidden");
     bankAll.classList.add("on");
-    var sec=document.getElementById("sec-"+THEMES[i].slug);
+    showSec(i,1,true);
+    var sec=document.getElementById("sec-"+THEMES[current].slug);
     if(sec)sec.scrollIntoView({behavior:instant?"auto":"smooth",block:"start"});
-    history.replaceState(null,"","#"+THEMES[i].slug);
   }
   function closeBank(){
     bankOpen=false;
+    designingEl.classList.remove("open");
     bankAll.classList.remove("on");
     caro.classList.remove("hidden");
     layout();
-    document.querySelector(".designing").scrollIntoView({behavior:"auto",block:"start"});
+    designingEl.scrollIntoView({behavior:"auto",block:"start"});
   }
-
-  /* hash follows the section you're reading */
-  var io=new IntersectionObserver(function(entries){
-    if(!bankOpen)return;
-    entries.forEach(function(en){
-      if(en.isIntersecting){
-        var i=+en.target.dataset.i;current=i;
-        history.replaceState(null,"","#"+THEMES[i].slug);
-      }
-    });
-  },{rootMargin:"-40% 0px -50% 0px"});
-  var ioArmed=false;
-  function armIO(){if(ioArmed)return;ioArmed=true;
-    Array.prototype.forEach.call(bankAll.querySelectorAll(".tsec"),function(s){io.observe(s);});}
+  /* swipe left/right on mobile */
+  var tx=0,ty=0;
+  bankAll.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  bankAll.addEventListener("touchend",function(e){
+    var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>56&&Math.abs(dx)>Math.abs(dy)*1.4)showSec(current+(dx<0?1:-1),dx<0?1:-1);
+  },{passive:true});
 
   /* ------- events ------- */
   track.addEventListener("click",function(e){
     var slide=e.target.closest(".slide");if(!slide)return;
     var i=+slide.dataset.i;
     if(i!==current){setCurrent(i);return;}
-    openBank(i);armIO();
+    openBank(i);
   });
   bankAll.addEventListener("click",function(e){
-    if(e.target.closest(".t-close"))closeBank();
+    if(e.target.closest(".t-close")){closeBank();return;}
+    if(e.target.closest(".b-prev")||e.target.closest(".mp-prev")){showSec(current-1,-1);return;}
+    if(e.target.closest(".b-next")||e.target.closest(".mp-next")){showSec(current+1,1);return;}
   });
   document.getElementById("prevBtn").addEventListener("click",function(){setCurrent(current-1);});
   document.getElementById("nextBtn").addEventListener("click",function(){setCurrent(current+1);});
   dots.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setCurrent(+b.dataset.i);});
   document.addEventListener("keydown",function(e){
-    if(bankOpen){if(e.key==="Escape")closeBank();return;}
+    if(bankOpen){
+      if(e.key==="Escape")closeBank();
+      if(e.key==="ArrowLeft")showSec(current-1,-1);
+      if(e.key==="ArrowRight")showSec(current+1,1);
+      return;
+    }
     if(e.key==="ArrowLeft")setCurrent(current-1);
     if(e.key==="ArrowRight")setCurrent(current+1);
   });
@@ -361,7 +405,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       '<div><span class="eyebrow" style="color:var(--gold-deep)">'+esc(DFC_BUDGET.eyebrow)+'</span>'+
       '<h2>'+esc(DFC_BUDGET.title)+'</h2>'+
       '<p class="sub">'+esc(DFC_BUDGET.sub)+'</p></div>'+
-      '<span class="bud-arrow" aria-hidden="true">&darr;</span>'+
+      '<span class="bud-cta">See how to design a space on a budget <span class="bud-arrow" aria-hidden="true">&darr;</span></span>'+
     '</button>'+
     '<div class="bud-body">'+
       '<p class="lede">'+esc(noEdit(DFC_BUDGET.lede))+'</p>'+
@@ -388,10 +432,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     '<div><a class="i-link" href="'+esc(DFC_INSPIRE.href)+'">'+esc(DFC_INSPIRE.label)+' &rarr;</a>'+
     '<span class="i-note">'+esc(DFC_INSPIRE.note)+'</span></div>';
 
-  /* ------- init (deep link: #theme opens the scroll-through view there) ------- */
+  /* ------- init (deep link: #theme opens that theme's full section) ------- */
   var h=location.hash.replace("#","");
   var idx=THEMES.findIndex(function(t){return t.slug===h;});
-  if(idx>=0){openBank(idx,true);armIO();}
+  if(idx>=0)openBank(idx,true);
   layout();
   setTimeout(layout,300); /* after fonts settle */
 })();

@@ -31,15 +31,27 @@ const DFC_WHAT = {
   title: "Designing what, exactly?",
   blocks: [
     {
-      name: "The spaces we live in",
-      scale: "Architecture & interior design",
-      body: "Rooms, light, furniture, thresholds — the scale you actually control. You can move a sofa tonight and change how your household behaves by the weekend. Most of this page lives here. [edit]"
+      kind: "community",
+      name: "Our communities",
+      scale: "Urbanism",
+      sub: "The cities, neighbourhoods and common spaces between us.",
+      body: "Streets, shared courtyards, who lives near whom — more systemic, slower to move, mostly decided above any one household. Harder to control, but it shapes everything downstream. [edit]",
+      image: {
+        src: "images/proj-trudeslund.jpg", pos: "center",
+        scene: "A lived-in pedestrian lane in Trudeslund cohousing, Denmark — homes facing each other across a car-free path."
+      },
+      link: { label: "The Coliving Atlas maps this scale", href: "map.html" }
     },
     {
-      name: "The communities we live in",
-      scale: "Urbanism",
-      body: "Streets, shared courtyards, who lives near whom — more systemic, slower to move, mostly decided above any one household. Harder to control, but it shapes everything downstream. [edit]",
-      link: { label: "The Atlas maps this scale", href: "map.html" }
+      kind: "space",
+      name: "Our homes: inside and outside",
+      scale: "Architecture & design",
+      sub: "The rooms, light and objects we live among.",
+      body: "Rooms, light, furniture, thresholds — the scale you actually control. You can move a sofa tonight and change how your household behaves by the weekend. Most of this page lives here. [edit]",
+      image: {
+        src: "images/mtl-living-room.jpg", pos: "center 45%",
+        scene: "The bright living room of the Montreal house — brick wall, plants, big window, deep sofa."
+      }
     }
   ]
 };
@@ -64,8 +76,9 @@ const DFC_THEMES = [
     tagline: "Paths that cross, tables that gather.",
     blurb: "The feeling of being part of a household, not just a tenant of one. Design so that daily life bumps people into each other — gathering as the state the house rests in, not an event anyone has to organize.",
     image: {
-      scene: "Warm interior of a big shared home at dinner time — a long table mid-meal with people passing plates, an open kitchen behind, sofas and a guitar at the edge of the same generous room, evening light through tall windows.",
-      notice: "Notice how the kitchen, the table and the sofas share one room — nobody cooks, eats or rests out of sight of the others."
+      src: "images/generated/dfc-connection.jpg", pos: "center 22%",
+      scene: "Green paper-cut figures holding hands in a ring around a heart-shaped earth on warm cream.",
+      notice: "The circle only closes because every figure gives both hands — connection is something people build together."
     },
     tactics: [
       {
@@ -74,8 +87,9 @@ const DFC_THEMES = [
         line: "One table big enough for everyone.",
         more: "It is the single highest-leverage object in a shared home — fifty years of Danish cohousing runs on one rule of thumb: keep the common meal, and the community holds.",
         image: {
-          scene: "A very long wooden dining table with mismatched chairs, set for ten, one big steaming pot at the centre, bread and bowls being passed, benches on one side.",
-          notice: "One table, no head seat — the pot in the middle makes serving each other the default."
+          src: "images/mtl-formal-dinner.jpg", pos: "center 55%",
+          scene: "A real dinner at the Montreal house — one big roast pan in the middle of a full table, everyone leaning in and serving themselves.",
+          notice: "One pan in the middle, no head seat — everyone serves each other by default."
         }
       },
       {
@@ -104,8 +118,9 @@ const DFC_THEMES = [
         line: "Grow a little, cook big, share the harvest.",
         more: "A garden scaled to the community's real labour plus one shared kitchen turns cost-cutting into culture — planting days and big cooks are community-building disguised as chores.",
         image: {
-          scene: "A backyard with raised garden beds and fruit trees, two people carrying a basket of vegetables toward a wide-open kitchen door, a worn footpath connecting beds to door.",
-          notice: "The path worn between the garden beds and the kitchen door — the loop the house lives on."
+          src: "images/garden-summer.jpg", pos: "center",
+          scene: "The house garden in full summer.",
+          notice: "Dinner starts a few steps from the kitchen door."
         }
       },
       {
@@ -114,8 +129,9 @@ const DFC_THEMES = [
         line: "Mix the generations on purpose.",
         more: "Humanitas Deventer houses students inside a care home — thirty hours of neighbourliness a month for free rent — and loneliness drops on both sides of the deal.",
         image: {
-          scene: "A sunny shared courtyard: an elder and a young adult playing chess on a bench, a walker and a skateboard parked side by side against the same wall, laundry lines above.",
-          notice: "The walker and the skateboard parked side by side."
+          src: "images/ex-humanitas.jpg", pos: "center",
+          scene: "Humanitas Deventer in the Netherlands — students and elders who share the same building and the same front door.",
+          notice: "Humanitas Deventer — students and elders behind one front door, on purpose."
         }
       }
     ]
@@ -128,8 +144,9 @@ const DFC_THEMES = [
     tagline: "Small corners that hold people.",
     blurb: "Feeling held — closeness without crowd, privacy without isolation. Big shared homes need small places where two people can actually reach each other.",
     image: {
-      scene: "A window nook at dusk: two cushions, a half-drawn linen curtain, one warm lamp, rain outside the glass, a mug on the sill — a small pocket of shelter inside a larger dark room.",
-      notice: "The room is big, but the nook makes it feel like it is holding just you."
+      src: "images/generated/dfc-intimacy.jpg", pos: "center",
+      scene: "Watercolor sketch of two figures, one red and one blue, hands touching, with a warm golden glow linking their chests.",
+      notice: "The gold light runs chest to chest — closeness is the warmth two people make between them."
     },
     tactics: [
       {
@@ -182,8 +199,9 @@ const DFC_THEMES = [
     tagline: "Rooms that slow you down.",
     blurb: "Presence — space that lowers the noise instead of adding to it. The house can carry part of the practice: green in every sightline, thresholds that make you arrive, one room with nothing to do in it.",
     image: {
-      scene: "A bright, almost empty room: one big window onto a garden, a single floor cushion, a small plant, steam rising from a cup of tea on the floor, long morning shadows.",
-      notice: "Almost empty on purpose — the space leaves room for your attention."
+      src: "images/generated/dfc-mindfulness.jpg", pos: "center 38%",
+      scene: "Textured print of a person sitting on a green hillside, seen from behind, watching a huge orange sun rise through the clouds.",
+      notice: "Nothing in their hands, nowhere to be — the hill does the slowing down for them."
     },
     tactics: [
       {
@@ -202,8 +220,9 @@ const DFC_THEMES = [
         line: "One room with nothing to do in it.",
         more: "In my Montreal house, the floor-seated stillness room — low light, tatami, plants, no screens — became the place people went to be alone together. Nobody was told its purpose; the room said it. [edit]",
         image: {
-          scene: "A serene tatami room: floor cushions in a loose circle, one paper lamp, a single plant in the corner, bare walls, soft even light — no table, no sockets, no screens.",
-          notice: "No table, no sockets, no screens — the emptiness is the furniture."
+          src: "images/mtl-stillness-room.jpg", pos: "center 60%",
+          scene: "The stillness room of the Montreal house — tatami mats, floor cushions, a low table, plants in the window light, slippers left at the edge of the mat.",
+          notice: "The slippers left at the edge of the mat — nobody was told; the room sets its own rules."
         }
       },
       {
@@ -236,8 +255,9 @@ const DFC_THEMES = [
     tagline: "Space that pulls people into each other's projects.",
     blurb: "Building together starts long before a meeting is called. Make work visible, put thinking surfaces where people already pass, and spare minutes turn into contributions.",
     image: {
-      scene: "A shared studio table with two people leaning over one large drawing, a wall of pinned sketches and plans behind them, mugs and pencils scattered, afternoon light.",
-      notice: "The work is on the walls, not in drawers — visible work invites hands."
+      src: "images/generated/dfc-collaboration.jpg", pos: "center 30%",
+      scene: "Five blue hands weaving one yellow string figure together, cat's-cradle style, on paper white.",
+      notice: "One string, five hands — the figure only exists while everyone keeps holding their part."
     },
     tactics: [
       {
@@ -256,8 +276,9 @@ const DFC_THEMES = [
         line: "One work table nobody owns.",
         more: "A communal bench makes helping the default — sit down anywhere and you are already inside someone's project radius, one question away from being useful.",
         image: {
-          scene: "A long workbench holding several projects mid-flow — a laptop, a half-soldered circuit, fabric and patterns, an open notebook — chairs pulled at friendly angles, no name tags.",
-          notice: "Projects left mid-flow on the table — an open invitation to ask about them."
+          src: "images/mtl-coworking.jpg", pos: "center 55%",
+          scene: "The coworking room of the Montreal house — one long desk wall, a row of screens and chairs, plants on the shelves above.",
+          notice: "One shared desk wall — sit down anywhere and you're in working distance of everyone."
         }
       },
       {
@@ -290,8 +311,9 @@ const DFC_THEMES = [
     tagline: "Rooms with something to snag on.",
     blurb: "Sameness is sedative; strangeness is fuel. Fill the space with story-carrying objects, leave the instruments open, and give thinking some headroom — the house starts making things.",
     image: {
-      scene: "A joyful room of mismatched wonders: an open piano, a wall of odd art, a globe, hanging paper birds, an easel by a huge window pouring in light.",
-      notice: "Nothing matches — every object carries a story someone might ask about."
+      src: "images/generated/dfc-creativity.jpg", pos: "center 42%",
+      scene: "Collage illustration of a calm face whose open head holds a bouquet of bold retro flowers growing upward.",
+      notice: "The head is open on purpose — ideas grow where the lid is off."
     },
     tactics: [
       {
@@ -310,8 +332,9 @@ const DFC_THEMES = [
         line: "A closed piano is furniture; an open one is an invitation.",
         more: "The Dunbar house inherited an art collector's walls and we kept the strangeness — music nights started themselves, because the instruments were already out. [edit]",
         image: {
-          scene: "An upright piano with the lid up and the stool pulled out, a guitar waiting on a stand beside it, sheet music open, late-day light across the keys.",
-          notice: "The lid is up and the stool is out."
+          src: "images/music-piano-night.jpg", pos: "center 40%",
+          scene: "Two people at the keyboard by the window on a house night — sheet music lit by one lamp, city lights outside.",
+          notice: "Nobody planned this — the keyboard was out, so the evening became music."
         }
       },
       {
@@ -330,8 +353,9 @@ const DFC_THEMES = [
         line: "Tools visible, paper everywhere, nothing precious.",
         more: "Creation starts when the cost of starting is zero — leave the means lying around, unlocked and unprecious, and the house quietly begins to produce.",
         image: {
-          scene: "Open shelving beside a work corner: jars of brushes and pencils, stacks of paper, balls of yarn, hand tools on a pegboard — everything visible, no cupboard doors.",
-          notice: "No cupboard doors between you and starting."
+          src: "images/collab-art-table.jpg", pos: "center",
+          scene: "Four people drawing together on one big canvas laid flat on the table, markers out, red and black ink spreading from every side.",
+          notice: "One canvas, four hands — it started because the markers were already on the table."
         }
       }
     ]
@@ -344,8 +368,9 @@ const DFC_THEMES = [
     tagline: "Protecting the deep hours.",
     blurb: "In a house full of people, focus is a shared resource — it survives only where the space itself defends it. Real connection needs real retreat to come back from.",
     image: {
-      scene: "A small desk facing a window in a quiet room, morning light, a closed door behind the chair, the rest of the house implied but silent beyond it.",
-      notice: "The desk faces away from the door — the room defends the back of your attention."
+      src: "images/generated/dfc-focus.jpg", pos: "center 65%",
+      scene: "Minimal poster of a lone figure walking a long white arrow-shaped path across an amber field, small sun above.",
+      notice: "One path, one direction, nothing else in the frame — that is what the room should feel like."
     },
     tactics: [
       {
@@ -354,8 +379,9 @@ const DFC_THEMES = [
         line: "Zone the house by behavioural job.",
         more: "The Montreal house gave every room a job — focus, gathering, rest — so five entrepreneurs could live, work and connect without the three needs cannibalizing each other. [edit]",
         image: {
-          scene: "A cutaway dollhouse view of a shared home with each room washed in a single tone by its job — quiet work rooms clustered on one side, the lively kitchen and commons on the other.",
-          notice: "Each room one colour, one job — the quiet rooms cluster away from the kitchen."
+          src: "images/work-sunroom-office.jpg", pos: "center 55%",
+          scene: "A sunroom turned office — one desk and one chair under a glass roof full of trees.",
+          notice: "One desk, one chair, a roof of trees — this room has exactly one job."
         }
       },
       {

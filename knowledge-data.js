@@ -18,7 +18,7 @@ const THEMES = {
 
 const TYPE_KNOWLEDGE = {
   "ecovillage": {
-    hero: { src: "images/model-findhorn.jpg", cap: "Findhorn ecovillage, Scotland" },
+    hero: { src: "images/ex-tamera.jpg", cap: "Tamera ecovillage, Portugal — a whole re-watered valley settlement" },
     diagram: { src: "images/generated/diagram-ecovillage.jpg", cap: "How an ecovillage organizes: homes clustered around a commons, gardens and energy systems at the edges" },
     origin: "Born from the 1960s–70s back-to-the-land movement and matured through permaculture; the Global Ecovillage Network formalized it in 1995. The oldest sites are now on their third generation.",
     teaches: "A community can own its whole stack — food, energy, decisions — and live lighter for it.",
@@ -32,7 +32,7 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "cohousing": {
-    hero: { src: "images/proj-trudeslund.jpg", cap: "Trudeslund cohousing, Denmark" },
+    hero: { src: "images/cohousing-denmark.jpg", cap: "A Danish cohousing courtyard — shared ground between private homes" },
     diagram: { src: "images/generated/diagram-cohousing.jpg", cap: "Cohousing layout: private homes ring shared kitchen, dining, and outdoor spaces" },
     origin: "Denmark, 1972: Sættedammen was built after Bodil Graae's essay argued 'children should have a hundred parents.' Architect-led, resident-designed — and copied worldwide ever since.",
     teaches: "Design the common house right and community becomes the default instead of the effort.",
@@ -46,7 +46,7 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "housing-coop": {
-    hero: { src: "images/model-kalkbreite.jpg", cap: "Kalkbreite cooperative, Zurich" },
+    hero: { src: "images/coop-denmark.jpg", cap: "Residents of a housing co-op, out between their homes" },
     diagram: { src: "images/generated/diagram-housing-coop.jpg", cap: "Housing co-op structure: residents collectively own the building through a share model" },
     origin: "Rooted in 19th-century worker cooperatives; scaled by Zurich and Vienna across the 20th century until co-ops became ordinary civic infrastructure — a fifth of Zurich lives in one.",
     teaches: "Take the building off the market and the community stops being a commodity.",
@@ -102,7 +102,7 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "hacker-house": {
-    hero: { src: "images/type-hacker-house.jpg", cap: "A hackerspace commons - Tirana, Albania" },
+    hero: { src: "images/ex-hf0-2.jpg", cap: "HF0, San Francisco — founders building side by side" },
     diagram: { src: "images/generated/diagram-hacker-house.jpg", cap: "Hacker house layout: shared workspaces and social zones maximize serendipitous collaboration" },
     origin: "The Bay Area collectivized its garage myth through the 2000s–2010s — Rainbow Mansion, countless unnamed leases — and the AI wave revived it at full intensity.",
     teaches: "Curation is a technology: pick the right ten people and the house does the rest.",
@@ -144,7 +144,7 @@ const TYPE_KNOWLEDGE = {
     }
   },
   "rural-coliving": {
-    hero: { src: "images/rooral-hero.jpg", cap: "Rooral, Benarraba, Spain" },
+    hero: { src: "images/rooral-lunch.jpg", cap: "Rooral, Benarrabá — a cohort lunch over the Andalusian hills" },
     diagram: { src: "images/generated/diagram-rural-coliving.jpg", cap: "Rural coliving: land-based living with shared infrastructure and working farmland" },
     origin: "Remote work met rural depopulation: Sende opened in a 30-person Galician hamlet in 2013, Rooral followed in Andalusia in 2020, and a movement of village revivals is forming behind them.",
     teaches: "Urban loneliness and rural decline are the same problem — move the people, and both start to heal.",

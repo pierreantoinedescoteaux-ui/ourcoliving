@@ -58,7 +58,8 @@ Target files: `images/generated/story-<slug>.jpg` → wire via `MANIFESTO.storie
 - Duotone per theme (also in `DFC_THEMES[].promptColors`): connection = honey gold + leaf-green pops · intimacy = terracotta + gold · mindfulness = sky blue + leaf green · collaboration = leaf green + sky · creativity = sun yellow + terracotta · focus = deep forest + gold.
 - Generation workflow: same as field-guide diagrams (`coliving-type-visual-guide.md` — Green Tea Town style reference in Gemini), scene from `design-data.js` + the `DFC_STYLE` tail with MAIN/POP replaced by the theme's duotone.
 - Target files: `images/generated/dfc-<theme>.jpg` (theme heroes), `dfc-<theme>-<tactic>.jpg` (tactics), `dfc-budget-<theme>.jpg` (budget moves).
-- Status: all 36 proposed — awaiting P-A's image MCP.
+- Status: **6 theme heroes generated + placed 2026-07-11** (P-A-provided illustrations from Downloads; Claude curated — mindfulness candidate #1 "person on hill" chosen over #2 "stones on red"; set is style-mixed [riso/watercolor/flat vector/collage], acceptable since one shows at a time — flag for possible consistency regeneration later). NOTE: collaboration image has a small artist watermark (@sashadrmr-ish) bottom-right — check licensing/credit before deploy, log in CREDITS.md.
+- **8 tactic slots filled from existing site images 2026-07-11** (P-A asked for a reuse pass): common-table→mtl-formal-dinner · food-loops→garden-summer · elders→ex-humanitas · stillness-room→mtl-stillness-room · instruments-open→music-piano-night · big-shared-desk→mtl-coworking · materials-in-reach→collab-art-table · rooms-one-job→work-sunroom-office. Also "Designing what?" blocks: communities→proj-trudeslund (Wikimedia, licensed), homes→mtl-living-room. **16 tactic + 6 budget slots still proposed — awaiting MCP.**
 
 ### Backlog (not yet specced)
 - Home hero alternative (currently Dear Alice still — proprietary, credited; revisit before deploy)

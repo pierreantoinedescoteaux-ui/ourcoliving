@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>An Atlas of Living Together — Pierre-Antoine Descoteaux</title>
+<title>The Coliving Atlas — Pierre-Antoine Descoteaux</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
 <style>
@@ -296,6 +296,27 @@ img{display:block;max-width:100%}
 .modal .ex .pl{font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
 .modal .ex .note{font-size:.87rem;color:var(--ink-soft);margin-top:4px;line-height:1.5}
 .modal .ex .go{font-size:.72rem;font-weight:700;color:var(--green-deep);margin-top:8px;display:inline-block}
+/* featured example inside the popup */
+.modal .feat{border-top:1px solid var(--line);padding:clamp(24px,4vh,44px) 0}
+.modal .featcard{display:block;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--paper);transition:border-color .3s}
+.modal .featcard:hover{border-color:var(--green)}
+.modal .featimg{width:100%;height:clamp(200px,34vh,360px);overflow:hidden;background:var(--sky-wash)}
+.modal .featimg img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.modal .featcard:hover .featimg img{transform:scale(1.03)}
+.modal .featcap{padding:clamp(18px,3vw,28px)}
+.modal .featmeta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.modal .featcap .fn{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.1}
+.modal .featcap .fpl{font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+.modal .featcap .fnote{font-size:.96rem;color:var(--ink-soft);line-height:1.6;margin:10px 0 14px}
+.modal .featcap .fgo{font-size:.76rem;font-weight:700;color:var(--green-deep);border-bottom:2px solid var(--green);padding-bottom:2px;display:inline-block}
+/* other-examples grid inside the popup */
+.modal .exgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+@media(max-width:560px){.modal .exgrid{grid-template-columns:1fr}}
+.modal .exgrid .ex{flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;margin-bottom:0}
+.modal .exgrid .exphoto{width:100%;height:158px;background:var(--sky-wash);overflow:hidden}
+.modal .exgrid .exphoto img{width:100%;height:100%;object-fit:cover}
+.modal .exgrid .exmain{padding:15px 18px 18px}
+.modal .exgrid .ex .go{margin-top:9px}
 
 /* ---------- legend ---------- */
 .legend{max-width:1500px;margin:0 auto;padding:8px var(--gutter) 60px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--ink-faint);font-size:.8rem}
@@ -354,7 +375,7 @@ img{display:block;max-width:100%}
 <script src="site-nav.js"></script>
 
 <header class="head">
-  <span class="eyebrow">The atlas · 12 models</span>
+  <span class="eyebrow">The Coliving Atlas · 12 models</span>
   <h1>Co-living takes <em>many shapes.</em></h1>
   <p class="sub">From a six-person house to a whole village — every way humans share a roof, charted. Browse the shapes below, then explore the map. <b>Positions are my read of each model — argue with me.</b></p>
 </header>
@@ -405,7 +426,7 @@ img{display:block;max-width:100%}
     <span class="lnum">Pl. II</span>
     <h2>Where to go from here.</h2>
   </div>
-  <p class="lsub">The atlas is one room of a bigger library. These are the others.</p>
+  <p class="lsub">The Coliving Atlas is one room of a bigger library. These are the others.</p>
   <div class="doors">
     <a class="door" href="type.html?t=ecovillage"><div class="dt">The field guides</div><div class="dd">Twelve deep dives — one per shape on the chart, with layout anatomy and who it's for.</div><span class="da">Open the first guide →</span></a>
     <a class="door" href="projects.html"><div class="dt">Real communities</div><div class="dd">Every project referenced on this site, filterable by shape.</div><span class="da">Browse the library →</span></a>
@@ -442,9 +463,10 @@ img{display:block;max-width:100%}
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function kOf(t){return (typeof TYPE_KNOWLEDGE!=="undefined"&&TYPE_KNOWLEDGE[t.slug])||{};}
 
-  /* ---- carousel ---- */
+  /* ---- carousel: seamless infinite loop ---- */
   var track=document.getElementById("caroTrack");
-  track.innerHTML=COLIVING_TYPES.map(function(t){
+  var CARO_N=COLIVING_TYPES.length, SETS=3;
+  var slideHTML=COLIVING_TYPES.map(function(t){
     var k=kOf(t);
     return '<div class="slide" data-slug="'+esc(t.slug)+'" role="button" tabindex="0" aria-label="'+esc(t.name)+'">'+
       (k.hero?'<img src="'+esc(k.hero.src)+'" alt="'+esc(t.name)+'" loading="lazy">':"")+
@@ -454,6 +476,10 @@ img{display:block;max-width:100%}
       '<a class="open" href="type.html?t='+esc(t.slug)+'">Open the field guide →</a></div>'+
       '</div>';
   }).join("");
+  /* three identical sets so there is always content on both sides —
+     the loop is invisible because the sets are the same. */
+  track.innerHTML=slideHTML+slideHTML+slideHTML;
+
   track.addEventListener("click",function(e){
     var link=e.target.closest("a.open");
     if(link) return; /* link navigates to the full page */
@@ -465,32 +491,59 @@ img{display:block;max-width:100%}
     var s=e.target.closest(".slide");
     if(s){e.preventDefault();open(s.getAttribute("data-slug"));}
   });
+
   function slideW(){
     var s=track.querySelector(".slide");
     return s ? s.getBoundingClientRect().width+16 : 400;
   }
-  /* infinite: both arrows wrap around the ends. Edge detection is
-     geometric (first/last slide position) because scroll-snap means
-     scrollLeft never reads exactly 0 or max. */
-  function caroAtStart(){var s=track.firstElementChild;return s&&s.getBoundingClientRect().left>=track.getBoundingClientRect().left-12;}
-  function caroAtEnd(){var s=track.lastElementChild;return s&&s.getBoundingClientRect().right<=track.getBoundingClientRect().right+12;}
+  /* exact width of ONE set, measured from slide offsets so scroll-snap
+     stays aligned after every wrap (dividing scrollWidth would include
+     the track padding once and drift the alignment). */
+  function oneSetW(){
+    var kids=track.children;
+    if(kids.length<=CARO_N) return track.scrollWidth/SETS;
+    return kids[CARO_N].offsetLeft - kids[0].offsetLeft;
+  }
+  function centerStart(){ var w=oneSetW(); if(w) track.scrollLeft=w; }
+  /* keep the position inside the middle set — jump by exactly one set
+     (identical content) whenever we drift toward an edge. */
+  function recenter(){
+    var w=oneSetW(); if(!w) return;
+    if(track.scrollLeft < w*0.5)      track.scrollLeft += w;
+    else if(track.scrollLeft > w*1.5) track.scrollLeft -= w;
+  }
+  requestAnimationFrame(centerStart);
+  window.addEventListener("resize",centerStart);
+  var recenterT;
+  track.addEventListener("scroll",function(){
+    /* hard safety net: if a fast burst pushes us toward the un-buffered
+       edge, jump one whole set immediately (identical slides = invisible)
+       so we can never run off the end or snap back to the start. */
+    var w=oneSetW();
+    if(w){
+      if(track.scrollLeft > w*1.9)      track.scrollLeft -= w;
+      else if(track.scrollLeft < w*0.1) track.scrollLeft += w;
+    }
+    clearTimeout(recenterT);
+    recenterT=setTimeout(recenter,120); /* gentle recentre once motion settles */
+  });
+
   document.getElementById("caroPrev").addEventListener("click",function(){
-    if(caroAtStart()) track.scrollTo({left:track.scrollWidth,behavior:"smooth"});
-    else track.scrollBy({left:-slideW(),behavior:"smooth"});
+    recenter(); track.scrollBy({left:-slideW(),behavior:"smooth"});
   });
   document.getElementById("caroNext").addEventListener("click",function(){
-    if(caroAtEnd()) track.scrollTo({left:0,behavior:"smooth"});
-    else track.scrollBy({left:slideW(),behavior:"smooth"});
+    recenter(); track.scrollBy({left:slideW(),behavior:"smooth"});
   });
-  /* gentle auto-advance; pauses on hover / touch / manual scroll */
+  /* gentle auto-advance — keeps drifting right forever; pauses on
+     hover / touch / while a field-notes popup is open. */
   var caroPaused=false, caroEl=document.getElementById("caro");
   caroEl.addEventListener("mouseenter",function(){caroPaused=true;});
   caroEl.addEventListener("mouseleave",function(){caroPaused=false;});
   caroEl.addEventListener("touchstart",function(){caroPaused=true;},{passive:true});
   setInterval(function(){
     if(caroPaused||activeSlug)return;
-    if(caroAtEnd()) track.scrollTo({left:0,behavior:"smooth"});
-    else track.scrollBy({left:slideW(),behavior:"smooth"});
+    recenter();
+    track.scrollBy({left:slideW(),behavior:"smooth"});
   },4500);
 
   /* ---- axis selects ---- */

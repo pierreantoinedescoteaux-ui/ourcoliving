@@ -64,13 +64,41 @@ function guideBodyHTML(t, k){
       '<span class="e r">'+esc(p.high)+'</span></div>';
   }).join("");
 
-  var exs = (t.examples||[]).map(function(ex){
-    var ext = /^https?:/i.test(ex.url);
+  function exExt(ex){ return /^https?:/i.test(ex.url); }
+  function exGo(ex){ return exExt(ex) ? "Visit" : "Read the case study"; }
+
+  // Split the examples: the first one with a photo becomes the big "in action"
+  // feature (placed right after the themes); the rest fill the grid below.
+  var allEx = (t.examples||[]);
+  var featIdx = -1;
+  for (var _i=0; _i<allEx.length; _i++){ if(allEx[_i].img){ featIdx=_i; break; } }
+  var feat = featIdx>=0 ? allEx[featIdx] : null;
+  var rest = allEx.filter(function(ex,i){ return i!==featIdx; });
+
+  var featuredHTML = feat ? (
+    '<div class="feat"><div class="k">See it in action</div>'+
+    '<a class="featcard" href="'+esc(feat.url)+'"'+(exExt(feat)?' target="_blank" rel="noopener"':'')+'>'+
+      '<div class="featimg"><img src="'+esc(feat.img)+'" alt="'+esc(feat.name)+'" loading="lazy" onerror="this.closest(\'.featimg\').remove()"></div>'+
+      '<div class="featcap">'+
+        '<div class="featmeta"><span class="fn">'+esc(feat.name)+'</span><span class="fpl">'+esc(feat.place)+'</span></div>'+
+        '<p class="fnote">'+esc(feat.note)+'</p>'+
+        '<span class="fgo">'+exGo(feat)+' →</span>'+
+      '</div>'+
+    '</a></div>'
+  ) : "";
+
+  var restHTML = rest.map(function(ex){
+    var ext = exExt(ex);
     return '<a class="ex" href="'+esc(ex.url)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
-      (ex.img?'<span class="exthumb"><img src="'+esc(ex.img)+'" alt="" loading="lazy" onerror="this.parentElement.remove()"></span>':"")+
+      (ex.img?'<span class="exphoto"><img src="'+esc(ex.img)+'" alt="" loading="lazy" onerror="this.parentElement.remove()"></span>':"")+
       '<span class="exmain"><span class="t"><span class="n">'+esc(ex.name)+'</span><span class="pl">'+esc(ex.place)+'</span></span>'+
       '<p class="note">'+esc(ex.note)+'</p><span class="go">'+(ext?"Visit":"Read the case study")+' →</span></span></a>';
   }).join("");
+
+  var examplesHTML = rest.length ? (
+    '<div class="exs"><div class="k">'+(feat?"Other examples":("Go see it — "+allEx.length+" examples"))+'</div>'+
+    '<div class="exgrid">'+restHTML+'</div></div>'
+  ) : "";
 
   var diagram = k.diagram
     ? '<figure class="diag"><img src="'+esc(k.diagram.src)+'" alt="'+esc(k.diagram.cap||("How a "+t.name+" is laid out"))+'" loading="lazy" onerror="this.parentElement.remove()">'+
@@ -86,12 +114,13 @@ function guideBodyHTML(t, k){
     '</div>'+
     diagram+
     '<div class="teaches"><blockquote>“<em>'+esc(k.teaches||"")+'</em>”</blockquote><div class="who">What this model teaches the rest of the map</div></div>'+
-    '<div class="themes"><div class="k">The five things every model must answer</div><div class="tgrid">'+themeCards+'</div></div>'+
+    '<div class="themes"><div class="k">How key areas work</div><div class="tgrid">'+themeCards+'</div></div>'+
+    featuredHTML+
     '<div class="fnotes">'+
       '<div class="fnote"><div class="fk">Who it’s for</div><p>'+esc(t.who)+'</p></div>'+
       '<div class="fnote"><div class="fk">Watch out</div><p>'+esc(t.watch)+'</p></div>'+
     '</div>'+
     '<div class="sig"><div class="k">Where it sits on every axis</div>'+sig+'</div>'+
-    '<div class="exs"><div class="k">Go see it — '+(t.examples||[]).length+' examples</div>'+exs+'</div>'
+    examplesHTML
   );
 }

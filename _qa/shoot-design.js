@@ -1,5 +1,5 @@
-/* Design for Connection v2.1 QA: hero, what-section, overlay carousel, scroll-through bank,
-   sticky theme titles, collapsible budget, inspire link, deep link, mobile */
+/* Design for Connection v2.2 QA: real theme images, single-section pager (side arrows + swipe),
+   worded budget button, deep link, mobile */
 const { chromium } = require("playwright-core");
 const path = require("path");
 const root = "file:///C:/Users/User/coliving-portfolio/";
@@ -27,26 +27,36 @@ const root = "file:///C:/Users/User/coliving-portfolio/";
       await page.waitForTimeout(500);
     }
     if (opts.scrollTo) { await page.evaluate(sel => { const el = document.querySelector(sel); if (el) el.scrollIntoView({ behavior: "auto", block: "start" }); }, opts.scrollTo); await page.waitForTimeout(500); }
-    if (opts.scrollBy) { await page.evaluate(px => window.scrollBy({ top: px, behavior: "auto" }), opts.scrollBy); await page.waitForTimeout(500); }
     await page.screenshot({ path: path.join(__dirname, name), fullPage: !opts.viewportOnly });
     console.log("shot:", name);
   }
 
-  await shoot("design.html", "dfc2-full.png", { fullScroll: true });
-  await shoot("design.html", "dfc2-what.png", { viewportOnly: true, scrollTo: ".what" });
-  await shoot("design.html", "dfc2-carousel.png", { viewportOnly: true, scrollTo: ".designing" });
-  await shoot("design.html", "dfc2-bank-open.png", { click: ".slide.active .open-btn", viewportOnly: true });
-  await shoot("design.html", "dfc2-bank-sticky-mid.png", { click: ".slide.active .open-btn", scrollTo: "#sec-connection", scrollBy: 350, viewportOnly: true });
-  await shoot("design.html", "dfc2-bank-scrollthrough.png", { click: ".slide.active .open-btn", scrollTo: "#sec-intimacy", viewportOnly: true });
-  await shoot("design.html", "dfc2-budget-closed.png", { scrollTo: ".budget", viewportOnly: true });
-  await shoot("design.html", "dfc2-budget-open.png", { click: "#budHead", scrollTo: ".budget", viewportOnly: true });
-  await shoot("design.html", "dfc2-inspire.png", { scrollTo: ".inspire", viewportOnly: true });
-  await shoot("design.html#mindfulness", "dfc2-deeplink.png", { viewportOnly: true });
+  await shoot("design.html", "dfc3-full.png", { fullScroll: true });
+  await shoot("design.html", "dfc3-carousel-img.png", { viewportOnly: true, scrollTo: ".designing" });
+  await shoot("design.html", "dfc3-pager-open.png", { click: ".slide.active .open-btn", viewportOnly: true });
+  await shoot("design.html", "dfc3-pager-next.png", { click: [".slide.active .open-btn", ".b-next"], viewportOnly: true });
+  await shoot("design.html", "dfc3-pager-prev-wrap.png", { click: [".slide.active .open-btn", ".b-prev"], viewportOnly: true });
+  await shoot("design.html", "dfc3-budget-btn.png", { scrollTo: ".budget", viewportOnly: true });
+  await shoot("design.html", "dfc3-budget-open.png", { click: "#budHead", scrollTo: ".budget", viewportOnly: true });
+  await shoot("design.html#creativity", "dfc3-deeplink.png", { viewportOnly: true });
 
   // mobile
   await page.setViewportSize({ width: 390, height: 844 });
-  await shoot("design.html", "dfc2-mobile.png", { fullScroll: true });
-  await shoot("design.html", "dfc2-mobile-bank.png", { click: ".slide.active .open-btn", viewportOnly: true });
+  await shoot("design.html", "dfc3-mobile.png", { fullScroll: true });
+  await shoot("design.html", "dfc3-mobile-pager.png", { click: ".slide.active .open-btn", viewportOnly: true });
+
+  // swipe simulation on mobile pager
+  await page.goto(root + "design.html#connection", { waitUntil: "networkidle" }).catch(() => {});
+  await page.waitForTimeout(1200);
+  await page.evaluate(() => {
+    const b = document.getElementById("bankAll");
+    const t = (type, x) => { const ev = new Event(type, { bubbles: true }); const pt = [{ clientX: x, clientY: 300 }]; ev.touches = pt; ev.changedTouches = pt; b.dispatchEvent(ev); };
+    t("touchstart", 320); t("touchend", 80);
+  });
+  await page.waitForTimeout(900);
+  const afterSwipe = await page.evaluate(() => location.hash);
+  console.log("hash after swipe left from #connection:", afterSwipe);
+  await page.screenshot({ path: path.join(__dirname, "dfc3-mobile-swiped.png"), fullPage: false });
 
   console.log(errors.length ? "CONSOLE ERRORS:\n" + errors.join("\n") : "NO CONSOLE ERRORS");
   await browser.close();
