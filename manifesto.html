@@ -73,7 +73,7 @@ a{color:inherit;text-decoration:none}
 .field.lit .hint{opacity:0}
 
 /* spark title — STICKY: follows the reader through the whole gray field */
-.whatif{position:sticky;top:86px;z-index:6;pointer-events:none;display:block;text-align:center;
+.whatif{position:sticky;top:86px;z-index:15;pointer-events:none;display:block;text-align:center;
   font-family:var(--serif);font-style:italic;font-weight:300;
   font-size:clamp(2.6rem,6.5vw,5.5rem);line-height:1;color:var(--gold-deep);letter-spacing:-.02em;
   margin:clamp(12px,2.5vh,26px) auto 0;opacity:0;transform:translateY(14px) scale(.94);
@@ -98,13 +98,12 @@ a{color:inherit;text-decoration:none}
 .vine .leaf{fill:var(--green);opacity:clamp(0,calc((var(--p) - var(--th))*4),1);transform-origin:center;transition:opacity 1s ease}
 .vine .leaf.d{fill:var(--green-deep)}
 
-/* bubbles — the field is a PINNED FULL-SCREEN STAGE: on arrival (desktop)
-   all ten gray thoughts are already scattered across the whole screen, in
-   two loose jittered arcs with an open corridor between them so the vines
-   can curve and the leaves show. Scrolling pops them one by one; the whole
-   collage stays pinned until the story is told, then the page moves on. */
-.fieldbed{position:relative;height:290vh;z-index:2}
-.fieldpin{position:sticky;top:0;height:100vh}
+/* bubbles — the ORIGINAL scatter (hand-placed x/y from the data, spacing
+   doubled) + the RELAY PIN: each thought freezes on a line below the
+   "What if…" and only moves on (rises + fades) when the next one arrives
+   to take its place. Nothing overlaps; the line always holds a thought. */
+.fieldbed{position:relative;width:100%;height:var(--bedh,4600px);z-index:2}
+.fieldpin{position:relative;height:100%}
 .fieldtail{display:none}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
@@ -113,16 +112,14 @@ a{color:inherit;text-decoration:none}
 .bvinesvg .bleaf{fill:var(--green);opacity:0;transition:opacity .7s ease}
 .bvinesvg .bleaf.d{fill:var(--green-deep)}
 .bvinesvg .bleaf.on{opacity:.85}
-/* desktop: bands dissolve (display:contents); each bubble sits at its own
-   organic slot on the pinned stage — --pxf/--pyf are 0..1 fractions of the
-   usable width/height, sized so cards can never overlap or leave the screen */
+/* desktop: bands dissolve (display:contents); bubbles sit at the original
+   hand-placed positions; the relay offset is applied via transform in JS */
 .bband{display:contents}
-.bub{position:absolute;left:calc(14px + var(--pxf,0)*(100% - 290px));
-  top:calc(200px + var(--pyf,0)*(100vh - 450px));
-  width:clamp(210px,16.5vw,250px);z-index:calc(3 + var(--i,0))}
+.bub{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1px);
+  width:min(320px,86vw);z-index:calc(3 + var(--i,0));will-change:transform}
 .bub .gray{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;border:0;cursor:pointer;
-  min-height:120px;padding:20px 18px;font-family:var(--serif);font-weight:300;font-style:italic;
-  font-size:clamp(.9rem,1vw,1.05rem);line-height:1.4;color:#57544d;
+  min-height:190px;padding:34px 30px;font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(1.05rem,1.35vw,1.3rem);line-height:1.4;color:#57544d;
   background:var(--gtone);box-shadow:0 14px 34px -18px rgba(60,58,50,.4);
   animation:drift var(--dur) ease-in-out var(--del) infinite alternate;
   transition:transform .3s,box-shadow .3s}
@@ -134,34 +131,25 @@ a{color:inherit;text-decoration:none}
 .frag{position:absolute;left:50%;top:50%;width:12px;height:12px;pointer-events:none;z-index:5}
 
 /* popped card */
-.bub .cardp{display:none;width:100%;border-radius:20px;padding:14px 14px 12px;background:var(--ctone);
+.bub .cardp{display:none;width:100%;border-radius:22px;padding:22px 22px 20px;background:var(--ctone);
   box-shadow:0 24px 54px -24px rgba(34,48,31,.4);cursor:pointer}
 .bub.pop .gray{display:none}
 .bub.pop .cardp{display:block;animation:bloom .55s cubic-bezier(.34,1.56,.64,1)}
 @keyframes bloom{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
-.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1rem,1.15vw,1.15rem);line-height:1.22;color:var(--ink)}
-.cardp .vil{margin-top:7px;font-size:.74rem;line-height:1.4;color:var(--ink-soft);
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.cardp .im{margin-top:9px;border-radius:12px;overflow:hidden}
-.cardp .im img{width:100%;height:56px;object-fit:cover}
-.cardp .deep{display:inline-block;margin-top:8px;font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
-/* short screens: drop the card photo so two arcs still fit without touching */
-@media(max-height:760px){.cardp .im{display:none}}
+.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,1.7vw,1.55rem);line-height:1.22;color:var(--ink)}
+.cardp .vil{margin-top:10px;font-size:.85rem;line-height:1.5;color:var(--ink-soft)}
+.cardp .im{margin-top:14px;border-radius:14px;overflow:hidden}
+.cardp .im img{width:100%;height:110px;object-fit:cover}
+.cardp .deep{display:inline-block;margin-top:13px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
 .cardp .deep:hover{opacity:.75}
 
 @media(max-width:900px){
-  /* mobile: no room for a full pinned collage — bubbles flow through their
-     own (shorter) bands, docking under the What if one after another */
-  .fieldbed{height:auto}
-  .fieldpin{position:static;height:auto}
-  .bband{display:block;position:relative;height:44vh}
-  .bband:last-of-type{height:64vh}
-  .bub{position:sticky;left:auto;top:var(--dock,200px);width:min(330px,86vw)}
-  .bband:nth-of-type(odd) .bub{margin-left:3vw}
-  .bband:nth-of-type(even) .bub{margin-left:11vw}
-  .fieldtail{display:block;height:10vh}
-  .cardp .im{display:block}
-  .bub .gray{min-height:150px}
+  /* mobile: the original static column — bubbles flow, pop near the top */
+  .fieldbed{height:auto;display:flex;flex-direction:column;gap:26px;padding:30px 5vw 10px}
+  .fieldpin,.bband{display:contents}
+  .bub{position:static;width:min(340px,88vw)}
+  .bband:nth-of-type(odd) .bub{align-self:flex-start;margin-left:2vw}
+  .bband:nth-of-type(even) .bub{align-self:flex-end;margin-right:2vw}
 }
 
 /* ---------- VILLAGE SCENE ---------- */
@@ -414,21 +402,16 @@ var bed=document.getElementById("fieldbed");
 var pin=document.getElementById("fieldpin");
 var field=document.getElementById("field");
 /* insertAdjacentHTML, NOT innerHTML= — the #bvine svg already lives in the pin.
-   Desktop: organic scatter on the pinned stage — two loose jittered arcs
-   (top + bottom) with an open corridor between them. Slots are hand-placed
-   0..1 fractions, sized so cards never overlap or leave the screen.
-   SERPENTINE order: consecutive indices are spatial NEIGHBOURS (top arc
-   left→right, descend the right edge, bottom arc right→left) so the vine
-   FLOWS from card to card instead of slashing across the stage.
-   Mobile: bands are real boxes again (CSS) and bubbles flow through. */
-var SLOTS=[[0.010,0.06],[0.260,0.00],[0.500,0.14],[0.755,0.02],[1.000,0.10],
-           [0.990,0.92],[0.740,0.78],[0.505,0.95],[0.270,0.80],[0.010,0.90]];
+   Desktop: the ORIGINAL hand-placed scatter (x % / y px straight from the
+   data), with vertical spacing DOUBLED so a held thought and the next
+   arrival never crowd each other. The relay pin happens in dockPops().
+   Mobile: static alternating column (CSS). */
+var YS=MANIFESTO.stories.map(function(s,i){return (s.y!=null?s.y:180+i*190)*2;});
 pin.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
   var t=TONES[s.tone%TONES.length];
   var dx=(i%2?-1:1)*(6+(i%3)*3), dy=(i%3?-1:1)*(5+(i%2)*4);
-  var sl=SLOTS[i]||[(i%5)*0.24,(i%2)?0.9:0.05];
   return '<div class="bband">'+
-    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--pxf:'+sl[0]+';--pyf:'+sl[1]+';--i:'+i+'">'+
+    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--x:'+(s.x!=null?s.x:(i%2?54:8))+';--y:'+YS[i]+';--i:'+i+'">'+
     '<button class="gray" type="button" aria-expanded="false">'+esc(s.gray)+'</button>'+
     '<div class="cardp">'+
       '<div class="flip">'+esc(s.flip)+'</div>'+
@@ -437,8 +420,8 @@ pin.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
       '<a class="deep" href="separation.html#'+esc(s.slug)+'">Go deeper →</a>'+
     '</div></div></div>';
 }).join(""));
-/* mobile-only dwell spacer after the last band (display:none on desktop) */
-pin.insertAdjacentHTML("beforeend",'<div class="fieldtail" aria-hidden="true"></div>');
+/* bed = last thought + room for it to be held + a short dwell */
+field.style.setProperty("--bedh",(Math.max.apply(null,YS)+1200)+"px");
 
 var popped=0,total=MANIFESTO.stories.length;
 function burst(bub,acc){
@@ -498,23 +481,31 @@ function dockCalc(){
   field.style.setProperty("--dock",dockY+"px");
 }
 var isDesk=window.matchMedia("(min-width:901px)");
+var RELAY_GAP=170; /* ladder spacing of released thoughts = the original's natural density */
 function dockPops(){
   if(isDesk.matches){
-    /* pinned stage: scroll progress through the fieldbed pops the scattered
-       thoughts one by one, in story order — click still works any time */
-    var r=bed.getBoundingClientRect();
-    var span=r.height-window.innerHeight; if(span<=0) return;
-    var p=Math.min(1,Math.max(0,(-r.top)/span));
-    bubs.forEach(function(bub,i){
-      if(bub.classList.contains("pop")||bub.dataset.manual) return;
-      if(p>=0.05+i*0.075) pop(bub);
-    });
+    /* RELAY PIN: a thought scrolls naturally until it reaches the line
+       (dockY) below the "What if…", freezes there and pops; when the NEXT
+       thought arrives, the held one moves on — rising in a 170px ladder
+       (the field's natural density) and fading out near the top. Applied
+       as a transform on top of the original hand-placed position. */
+    var bedR=bed.getBoundingClientRect();
+    var below=Infinity;
+    for(var i=bubs.length-1;i>=0;i--){
+      var nat=bedR.top+YS[i];               /* natural viewport top */
+      var eff=nat>dockY?nat:Math.min(dockY,below-RELAY_GAP);
+      eff=Math.min(eff,bedR.bottom-460);    /* field ending releases everyone */
+      below=eff;
+      var off=eff-nat;
+      bubs[i].style.transform=Math.abs(off)>0.5?"translateY("+off.toFixed(1)+"px)":"";
+      bubs[i].style.opacity=eff<170?Math.max(0,(eff-30)/140).toFixed(2):"";
+      if(nat<=dockY+20&&!bubs[i].classList.contains("pop")&&!bubs[i].dataset.manual) pop(bubs[i]);
+    }
   }else{
     bubs.forEach(function(bub){
       if(bub.classList.contains("pop")||bub.dataset.manual) return;
-      var st=parseFloat(getComputedStyle(bub).top); if(isNaN(st)) st=dockY;
       var r=bub.getBoundingClientRect();
-      if(r.top<=st+30&&r.bottom>0) pop(bub);
+      if(r.top<=Math.max(dockY+60,window.innerHeight*0.45)&&r.bottom>0) pop(bub);
     });
   }
 }
