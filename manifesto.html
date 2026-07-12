@@ -98,14 +98,14 @@ a{color:inherit;text-decoration:none}
 .vine .leaf{fill:var(--green);opacity:clamp(0,calc((var(--p) - var(--th))*4),1);transform-origin:center;transition:opacity 1s ease}
 .vine .leaf.d{fill:var(--green-deep)}
 
-/* bubbles — they arrive close together, dock into a cluster slot below the
-   "What if…" and ALL stay pinned (like the What if itself) until the next
-   section pushes the field away */
-.fieldbed{position:relative;width:100%;max-width:1560px;margin:0 auto;z-index:2;
-  padding-top:2vh;--rowgap:min(24vh,240px)}
-/* pin dwell: a real content spacer (NOT padding — sticky is constrained to
-   the parent's CONTENT box, padding gives the cluster no stick range) */
-.fieldtail{height:96vh}
+/* bubbles — the field is a PINNED FULL-SCREEN STAGE: on arrival (desktop)
+   all ten gray thoughts are already scattered across the whole screen, in
+   two loose jittered arcs with an open corridor between them so the vines
+   can curve and the leaves show. Scrolling pops them one by one; the whole
+   collage stays pinned until the story is told, then the page moves on. */
+.fieldbed{position:relative;height:290vh;z-index:2}
+.fieldpin{position:sticky;top:0;height:100vh}
+.fieldtail{display:none}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
 .bvinesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
@@ -113,15 +113,16 @@ a{color:inherit;text-decoration:none}
 .bvinesvg .bleaf{fill:var(--green);opacity:0;transition:opacity .7s ease}
 .bvinesvg .bleaf.d{fill:var(--green-deep)}
 .bvinesvg .bleaf.on{opacity:.85}
-/* desktop: bands dissolve (display:contents) so each bubble's sticky range
-   runs to the END of the fieldbed — once docked at its cluster slot it never
-   scrolls away until the whole field does */
+/* desktop: bands dissolve (display:contents); each bubble sits at its own
+   organic slot on the pinned stage — --pxf/--pyf are 0..1 fractions of the
+   usable width/height, sized so cards can never overlap or leave the screen */
 .bband{display:contents}
-.bub{position:sticky;top:calc(var(--dock,200px) + var(--row,0)*var(--rowgap) + var(--jy,0px));
-  width:clamp(230px,23vw,300px);z-index:calc(3 + var(--i,0));margin-left:var(--bx,8%);margin-top:24vh}
+.bub{position:absolute;left:calc(14px + var(--pxf,0)*(100% - 290px));
+  top:calc(200px + var(--pyf,0)*(100vh - 450px));
+  width:clamp(210px,16.5vw,250px);z-index:calc(3 + var(--i,0))}
 .bub .gray{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;border:0;cursor:pointer;
-  min-height:150px;padding:26px 22px;font-family:var(--serif);font-weight:300;font-style:italic;
-  font-size:clamp(.95rem,1.1vw,1.15rem);line-height:1.4;color:#57544d;
+  min-height:120px;padding:20px 18px;font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(.9rem,1vw,1.05rem);line-height:1.4;color:#57544d;
   background:var(--gtone);box-shadow:0 14px 34px -18px rgba(60,58,50,.4);
   animation:drift var(--dur) ease-in-out var(--del) infinite alternate;
   transition:transform .3s,box-shadow .3s}
@@ -133,27 +134,34 @@ a{color:inherit;text-decoration:none}
 .frag{position:absolute;left:50%;top:50%;width:12px;height:12px;pointer-events:none;z-index:5}
 
 /* popped card */
-.bub .cardp{display:none;width:100%;border-radius:22px;padding:18px 18px 16px;background:var(--ctone);
+.bub .cardp{display:none;width:100%;border-radius:20px;padding:14px 14px 12px;background:var(--ctone);
   box-shadow:0 24px 54px -24px rgba(34,48,31,.4);cursor:pointer}
 .bub.pop .gray{display:none}
 .bub.pop .cardp{display:block;animation:bloom .55s cubic-bezier(.34,1.56,.64,1)}
 @keyframes bloom{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
-.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1.1rem,1.35vw,1.3rem);line-height:1.22;color:var(--ink)}
-.cardp .vil{margin-top:8px;font-size:.8rem;line-height:1.45;color:var(--ink-soft)}
-.cardp .im{margin-top:10px;border-radius:14px;overflow:hidden}
-.cardp .im img{width:100%;height:70px;object-fit:cover}
-.cardp .deep{display:inline-block;margin-top:10px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
+.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1rem,1.15vw,1.15rem);line-height:1.22;color:var(--ink)}
+.cardp .vil{margin-top:7px;font-size:.74rem;line-height:1.4;color:var(--ink-soft);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cardp .im{margin-top:9px;border-radius:12px;overflow:hidden}
+.cardp .im img{width:100%;height:56px;object-fit:cover}
+.cardp .deep{display:inline-block;margin-top:8px;font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
+/* short screens: drop the card photo so two arcs still fit without touching */
+@media(max-height:760px){.cardp .im{display:none}}
 .cardp .deep:hover{opacity:.75}
 
 @media(max-width:900px){
-  /* mobile: no room for a full pinned cluster — bubbles flow through their
+  /* mobile: no room for a full pinned collage — bubbles flow through their
      own (shorter) bands, docking under the What if one after another */
+  .fieldbed{height:auto}
+  .fieldpin{position:static;height:auto}
   .bband{display:block;position:relative;height:44vh}
   .bband:last-of-type{height:64vh}
-  .bub{position:sticky;top:var(--dock,200px);width:min(330px,86vw);margin-top:0}
+  .bub{position:sticky;left:auto;top:var(--dock,200px);width:min(330px,86vw)}
   .bband:nth-of-type(odd) .bub{margin-left:3vw}
   .bband:nth-of-type(even) .bub{margin-left:11vw}
-  .fieldtail{height:10vh}
+  .fieldtail{display:block;height:10vh}
+  .cardp .im{display:block}
+  .bub .gray{min-height:150px}
 }
 
 /* ---------- VILLAGE SCENE ---------- */
@@ -273,7 +281,9 @@ a{color:inherit;text-decoration:none}
   <h2 class="whatif" id="whatif" aria-hidden="true"><span class="star">✦</span><span class="star">✦</span><span class="star">✦</span><span class="star">✦</span><span class="star">✦</span><span id="whatifTxt"></span></h2>
 
   <div class="fieldbed" id="fieldbed">
-    <svg class="bvinesvg" id="bvine" aria-hidden="true"></svg>
+    <div class="fieldpin" id="fieldpin">
+      <svg class="bvinesvg" id="bvine" aria-hidden="true"></svg>
+    </div>
   </div>
 </section>
 
@@ -401,19 +411,24 @@ document.getElementById("fLede").textContent=noEdit(fi.lede);
 document.getElementById("whatifTxt").textContent=fi.sparkTitle;
 
 var bed=document.getElementById("fieldbed");
+var pin=document.getElementById("fieldpin");
 var field=document.getElementById("field");
-/* insertAdjacentHTML, NOT innerHTML= — the #bvine svg already lives in the bed.
-   Desktop: each bubble docks into its own CLUSTER SLOT (4 columns × rows)
-   below the What if and stays pinned there until the field ends.
+/* insertAdjacentHTML, NOT innerHTML= — the #bvine svg already lives in the pin.
+   Desktop: organic scatter on the pinned stage — two loose jittered arcs
+   (top + bottom) with an open corridor between them. Slots are hand-placed
+   0..1 fractions, sized so cards never overlap or leave the screen.
+   SERPENTINE order: consecutive indices are spatial NEIGHBOURS (top arc
+   left→right, descend the right edge, bottom arc right→left) so the vine
+   FLOWS from card to card instead of slashing across the stage.
    Mobile: bands are real boxes again (CSS) and bubbles flow through. */
-var BX=[3,28,51,77, 5,26,53,75, 20,58]; /* cluster left offsets, % (4-col grid, organic) */
-var JY=[-10,8,-4,12];                   /* per-column vertical jitter, px */
-bed.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
+var SLOTS=[[0.010,0.06],[0.260,0.00],[0.500,0.14],[0.755,0.02],[1.000,0.10],
+           [0.990,0.92],[0.740,0.78],[0.505,0.95],[0.270,0.80],[0.010,0.90]];
+pin.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
   var t=TONES[s.tone%TONES.length];
   var dx=(i%2?-1:1)*(6+(i%3)*3), dy=(i%3?-1:1)*(5+(i%2)*4);
-  var row=Math.floor(i/4), jy=JY[i%4]+row*4;
-  return '<div class="bband" style="--bx:'+(BX[i]!=null?BX[i]:(3+(i%4)*24.5))+'%">'+
-    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--row:'+row+';--jy:'+jy+'px;--i:'+i+'">'+
+  var sl=SLOTS[i]||[(i%5)*0.24,(i%2)?0.9:0.05];
+  return '<div class="bband">'+
+    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--pxf:'+sl[0]+';--pyf:'+sl[1]+';--i:'+i+'">'+
     '<button class="gray" type="button" aria-expanded="false">'+esc(s.gray)+'</button>'+
     '<div class="cardp">'+
       '<div class="flip">'+esc(s.flip)+'</div>'+
@@ -422,9 +437,8 @@ bed.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
       '<a class="deep" href="separation.html#'+esc(s.slug)+'">Go deeper →</a>'+
     '</div></div></div>';
 }).join(""));
-/* dwell spacer AFTER the last bubble — keeps the whole cluster pinned for a
-   stretch of scroll before the village section pushes the field away */
-bed.insertAdjacentHTML("beforeend",'<div class="fieldtail" aria-hidden="true"></div>');
+/* mobile-only dwell spacer after the last band (display:none on desktop) */
+pin.insertAdjacentHTML("beforeend",'<div class="fieldtail" aria-hidden="true"></div>');
 
 var popped=0,total=MANIFESTO.stories.length;
 function burst(bub,acc){
@@ -483,15 +497,26 @@ function dockCalc(){
   dockY=86+h+16;
   field.style.setProperty("--dock",dockY+"px");
 }
+var isDesk=window.matchMedia("(min-width:901px)");
 function dockPops(){
-  bubs.forEach(function(bub){
-    if(bub.classList.contains("pop")||bub.dataset.manual) return;
-    /* per-bubble threshold: its own resolved sticky top (cluster slots sit
-       at different heights) — computed style returns the used px value */
-    var st=parseFloat(getComputedStyle(bub).top); if(isNaN(st)) st=dockY;
-    var r=bub.getBoundingClientRect();
-    if(r.top<=st+30&&r.bottom>0) pop(bub);
-  });
+  if(isDesk.matches){
+    /* pinned stage: scroll progress through the fieldbed pops the scattered
+       thoughts one by one, in story order — click still works any time */
+    var r=bed.getBoundingClientRect();
+    var span=r.height-window.innerHeight; if(span<=0) return;
+    var p=Math.min(1,Math.max(0,(-r.top)/span));
+    bubs.forEach(function(bub,i){
+      if(bub.classList.contains("pop")||bub.dataset.manual) return;
+      if(p>=0.05+i*0.075) pop(bub);
+    });
+  }else{
+    bubs.forEach(function(bub){
+      if(bub.classList.contains("pop")||bub.dataset.manual) return;
+      var st=parseFloat(getComputedStyle(bub).top); if(isNaN(st)) st=dockY;
+      var r=bub.getBoundingClientRect();
+      if(r.top<=st+30&&r.bottom>0) pop(bub);
+    });
+  }
 }
 dockCalc();
 
@@ -556,7 +581,7 @@ var segs=[];
 function isPopped(i){return bubs[i].classList.contains("pop");}
 function vineGeom(){
   if(!bvine||!segs||!segs.length) return; /* guard: called (hoisted) before this block runs */
-  var bedR=bed.getBoundingClientRect();
+  var bedR=pin.getBoundingClientRect(); /* pin = the visual stage the bubbles live on */
   if(!bedR.width) return;
   bvine.setAttribute("viewBox","0 0 "+Math.round(bedR.width)+" "+Math.round(bedR.height));
   var pts=bubs.map(function(el){
@@ -565,10 +590,14 @@ function vineGeom(){
   });
   segs.forEach(function(s,i){
     var a=pts[i],b=pts[i+1],dy=b.y-a.y,dx=b.x-a.x;
-    var bulge=(i%2?1:-1)*Math.max(80,Math.min(170,Math.abs(dx)*0.35+70));
+    /* S-curve with control points offset PERPENDICULAR to the chord — long
+       sweeps across the stage arc through the open corridor, vine-like */
+    var len=Math.hypot(dx,dy)||1;
+    var bl=(i%2?1:-1)*Math.max(75,Math.min(160,len*0.26));
+    var ux=-dy/len,uy=dx/len;
     s.el.setAttribute("d","M"+a.x.toFixed(1)+","+a.y.toFixed(1)+
-      " C"+(a.x+bulge).toFixed(1)+","+(a.y+dy*0.34).toFixed(1)+
-      " "+(b.x-bulge).toFixed(1)+","+(b.y-dy*0.34).toFixed(1)+
+      " C"+(a.x+dx*0.32+ux*bl).toFixed(1)+","+(a.y+dy*0.32+uy*bl).toFixed(1)+
+      " "+(a.x+dx*0.68-ux*bl).toFixed(1)+","+(a.y+dy*0.68-uy*bl).toFixed(1)+
       " "+b.x.toFixed(1)+","+b.y.toFixed(1));
     var L=s.el.getTotalLength();
     s.el.style.strokeDasharray=L;

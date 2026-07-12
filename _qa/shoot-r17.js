@@ -18,49 +18,74 @@ const root = "file:///C:/Users/User/coliving-portfolio/";
     console.log("shot:", name);
   }
 
-  // ---- manifesto field: cluster ----
+  // ---- manifesto field: pinned scatter stage ----
   await page.goto(root + "manifesto.html", { waitUntil: "networkidle" }).catch(() => {});
   await page.waitForTimeout(1400);
-  const setup = await page.evaluate(() => {
+  // arrival: scroll to where the stage pins — ALL gray bubbles should be visible
+  await page.evaluate(() => { window.scrollTo({ top: document.getElementById("fieldbed").getBoundingClientRect().top + window.scrollY, behavior: "auto" }); });
+  await page.waitForTimeout(900);
+  const arrival = await page.evaluate(() => {
     const bubs = [...document.querySelectorAll(".bub")];
-    const tops = bubs.map(b => Math.round(parseFloat(getComputedStyle(b).top)));
+    const vh = window.innerHeight, vw = window.innerWidth;
     return {
       bubbles: bubs.length,
+      grayVisibleOnArrival: bubs.filter(b => {
+        const r = b.getBoundingClientRect();
+        return r.top >= -10 && r.bottom <= vh + 10 && r.left >= -10 && r.right <= vw + 10;
+      }).length,
+      pinSticky: getComputedStyle(document.getElementById("fieldpin")).position === "sticky",
       segs: document.querySelectorAll(".bvinesvg .seg").length,
-      distinctStickyTops: [...new Set(tops)].sort((a, b) => a - b),
-      bandsDissolved: getComputedStyle(document.querySelector(".bband")).display === "contents",
     };
   });
-  console.log("SETUP:", JSON.stringify(setup));
+  console.log("ARRIVAL (gray scatter):", JSON.stringify(arrival));
+  await snap("r17-arrival.png", true);
 
-  // scroll slowly through the field — recompute the end each step: popping
-  // bubbles grows the bed (gray blob -> taller card), a fixed end undershoots
+  // scroll through the stage — pops cascade with progress
   await page.evaluate(async () => {
     const bed = document.getElementById("fieldbed");
-    const endNow = () => bed.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 1.35;
-    let y = 0;
-    while (y < endNow()) { y += 260; window.scrollTo({ top: y, behavior: "auto" }); await new Promise(r => setTimeout(r, 110)); }
+    const end = bed.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 1.1;
+    let y = window.scrollY;
+    while (y < end) { y += 240; window.scrollTo({ top: y, behavior: "auto" }); await new Promise(r => setTimeout(r, 110)); }
     window.__endY = y;
   });
-  await page.waitForTimeout(1600);
-  const cluster = await page.evaluate(() => {
+  await page.waitForTimeout(1800);
+  const collage = await page.evaluate(() => {
     const bubs = [...document.querySelectorAll(".bub")];
-    const vh = window.innerHeight;
-    const inView = bubs.filter(b => {
-      const r = b.getBoundingClientRect();
-      return r.top >= 0 && r.top < vh && r.bottom > 0; // top edge on screen = card visibly pinned
-    }).length;
+    const vh = window.innerHeight, vw = window.innerWidth;
+    const rects = bubs.map(b => b.getBoundingClientRect());
+    const fullyInView = rects.filter(r => r.top >= -6 && r.bottom <= vh + 6 && r.left >= -6 && r.right <= vw + 6).length;
+    // pairwise overlap check (any two cards intersecting)
+    let overlaps = 0, minGap = 1e9;
+    for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) {
+      const a = rects[i], b = rects[j];
+      const ox = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+      const oy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+      if (ox > 0 && oy > 0) overlaps++;
+      const gap = Math.max(-ox, -oy); if (ox > 0 || oy > 0) minGap = Math.min(minGap, gap);
+    }
     const segs = [...document.querySelectorAll(".bvinesvg .seg")];
     const drawn = segs.filter(p => {
       const L = p.getTotalLength();
       return L > 0 && parseFloat(p.style.strokeDashoffset || L) < L * 0.15;
     }).length;
-    return { popped: document.querySelectorAll(".bub.pop").length, pinnedInView: inView, segsDrawn: drawn };
+    // curviness of the first drawn segment: path length vs straight chord
+    let curve = null;
+    if (segs[0]) {
+      const L = segs[0].getTotalLength();
+      const a = segs[0].getPointAtLength(0), b = segs[0].getPointAtLength(L);
+      curve = +(L / Math.hypot(b.x - a.x, b.y - a.y)).toFixed(2);
+    }
+    return {
+      popped: document.querySelectorAll(".bub.pop").length,
+      fullyInView, overlaps, minGapPx: Math.round(minGap),
+      segsDrawn: drawn, leavesOn: document.querySelectorAll(".bvinesvg .bleaf.on").length,
+      curveRatio: curve,
+    };
   });
-  console.log("CLUSTER AT FIELD END:", JSON.stringify(cluster));
+  console.log("COLLAGE AT FIELD END:", JSON.stringify(collage));
   await snap("r17-cluster.png", true);
 
-  // keep scrolling: the whole cluster should leave together when the field ends
+  // keep scrolling: the whole collage should leave together when the field ends
   await page.evaluate(() => window.scrollTo({ top: window.__endY + window.innerHeight * 1.6, behavior: "auto" }));
   await page.waitForTimeout(900);
   const released = await page.evaluate(() => {
