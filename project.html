@@ -1,21 +1,238 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,380..600;1,9..144,400..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study &mdash; Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;--green-wash:#e7f0e2;
+  --sky:#7fb6c9;--sky-wash:#e3eff3;--sky-deep:#3d7286;
+  --gold:#d99a3d;--gold-deep:#8f6215;
+  --sun:#f7c948;--sun-soft:#fbe29a;
+  --clay:#b5613c;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);--line-strong:rgba(34,48,31,.3);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1320px;--gutter:clamp(20px,4.5vw,80px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{
+  background:
+    radial-gradient(120% 70% at 10% -5%, var(--sky-wash) 0%, transparent 50%),
+    radial-gradient(100% 60% at 95% 100%, #f0e8d2 0%, transparent 45%),
+    var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,22px);line-height:1.6;-webkit-font-smoothing:antialiased
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+
+/* ---- scroll reveals ---- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---- hero band ---- */
+.p-hero{padding-top:clamp(16px,3vh,36px)}
+.p-hero .ph-img-wrap{border-radius:28px;overflow:hidden}
+.p-hero img.hero-img{width:100%;max-height:52vh;object-fit:cover;display:block}
+.p-hero .hero-ph{position:relative;width:100%;height:min(52vh,460px);border-radius:28px;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(20px,3vw,44px);
+  border:2px dashed var(--gold);background:#fdf3d5}
+.p-hero .hero-ph .ph-k{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep)}
+.p-hero .hero-ph .ph-scene{font-size:clamp(.85rem,1.05vw,1rem);line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:60ch}
+.p-hero .hero-ph .ph-dot{position:absolute;top:18px;right:20px;width:14px;height:14px;border-radius:50%;background:var(--gold);opacity:.85}
+.p-hero .hero-cap{font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--ink-faint);font-style:italic;margin-top:8px}
+.p-head{padding:clamp(28px,4.5vh,56px) 0 clamp(20px,3vh,36px)}
+.p-head .p-kicker{font-size:.66rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--green-deep);display:block;margin-bottom:12px}
+.p-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5vw,4rem);line-height:1.04;letter-spacing:-.02em;margin-bottom:10px}
+.p-head .p-role{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.5vw,1.35rem);color:var(--ink-soft);margin-bottom:16px}
+.p-head .p-summary{font-size:clamp(1rem,1.25vw,1.15rem);color:var(--ink-soft);line-height:1.65;max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:0;margin-top:clamp(22px,3.5vh,36px)}
+.stat{padding:6px clamp(20px,3vw,44px);border-left:1px solid var(--line-strong)}
+.stat:first-child{padding-left:0;border-left:none}
+.stat .s-label{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:4px}
+.stat .s-value{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,1.7vw,1.4rem);line-height:1.2}
+@media(max-width:640px){.stats{flex-direction:column;gap:14px}.stat{border-left:none;padding:0}}
+
+/* ---- pull line ---- */
+.p-pull{padding:clamp(30px,5vh,60px) 0;text-align:center}
+.p-pull .pull-line{font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.5rem,2.8vw,2.5rem);line-height:1.25;letter-spacing:-.01em;color:var(--gold-deep);max-width:32ch;margin:0 auto}
+
+/* ---- sections ---- */
+.p-sections{padding-bottom:clamp(30px,5vh,60px)}
+.psec{margin-bottom:clamp(50px,8vh,90px);scroll-margin-top:90px}
+.psec h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:clamp(14px,2vh,22px)}
+.psec .psec-body p{color:var(--ink-soft);line-height:1.65;font-size:clamp(.95rem,1.15vw,1.1rem);margin-bottom:1em;max-width:70ch}
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,26px);margin-top:clamp(18px,3vh,30px)}
+.img-grid .ig-item.span2{grid-column:1 / -1}
+@media(max-width:680px){.img-grid{grid-template-columns:1fr}.img-grid .ig-item.span2{grid-column:auto}}
+.slot-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:24px;display:block}
+.cap{font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--ink-faint);font-style:italic;margin-top:8px;line-height:1.5}
+.ph{position:relative;width:100%;aspect-ratio:4/3;border-radius:24px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(16px,2.4vw,34px);
+  border:2px dashed var(--gold);background:#fdf3d5}
+.ph .ph-k{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep)}
+.ph .ph-scene{font-size:clamp(.82rem,1vw,.95rem);line-height:1.5;color:var(--ink-soft);font-style:italic}
+.ph .ph-dot{position:absolute;top:16px;right:18px;width:14px;height:14px;border-radius:50%;background:var(--gold);opacity:.85}
+
+/* ---- taught block ---- */
+.taught{
+  margin:0 0 clamp(50px,8vh,90px);
+  background:var(--green-wash);
+  border-radius:28px;
+  padding:clamp(32px,4.5vw,60px) clamp(26px,4vw,56px);
+}
+.taught .t-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep);display:block;margin-bottom:14px}
+.taught .t-body{font-size:clamp(1rem,1.3vw,1.2rem);color:var(--ink);line-height:1.65;max-width:64ch;margin-bottom:22px}
+.taught .t-links{display:flex;flex-wrap:wrap;gap:12px}
+.taught .t-links a{
+  display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--green-deep);border:1.5px solid var(--green-deep);border-radius:99px;padding:10px 22px;
+  transition:background .25s ease,color .25s ease}
+.taught .t-links a:hover{background:var(--green-deep);color:#fff}
+
+/* ---- pager ---- */
+.pager{border-top:1px solid var(--line-strong);padding:clamp(26px,4vh,44px) 0 clamp(70px,10vh,120px);
+  display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.pager .pg{max-width:44%}
+.pager .pg.next{text-align:right;margin-left:auto}
+.pager .pg-dir{font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:6px}
+.pager .pg-name{font-family:var(--serif);font-weight:400;font-size:clamp(1.1rem,1.7vw,1.5rem);line-height:1.2;color:var(--ink)}
+.pager .pg:hover .pg-name{color:var(--green-deep)}
+.pager .pg-all{width:100%;text-align:center;margin-top:clamp(18px,3vh,30px)}
+.pager .pg-all a{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep)}
+.pager .pg-all a:hover{text-decoration:underline}
+@media(max-width:640px){.pager .pg{max-width:100%}.pager .pg.next{text-align:left;margin-left:0}}
+</style>
 </head>
 <body>
-  <div id="app"></div>
-  <script src="site-nav.js"></script>
-  <script src="data.js"></script>
-  <script src="app.js"></script>
-  <script>renderProject();</script>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+<script src="site-nav.js"></script>
+
+<main>
+  <div class="wrap">
+    <div class="p-hero reveal" id="pHero"></div>
+    <header class="p-head reveal" id="pHead"></header>
+    <div class="p-pull reveal" id="pPull"></div>
+    <div class="p-sections" id="pSections"></div>
+    <div class="taught reveal" id="pTaught"></div>
+    <nav class="pager reveal" id="pPager"></nav>
+  </div>
+</main>
+
+<script src="about-data.js"></script>
+<script src="work-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+
+  function slot(img, span2){
+    var cls = "ig-item"+(span2?" span2":"");
+    if(img&&img.src){
+      return '<figure class="'+cls+'"><img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(noEdit(img.caption||img.scene||""))+'" loading="lazy">'+
+        (img.caption?'<figcaption class="cap">'+esc(noEdit(img.caption))+'</figcaption>':'')+'</figure>';
+    }
+    return '<div class="'+cls+'"><div class="ph">'+
+      '<span class="ph-dot" aria-hidden="true"></span>'+
+      '<span class="ph-k">Photo &mdash; wanted</span>'+
+      '<p class="ph-scene">'+esc(noEdit(img&&img.scene||""))+'</p>'+
+    '</div></div>';
+  }
+
+  // ---- resolve case from ?p=slug (default + unknown slug -> first case)
+  var param = new URLSearchParams(window.location.search).get("p");
+  var current = WORK_CASES.find(function(c){ return c.slug === param; }) || WORK_CASES[0];
+  var idx = WORK_CASES.indexOf(current);
+
+  document.title = noEdit(current.name) + " — Pierre-Antoine Descoteaux";
+
+  // ---- hero band
+  var heroHtml;
+  if(current.hero && current.hero.src){
+    heroHtml = '<div class="ph-img-wrap"><img class="hero-img" src="'+esc(current.hero.src)+'" alt="'+esc(noEdit(current.hero.caption||""))+'"></div>'+
+      (current.hero.caption?'<p class="hero-cap">'+esc(noEdit(current.hero.caption))+'</p>':'');
+  } else {
+    heroHtml = '<div class="hero-ph ph">'+
+      '<span class="ph-dot" aria-hidden="true"></span>'+
+      '<span class="ph-k">Photo &mdash; wanted</span>'+
+      '<p class="ph-scene">'+esc(noEdit(current.hero&&current.hero.scene||""))+'</p>'+
+    '</div>';
+  }
+  document.getElementById("pHero").innerHTML = heroHtml;
+
+  // ---- head: kicker, name, role, summary, stats
+  document.getElementById("pHead").innerHTML =
+    '<span class="p-kicker">'+esc(noEdit(current.kicker))+'</span>'+
+    '<h1>'+esc(noEdit(current.name))+'</h1>'+
+    '<p class="p-role">'+esc(noEdit(current.role))+'</p>'+
+    '<p class="p-summary">'+esc(noEdit(current.summary))+'</p>'+
+    '<div class="stats">'+current.stats.map(function(s){
+      return '<div class="stat"><span class="s-label">'+esc(noEdit(s.label))+'</span><span class="s-value">'+esc(noEdit(s.value))+'</span></div>';
+    }).join("")+'</div>';
+
+  // ---- pull line
+  document.getElementById("pPull").innerHTML =
+    '<p class="pull-line">'+esc(noEdit(current.pull))+'</p>';
+
+  // ---- sections
+  document.getElementById("pSections").innerHTML = current.sections.map(function(sec){
+    var imgs = sec.images || [];
+    var odd = imgs.length % 2 === 1;
+    var imgHtml = imgs.length
+      ? '<div class="img-grid">'+imgs.map(function(im, i){
+          return slot(im, odd && i === imgs.length-1);
+        }).join("")+'</div>'
+      : "";
+    return '<section class="psec reveal">'+
+      '<h3>'+esc(noEdit(sec.heading))+'</h3>'+
+      '<div class="psec-body">'+sec.body.map(function(p){ return '<p>'+esc(noEdit(p))+'</p>'; }).join("")+'</div>'+
+      imgHtml+
+    '</section>';
+  }).join("");
+
+  // ---- taught block
+  document.getElementById("pTaught").innerHTML =
+    '<span class="t-kicker">'+esc(noEdit(current.taught.line))+'</span>'+
+    '<p class="t-body">'+esc(noEdit(current.taught.body))+'</p>'+
+    '<div class="t-links">'+current.taught.links.map(function(l){
+      return '<a href="'+esc(l.href)+'">'+esc(noEdit(l.label))+' &rarr;</a>';
+    }).join("")+'</div>';
+
+  // ---- pager (wrap-around)
+  var prev = WORK_CASES[(idx - 1 + WORK_CASES.length) % WORK_CASES.length];
+  var next = WORK_CASES[(idx + 1) % WORK_CASES.length];
+  document.getElementById("pPager").innerHTML =
+    '<a class="pg prev" href="project.html?p='+esc(prev.slug)+'">'+
+      '<span class="pg-dir">&larr; Previous case</span>'+
+      '<span class="pg-name">'+esc(noEdit(prev.name))+'</span>'+
+    '</a>'+
+    '<a class="pg next" href="project.html?p='+esc(next.slug)+'">'+
+      '<span class="pg-dir">Next case &rarr;</span>'+
+      '<span class="pg-name">'+esc(noEdit(next.name))+'</span>'+
+    '</a>'+
+    '<div class="pg-all"><a href="work.html">All work &rarr;</a></div>';
+
+  // ---- scroll reveals
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);} });
+  },{threshold:0.15});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+})();
+</script>
 </body>
 </html>

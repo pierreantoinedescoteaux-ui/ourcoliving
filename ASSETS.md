@@ -77,3 +77,13 @@ Swap in by adding `src:` to the chapter's image in about-data.js — placeholder
 - story:rooms-that-move — WANTED from P-A — PHOTO WANTED — a C2 event floor shot (the immersive staging) with P-A in it if possible, or P-A at work during the event.
 - story:hard-chapter — WANTED from P-A — PHOTO WANTED — Bridge2AI era: late-night office/accelerator shot, the SF trip, or a whiteboard covered in scheduling diagrams. Honest > polished.
 - story:now — WANTED from P-A — PHOTO WANTED — recent: P-A hiking / trail running, or hosting a dinner at the Montréal house. Warm, outdoors or golden-hour indoors.
+
+## Work / case studies — photo slots (R22)
+
+Swap in by adding `src:` to the entry in work-data.js — placeholder auto-replaces.
+
+- work:growth-hub-dunbar — WANTED from P-A — PHOTO WANTED — the ad / listing creative that filled the house, or a screenshot of the application pipeline. The unglamorous proof.
+- work:growth-hub-dunbar — WANTED from P-A — PHOTO WANTED — a strong event shot: cold plunge, group workout, or a full-table dinner at Dunbar.
+- work:growth-hub-shaughnessy — WANTED from P-A — PHOTO WANTED — the Shaughnessy house exterior, wide enough to show the scale. This case study has no photos yet; the estate deserves one good shot minimum.
+- work:growth-hub-shaughnessy — WANTED from P-A — PHOTO WANTED — an interior common space that shows the estate's scale.
+- work:growth-hub-shaughnessy — WANTED from P-A — PHOTO WANTED — the grounds or the guest house.
