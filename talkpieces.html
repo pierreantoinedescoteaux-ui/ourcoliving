@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talk pieces — the writing room — Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* TALK PIECES v1 — the writing room. Content in talkpieces-data.js. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:980px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(24px,4vh,40px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px}
+.lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
+.pieces{display:grid;gap:20px;padding-bottom:clamp(30px,5vh,50px)}
+.piece{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(26px,3.5vw,44px);transition:border-color .3s,box-shadow .3s,transform .3s}
+a.piece:hover{border-color:var(--green);box-shadow:0 22px 50px -24px rgba(34,48,31,.35);transform:translateY(-2px)}
+.piece .kicker{font-size:.66rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:12px}
+.piece h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:12px;max-width:24ch}
+.piece .dek{color:var(--ink-soft);font-size:clamp(.95rem,1.2vw,1.08rem);max-width:62ch}
+.piece .meta{margin-top:16px;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.piece .read{display:inline-block;margin-top:16px;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
+.piece.upcoming{border-style:dashed;border-color:rgba(34,48,31,.25);background:transparent}
+.piece.upcoming h2{color:var(--ink-soft)}
+.piece.upcoming .kicker{color:var(--ink-faint)}
+.young{border:1.5px dashed rgba(34,48,31,.25);border-radius:var(--r);padding:22px 26px;color:var(--ink-faint);font-size:.9rem;text-align:center;margin-bottom:clamp(40px,6vh,70px)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+
+<header class="head wrap">
+  <span class="eyebrow" id="pEyebrow"></span>
+  <h1 id="pTitle"></h1>
+  <p class="lede" id="pLede"></p>
+</header>
+
+<main class="wrap">
+  <div class="pieces" id="pieces"></div>
+  <div class="young" id="pYoung"></div>
+</main>
+
+<script src="talkpieces-data.js"></script>
+<script src="site-nav.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+var d=TALKPIECES;
+document.getElementById("pEyebrow").textContent=d.eyebrow;
+document.getElementById("pTitle").textContent=d.title;
+document.getElementById("pLede").textContent=noEdit(d.lede);
+document.getElementById("pYoung").textContent=d.young;
+document.getElementById("pieces").innerHTML=d.pieces.map(function(p){
+  var inner='<div class="kicker">'+esc(p.kicker)+"</div>"+
+    "<h2>"+esc(p.title)+"</h2>"+
+    '<p class="dek">'+esc(noEdit(p.dek))+"</p>"+
+    '<div class="meta">'+esc(p.meta)+"</div>";
+  if(p.status==="live"){
+    return '<a class="piece" href="'+esc(p.href)+'">'+inner+'<span class="read">Read the piece →</span></a>';
+  }
+  return '<div class="piece upcoming">'+inner+"</div>";
+}).join("");
+})();
+</script>
+</body>
+</html>

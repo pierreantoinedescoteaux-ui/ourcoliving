@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designers that inspire me — Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* DESIGNERS v1 — the shoulders this site stands on. Content in
+   designers-data.js. Geometric marks are code-built (asset hierarchy #1). */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky:#7fb6c9;--sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay:#b5613c;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1100px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(24px,4vh,40px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px}
+.lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-bottom:clamp(30px,5vh,50px)}
+@media(max-width:860px){.people{grid-template-columns:1fr}}
+.person{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,3vw,36px);
+  display:flex;flex-direction:column;transition:border-color .3s,box-shadow .3s}
+.person:hover{border-color:var(--green);box-shadow:0 20px 46px -24px rgba(34,48,31,.3)}
+.person .mk{width:56px;height:56px;margin-bottom:16px}
+.person h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.1;margin-bottom:4px}
+.person .who{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+.person .known{font-size:.85rem;color:var(--ink-faint);font-style:italic;margin-bottom:12px}
+.person .take{font-size:.95rem;color:var(--ink-soft);flex:1}
+.person .row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}
+.person .row a{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
+.person .row a.int{color:var(--green-deep)}
+.person .row a:hover{opacity:.75}
+.young{border:1.5px dashed rgba(34,48,31,.25);border-radius:var(--r);padding:22px 26px;color:var(--ink-faint);font-size:.9rem;text-align:center;margin-bottom:clamp(40px,6vh,70px)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+
+<header class="head wrap">
+  <span class="eyebrow" id="dEyebrow"></span>
+  <h1 id="dTitle"></h1>
+  <p class="lede" id="dLede"></p>
+</header>
+
+<main class="wrap">
+  <div class="people" id="people"></div>
+  <div class="young" id="dYoung"></div>
+</main>
+
+<script src="designers-data.js"></script>
+<script src="site-nav.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+/* small code-built geometric marks, 3 variants cycling */
+function mark(i){
+  var c=["#5c9e4a","#d99a3d","#7fb6c9","#b5613c"][i%4];
+  if(i%3===0) return '<svg class="mk" viewBox="0 0 56 56" fill="none"><rect x="6" y="22" width="20" height="28" stroke="'+c+'" stroke-width="2.5"/><path d="M6 22 L16 10 L26 22" stroke="'+c+'" stroke-width="2.5" stroke-linejoin="round"/><circle cx="42" cy="38" r="11" stroke="'+c+'" stroke-width="2.5"/></svg>';
+  if(i%3===1) return '<svg class="mk" viewBox="0 0 56 56" fill="none"><circle cx="17" cy="17" r="10" stroke="'+c+'" stroke-width="2.5"/><circle cx="39" cy="39" r="10" stroke="'+c+'" stroke-width="2.5"/><path d="M24 24 L32 32" stroke="'+c+'" stroke-width="2.5" stroke-linecap="round"/></svg>';
+  return '<svg class="mk" viewBox="0 0 56 56" fill="none"><path d="M8 46 L8 24 L20 12 L32 24 L32 46 Z" stroke="'+c+'" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 46 L38 30 L46 22 L46 46" stroke="'+c+'" stroke-width="2.5" stroke-linejoin="round"/></svg>';
+}
+var d=DESIGNERS;
+document.getElementById("dEyebrow").textContent=d.eyebrow;
+document.getElementById("dTitle").textContent=d.title;
+document.getElementById("dLede").textContent=noEdit(d.lede);
+document.getElementById("dYoung").textContent=d.young;
+document.getElementById("people").innerHTML=d.people.map(function(p,i){
+  return '<div class="person">'+mark(i)+
+    "<h2>"+esc(p.name)+"</h2>"+
+    '<div class="who">'+esc(p.who)+"</div>"+
+    '<div class="known">'+esc(p.known)+"</div>"+
+    '<p class="take">'+esc(noEdit(p.take))+"</p>"+
+    '<div class="row">'+
+      '<a href="'+esc(p.link.href)+'" target="_blank" rel="noopener">'+esc(p.link.label)+" ↗</a>"+
+      (p.site?'<a class="int" href="'+esc(p.site.href)+'">'+esc(p.site.label)+" →</a>":"")+
+    "</div></div>";
+}).join("");
+})();
+</script>
+</body>
+</html>

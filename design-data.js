@@ -56,13 +56,13 @@ const DFC_WHAT = {
   ]
 };
 
-/* Future section — for now a deliberate dead link (designers.html not built yet). */
+/* Live since 2026-07-12 — designers.html (content: designers-data.js). */
 const DFC_INSPIRE = {
-  eyebrow: "Future section",
+  eyebrow: "The shoulders",
   line: "People far better than me at these decisions — the architects and interior designers this page borrows from. [edit]",
   label: "Designers that inspire me",
   href: "designers.html",
-  note: "coming soon"
+  note: "eight of them, for a start"
 };
 
 /* Six feelings. accent = { main, deep, pop, wash } hexes from DESIGN.md palette;

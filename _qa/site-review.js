@@ -11,6 +11,7 @@ const PAGES = [
   "design.html", "about.html", "story.html", "work.html", "project.html?item=montreal",
   "projects.html", "resources.html", "separation.html", "inspiration.html",
   "detail.html?item=everyday-utopia",
+  "talkpieces.html", "designers.html", "themes.html",
 ];
 
 (async () => {

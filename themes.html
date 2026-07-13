@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The themes library — Pierre-Antoine Descoteaux</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* THEMES LIBRARY v1 — 20 recurring subjects, each pointing at where to
+   start. Content in themes-data.js. Grows toward the ~100-subject map. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1100px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(24px,4vh,40px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px}
+.lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-bottom:clamp(30px,5vh,50px)}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.theme{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,2.8vw,32px);
+  transition:border-color .3s,box-shadow .3s}
+.theme:hover{border-color:var(--green);box-shadow:0 18px 44px -22px rgba(34,48,31,.3)}
+.theme .num{font-size:.66rem;font-weight:700;letter-spacing:.22em;color:var(--ink-faint);margin-bottom:8px}
+.theme h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,1.8vw,1.5rem);line-height:1.12;margin-bottom:8px}
+.theme .q{font-style:italic;color:var(--ink-soft);font-size:.92rem;margin-bottom:14px}
+.theme .start{display:flex;gap:8px 18px;flex-wrap:wrap}
+.theme .start a{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
+.theme .start a.ext{color:var(--clay-deep)}
+.theme .start a:hover{opacity:.75}
+.young{border:1.5px dashed rgba(34,48,31,.25);border-radius:var(--r);padding:22px 26px;color:var(--ink-faint);font-size:.9rem;text-align:center;margin-bottom:clamp(40px,6vh,70px)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+
+<header class="head wrap">
+  <span class="eyebrow" id="tEyebrow"></span>
+  <h1 id="tTitle"></h1>
+  <p class="lede" id="tLede"></p>
+</header>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+  <div class="young" id="tYoung"></div>
+</main>
+
+<script src="themes-data.js"></script>
+<script src="site-nav.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+var d=THEMES_LIB;
+document.getElementById("tEyebrow").textContent=d.eyebrow;
+document.getElementById("tTitle").textContent=d.title;
+document.getElementById("tLede").textContent=noEdit(d.lede);
+document.getElementById("tYoung").textContent=d.young;
+document.getElementById("grid").innerHTML=d.themes.map(function(t,i){
+  return '<div class="theme"><div class="num">'+(i<9?"0":"")+(i+1)+"</div>"+
+    "<h2>"+esc(t.name)+"</h2>"+
+    '<p class="q">'+esc(t.q)+"</p>"+
+    '<div class="start">'+t.start.map(function(s){
+      return '<a class="'+(s.ext?"ext":"")+'" href="'+esc(s.href)+'"'+(s.ext?' target="_blank" rel="noopener"':"")+">"+esc(s.label)+(s.ext?" ↗":" →")+"</a>";
+    }).join("")+"</div></div>";
+}).join("");
+})();
+</script>
+</body>
+</html>

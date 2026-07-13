@@ -20,10 +20,13 @@
     { label: "Coliving Atlas", href: "map.html", key: "atlas", sub: [
       { label: "The map — every shape charted", href: "map.html#map" },
       { label: "Field guides — the 12 models", href: "type.html?t=ecovillage" },
+      { label: "Themes library — the 20 questions", href: "themes.html" },
       { label: "Resources directory", href: "resources.html" }
     ]},
     { label: "Design for Connection", href: "design.html", key: "design", sub: [
-      { label: "The story we were handed — the essay", href: "separation.html" }
+      { label: "Talk pieces — the writing room", href: "talkpieces.html" },
+      { label: "The story we were handed — the essay", href: "separation.html" },
+      { label: "Designers that inspire me", href: "designers.html" }
     ]},
     { label: "About", href: "about.html", key: "about", sub: [
       { label: "My story", href: "story.html" },
@@ -34,8 +37,8 @@
   var PAGE_KEY = {
     "manifesto.html": "manifesto", "separation.html": "design", "projects.html": "manifesto",
     "inspiration.html": "manifesto", "detail.html": "manifesto",
-    "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas",
-    "design.html": "design",
+    "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas", "themes.html": "atlas",
+    "design.html": "design", "talkpieces.html": "design", "designers.html": "design",
     "about.html": "about", "story.html": "about", "work.html": "about", "project.html": "about"
   };
 
@@ -113,6 +116,7 @@
           '<a href="map.html">Coliving Atlas</a>' +
           '<a href="design.html">Design for Connection</a>' +
           '<a href="projects.html">Real communities</a>' +
+          '<a href="themes.html">Themes library</a>' +
           '<a href="resources.html">Resources</a>' +
           '<a href="about.html">About</a>' +
           '<a href="mailto:' + EMAIL + '">Say hello</a>' +
