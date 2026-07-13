@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My story (v2) &mdash; Pierre-Antoine Descoteaux</title>
+<title>My story (earlier draft) &mdash; Pierre-Antoine Descoteaux</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
 <style>
@@ -47,11 +47,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,6.4vw,6rem);line-height:1.02;letter-spacing:-.02em;margin:14px 0 clamp(16px,2.5vh,28px)}
 .hero h1 em{font-style:italic;color:var(--green-deep)}
 .hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:54ch;margin:0 auto;line-height:1.65}
-.compare-pill{display:inline-block;margin-top:24px;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink-soft);border:1.5px solid var(--line-strong);border-radius:99px;padding:9px 18px;transition:color .25s,border-color .25s}
-.compare-pill:hover{color:var(--green-deep);border-color:var(--green-deep)}
 
-/* ---- image slots (full-size, chapters) ---- */
+/* ---- image slots ---- */
 .slot-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:24px;display:block}
 .ph{position:relative;width:100%;aspect-ratio:4/3;border-radius:24px;overflow:hidden;
   display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(16px,2.4vw,34px);
@@ -60,25 +57,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .ph .ph-scene{font-size:clamp(.82rem,1vw,.95rem);line-height:1.5;color:var(--ink-soft);font-style:italic}
 .ph .ph-dot{position:absolute;top:16px;right:18px;width:14px;height:14px;border-radius:50%;background:var(--gold);opacity:.85}
 
-/* ---- vignette strip (deliberately light) ---- */
-.vignettes{padding:clamp(30px,4vh,50px) 0 clamp(40px,6vh,70px)}
-.vignettes .v-kicker{font-size:.66rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--green-deep);display:block;margin-bottom:8px}
-.vignettes .v-intro{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.4vw,1.3rem);color:var(--ink-soft);margin-bottom:clamp(18px,3vh,30px)}
-.v-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,22px)}
-@media(max-width:1100px){.v-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.v-grid{grid-template-columns:1fr}}
-.vcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(12px,1.4vw,18px);display:flex;flex-direction:column;gap:8px}
-.vcard .v-slot-img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:14px;display:block}
-.vcard .v-ph{position:relative;width:100%;aspect-ratio:3/2;border-radius:14px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:flex-start;gap:5px;padding:10px 12px;
-  border:2px dashed var(--gold);background:#fdf3d5}
-.vcard .v-ph .ph-k{font-size:.54rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep)}
-.vcard .v-ph .ph-scene{font-size:.74rem;line-height:1.4;color:var(--ink-soft);font-style:italic;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.vcard .v-years{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green-deep)}
-.vcard .v-line{font-size:.95rem;color:var(--ink-soft);line-height:1.55}
-
-/* ---- chapters (full weight) ---- */
+/* ---- chapters ---- */
 .chapters{padding:clamp(20px,3vh,40px) 0}
 .chap{
   display:grid;
@@ -88,6 +67,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   margin-bottom:clamp(70px,11vh,130px);
   scroll-margin-top:90px;
 }
+/* alternate: odd chapters image-left, even chapters image-right */
 .chap.img-right{grid-template-columns:1fr 44%}
 .chap.img-right .chap-img{order:2}
 .chap.img-right .chap-text{order:1}
@@ -108,49 +88,17 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .stayed .stayed-line{font-family:var(--serif);font-style:italic;font-weight:300;
   font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.35;color:var(--gold-deep)}
 
-/* ---- interlude band (Tokyo — not a numbered chapter) ---- */
-.interlude{
-  margin:0 0 clamp(70px,11vh,130px);
-  background:var(--sky-wash);
-  border-radius:28px;
-  padding:clamp(34px,5vw,64px) clamp(28px,4vw,60px);
-  display:grid;grid-template-columns:1fr 320px;gap:clamp(24px,3.5vw,50px);align-items:center;
-}
-@media(max-width:760px){.interlude{grid-template-columns:1fr}}
-.interlude .i-kicker{font-size:.66rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--sky-deep);display:block;margin-bottom:12px}
-.interlude .i-quote{font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:clamp(1.4rem,2.4vw,2.1rem);line-height:1.35;color:var(--ink);max-width:34ch}
-.interlude .i-img{max-width:320px;width:100%}
-.interlude .i-img .v-ph{position:relative;width:100%;aspect-ratio:4/3;border-radius:18px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:12px 14px;
-  border:2px dashed var(--gold);background:#fdf3d5}
-.interlude .i-img .ph-k{font-size:.56rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep)}
-.interlude .i-img .ph-scene{font-size:.78rem;line-height:1.4;color:var(--ink-soft);font-style:italic}
-.interlude .i-img .slot-img{aspect-ratio:4/3;border-radius:18px}
-
-/* ---- slim transparency band ---- */
-.gold-band{
-  margin:0 0 clamp(70px,11vh,130px);
+/* ---- transparency band ---- */
+.trans-band{
+  margin:clamp(40px,6vh,70px) 0;
   background:#fdf3d5;
   border-radius:28px;
-  padding:clamp(36px,5.5vw,70px) clamp(28px,4vw,60px);
-  text-align:center;
+  padding:clamp(40px,6vw,80px) clamp(28px,4vw,60px);
 }
-.gold-band .gb-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:14px}
-.gold-band .gb-line{font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:clamp(1.8rem,3.2vw,3.2rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink)}
-
-/* ---- what I bring (v2, with links) ---- */
-.bring{padding:clamp(20px,3vh,40px) 0 clamp(40px,6vh,70px)}
-.bring h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.2vw,3rem);line-height:1.08;letter-spacing:-.015em;margin-bottom:8px}
-.bring .b-sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1rem,1.3vw,1.2rem);color:var(--ink-soft);margin-bottom:clamp(22px,3.5vh,40px)}
-.bring-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px)}
-@media(max-width:680px){.bring-grid{grid-template-columns:1fr}}
-.bcard{background:var(--card);border-radius:24px;padding:clamp(18px,2.2vw,30px);display:flex;flex-direction:column;gap:8px}
-.bcard .b-theme{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--green-deep);display:block}
-.bcard .b-line{font-size:clamp(.95rem,1.1vw,1.05rem);color:var(--ink-soft);line-height:1.65;flex:1}
-.bcard .b-go{display:inline-block;margin-top:6px;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep)}
-.bcard .b-go:hover{text-decoration:underline}
+.trans-band .tb-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px;display:block}
+.trans-band .tb-line{font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.8rem,3.4vw,3.4rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink);margin-bottom:18px}
+.trans-band .tb-body{font-size:clamp(.95rem,1.15vw,1.1rem);color:var(--ink-soft);max-width:66ch;line-height:1.65}
 
 /* ---- close section ---- */
 .close-sec{padding:clamp(40px,6vh,70px) 0 clamp(70px,10vh,120px);text-align:center}
@@ -171,15 +119,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 <main>
   <section class="hero reveal"><div class="wrap">
     <span class="eyebrow">My story</span>
-    <h1>The same thing, <em>at every scale.</em></h1>
+    <h1>Ten rooms, <em>one thread.</em></h1>
     <p class="lede" id="sLede"></p>
-    <a class="compare-pill" href="story.html">Draft v2 &mdash; compare with version 1 &rarr;</a>
   </div></section>
 
   <div class="wrap">
-    <section class="vignettes reveal" id="sVignettes"></section>
     <div class="chapters" id="sChapters"></div>
-    <section class="bring reveal" id="sBring"></section>
     <div class="close-sec reveal" id="sClose"></div>
   </div>
 </main>
@@ -191,7 +136,6 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
 
-  // full-size slot (chapters)
   function slot(img){
     if(img&&img.src){
       return '<img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(img.scene||"")+'" loading="lazy">';
@@ -202,52 +146,21 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       '<p class="ph-scene">'+esc(img&&img.scene||"")+'</p>'+
     '</div>';
   }
-  // compact slot (vignettes + interlude)
-  function slotCompact(img,imgClass){
-    if(img&&img.src){
-      return '<img class="'+(imgClass||"v-slot-img")+'" src="'+esc(img.src)+'" alt="'+esc(img.scene||"")+'" loading="lazy">';
-    }
-    return '<div class="v-ph">'+
-      '<span class="ph-k">Photo &mdash; wanted</span>'+
-      '<p class="ph-scene">'+esc(img&&img.scene||"")+'</p>'+
-    '</div>';
-  }
 
-  // Hero lede
+  // Lede from ABOUT_THREAD
   document.getElementById("sLede").textContent = noEdit(ABOUT_THREAD.line);
 
-  // Vignette strip
-  document.getElementById("sVignettes").innerHTML =
-    '<span class="v-kicker">'+esc(STORY2_TEXTURE.kicker)+'</span>'+
-    '<p class="v-intro">'+esc(noEdit(STORY2_TEXTURE.intro))+'</p>'+
-    '<div class="v-grid">'+STORY2_TEXTURE.items.map(function(v){
-      return '<div class="vcard" id="v-'+esc(v.slug)+'">'+
-        slotCompact(v.image)+
-        '<span class="v-years">'+esc(v.years)+'</span>'+
-        '<p class="v-line">'+esc(noEdit(v.line))+'</p>'+
-      '</div>';
-    }).join("")+'</div>';
-
-  // Chapters + interlude + gold band
+  // Chapters
   var chapHtml = "";
-  STORY2_CHAPTERS.forEach(function(ch, i){
+  var transBandInserted = false;
+
+  ABOUT_CHAPTERS.forEach(function(ch, i){
     var num = String(i+1).padStart(2,"0");
-    var isRight = i % 2 === 1;
+    var isRight = i % 2 === 1; // alternate: even index = img-left, odd = img-right
     var cls = "chap reveal" + (isRight ? " img-right" : "");
 
-    // interlude renders immediately BEFORE the chapter named in STORY2_INTERLUDE.before
-    if(ch.slug === STORY2_INTERLUDE.before){
-      chapHtml +=
-        '<div class="interlude reveal" id="tokyo-interlude">'+
-          '<div class="i-text">'+
-            '<span class="i-kicker">'+esc(STORY2_INTERLUDE.years)+'</span>'+
-            '<p class="i-quote">'+esc(noEdit(STORY2_INTERLUDE.quote))+'</p>'+
-          '</div>'+
-          '<div class="i-img">'+slotCompact(STORY2_INTERLUDE.image,"slot-img")+'</div>'+
-        '</div>';
-    }
-
     var storyHtml = ch.story.map(function(p){ return '<p>'+esc(noEdit(p))+'</p>'; }).join("");
+
     chapHtml +=
       '<section class="'+cls+'" id="'+esc(ch.slug)+'">'+
         '<div class="chap-img">'+slot(ch.image)+'</div>'+
@@ -263,40 +176,31 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
         '</div>'+
       '</section>';
 
-    // slim gold band AFTER the houses chapter — kicker + line only, no body
-    if(ch.slug === "houses"){
+    // Insert transparency band AFTER the "houses" chapter
+    if(ch.slug === "houses" && !transBandInserted){
+      transBandInserted = true;
       chapHtml +=
-        '<div class="gold-band reveal">'+
-          '<span class="gb-kicker">'+esc(ABOUT_TRANSPARENCY.kicker)+'</span>'+
-          '<div class="gb-line">'+esc(noEdit(ABOUT_TRANSPARENCY.line))+'</div>'+
+        '<div class="trans-band reveal">'+
+          '<span class="tb-kicker">'+esc(ABOUT_TRANSPARENCY.kicker)+'</span>'+
+          '<div class="tb-line">'+esc(noEdit(ABOUT_TRANSPARENCY.line))+'</div>'+
+          '<p class="tb-body">'+esc(noEdit(ABOUT_TRANSPARENCY.body))+'</p>'+
         '</div>';
     }
   });
+
   document.getElementById("sChapters").innerHTML = chapHtml;
 
-  // What I bring v2
-  document.getElementById("sBring").innerHTML =
-    '<h2>'+esc(ABOUT_NOW2.title)+'</h2>'+
-    '<p class="b-sub">'+esc(noEdit(ABOUT_NOW2.sub))+'</p>'+
-    '<div class="bring-grid">'+ABOUT_NOW2.items.map(function(it){
-      return '<div class="bcard">'+
-        '<span class="b-theme">'+esc(it.k)+'</span>'+
-        '<p class="b-line">'+esc(noEdit(it.line))+'</p>'+
-        '<a class="b-go" href="'+esc(it.href)+'">'+esc(it.go)+' &rarr;</a>'+
-      '</div>';
-    }).join("")+'</div>';
-
-  // Close
+  // Close section
   document.getElementById("sClose").innerHTML =
     '<p class="c-line">'+esc(noEdit(ABOUT_CTA.line))+'</p>'+
     '<p class="c-sub">'+esc(ABOUT_CTA.sub)+'</p>'+
     '<a class="btn-pill" href="mailto:'+esc(ABOUT_CTA.email)+'">'+esc(ABOUT_CTA.email)+'</a>'+
     '<div class="close-links">'+
-      '<a href="story.html">Compare with version 1 &rarr;</a>'+
+      '<a href="work.html">Work &amp; case studies &rarr;</a>'+
       '<a href="about.html">Back to About &rarr;</a>'+
     '</div>';
 
-  // Scroll reveals
+  // Scroll reveals — run after DOM is populated
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);} });
   },{threshold:0.15});

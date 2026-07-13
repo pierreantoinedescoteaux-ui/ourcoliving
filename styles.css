@@ -23,7 +23,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: clip; /* was hidden - killed position:sticky (R13 bug) */ }
 
 body {
   background: var(--bg);
@@ -31,7 +31,7 @@ body {
   font-family: var(--sans);
   font-size: 18px;
   line-height: 1.62;
-  overflow-x: hidden;
+  overflow-x: clip; /* was hidden - killed position:sticky (R13 bug) */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

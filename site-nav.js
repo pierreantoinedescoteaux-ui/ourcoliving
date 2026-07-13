@@ -39,7 +39,7 @@
     "inspiration.html": "manifesto", "detail.html": "manifesto",
     "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas", "themes.html": "atlas",
     "design.html": "design", "talkpieces.html": "design", "designers.html": "design",
-    "about.html": "about", "story.html": "about", "work.html": "about", "project.html": "about"
+    "about.html": "about", "story.html": "about", "story-v1.html": "about", "work.html": "about", "project.html": "about"
   };
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }

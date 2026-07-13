@@ -277,7 +277,7 @@ const ABOUT_NOW2 = {
     {
       k: "Communities that outlive me",
       line: "The culture we built at my nonprofit was still running two years after I left — humbling, in the best way. Since then: four houses of curation, onboarding, and the occasional late-night conflict mediation.",
-      href: "story2.html#scale", go: "That story"
+      href: "story.html#scale", go: "That story"
     },
     {
       k: "Space aimed at behavior",
@@ -287,7 +287,7 @@ const ABOUT_NOW2 = {
     {
       k: "The unglamorous machinery",
       line: "CRMs, playbooks, dashboards, automation — I learned the boring systems so the human stuff has room to happen. At C2 I beat a ticket target by 33% and automated most of my own reporting job.",
-      href: "story2.html#rooms-that-move", go: "The C2 years"
+      href: "story.html#rooms-that-move", go: "The C2 years"
     },
     {
       k: "Zero-to-one, honestly",

@@ -173,20 +173,21 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     '<div class="t-line">'+esc(noEdit(ABOUT_TRANSPARENCY.line))+'</div>'+
     '<div class="t-body">'+esc(noEdit(ABOUT_TRANSPARENCY.body))+'</div>';
 
-  // What I bring
-  document.getElementById("aBringTitle").textContent = ABOUT_NOW.title;
-  document.getElementById("aBringGrid").innerHTML = ABOUT_NOW.items.map(function(it){
+  // What I bring — v2 cards (receipts + proof links), promoted with story v2 (R21)
+  document.getElementById("aBringTitle").textContent = ABOUT_NOW2.title;
+  document.getElementById("aBringGrid").innerHTML = ABOUT_NOW2.items.map(function(it){
     return '<div class="bcard">'+
       '<span class="b-theme">'+esc(it.k)+'</span>'+
       '<p class="b-line">'+esc(noEdit(it.line))+'</p>'+
+      (it.href?'<a href="'+esc(it.href)+'" style="display:inline-block;margin-top:10px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep)">'+esc(it.go)+' &rarr;</a>':'')+
     '</div>';
   }).join("");
 
   // Door cards
   document.getElementById("aDoors").innerHTML =
     '<a class="door" href="story.html">'+
-      '<div class="d-title">My story &mdash; ten rooms, one thread</div>'+
-      '<p class="d-desc">Ten chapters, told honestly &mdash; including the parts that didn&rsquo;t work.</p>'+
+      '<div class="d-title">My story &mdash; the same thing, at every scale</div>'+
+      '<p class="d-desc">Six chapters told honestly &mdash; including the one that didn&rsquo;t work.</p>'+
       '<span class="d-link">Read the story &rarr;</span>'+
     '</a>'+
     '<a class="door" href="work.html">'+

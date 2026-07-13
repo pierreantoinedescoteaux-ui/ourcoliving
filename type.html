@@ -22,7 +22,7 @@
   --gutter:clamp(18px,4vw,72px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{overflow-x:hidden}
+html,body{overflow-x:clip} /* clip, not hidden - hidden kills position:sticky (R13 bug) */
 body{
   background:
     radial-gradient(120% 70% at 85% -5%, var(--sky-wash) 0%, transparent 50%),
