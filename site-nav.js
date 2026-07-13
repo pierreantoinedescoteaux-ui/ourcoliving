@@ -151,9 +151,19 @@
     document.head.appendChild(st);
   }
 
+  /* visual edit mode (local only — edit-mode.js gates itself on file://) */
+  function mountEditMode() {
+    if (document.querySelector('script[src$="edit-mode.js"]')) return;
+    if (location.protocol !== "file:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") return;
+    var s = document.createElement("script");
+    s.src = "edit-mode.js";
+    document.head.appendChild(s);
+  }
+
   function init() {
     injectCss();
     mountToTop();
+    mountEditMode();
     var slots = document.querySelectorAll("[data-sitenav]");
     if (slots.length) {
       slots.forEach ? slots.forEach(fill) : Array.prototype.forEach.call(slots, fill);
