@@ -1,0 +1,172 @@
+{
+ "index.html": {
+  "title": "Pierre-Antoine Descoteaux — Building for connection",
+  "h1": "What if we built for connection?",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 5,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "manifesto.html": {
+  "title": "Manifesto — Pierre-Antoine Descoteaux",
+  "h1": "What if we built for connection?",
+  "nav": true,
+  "footer": true,
+  "links": 23,
+  "badLinks": [],
+  "imgs": 11,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "map.html": {
+  "title": "The Coliving Atlas — Pierre-Antoine Descoteaux",
+  "h1": "Co-living takes many shapes.",
+  "nav": true,
+  "footer": true,
+  "links": 24,
+  "badLinks": [],
+  "imgs": 36,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "type.html?t=cohousing": {
+  "title": "Cohousing (bofællesskab) — field guide — Pierre-Antoine Descoteaux",
+  "h1": "Cohousing (bofællesskab)",
+  "nav": true,
+  "footer": true,
+  "links": 15,
+  "badLinks": [],
+  "imgs": 4,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "design.html": {
+  "title": "Design for Connection — Pierre-Antoine Descoteaux",
+  "h1": "We are a product of our environment. Let’s design for connec",
+  "nav": true,
+  "footer": true,
+  "links": 14,
+  "badLinks": [
+   "designers.html"
+  ],
+  "imgs": 20,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "about.html": {
+  "title": "About — Pierre-Antoine Descoteaux",
+  "h1": "I've been building the same thing my whole life.",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 1,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "story.html": {
+  "title": "My story — Pierre-Antoine Descoteaux",
+  "h1": "Ten rooms, one thread.",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 1,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "work.html": {
+  "title": "Work — Pierre-Antoine Descoteaux",
+  "h1": "Three houses. One question: how do people live well together",
+  "nav": true,
+  "footer": true,
+  "links": 16,
+  "badLinks": [],
+  "imgs": 2,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "project.html?item=montreal": {
+  "title": "Montreal Co-living House — Pierre-Antoine Descoteaux",
+  "h1": "Montreal Co-living House",
+  "nav": true,
+  "footer": true,
+  "links": 14,
+  "badLinks": [],
+  "imgs": 7,
+  "brokenImgs": [],
+  "editMarkers": 3,
+  "jsErrors": []
+ },
+ "projects.html": {
+  "title": "Real communities — the projects that inspire me",
+  "h1": "The library of projects that inspire me.",
+  "nav": true,
+  "footer": true,
+  "links": 15,
+  "badLinks": [],
+  "imgs": 35,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "resources.html": {
+  "title": "Resources directory — Pierre-Antoine Descoteaux",
+  "h1": "The people who already mapped it.",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 0,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "separation.html": {
+  "title": "The story we were handed — a talk piece",
+  "h1": "The story we were handed, and the story underneath.",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 11,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "inspiration.html": {
+  "title": "The bookshelf — books of inspiration",
+  "h1": "The bookshelf.",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 8,
+  "brokenImgs": [],
+  "editMarkers": 0,
+  "jsErrors": []
+ },
+ "detail.html?item=everyday-utopia": {
+  "title": "Everyday Utopia — Pierre-Antoine Descoteaux",
+  "h1": "Everyday Utopia",
+  "nav": true,
+  "footer": true,
+  "links": 13,
+  "badLinks": [],
+  "imgs": 4,
+  "brokenImgs": [],
+  "editMarkers": 1,
+  "jsErrors": []
+ }
+}

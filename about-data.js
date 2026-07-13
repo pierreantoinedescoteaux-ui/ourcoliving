@@ -161,3 +161,138 @@ const ABOUT_CTA = {
   sub: "I read everything personally.",
   email: "pierreantoinedescoteaux@gmail.com"
 };
+
+/* =====================================================================
+   STORY v2 (story2.html) — P-A feedback 2026-07-12:
+   (1) weight by hiring value — charisma moments small (vignette strip),
+       skill-bearing eras keep full chapters;
+   (2) TONE = personal essay, "telling my story in my way" — humble,
+       funny, authentic, not pitchy.
+   Fresh copy (does NOT reuse ABOUT_CHAPTERS). story.html v1 untouched
+   for comparison. [edit] = Claude draft awaiting P-A's voice.
+   ===================================================================== */
+
+/* small, charming, fast — authenticity texture, not resume weight */
+const STORY2_TEXTURE = {
+  kicker: "Before any of it had a name",
+  intro: "The short version of the first twenty years, because you have things to do. [edit]",
+  items: [
+    { slug: "stone-house", years: "Age 5", line: "I stacked a playhouse out of stone bricks — twice my height, zero permits — and invited the neighbourhood in. I've been told the career plan hasn't changed much since.", image: { scene: "PHOTO WANTED — childhood: building something or playing outside. Grainy family photo is perfect." } },
+    { slug: "organizer", years: "School years", line: "I was the kid who organized things. Class rep, school president in sixth grade, eventually 'organizer of the year' — mostly because nobody else wanted to run the student radio AND the dance AND the fair.", image: { scene: "PHOTO WANTED — school-years P-A mid-organizing: on stage, at the radio, with a team." } },
+    { slug: "coach", years: "16 – 20", line: "I coached improv teams and tennis players, kids and adults. Someone was paying me to care about other people's progress. I couldn't believe my luck.", image: { scene: "PHOTO WANTED — coaching era: improv team or on court with students." } },
+    { slug: "first-company", years: "19", line: "I started a little accessories company between classes. It taught me every job at once — including the humbling ones, like selling face to face and doing my own books.", image: { scene: "PHOTO WANTED — Sway Accessories era: product, market stand, or a case-competition podium." } }
+  ]
+};
+
+/* the skill-bearing eras — full chapters, essay voice */
+const STORY2_CHAPTERS = [
+  {
+    slug: "facilitator",
+    years: "2018 – 2019 · Université Laval",
+    title: "The facilitator of the space",
+    story: [
+      "I went into business school convinced that if you wanted to change anything you needed power, and that business was where power lived. University had other plans. I met a PhD student who had noticed something odd: dozens of groups on campus were working on sustainability — students, researchers, the administration — and none of them were talking to each other.",
+      "So instead of founding yet another club, we built the connective tissue. We mapped everyone, made the introductions, hosted the gatherings, and borrowed the UN's seventeen development goals as a common language so that sixty student associations and one administration could stop reinventing each other's wheels.",
+      "Nobody was in charge, and that was the discovery. Most spaces don't need another leader — they need someone who holds the room so everyone else can lead. I finally had a name for the thing I'd been doing since the stone house. [edit]"
+    ],
+    stayed: "Map the players, build the common language, host the room.",
+    image: { scene: "PHOTO WANTED — an Alliance event at ULaval: a room of students mid-workshop, or P-A facilitating." }
+  },
+  {
+    slug: "scale",
+    years: "2019 – 2021",
+    title: "Trying it at the scale of a country",
+    story: [
+      "That little alliance somehow got me to the UN's High-Level Political Forum in New York — badge, marble halls, imposter syndrome, the whole package. The useful part turned out to be the hallway, where I met young people from across Canada who had hit the same wall on their own campuses.",
+      "We started two things together. A national youth network, because we thought young people should choose their own representatives instead of being chosen — it reached over fifty thousand of them and kept people organizing through the first pandemic months. And ReImagine17, a nonprofit where we wrote the playbook for campus alliances and created paid sustainability jobs for students. At some point I was 'managing' fourteen people, a word I use loosely, because half of what I did was learn payroll the hard way.",
+      "Here's the part I'm actually proud of. We built a culture where everyone led something and backed everyone else's something. I stepped away for two years, came back to visit — and it was all still running. Better than when I left, in places. Nothing has taught me more about what building actually means. [edit]"
+    ],
+    stayed: "A community is working when it no longer needs you.",
+    image: { scene: "PHOTO WANTED — UN HLPF 2019 delegate shot, or a ReImagine17 team retreat — people, not logos." }
+  },
+  {
+    slug: "houses",
+    years: "2021 – today · Vancouver & Montréal",
+    title: "The houses",
+    story: [
+      "In Vancouver I stopped waiting for someone else to build the room. I started the Growth Hub — a house where young entrepreneurs live together and push each other. Two businesses started at that kitchen table, and one has passed a hundred thousand in revenue, which still makes me smile, because the 'incubator' was literally a kitchen.",
+      "Then more houses. In Montréal I finally went all the way and designed the interior myself — every room with one job to do. Along the way I made most of the mistakes available on the market: wrong roommate calls, fuzzy house rules, a common room that was beautiful and completely dead until I understood why.",
+      "Let me say the quiet part plainly, because I used to soften it: none of this was a job. Nobody hired me. No company, no title, no salary. I found the houses, chose the people, set the culture, patched the conflicts, and rebuilt the spaces as we learned what they wanted to be. Five years, four houses, all real — the case studies have the receipts.",
+      "Everything on this site — the atlas, the design patterns, the manifesto — is field notes from those years. [edit]"
+    ],
+    stayed: "Run the experiment on yourself first. I did.",
+    image: { src: "images/mtl-living-room.jpg", scene: "The Montréal house living room — the interior P-A designed." }
+  },
+  {
+    slug: "rooms-that-move",
+    years: "2022 – 2024 · C2, Montréal",
+    title: "Rooms that change people",
+    story: [
+      "Back in Montréal I joined C2, the people behind one of the most theatrical business events anywhere. Officially I worked in sales and operations — I beat a ticket target by a third, migrated a CRM, wrote the playbooks, automated most of my own reporting, and made a lasting peace with spreadsheets.",
+      "But the real education was watching their designers work. Stages that move mid-session. Rooms engineered for the exact kind of collaboration they want to spark. I had spent years intuiting that space changes people; C2 was the first place I watched professionals aim it on purpose. A design-thinking program at La Factry then gave the instinct a method.",
+      "That's the strange gift of those years: I went for the craft, and left with a trained eye. [edit]"
+    ],
+    stayed: "Space is a tool you can aim.",
+    image: { scene: "PHOTO WANTED — a C2 event floor shot (the immersive staging), ideally with P-A in it." }
+  },
+  {
+    slug: "hard-chapter",
+    years: "2024 – 2026 · Vancouver",
+    title: "The chapter that didn't work",
+    story: [
+      "Then I co-founded an AI startup in manufacturing. I knew nothing about manufacturing, which in startup mythology is supposed to be charming. I was the business half — operations, revenue, learning an industry from zero. We joined an accelerator, did the San Francisco pilgrimage, slept in the office some nights, and sold about three hundred and fifty thousand dollars of work.",
+      "It still didn't grow the way it needed to. The sales cycles were long, the market was patient, and we weren't. After a year and a half we looked at it honestly and stopped.",
+      "I won't dress that up as 'failing forward'. It stung. But somewhere in those months I finally saw the pattern: every version of my life I've actually loved had the same shape — and it wasn't software. It was the thing I kept doing for free. [edit]"
+    ],
+    stayed: "I can build the machine. I'd rather build the village.",
+    image: { scene: "PHOTO WANTED — startup era: late-night office, the SF trip, or a whiteboard of scheduling diagrams. Honest > polished." }
+  },
+  {
+    slug: "now",
+    years: "2026 · Montréal",
+    title: "Now: all of it, on purpose",
+    story: [
+      "Along the way there was a year-long fellowship on compassion — two retreats in the Montana mountains with Tibetan Buddhist teachers, which is a sentence I never expected to write — and a deepening obsession with psychology, meditation, and how environments shape minds. I run, I lift, I finished a marathon once and mention it exactly as often as marathon finishers do. The woods are still where my head gets quiet.",
+      "Today it all points one direction: co-living. Not nostalgia for my houses — a craft. Facilitation, space design, operations, care. Separately they're skills; together they're how you build places where people grow because of each other.",
+      "This site is my workshop for that craft. If you're building one of those places, I'd love to help you build yours. [edit]"
+    ],
+    stayed: "Community as the antidote to isolation — space as the tool that makes it stick.",
+    image: { scene: "PHOTO WANTED — recent: hiking / trail running, or hosting a dinner at the Montréal house. Warm light." }
+  }
+];
+
+/* Tokyo compressed into a single turning-point interlude (renders before the houses chapter) */
+const STORY2_INTERLUDE = {
+  before: "houses",
+  years: "2019 – 2020 · Tokyo",
+  quote: "Between those chapters I lived a year in Tokyo, in a share-house with a common room big enough to host — in a city where almost nobody can. A rotating cast from everywhere, dinners that went long. I was more alive there than anywhere I'd lived. I didn't call it co-living yet. I just didn't want it to end.",
+  image: { scene: "PHOTO WANTED — the Tokyo share-house common room or a group dinner there." }
+};
+
+/* what-I-bring v2: capability → honest receipt → where to see it */
+const ABOUT_NOW2 = {
+  title: "What I bring to a co-living team",
+  sub: "Four things I'm good at, with receipts instead of adjectives. [edit]",
+  items: [
+    {
+      k: "Communities that outlive me",
+      line: "The culture we built at my nonprofit was still running two years after I left — humbling, in the best way. Since then: four houses of curation, onboarding, and the occasional late-night conflict mediation.",
+      href: "story2.html#scale", go: "That story"
+    },
+    {
+      k: "Space aimed at behavior",
+      line: "I designed the Montréal house room by room and trained my eye at C2, where stages literally move to change how a room feels. The design bank on this site is those lessons written down.",
+      href: "design.html", go: "Design for Connection"
+    },
+    {
+      k: "The unglamorous machinery",
+      line: "CRMs, playbooks, dashboards, automation — I learned the boring systems so the human stuff has room to happen. At C2 I beat a ticket target by 33% and automated most of my own reporting job.",
+      href: "story2.html#rooms-that-move", go: "The C2 years"
+    },
+    {
+      k: "Zero-to-one, honestly",
+      line: "One company, three nonprofits, $100K+ raised, two businesses incubated at my kitchen table — and one startup I shut down after eighteen honest months. I count that last one as a credential too.",
+      href: "work.html", go: "Work & case studies"
+    }
+  ]
+};
