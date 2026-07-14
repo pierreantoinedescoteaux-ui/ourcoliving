@@ -25,6 +25,14 @@ const TALKPIECES = {
       title: "Four slow emergencies, one root.",
       dek: "Loneliness, care, housing cost, meaning at work — the numbers behind each crisis, and why they are the same story told four ways.",
       meta: "In the workshop — the research is done, the argument is being rebuilt"
+    },
+    {
+      slug: "coliving-journey",
+      status: "upcoming",
+      kicker: "Piece 03 · Personal",
+      title: "What brought me here in the first place.",
+      dek: "Every experience of living together I've had, end to end — from the first shared house to the dream of a village — and what each one taught me. The piece behind the story.",
+      meta: "In the workshop — source notes gathered, waiting for a proper telling (sources: _research/piece-coliving-journey-sources.md)"
     }
   ],
   young: "This room is young — pieces arrive slowly, on purpose. Want to argue with one? That's the point."

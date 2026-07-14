@@ -14,19 +14,21 @@
 
   var ITEMS = [
     { label: "Manifesto", href: "manifesto.html", key: "manifesto", sub: [
+      { label: "The manifesto — start here", href: "manifesto.html" },
       { label: "Hope: real communities", href: "projects.html" },
       { label: "Hope: books of inspiration", href: "inspiration.html" }
     ]},
-    { label: "Coliving Atlas", href: "map.html", key: "atlas", sub: [
-      { label: "The map — every shape charted", href: "map.html#map" },
-      { label: "Field guides — the 12 models", href: "type.html?t=ecovillage" },
-      { label: "Themes library — the 20 questions", href: "themes.html" },
+    { label: "Coliving Resources", href: "map.html", key: "atlas", sub: [
+      { label: "The map — compare the 12 models", href: "map.html#map" },
+      { label: "Field guides — one per model", href: "type.html?t=ecovillage" },
+      { label: "Themes library — the recurring questions", href: "themes.html" },
       { label: "Resources directory", href: "resources.html" }
     ]},
     { label: "Design for Connection", href: "design.html", key: "design", sub: [
-      { label: "Talk pieces — the writing room", href: "talkpieces.html" },
-      { label: "The story we were handed — the essay", href: "separation.html" },
       { label: "Designers that inspire me", href: "designers.html" }
+    ]},
+    { label: "Writings", href: "talkpieces.html", key: "writings", sub: [
+      { label: "The story we were handed", href: "separation.html" }
     ]},
     { label: "About", href: "about.html", key: "about", sub: [
       { label: "My story", href: "story.html" },
@@ -35,10 +37,10 @@
   ];
 
   var PAGE_KEY = {
-    "manifesto.html": "manifesto", "separation.html": "design", "projects.html": "manifesto",
+    "manifesto.html": "manifesto", "separation.html": "writings", "projects.html": "manifesto",
     "inspiration.html": "manifesto", "detail.html": "manifesto",
     "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas", "themes.html": "atlas",
-    "design.html": "design", "talkpieces.html": "design", "designers.html": "design",
+    "design.html": "design", "talkpieces.html": "writings", "designers.html": "design",
     "about.html": "about", "story.html": "about", "story-v1.html": "about", "work.html": "about", "project.html": "about"
   };
 
@@ -113,8 +115,9 @@
         "</div>" +
         '<nav class="flinks" aria-label="Footer">' +
           '<a href="manifesto.html">Manifesto</a>' +
-          '<a href="map.html">Coliving Atlas</a>' +
+          '<a href="map.html">Coliving Resources</a>' +
           '<a href="design.html">Design for Connection</a>' +
+          '<a href="talkpieces.html">Writings</a>' +
           '<a href="projects.html">Real communities</a>' +
           '<a href="themes.html">Themes library</a>' +
           '<a href="resources.html">Resources</a>' +
@@ -122,7 +125,7 @@
           '<a href="mailto:' + EMAIL + '">Say hello</a>' +
         "</nav>" +
       "</div>" +
-      '<div class="fbase"><span>&copy; ' + yr + ' Pierre-Antoine Descoteaux</span></div>' +
+      '<div class="fbase"><span>&copy; ' + yr + ' Pierre-Antoine Descoteaux</span><span> · </span><a href="credits.html" style="opacity:.75">Image credits</a></div>' +
       "</footer>";
   }
 

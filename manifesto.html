@@ -98,12 +98,14 @@ a{color:inherit;text-decoration:none}
 .vine .leaf{fill:var(--green);opacity:clamp(0,calc((var(--p) - var(--th))*4),1);transform-origin:center;transition:opacity 1s ease}
 .vine .leaf.d{fill:var(--green-deep)}
 
-/* bubbles — the ORIGINAL scatter (hand-placed x/y from the data, spacing
-   doubled) + the RELAY PIN: each thought freezes on a line below the
-   "What if…" and only moves on (rises + fades) when the next one arrives
-   to take its place. Nothing overlaps; the line always holds a thought. */
-.fieldbed{position:relative;width:100%;height:var(--bedh,4600px);z-index:2}
-.fieldpin{position:relative;height:100%}
+/* bubbles — THE PINNED STAGE (P-A spec 2026-07-14): ALL thoughts are on
+   screen from the start, scattered across the full stage (padding kept at
+   the sides and around the What if). The stage pins while you scroll;
+   the next thought SHAKES (long at first, then the pace gently picks up),
+   then bursts open and the vine reaches to the following one. Click = open
+   now. Mobile keeps the flowing column. */
+.fieldbed{position:relative;width:100%;height:var(--bedh,520vh);z-index:2}
+.fieldpin{position:sticky;top:0;height:100vh}
 .fieldtail{display:none}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
@@ -112,36 +114,50 @@ a{color:inherit;text-decoration:none}
 .bvinesvg .bleaf{fill:var(--green);opacity:0;transition:opacity .7s ease}
 .bvinesvg .bleaf.d{fill:var(--green-deep)}
 .bvinesvg .bleaf.on{opacity:.85}
-/* desktop: bands dissolve (display:contents); bubbles sit at the original
-   hand-placed positions; the relay offset is applied via transform in JS */
+/* desktop: bands dissolve (display:contents); bubbles at stage coordinates
+   (--x/--y = PERCENT of the pinned stage, randomized scatter) */
 .bband{display:contents}
-.bub{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1px);
-  width:min(320px,86vw);z-index:calc(3 + var(--i,0));will-change:transform}
+.bub{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);
+  width:min(252px,23vw);z-index:calc(3 + var(--i,0))}
 .bub .gray{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;border:0;cursor:pointer;
-  min-height:190px;padding:34px 30px;font-family:var(--serif);font-weight:300;font-style:italic;
-  font-size:clamp(1.05rem,1.35vw,1.3rem);line-height:1.4;color:#57544d;
+  min-height:124px;padding:22px 22px;font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(.88rem,1vw,1.02rem);line-height:1.38;color:#57544d;
   background:var(--gtone);box-shadow:0 14px 34px -18px rgba(60,58,50,.4);
   animation:drift var(--dur) ease-in-out var(--del) infinite alternate;
   transition:transform .3s,box-shadow .3s}
-.bub .gray:hover{transform:scale(1.035);box-shadow:0 20px 44px -18px rgba(60,58,50,.5);animation-play-state:paused}
+.bub .gray:hover{transform:scale(1.04);box-shadow:0 20px 44px -18px rgba(60,58,50,.5);animation-play-state:paused}
+/* the "I'm next" shudder — intriguing, not violent */
+.bub.shake .gray{animation:shudder .42s ease-in-out infinite;
+  box-shadow:0 18px 40px -16px rgba(60,58,50,.55),0 0 0 5px rgba(217,154,61,.18)}
+@keyframes shudder{
+  0%,100%{transform:translate(0,0) rotate(-.9deg)}
+  25%{transform:translate(1.6px,-1.2px) rotate(1deg)}
+  50%{transform:translate(-1.6px,1.2px) rotate(-1.1deg)}
+  75%{transform:translate(1.2px,1.6px) rotate(.8deg)}}
 .bband:nth-of-type(odd) .gray{border-radius:58% 42% 55% 45%/52% 48% 45% 55%}
 .bband:nth-of-type(even) .gray{border-radius:44% 56% 40% 60%/58% 42% 56% 44%}
 .bband:nth-of-type(3n) .gray{border-radius:50% 50% 42% 58%/46% 54% 58% 42%}
 @keyframes drift{from{transform:translate(0,0) rotate(-.6deg)}to{transform:translate(var(--dx),var(--dy)) rotate(.7deg)}}
 .frag{position:absolute;left:50%;top:50%;width:12px;height:12px;pointer-events:none;z-index:5}
 
-/* popped card */
-.bub .cardp{display:none;width:100%;border-radius:22px;padding:22px 22px 20px;background:var(--ctone);
+/* popped card — compact for the stage: thumb beside the village line */
+.bub .cardp{display:none;width:100%;border-radius:18px;padding:16px 16px 14px;background:var(--ctone);
   box-shadow:0 24px 54px -24px rgba(34,48,31,.4);cursor:pointer}
 .bub.pop .gray{display:none}
 .bub.pop .cardp{display:block;animation:bloom .55s cubic-bezier(.34,1.56,.64,1)}
 @keyframes bloom{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
-.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,1.7vw,1.55rem);line-height:1.22;color:var(--ink)}
-.cardp .vil{margin-top:10px;font-size:.85rem;line-height:1.5;color:var(--ink-soft)}
-.cardp .im{margin-top:14px;border-radius:14px;overflow:hidden}
-.cardp .im img{width:100%;height:110px;object-fit:cover}
-.cardp .deep{display:inline-block;margin-top:13px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
+.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(.98rem,1.15vw,1.12rem);line-height:1.2;color:var(--ink)}
+.cardp .vrow{display:flex;gap:10px;align-items:flex-start;margin-top:9px}
+.cardp .im{flex:0 0 56px;border-radius:10px;overflow:hidden}
+.cardp .im img{width:56px;height:56px;object-fit:cover}
+.cardp .vil{font-size:.72rem;line-height:1.42;color:var(--ink-soft)}
+.cardp .deep{display:inline-block;margin-top:9px;font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
 .cardp .deep:hover{opacity:.75}
+@media(max-width:900px){
+  .bub .cardp{padding:20px}
+  .cardp .flip{font-size:1.15rem}
+  .cardp .im,.cardp .im img{flex-basis:64px;width:64px;height:64px}
+}
 
 @media(max-width:900px){
   /* mobile: the original static column — bubbles flow, pop near the top */
@@ -406,22 +422,34 @@ var field=document.getElementById("field");
    data), with vertical spacing DOUBLED so a held thought and the next
    arrival never crowd each other. The relay pin happens in dockPops().
    Mobile: static alternating column (CSS). */
-var YS=MANIFESTO.stories.map(function(s,i){return (s.y!=null?s.y:180+i*190)*2;});
+/* stage scatter — randomized-looking spread over the full stage, padded
+   at the edges and clear of the What if zone (top ~25%) */
+var SPOTS=[
+  {x:4,y:28},{x:29,y:34},{x:56,y:27},{x:78,y:35},
+  {x:13,y:53},{x:41,y:57},{x:69,y:52},
+  {x:5,y:76},{x:35,y:80},{x:64,y:75}
+];
 pin.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
   var t=TONES[s.tone%TONES.length];
   var dx=(i%2?-1:1)*(6+(i%3)*3), dy=(i%3?-1:1)*(5+(i%2)*4);
+  var sp=SPOTS[i]||{x:10,y:50};
   return '<div class="bband">'+
-    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--x:'+(s.x!=null?s.x:(i%2?54:8))+';--y:'+YS[i]+';--i:'+i+'">'+
+    '<div class="bub" id="bub-'+esc(s.slug)+'" style="--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--x:'+sp.x+';--y:'+sp.y+';--i:'+i+'">'+
     '<button class="gray" type="button" aria-expanded="false">'+esc(s.gray)+'</button>'+
     '<div class="cardp">'+
       '<div class="flip">'+esc(s.flip)+'</div>'+
-      '<div class="vil">'+esc(s.village)+'</div>'+
-      '<div class="im"><img loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.imgAlt)+'"></div>'+
+      '<div class="vrow"><div class="im"><img loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.imgAlt)+'"></div>'+
+      '<div class="vil">'+esc(s.village)+'</div></div>'+
       '<a class="deep" href="separation.html#'+esc(s.slug)+'">Go deeper →</a>'+
     '</div></div></div>';
 }).join(""));
-/* bed = last thought + room for it to be held + a short dwell */
-field.style.setProperty("--bedh",(Math.max.apply(null,YS)+1200)+"px");
+/* scroll budget per thought: LONG dwell for the first 2-3 (people get it),
+   then the pace picks up on a gentle exponential */
+var LENS=MANIFESTO.stories.map(function(_,i){return 0.92*Math.pow(0.8,i);});
+var LSUM=LENS.reduce(function(a,b){return a+b;},0);
+var INTRO=0.3, OUTRO=0.55, TOTALVH=INTRO+LSUM+OUTRO;
+field.style.setProperty("--bedh",(TOTALVH*100+100)+"vh");
+var THRESH=[]; (function(){var acc=INTRO;LENS.forEach(function(L){acc+=L;THRESH.push(acc/TOTALVH);});})();
 
 var popped=0,total=MANIFESTO.stories.length;
 function burst(bub,acc){
@@ -449,7 +477,7 @@ function pop(bub){
   bub.querySelector(".gray").setAttribute("aria-expanded","true");
   popped++;
   field.style.setProperty("--p",(popped/total).toFixed(2));
-  if(popped===1){ field.classList.add("lit"); setTimeout(function(){ if(typeof dockCalc==="function"){dockCalc();} },1000); }
+  if(popped===1) field.classList.add("lit");
   if(typeof refreshSegTargets==="function") refreshSegTargets();
 }
 function unpop(bub){
@@ -470,46 +498,36 @@ bubs.forEach(function(bub){
     unpop(bub);
   });
 });
-/* dock-pop: when a bubble arrives at its resting spot under the "What if…",
-   it pops on its own — click still works while it approaches */
-var dockY=230;
-function dockCalc(){
-  /* the What if is sticky at top:86 — compute its STUCK bottom, never its
-     current in-flow position (at load that can be thousands of px down) */
-  var h=document.getElementById("whatif").offsetHeight;
-  dockY=86+h+16;
-  field.style.setProperty("--dock",dockY+"px");
-}
+/* THE SEQUENCE: on desktop the stage is pinned and scroll drives the show.
+   Progress through the field maps to "how many thoughts have opened" via
+   THRESH (long first steps, then faster). The next thought in line SHAKES
+   the whole time its window is active. Clicking any thought opens it early;
+   un-popped-by-hand thoughts (data-manual) are left alone. */
 var isDesk=window.matchMedia("(min-width:901px)");
-var RELAY_GAP=170; /* ladder spacing of released thoughts = the original's natural density */
 function dockPops(){
   if(isDesk.matches){
-    /* RELAY PIN: a thought scrolls naturally until it reaches the line
-       (dockY) below the "What if…", freezes there and pops; when the NEXT
-       thought arrives, the held one moves on — rising in a 170px ladder
-       (the field's natural density) and fading out near the top. Applied
-       as a transform on top of the original hand-placed position. */
-    var bedR=bed.getBoundingClientRect();
-    var below=Infinity;
-    for(var i=bubs.length-1;i>=0;i--){
-      var nat=bedR.top+YS[i];               /* natural viewport top */
-      var eff=nat>dockY?nat:Math.min(dockY,below-RELAY_GAP);
-      eff=Math.min(eff,bedR.bottom-460);    /* field ending releases everyone */
-      below=eff;
-      var off=eff-nat;
-      bubs[i].style.transform=Math.abs(off)>0.5?"translateY("+off.toFixed(1)+"px)":"";
-      bubs[i].style.opacity=eff<170?Math.max(0,(eff-30)/140).toFixed(2):"";
-      if(nat<=dockY+20&&!bubs[i].classList.contains("pop")&&!bubs[i].dataset.manual) pop(bubs[i]);
+    var bedR=bed.getBoundingClientRect(), vh=window.innerHeight;
+    var p=Math.min(1,Math.max(0,(-bedR.top)/(bedR.height-vh)));
+    var k=0; while(k<THRESH.length&&p>=THRESH[k])k++;
+    for(var i=0;i<k;i++){
+      var b=bubs[i];
+      if(!b.classList.contains("pop")&&!b.dataset.manual) pop(b);
     }
+    /* shake the next in line, only while the stage is on screen */
+    var pinned=bedR.top<=2&&bedR.bottom>=vh-2;
+    var next=-1;
+    for(var j=0;j<bubs.length;j++){
+      if(!bubs[j].classList.contains("pop")&&!bubs[j].dataset.manual){next=j;break;}
+    }
+    bubs.forEach(function(b,j){ b.classList.toggle("shake",pinned&&j===next); });
   }else{
     bubs.forEach(function(bub){
       if(bub.classList.contains("pop")||bub.dataset.manual) return;
       var r=bub.getBoundingClientRect();
-      if(r.top<=Math.max(dockY+60,window.innerHeight*0.45)&&r.bottom>0) pop(bub);
+      if(r.top<=window.innerHeight*0.45&&r.bottom>0) pop(bub);
     });
   }
 }
-dockCalc();
 
 /* ---- village scene ---- */
 var cd=MANIFESTO.could;
@@ -541,7 +559,7 @@ function sceneUpdate(){
   vineGeom();
 }
 window.addEventListener("scroll",function(){ if(!ticking){ticking=true;requestAnimationFrame(sceneUpdate);} },{passive:true});
-window.addEventListener("resize",function(){ dockCalc(); sceneUpdate(); });
+window.addEventListener("resize",sceneUpdate);
 if(reduced){ stages.forEach(function(g){g.classList.add("on");}); possItems.forEach(function(li){li.classList.add("litp");}); finale.classList.add("litp"); }
 else sceneUpdate();
 
