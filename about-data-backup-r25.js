@@ -9,13 +9,13 @@
 
 const ABOUT_INTRO = {
   eyebrow: "About Pierre-Antoine",
-  titleHtml: "I explored my way <em>here</em>.",
-  lede: "Nonprofits, startups, events, shared houses — not a straight line, an exploration. What kept coming back: creating and facilitating spaces where people grow because of each other. [edit]",
+  titleHtml: "I've been building the <em>same thing</em> my whole life.",
+  lede: "Rooms where people grow because of each other. I just didn't always know that's what it was called. [edit]",
   portrait: { src: "images/about-portrait.jpg", scene: "Portrait of Pierre-Antoine — warm light, relaxed." }
 };
 
 const ABOUT_THREAD = {
-  line: "A stone playhouse at five. An improv team at eighteen. A campus alliance, a national nonprofit, a startup, a house in Tokyo, four houses of my own. Not a straight line — an exploration. At the center of all of it, I keep finding the same craft: creating and facilitating spaces. Sometimes digital, sometimes intellectual, sometimes a room you can stand in.",
+  line: "A stone playhouse at five. An improv team at eighteen. A campus at twenty-one. A house in Tokyo. Four houses of my own. The shape never changed — only the scale.",
   body: "This page is the short version. The long one — the story, told honestly, including the parts that didn't work — is one click away. [edit]"
 };
 
@@ -141,8 +141,8 @@ const ABOUT_CHAPTERS = [
 /* ------- the honest-footing statement (rendered between chapters and on about.html) ------- */
 const ABOUT_TRANSPARENCY = {
   kicker: "Said plainly",
-  line: "I created what I wished existed for myself.",
-  body: "The houses, the alliances, the gatherings — nobody assigned them to me. I built them because I wanted to live in them, and they taught me everything on this site. [edit]"
+  line: "None of this was a job. All of it was real.",
+  body: "No landlord hired me, no operator certified me. I built and ran these houses because I believed in them — which means what you'll find here isn't corporate polish, it's lived knowledge with the receipts to match. [edit]"
 };
 
 /* ------- what working with me looks like (about.html) ------- */
@@ -215,11 +215,12 @@ const STORY2_CHAPTERS = [
     years: "2021 – today · Vancouver & Montréal",
     title: "The houses",
     story: [
-      "Summer 2020, Vancouver, mid-pandemic. I was living in a house I genuinely loved — and still felt something missing. I was running ReImagine17 at the time, and I wanted to be surrounded by other people who were making things: creatives, entrepreneurs, the kind of energy you can't schedule.",
-      "So I tried to gather it. I posted ads online with stock photos of what a shared house could look like, pitched the vision in Vancouver groups, and interviewed a good fifty strangers — for a house I didn't even have yet. A group formed around the idea, and then we found the house together. That became the Growth Hub. More houses followed, and in Montréal I finally designed the interior myself — every room with one job to do.",
-      "Along the way I made most of the mistakes available on the market: wrong roommate calls, fuzzy house rules, a common room that was beautiful and completely dead until I understood why. But the heart of it was always simple — I created what I wished existed for myself, and let it teach me. The case studies on this site are those field notes. [edit]"
+      "In Vancouver I stopped waiting for someone else to build the room. I started the Growth Hub — a house where young entrepreneurs live together and push each other. Two businesses started at that kitchen table, and one has passed a hundred thousand in revenue, which still makes me smile, because the 'incubator' was literally a kitchen.",
+      "Then more houses. In Montréal I finally went all the way and designed the interior myself — every room with one job to do. Along the way I made most of the mistakes available on the market: wrong roommate calls, fuzzy house rules, a common room that was beautiful and completely dead until I understood why.",
+      "Let me say the quiet part plainly, because I used to soften it: none of this was a job. Nobody hired me. No company, no title, no salary. I found the houses, chose the people, set the culture, patched the conflicts, and rebuilt the spaces as we learned what they wanted to be. Five years, four houses, all real — the case studies have the receipts.",
+      "Everything on this site — the atlas, the design patterns, the manifesto — is field notes from those years. [edit]"
     ],
-    stayed: "Create what you wish existed — then let it teach you.",
+    stayed: "Run the experiment on yourself first. I did.",
     image: { src: "images/mtl-living-room.jpg", scene: "The Montréal house living room — the interior P-A designed." }
   },
   {
@@ -237,11 +238,11 @@ const STORY2_CHAPTERS = [
   {
     slug: "hard-chapter",
     years: "2024 – 2026 · Vancouver",
-    title: "The startup years",
+    title: "The chapter that didn't work",
     story: [
-      "Then I co-founded an AI startup in manufacturing. I knew nothing about manufacturing, which in startup mythology is supposed to be charming. I was the business half — operations, revenue, learning an industry from zero. We joined an accelerator, made the San Francisco pilgrimage, slept in the office some nights, and got real work into real factories.",
-      "After a year and a half we looked at it honestly and chose to stop. The sales cycles were long, the market moved slowly, and our energy belonged elsewhere. I'm glad I lived it — it taught me how to operate under pressure, and it sharpened something quieter too.",
-      "Somewhere in those months I noticed which parts of my week I protected no matter what. They all looked like the house. [edit]"
+      "Then I co-founded an AI startup in manufacturing. I knew nothing about manufacturing, which in startup mythology is supposed to be charming. I was the business half — operations, revenue, learning an industry from zero. We joined an accelerator, did the San Francisco pilgrimage, slept in the office some nights, and sold about three hundred and fifty thousand dollars of work.",
+      "It still didn't grow the way it needed to. The sales cycles were long, the market was patient, and we weren't. After a year and a half we looked at it honestly and stopped.",
+      "I won't dress that up as 'failing forward'. It stung. But somewhere in those months I finally saw the pattern: every version of my life I've actually loved had the same shape — and it wasn't software. It was the thing I kept doing for free. [edit]"
     ],
     stayed: "I can build the machine. I'd rather build the village.",
     image: { scene: "PHOTO WANTED — startup era: late-night office, the SF trip, or a whiteboard of scheduling diagrams. Honest > polished." }
@@ -249,32 +250,16 @@ const STORY2_CHAPTERS = [
   {
     slug: "now",
     years: "2026 · Montréal",
-    title: "Now: the beginning of a new path",
+    title: "Now: all of it, on purpose",
     story: [
       "Along the way there was a year-long fellowship on compassion — two retreats in the Montana mountains with Tibetan Buddhist teachers, which is a sentence I never expected to write — and a deepening obsession with psychology, meditation, and how environments shape minds. I run, I lift, I finished a marathon once and mention it exactly as often as marathon finishers do. The woods are still where my head gets quiet.",
-      "I'm not going to claim I've found the answer — I'm at the beginning of a new path, not the end of an old one. What I know is the direction: using my skills and my energy to build more hope, and co-living is where I've seen connection built most concretely. I have a lot to learn, and I want to.",
-      "This site is my workshop for that. If you're building a place where people grow because of each other, I'd love to learn alongside you and help build it. [edit]"
+      "Today it all points one direction: co-living. Not nostalgia for my houses — a craft. Facilitation, space design, operations, care. Separately they're skills; together they're how you build places where people grow because of each other.",
+      "This site is my workshop for that craft. If you're building one of those places, I'd love to help you build yours. [edit]"
     ],
     stayed: "Community as the antidote to isolation — space as the tool that makes it stick.",
     image: { scene: "PHOTO WANTED — recent: hiking / trail running, or hosting a dinner at the Montréal house. Warm light." }
   }
 ];
-
-/* the pillars — what every space (digital, intellectual, physical) taught;
-   P-A's approach to design in the LARGE sense. Rendered after the chapters. */
-const STORY2_PILLARS = {
-  kicker: "My approach",
-  title: "What all the spaces taught me.",
-  intro: "Some of the spaces were digital — ReImagine17, a national youth network. Some were intellectual — an alliance, a common language. Some you could stand in — houses, rooms, stages. Different materials, same craft. These are the pillars I design by, in the largest sense of the word: [edit]",
-  items: [
-    { t: "Co-create with humility", d: "The space belongs to the people in it. My job is to hold it, not to own it." },
-    { t: "Let the process take its time", d: "Communities and rooms both reject rushed designs. Slow is a feature." },
-    { t: "Design for shared values", d: "Curate for alignment first — everything else stands on it." },
-    { t: "Strengthen with shared rituals", d: "A table becomes a community through the meals that repeat at it." },
-    { t: "Watch what every change does", d: "Each design choice shifts the dynamic. Notice, adjust, stay honest about it." },
-    { t: "Stay highly communicative", d: "Spaces stay healthy out loud — expectations named, tensions surfaced early." }
-  ]
-};
 
 /* Tokyo compressed into a single turning-point interlude (renders before the houses chapter) */
 const STORY2_INTERLUDE = {

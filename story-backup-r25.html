@@ -184,7 +184,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   </div>
 </main>
 
-<script src="about-data.js"></script>
+<script src="about-data-backup-r25.js"></script>
 <script>
 (function(){
   "use strict";
@@ -272,23 +272,6 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
         '</div>';
     }
   });
-  // the pillars — what every space taught (P-A's design approach, large sense)
-  chapHtml +=
-    '<div class="gold-band reveal" style="padding-bottom:6px">'+
-      '<span class="gb-kicker">'+esc(STORY2_PILLARS.kicker)+'</span>'+
-      '<div class="gb-line">'+esc(noEdit(STORY2_PILLARS.title))+'</div>'+
-    '</div>'+
-    '<section class="reveal" style="max-width:920px;margin:0 auto;padding:10px 0 30px">'+
-      '<p style="color:#5c6b57;font-size:.95em;max-width:60ch;margin:0 0 22px">'+esc(noEdit(STORY2_PILLARS.intro))+'</p>'+
-      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">'+
-      STORY2_PILLARS.items.map(function(p,i){
-        return '<div style="background:#fffdf8;border:1px solid rgba(34,48,31,.14);border-radius:18px;padding:18px 20px">'+
-          '<div style="font-family:Zodiak,Georgia,serif;font-style:italic;color:#8f6215;font-size:.85em">'+(i+1)+'</div>'+
-          '<div style="font-weight:600;margin:4px 0 6px">'+esc(p.t)+'</div>'+
-          '<div style="font-size:.82em;color:#5c6b57;line-height:1.5">'+esc(p.d)+'</div>'+
-        '</div>';
-      }).join("")+'</div>'+
-    '</section>';
   document.getElementById("sChapters").innerHTML = chapHtml;
 
   // What I bring v2

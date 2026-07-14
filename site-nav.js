@@ -25,6 +25,7 @@
       { label: "Resources directory", href: "resources.html" }
     ]},
     { label: "Design for Connection", href: "design.html", key: "design", sub: [
+      { label: "Design for Connection — start here", href: "design.html" },
       { label: "Designers that inspire me", href: "designers.html" }
     ]},
     { label: "Writings", href: "talkpieces.html", key: "writings", sub: [

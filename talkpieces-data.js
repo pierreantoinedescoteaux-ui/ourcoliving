@@ -7,12 +7,13 @@
 const TALKPIECES = {
   eyebrow: "The writing room",
   title: "Talk pieces.",
-  lede: "Not a blog — position pieces. Each one takes an idea this site keeps gesturing at and argues it properly: where it comes from, why it matters, what to do with it. Slow writing, updated when my thinking moves. [edit]",
+  lede: "Not a blog — position pieces. Each one takes an idea this site keeps gesturing at and explores it properly: where it comes from, why it matters, what it could open up. Slow writing, updated when my thinking moves. [edit]",
   pieces: [
     {
       slug: "separation",
       status: "live",
       href: "separation.html",
+      img: "images/solarpunk-feast.jpg",
       kicker: "Piece 01 · Philosophy",
       title: "The story we were handed, and the story underneath.",
       dek: "Ten assumptions about housing, family and ownership we inherited without asking — read through Charles Eisenstein's Story of Separation, and flipped one by one.",
@@ -21,6 +22,7 @@ const TALKPIECES = {
     {
       slug: "four-emergencies",
       status: "upcoming",
+      img: "images/solarpunk-solar.jpg",
       kicker: "Piece 02 · The case",
       title: "Four slow emergencies, one root.",
       dek: "Loneliness, care, housing cost, meaning at work — the numbers behind each crisis, and why they are the same story told four ways.",
@@ -29,11 +31,12 @@ const TALKPIECES = {
     {
       slug: "coliving-journey",
       status: "upcoming",
+      img: "images/dunbar-exterior.jpg",
       kicker: "Piece 03 · Personal",
       title: "What brought me here in the first place.",
       dek: "Every experience of living together I've had, end to end — from the first shared house to the dream of a village — and what each one taught me. The piece behind the story.",
-      meta: "In the workshop — source notes gathered, waiting for a proper telling (sources: _research/piece-coliving-journey-sources.md)"
+      meta: "In the workshop — source notes gathered, waiting for a proper telling"
     }
   ],
-  young: "This room is young — pieces arrive slowly, on purpose. Want to argue with one? That's the point."
+  young: "This room is young — pieces arrive slowly, on purpose. If one sparks a thought, write me: these are invitations, not verdicts."
 };

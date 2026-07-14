@@ -413,7 +413,7 @@ const HOPE = {
       title: "Now I want to build it at the scale of a village.",
       body:
         "Co-living communities for an age where isolation runs deepest and division keeps rising. " +
-        "We fight back with community — and with space. Because architecture and urbanism quietly " +
+        "We answer with community — and with space. Because architecture and urbanism quietly " +
         "shape how we behave, who we meet, and who we become. [edit]"
     }
   ],

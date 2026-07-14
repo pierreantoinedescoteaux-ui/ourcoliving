@@ -167,7 +167,7 @@ const WORK_CASES = [
     ],
     taught: {
       line: "What this house proved",
-      body: "That my operator instincts hold at scale — and that scale is exactly where design and systems have to meet. It's the bridge between my houses and the larger communities this site argues for.",
+      body: "That my operator instincts hold at scale — and that scale is exactly where design and systems have to meet. It's the bridge between my houses and the larger communities this site hopes for.",
       links: [
         { label: "Operator co-living — field guide", href: "type.html?t=operator-coliving" },
         { label: "The manifesto's village", href: "manifesto.html" }
