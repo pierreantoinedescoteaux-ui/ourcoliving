@@ -32,8 +32,14 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
 .lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
 .pieces{display:grid;gap:20px;padding-bottom:clamp(30px,5vh,50px)}
 .piece{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-  padding:clamp(26px,3.5vw,44px);transition:border-color .3s,box-shadow .3s,transform .3s}
+  overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s}
 a.piece:hover{border-color:var(--green);box-shadow:0 22px 50px -24px rgba(34,48,31,.35);transform:translateY(-2px)}
+.p-img{width:100%;aspect-ratio:21/9;overflow:hidden;background:var(--sky-wash)}
+.p-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+a.piece:hover .p-img img{transform:scale(1.04)}
+.p-body{padding:clamp(26px,3.5vw,44px)}
+.piece.upcoming .p-img{border-bottom:1.5px dashed rgba(34,48,31,.25)}
+.piece.upcoming .p-img img{filter:saturate(.55);opacity:.85}
 .piece .kicker{font-size:.66rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:12px}
 .piece h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:12px;max-width:24ch}
 .piece .dek{color:var(--ink-soft);font-size:clamp(.95rem,1.2vw,1.08rem);max-width:62ch}
@@ -73,14 +79,15 @@ document.getElementById("pTitle").textContent=d.title;
 document.getElementById("pLede").textContent=noEdit(d.lede);
 document.getElementById("pYoung").textContent=d.young;
 document.getElementById("pieces").innerHTML=d.pieces.map(function(p){
+  var band=p.img?'<div class="p-img"><img src="'+esc(p.img)+'" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>':"";
   var inner='<div class="kicker">'+esc(p.kicker)+"</div>"+
     "<h2>"+esc(p.title)+"</h2>"+
     '<p class="dek">'+esc(noEdit(p.dek))+"</p>"+
     '<div class="meta">'+esc(p.meta)+"</div>";
   if(p.status==="live"){
-    return '<a class="piece" href="'+esc(p.href)+'">'+inner+'<span class="read">Read the piece →</span></a>';
+    return '<a class="piece" href="'+esc(p.href)+'">'+band+'<div class="p-body">'+inner+'<span class="read">Read the piece →</span></div></a>';
   }
-  return '<div class="piece upcoming">'+inner+"</div>";
+  return '<div class="piece upcoming">'+band+'<div class="p-body">'+inner+"</div></div>";
 }).join("");
 })();
 </script>

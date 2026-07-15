@@ -21,7 +21,7 @@
   --line:rgba(34,48,31,.14);--line-strong:rgba(34,48,31,.3);
   --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
   --max:1320px;--gutter:clamp(20px,4.5vw,80px);
-  --slide-w:min(1080px,76vw);
+  --slide-w:min(1080px,76vw,110vh); /* 110vh term caps the 16/9 slide image at ~62% of viewport height — short laptop screens (1280x620) otherwise get images taller than the screen */
   --navh:64px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
