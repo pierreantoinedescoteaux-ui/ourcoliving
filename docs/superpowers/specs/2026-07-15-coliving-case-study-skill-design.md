@@ -48,7 +48,7 @@ Research basis: Diana Leafe Christian (*Creating a Life Together*), McCamant & D
 - **Stage 0 — Scope scan.** Survey what's documented (official site, press, academic, video, forums). Output: source map + depth call (word band within 2,000–6,000) + which conditional sections will exist. Presented to P-A only if he's present; otherwise logged in the study folder as `scope.md`.
 - **Stage 1 — Research lanes (parallel subagents, cheap models).** Six lanes: story+sequencing+crises · money+ownership+affordability · space+design · community mechanics · voices · fight+replication. Each returns sourced notes: claim + URL + confidence (verified / single-source / inferred).
 - **Stage 2 — Photos (separable module).** Scripts in `<skill>/scripts/`: candidate collection from official site + press + Wikimedia → download → resize to 1600px q82 → verify each file opens/renders → write `credits.md` (source URL + credit line per image). Model only selects among verified candidates and assigns them to sections. Skill runs fine with module skipped → described placeholder slots instead.
-- **Stage 3 — Write.** Single writing pass at the strongest available model, imitating `references/format-example.md`. Frontmatter facts block (YAML: name, place, founded, residents, tenure, url, status, depth_words) + the section canon.
+- **Stage 3 — Write.** The dispatched agent itself writes the study (Sonnet by default — P-A 2026-07-15: "as much as possible through Sonnet, that's the real test"), imitating `references/format-example.md`. If a Sonnet study falls short, the fix is stronger skill instructions/examples — never escalating the model as a crutch. Frontmatter facts block (YAML: name, place, founded, residents, tenure, url, status, depth_words) + the section canon.
 - **Stage 4 — Verify.** Checklist: (a) 5 random claims spot-checked against their cited sources; (b) every lesson traces to an in-study fact; (c) structure diff vs reference example (same sections, same order, conditionals justified); (d) images all render / placeholders well-described; (e) word count within the Stage-0 band, deviations justified by source density, zero padding.
 
 ## 5. Output contract
@@ -90,4 +90,4 @@ Repo-side, after both pilots: case-studies room page (one-data-file-per-room rul
 - Site case-studies room + PDF export plumbing (section 7).
 - PDF image policy question (credited-but-unlicensed photos leaving the site in a PDF) — resolve when PDF plumbing is built.
 - Batch mode ("case studies for all 12 atlas type examples").
-- Sonnet-only benchmark of the writing pass (v1 assumes strongest available model writes; measure whether Sonnet meets the 95% quality floor later).
+- ~~Sonnet-only benchmark of the writing pass~~ — superseded 2026-07-15: the pilots run Sonnet end-to-end including writing; they ARE the benchmark.
