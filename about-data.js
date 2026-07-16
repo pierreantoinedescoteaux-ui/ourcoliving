@@ -59,7 +59,7 @@ const ABOUT_CHAPTERS = [
     years: "2018 – 2019 · Université Laval",
     title: "The facilitator of the space",
     story: [
-      "At university in Québec City I met a PhD student who had noticed something: dozens of groups were working on sustainability — students, admin, researchers — and none of them were talking to each other. We co-founded an alliance whose only job was to be the connective tissue.",
+      "At Université Laval in Québec City I met a PhD student who had noticed something: dozens of groups were working on sustainability — students, admin, researchers — and none of them were talking to each other. We co-founded an alliance whose only job was to be the connective tissue.",
       "We mapped every actor on campus, made the introductions, hosted the gatherings, and used the UN's seventeen development goals as a shared vocabulary so sixty student associations and the administration could finally pull in the same direction.",
       "That experience named the pattern I'd been living since the stone house: most spaces don't need another actor. They need a facilitator of the space. [edit]"
     ],

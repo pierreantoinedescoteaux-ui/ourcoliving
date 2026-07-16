@@ -3,19 +3,17 @@
 ## Worst Offenders
 Pages with hscroll, bigImgs>0, or overlapPairs>0:
 
-- **index** @ 1280x620: bigImgs=1
-- **type** @ 1280x620: bigImgs=1
-- **design** @ 1280x620: bigImgs=18
+_None — all metrics clean._
 
 ## Metrics Table
 
 | page | 1366x768 hscroll | 1366x768 bigImgs | 1366x768 offscreen | 1366x768 overlapPairs | 1280x620 hscroll | 1280x620 bigImgs | 1280x620 offscreen | 1280x620 overlapPairs |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| index | no | 0 | 0 | 0 | no | 1 | 0 | 0 |
+| index | no | 0 | 0 | 0 | no | 0 | 0 | 0 |
 | manifesto | no | 0 | 0 | 0 | no | 0 | 0 | 0 |
 | map | no | 0 | 33 | 0 | no | 0 | 33 | 0 |
-| type | no | 0 | 0 | 0 | no | 1 | 0 | 0 |
-| design | no | 0 | 18 | 0 | no | 18 | 18 | 0 |
+| type | no | 0 | 0 | 0 | no | 0 | 0 | 0 |
+| design | no | 0 | 17 | 0 | no | 0 | 17 | 0 |
 | projects | no | 0 | 0 | 0 | no | 0 | 0 | 0 |
 | inspiration | no | 0 | 0 | 0 | no | 0 | 0 | 0 |
 | resources | no | 0 | 0 | 0 | no | 0 | 0 | 0 |

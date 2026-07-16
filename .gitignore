@@ -1,0 +1,3 @@
+# Raw pre-resize image intermediates — the site uses the resized versions in
+# images/generated/dfc2/. Kept on disk for reference, out of git to stay lean.
+images/generated/candidates/

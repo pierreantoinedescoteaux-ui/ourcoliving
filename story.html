@@ -90,7 +90,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 }
 .chap.img-right{grid-template-columns:1fr 44%}
 .chap.img-right .chap-img{order:2}
-.chap.img-right .chap-text{order:1}
+.chap.img-right .chap-text a{color:var(--green-deep);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.chap-text a:hover{color:var(--ink)}
+.chap-text{order:1}
 @media(max-width:760px){
   .chap,.chap.img-right{grid-template-columns:1fr}
   .chap.img-right .chap-img{order:1}
