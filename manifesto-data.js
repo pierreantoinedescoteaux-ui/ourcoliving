@@ -17,7 +17,7 @@ const MANIFESTO = {
   heroImg: {
     src: "images/solarpunk-feast.jpg",
     alt: "A long shared table under a tree — the future drawn as it could feel",
-    credit: "Still from “Dear Alice” — The Line studio · placeholder"
+    credit: "Original illustration"
   },
 
   /* ---- The gray field ---------------------------------------------- */

@@ -201,7 +201,7 @@ const WHY = {
     "This isn't a commune fantasy or a rendering from a developer's brochure. Every piece of that morning already exists somewhere — in a Danish common house, a Zurich co-op, a Galician village, a Montreal living room. It just hasn't been put together at scale yet.",
     "That's the work I want to do. But first, be honest about why it matters. [edit]"
   ],
-  vignetteImage: { src: "images/solarpunk-feast.jpg", credit: "Still from “Dear Alice” — The Line studio. The future, drawn the way it could feel." },
+  vignetteImage: { src: "images/solarpunk-feast.jpg", credit: "The future, drawn the way it could feel." },
 
   turn: {
     kicker: "How we got here",
@@ -239,8 +239,8 @@ const WHY = {
     title: "The future is a place we build on purpose.",
     body: "The solarpunk artists have already drawn it: technology in service of the table, energy from the sun, generations mixed, nobody optional. I don't think that future arrives by accident — I think it gets built, house by house, village by village, by people who decided isolation isn't a law of nature. [edit]",
     images: [
-      { src: "images/solarpunk-solar.jpg", credit: "“Dear Alice” — The Line" },
-      { src: "images/solarpunk-harvest.jpg", credit: "“Dear Alice” — The Line" }
+      { src: "images/solarpunk-solar.jpg", credit: "" },
+      { src: "images/solarpunk-harvest.jpg", credit: "" }
     ],
     ctas: [
       { label: "Explore the twelve models", href: "map.html" },
