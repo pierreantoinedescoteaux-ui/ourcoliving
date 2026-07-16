@@ -79,7 +79,9 @@ function fitContext(file, matchStart, content, edited) {
 const summary = { applied: [], manual: [] };
 
 for (const input of inputs) {
-  const payload = JSON.parse(readFileSync(input, "utf8"));
+  const parsed = JSON.parse(readFileSync(input, "utf8"));
+  const payloads = Array.isArray(parsed) ? parsed : [parsed]; // v2 exports may bundle every page
+  for (const payload of payloads) {
   const page = payload.page || "";
   const order = [...dataFiles, ...[page, ...htmlFiles.filter(f => f !== page)].filter(f => htmlFiles.includes(f) || f === page)];
   const searchList = [...new Set(order)].filter(f => { try { statSync(join(ROOT, f)); return true; } catch { return false; } });
@@ -121,6 +123,7 @@ for (const input of inputs) {
       summary.manual.push({ reason: hits.length === 0 ? "not found" : "ambiguous (multiple matches)", was: label, edited: eff.edited.slice(0, 80) });
     }
   }
+  } // end payloads loop
   // archive the processed export so --all never reapplies it
   if (!DRY && input.startsWith(downloadsDir())) {
     try { renameSync(input, input.replace(/\.json$/, ".applied.json")); } catch {}
