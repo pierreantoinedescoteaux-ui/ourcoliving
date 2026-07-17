@@ -237,7 +237,10 @@ const WORK_THEMES = [
         hero: { src: "images/projects/canyouth.jpg" }, logo: "images/projects/logos/canyouth.png", wip: true },
       { slug: "ocean-bridge", title: "Ocean Bridge", org: "Ocean Bridge", role: "[edit — your role]",
         blurb: "Advancing ocean conservation and literacy in Canada. [edit]",
-        hero: { src: "images/projects/ocean-bridge.jpg" }, logo: "images/projects/logos/ocean-bridge.png", wip: true }
+        hero: { src: "images/projects/ocean-bridge.jpg" }, logo: "images/projects/logos/ocean-bridge.png", wip: true },
+      { slug: "alliance", title: "Alliance for Sustainable Development", org: "AllianceDDUL · Université Laval", role: "Co-founder [edit]",
+        blurb: "Co-founding a campus alliance that connected dozens of sustainability groups at Université Laval, using the UN's 17 goals as a shared language. [edit]",
+        hero: { src: "images/projects/alliance.jpg" }, logo: "images/projects/logos/alliance.png", wip: true }
     ]
   },
   {

@@ -58,8 +58,8 @@ const root = "file:///C:/Users/User/coliving-portfolio/";
   await p.screenshot({ path: path.join(__dirname, "work-gallery-mobile.png"), fullPage: true });
 
   console.log(errs.length ? "ERRORS: " + errs.join("; ") : "no console/page errors: YES");
-  const pass = info.total === 12 && info.coverWuniform === 1 && info.coverHuniform === 1 && info.houseLinks === 3 &&
-    info.broken.length === 0 && workVisible === 4 && workType && allVisible === 12 && !errs.length;
+  const pass = info.total === 13 && info.coverWuniform === 1 && info.coverHuniform === 1 && info.houseLinks === 3 &&
+    info.broken.length === 0 && workVisible === 4 && workType && allVisible === 13 && !errs.length;
   console.log(pass ? "\n✅ ALL PASSED" : "\n❌ CHECK ABOVE");
   await b.close();
 })();
