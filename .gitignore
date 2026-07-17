@@ -1,8 +1,1 @@
-# Raw pre-resize image intermediates — the site uses the resized versions in
-# images/generated/dfc2/. Kept on disk for reference, out of git to stay lean.
-images/generated/candidates/
-
-# P-A's raw source photo dumps — heavy, kept local; the site uses curated
-# resized copies under images/ and images/projects/ and images/story/.
-FOR PIERRE-ANTOINE/Photos of different projects/
-FOR PIERRE-ANTOINE/External resources for reference only/
+node_modules/
