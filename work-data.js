@@ -210,10 +210,10 @@ const WORK_THEMES = [
         hero: { src: "images/projects/my-startr.jpg" }, wip: true },
       { slug: "bridge2ai", title: "Bridge2AI", org: "Bridge2AI", role: "Founder [edit]",
         blurb: "Building an AI startup in manufacturing during the AI boom. [edit]",
-        hero: null, wip: true },
+        hero: { src: "images/projects/bridge2ai.jpg" }, wip: true },
       { slug: "c2-studios", title: "C2 Studios", org: "C2", role: "[edit — your role]",
         blurb: "Building unforgettable experiences that move people and brands. [edit]",
-        hero: null, wip: true }
+        hero: { src: "images/projects/c2-studios.jpg" }, wip: true }
     ]
   },
   {
@@ -242,10 +242,10 @@ const WORK_THEMES = [
     cards: [
       { slug: "namchak", title: "Namchak Foundation", org: "Namchak", role: "[edit — your role]",
         blurb: "Growing still and healing with Tibetan Buddhist practices. [edit]",
-        hero: null, wip: true },
+        hero: { src: "images/projects/namchak.jpg" }, wip: true },
       { slug: "la-factry", title: "La Factry", org: "La Factry", role: "[edit — your role]",
         blurb: "Sparking creativity and facilitating design-thinking workshops. [edit]",
-        hero: null, wip: true },
+        hero: { src: "images/projects/la-factry.jpg" }, wip: true },
       { slug: "contractor", title: "Various — contractor mode", org: "Independent", role: "Contractor",
         blurb: "Going contractor mode — lending the craft where it was needed. [edit]",
         hero: null, wip: true }
