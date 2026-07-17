@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Work &amp; case studies &mdash; Pierre-Antoine Descoteaux</title>
+<title>Work &amp; experience &mdash; Pierre-Antoine Descoteaux</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
 <style>
@@ -43,62 +43,54 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
 /* ---- hero ---- */
-.hero{padding:clamp(60px,10vh,120px) 0 clamp(36px,5vh,60px);text-align:center}
+.hero{padding:clamp(60px,10vh,120px) 0 clamp(30px,4vh,50px);text-align:center}
 .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,6.4vw,6rem);line-height:1.02;letter-spacing:-.02em;margin:14px 0 clamp(16px,2.5vh,28px)}
 .hero h1 em{font-style:italic;color:var(--green-deep)}
 .hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:58ch;margin:0 auto;line-height:1.65}
 
+/* ---- theme jump-links ---- */
+.jump{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:clamp(20px,3vh,34px) 0 clamp(30px,5vh,56px)}
+.jump a{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep);
+  border:1.5px solid var(--line-strong);border-radius:99px;padding:9px 18px;transition:background .25s,color .25s,border-color .25s}
+.jump a:hover{background:var(--green-deep);color:#fff;border-color:var(--green-deep)}
+
 /* ---- slim gold band ---- */
 .gold-band{
-  margin:clamp(24px,4vh,50px) 0 clamp(50px,8vh,90px);
-  background:#fdf3d5;
-  border-radius:28px;
-  padding:clamp(36px,5.5vw,70px) clamp(28px,4vw,60px);
-  text-align:center;
+  margin:0 0 clamp(50px,8vh,80px);background:#fdf3d5;border-radius:28px;
+  padding:clamp(32px,5vw,64px) clamp(28px,4vw,60px);text-align:center;
 }
 .gold-band .gb-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:14px}
-.gold-band .gb-line{font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:clamp(1.8rem,3.2vw,3.2rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink)}
+.gold-band .gb-line{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.7rem,3.2vw,3rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink)}
 
-/* ---- image slots ---- */
-.slot-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:24px;display:block}
-.cap{font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--ink-faint);font-style:italic;margin-top:8px;line-height:1.5}
-.ph{position:relative;width:100%;aspect-ratio:4/3;border-radius:24px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(16px,2.4vw,34px);
-  border:2px dashed var(--gold);background:#fdf3d5}
-.ph .ph-k{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep)}
-.ph .ph-scene{font-size:clamp(.82rem,1vw,.95rem);line-height:1.5;color:var(--ink-soft);font-style:italic}
-.ph .ph-dot{position:absolute;top:16px;right:18px;width:14px;height:14px;border-radius:50%;background:var(--gold);opacity:.85}
+/* ---- theme sections ---- */
+.theme{padding:0 0 clamp(46px,7vh,80px);scroll-margin-top:80px}
+.theme-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  border-bottom:1.5px solid var(--line);padding-bottom:14px;margin-bottom:clamp(22px,3vh,34px)}
+.theme-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.8rem);letter-spacing:-.015em}
+.theme-head .t-blurb{font-size:clamp(.9rem,1.1vw,1.02rem);color:var(--ink-soft);font-style:italic}
 
-/* ---- case cards ---- */
-.cases{display:flex;flex-direction:column;gap:clamp(24px,3.5vh,44px);padding-bottom:clamp(50px,8vh,90px)}
-.case-card{
-  display:grid;grid-template-columns:48% 1fr;gap:clamp(22px,3vw,48px);align-items:center;
-  background:var(--card);border:1px solid var(--line);border-radius:28px;
-  padding:clamp(20px,2.6vw,36px);
-  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
-}
-.case-card:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:0 18px 44px rgba(34,48,31,.1)}
-@media(max-width:760px){.case-card{grid-template-columns:1fr}}
-.case-card .cc-kicker{font-size:.64rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:10px}
-.case-card h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.08;letter-spacing:-.015em;margin-bottom:12px}
-.case-card .cc-summary{font-size:clamp(.95rem,1.15vw,1.1rem);color:var(--ink-soft);line-height:1.65;margin-bottom:14px}
-.case-card .cc-pull{font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:clamp(1.1rem,1.5vw,1.35rem);line-height:1.35;color:var(--gold-deep);margin-bottom:18px}
-.case-card .cc-go{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep)}
-.case-card:hover .cc-go{text-decoration:underline}
-
-/* ---- beyond strip ---- */
-.beyond{padding:0 0 clamp(50px,8vh,90px)}
-.beyond .b-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep);display:block;margin-bottom:8px}
-.beyond .b-intro{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.4vw,1.3rem);color:var(--ink-soft);margin-bottom:clamp(18px,3vh,30px)}
-.b-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,24px)}
-@media(max-width:760px){.b-grid{grid-template-columns:1fr}}
-.bcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,2.2vw,30px);display:flex;flex-direction:column;gap:8px}
-.bcard .b-k{font-size:.64rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--green-deep)}
-.bcard .b-line{font-size:clamp(.92rem,1.05vw,1rem);color:var(--ink-soft);line-height:1.6;flex:1}
-.bcard .b-go{display:inline-block;margin-top:6px;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep)}
-.bcard .b-go:hover{text-decoration:underline}
+/* ---- experience grid + cards ---- */
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(16px,2vw,26px)}
+.exp-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
+a.exp-card:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:0 18px 44px rgba(34,48,31,.1)}
+.exp-media{position:relative;width:100%;aspect-ratio:3/2;background:var(--green-wash)}
+.exp-media img{width:100%;height:100%;object-fit:cover;display:block}
+.exp-media .ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
+  border:2px dashed var(--gold);border-radius:0;background:#fdf3d5;padding:20px;text-align:center}
+.exp-media .ph-k{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep)}
+.exp-media .ph-scene{font-size:.8rem;line-height:1.5;color:var(--ink-soft);font-style:italic}
+.wip-tag{position:absolute;top:14px;left:14px;background:rgba(34,48,31,.86);color:var(--sun-soft);
+  font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:99px}
+.exp-body{padding:clamp(18px,2vw,26px);display:flex;flex-direction:column;gap:10px;flex:1}
+.exp-org{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+.exp-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,1.8vw,1.6rem);line-height:1.12;letter-spacing:-.01em}
+.exp-blurb{font-size:clamp(.9rem,1.05vw,1rem);color:var(--ink-soft);line-height:1.6}
+.exp-slots{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:6px}
+.exp-slots .sl{font-size:.72rem;letter-spacing:.02em;color:var(--ink-faint)}
+.exp-slots .sl b{font-weight:700;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;font-size:.62rem}
+.exp-go{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);margin-top:4px}
+a.exp-card:hover .exp-go{text-decoration:underline}
 
 /* ---- close section ---- */
 .close-sec{padding:clamp(30px,5vh,60px) 0 clamp(70px,10vh,120px);text-align:center}
@@ -118,12 +110,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     <span class="eyebrow" id="wEyebrow"></span>
     <h1 id="wTitle"></h1>
     <p class="lede" id="wLede"></p>
+    <nav class="jump" id="wJump" aria-label="Jump to a kind of work"></nav>
   </div></section>
 
   <div class="wrap">
     <div class="gold-band reveal" id="wGold"></div>
-    <div class="cases" id="wCases"></div>
-    <section class="beyond reveal" id="wBeyond"></section>
+    <div id="wThemes"></div>
     <div class="close-sec reveal" id="wClose"></div>
   </div>
 </main>
@@ -135,65 +127,88 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   "use strict";
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
+  function slug(s){return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
 
-  function slot(img){
-    if(img&&img.src){
-      return '<div class="slot-wrap"><img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(noEdit(img.caption||img.scene||""))+'" loading="lazy">'+
-        (img.caption?'<p class="cap">'+esc(noEdit(img.caption))+'</p>':'')+'</div>';
-    }
-    return '<div class="ph">'+
-      '<span class="ph-dot" aria-hidden="true"></span>'+
-      '<span class="ph-k">Photo &mdash; wanted</span>'+
-      '<p class="ph-scene">'+esc(noEdit(img&&img.scene||""))+'</p>'+
-    '</div>';
-  }
-
-  // Hero
+  // ---- hero ----
   document.getElementById("wEyebrow").textContent = noEdit(WORK_INTRO.eyebrow);
   document.getElementById("wTitle").innerHTML = WORK_INTRO.titleHtml.replace(/\s*\[edit[^\]]*\]/gi,"");
   document.getElementById("wLede").textContent = noEdit(WORK_INTRO.lede);
 
-  // Gold band (reused from about-data.js)
+  // ---- gold band (reused honesty line) ----
   document.getElementById("wGold").innerHTML =
     '<span class="gb-kicker">'+esc(ABOUT_TRANSPARENCY.kicker)+'</span>'+
     '<div class="gb-line">'+esc(noEdit(ABOUT_TRANSPARENCY.line))+'</div>';
 
-  // Case cards
-  document.getElementById("wCases").innerHTML = WORK_CASES.map(function(c){
-    return '<a class="case-card reveal'+(c.featured?' featured':'')+'" href="project.html?p='+esc(c.slug)+'"'+(c.featured?' data-featured="true"':'')+'>'+
-      '<div class="cc-img">'+slot(c.hero)+'</div>'+
-      '<div class="cc-text">'+
-        '<span class="cc-kicker">'+esc(noEdit(c.kicker))+'</span>'+
-        '<h2>'+esc(noEdit(c.name))+'</h2>'+
-        '<p class="cc-summary">'+esc(noEdit(c.summary))+'</p>'+
-        '<p class="cc-pull">'+esc(noEdit(c.pull))+'</p>'+
-        '<span class="cc-go">Read the case study &rarr;</span>'+
+  // ---- media block (photo or dashed placeholder) ----
+  function media(hero, wip){
+    var inner;
+    if(hero&&hero.src){
+      inner = '<img src="'+esc(hero.src)+'" alt="'+esc(noEdit(hero.caption||""))+'" loading="lazy">';
+    } else {
+      inner = '<div class="ph"><span class="ph-k">Photo &mdash; to add</span>'+
+        '<span class="ph-scene">'+esc(noEdit((hero&&hero.scene)||"A hero image for this experience"))+'</span></div>';
+    }
+    return '<div class="exp-media">'+inner+(wip?'<span class="wip-tag">WIP &middot; come back later</span>':'')+'</div>';
+  }
+
+  // ---- a WIP experience card (not clickable) ----
+  function wipCard(c){
+    return '<div class="exp-card">'+
+      media(c.hero, true)+
+      '<div class="exp-body">'+
+        '<span class="exp-org">'+esc(noEdit(c.org||""))+(c.role?' &middot; '+esc(noEdit(c.role)):'')+'</span>'+
+        '<h3>'+esc(noEdit(c.title))+'</h3>'+
+        '<p class="exp-blurb">'+esc(noEdit(c.blurb))+'</p>'+
+        '<div class="exp-slots">'+
+          '<span class="sl"><b>Impact &amp; KPIs</b> &mdash; coming</span>'+
+          '<span class="sl"><b>What it taught me</b> &mdash; coming</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }
+
+  // ---- a real house case (clickable to project.html) ----
+  function caseCard(c){
+    return '<a class="exp-card" href="project.html?p='+esc(c.slug)+'">'+
+      media(c.hero, false)+
+      '<div class="exp-body">'+
+        '<span class="exp-org">'+esc(noEdit(c.kicker||c.role||""))+'</span>'+
+        '<h3>'+esc(noEdit(c.name))+'</h3>'+
+        '<p class="exp-blurb">'+esc(noEdit(c.summary))+'</p>'+
+        '<span class="exp-go">Read the case study &rarr;</span>'+
       '</div>'+
     '</a>';
+  }
+
+  // ---- themes ----
+  var jump = [];
+  document.getElementById("wThemes").innerHTML = WORK_THEMES.map(function(t){
+    var id = "theme-"+slug(t.name);
+    jump.push('<a href="#'+id+'">'+esc(t.name)+'</a>');
+    var cards;
+    if(t.fromCases){
+      cards = WORK_CASES.map(caseCard).join("");
+    } else {
+      cards = (t.cards||[]).map(wipCard).join("");
+    }
+    return '<section class="theme reveal" id="'+id+'">'+
+      '<div class="theme-head"><h2>'+esc(t.name)+'</h2>'+
+        (t.blurb?'<span class="t-blurb">'+esc(noEdit(t.blurb))+'</span>':'')+'</div>'+
+      '<div class="exp-grid">'+cards+'</div>'+
+    '</section>';
   }).join("");
+  document.getElementById("wJump").innerHTML = jump.join("");
 
-  // Beyond strip
-  document.getElementById("wBeyond").innerHTML =
-    '<span class="b-kicker">'+esc(noEdit(WORK_BEYOND.kicker))+'</span>'+
-    '<p class="b-intro">'+esc(noEdit(WORK_BEYOND.intro))+'</p>'+
-    '<div class="b-grid">'+WORK_BEYOND.items.map(function(it){
-      return '<div class="bcard">'+
-        '<span class="b-k">'+esc(it.k)+'</span>'+
-        '<p class="b-line">'+esc(noEdit(it.line))+'</p>'+
-        '<a class="b-go" href="'+esc(it.href)+'">'+esc(it.go)+' &rarr;</a>'+
-      '</div>';
-    }).join("")+'</div>';
-
-  // Close
+  // ---- close ----
   document.getElementById("wClose").innerHTML =
     '<p class="c-line">'+esc(noEdit(ABOUT_CTA.line))+'</p>'+
     '<p class="c-sub">'+esc(ABOUT_CTA.sub)+'</p>'+
     '<a class="btn-pill" href="mailto:'+esc(ABOUT_CTA.email)+'">'+esc(ABOUT_CTA.email)+'</a>';
 
-  // Scroll reveals
+  // ---- scroll reveals ----
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);} });
-  },{threshold:0.15});
+  },{threshold:0.12});
   document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
 })();
 </script>

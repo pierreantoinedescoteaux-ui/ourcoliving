@@ -13,9 +13,9 @@
    ===================================================================== */
 
 const WORK_INTRO = {
-  eyebrow: "Work & case studies",
+  eyebrow: "Work & experience",
   titleHtml: "The <em>practice.</em>",
-  lede: "Nobody commissioned these houses. I found them, filled them, ran them and redesigned them because I wanted to live in a world where they existed. Three case studies, told honestly — what I built, what broke, what it taught me. [edit]"
+  lede: "A working life in four kinds of work — the jobs, the causes, the houses and the side quests. Most are still being written up; the houses run deepest. Told honestly: what I built, what broke, what it taught me. [edit]"
 };
 
 const WORK_CASES = [
@@ -186,3 +186,69 @@ const WORK_BEYOND = {
     { k: "The machinery, tested elsewhere", line: "CRMs, playbooks, automation, honest revenue numbers — including a startup I wound down after eighteen honest months.", href: "story.html#hard-chapter", go: "That chapter" }
   ]
 };
+
+/* =====================================================================
+   WORK_THEMES — the experience section, grouped by kind of work.
+   Each theme = { name, blurb?, fromCases?, cards[] }.
+   A card is a mini-story slot: title, org, role, blurb, then placeholder
+   fields (impact / lesson) P-A fills over time.
+   - wip:true  -> "WIP" tag, NOT clickable, no subpage.
+   - fromCases:true -> pulls the 3 real house case studies from WORK_CASES
+     (clickable to project.html). Theme assignments + hero picks are a
+     first pass — reorder cards / move between themes freely.
+   - hero.src present -> renders the photo; absent -> dashed placeholder
+     that appears automatically once a photo is dropped at that path.
+   [edit] = draft copy from P-A's one-liners, awaiting his voice.
+   ===================================================================== */
+const WORK_THEMES = [
+  {
+    name: "Work",
+    blurb: "Where I earned the craft — building organizations, products and rooms.",
+    cards: [
+      { slug: "mars-my-startr", title: "MaRS Discovery District & My Startr", org: "MaRS · My Startr", role: "[edit — your role]",
+        blurb: "Addressing youth unemployment as part of Canada's largest innovation hub. [edit]",
+        hero: { src: "images/projects/my-startr.jpg" }, wip: true },
+      { slug: "bridge2ai", title: "Bridge2AI", org: "Bridge2AI", role: "Founder [edit]",
+        blurb: "Building an AI startup in manufacturing during the AI boom. [edit]",
+        hero: null, wip: true },
+      { slug: "c2-studios", title: "C2 Studios", org: "C2", role: "[edit — your role]",
+        blurb: "Building unforgettable experiences that move people and brands. [edit]",
+        hero: null, wip: true }
+    ]
+  },
+  {
+    name: "Volunteering",
+    blurb: "Where I gave the craft away — to young people, communities and causes.",
+    cards: [
+      { slug: "reimagine17", title: "ReImagine17", org: "ReImagine17", role: "Co-founder [edit]",
+        blurb: "Building a national nonprofit empowering young people's work on sustainable development. [edit]",
+        hero: { src: "images/projects/reimagine17.jpg" }, wip: true },
+      { slug: "canyouth", title: "CanYouth Network", org: "CanYouth", role: "[edit — your role]",
+        blurb: "Trying to build a representative body of youth to advise the Canadian government. [edit]",
+        hero: { src: "images/projects/canyouth.jpg" }, wip: true },
+      { slug: "ocean-bridge", title: "Ocean Bridge", org: "Ocean Bridge", role: "[edit — your role]",
+        blurb: "Advancing ocean conservation and literacy in Canada. [edit]",
+        hero: { src: "images/projects/ocean-bridge.jpg" }, wip: true }
+    ]
+  },
+  {
+    name: "Coliving projects",
+    blurb: "The houses — found, filled, run and redesigned. My deepest work, written up.",
+    fromCases: true
+  },
+  {
+    name: "Other creative projects",
+    blurb: "Side quests that shaped how I see practice, stillness and creativity.",
+    cards: [
+      { slug: "namchak", title: "Namchak Foundation", org: "Namchak", role: "[edit — your role]",
+        blurb: "Growing still and healing with Tibetan Buddhist practices. [edit]",
+        hero: null, wip: true },
+      { slug: "la-factry", title: "La Factry", org: "La Factry", role: "[edit — your role]",
+        blurb: "Sparking creativity and facilitating design-thinking workshops. [edit]",
+        hero: null, wip: true },
+      { slug: "contractor", title: "Various — contractor mode", org: "Independent", role: "Contractor",
+        blurb: "Going contractor mode — lending the craft where it was needed. [edit]",
+        hero: null, wip: true }
+    ]
+  }
+];
