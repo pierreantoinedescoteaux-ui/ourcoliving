@@ -43,7 +43,7 @@ if (process.argv.includes("--all")) inputs = findDownloads(true);
 if (!inputs.length) { console.error("Give me an edits JSON file, or --latest / --all."); process.exit(1); }
 
 /* candidate source files, ordered: data files first (copy lives there) */
-const dataFiles = readdirSync(ROOT).filter(f => /-data\.js$/.test(f) || f === "data.js");
+const dataFiles = readdirSync(ROOT).filter(f => /-data\.js$/.test(f) || f === "data.js" || f === "site-nav.js");
 const htmlFiles = readdirSync(ROOT).filter(f => /\.html?$/.test(f) && !f.startsWith("index-v2"));
 
 /* build a whitespace-tolerant regex from rendered text; also tolerate

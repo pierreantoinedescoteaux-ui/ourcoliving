@@ -57,7 +57,7 @@
   var SELECTOR = "h1,h2,h3,h4,h5,h6,p,li,blockquote,figcaption,dt,dd,summary,caption,span,a,button";
 
   function editableCandidate(el) {
-    if (el.closest(".pa-editbar,.pa-editbtn,.snav,script,style")) return false;
+    if (el.closest(".pa-editbar,.pa-editbtn,script,style")) return false;
     if (!el.innerText || !el.innerText.trim()) return false;
     for (var i = 0; i < el.children.length; i++) {
       if (!INLINE[el.children[i].tagName]) return false;
@@ -212,11 +212,25 @@
     refreshCount();
   }
 
-  /* links become text targets while editing */
+  /* while editing: a plain click on a link/button edits its text; hold
+     Ctrl / Cmd / Alt and click to actually follow the link or fire the button
+     (e.g. to jump to another page — edits are auto-saved first, so nothing is
+     lost when you leave). The edit tool's own buttons always work normally. */
   document.addEventListener("click", function (e) {
     if (!editing) return;
-    var a = e.target.closest("a");
-    if (a) { e.preventDefault(); e.stopPropagation(); }
+    var t = e.target.closest("a,button");
+    if (!t || t.closest(".pa-editbar,.pa-editbtn")) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) {
+      if (saveTimer) { clearTimeout(saveTimer); save(); } /* flush before leaving */
+      var link = t.closest("a");
+      if (link && link.getAttribute("href")) {
+        e.preventDefault();          /* override ctrl-click's "new tab" — switch page in place */
+        window.location.href = link.href;
+      }
+      return; /* buttons: let the native click fire the handler */
+    }
+    e.preventDefault();
+    e.stopPropagation();
   }, true);
 
   document.addEventListener("input", function (e) {
@@ -245,7 +259,7 @@
   var bar = document.createElement("div");
   bar.className = "pa-editbar";
   bar.innerHTML = '<span class="cnt"><b>0</b> changes</span>' +
-    '<span class="hint">click any text &middot; type &middot; edits auto-save</span>' +
+    '<span class="hint">click text to edit &middot; auto-saves &middot; <b>Ctrl/⌘-click</b> a link to switch page</span>' +
     '<button class="exp" type="button">Copy all edits</button>' +
     '<button class="dl" type="button">Download</button>' +
     '<button class="dis" type="button">Clear all</button>';

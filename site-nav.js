@@ -111,7 +111,7 @@
     return '<footer class="sfooter">' +
       '<div class="frow">' +
         '<div class="fbrand">' +
-          '<p class="note">This site is built for hope and love.</p>' +
+          '<p class="note">This site is built of hope and love.</p>' +
           '<div class="sig">Pierre-Antoine Descoteaux</div>' +
         "</div>" +
         '<nav class="flinks" aria-label="Footer">' +
