@@ -88,6 +88,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   margin-bottom:clamp(70px,11vh,130px);
   scroll-margin-top:90px;
 }
+.juxta{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.juxta img{width:100%;height:100%;object-fit:cover;border-radius:14px;box-shadow:0 12px 28px -18px rgba(34,48,31,.5);display:block}
+.juxta img:first-child{grid-column:1/-1;aspect-ratio:16/10}
+.juxta img:not(:first-child){aspect-ratio:1/1}
 .chap.img-right{grid-template-columns:1fr 44%}
 .chap.img-right .chap-img{order:2}
 .chap.img-right .chap-text a{color:var(--green-deep);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
@@ -204,6 +208,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       '<p class="ph-scene">'+esc(img&&img.scene||"")+'</p>'+
     '</div>';
   }
+  // juxtaposition of 2-5 photos (chapters)
+  function slotJuxta(imgs){
+    return '<div class="juxta juxta-'+imgs.length+'">'+imgs.map(function(im){
+      return '<img src="'+esc(im.src)+'" alt="'+esc(im.scene||"")+'" loading="lazy">';
+    }).join("")+'</div>';
+  }
   // compact slot (vignettes + interlude)
   function slotCompact(img,imgClass){
     if(img&&img.src){
@@ -252,7 +262,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     var storyHtml = ch.story.map(function(p){ return '<p>'+esc(noEdit(p))+'</p>'; }).join("");
     chapHtml +=
       '<section class="'+cls+'" id="'+esc(ch.slug)+'">'+
-        '<div class="chap-img">'+slot(ch.image)+'</div>'+
+        '<div class="chap-img">'+(ch.images&&ch.images.length?slotJuxta(ch.images):slot(ch.image))+'</div>'+
         '<div class="chap-text">'+
           '<div class="chap-ghost">No. '+num+'</div>'+
           '<span class="chap-kicker">'+esc(ch.years)+'</span>'+

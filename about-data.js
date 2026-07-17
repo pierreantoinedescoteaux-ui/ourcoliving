@@ -179,8 +179,8 @@ const STORY2_TEXTURE = {
   items: [
     { slug: "stone-house", years: "Age 5", line: "I stacked a playhouse out of stone bricks — twice my height, zero permits — and invited the neighbourhood in. I've been told the career plan hasn't changed much since.", image: { scene: "PHOTO WANTED — childhood: building something or playing outside. Grainy family photo is perfect." } },
     { slug: "organizer", years: "School years", line: "I was the kid who organized things. Class rep, school president in sixth grade, eventually 'organizer of the year' — mostly because nobody else wanted to run the student radio AND the dance AND the fair.", image: { scene: "PHOTO WANTED — school-years P-A mid-organizing: on stage, at the radio, with a team." } },
-    { slug: "coach", years: "16 – 20", line: "I coached improv teams and tennis players, kids and adults. Someone was paying me to care about other people's progress. I couldn't believe my luck.", image: { scene: "PHOTO WANTED — coaching era: improv team or on court with students." } },
-    { slug: "first-company", years: "19", line: "I started a little accessories company between classes. It taught me every job at once — including the humbling ones, like selling face to face and doing my own books.", image: { scene: "PHOTO WANTED — Sway Accessories era: product, market stand, or a case-competition podium." } }
+    { slug: "coach", years: "16 – 20", line: "I coached improv teams and tennis players, kids and adults. Someone was paying me to care about other people's progress. I couldn't believe my luck.", image: { src: "images/story/story-coach-1.jpg", scene: "Coaching improv and tennis." } },
+    { slug: "first-company", years: "19", line: "I started a little accessories company between classes. It taught me every job at once — including the humbling ones, like selling face to face and doing my own books.", image: { src: "images/story/story-first-company-1.jpg", scene: "The Sway Accessories years." } }
   ]
 };
 
@@ -196,7 +196,7 @@ const STORY2_CHAPTERS = [
       "Nobody was in charge, and that was the discovery. Most spaces don't need another leader — they need someone who holds the room so everyone else can lead. I finally had a name for the thing I'd been doing since the stone house. [edit]"
     ],
     stayed: "Map the players, build the common language, host the room.",
-    image: { scene: "PHOTO WANTED — an Alliance event at ULaval: a room of students mid-workshop, or P-A facilitating." }
+    images: [ { src: "images/story/story-facilitator-1.jpg" }, { src: "images/story/story-facilitator-2.jpg" }, { src: "images/story/story-facilitator-3.jpg" }, { src: "images/story/story-facilitator-4.jpg" } ]
   },
   {
     slug: "scale",
@@ -208,7 +208,7 @@ const STORY2_CHAPTERS = [
       "Here's the part I'm actually proud of. We built a culture where everyone led something and backed everyone else's something. I stepped away for two years, came back to visit — and it was all still running. Better than when I left, in places. Nothing has taught me more about what building actually means. [edit]"
     ],
     stayed: "A community is working when it no longer needs you.",
-    image: { scene: "PHOTO WANTED — UN HLPF 2019 delegate shot, or a ReImagine17 team retreat — people, not logos." }
+    images: [ { src: "images/story/story-scale-1.jpg" }, { src: "images/story/story-scale-2.jpg" }, { src: "images/story/story-scale-3.jpg" }, { src: "images/story/story-scale-4.jpg" } ]
   },
   {
     slug: "houses",
@@ -220,7 +220,7 @@ const STORY2_CHAPTERS = [
       "Along the way I made most of the mistakes available on the market: wrong roommate calls, fuzzy house rules, a common room that was beautiful and completely dead until I understood why. But the heart of it was always simple — I created what I wished existed for myself, and let it teach me. The case studies on this site are those field notes. [edit]"
     ],
     stayed: "Create what you wish existed — then let it teach you.",
-    image: { src: "images/mtl-living-room.jpg", scene: "The Montréal house living room — the interior P-A designed." }
+    images: [ { src: "images/story/story-houses-1.jpg" }, { src: "images/story/story-houses-2.jpg" }, { src: "images/story/story-houses-3.jpg" }, { src: "images/story/story-houses-4.jpg" }, { src: "images/story/story-houses-5.jpg" } ]
   },
   {
     slug: "rooms-that-move",
@@ -232,7 +232,7 @@ const STORY2_CHAPTERS = [
       "That's the strange gift of those years: I went for the craft, and left with a trained eye. [edit]"
     ],
     stayed: "Space is a tool you can aim.",
-    image: { scene: "PHOTO WANTED — a C2 event floor shot (the immersive staging), ideally with P-A in it." }
+    images: [ { src: "images/story/story-rooms-1.jpg" }, { src: "images/story/story-rooms-2.jpg" }, { src: "images/story/story-rooms-3.jpg" } ]
   },
   {
     slug: "hard-chapter",
@@ -244,7 +244,7 @@ const STORY2_CHAPTERS = [
       "Somewhere in those months I noticed which parts of my week I protected no matter what. They all looked like the house. [edit]"
     ],
     stayed: "I can build the machine. I'd rather build the village.",
-    image: { scene: "PHOTO WANTED — startup era: late-night office, the SF trip, or a whiteboard of scheduling diagrams. Honest > polished." }
+    image: { src: "images/story/story-hard-1.jpg", scene: "The startup years." }
   },
   {
     slug: "now",
@@ -256,7 +256,7 @@ const STORY2_CHAPTERS = [
       "This site is my workshop for that. If you're building a place where people grow because of each other, I'd love to learn alongside you and help build it. [edit]"
     ],
     stayed: "Community as the antidote to isolation — space as the tool that makes it stick.",
-    image: { scene: "PHOTO WANTED — recent: hiking / trail running, or hosting a dinner at the Montréal house. Warm light." }
+    image: { src: "images/story/story-now-1.jpg", scene: "The beginning of a new path." }
   }
 ];
 
