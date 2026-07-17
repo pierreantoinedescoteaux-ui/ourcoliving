@@ -163,7 +163,7 @@ a.exp-card:hover .exp-go{text-decoration:underline}
       inner = '<div class="ph"><span class="ph-k">Photo &mdash; to add</span>'+
         '<span class="ph-scene">'+esc(noEdit((hero&&hero.scene)||"A hero image for this experience"))+'</span></div>';
     }
-    return '<div class="exp-media">'+inner+(wip?'<span class="wip-tag">WIP &middot; come back later</span>':'')+'</div>';
+    return '<div class="exp-media">'+inner+'</div>';
   }
 
   // small org logo — self-removes if the file isn't there, so no broken icons
@@ -187,8 +187,9 @@ a.exp-card:hover .exp-go{text-decoration:underline}
       '<div class="exp-body">'+
         logoTag(it.logo)+
         '<span class="exp-org">'+esc(noEdit(it.org||""))+(it.role?' &middot; '+esc(noEdit(it.role)):'')+'</span>'+
-        '<h3>'+esc(noEdit(it.title))+'</h3>'+
-        '<p class="exp-blurb">'+esc(noEdit(it.blurb))+'</p>'+
+        (it.clickable
+          ? '<h3>'+esc(noEdit(it.title))+'</h3><p class="exp-blurb">'+esc(noEdit(it.blurb))+'</p>'
+          : '<h3>'+esc(noEdit(it.blurb))+'</h3>')+
         foot+
       '</div>'+
     close;
