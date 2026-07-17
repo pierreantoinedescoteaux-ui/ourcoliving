@@ -87,7 +87,7 @@ const ABOUT_CHAPTERS = [
       "Pooling our resources bought us something none of us could afford alone: a place where things happened. Dinners, arguments, projects, friendships. I didn't call it co-living yet. I just noticed that I was more alive there than anywhere I'd ever lived. [edit]"
     ],
     stayed: "The seed. Shared space isn't a compromise — it's an upgrade nobody told us about.",
-    image: { scene: "PHOTO WANTED — the Tokyo share-house common room, or a group dinner there. Even a bad phone photo carries it." }
+    image: { src: "images/tokyo-house.jpg", scene: "The Tokyo share-house — a common room big enough to host, in a city where almost nobody can." }
   },
   {
     slug: "houses",
@@ -281,7 +281,7 @@ const STORY2_INTERLUDE = {
   before: "houses",
   years: "2019 – 2020 · Tokyo",
   quote: "Between those chapters I lived a year in Tokyo, in a share-house with a common room big enough to host — in a city where almost nobody can. A rotating cast from everywhere, dinners that went long. I was more alive there than anywhere I'd lived. I didn't call it co-living yet. I just didn't want it to end.",
-  image: { scene: "PHOTO WANTED — the Tokyo share-house common room or a group dinner there." }
+  image: { src: "images/tokyo-house.jpg", scene: "The Tokyo share-house." }
 };
 
 /* what-I-bring v2: capability → honest receipt → where to see it */

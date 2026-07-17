@@ -146,7 +146,7 @@ const WORK_CASES = [
     featured: false,
     summary: "The scale test: nine bedrooms, a guest house, fourteen thousand square feet.",
     pull: "At three times the size, culture stops being automatic.",
-    hero: { scene: "PHOTO WANTED — the Shaughnessy house exterior, wide enough to show the scale. This case study has no photos yet; the estate deserves one good shot minimum." },
+    hero: { src: "images/projects/growth-hub-shaughnessy.jpg", caption: "The Shaughnessy estate — nine bedrooms, a guest house, fourteen thousand square feet." },
     stats: [
       { label: "Bedrooms", value: "9 + guest house" },
       { label: "Interior", value: "14,000 sq ft" },
