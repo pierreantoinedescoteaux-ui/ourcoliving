@@ -15,6 +15,11 @@
   --gold:#d99a3d;--gold-deep:#8f6215;
   --sun:#f7c948;--sun-soft:#fbe29a;
   --clay:#b5613c;--clay-deep:#8f4a2c;
+  /* per-type gallery tints (pale shades of the site palette) */
+  --tint-work:#eef5f8;--deep-work:#3d7286;
+  --tint-coliving:#eef4e9;--deep-coliving:#3c6b32;
+  --tint-volunteering:#fbf3da;--deep-volunteering:#8f6215;
+  --tint-creative:#f7ebe4;--deep-creative:#8f4a2c;
   --line:rgba(34,48,31,.14);--line-strong:rgba(34,48,31,.3);
   --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
   --max:1320px;--gutter:clamp(20px,4.5vw,80px);
@@ -48,11 +53,18 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .hero h1 em{font-style:italic;color:var(--green-deep)}
 .hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:58ch;margin:0 auto;line-height:1.65}
 
-/* ---- theme jump-links ---- */
-.jump{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:clamp(20px,3vh,34px) 0 clamp(30px,5vh,56px)}
-.jump a{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep);
-  border:1.5px solid var(--line-strong);border-radius:99px;padding:9px 18px;transition:background .25s,color .25s,border-color .25s}
-.jump a:hover{background:var(--green-deep);color:#fff;border-color:var(--green-deep)}
+/* ---- filter chips ---- */
+.filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:clamp(20px,3vh,34px) 0 clamp(28px,4vh,44px)}
+.chip{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
+  border:1.5px solid var(--line-strong);border-radius:99px;padding:9px 18px;cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s,transform .2s}
+.chip:hover{transform:translateY(-2px)}
+.chip.on{color:#fff}
+.chip[data-type="all"].on{background:var(--ink);border-color:var(--ink)}
+.chip[data-type="work"].on{background:var(--deep-work);border-color:var(--deep-work)}
+.chip[data-type="coliving"].on{background:var(--deep-coliving);border-color:var(--deep-coliving)}
+.chip[data-type="volunteering"].on{background:var(--deep-volunteering);border-color:var(--deep-volunteering)}
+.chip[data-type="creative"].on{background:var(--deep-creative);border-color:var(--deep-creative)}
 
 /* ---- slim gold band ---- */
 .gold-band{
@@ -62,35 +74,38 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .gold-band .gb-kicker{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:14px}
 .gold-band .gb-line{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.7rem,3.2vw,3rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink)}
 
-/* ---- theme sections ---- */
-.theme{padding:0 0 clamp(46px,7vh,80px);scroll-margin-top:80px}
-.theme-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
-  border-bottom:1.5px solid var(--line);padding-bottom:14px;margin-bottom:clamp(22px,3vh,34px)}
-.theme-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.8rem);letter-spacing:-.015em}
-.theme-head .t-blurb{font-size:clamp(.9rem,1.1vw,1.02rem);color:var(--ink-soft);font-style:italic}
-
-/* ---- experience grid + cards ---- */
-.exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(16px,2vw,26px)}
-.exp-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;
-  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
-a.exp-card:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:0 18px 44px rgba(34,48,31,.1)}
-.exp-media{position:relative;width:100%;aspect-ratio:3/2;background:var(--green-wash)}
-.exp-media img{width:100%;height:100%;object-fit:cover;display:block}
+/* ---- gallery: one uniform grid, filterable ---- */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:clamp(16px,2vw,26px);align-items:stretch;padding-bottom:clamp(30px,5vh,60px)}
+.exp-card{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
+  border-top:4px solid var(--line-strong);border-radius:22px;overflow:hidden;
+  transition:transform .3s ease,box-shadow .3s ease,opacity .3s ease}
+a.exp-card:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(34,48,31,.12)}
+.exp-card.hide{display:none}
+.exp-card[data-type="work"]{background:var(--tint-work);border-top-color:var(--deep-work)}
+.exp-card[data-type="coliving"]{background:var(--tint-coliving);border-top-color:var(--deep-coliving)}
+.exp-card[data-type="volunteering"]{background:var(--tint-volunteering);border-top-color:var(--deep-volunteering)}
+.exp-card[data-type="creative"]{background:var(--tint-creative);border-top-color:var(--deep-creative)}
+/* uniform cover: fixed ratio + cover-crop so every image reads identical */
+.exp-media{position:relative;width:100%;aspect-ratio:16/10;background:rgba(34,48,31,.06);overflow:hidden}
+.exp-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .exp-media .ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
-  border:2px dashed var(--gold);border-radius:0;background:#fdf3d5;padding:20px;text-align:center}
-.exp-media .ph-k{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep)}
+  border-bottom:2px dashed var(--line-strong);padding:20px;text-align:center}
+.exp-media .ph-k{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint)}
 .exp-media .ph-scene{font-size:.8rem;line-height:1.5;color:var(--ink-soft);font-style:italic}
 .wip-tag{position:absolute;top:14px;left:14px;background:rgba(34,48,31,.86);color:var(--sun-soft);
-  font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:99px}
-.exp-body{padding:clamp(18px,2vw,26px);display:flex;flex-direction:column;gap:10px;flex:1}
-.exp-org{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
-.exp-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,1.8vw,1.6rem);line-height:1.12;letter-spacing:-.01em}
+  font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:99px}
+.exp-body{position:relative;padding:clamp(18px,2vw,26px);display:flex;flex-direction:column;gap:10px;flex:1}
+.exp-logo{position:absolute;top:16px;right:16px;width:46px;height:46px;object-fit:contain;
+  background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:5px;box-shadow:0 4px 12px rgba(34,48,31,.08)}
+.exp-org{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);max-width:calc(100% - 56px)}
+.exp-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,1.8vw,1.6rem);line-height:1.12;letter-spacing:-.01em;max-width:calc(100% - 40px)}
 .exp-blurb{font-size:clamp(.9rem,1.05vw,1rem);color:var(--ink-soft);line-height:1.6}
 .exp-slots{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:6px}
 .exp-slots .sl{font-size:.72rem;letter-spacing:.02em;color:var(--ink-faint)}
 .exp-slots .sl b{font-weight:700;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;font-size:.62rem}
 .exp-go{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);margin-top:4px}
 a.exp-card:hover .exp-go{text-decoration:underline}
+.gal-empty{grid-column:1/-1;text-align:center;color:var(--ink-faint);font-style:italic;padding:40px 0}
 
 /* ---- close section ---- */
 .close-sec{padding:clamp(30px,5vh,60px) 0 clamp(70px,10vh,120px);text-align:center}
@@ -110,12 +125,12 @@ a.exp-card:hover .exp-go{text-decoration:underline}
     <span class="eyebrow" id="wEyebrow"></span>
     <h1 id="wTitle"></h1>
     <p class="lede" id="wLede"></p>
-    <nav class="jump" id="wJump" aria-label="Jump to a kind of work"></nav>
   </div></section>
 
   <div class="wrap">
     <div class="gold-band reveal" id="wGold"></div>
-    <div id="wThemes"></div>
+    <div class="filters reveal" id="wFilters" role="tablist" aria-label="Filter by kind of work"></div>
+    <div class="gal" id="wGal"></div>
     <div class="close-sec reveal" id="wClose"></div>
   </div>
 </main>
@@ -151,53 +166,66 @@ a.exp-card:hover .exp-go{text-decoration:underline}
     return '<div class="exp-media">'+inner+(wip?'<span class="wip-tag">WIP &middot; come back later</span>':'')+'</div>';
   }
 
-  // ---- a WIP experience card (not clickable) ----
-  function wipCard(c){
-    return '<div class="exp-card">'+
-      media(c.hero, true)+
-      '<div class="exp-body">'+
-        '<span class="exp-org">'+esc(noEdit(c.org||""))+(c.role?' &middot; '+esc(noEdit(c.role)):'')+'</span>'+
-        '<h3>'+esc(noEdit(c.title))+'</h3>'+
-        '<p class="exp-blurb">'+esc(noEdit(c.blurb))+'</p>'+
-        '<div class="exp-slots">'+
+  // small org logo — self-removes if the file isn't there, so no broken icons
+  function logoTag(src){
+    return src ? '<img class="exp-logo" src="'+esc(src)+'" alt="" loading="lazy" style="display:none" onload="this.style.display=\'block\'" onerror="this.remove()">' : '';
+  }
+
+  // ---- one uniform gallery card ----
+  function card(it){
+    var open = it.clickable ? '<a class="exp-card" data-type="'+esc(it.typeKey)+'" href="'+esc(it.href)+'">'
+                            : '<div class="exp-card" data-type="'+esc(it.typeKey)+'">';
+    var close = it.clickable ? '</a>' : '</div>';
+    var foot = it.clickable
+      ? '<span class="exp-go">Read the case study &rarr;</span>'
+      : '<div class="exp-slots">'+
           '<span class="sl"><b>Impact &amp; KPIs</b> &mdash; coming</span>'+
           '<span class="sl"><b>What it taught me</b> &mdash; coming</span>'+
-        '</div>'+
-      '</div>'+
-    '</div>';
-  }
-
-  // ---- a real house case (clickable to project.html) ----
-  function caseCard(c){
-    return '<a class="exp-card" href="project.html?p='+esc(c.slug)+'">'+
-      media(c.hero, false)+
+        '</div>';
+    return open+
+      media(it.hero, it.wip)+
       '<div class="exp-body">'+
-        '<span class="exp-org">'+esc(noEdit(c.kicker||c.role||""))+'</span>'+
-        '<h3>'+esc(noEdit(c.name))+'</h3>'+
-        '<p class="exp-blurb">'+esc(noEdit(c.summary))+'</p>'+
-        '<span class="exp-go">Read the case study &rarr;</span>'+
+        logoTag(it.logo)+
+        '<span class="exp-org">'+esc(noEdit(it.org||""))+(it.role?' &middot; '+esc(noEdit(it.role)):'')+'</span>'+
+        '<h3>'+esc(noEdit(it.title))+'</h3>'+
+        '<p class="exp-blurb">'+esc(noEdit(it.blurb))+'</p>'+
+        foot+
       '</div>'+
-    '</a>';
+    close;
   }
 
-  // ---- themes ----
-  var jump = [];
-  document.getElementById("wThemes").innerHTML = WORK_THEMES.map(function(t){
-    var id = "theme-"+slug(t.name);
-    jump.push('<a href="#'+id+'">'+esc(t.name)+'</a>');
-    var cards;
+  // ---- flatten themes (in order) into one gallery ----
+  var items = [];
+  WORK_THEMES.forEach(function(t){
     if(t.fromCases){
-      cards = WORK_CASES.map(caseCard).join("");
+      WORK_CASES.forEach(function(c){
+        items.push({ typeKey:t.key, clickable:true, href:"project.html?p="+c.slug,
+          org:c.kicker||c.role, title:c.name, blurb:c.summary, hero:c.hero, wip:false });
+      });
     } else {
-      cards = (t.cards||[]).map(wipCard).join("");
+      (t.cards||[]).forEach(function(c){
+        items.push({ typeKey:t.key, clickable:false, logo:c.logo, org:c.org, role:c.role,
+          title:c.title, blurb:c.blurb, hero:c.hero, wip:c.wip!==false });
+      });
     }
-    return '<section class="theme reveal" id="'+id+'">'+
-      '<div class="theme-head"><h2>'+esc(t.name)+'</h2>'+
-        (t.blurb?'<span class="t-blurb">'+esc(noEdit(t.blurb))+'</span>':'')+'</div>'+
-      '<div class="exp-grid">'+cards+'</div>'+
-    '</section>';
-  }).join("");
-  document.getElementById("wJump").innerHTML = jump.join("");
+  });
+  document.getElementById("wGal").innerHTML = items.map(card).join("");
+
+  // ---- filter chips (All + the four types, in WORK_TYPES order) ----
+  var chipsHtml = ['<button class="chip on" data-type="all" type="button" role="tab">All</button>']
+    .concat(WORK_TYPES.map(function(ty){
+      return '<button class="chip" data-type="'+esc(ty.key)+'" type="button" role="tab">'+esc(ty.name)+'</button>';
+    }));
+  var fEl = document.getElementById("wFilters");
+  fEl.innerHTML = chipsHtml.join("");
+  fEl.addEventListener("click", function(e){
+    var b = e.target.closest(".chip"); if(!b) return;
+    var type = b.getAttribute("data-type");
+    fEl.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("on", c===b); });
+    document.querySelectorAll("#wGal .exp-card").forEach(function(c){
+      c.classList.toggle("hide", type!=="all" && c.getAttribute("data-type")!==type);
+    });
+  });
 
   // ---- close ----
   document.getElementById("wClose").innerHTML =
