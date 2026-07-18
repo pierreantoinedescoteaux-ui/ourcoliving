@@ -57,6 +57,28 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .hero h1 em{font-style:italic;color:var(--green-deep)}
 .hero .lede{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-soft);max-width:46ch}
 
+/* ---------- contrast: two real photos, the "why" ---------- */
+.contrast{padding:clamp(24px,5vh,60px) 0 0}
+.contrast h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,5vw,4rem);line-height:1.03;letter-spacing:-.02em;margin:10px 0 clamp(14px,2vh,22px)}
+.contrast .c-lede{font-size:clamp(1.05rem,1.35vw,1.28rem);color:var(--ink-soft);max-width:60ch;line-height:1.6;margin-bottom:clamp(24px,4vh,44px)}
+.c-pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.6vw,40px)}
+@media(max-width:760px){.c-pair{grid-template-columns:1fr}}
+.c-panel{border-radius:26px;overflow:hidden;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px -40px rgba(34,48,31,.5)}
+.c-panel.cold{--c-accent:#8794a0;--c-accent-deep:#54606b;--c-tint:#eef1f3}
+.c-panel.warm{--c-accent:#d99a3d;--c-accent-deep:#8f6215;--c-tint:#f7ecd9}
+.c-imgwrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--c-tint)}
+.c-imgwrap img{width:100%;height:100%;object-fit:cover;display:block}
+.c-panel.cold .c-imgwrap img{filter:saturate(.72) brightness(.98)}
+.c-ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:clamp(16px,2.4vw,30px);border:2px dashed var(--c-accent);background:var(--c-tint)}
+.c-ph .c-ph-k{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--c-accent-deep)}
+.c-ph .c-ph-s{font-size:clamp(.8rem,1vw,.92rem);font-style:italic;line-height:1.5;color:var(--ink-soft)}
+.c-body{padding:clamp(18px,2.4vw,30px)}
+.c-tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:var(--c-accent-deep);padding:6px 12px;border-radius:99px}
+.c-panel h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.12;margin:12px 0 8px}
+.c-panel .c-cap{font-size:clamp(.96rem,1.15vw,1.08rem);color:var(--ink-soft);line-height:1.6}
+.c-panel .c-feel{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:clamp(1.02rem,1.3vw,1.25rem);color:var(--c-accent-deep)}
+.contrast .c-close{margin-top:clamp(20px,3.4vh,36px);font-size:clamp(1.05rem,1.35vw,1.3rem);font-family:var(--serif);color:var(--ink);max-width:56ch;line-height:1.5}
+
 /* ---------- image placeholder + slot ---------- */
 .ph{position:relative;width:100%;aspect-ratio:4/3;border-radius:22px;overflow:hidden;
   display:flex;flex-direction:column;justify-content:flex-start;gap:10px;padding:clamp(16px,2.4vw,34px);
@@ -104,16 +126,23 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .designing .intro-lede{margin-top:14px;font-size:clamp(1.02rem,1.3vw,1.22rem);color:var(--ink-soft);max-width:62ch;line-height:1.6}
 .designing .intro-lede em{font-style:italic;color:var(--gold-deep);font-weight:600}
 
-.stage{position:relative;margin-top:clamp(20px,3vh,36px);border-radius:32px;overflow:hidden;
+.stage{position:relative;margin-top:clamp(20px,3vh,36px);border-radius:32px;overflow:visible;
   padding:clamp(28px,4vw,60px) clamp(72px,9vw,156px);min-height:56vh;
   background:var(--cur-wash,var(--sky-wash));transition:background .7s}
+/* clip layer: holds the faded cover + side peeks so overflow:visible on .stage
+   (needed for position:sticky children) doesn't spill past the rounded corners */
+.stage-clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:0;pointer-events:none}
 /* faded cover as page background — a watermark behind the content, not a band on top */
 .stage-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.16;transition:opacity .8s}
+/* pinned heading — stays visible as you scroll the (long) current feeling */
+.stage-heading{position:sticky;top:calc(var(--navh) + 8px);z-index:6;margin:0 0 clamp(16px,2.4vh,26px);
+  padding:10px clamp(14px,1.8vw,22px);border-radius:16px;
+  background:rgba(246,242,231,.82);backdrop-filter:blur(9px);box-shadow:0 8px 24px -18px rgba(34,48,31,.5)}
 .stage-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(246,242,231,.35),rgba(246,242,231,.72))}
 .stage-inner{position:relative;z-index:2}
 
 /* side peeks — the neighbour feelings, a bit more space */
-.peek{position:absolute;top:0;bottom:0;width:clamp(60px,8.5vw,152px);z-index:3;overflow:hidden;border:0;cursor:pointer;padding:0;
+.peek{position:absolute;top:0;bottom:0;width:clamp(60px,8.5vw,152px);z-index:3;overflow:hidden;border:0;cursor:pointer;padding:0;pointer-events:auto;
   background-size:cover;background-position:center;opacity:.92;transition:width .3s,opacity .3s}
 .peek::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(23,32,20,.55),rgba(23,32,20,.12))}
 .peek:hover{width:clamp(86px,11vw,198px);opacity:1}
@@ -141,7 +170,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .tactic .t-more{font-size:clamp(.96rem,1.1vw,1.06rem);color:var(--ink-soft);margin-top:12px;line-height:1.65;max-width:56ch}
 
 /* stage nav: arrows + dots */
-.stage-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:clamp(30px,4.5vh,56px);position:relative;z-index:2}
+.stage-nav{display:inline-flex;align-items:center;justify-content:center;gap:18px;margin:clamp(30px,4.5vh,56px) auto 0;position:sticky;bottom:14px;z-index:6;
+  padding:8px 14px;border-radius:99px;background:rgba(246,242,231,.82);backdrop-filter:blur(9px);box-shadow:0 10px 30px -18px rgba(34,48,31,.5);left:0;right:0;width:max-content}
 .s-arrow{width:52px;height:52px;border-radius:50%;background:var(--card);border:1px solid var(--line-strong);font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -12px rgba(34,48,31,.35);transition:background .2s}
 .s-arrow:hover{background:var(--sun-soft)}
 .s-dots{display:flex;gap:10px}
@@ -208,19 +238,20 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   <p class="lede" id="lede"></p>
 </div></header>
 
+<section class="contrast"><div class="wrap" id="contrastBox"></div></section>
+
 <section class="what"><div class="wrap" id="whatBox"></div></section>
 
 <section class="designing">
-  <div class="wrap intro">
-    <h2 class="dfor">Designing for <span class="cur-name" id="curName">Connection</span></h2>
-    <p class="intro-lede">A space is never neutral. With a handful of design methods you can shape how a home <em>feels</em> — and gently change how people <em>behave</em> in it. Below are six feelings you can design a home for, each with the concrete moves that create it.</p>
-  </div>
   <div class="wrap">
     <div class="stage" id="stage">
-      <div class="stage-bg" id="stageBg"></div>
-      <button class="peek peek-l" id="peekL" aria-label="Previous feeling"><span class="pk-name"></span><span class="pk-arr">&larr;</span></button>
-      <button class="peek peek-r" id="peekR" aria-label="Next feeling"><span class="pk-name"></span><span class="pk-arr">&rarr;</span></button>
+      <div class="stage-clip">
+        <div class="stage-bg" id="stageBg"></div>
+        <button class="peek peek-l" id="peekL" aria-label="Previous feeling"><span class="pk-name"></span><span class="pk-arr">&larr;</span></button>
+        <button class="peek peek-r" id="peekR" aria-label="Next feeling"><span class="pk-name"></span><span class="pk-arr">&rarr;</span></button>
+      </div>
       <div class="stage-inner">
+        <h2 class="dfor stage-heading">Designing for <span class="cur-name" id="curName">Connection</span></h2>
         <div class="feelings" id="feelings"></div>
         <div class="stage-nav">
           <button class="s-arrow" id="prevBtn" aria-label="Previous feeling">&larr;</button>
@@ -253,6 +284,26 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   document.getElementById("heroTitle").innerHTML=DFC_INTRO.titleHtml;
   document.getElementById("lede").textContent=noEdit(DFC_INTRO.lede);
 
+  /* ------- contrast: two real photos, the "why" ------- */
+  (function(){
+    var c=DFC_CONTRAST;
+    document.getElementById("contrastBox").innerHTML=
+      '<span class="eyebrow">'+esc(c.eyebrow)+'</span>'+
+      '<h2>'+esc(c.title)+'</h2>'+
+      '<p class="c-lede">'+esc(noEdit(c.lede))+'</p>'+
+      '<div class="c-pair">'+c.pair.map(function(p){
+        var media=p.src
+          ? '<div class="c-imgwrap"><img src="'+esc(p.src)+'" alt="'+esc(p.label)+'" loading="lazy"'+(p.pos?' style="object-position:'+esc(p.pos)+'"':'')+'></div>'
+          : '<div class="c-imgwrap"><div class="c-ph"><span class="c-ph-k">Photo &mdash; to generate</span><span class="c-ph-s">'+esc(p.scene)+'</span></div></div>';
+        return '<div class="c-panel '+esc(p.kind)+'">'+media+
+          '<div class="c-body"><span class="c-tag">'+esc(p.feeling)+'</span>'+
+            '<h3>'+esc(p.label)+'</h3>'+
+            '<p class="c-cap">'+esc(p.caption)+'</p></div>'+
+        '</div>';
+      }).join("")+'</div>'+
+      '<p class="c-close">'+esc(noEdit(c.close))+'</p>';
+  })();
+
   function slot(img,acc){
     if(img.src)return '<img class="slot-img" src="'+esc(img.src)+'" alt="'+esc(img.scene)+'" loading="lazy"'+(img.pos?' style="object-position:'+esc(img.pos)+'"':'')+'>';
     return '<div class="ph" style="--ph-accent:'+acc.main+';--ph-deep:'+acc.deep+';--ph-wash:'+acc.wash+'">'+
@@ -282,11 +333,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
         '<p>'+esc(noEdit(b.body))+'</p>'+
         (b.link?'<a href="'+esc(b.link.href)+'">'+esc(b.link.label)+' &rarr;</a>':"")+
       '</div>';
-    }).join("")+'</div>'+
-    '<div class="jumpstrip"><span class="js-label">Jump straight to a feeling to design for</span>'+
-      '<div class="js-row">'+THEMES.map(function(t,i){
-        return '<button class="js-pill" data-jump="'+i+'" style="--c:'+t.accent.main+'">'+esc(t.name)+'</button>';
-      }).join("")+'</div></div>';
+    }).join("")+'</div>';
 
   /* ------- always-open stage: one feeling fully expanded, slow auto-advance ------- */
   var feelingsEl=document.getElementById("feelings");

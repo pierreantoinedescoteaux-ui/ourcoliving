@@ -25,6 +25,34 @@ const DFC_INTRO = {
   lede: "Every room quietly tells people how to act. Name the feeling you want — then design backwards. [edit]"
 };
 
+/* Contrast section — hero's proof. Two REAL photos, hard contrast, so you feel
+   the claim before you read it. Photos target images/generated/dfc2/contrast-*.jpg
+   (photorealistic, NOT the sketch style — the realism is the point). */
+const DFC_CONTRAST = {
+  eyebrow: "Before the how, the why",
+  title: "A space is never neutral.",
+  lede: "We become the product of the rooms we live in. Put the same person in two homes and you get two different people — one the building quietly pulls apart, one it quietly pulls together. Look at these two:",
+  pair: [
+    {
+      kind: "cold",
+      src: "images/generated/dfc2/contrast-cold.jpg", pos: "center",
+      label: "A home designed for isolation",
+      caption: "Sealed doors down a dim hallway nobody lingers in. Everything you need is behind your own door — so you pass the people you live with like strangers.",
+      feeling: "You end up: alone, together.",
+      scene: "Photorealistic interior photograph, cold sterile shared apartment hallway, grey concrete walls and flat white fluorescent lighting, a row of identical closed doors, no plants no people no warmth, harsh even light, muted desaturated blue-grey palette, wide angle, a lonely institutional feeling."
+    },
+    {
+      kind: "warm",
+      src: "images/generated/dfc2/contrast-warm.jpg", pos: "center",
+      label: "A home designed for connection",
+      caption: "One warm room the whole house drifts through, a table big enough for everyone, light worth staying in. The building keeps handing you each other.",
+      feeling: "You end up: held.",
+      scene: "Photorealistic interior photograph, warm inviting communal living room at golden hour, a few housemates gathered around a big wooden table sharing a meal and laughing, plants, soft warm lamplight, wood and textile textures, exposed brick, lived-in and cosy, honey-gold light, a feeling of belonging."
+    }
+  ],
+  close: "Neither is an accident. Both are design. The rest of this page is how you build the second one — on purpose. [edit]"
+};
+
 /* "Designing what?" — the two scales of design, before the themes. */
 const DFC_WHAT = {
   eyebrow: "First, a distinction",
