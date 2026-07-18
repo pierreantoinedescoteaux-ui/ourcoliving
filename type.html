@@ -241,6 +241,9 @@ img{display:block;max-width:100%}
     '</header>'+
     guideBodyHTML(t,k);
 
+  /* land on the guide's own title, not the shared "many shapes" intro gallery */
+  (function(){var h=document.querySelector(".head");if(h){h.style.scrollMarginTop="76px";h.scrollIntoView();}})();
+
   /* guide gallery in the intro — active guide highlighted */
   document.getElementById("tgal").innerHTML=COLIVING_TYPES.map(function(x){
     var on=x.slug===t.slug;
