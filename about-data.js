@@ -195,6 +195,7 @@ const STORY2_CHAPTERS = [
       "So instead of founding yet another club, we built the connective tissue. We mapped everyone, made the introductions, hosted the gatherings, and borrowed the UN's seventeen development goals as a common language so that sixty student associations and one administration could stop reinventing each other's wheels.",
       "Nobody was in charge, and that was the discovery. Most spaces don't need another leader — they need someone who holds the room so everyone else can lead. I finally had a name for the thing I'd been doing since the stone house. [edit]"
     ],
+    layout: "text",
     stayed: "Map the players, build the common language, host the room.",
     images: [ { src: "images/story/story-facilitator-1.jpg" }, { src: "images/story/story-facilitator-2.jpg" }, { src: "images/story/story-facilitator-3.jpg" }, { src: "images/story/story-facilitator-4.jpg" } ]
   },
@@ -207,6 +208,7 @@ const STORY2_CHAPTERS = [
       "We started two things together. A national youth network, because we thought young people should choose their own representatives instead of being chosen — it reached over fifty thousand of them and kept people organizing through the first pandemic months. And ReImagine17, a nonprofit where we wrote the playbook for campus alliances and created paid sustainability jobs for students. At some point I was 'managing' fourteen people, a word I use loosely, because half of what I did was learn payroll the hard way.",
       "Here's the part I'm actually proud of. We built a culture where everyone led something and backed everyone else's something. I stepped away for two years, came back to visit — and it was all still running. Better than when I left, in places. Nothing has taught me more about what building actually means. [edit]"
     ],
+    layout: "banner",
     stayed: "A community is working when it no longer needs you.",
     images: [ { src: "images/story/story-scale-1.jpg" }, { src: "images/story/story-scale-2.jpg" }, { src: "images/story/story-scale-3.jpg" }, { src: "images/story/story-scale-4.jpg" } ]
   },
@@ -219,6 +221,7 @@ const STORY2_CHAPTERS = [
       "So I tried to gather it. I posted ads online with stock photos of what a shared house could look like, pitched the vision in Vancouver groups, and interviewed a good fifty strangers — for a house I didn't even have yet. A group formed around the idea, and then we found the house together. That became the Growth Hub. More houses followed, and in Montréal I finally designed the interior myself — every room with one job to do.",
       "Along the way I made most of the mistakes available on the market: wrong roommate calls, fuzzy house rules, a common room that was beautiful and completely dead until I understood why. But the heart of it was always simple — I created what I wished existed for myself, and let it teach me. The case studies on this site are those field notes. [edit]"
     ],
+    layout: "collage",
     stayed: "Create what you wish existed — then let it teach you.",
     images: [ { src: "images/story/story-houses-1.jpg" }, { src: "images/story/story-houses-2.jpg" }, { src: "images/story/story-houses-3.jpg" }, { src: "images/story/story-houses-4.jpg" }, { src: "images/story/story-houses-5.jpg" } ]
   },

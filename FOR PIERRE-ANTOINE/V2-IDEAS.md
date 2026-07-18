@@ -25,3 +25,6 @@ Captured verbatim-ish from P-A's session feedback. These are V2 scope — NOT v1
 - The Pinterest tower reference (frames at `_qa/pinframe-*.png`, extractor `_qa/pinframes.js`) still has potential.
 - Recipe validated as feasible: Higgsfield video gen (Seedance, site illustration style, use pinframes as style/start reference) → extract 30-60 frames → scroll-scrubbed canvas sequence (Apple-style). Scroll mechanics = code, already proven by manifesto pinned stage.
 - Preflight video cost before running.
+
+## Photo hover captions (v2)
+- On hover over any photo (story, work, design pages), reveal a small caption explaining what the photo is. Requested 2026-07-18.
