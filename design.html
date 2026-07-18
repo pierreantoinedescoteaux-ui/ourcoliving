@@ -127,7 +127,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .designing .intro-lede em{font-style:italic;color:var(--gold-deep);font-weight:600}
 
 .stage{position:relative;margin-top:clamp(20px,3vh,36px);border-radius:32px;overflow:visible;
-  padding:clamp(28px,4vw,60px) clamp(72px,9vw,156px);min-height:56vh;
+  padding:clamp(28px,4vw,60px) clamp(94px,12vw,212px);min-height:56vh;
   background:var(--cur-wash,var(--sky-wash));transition:background .7s}
 /* clip layer: holds the faded cover + side peeks so overflow:visible on .stage
    (needed for position:sticky children) doesn't spill past the rounded corners */
@@ -135,9 +135,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 /* faded cover as page background — a watermark behind the content, not a band on top */
 .stage-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.16;transition:opacity .8s}
 /* pinned heading — stays visible as you scroll the (long) current feeling */
-.stage-heading{position:sticky;top:calc(var(--navh) + 8px);z-index:6;margin:0 0 clamp(16px,2.4vh,26px);
-  padding:10px clamp(14px,1.8vw,22px);border-radius:16px;
-  background:rgba(246,242,231,.82);backdrop-filter:blur(9px);box-shadow:0 8px 24px -18px rgba(34,48,31,.5)}
+/* heading blends into the section — same wash as the stage, no pill, so it
+   reads as part of the page (a soft fade masks the content scrolling under it) */
+.stage-heading{position:sticky;top:calc(var(--navh) + 8px);z-index:6;margin:0 0 clamp(14px,2.2vh,24px);
+  padding:8px 0 14px;background:linear-gradient(var(--cur-wash,var(--sky-wash)) 72%,transparent)}
 .stage-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(246,242,231,.35),rgba(246,242,231,.72))}
 .stage-inner{position:relative;z-index:2}
 
