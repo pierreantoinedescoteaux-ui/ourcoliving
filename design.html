@@ -400,7 +400,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
     if(reduced())return;
     timer=setInterval(function(){show(cur+1);},AUTO);
   }
-  function go(i){show(i);resetTimer();}
+  function go(i){show(i);resetTimer();document.querySelector(".designing").scrollIntoView({behavior:"smooth",block:"start"});}
 
   /* pause auto-advance while the reader is on the stage */
   stage.addEventListener("mouseenter",function(){if(timer){clearInterval(timer);timer=null;}});
