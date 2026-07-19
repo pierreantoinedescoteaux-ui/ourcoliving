@@ -88,7 +88,7 @@ a{color:inherit;text-decoration:none}
 /* spark title — STICKY, and HEIGHT 0 so it reserves no gap between the
    section heading and the thoughts. Appears the moment the heading
    scrolls away (.show), not on first pop. */
-.whatif{position:sticky;top:86px;z-index:15;pointer-events:none;display:block;text-align:center;
+.whatif{position:sticky;top:96px;z-index:15;pointer-events:none;display:block;text-align:center;
   height:0;overflow:visible;
   font-family:var(--serif);font-style:italic;font-weight:300;
   font-size:clamp(2.6rem,6.5vw,5.5rem);line-height:1;color:var(--gold-deep);letter-spacing:-.02em;
@@ -111,8 +111,8 @@ a{color:inherit;text-decoration:none}
 .vine svg{width:100%;height:100%}
 .vine path.stem{fill:none;stroke:var(--green);stroke-width:2.4;stroke-linecap:round;
   stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p));transition:stroke-dashoffset 1.4s ease}
-.vine .leaf{fill:var(--green);opacity:clamp(0,calc((var(--p) - var(--th))*4),1);transform-origin:center;transition:opacity 1s ease}
-.vine .leaf.d{fill:var(--green-deep)}
+.vine .leaf{fill:var(--gold);opacity:clamp(0,calc((var(--p) - var(--th))*4),1);transform-origin:center;transition:opacity 1s ease}
+.vine .leaf.d{fill:var(--gold-deep)}
 
 /* bubbles — THE PINNED STAGE (P-A spec 2026-07-14): ALL thoughts are on
    screen from the start, scattered across the full stage (padding kept at
@@ -121,20 +121,20 @@ a{color:inherit;text-decoration:none}
    then bursts open and the vine reaches to the following one. Click = open
    now. Mobile keeps the flowing column. */
 .fieldbed{position:relative;width:100%;height:var(--bedh,520vh);z-index:2}
-.fieldpin{position:sticky;top:0;height:100vh}
+.fieldpin{position:sticky;top:0;height:100vh;max-width:1240px;margin:0 auto}
 .fieldtail{display:none}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
 .bvinesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 .bvinesvg .seg{fill:none;stroke:var(--green);stroke-width:2.6;stroke-linecap:round;opacity:.8}
-.bvinesvg .bleaf{fill:var(--green);opacity:0;transition:opacity .7s ease}
-.bvinesvg .bleaf.d{fill:var(--green-deep)}
+.bvinesvg .bleaf{fill:var(--gold);opacity:0;transition:opacity .7s ease}
+.bvinesvg .bleaf.d{fill:var(--gold-deep)}
 .bvinesvg .bleaf.on{opacity:.85}
 /* desktop: bands dissolve (display:contents); bubbles at stage coordinates
    (--x/--y = PERCENT of the pinned stage, randomized scatter) */
 .bband{display:contents}
 .bub{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);
-  width:min(252px,23vw);z-index:calc(3 + var(--i,0))}
+  width:clamp(178px,15.5vw,236px);z-index:calc(3 + var(--i,0))}
 .bub .gray{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;border:0;cursor:pointer;
   min-height:124px;padding:22px 22px;font-family:var(--serif);font-weight:300;font-style:italic;
   font-size:clamp(1rem,1.15vw,1.18rem);line-height:1.4;color:#4d4a43;
@@ -159,12 +159,16 @@ a{color:inherit;text-decoration:none}
 .frag{position:absolute;left:50%;top:50%;width:12px;height:12px;pointer-events:none;z-index:5}
 
 /* popped card — compact for the stage: thumb beside the village line */
-.bub .cardp{display:none;width:100%;border-radius:18px;padding:16px 16px 14px;background:var(--ctone);
-  box-shadow:0 24px 54px -24px rgba(34,48,31,.4);cursor:pointer}
+.bub .cardp{display:none;position:relative;overflow:hidden;width:100%;border-radius:18px;min-height:122px;
+  background:var(--ctone);box-shadow:0 24px 54px -24px rgba(34,48,31,.4);cursor:pointer}
+/* the photo IS the bubble now — faded so the centred line pops on top of it */
+.cardp .cardbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;z-index:0}
+.cardp::after{content:"";position:absolute;inset:0;z-index:1;background:var(--ctone);opacity:.55}
+.cardp .cardfront{position:relative;z-index:2;min-height:122px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 16px 14px}
 .bub.pop .gray{display:none}
 .bub.pop .cardp{display:block;animation:bloom .55s cubic-bezier(.34,1.56,.64,1)}
 @keyframes bloom{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
-.cardp .flip{font-family:var(--serif);font-weight:400;font-size:clamp(1.08rem,1.35vw,1.3rem);line-height:1.22;color:var(--ink)}
+.cardp .flip{font-family:var(--serif);font-weight:500;font-size:clamp(1.08rem,1.35vw,1.3rem);line-height:1.24;color:var(--ink);text-align:center;text-shadow:0 1px 12px rgba(255,253,248,.9)}
 .cardp .vrow{display:flex;gap:12px;align-items:flex-start;margin-top:11px}
 .cardp .im{flex:0 0 74px;border-radius:12px;overflow:hidden}
 .cardp .im img{width:74px;height:74px;object-fit:cover}
@@ -196,7 +200,7 @@ a{color:inherit;text-decoration:none}
   .cardp .im,.cardp .im img{flex-basis:62px;width:62px;height:62px}
   .cardp .vil{font-size:.82rem}
   .cardp .deep{font-size:.6rem;margin-top:6px}
-  .whatif{font-size:clamp(2rem,4.6vw,3.6rem);top:72px}
+  .whatif{font-size:clamp(2rem,4.6vw,3.6rem);top:84px}
   .stageprompt{font-size:.92rem;top:76px}
   .stagenote{font-size:.62rem;max-width:250px}
 }
@@ -210,7 +214,7 @@ a{color:inherit;text-decoration:none}
   .cardp .im,.cardp .im img{flex-basis:50px;width:50px;height:50px}
   .cardp .vil{font-size:.72rem}
   .cardp .deep{font-size:.54rem;margin-top:4px}
-  .whatif{font-size:clamp(1.7rem,4vw,2.8rem);top:64px}
+  .whatif{font-size:clamp(1.7rem,4vw,2.8rem);top:76px}
   .stageprompt{font-size:.82rem;top:66px}
   .stagenote{font-size:.56rem;max-width:210px;bottom:8px}
 }
@@ -502,10 +506,12 @@ pin.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
     '<div class="bub" id="bub-'+esc(s.slug)+'" style="'+pos+';--gtone:'+t[0]+';--ctone:'+t[1]+';--acc:'+t[2]+';--dur:'+(9+i%5*1.7)+'s;--del:'+(i*0.7)+'s;--dx:'+dx+'px;--dy:'+dy+'px;--y:'+sp.y+';--i:'+i+'">'+
     '<button class="gray" type="button" aria-expanded="false">'+esc(s.gray)+'</button>'+
     '<div class="cardp">'+
-      '<div class="flip">'+esc(s.flip)+'</div>'+
-      '<div class="vrow"><div class="im"><img loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.imgAlt)+'"></div>'+
-      '<div class="vil">'+esc(s.village)+'</div></div>'+
-      '<a class="deep" href="separation.html#'+esc(s.slug)+'">Go deeper →</a>'+
+      '<img class="cardbg" loading="lazy" src="'+esc(s.img)+'" alt="'+esc(s.imgAlt)+'">'+
+      '<div class="cardfront">'+
+        '<div class="flip">'+esc(s.flip)+'</div>'+
+        '<div class="vil">'+esc(s.village)+'</div>'+
+        '<a class="deep" href="separation.html#'+esc(s.slug)+'">Go deeper →</a>'+
+      '</div>'+
     '</div></div></div>';
 }).join(""));
 /* scroll budget per thought: LONG dwell for the first 2-3 (people get it),
