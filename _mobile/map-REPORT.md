@@ -1,0 +1,20 @@
+## Done
+- Bumped preset chips (`.presets .p`) and axis `<select>`s to a ≥44px tap area — screen 1, controls row above the chart.
+- Bumped chart node marks (`.node .mark`) from 42px to 44px — the tap floor — visible on every symbol in the chart.
+- Chart height increased (`max(470px,86vw)` → `max(560px,96vw)`) and node labels now wrap to 2 lines instead of one long nowrap string — reduces the label-on-label collision visible in the cluster (Rural co-living / Intergenerational / Student co-op / Housing / Baugruppe) in the "classic" preset. Screen 3 (the chart).
+- Hid the decorative `.plate` caption ("Pl. I — the co-living territory") inside the chart — it repeats the heading already shown above the chart and was crowding the top-right node. Screen 3.
+- Fixed the "★ my practice" node sub-label (`.node.mine .lab::after`) and the x-axis captions (`.axl`) — both were rendering under the 12px floor (9.6px / 11.2px). Screen 3.
+- Field-notes popup (tap any node to open): kicker labels, theme-card question labels, example place-tags, and the "best" badge were all 9.9–10.9px — bumped to 12px. Axis-readout rows (`.modal .sigrow`) restacked per recipe 7 (label above, track, label below) instead of a cramped 96px+track+96px row. Card-grid gaps bumped to 16px. Modal scroll cap and hero/feature image heights switched from `vh` to `svh` so mobile browser chrome can't clip them.
+- Fixed the shared "↑ [scene] · back to the tower" pill (`.wback`) — it ships its own `@media(max-width:640px)` rule in `site-nav.js` that should already land it at 12px, but the QA report measured 9.6px in practice; re-asserted the floor from this page's own scope as a safety net (see Flags).
+- "Where to go from here" and library card grids (`.doors`, `.lgrid`) bumped from 14px to 16px gap — recipe 4 floor.
+- Back-to-top button (`.stotop`, shared) now clears the home-indicator with a safe-area inset — only takes effect once `viewport-fit=cover` is added (see Proposed).
+- Carousel (recipe 5), chart/axis stacking at ≤700/560px, and hover-card hiding on touch were already implemented in the page's own `<style>` — no changes needed there.
+
+## Proposed (not done)
+- **The compare-chart itself can't be redesigned in CSS.** The 12 nodes are positioned by inline `left/top %` set from JS (`t.scores[axis]`), so at 390px width several nodes land within a few px of each other regardless of any styling — this is the scatter-plot-on-a-phone problem recipe 6 warns about. What I did (bigger chart, wrapping labels, 44px marks, hiding the decorative plate) reduces collisions but can't eliminate them on data-dense presets. Real fix: a JS/HTML change — below `max-width:760px`, replace (or supplement) the scatter with a scrollable ranked list of the 12 models for the *current* preset's two axes (icon + name + low/high position as a mini bar, same as the field-guide's axis-readout rows), tapping a row opens the same field-notes popup. Flagging for Fable/P-A rather than shipping a squeezed interaction.
+- Add `viewport-fit=cover` to the page's `<meta name="viewport">` tag — the safe-area-inset fix on `.stotop` is inert without it (currently resolves to 0, so no regression, just no effect yet). HTML edit, out of scope here.
+- The shared `.wback` pill's own `@media(max-width:640px)` override in `site-nav.js` isn't landing at 390px in the QA run (measured 9.6px, expected 12px) — worth investigating at the source since it affects every page on the site, not just this one. This page's fragment patches it locally as a safety net.
+
+## Flags
+- `div.wmedia`/`img`/`video` overflow (−12px to 402px, reported on every page) is the intentional parallax bleed on the shared world-banner (`inset:-7% -3%` in `site-nav.js`) — `overflow-x:clip` on `html,body` already prevents any real scrollbar (`docOverflowX:0`). Not a bug, no action needed.
+- The `div.slide`/`img`/`div.scrim` overflow entries at huge negative offsets (−4094px etc.) are off-screen duplicate carousel slides (the 3-set infinite-loop buffer) — expected, not visible to the user.

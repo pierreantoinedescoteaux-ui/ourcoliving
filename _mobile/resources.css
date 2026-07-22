@@ -1,0 +1,44 @@
+/* resources.css — mobile pass for resources.html (Coliving Atlas · Resources directory)
+   Scope: html.m-resources only, ≤760px only. Desktop untouched. See MOBILE-RULES.md. */
+@media (max-width: 760px) {
+
+  /* ---- filter pills: bump to a real ≥44px tap target (measured ~33px before) ---- */
+  html.m-resources .filters button {
+    min-height: 44px;
+    padding: 14px 20px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- card body copy: 15.2px measured, floor is 16px for reading text ---- */
+  html.m-resources .rcard p {
+    font-size: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+    line-height: 1.6;
+  }
+
+  /* ---- "Visit ___ →" CTA link: 11.8px text + near-zero tap height before ---- */
+  html.m-resources .rcard .visit {
+    font-size: 13px;
+    line-height: 1.2;
+    padding: 15px 0;
+    display: inline-block;
+  }
+
+  /* ---- "directory is young" reminder box: 14.4px measured, floor is 16px ---- */
+  html.m-resources .young {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* ---- shared "back to the tower" pill (site-nav.js-injected .wback):
+     report.json flags resources.html's OWN tinyText at 9.6px. Scoped here via
+     html.m-resources so only this page is touched even though the element is
+     injected by the shared nav script. ---- */
+  html.m-resources .wback {
+    font-size: 14px !important;
+    padding: 14px 16px !important;
+  }
+
+}

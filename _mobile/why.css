@@ -1,0 +1,44 @@
+/* _mobile/why.css — mobile pass for why.html
+   Scope: html.m-why, inside @media (max-width:760px) only. Desktop untouched.
+   See _mobile/why-REPORT.md for the walkthrough. */
+@media (max-width: 760px) {
+
+  /* SCREEN 3 (the dark "four slow emergencies" band) — .chip .l carries a
+     full sentence (WHY.crises stat captions, e.g. "deaths a year linked to
+     loneliness — roughly one every hour (WHO, 2024)."). That's reading
+     content, not a micro-label, so it must clear the 16px floor — it was
+     shipping at 12.8px. */
+  html.m-why .chip .l {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* SCREEN 4 ("Why co-living answers", the six lens cards) — .lcard p is a
+     full-sentence body paragraph per card, was 14.72px. */
+  html.m-why .lcard p {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* SCREEN 5 ("Twelve ways in") — .way p renders each model's "teaches"
+     quote, a full sentence, was 14.08px. */
+  html.m-why .way p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Tap targets: the sticky nav collapses to just the current-page link at
+     <=680px (page's own rule) but that link's hit area was ~23px tall —
+     under the 44px floor. Padding only; nav's own height is set by the
+     brand line so this doesn't push the bar taller. */
+  html.m-why .nav .links a.on {
+    padding: 15px 0;
+  }
+
+  /* Close section CTAs ("Explore the twelve models" / "Read my vision")
+     were ~42px tall, just under the 44px tap-target floor. */
+  html.m-why .close .ctas a {
+    padding: 15px 26px;
+  }
+
+}

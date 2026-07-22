@@ -1,0 +1,1241 @@
+/* ============================================================
+   mobile.css — sitewide mobile retrofit layer.
+   Loaded LAST on every page (except index.html + design.html) via
+   _tools/wire-mobile-css.mjs, which also stamps <html class="m-<page>">.
+   Rules: see MOBILE-RULES.md. Everything lives inside the 760px query;
+   desktop rendering is untouched by design.
+   Round 1 (2026-07-19): legibility floors from _qa/mobile-audit.js data.
+   Round 2 (2026-07-22): floor raise per MOBILE-RULES.md v2 — micro-labels 11px->12px,
+   reading-size floors (max() rules) 12-13px->15-16px. Selectors untouched (page-verified).
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* ---- shared: micro-label floor (kickers/eyebrows are 8.6-11.2px) ---- */
+  .eyebrow, .kicker,
+  #eyebrow, #turnKicker, #lensKicker, #waysKicker, #closeKicker,
+  #fKicker, #cdKicker, #clKicker, #pEyebrow, #dEyebrow, #tEyebrow {
+    font-size: 12px !important;
+  }
+
+  /* ---- story.html ---- */
+  html.m-story .v-kicker,
+  html.m-story .chap-kicker,
+  html.m-story .i-kicker,
+  html.m-story .gb-kicker { font-size: 12px !important; }
+  html.m-story .ph-k,
+  html.m-story .v-years,
+  html.m-story .stayed-label { font-size: 12px !important; }
+  html.m-story .b-theme { font-size: 12px !important; }
+
+  /* ---- work.html ---- */
+  html.m-work .gb-kicker { font-size: 12px !important; }
+  html.m-work .exp-org { font-size: 12px !important; }
+  html.m-work .exp-go { font-size: 12px !important; }
+
+  /* ---- project.html ---- */
+  html.m-project .p-kicker,
+  html.m-project .t-kicker { font-size: 12px !important; }
+  html.m-project .s-label { font-size: 12px !important; }
+  html.m-project .pg-dir { font-size: 12px !important; }
+
+  /* ---- why.html ---- */
+  html.m-why #vCredit { font-size: 12px !important; }
+  html.m-why .go { font-size: 12px !important; }
+  html.m-why figcaption { font-size: 12px !important; }
+
+  /* ---- map.html (Atlas) ---- */
+  html.m-map label { font-size: 12px !important; }
+  html.m-map .lab { font-size: 12px !important; }
+  html.m-map .da { font-size: 12px !important; }
+
+  /* ---- type.html (field guides) ---- */
+  html.m-type figcaption { font-size: 12px !important; }
+  html.m-type .k { font-size: 12px !important; }
+  html.m-type .who { font-size: 13px !important; }
+  html.m-type .badge { font-size: 12px !important; }
+  html.m-type .fk { font-size: 12px !important; }
+  html.m-type .e, html.m-type .e.r { font-size: 12px !important; }
+
+  /* ---- manifesto.html ---- */
+  html.m-manifesto #heroCredit { font-size: 12px !important; }
+  html.m-manifesto .stagenote { font-size: 12px !important; }
+  html.m-manifesto .deep { font-size: 12px !important; }
+
+  /* ---- about.html ---- */
+  html.m-about .b-theme { font-size: 12px !important; }
+
+  /* ---- resources.html ---- */
+  html.m-resources .tag { font-size: 12px !important; }
+
+  /* ---- inspiration.html ---- */
+  html.m-inspiration .flag { font-size: 12px !important; }
+  html.m-inspiration .tg { font-size: 12px !important; }
+  html.m-inspiration .meta { font-size: 12px !important; }
+
+  /* ---- round 1b: reading-size floors (max() can only grow, never shrink) ---- */
+  html.m-themes main a { font-size: max(16px, 1em) !important; }
+  html.m-about a { font-size: max(16px, 1em) !important; }
+  html.m-work b { font-size: max(15px, 1em) !important; }
+  html.m-map b { font-size: max(15px, 1em) !important; }
+  html.m-type .pl, html.m-type .lab, html.m-type .tip { font-size: 12px !important; }
+
+  /* ---- shared safety nets ---- */
+  /* keep long words/urls from forcing horizontal scroll */
+  html[class*="m-"] body { overflow-wrap: break-word; }
+
+}
+
+/* ============================================================
+   ROUND 2 (2026-07-22): per-page layout/impact pass — folded from
+   _mobile/<page>.css fragments (10 parallel agents, see _mobile/*-REPORT.md).
+   Shared-component fixes (.wback, .btn-pill, footer) live in site-nav.js +
+   the shared section below — per-page duplicates pruned at fold time.
+   ============================================================ */
+
+@media (max-width: 760px) {
+  /* ---- shared: email CTA pill wraps instead of overflowing viewport ---- */
+  .btn-pill { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.35; font-size: .72rem; letter-spacing: .06em; }
+}
+
+/* ================= about.css (round 2) ================= */
+/* _mobile/about.css — Round-2 mobile pass, about.html
+   Selector prefix: html.m-about. Entire file lives inside max-width:760px. */
+@media (max-width: 760px) {
+
+  /* ---------------------------------------------------------------------
+     1) CRITICAL FIX — scroll-reveal sections were rendering fully
+     invisible (opacity:0, never flipped to .in) on the phone capture,
+     wiping out .trans, .bring, .doors and .contact (~2240px of blank
+     cream between the quote card and the footer — see report). Neutralise
+     the fade-in on mobile so content is never hidden; matches the site's
+     own prefers-reduced-motion fallback already defined for .reveal. */
+
+  /* ---------------------------------------------------------------------
+     2) Body/reading text floor — several paragraph classes clamp to a
+     vw-driven preferred value that resolves under the vw floor at 390px
+     (e.g. clamp(.95rem,1.15vw,1.08rem) -> 1.15vw is ~4.5px at 390px, so
+     the MIN of .95rem/15.2px wins), landing under the 16px reading floor.
+     Bump to the playbook's fluid body formula (16px -> 18px). */
+  html.m-about .thread-body,
+  html.m-about .trans .t-body,
+  html.m-about .bcard .b-line,
+  html.m-about .door .d-desc,
+  html.m-about .contact .c-sub{
+    font-size: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+  }
+
+  /* ---------------------------------------------------------------------
+     3) Micro-label floor — kickers/eyebrows currently render at .62rem/
+     .72rem (9.9px/11.5px), under the 12px micro-label floor. */
+  html.m-about .eyebrow,
+  html.m-about .trans .kicker,
+  html.m-about .bcard .b-theme,
+  html.m-about .door .d-link{
+    font-size: .75rem;
+  }
+
+  /* ---------------------------------------------------------------------
+     4) Contact CTA pill overflow — the email-address button has no
+     inline text-wrap safety valve, so the full uppercase, letter-spaced
+     email renders on one line at ~430px wide inside a ~350px content
+     column (confirmed by report.json: a.btn-pill right:545 vs 390
+     viewport). Let it wrap onto 2 lines instead of hanging off-canvas. */
+
+  /* ---------------------------------------------------------------------
+     5) Headline overflow safety — defensive wrap guard, no visual change
+     unless a long word would otherwise force scroll (playbook recipe 1). */
+  html.m-about .hero h1,
+  html.m-about .thread-line,
+  html.m-about .trans .t-line,
+  html.m-about .contact .c-line,
+  html.m-about .door .d-title{
+    overflow-wrap: break-word;
+  }
+
+  /* ---------------------------------------------------------------------
+     6) Tap target — the "what I bring" card's proof-link ("That story",
+     "Design for Connection", etc.) is a bare inline <a> with only a
+     10px margin-top from its inline style, no padding of its own: real
+     hit area is ~15px tall, under the 44px floor (recipe 8). */
+  html.m-about .bcard a{
+    display: inline-block;
+    padding: 12px 0;
+  }
+}
+
+/* ================= credits.css (round 2) ================= */
+/* ============================================================
+   credits.css — mobile fragment for credits.html
+   Scope: html.m-credits only. Lives entirely inside the 760px query.
+   See MOBILE-RULES.md for the numbered recipes referenced below.
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* Recipe 1 — body/reading text floor: p/li are .98rem (~15.7px),
+     just under the 16px floor. Bump without touching desktop. */
+  html.m-credits p,
+  html.m-credits li {
+    font-size: max(16px, 1rem);
+    line-height: 1.6;
+  }
+
+  /* .note re-uses the same floor (was .95rem, ~15.2px). */
+  html.m-credits .note {
+    font-size: max(16px, 1rem);
+    line-height: 1.55;
+  }
+
+  /* Recipe 9 — whitespace rhythm: give each source-family section a
+     touch more breathing room between ideas (h2 was 34px top margin,
+     tight for a one-idea-per-scroll feel). */
+  html.m-credits h2 {
+    margin: 44px 0 10px;
+  }
+
+  /* First h2 shouldn't double up with the intro paragraph's own
+     bottom spacing — keep it a bit tighter right after the intro. */
+  html.m-credits h1 + p + h2 {
+    margin-top: 40px;
+  }
+
+  /* List items in "Community & project photos" run link-dense —
+     add a little vertical separation so each source reads as its
+     own line rather than a wall of text. */
+  html.m-credits ul li {
+    margin-bottom: 10px;
+  }
+  html.m-credits ul li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Recipe 8 — tap targets: inline citation links sit close together
+     in the dense list; give them a hair of extra tap padding without
+     disturbing text flow. */
+  html.m-credits ul a,
+  html.m-credits .note a {
+    padding: 2px 0;
+    display: inline-block;
+  }
+
+  /* .note box: slightly roomier on phone widths so the mailto CTA
+     doesn't feel cramped against the border. */
+  html.m-credits .note {
+    padding: 20px;
+    margin: 28px 0;
+  }
+}
+
+/* ================= design.css (round 2) ================= */
+/* _mobile/design.css — mobile pass for design.html (Design for Connection)
+   Scope: html.m-design only, inside @media (max-width:760px). Desktop untouched.
+   See _mobile/design-REPORT.md for what was fixed vs proposed vs flagged. */
+
+@media (max-width: 760px) {
+
+  /* ---- Recipe 1 / micro-label floor: tags & kickers must ship >=12px.
+     These five ship 8-10.2px on the live page (report.json tinyText: c-tag@9.9,
+     w-scale@10.2, n-k@9.6, b-theme@9.9, plus pk-name which the page's own
+     680px query drops to 8px). Bumping to .75rem (12px) meets the floor
+     without touching layout. */
+  html.m-design .c-tag,
+  html.m-design .w-scale,
+  html.m-design .n-k,
+  html.m-design .b-theme,
+  html.m-design .peek .pk-name {
+    font-size: .75rem;
+  }
+  html.m-design .peek .pk-name {
+    letter-spacing: .06em;
+    line-height: 1.35;
+  }
+
+  /* ---- Recipe 2 / gap-fill: the page's own inline <style> only stacks
+     .tactic and .bcard.wide at its legacy 680px breakpoint. This site's
+     standard breakpoint is 760px, so 681-760px phones currently still get
+     the 2-column desktop layout (image beside text, cramped to ~half of a
+     ~700px screen). Duplicating the stack at 760px closes that gap —
+     values match the page's own 680px rules exactly, so nothing changes
+     at 390px (already covered), this only extends correct behaviour up
+     to 760px. */
+  html.m-design .tactic {
+    grid-template-columns: 1fr;
+  }
+  html.m-design .tactic .t-media {
+    order: 2;
+  }
+  html.m-design .tactic .t-text {
+    order: 1;
+  }
+  html.m-design .bcard.wide {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Recipe 9 / rhythm: a bit more air between tactic blocks so each
+     "tactic" (image + line + longer sentence) reads as its own beat while
+     scrolling the long feeling sections. */
+  html.m-design .tactics {
+    gap: clamp(34px, 7vh, 52px);
+  }
+
+  /* ---- Recipe 8 / tap targets: the carousel's left/right peek buttons
+     (the neighbour-feeling strips) are only 34px wide at <=680px on the
+     live page — well under the 44px minimum hit area. Widen just the
+     narrow-phone case; the page's own desktop/tablet clamp() already
+     gives >=44px above 680px, so this is scoped to where it's actually
+     too small. */
+  @media (max-width: 680px) {
+    html.m-design .peek {
+      width: 44px;
+    }
+  }
+
+  /* ---- inspire block: the link + note can crowd the paragraph in the
+     flex row on narrow phones (flex-wrap already lets it drop to its own
+     line; stacking cleanly + left-aligning the note reads better than a
+     wrapped right-aligned fragment). */
+  html.m-design .i-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  html.m-design .i-link {
+    white-space: normal;
+  }
+  html.m-design .i-note {
+    text-align: left;
+  }
+}
+
+/* ================= designers.css (round 2) ================= */
+/* =====================================================================
+   designers.css — mobile fragment for designers.html
+   Scope: html.m-designers only. Everything inside @media (max-width:760px).
+   Desktop untouched. See MOBILE-RULES.md for the playbook this follows.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- reading-text floor: .take is the main body copy per card (was
+     .95rem = 15.2px, below the 16px reading floor) ---- */
+  html.m-designers .person .take {
+    font-size: 16px !important;
+    line-height: 1.55;
+  }
+
+  /* ---- micro-label floor: .who (role/studio line) was .72rem = 11.52px ---- */
+  html.m-designers .person .who {
+    font-size: 12px !important;
+  }
+
+  /* ---- micro-label floor + tap target: .row a link labels were
+     .72rem = 11.52px with only a 2px padding-bottom hit area. Bump the
+     label to the 12px floor and give each link real vertical padding so
+     the tappable box clears ~44px with room either side of the gap. ---- */
+  html.m-designers .person .row a {
+    font-size: 12px !important;
+    padding: 10px 0 12px;
+  }
+
+  /* ---- .young closing note reads as body copy ("A working list, not a
+     finished one...") — was .9rem = 14.4px, below the 16px reading floor ---- */
+  html.m-designers .young {
+    font-size: 16px !important;
+    line-height: 1.5;
+    padding: 20px 22px;
+  }
+}
+
+/* ================= detail.css (round 2) ================= */
+/* detail.css — mobile pass for detail.html (inspiration case-study template, ?item=slug)
+   Scope: html.m-detail only, ≤760px only. Desktop untouched. See MOBILE-RULES.md. */
+@media (max-width: 760px) {
+
+
+  /* ---- "<- Inspiration" back link: no padding at all today, so its tap area
+     is just the text's line-height (~14px) — well under the 44px floor.
+     Padding added on top/bottom, margin-top trimmed by the same amount so the
+     link keeps sitting at the same visual distance from the nav/world-band. ---- */
+  html.m-detail .back {
+    display: inline-block;
+    margin: 25px 0 0 -4px;
+    padding: 15px 4px;
+  }
+
+  /* ---- "Visit ___ ->" source CTA: measured ~44.4px tall already (15px padding
+     + ~14px line-height) — right at the floor. Guarantee it explicitly instead
+     of relying on font-metric math holding across browsers. ---- */
+  html.m-detail .dt-source {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ---- shared "back to the tower" pill (site-nav.js-injected .wback): report.json
+     flags this page's tinyText at 9.6px. Scoped via html.m-detail so only this
+     page is touched even though the element is injected by the shared nav
+     script — same fix already shipped on resources.html. ---- */
+
+}
+
+/* ================= hope.css (round 2) ================= */
+/* =====================================================================
+   hope.html — mobile pass (<=760px). Fragment only; desktop untouched.
+   Selector prefix: html.m-hope. See _mobile/hope-REPORT.md for notes.
+
+   Context: hope.html is a visual-first scroll story (hero -> 4 "crisis"
+   stat sections -> 4 chapter sections with a generated SVG form each ->
+   closing CTA). Desktop already has an existing @media(max-width:900px)
+   block in styles.css that stacks .hope-chapter and .crisis to a single
+   column and re-orders the visual/text pair, so most of the layout work
+   for <=760px is already done upstream. What's left at this narrower
+   width is: one reading-text floor violation, a headline overflow safety
+   net, and section-to-section breathing room.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- reading-text floor (16px): the research/citation bullets under
+     each crisis stat were shipping at 15px, 1px under the playbook's
+     body-text floor. These carry real reading content (cited stats), so
+     they don't qualify as micro-labels. ---- */
+  html.m-hope .crisis-facts li {
+    font-size: 16px;
+  }
+
+  /* ---- headline overflow safety net: none of these currently overflow
+     (docOverflowX=0), but the playbook requires it explicitly for any
+     big serif headline/quote at this width so a future long edit can't
+     force horizontal scroll. ---- */
+  html.m-hope .hope-thesis,
+  html.m-hope .crises-intro,
+  html.m-hope .hc-text h2,
+  html.m-hope .crisis-text h3,
+  html.m-hope .cc-body,
+  html.m-hope .cc-quote,
+  html.m-hope .hope-close h2 {
+    overflow-wrap: break-word;
+  }
+
+  /* ---- section-to-section rhythm: the close of the crises block
+     (".crises-close", the Waldinger quote) had only 8px of bottom
+     padding before "How I found the answer" and the chapter sequence
+     began — too tight a seam between the emotional climax of the crises
+     section and the next story beat. Bring the gap up into the
+     playbook's 40-56px rhythm band. ---- */
+  html.m-hope .crises-close {
+    padding-bottom: 28px;
+  }
+  html.m-hope .hope-journey {
+    padding-top: 28px;
+  }
+}
+
+/* ================= inspiration.css (round 2) ================= */
+/* ============================================================
+   _mobile/inspiration.css — mobile-only overrides for inspiration.html
+   Entire file lives inside @media (max-width:760px); every selector is
+   prefixed html.m-inspiration so desktop (and every other page) is
+   untouched. See MOBILE-RULES.md for the recipe numbers referenced below.
+
+   NOTE: tiny-text floors for .flag / .tg / .meta / .eyebrow are already
+   fixed sitewide in mobile.css (retrofit layer, lines 15-19 + 71-74) —
+   not duplicated here.
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* ---- Recipe 4: card grid — book covers are NOT tiny tiles (they carry
+     title/meta/tags), so force 1 column across the whole mobile range.
+     Desktop's own inline CSS gives 2 cols between 461-760px; this overrides
+     it (extra html.m-inspiration selector wins on specificity). Visible:
+     the entire "shelf" scroll region, screens 2-9 of the baseline capture. ---- */
+  html.m-inspiration .shelf {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Recipe 8: tap targets — filter pills were ~36px tall (padding 8px +
+     ~12.5px text), below the 44px floor. Bump padding + center text.
+     Visible: filter chip row, screen 1, just under the lede. ---- */
+  html.m-inspiration .filters button {
+    padding: 13px 18px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- Recipe 1: reading-text floor — "Looking for places instead of
+     books?" + its two links were 15.2px (.95rem), under the 16px floor.
+     Visible: bottom of the shelf, just above the site footer. ---- */
+  html.m-inspiration .elsew {
+    font-size: 16px;
+  }
+  html.m-inspiration .elsew a {
+    padding: 6px 0;
+    display: inline-block;
+  }
+
+  /* ---- Book cover pill padding retune to match the sitewide 12px floor
+     already applied to .flag/.tg font-size (mobile.css) — a hair more
+     padding keeps the pill proportioned at the bigger size.
+     Visible: top-left corner of each cover ("Case study" flag), and the
+     tag pills under each title, throughout the shelf. ---- */
+  html.m-inspiration .book .cov .flag {
+    padding: 5px 11px;
+  }
+  html.m-inspiration .book .tg {
+    padding: 4px 10px;
+  }
+
+  /* ---- Popup modal (book click -> detail card) ----
+     Visible: only when a cover is tapped; not in the static baseline
+     screenshot, but reachable from every card in the shelf. */
+
+  /* Recipe 10: never-overflow cap should use svh, not vh. */
+  html.m-inspiration .pmodal {
+    max-height: 88svh;
+  }
+
+  /* Recipe 2: the desktop layout puts the cover image first in the DOM,
+     text second, side by side. The existing inline breakpoint (<=600px)
+     already stacks them into a column, but DOM order still puts the image
+     ABOVE the text. Reorder so text reads first, image directly under it. */
+  html.m-inspiration .pmodal .in > div:not(.cov2) {
+    order: 1;
+  }
+  html.m-inspiration .pmodal .cov2 {
+    order: 2;
+  }
+
+  /* Recipe 1: modal body copy was 15.68px (.98rem) and the action links
+     11.84px (.74rem) — both under floor. */
+  html.m-inspiration .pmodal p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  html.m-inspiration .pmodal .meta {
+    margin-bottom: 12px;
+  }
+  html.m-inspiration .pmodal .row a {
+    font-size: 12px;
+    padding: 10px 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Recipe 8: close button was 38x38, under the 44px tap-target floor. */
+  html.m-inspiration .pmodal .mclose {
+    width: 44px;
+    height: 44px;
+    top: 12px;
+    right: 12px;
+    font-size: 1.05rem;
+  }
+
+}
+
+/* ================= manifesto.css (round 2) ================= */
+/* =====================================================================
+   manifesto.html — mobile pass (≤760px). Fragment only; desktop untouched.
+   Selector prefix: html.m-manifesto. See _mobile/manifesto-REPORT.md.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- micro-label floor (12px) — eyebrows/kickers were 11.2px, hero
+     photo credit was 9.92px, and the closing quote's attribution line was
+     11.52px. All are micro-labels; MOBILE-RULES floor is 12px. ---- */
+  html.m-manifesto .eyebrow,
+  html.m-manifesto .hero .credit,
+  html.m-manifesto .close blockquote footer {
+    font-size: 12px;
+  }
+
+  /* ---- reading-text floor (16px) — the gray-field lede sentence
+     ("Most of what feels inevitable...") was 15.2px, and the story-card
+     secondary sentence (.vil) was 14.72px. Both are real reading content,
+     not micro-labels. ---- */
+  html.m-manifesto .field .head .lede {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  html.m-manifesto .cardp .vil {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* ---- CTA button labels ("Explore the Coliving Atlas" etc.) were
+     14.4px — bump to the reading floor since they carry real words the
+     visitor reads to decide where to go, not just a UI chip label. ---- */
+  html.m-manifesto .close .ctas a {
+    font-size: 16px;
+  }
+
+  /* ---- story-card secondary line + "Go deeper" link: the page's own CSS
+     only reveals these via `@media(hover:none)`, which is a heuristic that
+     doesn't reliably match on every touch browser (some report hover:hover
+     even on touch-only devices). Force them visible unconditionally on
+     mobile so this content is never silently hidden (MOBILE-RULES: never
+     hide content text). Also bumps the "Go deeper" link's micro-label size
+     (10.56px -> 12px) and gives it real tap padding (was text-only, well
+     under the 44px hit-area minimum). ---- */
+  html.m-manifesto .cardp .vil,
+  html.m-manifesto .cardp .deep {
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    margin-top: 9px;
+  }
+  html.m-manifesto .cardp .deep {
+    font-size: 12px;
+    display: inline-block;
+    padding: 10px 6px;
+    margin: 9px -6px 0;
+  }
+
+  /* ---- restore the village-section subhead: the page's own CSS hides
+     #cdLede entirely below 900px (`.cohead .lede{display:none}`), which
+     drops real explanatory text. MOBILE-RULES bans hiding content text —
+     only decorative elements may be hidden. Bring it back at the reading
+     floor; there is ample vertical room here (see report: Flag on the
+     scenewrap dead-scroll gap). ---- */
+  html.m-manifesto .cohead .lede {
+    display: block;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  /* ---- viewport-height stability (playbook recipe 10): this page's own
+     CSS sizes the hero photo, the sticky headline's trigger spacer, the
+     village pinned-scroll stage, and the village film/poster in plain
+     `vh`, which jumps as the mobile browser's address bar shows/hides.
+     Swap for svh (never-overflow caps) / dvh (live pinned-scroll
+     trackers) per the numbers already in play — same sizes, stable
+     unit. ---- */
+  html.m-manifesto .hero .img img {
+    max-height: 60svh;
+  }
+  html.m-manifesto .headhold {
+    height: 46dvh;
+  }
+  html.m-manifesto .scenewrap {
+    height: 300dvh;
+  }
+  html.m-manifesto .scene .vwrap img,
+  html.m-manifesto .scene .vwrap video {
+    max-height: 60svh;
+  }
+}
+
+/* ================= map.css (round 2) ================= */
+/* =====================================================================
+   map.html — mobile fragment (MOBILE-RULES.md v2)
+   Everything below lives inside @media(max-width:760px), every selector
+   prefixed html.m-map. Desktop (map.html's own <style>, mobile.css) is
+   untouched by this file.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---------- tap targets (recipe 8, floor 44x44) ---------- */
+  /* preset chips ("The classic", "Hard mode"...) were ~37px tall */
+  html.m-map .presets .p{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  /* axis <select> dropdowns had ~39px hit area */
+  html.m-map .ctl select{
+    padding:13px 26px 13px 0;
+  }
+  /* chart symbol marks were 42x42, just under the floor */
+  html.m-map .node .mark{
+    width:44px;
+    height:44px;
+  }
+  /* shared back-to-top button: clear the home-indicator on notched phones
+     (harmless without viewport-fit=cover — see report) */
+  html.m-map .stotop{
+    bottom:calc(env(safe-area-inset-bottom) + clamp(14px,2.6vh,26px));
+  }
+
+  /* ---------- the compare-chart (recipe 6 — interactive stage) ----------
+     Hover mini-card is already hidden on touch (existing rule) and tap
+     opens the full field-notes popup directly. What CSS alone can still
+     improve: give the 12-node scatter more room, stop node labels from
+     colliding, and remove a decorative overlay that crowds the top. The
+     scatter layout itself (nodes positioned by inline % from JS scores)
+     cannot be redesigned from CSS — see Proposed in the report. */
+  html.m-map .chart{
+    height:max(560px,96vw);
+  }
+  html.m-map .node .lab{
+    white-space:normal;
+    max-width:70px;
+    text-align:center;
+    line-height:1.15;
+  }
+  /* "★ my practice" sub-label on the node's own marker — real content,
+     was rendering at 9.6px (mobile.css's .lab floor doesn't reach ::after) */
+  html.m-map .node.mine .lab::after{
+    font-size:12px;
+  }
+  /* x-axis captions ("ECOLOGICAL" / "TECH-DRIVEN") were 11.2px */
+  html.m-map .axl{
+    font-size:12px;
+  }
+  /* decorative plate caption ("Pl. I — the co-living territory") repeats
+     the heading already above the chart and crowds the top-right node
+     at phone width — hide it (ornament, recipe: allowed to hide) */
+  html.m-map .chart .plate{
+    display:none;
+  }
+
+  /* ---------- field-notes popup (the modal) ---------- */
+  /* modal scroll cap: vh is unstable as mobile browser chrome
+     shows/hides — svh never overflows (recipe 10) */
+  html.m-map .modal .mscroll{
+    max-height:90svh;
+  }
+  html.m-map .modal .mhero{
+    height:clamp(180px,30svh,300px);
+  }
+  html.m-map .modal .featimg{
+    height:clamp(200px,34svh,360px);
+  }
+  /* kickers/labels inside the popup were 9.9–10.9px, under the 12px floor */
+  html.m-map .modal .k,
+  html.m-map .modal .tcard .q,
+  html.m-map .modal .ex .pl,
+  html.m-map .modal .featcap .fpl,
+  html.m-map .modal .fnote .fk{
+    font-size:12px;
+  }
+  html.m-map .modal .tcard .badge{
+    font-size:12px;
+    padding:5px 10px;
+  }
+  /* axis readout rows (recipe 7: stack label/value instead of a cramped
+     96px+track+96px row) */
+  html.m-map .modal .sigrow{
+    grid-template-columns:1fr;
+    gap:4px;
+    margin-bottom:16px;
+  }
+  html.m-map .modal .sigrow .e{
+    font-size:12px;
+    text-align:left;
+  }
+  html.m-map .modal .sigrow .e.r{
+    text-align:right;
+  }
+  /* card-grid gaps under the 16px floor (recipe 4) */
+  html.m-map .modal .tgrid,
+  html.m-map .modal .fnotes,
+  html.m-map .modal .exgrid{
+    gap:16px;
+  }
+
+  /* ---------- shared world-banner pill ("↑ the lookout · back to the
+     tower") — site-nav.js ships its own ≤640px override to .75rem, but it
+     is not landing (measured 9.6px in the QA report); the cause is in the
+     shared script, out of this page's scope, so re-asserted here ---------- */
+
+  /* ---------- "where to go from here" + library card grids: 14px gap,
+     under the 16px card-grid floor (recipe 4) ---------- */
+  html.m-map .doors,
+  html.m-map .lgrid{
+    gap:16px;
+  }
+}
+
+/* ================= project.css (round 2) ================= */
+/* project.css — mobile pass for project.html (case-study template, ?p=slug)
+   Scope: html.m-project only, ≤760px only. Desktop untouched. See MOBILE-RULES.md. */
+@media (max-width: 760px) {
+
+
+  /* ---- hero image/placeholder: plain vh is banned for capped media on this
+     site (MOBILE-RULES #10) — mobile browser chrome resizes the viewport as
+     the page scrolls, so vh can clip or jump-cut. Same value, stable unit. ---- */
+  html.m-project .p-hero img.hero-img { max-height: 52svh; }
+  html.m-project .p-hero .hero-ph { height: min(52svh, 460px); }
+
+  /* ---- stats row: the page's own stack rule only fires at <=640px, leaving a
+     641-760px gap where the 3 stats + dividers would still cram onto one row.
+     Extend to the site's 760px cutoff — values identical to the page's rule. ---- */
+  html.m-project .stats { flex-direction: column; gap: 14px; }
+  html.m-project .stat { border-left: none; padding: 0; }
+
+  /* ---- section image grid: same gap-close — the page's own breakpoint is 680px ---- */
+  html.m-project .img-grid { grid-template-columns: 1fr; }
+  html.m-project .img-grid .ig-item.span2 { grid-column: auto; }
+
+  /* ---- pager: same gap-close — the page's own breakpoint is 640px ---- */
+  html.m-project .pager .pg { max-width: 100%; }
+  html.m-project .pager .pg.next { text-align: left; margin-left: 0; }
+
+  /* ---- taught-block CTA pills ("Read the manifesto" etc.): measured ~34px tall
+     (10px padding + 11.5px text) — under the 44px tap-target floor. Also bumps
+     the .72rem (11.5px) label text onto the 12px micro-label floor. ---- */
+  html.m-project .taught .t-links a {
+    font-size: 12px;
+    min-height: 44px;
+    padding: 12px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- "All work ->" pager link: bare text with no padding, near-zero tap height ---- */
+  html.m-project .pager .pg-all a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  /* ---- shared "back to the tower" pill (site-nav.js-injected .wback): report.json
+     flags this page's tinyText at 9.6px. Scoped via html.m-project so only this
+     page is touched even though the element is injected by the shared nav
+     script — same fix already shipped on resources.html. ---- */
+
+}
+
+/* ================= resources.css (round 2) ================= */
+/* resources.css — mobile pass for resources.html (Coliving Atlas · Resources directory)
+   Scope: html.m-resources only, ≤760px only. Desktop untouched. See MOBILE-RULES.md. */
+@media (max-width: 760px) {
+
+  /* ---- filter pills: bump to a real ≥44px tap target (measured ~33px before) ---- */
+  html.m-resources .filters button {
+    min-height: 44px;
+    padding: 14px 20px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- card body copy: 15.2px measured, floor is 16px for reading text ---- */
+  html.m-resources .rcard p {
+    font-size: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+    line-height: 1.6;
+  }
+
+  /* ---- "Visit ___ →" CTA link: 11.8px text + near-zero tap height before ---- */
+  html.m-resources .rcard .visit {
+    font-size: 13px;
+    line-height: 1.2;
+    padding: 15px 0;
+    display: inline-block;
+  }
+
+  /* ---- "directory is young" reminder box: 14.4px measured, floor is 16px ---- */
+  html.m-resources .young {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* ---- shared "back to the tower" pill (site-nav.js-injected .wback):
+     report.json flags resources.html's OWN tinyText at 9.6px. Scoped here via
+     html.m-resources so only this page is touched even though the element is
+     injected by the shared nav script. ---- */
+
+}
+
+/* ================= separation.css (round 2) ================= */
+/* _mobile/separation.css — mobile pass for separation.html
+   Scope: html.m-separation, inside @media (max-width:760px) only. Desktop untouched.
+   See _mobile/separation-REPORT.md for the walkthrough. */
+@media (max-width: 760px) {
+
+  /* Every movement's "village" aside (.mov .vil) is a full sentence
+     (s.village) — reading content, was 15.2px, just under the 16px floor. */
+  html.m-separation .mov .vil {
+    font-size: 16px;
+  }
+
+  /* "Learn more" pill links inside each movement (.mov .reads a) were
+     11.84px (under the 12px micro-label floor) and only ~28px tall
+     (under the 44px tap-target floor). */
+  html.m-separation .mov .reads a {
+    font-size: 12px;
+    padding: 15px 16px;
+  }
+
+  /* The book-credit link ("On my bookshelf →") was 11.52px with a ~16px
+     tall hit area — bump both. inline-block + padding widens the tap
+     target without changing the visible underline styling. */
+  html.m-separation .bookrow a {
+    font-size: 12px;
+    display: inline-block;
+    padding: 12px 6px;
+  }
+
+  /* Outro CTAs ("Back to the manifesto" etc.) were ~42px tall, just under
+     the 44px tap-target floor. */
+  html.m-separation .outro .ctas a {
+    padding: 15px 24px;
+  }
+
+}
+
+/* ================= story.css (round 2) ================= */
+/* _mobile/story.css — mobile pass for story.html ("My story")
+   Everything below lives in @media(max-width:760px), every selector
+   prefixed html.m-story. See _mobile/story-REPORT.md for the why per fix.
+   Desktop is untouched — this file only ever loads its rules under the
+   760px query. */
+
+@media (max-width: 760px) {
+
+  /* ---- 1. CRITICAL — chapter image/text order (playbook recipe 2) ----
+     story.html's own inline mobile block (its <style>, ~line 123-129)
+     sets: .chap-img{order:1} .chap-text{order:2} for BOTH .chap and
+     .chap.img-right on phone — i.e. every one of the 6 chapters shows its
+     photo BEFORE its story text. That's the opposite of the one-sentence
+     rule (heading -> text -> image). None of the chapters use the
+     "banner"/"collage"/"text" layout variants (checked about-data.js —
+     no chapter sets `layout`), so this hits all 6 chapters, all the way
+     down the page. Fixed here with higher-specificity selectors so this
+     wins over the page's own rule regardless of load order. */
+  html.m-story .chap .chap-text,
+  html.m-story .chap.img-right .chap-text {
+    order: 1;
+  }
+  html.m-story .chap .chap-img,
+  html.m-story .chap.img-right .chap-img {
+    order: 2;
+  }
+
+  /* ---- 2. Reading-text floor (16-18px fluid scale) ----
+     These blocks use clamp()/em values tuned for wide viewports; at 390px
+     the vw component collapses and they bottom out under the mandatory
+     16px floor for reading content (chap-story ~15.2px, v-line 15.2px
+     fixed, b-line ~15.2px, c-sub ~15.2px). Swapped for the playbook's
+     ready-made 16px->18px fluid formula. */
+  html.m-story .chap-story p,
+  html.m-story .vcard .v-line,
+  html.m-story .bcard .b-line,
+  html.m-story .close-sec .c-sub {
+    font-size: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+  }
+
+  /* The "what every space taught me" pillar-card description has no class
+     — it's JS-templated with an inline style="font-size:.82em" (~14.76px
+     off an 18px body size at 390px). Target the literal inline-style
+     value; !important is the one sanctioned use here (beating an inline
+     style="" attribute), per MOBILE-RULES.md Don'ts. */
+  html.m-story #sChapters div[style*="font-size:.82em"] {
+    font-size: 16px !important;
+  }
+
+  /* ---- 3. Micro-label floor (>=12px) ----
+     The compact vignette "photo wanted" caption sits at .74rem (11.84px),
+     just under the 12px micro-label floor (the larger .ph .ph-scene and
+     the interlude's .ph-scene already clear it; only the vcard one doesn't). */
+  html.m-story .vcard .v-ph .ph-scene {
+    font-size: 12px;
+  }
+
+  /* ---- 4. Email pill overflows the viewport ----
+     report.json confirms it: a.btn-pill measured left:20 right:420 on a
+     390-wide screen (30px past the edge). The mailto address is one
+     unbroken string in an inline-block button with no wrap point, so it
+     pushes the box wider than the viewport instead of wrapping. Let it
+     wrap/break and trim the horizontal padding + font a touch so it reads
+     as a two-line button instead of bleeding off-screen. Visible on the
+     final screen (close section, just above the footer). */
+
+  /* ---- 5. Shared nav "back to the tower" pill ----
+     report.json's tinyText flags a.wback at ~9.6px on this page — below
+     the 12px micro-label floor. This element is injected by the shared
+     site-nav.js (not story.html/about-data.js), so it's not edited here;
+     instead this page-scoped override (matched to the shared component's
+     own selector specificity, since site-nav.js injects its CSS at
+     runtime and would otherwise win the cascade) raises it to the floor
+     and pads it to a real tap target. Visible on screen 1, top banner. */
+
+  /* ---- 6. Tap targets >=44px (padding counts) ---- */
+  html.m-story .bcard .b-go {
+    display: inline-block;
+    font-size: 12px;
+    padding: 12px 2px;
+  }
+  html.m-story .close-links a {
+    display: inline-block;
+    padding: 10px 6px;
+  }
+}
+
+/* ================= talkpieces.css (round 2) ================= */
+/* _mobile/talkpieces.css — mobile pass for talkpieces.html
+   Scope: html.m-talkpieces, inside @media (max-width:760px) only. Desktop untouched.
+   See _mobile/talkpieces-REPORT.md for the walkthrough. */
+@media (max-width: 760px) {
+
+  /* SCREEN 1 (masthead) — the eyebrow + h1 sit directly over the shared
+     world-banner illustration (site-nav.js's .wband, inserted right after
+     nav). The banner's veil only reaches useful contrast ~35-60% down its
+     own height, so at mobile banner heights (~240-320px) the kicker line
+     and headline land in the low-contrast zone — text almost disappears
+     into the artwork (confirmed in the baseline screenshot). Give both a
+     small paper-colored backdrop so they read clearly; fit-content keeps
+     the banner visible everywhere else. Specificity (html.m-talkpieces
+     .eyebrow/h1) naturally beats site-nav.js's own injected rules without
+     needing !important. */
+  html.m-talkpieces .head .eyebrow,
+  html.m-talkpieces .head h1 {
+    display: block;
+    width: fit-content;
+    background: rgba(246,242,231,.88);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+  }
+  html.m-talkpieces .head .eyebrow { padding: 6px 12px; margin-bottom: 10px; }
+  html.m-talkpieces .head h1 { padding: 8px 14px; }
+
+  /* Shared "back to the tower" pill (site-nav.js's .wback): measured tiny
+     (~9-10px) and its tap target was well under 44px tall. This selector
+     is scoped to our page only and out-specifies the shared, unscoped
+     .wbandwrap .wback rule (html.m-talkpieces adds an element+class over
+     its two plain classes), so no !important needed. */
+
+  /* Card dek + meta carry real reading sentences (piece descriptions,
+     status lines) — floor is 16px, they shipped at ~15.2px / ~11.8px. */
+  html.m-talkpieces .piece .dek,
+  html.m-talkpieces .young {
+    font-size: 16px;
+  }
+  html.m-talkpieces .piece .meta {
+    font-size: 16px;
+    letter-spacing: .06em;
+  }
+
+  /* .kicker ("PIECE 01 · PHILOSOPHY") is a genuine micro-label — floor is
+     12px, was 10.56px. */
+  html.m-talkpieces .piece .kicker {
+    font-size: 12px;
+  }
+
+}
+
+/* ================= themes.css (round 2) ================= */
+/* ============================================================
+   _mobile/themes.css — mobile fragment for themes.html
+   Scope: html.m-themes only, inside @media (max-width:760px).
+   Desktop untouched. See MOBILE-RULES.md for the playbook.
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* Card index number ("01", "02"...) — was 10.56px (0.66rem),
+     below the 12px micro-label floor. Screen: every card, top-left. */
+  html.m-themes .theme .num {
+    font-size: 12px;
+  }
+
+  /* Card question line (italic "q" under each h2) — was 14.72px
+     (0.92rem), reading text below the 16px body floor. Visible on
+     every card throughout the grid (screens 2 through ~19). */
+  html.m-themes .theme .q {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* "Start here" links — mobile.css already floors their font-size
+     to 16px (html.m-themes main a). Here we give each link a real
+     tap target (>=44px hit area) and more breathing room between
+     wrapped lines, since the underline-only style has near-zero
+     vertical padding today. Visible on every card. */
+  html.m-themes .theme .start {
+    gap: 12px 18px;
+  }
+  html.m-themes .theme .start a {
+    display: inline-block;
+    padding: 12px 2px;
+  }
+
+  /* Bottom "growing in public" note — was 14.4px (0.9rem), reading
+     text below the 16px floor. Screen: last section before the
+     footer, right after the last card. */
+  html.m-themes .young {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 22px 24px;
+  }
+
+}
+
+/* ================= type.css (round 2) ================= */
+/* =====================================================================
+   type.html — mobile fragment (MOBILE-RULES.md v2)
+   Everything below lives inside @media(max-width:760px), every selector
+   prefixed html.m-type. Desktop (type.html's own <style>, mobile.css) is
+   untouched by this file.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---------- tap targets (recipe 8, floor 44x44) ---------- */
+  html.m-type .crumb a{
+    display:inline-block;
+    padding:12px 0;
+  }
+  /* sticky guide rail icons were 38px tall */
+  html.m-type .gr-item{
+    min-height:44px;
+  }
+  /* sticky bottom rail + shared back-to-top button: clear the
+     home-indicator on notched phones (harmless without
+     viewport-fit=cover — see report) */
+  html.m-type .guiderail{
+    bottom:calc(env(safe-area-inset-bottom) + clamp(14px,2.4vh,26px));
+    scroll-snap-type:x proximity;
+  }
+  html.m-type .gr-item{scroll-snap-align:center}
+  html.m-type .stotop{
+    bottom:calc(env(safe-area-inset-bottom) + clamp(14px,2.6vh,26px));
+  }
+  /* shared world-banner pill ("← back to the tower") — site-nav.js ships
+     its own ≤640px override to .75rem, but the QA report measured 9.6px
+     in practice; re-asserted the floor from this page's scope */
+
+  /* ---------- text floors not already covered by mobile.css ----------
+     mobile.css already fixes .k/.who/.badge/.fk/.e/.e.r/.pl/.lab/.tip
+     for html.m-type. These are the ones it misses. */
+  html.m-type .gname{ font-size:12px; }             /* gallery-tile name, 11.5px */
+  html.m-type .tcard .q{ font-size:12px; }           /* theme-card kicker, 11.5px */
+  html.m-type .featcap .fpl{ font-size:12px; }       /* featured-example place tag, 11.8px */
+  html.m-type .pager .lab{ font-size:12px; }         /* "← Previous"/"Next →" kicker, 10.2px */
+
+  /* reading-text floor (16px) — these are full sentences, not micro-labels */
+  html.m-type .ti-sub{ font-size:16px; }                    /* intro paragraph, ~15.7px */
+  html.m-type .diag.placeholder .ph-s{ font-size:16px; }    /* diagram-in-progress note, 14.7px */
+  html.m-type .tcard p{ font-size:16px; }                   /* theme-card body, 15.2px */
+  html.m-type .fnote p{ font-size:16px; }                   /* who-it's-for / watch-out body, 15.2px */
+  html.m-type .ex .note{ font-size:16px; }                  /* example-card note, 14.7px */
+  html.m-type .pager a{ font-size:16px; }                   /* prev/next guide name, 14.7px */
+
+  /* ---------- axis readout rows (recipe 7: stack label/value instead of
+     a cramped 110px+track+110px row) ---------- */
+  html.m-type .sigrow{
+    grid-template-columns:1fr;
+    gap:4px;
+    margin-bottom:16px;
+  }
+  html.m-type .sigrow .e{ text-align:left; }
+  html.m-type .sigrow .e.r{ text-align:right; }
+
+  /* ---------- card-grid gap under the 16px floor (recipe 4) ---------- */
+  html.m-type .tgrid,
+  html.m-type .fnotes{
+    gap:16px;
+  }
+
+  /* ---------- viewport-height stability (recipe 10) — svh instead of
+     vh so mobile browser chrome can't clip or jump-cut these ---------- */
+  html.m-type .diag img{
+    max-height:80svh;
+  }
+  html.m-type .featimg{
+    height:clamp(280px,44svh,480px);
+  }
+}
+
+/* ================= why.css (round 2) ================= */
+/* _mobile/why.css — mobile pass for why.html
+   Scope: html.m-why, inside @media (max-width:760px) only. Desktop untouched.
+   See _mobile/why-REPORT.md for the walkthrough. */
+@media (max-width: 760px) {
+
+  /* SCREEN 3 (the dark "four slow emergencies" band) — .chip .l carries a
+     full sentence (WHY.crises stat captions, e.g. "deaths a year linked to
+     loneliness — roughly one every hour (WHO, 2024)."). That's reading
+     content, not a micro-label, so it must clear the 16px floor — it was
+     shipping at 12.8px. */
+  html.m-why .chip .l {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* SCREEN 4 ("Why co-living answers", the six lens cards) — .lcard p is a
+     full-sentence body paragraph per card, was 14.72px. */
+  html.m-why .lcard p {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* SCREEN 5 ("Twelve ways in") — .way p renders each model's "teaches"
+     quote, a full sentence, was 14.08px. */
+  html.m-why .way p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Tap targets: the sticky nav collapses to just the current-page link at
+     <=680px (page's own rule) but that link's hit area was ~23px tall —
+     under the 44px floor. Padding only; nav's own height is set by the
+     brand line so this doesn't push the bar taller. */
+  html.m-why .nav .links a.on {
+    padding: 15px 0;
+  }
+
+  /* Close section CTAs ("Explore the twelve models" / "Read my vision")
+     were ~42px tall, just under the 44px tap-target floor. */
+  html.m-why .close .ctas a {
+    padding: 15px 26px;
+  }
+
+}
+
+/* ================= work.css (round 2) ================= */
+/* =====================================================================
+   work.html — mobile pass (≤760px). Fragment only; desktop untouched.
+   Selector prefix: html.m-work. See _mobile/work-REPORT.md for notes.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- gallery: make the single-column behavior explicit rather than
+     relying on auto-fill(minmax(300px,1fr)) alone, which breaks below
+     ~340px viewports (300px card + 40px .wrap padding) ---- */
+  html.m-work .gal {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- micro-label floor (12px) — these were 9.9px-11.5px, under the
+     playbook's micro-label floor ---- */
+  html.m-work .eyebrow,
+  html.m-work .gb-kicker,
+  html.m-work .chip,
+  html.m-work .exp-org,
+  html.m-work .exp-slots .sl,
+  html.m-work .exp-slots .sl b,
+  html.m-work .exp-go {
+    font-size: 12px;
+  }
+
+  /* ---- filter chips: bump tap-target height to >=44px alongside the
+     font-size floor above (padding alone was ~30px tall) ---- */
+  html.m-work .chip {
+    padding: 13px 18px;
+  }
+
+  /* ---- reading-text floor (16px) — case-study card body copy and the
+     closing CTA subline were 14.4px / 15.2px ---- */
+  html.m-work .exp-blurb {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  html.m-work .close-sec .c-sub {
+    font-size: 16px;
+  }
+
+  /* ---- CTA email button: unconstrained inline-block + a long email
+     with no spaces was overflowing ~30-135px past the viewport edge and
+     getting silently clipped by the page's overflow-x:clip (never
+     wrapped, never visible as a scrollbar). Let it wrap onto two lines
+     instead. ---- */
+}

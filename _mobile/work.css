@@ -1,0 +1,58 @@
+/* =====================================================================
+   work.html — mobile pass (≤760px). Fragment only; desktop untouched.
+   Selector prefix: html.m-work. See _mobile/work-REPORT.md for notes.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- gallery: make the single-column behavior explicit rather than
+     relying on auto-fill(minmax(300px,1fr)) alone, which breaks below
+     ~340px viewports (300px card + 40px .wrap padding) ---- */
+  html.m-work .gal {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- micro-label floor (12px) — these were 9.9px-11.5px, under the
+     playbook's micro-label floor ---- */
+  html.m-work .eyebrow,
+  html.m-work .gb-kicker,
+  html.m-work .chip,
+  html.m-work .exp-org,
+  html.m-work .exp-slots .sl,
+  html.m-work .exp-slots .sl b,
+  html.m-work .exp-go {
+    font-size: 12px;
+  }
+
+  /* ---- filter chips: bump tap-target height to >=44px alongside the
+     font-size floor above (padding alone was ~30px tall) ---- */
+  html.m-work .chip {
+    padding: 13px 18px;
+  }
+
+  /* ---- reading-text floor (16px) — case-study card body copy and the
+     closing CTA subline were 14.4px / 15.2px ---- */
+  html.m-work .exp-blurb {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  html.m-work .close-sec .c-sub {
+    font-size: 16px;
+  }
+
+  /* ---- CTA email button: unconstrained inline-block + a long email
+     with no spaces was overflowing ~30-135px past the viewport edge and
+     getting silently clipped by the page's overflow-x:clip (never
+     wrapped, never visible as a scrollbar). Let it wrap onto two lines
+     instead. ---- */
+  html.m-work .btn-pill {
+    display: inline-block;
+    max-width: calc(100% - 8px);
+    padding: 14px 22px;
+    font-size: 12px;
+    letter-spacing: .09em;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+  }
+}

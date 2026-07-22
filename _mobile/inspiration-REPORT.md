@@ -1,0 +1,13 @@
+## Done
+- Forced `.shelf` to 1 column across the whole mobile range (760px down) — book covers carry title/meta/tags, so they're not "tiny tiles"; desktop's own inline CSS gives 2 columns between 461-760px, this overrides it. Visible: the entire card list, screens 2-9 of the baseline capture.
+- Bumped `.filters` pill padding to hit the 44px tap-target floor (was ~36px tall). Visible: filter chip row, screen 1, under the lede.
+- Raised `.elsew` ("Looking for places instead of books?" + its two links) from 15.2px to 16px reading floor, added tap padding to the two links. Visible: bottom of the shelf, just above the footer.
+- Small padding retune on `.flag` and `.tg` pills to match the 12px font floor already set sitewide in `mobile.css`. Visible: top-left flag on covers with a case-study/talk-piece, and the tag pills under every title.
+- Popup modal (reachable by tapping any cover, not in the static screenshot): swapped `max-height:88vh` to `88svh` (never-overflow cap, per playbook recipe 10); reordered so the text block reads before the cover image once stacked (recipe 2 — desktop DOM order put the image first); raised body copy (.98rem->16px) and action-link text (.74rem->12px) to floor; enlarged the close button from 38x38 to 44x44.
+
+## Proposed (not done)
+- `INSPIRATION.eyebrow` / `.title` / `.lede` fields in data.js are defined but unused — the page hardcodes different H1/lede text directly in HTML. Not a mobile issue, just noticed while reading data.js; flagging in case it's a leftover from an edit, not touching (out of scope, HTML/JS edit).
+- Filter chips currently wrap into 2 rows (6 short chips: All + 5 tags) rather than a horizontal scroll-snap row. Playbook recipe 4 prefers scroll-snap for chip rows, but at this count wrapping stays short (not "tall"), so left as wrap + fixed the tap-target height instead. If more tags get added later, worth revisiting as a scroll-snap row.
+
+## Flags
+- `div.wmedia` / `img` overflow (-12px to 402px, 413px wide against a 390px viewport) and `a.wback@9.6px` tiny text from report.json both come from the shared `.wband`/`.wback` "back to the tower" hero band injected by `site-nav.js` (the `library` scene on this page), not from inspiration.html or data.js. The horizontal bleed is clipped by the sitewide `html,body{overflow-x:clip}` rule (report confirms `docOverflowX:0`, no real scroll), so it reads as intentional decorative bleed for the pan effect, not a layout bug — but the `a.wback` text rendering at 9.6px instead of the `.75rem` (12px) set in site-nav.js's own `@media(max-width:640px)` rule looks like a real discrepancy worth a look by whoever owns `site-nav.js` (shared across every page, out of scope for this page-only fragment).

@@ -1,0 +1,50 @@
+/* =====================================================================
+   hope.html — mobile pass (<=760px). Fragment only; desktop untouched.
+   Selector prefix: html.m-hope. See _mobile/hope-REPORT.md for notes.
+
+   Context: hope.html is a visual-first scroll story (hero -> 4 "crisis"
+   stat sections -> 4 chapter sections with a generated SVG form each ->
+   closing CTA). Desktop already has an existing @media(max-width:900px)
+   block in styles.css that stacks .hope-chapter and .crisis to a single
+   column and re-orders the visual/text pair, so most of the layout work
+   for <=760px is already done upstream. What's left at this narrower
+   width is: one reading-text floor violation, a headline overflow safety
+   net, and section-to-section breathing room.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- reading-text floor (16px): the research/citation bullets under
+     each crisis stat were shipping at 15px, 1px under the playbook's
+     body-text floor. These carry real reading content (cited stats), so
+     they don't qualify as micro-labels. ---- */
+  html.m-hope .crisis-facts li {
+    font-size: 16px;
+  }
+
+  /* ---- headline overflow safety net: none of these currently overflow
+     (docOverflowX=0), but the playbook requires it explicitly for any
+     big serif headline/quote at this width so a future long edit can't
+     force horizontal scroll. ---- */
+  html.m-hope .hope-thesis,
+  html.m-hope .crises-intro,
+  html.m-hope .hc-text h2,
+  html.m-hope .crisis-text h3,
+  html.m-hope .cc-body,
+  html.m-hope .cc-quote,
+  html.m-hope .hope-close h2 {
+    overflow-wrap: break-word;
+  }
+
+  /* ---- section-to-section rhythm: the close of the crises block
+     (".crises-close", the Waldinger quote) had only 8px of bottom
+     padding before "How I found the answer" and the chapter sequence
+     began — too tight a seam between the emotional climax of the crises
+     section and the next story beat. Bring the gap up into the
+     playbook's 40-56px rhythm band. ---- */
+  html.m-hope .crises-close {
+    padding-bottom: 28px;
+  }
+  html.m-hope .hope-journey {
+    padding-top: 28px;
+  }
+}

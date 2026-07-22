@@ -1,0 +1,55 @@
+/* _mobile/talkpieces.css — mobile pass for talkpieces.html
+   Scope: html.m-talkpieces, inside @media (max-width:760px) only. Desktop untouched.
+   See _mobile/talkpieces-REPORT.md for the walkthrough. */
+@media (max-width: 760px) {
+
+  /* SCREEN 1 (masthead) — the eyebrow + h1 sit directly over the shared
+     world-banner illustration (site-nav.js's .wband, inserted right after
+     nav). The banner's veil only reaches useful contrast ~35-60% down its
+     own height, so at mobile banner heights (~240-320px) the kicker line
+     and headline land in the low-contrast zone — text almost disappears
+     into the artwork (confirmed in the baseline screenshot). Give both a
+     small paper-colored backdrop so they read clearly; fit-content keeps
+     the banner visible everywhere else. Specificity (html.m-talkpieces
+     .eyebrow/h1) naturally beats site-nav.js's own injected rules without
+     needing !important. */
+  html.m-talkpieces .head .eyebrow,
+  html.m-talkpieces .head h1 {
+    display: block;
+    width: fit-content;
+    background: rgba(246,242,231,.88);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+  }
+  html.m-talkpieces .head .eyebrow { padding: 6px 12px; margin-bottom: 10px; }
+  html.m-talkpieces .head h1 { padding: 8px 14px; }
+
+  /* Shared "back to the tower" pill (site-nav.js's .wback): measured tiny
+     (~9-10px) and its tap target was well under 44px tall. This selector
+     is scoped to our page only and out-specifies the shared, unscoped
+     .wbandwrap .wback rule (html.m-talkpieces adds an element+class over
+     its two plain classes), so no !important needed. */
+  html.m-talkpieces .wback {
+    font-size: 12px;
+    padding: 15px 16px;
+  }
+
+  /* Card dek + meta carry real reading sentences (piece descriptions,
+     status lines) — floor is 16px, they shipped at ~15.2px / ~11.8px. */
+  html.m-talkpieces .piece .dek,
+  html.m-talkpieces .young {
+    font-size: 16px;
+  }
+  html.m-talkpieces .piece .meta {
+    font-size: 16px;
+    letter-spacing: .06em;
+  }
+
+  /* .kicker ("PIECE 01 · PHILOSOPHY") is a genuine micro-label — floor is
+     12px, was 10.56px. */
+  html.m-talkpieces .piece .kicker {
+    font-size: 12px;
+  }
+
+}

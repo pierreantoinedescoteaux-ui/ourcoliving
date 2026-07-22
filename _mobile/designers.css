@@ -1,0 +1,36 @@
+/* =====================================================================
+   designers.css — mobile fragment for designers.html
+   Scope: html.m-designers only. Everything inside @media (max-width:760px).
+   Desktop untouched. See MOBILE-RULES.md for the playbook this follows.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- reading-text floor: .take is the main body copy per card (was
+     .95rem = 15.2px, below the 16px reading floor) ---- */
+  html.m-designers .person .take {
+    font-size: 16px !important;
+    line-height: 1.55;
+  }
+
+  /* ---- micro-label floor: .who (role/studio line) was .72rem = 11.52px ---- */
+  html.m-designers .person .who {
+    font-size: 12px !important;
+  }
+
+  /* ---- micro-label floor + tap target: .row a link labels were
+     .72rem = 11.52px with only a 2px padding-bottom hit area. Bump the
+     label to the 12px floor and give each link real vertical padding so
+     the tappable box clears ~44px with room either side of the gap. ---- */
+  html.m-designers .person .row a {
+    font-size: 12px !important;
+    padding: 10px 0 12px;
+  }
+
+  /* ---- .young closing note reads as body copy ("A working list, not a
+     finished one...") — was .9rem = 14.4px, below the 16px reading floor ---- */
+  html.m-designers .young {
+    font-size: 16px !important;
+    line-height: 1.5;
+    padding: 20px 22px;
+  }
+}

@@ -1,0 +1,74 @@
+/* =====================================================================
+   type.html — mobile fragment (MOBILE-RULES.md v2)
+   Everything below lives inside @media(max-width:760px), every selector
+   prefixed html.m-type. Desktop (type.html's own <style>, mobile.css) is
+   untouched by this file.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---------- tap targets (recipe 8, floor 44x44) ---------- */
+  html.m-type .crumb a{
+    display:inline-block;
+    padding:12px 0;
+  }
+  /* sticky guide rail icons were 38px tall */
+  html.m-type .gr-item{
+    min-height:44px;
+  }
+  /* sticky bottom rail + shared back-to-top button: clear the
+     home-indicator on notched phones (harmless without
+     viewport-fit=cover — see report) */
+  html.m-type .guiderail{
+    bottom:calc(env(safe-area-inset-bottom) + clamp(14px,2.4vh,26px));
+  }
+  html.m-type .stotop{
+    bottom:calc(env(safe-area-inset-bottom) + clamp(14px,2.6vh,26px));
+  }
+  /* shared world-banner pill ("← back to the tower") — site-nav.js ships
+     its own ≤640px override to .75rem, but the QA report measured 9.6px
+     in practice; re-asserted the floor from this page's scope */
+  html.m-type .wback{
+    font-size:12px;
+  }
+
+  /* ---------- text floors not already covered by mobile.css ----------
+     mobile.css already fixes .k/.who/.badge/.fk/.e/.e.r/.pl/.lab/.tip
+     for html.m-type. These are the ones it misses. */
+  html.m-type .gname{ font-size:12px; }             /* gallery-tile name, 11.5px */
+  html.m-type .tcard .q{ font-size:12px; }           /* theme-card kicker, 11.5px */
+  html.m-type .featcap .fpl{ font-size:12px; }       /* featured-example place tag, 11.8px */
+  html.m-type .pager .lab{ font-size:12px; }         /* "← Previous"/"Next →" kicker, 10.2px */
+
+  /* reading-text floor (16px) — these are full sentences, not micro-labels */
+  html.m-type .ti-sub{ font-size:16px; }                    /* intro paragraph, ~15.7px */
+  html.m-type .diag.placeholder .ph-s{ font-size:16px; }    /* diagram-in-progress note, 14.7px */
+  html.m-type .tcard p{ font-size:16px; }                   /* theme-card body, 15.2px */
+  html.m-type .fnote p{ font-size:16px; }                   /* who-it's-for / watch-out body, 15.2px */
+  html.m-type .ex .note{ font-size:16px; }                  /* example-card note, 14.7px */
+  html.m-type .pager a{ font-size:16px; }                   /* prev/next guide name, 14.7px */
+
+  /* ---------- axis readout rows (recipe 7: stack label/value instead of
+     a cramped 110px+track+110px row) ---------- */
+  html.m-type .sigrow{
+    grid-template-columns:1fr;
+    gap:4px;
+    margin-bottom:16px;
+  }
+  html.m-type .sigrow .e{ text-align:left; }
+  html.m-type .sigrow .e.r{ text-align:right; }
+
+  /* ---------- card-grid gap under the 16px floor (recipe 4) ---------- */
+  html.m-type .tgrid,
+  html.m-type .fnotes{
+    gap:16px;
+  }
+
+  /* ---------- viewport-height stability (recipe 10) — svh instead of
+     vh so mobile browser chrome can't clip or jump-cut these ---------- */
+  html.m-type .diag img{
+    max-height:80svh;
+  }
+  html.m-type .featimg{
+    height:clamp(280px,44svh,480px);
+  }
+}

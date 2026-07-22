@@ -1,0 +1,64 @@
+/* project.css — mobile pass for project.html (case-study template, ?p=slug)
+   Scope: html.m-project only, ≤760px only. Desktop untouched. See MOBILE-RULES.md. */
+@media (max-width: 760px) {
+
+  /* ---- CRITICAL: scroll-reveal never resolves during a full-page capture (and
+     can fail the same way for a real reader who scrolls fast) — every section,
+     the taught block and the pager sit at opacity:0/translateY(26px) until an
+     IntersectionObserver flips .in on them. On the baseline screenshot this
+     left the page ~70% blank cream between the pull-line and the footer (all
+     of .p-sections, .taught, .pager never appeared). Force them visible on
+     mobile. Same root cause + same fix already shipped on about.html. ---- */
+  html.m-project .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* ---- hero image/placeholder: plain vh is banned for capped media on this
+     site (MOBILE-RULES #10) — mobile browser chrome resizes the viewport as
+     the page scrolls, so vh can clip or jump-cut. Same value, stable unit. ---- */
+  html.m-project .p-hero img.hero-img { max-height: 52svh; }
+  html.m-project .p-hero .hero-ph { height: min(52svh, 460px); }
+
+  /* ---- stats row: the page's own stack rule only fires at <=640px, leaving a
+     641-760px gap where the 3 stats + dividers would still cram onto one row.
+     Extend to the site's 760px cutoff — values identical to the page's rule. ---- */
+  html.m-project .stats { flex-direction: column; gap: 14px; }
+  html.m-project .stat { border-left: none; padding: 0; }
+
+  /* ---- section image grid: same gap-close — the page's own breakpoint is 680px ---- */
+  html.m-project .img-grid { grid-template-columns: 1fr; }
+  html.m-project .img-grid .ig-item.span2 { grid-column: auto; }
+
+  /* ---- pager: same gap-close — the page's own breakpoint is 640px ---- */
+  html.m-project .pager .pg { max-width: 100%; }
+  html.m-project .pager .pg.next { text-align: left; margin-left: 0; }
+
+  /* ---- taught-block CTA pills ("Read the manifesto" etc.): measured ~34px tall
+     (10px padding + 11.5px text) — under the 44px tap-target floor. Also bumps
+     the .72rem (11.5px) label text onto the 12px micro-label floor. ---- */
+  html.m-project .taught .t-links a {
+    font-size: 12px;
+    min-height: 44px;
+    padding: 12px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- "All work ->" pager link: bare text with no padding, near-zero tap height ---- */
+  html.m-project .pager .pg-all a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  /* ---- shared "back to the tower" pill (site-nav.js-injected .wback): report.json
+     flags this page's tinyText at 9.6px. Scoped via html.m-project so only this
+     page is touched even though the element is injected by the shared nav
+     script — same fix already shipped on resources.html. ---- */
+  html.m-project .wback {
+    font-size: 14px !important;
+    padding: 14px 16px !important;
+  }
+
+}

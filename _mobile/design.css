@@ -1,0 +1,78 @@
+/* _mobile/design.css — mobile pass for design.html (Design for Connection)
+   Scope: html.m-design only, inside @media (max-width:760px). Desktop untouched.
+   See _mobile/design-REPORT.md for what was fixed vs proposed vs flagged. */
+
+@media (max-width: 760px) {
+
+  /* ---- Recipe 1 / micro-label floor: tags & kickers must ship >=12px.
+     These five ship 8-10.2px on the live page (report.json tinyText: c-tag@9.9,
+     w-scale@10.2, n-k@9.6, b-theme@9.9, plus pk-name which the page's own
+     680px query drops to 8px). Bumping to .75rem (12px) meets the floor
+     without touching layout. */
+  html.m-design .c-tag,
+  html.m-design .w-scale,
+  html.m-design .n-k,
+  html.m-design .b-theme,
+  html.m-design .peek .pk-name {
+    font-size: .75rem;
+  }
+  html.m-design .peek .pk-name {
+    letter-spacing: .06em;
+    line-height: 1.35;
+  }
+
+  /* ---- Recipe 2 / gap-fill: the page's own inline <style> only stacks
+     .tactic and .bcard.wide at its legacy 680px breakpoint. This site's
+     standard breakpoint is 760px, so 681-760px phones currently still get
+     the 2-column desktop layout (image beside text, cramped to ~half of a
+     ~700px screen). Duplicating the stack at 760px closes that gap —
+     values match the page's own 680px rules exactly, so nothing changes
+     at 390px (already covered), this only extends correct behaviour up
+     to 760px. */
+  html.m-design .tactic {
+    grid-template-columns: 1fr;
+  }
+  html.m-design .tactic .t-media {
+    order: 2;
+  }
+  html.m-design .tactic .t-text {
+    order: 1;
+  }
+  html.m-design .bcard.wide {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Recipe 9 / rhythm: a bit more air between tactic blocks so each
+     "tactic" (image + line + longer sentence) reads as its own beat while
+     scrolling the long feeling sections. */
+  html.m-design .tactics {
+    gap: clamp(34px, 7vh, 52px);
+  }
+
+  /* ---- Recipe 8 / tap targets: the carousel's left/right peek buttons
+     (the neighbour-feeling strips) are only 34px wide at <=680px on the
+     live page — well under the 44px minimum hit area. Widen just the
+     narrow-phone case; the page's own desktop/tablet clamp() already
+     gives >=44px above 680px, so this is scoped to where it's actually
+     too small. */
+  @media (max-width: 680px) {
+    html.m-design .peek {
+      width: 44px;
+    }
+  }
+
+  /* ---- inspire block: the link + note can crowd the paragraph in the
+     flex row on narrow phones (flex-wrap already lets it drop to its own
+     line; stacking cleanly + left-aligning the note reads better than a
+     wrapped right-aligned fragment). */
+  html.m-design .i-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  html.m-design .i-link {
+    white-space: normal;
+  }
+  html.m-design .i-note {
+    text-align: left;
+  }
+}

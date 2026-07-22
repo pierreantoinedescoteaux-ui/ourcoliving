@@ -1,0 +1,122 @@
+/* =====================================================================
+   map.html — mobile fragment (MOBILE-RULES.md v2)
+   Everything below lives inside @media(max-width:760px), every selector
+   prefixed html.m-map. Desktop (map.html's own <style>, mobile.css) is
+   untouched by this file.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---------- tap targets (recipe 8, floor 44x44) ---------- */
+  /* preset chips ("The classic", "Hard mode"...) were ~37px tall */
+  html.m-map .presets .p{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  /* axis <select> dropdowns had ~39px hit area */
+  html.m-map .ctl select{
+    padding:13px 26px 13px 0;
+  }
+  /* chart symbol marks were 42x42, just under the floor */
+  html.m-map .node .mark{
+    width:44px;
+    height:44px;
+  }
+  /* shared back-to-top button: clear the home-indicator on notched phones
+     (harmless without viewport-fit=cover — see report) */
+  html.m-map .stotop{
+    bottom:calc(env(safe-area-inset-bottom) + clamp(14px,2.6vh,26px));
+  }
+
+  /* ---------- the compare-chart (recipe 6 — interactive stage) ----------
+     Hover mini-card is already hidden on touch (existing rule) and tap
+     opens the full field-notes popup directly. What CSS alone can still
+     improve: give the 12-node scatter more room, stop node labels from
+     colliding, and remove a decorative overlay that crowds the top. The
+     scatter layout itself (nodes positioned by inline % from JS scores)
+     cannot be redesigned from CSS — see Proposed in the report. */
+  html.m-map .chart{
+    height:max(560px,96vw);
+  }
+  html.m-map .node .lab{
+    white-space:normal;
+    max-width:70px;
+    text-align:center;
+    line-height:1.15;
+  }
+  /* "★ my practice" sub-label on the node's own marker — real content,
+     was rendering at 9.6px (mobile.css's .lab floor doesn't reach ::after) */
+  html.m-map .node.mine .lab::after{
+    font-size:12px;
+  }
+  /* x-axis captions ("ECOLOGICAL" / "TECH-DRIVEN") were 11.2px */
+  html.m-map .axl{
+    font-size:12px;
+  }
+  /* decorative plate caption ("Pl. I — the co-living territory") repeats
+     the heading already above the chart and crowds the top-right node
+     at phone width — hide it (ornament, recipe: allowed to hide) */
+  html.m-map .chart .plate{
+    display:none;
+  }
+
+  /* ---------- field-notes popup (the modal) ---------- */
+  /* modal scroll cap: vh is unstable as mobile browser chrome
+     shows/hides — svh never overflows (recipe 10) */
+  html.m-map .modal .mscroll{
+    max-height:90svh;
+  }
+  html.m-map .modal .mhero{
+    height:clamp(180px,30svh,300px);
+  }
+  html.m-map .modal .featimg{
+    height:clamp(200px,34svh,360px);
+  }
+  /* kickers/labels inside the popup were 9.9–10.9px, under the 12px floor */
+  html.m-map .modal .k,
+  html.m-map .modal .tcard .q,
+  html.m-map .modal .ex .pl,
+  html.m-map .modal .featcap .fpl,
+  html.m-map .modal .fnote .fk{
+    font-size:12px;
+  }
+  html.m-map .modal .tcard .badge{
+    font-size:12px;
+    padding:5px 10px;
+  }
+  /* axis readout rows (recipe 7: stack label/value instead of a cramped
+     96px+track+96px row) */
+  html.m-map .modal .sigrow{
+    grid-template-columns:1fr;
+    gap:4px;
+    margin-bottom:16px;
+  }
+  html.m-map .modal .sigrow .e{
+    font-size:12px;
+    text-align:left;
+  }
+  html.m-map .modal .sigrow .e.r{
+    text-align:right;
+  }
+  /* card-grid gaps under the 16px floor (recipe 4) */
+  html.m-map .modal .tgrid,
+  html.m-map .modal .fnotes,
+  html.m-map .modal .exgrid{
+    gap:16px;
+  }
+
+  /* ---------- shared world-banner pill ("↑ the lookout · back to the
+     tower") — site-nav.js ships its own ≤640px override to .75rem, but it
+     is not landing (measured 9.6px in the QA report); the cause is in the
+     shared script, out of this page's scope, so re-asserted here ---------- */
+  html.m-map .wback{
+    font-size:12px;
+  }
+
+  /* ---------- "where to go from here" + library card grids: 14px gap,
+     under the 16px card-grid floor (recipe 4) ---------- */
+  html.m-map .doors,
+  html.m-map .lgrid{
+    gap:16px;
+  }
+}

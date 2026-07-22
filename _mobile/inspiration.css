@@ -1,0 +1,103 @@
+/* ============================================================
+   _mobile/inspiration.css — mobile-only overrides for inspiration.html
+   Entire file lives inside @media (max-width:760px); every selector is
+   prefixed html.m-inspiration so desktop (and every other page) is
+   untouched. See MOBILE-RULES.md for the recipe numbers referenced below.
+
+   NOTE: tiny-text floors for .flag / .tg / .meta / .eyebrow are already
+   fixed sitewide in mobile.css (retrofit layer, lines 15-19 + 71-74) —
+   not duplicated here.
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* ---- Recipe 4: card grid — book covers are NOT tiny tiles (they carry
+     title/meta/tags), so force 1 column across the whole mobile range.
+     Desktop's own inline CSS gives 2 cols between 461-760px; this overrides
+     it (extra html.m-inspiration selector wins on specificity). Visible:
+     the entire "shelf" scroll region, screens 2-9 of the baseline capture. ---- */
+  html.m-inspiration .shelf {
+    grid-template-columns: 1fr;
+  }
+
+  /* ---- Recipe 8: tap targets — filter pills were ~36px tall (padding 8px +
+     ~12.5px text), below the 44px floor. Bump padding + center text.
+     Visible: filter chip row, screen 1, just under the lede. ---- */
+  html.m-inspiration .filters button {
+    padding: 13px 18px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- Recipe 1: reading-text floor — "Looking for places instead of
+     books?" + its two links were 15.2px (.95rem), under the 16px floor.
+     Visible: bottom of the shelf, just above the site footer. ---- */
+  html.m-inspiration .elsew {
+    font-size: 16px;
+  }
+  html.m-inspiration .elsew a {
+    padding: 6px 0;
+    display: inline-block;
+  }
+
+  /* ---- Book cover pill padding retune to match the sitewide 12px floor
+     already applied to .flag/.tg font-size (mobile.css) — a hair more
+     padding keeps the pill proportioned at the bigger size.
+     Visible: top-left corner of each cover ("Case study" flag), and the
+     tag pills under each title, throughout the shelf. ---- */
+  html.m-inspiration .book .cov .flag {
+    padding: 5px 11px;
+  }
+  html.m-inspiration .book .tg {
+    padding: 4px 10px;
+  }
+
+  /* ---- Popup modal (book click -> detail card) ----
+     Visible: only when a cover is tapped; not in the static baseline
+     screenshot, but reachable from every card in the shelf. */
+
+  /* Recipe 10: never-overflow cap should use svh, not vh. */
+  html.m-inspiration .pmodal {
+    max-height: 88svh;
+  }
+
+  /* Recipe 2: the desktop layout puts the cover image first in the DOM,
+     text second, side by side. The existing inline breakpoint (<=600px)
+     already stacks them into a column, but DOM order still puts the image
+     ABOVE the text. Reorder so text reads first, image directly under it. */
+  html.m-inspiration .pmodal .in > div:not(.cov2) {
+    order: 1;
+  }
+  html.m-inspiration .pmodal .cov2 {
+    order: 2;
+  }
+
+  /* Recipe 1: modal body copy was 15.68px (.98rem) and the action links
+     11.84px (.74rem) — both under floor. */
+  html.m-inspiration .pmodal p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  html.m-inspiration .pmodal .meta {
+    margin-bottom: 12px;
+  }
+  html.m-inspiration .pmodal .row a {
+    font-size: 12px;
+    padding: 10px 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Recipe 8: close button was 38x38, under the 44px tap-target floor. */
+  html.m-inspiration .pmodal .mclose {
+    width: 44px;
+    height: 44px;
+    top: 12px;
+    right: 12px;
+    font-size: 1.05rem;
+  }
+
+}

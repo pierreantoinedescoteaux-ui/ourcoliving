@@ -1,0 +1,43 @@
+/* detail.css — mobile pass for detail.html (inspiration case-study template, ?item=slug)
+   Scope: html.m-detail only, ≤760px only. Desktop untouched. See MOBILE-RULES.md. */
+@media (max-width: 760px) {
+
+  /* ---- CRITICAL: scroll-reveal never resolves during a full-page capture (and
+     can fail the same way for a real reader who scrolls fast) — renderDetail()
+     adds class "reveal" to every .dt-block (each image+text beat of the case
+     study) and only removes opacity:0 once an IntersectionObserver flips .in.
+     On the baseline screenshot this left a large blank gap between the hero
+     photo/caption and "What I take from it" — every .dt-block never appeared.
+     Force them visible on mobile. Same root cause + same fix already shipped
+     on about.html (which uses the identical .reveal/.reveal.in pattern). ---- */
+  html.m-detail .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* ---- "<- Inspiration" back link: no padding at all today, so its tap area
+     is just the text's line-height (~14px) — well under the 44px floor.
+     Padding added on top/bottom, margin-top trimmed by the same amount so the
+     link keeps sitting at the same visual distance from the nav/world-band. ---- */
+  html.m-detail .back {
+    display: inline-block;
+    margin: 25px 0 0 -4px;
+    padding: 15px 4px;
+  }
+
+  /* ---- "Visit ___ ->" source CTA: measured ~44.4px tall already (15px padding
+     + ~14px line-height) — right at the floor. Guarantee it explicitly instead
+     of relying on font-metric math holding across browsers. ---- */
+  html.m-detail .dt-source {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ---- shared "back to the tower" pill (site-nav.js-injected .wback): report.json
+     flags this page's tinyText at 9.6px. Scoped via html.m-detail so only this
+     page is touched even though the element is injected by the shared nav
+     script — same fix already shipped on resources.html. ---- */
+  html.m-detail .wback {
+    font-size: 14px !important;
+    padding: 14px 16px !important;
+  }
+
+}

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="m-design">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Design for Connection — Pierre-Antoine Descoteaux</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
@@ -233,6 +233,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   html{scroll-behavior:auto}
 }
 </style>
+<link rel="stylesheet" href="mobile.css">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -397,7 +398,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   }
   function resetTimer(){
     if(timer){clearInterval(timer);timer=null;}
-    if(reduced())return;
+    /* no auto-advance on phones (MOBILE-RULES recipe 5) or reduced motion */
+    if(reduced()||window.matchMedia("(max-width:760px)").matches)return;
     timer=setInterval(function(){show(cur+1);},AUTO);
   }
   function go(i){show(i);resetTimer();document.querySelector(".designing").scrollIntoView({behavior:"smooth",block:"start"});}

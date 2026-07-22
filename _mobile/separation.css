@@ -1,0 +1,35 @@
+/* _mobile/separation.css — mobile pass for separation.html
+   Scope: html.m-separation, inside @media (max-width:760px) only. Desktop untouched.
+   See _mobile/separation-REPORT.md for the walkthrough. */
+@media (max-width: 760px) {
+
+  /* Every movement's "village" aside (.mov .vil) is a full sentence
+     (s.village) — reading content, was 15.2px, just under the 16px floor. */
+  html.m-separation .mov .vil {
+    font-size: 16px;
+  }
+
+  /* "Learn more" pill links inside each movement (.mov .reads a) were
+     11.84px (under the 12px micro-label floor) and only ~28px tall
+     (under the 44px tap-target floor). */
+  html.m-separation .mov .reads a {
+    font-size: 12px;
+    padding: 15px 16px;
+  }
+
+  /* The book-credit link ("On my bookshelf →") was 11.52px with a ~16px
+     tall hit area — bump both. inline-block + padding widens the tap
+     target without changing the visible underline styling. */
+  html.m-separation .bookrow a {
+    font-size: 12px;
+    display: inline-block;
+    padding: 12px 6px;
+  }
+
+  /* Outro CTAs ("Back to the manifesto" etc.) were ~42px tall, just under
+     the 44px tap-target floor. */
+  html.m-separation .outro .ctas a {
+    padding: 15px 24px;
+  }
+
+}

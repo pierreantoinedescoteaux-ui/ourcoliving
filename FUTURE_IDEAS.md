@@ -46,3 +46,10 @@ more sprites), maybe using vk-tendril along the border path.
 ## Native 9:16 portrait mobile chain for the landing
 2026-07-21. ~940cr. Second camera chain rendered natively in portrait so phones get
 composed scenes instead of centre-crop. Do only if the phone crop bothers P-A.
+
+## Mobile touch micro-animations
+2026-07-22. P-A: some mobile sites have small animations when you swipe / pass your
+finger on things. Out of scope for the mobile round-2 retrofit (his call). If wanted
+later: tap-ripples on cards, touch-drag parallax on painted banners, pull-release
+bounce on carousels — all transform/opacity-only, reduced-motion-gated, sticker-kit
+art (never code-drawn shapes).

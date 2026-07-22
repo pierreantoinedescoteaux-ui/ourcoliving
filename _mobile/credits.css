@@ -1,0 +1,61 @@
+/* ============================================================
+   credits.css — mobile fragment for credits.html
+   Scope: html.m-credits only. Lives entirely inside the 760px query.
+   See MOBILE-RULES.md for the numbered recipes referenced below.
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* Recipe 1 — body/reading text floor: p/li are .98rem (~15.7px),
+     just under the 16px floor. Bump without touching desktop. */
+  html.m-credits p,
+  html.m-credits li {
+    font-size: max(16px, 1rem);
+    line-height: 1.6;
+  }
+
+  /* .note re-uses the same floor (was .95rem, ~15.2px). */
+  html.m-credits .note {
+    font-size: max(16px, 1rem);
+    line-height: 1.55;
+  }
+
+  /* Recipe 9 — whitespace rhythm: give each source-family section a
+     touch more breathing room between ideas (h2 was 34px top margin,
+     tight for a one-idea-per-scroll feel). */
+  html.m-credits h2 {
+    margin: 44px 0 10px;
+  }
+
+  /* First h2 shouldn't double up with the intro paragraph's own
+     bottom spacing — keep it a bit tighter right after the intro. */
+  html.m-credits h1 + p + h2 {
+    margin-top: 40px;
+  }
+
+  /* List items in "Community & project photos" run link-dense —
+     add a little vertical separation so each source reads as its
+     own line rather than a wall of text. */
+  html.m-credits ul li {
+    margin-bottom: 10px;
+  }
+  html.m-credits ul li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Recipe 8 — tap targets: inline citation links sit close together
+     in the dense list; give them a hair of extra tap padding without
+     disturbing text flow. */
+  html.m-credits ul a,
+  html.m-credits .note a {
+    padding: 2px 0;
+    display: inline-block;
+  }
+
+  /* .note box: slightly roomier on phone widths so the mailto CTA
+     doesn't feel cramped against the border. */
+  html.m-credits .note {
+    padding: 20px;
+    margin: 28px 0;
+  }
+}

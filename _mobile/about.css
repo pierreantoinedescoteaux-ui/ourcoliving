@@ -1,0 +1,76 @@
+/* _mobile/about.css — Round-2 mobile pass, about.html
+   Selector prefix: html.m-about. Entire file lives inside max-width:760px. */
+@media (max-width: 760px) {
+
+  /* ---------------------------------------------------------------------
+     1) CRITICAL FIX — scroll-reveal sections were rendering fully
+     invisible (opacity:0, never flipped to .in) on the phone capture,
+     wiping out .trans, .bring, .doors and .contact (~2240px of blank
+     cream between the quote card and the footer — see report). Neutralise
+     the fade-in on mobile so content is never hidden; matches the site's
+     own prefers-reduced-motion fallback already defined for .reveal. */
+  html.m-about .reveal{
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* ---------------------------------------------------------------------
+     2) Body/reading text floor — several paragraph classes clamp to a
+     vw-driven preferred value that resolves under the vw floor at 390px
+     (e.g. clamp(.95rem,1.15vw,1.08rem) -> 1.15vw is ~4.5px at 390px, so
+     the MIN of .95rem/15.2px wins), landing under the 16px reading floor.
+     Bump to the playbook's fluid body formula (16px -> 18px). */
+  html.m-about .thread-body,
+  html.m-about .trans .t-body,
+  html.m-about .bcard .b-line,
+  html.m-about .door .d-desc,
+  html.m-about .contact .c-sub{
+    font-size: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+  }
+
+  /* ---------------------------------------------------------------------
+     3) Micro-label floor — kickers/eyebrows currently render at .62rem/
+     .72rem (9.9px/11.5px), under the 12px micro-label floor. */
+  html.m-about .eyebrow,
+  html.m-about .trans .kicker,
+  html.m-about .bcard .b-theme,
+  html.m-about .door .d-link{
+    font-size: .75rem;
+  }
+
+  /* ---------------------------------------------------------------------
+     4) Contact CTA pill overflow — the email-address button has no
+     inline text-wrap safety valve, so the full uppercase, letter-spaced
+     email renders on one line at ~430px wide inside a ~350px content
+     column (confirmed by report.json: a.btn-pill right:545 vs 390
+     viewport). Let it wrap onto 2 lines instead of hanging off-canvas. */
+  html.m-about .btn-pill{
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-align: center;
+  }
+
+  /* ---------------------------------------------------------------------
+     5) Headline overflow safety — defensive wrap guard, no visual change
+     unless a long word would otherwise force scroll (playbook recipe 1). */
+  html.m-about .hero h1,
+  html.m-about .thread-line,
+  html.m-about .trans .t-line,
+  html.m-about .contact .c-line,
+  html.m-about .door .d-title{
+    overflow-wrap: break-word;
+  }
+
+  /* ---------------------------------------------------------------------
+     6) Tap target — the "what I bring" card's proof-link ("That story",
+     "Design for Connection", etc.) is a bare inline <a> with only a
+     10px margin-top from its inline style, no padding of its own: real
+     hit area is ~15px tall, under the 44px floor (recipe 8). */
+  html.m-about .bcard a{
+    display: inline-block;
+    padding: 12px 0;
+  }
+}

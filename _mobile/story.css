@@ -1,0 +1,99 @@
+/* _mobile/story.css — mobile pass for story.html ("My story")
+   Everything below lives in @media(max-width:760px), every selector
+   prefixed html.m-story. See _mobile/story-REPORT.md for the why per fix.
+   Desktop is untouched — this file only ever loads its rules under the
+   760px query. */
+
+@media (max-width: 760px) {
+
+  /* ---- 1. CRITICAL — chapter image/text order (playbook recipe 2) ----
+     story.html's own inline mobile block (its <style>, ~line 123-129)
+     sets: .chap-img{order:1} .chap-text{order:2} for BOTH .chap and
+     .chap.img-right on phone — i.e. every one of the 6 chapters shows its
+     photo BEFORE its story text. That's the opposite of the one-sentence
+     rule (heading -> text -> image). None of the chapters use the
+     "banner"/"collage"/"text" layout variants (checked about-data.js —
+     no chapter sets `layout`), so this hits all 6 chapters, all the way
+     down the page. Fixed here with higher-specificity selectors so this
+     wins over the page's own rule regardless of load order. */
+  html.m-story .chap .chap-text,
+  html.m-story .chap.img-right .chap-text {
+    order: 1;
+  }
+  html.m-story .chap .chap-img,
+  html.m-story .chap.img-right .chap-img {
+    order: 2;
+  }
+
+  /* ---- 2. Reading-text floor (16-18px fluid scale) ----
+     These blocks use clamp()/em values tuned for wide viewports; at 390px
+     the vw component collapses and they bottom out under the mandatory
+     16px floor for reading content (chap-story ~15.2px, v-line 15.2px
+     fixed, b-line ~15.2px, c-sub ~15.2px). Swapped for the playbook's
+     ready-made 16px->18px fluid formula. */
+  html.m-story .chap-story p,
+  html.m-story .vcard .v-line,
+  html.m-story .bcard .b-line,
+  html.m-story .close-sec .c-sub {
+    font-size: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);
+  }
+
+  /* The "what every space taught me" pillar-card description has no class
+     — it's JS-templated with an inline style="font-size:.82em" (~14.76px
+     off an 18px body size at 390px). Target the literal inline-style
+     value; !important is the one sanctioned use here (beating an inline
+     style="" attribute), per MOBILE-RULES.md Don'ts. */
+  html.m-story #sChapters div[style*="font-size:.82em"] {
+    font-size: 16px !important;
+  }
+
+  /* ---- 3. Micro-label floor (>=12px) ----
+     The compact vignette "photo wanted" caption sits at .74rem (11.84px),
+     just under the 12px micro-label floor (the larger .ph .ph-scene and
+     the interlude's .ph-scene already clear it; only the vcard one doesn't). */
+  html.m-story .vcard .v-ph .ph-scene {
+    font-size: 12px;
+  }
+
+  /* ---- 4. Email pill overflows the viewport ----
+     report.json confirms it: a.btn-pill measured left:20 right:420 on a
+     390-wide screen (30px past the edge). The mailto address is one
+     unbroken string in an inline-block button with no wrap point, so it
+     pushes the box wider than the viewport instead of wrapping. Let it
+     wrap/break and trim the horizontal padding + font a touch so it reads
+     as a two-line button instead of bleeding off-screen. Visible on the
+     final screen (close section, just above the footer). */
+  html.m-story .btn-pill {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+    font-size: .78rem;
+    padding: 14px 22px;
+    line-height: 1.4;
+  }
+
+  /* ---- 5. Shared nav "back to the tower" pill ----
+     report.json's tinyText flags a.wback at ~9.6px on this page — below
+     the 12px micro-label floor. This element is injected by the shared
+     site-nav.js (not story.html/about-data.js), so it's not edited here;
+     instead this page-scoped override (matched to the shared component's
+     own selector specificity, since site-nav.js injects its CSS at
+     runtime and would otherwise win the cascade) raises it to the floor
+     and pads it to a real tap target. Visible on screen 1, top banner. */
+  html.m-story .wbandwrap .wback {
+    font-size: 12px;
+    padding: 12px 16px;
+  }
+
+  /* ---- 6. Tap targets >=44px (padding counts) ---- */
+  html.m-story .bcard .b-go {
+    display: inline-block;
+    font-size: 12px;
+    padding: 12px 2px;
+  }
+  html.m-story .close-links a {
+    display: inline-block;
+    padding: 10px 6px;
+  }
+}

@@ -1,0 +1,46 @@
+/* ============================================================
+   _mobile/themes.css — mobile fragment for themes.html
+   Scope: html.m-themes only, inside @media (max-width:760px).
+   Desktop untouched. See MOBILE-RULES.md for the playbook.
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  /* Card index number ("01", "02"...) — was 10.56px (0.66rem),
+     below the 12px micro-label floor. Screen: every card, top-left. */
+  html.m-themes .theme .num {
+    font-size: 12px;
+  }
+
+  /* Card question line (italic "q" under each h2) — was 14.72px
+     (0.92rem), reading text below the 16px body floor. Visible on
+     every card throughout the grid (screens 2 through ~19). */
+  html.m-themes .theme .q {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* "Start here" links — mobile.css already floors their font-size
+     to 16px (html.m-themes main a). Here we give each link a real
+     tap target (>=44px hit area) and more breathing room between
+     wrapped lines, since the underline-only style has near-zero
+     vertical padding today. Visible on every card. */
+  html.m-themes .theme .start {
+    gap: 12px 18px;
+  }
+  html.m-themes .theme .start a {
+    display: inline-block;
+    padding: 12px 2px;
+  }
+
+  /* Bottom "growing in public" note — was 14.4px (0.9rem), reading
+     text below the 16px floor. Screen: last section before the
+     footer, right after the last card. */
+  html.m-themes .young {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 22px 24px;
+  }
+
+}

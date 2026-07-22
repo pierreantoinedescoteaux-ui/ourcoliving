@@ -1,0 +1,91 @@
+/* =====================================================================
+   manifesto.html — mobile pass (≤760px). Fragment only; desktop untouched.
+   Selector prefix: html.m-manifesto. See _mobile/manifesto-REPORT.md.
+   ===================================================================== */
+@media (max-width: 760px) {
+
+  /* ---- micro-label floor (12px) — eyebrows/kickers were 11.2px, hero
+     photo credit was 9.92px, and the closing quote's attribution line was
+     11.52px. All are micro-labels; MOBILE-RULES floor is 12px. ---- */
+  html.m-manifesto .eyebrow,
+  html.m-manifesto .hero .credit,
+  html.m-manifesto .close blockquote footer {
+    font-size: 12px;
+  }
+
+  /* ---- reading-text floor (16px) — the gray-field lede sentence
+     ("Most of what feels inevitable...") was 15.2px, and the story-card
+     secondary sentence (.vil) was 14.72px. Both are real reading content,
+     not micro-labels. ---- */
+  html.m-manifesto .field .head .lede {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  html.m-manifesto .cardp .vil {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* ---- CTA button labels ("Explore the Coliving Atlas" etc.) were
+     14.4px — bump to the reading floor since they carry real words the
+     visitor reads to decide where to go, not just a UI chip label. ---- */
+  html.m-manifesto .close .ctas a {
+    font-size: 16px;
+  }
+
+  /* ---- story-card secondary line + "Go deeper" link: the page's own CSS
+     only reveals these via `@media(hover:none)`, which is a heuristic that
+     doesn't reliably match on every touch browser (some report hover:hover
+     even on touch-only devices). Force them visible unconditionally on
+     mobile so this content is never silently hidden (MOBILE-RULES: never
+     hide content text). Also bumps the "Go deeper" link's micro-label size
+     (10.56px -> 12px) and gives it real tap padding (was text-only, well
+     under the 44px hit-area minimum). ---- */
+  html.m-manifesto .cardp .vil,
+  html.m-manifesto .cardp .deep {
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    margin-top: 9px;
+  }
+  html.m-manifesto .cardp .deep {
+    font-size: 12px;
+    display: inline-block;
+    padding: 10px 6px;
+    margin: 9px -6px 0;
+  }
+
+  /* ---- restore the village-section subhead: the page's own CSS hides
+     #cdLede entirely below 900px (`.cohead .lede{display:none}`), which
+     drops real explanatory text. MOBILE-RULES bans hiding content text —
+     only decorative elements may be hidden. Bring it back at the reading
+     floor; there is ample vertical room here (see report: Flag on the
+     scenewrap dead-scroll gap). ---- */
+  html.m-manifesto .cohead .lede {
+    display: block;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  /* ---- viewport-height stability (playbook recipe 10): this page's own
+     CSS sizes the hero photo, the sticky headline's trigger spacer, the
+     village pinned-scroll stage, and the village film/poster in plain
+     `vh`, which jumps as the mobile browser's address bar shows/hides.
+     Swap for svh (never-overflow caps) / dvh (live pinned-scroll
+     trackers) per the numbers already in play — same sizes, stable
+     unit. ---- */
+  html.m-manifesto .hero .img img {
+    max-height: 60svh;
+  }
+  html.m-manifesto .headhold {
+    height: 46dvh;
+  }
+  html.m-manifesto .scenewrap {
+    height: 300dvh;
+  }
+  html.m-manifesto .scene .vwrap img,
+  html.m-manifesto .scene .vwrap video {
+    max-height: 60svh;
+  }
+}
