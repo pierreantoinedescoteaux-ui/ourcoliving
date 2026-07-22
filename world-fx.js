@@ -29,11 +29,12 @@
 
   /* ---------------- shared CSS ---------------- */
   var css = "" +
-".wfx-mote{position:fixed;border-radius:50%;pointer-events:none;z-index:60;will-change:transform;filter:blur(.6px)}" +
+".wfx-mote{position:fixed;border-radius:50%;pointer-events:none;z-index:300;will-change:transform;filter:blur(.6px)}" +
 ".wfx-flyer{position:fixed;left:0;top:0;pointer-events:none;z-index:65;will-change:transform}" +
 ".wfx-flyer img{display:block;width:100%;height:auto}" +
 ".wfx-bloom{position:fixed;pointer-events:none;z-index:9999;will-change:transform}" +
 ".wfx-hover{position:absolute;inset:-14px;pointer-events:none;overflow:visible;z-index:5}" +
+".wfx-spr{position:absolute;pointer-events:none;will-change:transform,opacity}" +
 ".wfx-veil{position:fixed;inset:0;z-index:10000;background:#f6f2e7;display:flex;align-items:center;justify-content:center;" +
   "opacity:1;transition:opacity .32s ease;pointer-events:none}" +
 ".wfx-veil.gone{opacity:0}" +
@@ -51,20 +52,30 @@
   /* =====================================================
      1) POLLEN — warm motes drifting, shy of the cursor
      ===================================================== */
-  if (!reduce && !IS_LANDING) {
-    var MOTES = window.innerWidth < 700 ? 5 : 8;
+  if (!reduce) {
+    var MOTES = window.innerWidth < 700 ? 6 : 11;
     var motes = [], mx = -999, my = -999;
     for (var i = 0; i < MOTES; i++) {
       var m = document.createElement("div");
       m.className = "wfx-mote";
-      var s = 3 + (i % 4);
+      var s = 5 + (i % 4) * 1.5;
       m.style.width = s + "px"; m.style.height = s + "px";
-      m.style.background = i % 3 ? "rgba(217,154,61," + (0.32 + (i % 3) * 0.14) + ")" : "rgba(247,201,72,.42)";
+      m.style.background = i % 3 ? "rgba(217,154,61," + (0.5 + (i % 3) * 0.15) + ")" : "rgba(247,201,72,.65)";
+      m.style.boxShadow = "0 0 " + (6 + (i % 3) * 4) + "px rgba(247,201,72,.5)";
       document.body.appendChild(m);
       motes.push({ el: m, x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
         vx: 0, vy: 0, ph: Math.random() * 6.28, sp: 0.14 + Math.random() * 0.2 });
     }
     if (finePointer) document.addEventListener("mousemove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+    /* on touch screens the finger IS the mouse: motes scatter from the
+       touch point and resettle when the finger lifts */
+    document.addEventListener("touchmove", function (e) {
+      if (e.touches.length) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }
+    }, { passive: true });
+    document.addEventListener("touchstart", function (e) {
+      if (e.touches.length) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }
+    }, { passive: true });
+    document.addEventListener("touchend", function () { mx = -999; my = -999; }, { passive: true });
     var t0 = 0;
     (function loop(t) {
       var dt = Math.min(50, t - t0); t0 = t;
@@ -75,8 +86,8 @@
         o.vx += Math.cos(o.ph + i) * 0.002 * dt * o.sp;
         o.vy += (Math.sin(o.ph * 0.8) * 0.0016 - 0.0007) * dt * o.sp; /* slight upward bias */
         var dx = o.x - mx, dy = o.y - my, d2 = dx * dx + dy * dy;
-        if (d2 < 16900) { var d = Math.sqrt(d2) || 1, f = (130 - d) * 0.0022 * dt; o.vx += dx / d * f; o.vy += dy / d * f; }
-        o.vx *= 0.978; o.vy *= 0.978;
+        if (d2 < 57600) { var d = Math.sqrt(d2) || 1, f = (240 - d) * 0.02 * dt; o.vx += dx / d * f; o.vy += dy / d * f; }
+        o.vx *= 0.985; o.vy *= 0.985;
         o.x += o.vx * dt * 0.06; o.y += o.vy * dt * 0.06;
         if (o.x < -20) o.x = W + 10; if (o.x > W + 20) o.x = -10;
         if (o.y < -20) o.y = H + 10; if (o.y > H + 20) o.y = -10;
@@ -91,66 +102,75 @@
      ===================================================== */
   if (!reduce) document.addEventListener("click", function (e) {
     if (e.target.closest("input,textarea,select,.gray")) return; /* bubbles have their own burst */
-    var cols = [accent, "#5c9e4a", "#d99a3d", "#f7c948", "#3c6b32"];
-    for (var k = 0; k < 7; k++) {
+    var cols = [accent, "#5c9e4a", "#d99a3d", "#f7c948", "#3c6b32", "#e58ab7"];
+    for (var k = 0; k < 13; k++) {
       var p = document.createElement("span");
       p.className = "wfx-bloom";
       var leaf = k % 2;
-      p.style.width = leaf ? "9px" : "5px"; p.style.height = leaf ? "5px" : "5px";
+      p.style.width = leaf ? "15px" : "8px"; p.style.height = leaf ? "8px" : "8px";
       p.style.borderRadius = leaf ? "80% 20% 80% 20%" : "50%";
       p.style.background = cols[k % cols.length];
       p.style.left = e.clientX + "px"; p.style.top = e.clientY + "px";
       document.body.appendChild(p);
-      var a = -Math.PI / 2 + (k - 3) * 0.5 + Math.random() * 0.25, d = 26 + (k % 3) * 16;
+      var a = Math.PI * 2 * k / 13 + Math.random() * 0.3, d = 44 + (k % 4) * 22;
       p.animate([
         { transform: "translate(-50%,-50%) scale(.6) rotate(0deg)", opacity: 1 },
-        { transform: "translate(" + (Math.cos(a) * d) + "px," + (Math.sin(a) * d + 10) + "px) scale(1) rotate(" + (leaf ? 140 : 40) + "deg)", opacity: 0 }
-      ], { duration: 520 + k * 40, easing: "cubic-bezier(.2,.7,.3,1)", fill: "forwards" });
-      (function (el) { setTimeout(function () { el.remove(); }, 900); })(p);
+        { transform: "translate(" + (Math.cos(a) * d) + "px," + (Math.sin(a) * d * 0.8 + 16) + "px) scale(1.1) rotate(" + (leaf ? 170 : 60) + "deg)", opacity: 0 }
+      ], { duration: 620 + k * 35, easing: "cubic-bezier(.2,.7,.3,1)", fill: "forwards" });
+      (function (el) { setTimeout(function () { el.remove(); }, 1100); })(p);
     }
   }, { passive: true });
 
   /* =====================================================
      3) MAGNETIC CTAS + 4) HOVER MOODS (sprout / zap / sun)
      ===================================================== */
-  var BTN_SEL = 'a[class*="btn"],a[class*="cta"],.ctas a,.sw-copy__cta a,.wback,.deep,.liblink a,button[type="submit"]';
+  /* selector set from the full-site inventory (2026-07-22): primary CTAs +
+     cards, secondary pills/arrows/inline CTAs, landing doorway links.
+     Excluded on purpose: inputs, .gray thought-bubbles, .snav items,
+     #chart .node map markers (all have their own interactions). */
+  var BTN_SEL = 'a[class*="btn"],a[class*="cta"],.ctas a,.sw-copy__cta a,.sw-copy__tags a,.wback,.liblink a,button[type="submit"],' +
+    '.btn-pill,.hope-cta,a.mail,a.project-card,.exp-card,.door,a.piece,.insp-card--link,.bcard,a.pcard,' +
+    '.filters button,.chip,.caro .arrow,.presets button,.s-arrow,.peek,.mtool,.pager a,.fgarrow,.gr-item,.gtile,' +
+    '.d-link,.b-go,.exp-go,.visit,.read,.deep,.i-link,.int,a.tg,.mclose,.stotop';
+  /* the three moods rotate across buttons — decided once per button by its
+     arming order (deterministic, no runtime randomness) */
+  var moodSeq = 0;
   function hoverFx(el) {
     if (el.dataset.wfx) return;
     el.dataset.wfx = "1";
-    var mood = el.matches(".primary,[data-fx-sun]") ? "sun" : MOOD;
+    var mood = el.matches(".primary,[data-fx-sun]") ? "sun" : ["leaf", "zap", "sun"][moodSeq++ % 3];
     if (getComputedStyle(el).position === "static") el.style.position = "relative";
-    var live = null;
+    var live = [];
+    function spr(src, css, anims) {
+      var im = document.createElement("img");
+      im.src = SPRITES + src;
+      im.className = "wfx-spr";
+      for (var k in css) im.style[k] = css[k];
+      el.appendChild(im); live.push(im);
+      anims.forEach(function (a) { im.animate(a[0], a[1]); });
+      return im;
+    }
     el.addEventListener("mouseenter", function () {
-      if (reduce) return;
+      if (reduce || live.length) return;
       var w = el.offsetWidth, h = el.offsetHeight;
       var ns = "http://www.w3.org/2000/svg";
-      var svg = document.createElementNS(ns, "svg");
-      svg.setAttribute("class", "wfx-hover");
-      svg.setAttribute("viewBox", "-14 -14 " + (w + 28) + " " + (h + 28));
       if (mood === "leaf") {
-        /* two stems grow from the corners, leaves pop at the tips */
-        [[2, h - 2, -1], [w - 2, 2, 1]].forEach(function (c, ci) {
-          var p = document.createElementNS(ns, "path");
-          var sx = c[0], sy = c[1], dir = c[2];
-          p.setAttribute("d", "M" + sx + "," + sy + " q" + (10 * dir) + "," + (-14) + " " + (4 * dir) + "," + (-26) + " q" + (-6 * dir) + ",-10 " + (2 * dir) + ",-18");
-          p.setAttribute("fill", "none"); p.setAttribute("stroke", "#5c9e4a");
-          p.setAttribute("stroke-width", "2.4"); p.setAttribute("stroke-linecap", "round");
-          var L = 70; p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
-          p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 420, delay: ci * 70, easing: "ease-out", fill: "forwards" });
-          svg.appendChild(p);
-          [[sx + 6 * dir, sy - 26, "#5c9e4a"], [sx + 2 * dir, sy - 44, ci ? "#d99a3d" : "#e58ab7"]].forEach(function (lf, li) {
-            var e2 = document.createElementNS(ns, "ellipse");
-            e2.setAttribute("cx", lf[0]); e2.setAttribute("cy", lf[1]);
-            e2.setAttribute("rx", li ? 4.5 : 6); e2.setAttribute("ry", li ? 4.5 : 2.8);
-            e2.setAttribute("fill", lf[2]);
-            e2.setAttribute("transform", "rotate(" + (dir * -35) + " " + lf[0] + " " + lf[1] + ")");
-            e2.animate([{ opacity: 0, transform: "scale(.2)" }, { opacity: 1, transform: "scale(1)" }],
-              { duration: 300, delay: 250 + ci * 90 + li * 110, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" });
-            e2.style.opacity = 0; e2.style.transformOrigin = lf[0] + "px " + lf[1] + "px";
-            svg.appendChild(e2);
-          });
-        });
+        /* the painted sticker kit blooms around the button — same art as
+           the manifesto vines and the footer branch, not drawn shapes */
+        var pop = { duration: 340, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" };
+        var sway = [{ transform: "rotate(-4deg)" }, { transform: "rotate(5deg)" }];
+        var swayT = { duration: 2200, direction: "alternate", iterations: Infinity, easing: "ease-in-out" };
+        spr("vk-cluster-b.webp", { left: "-16px", bottom: "-12px", width: "34px", opacity: 0, transformOrigin: "80% 90%" },
+          [[[{ opacity: 0, transform: "scale(.2) rotate(-30deg)" }, { opacity: 1, transform: "scale(1) rotate(0deg)" }], pop]]);
+        spr("vk-flower-pink.webp", { right: "-12px", top: "-20px", width: "26px", opacity: 0, transformOrigin: "50% 95%" },
+          [[[{ opacity: 0, transform: "scale(.2) rotate(25deg)" }, { opacity: 1, transform: "scale(1) rotate(0deg)" }], { duration: 340, delay: 120, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" }]]);
+        spr("vk-leaf-b.webp", { left: "22%", top: "-16px", width: "20px", opacity: 0, transformOrigin: "50% 100%" },
+          [[[{ opacity: 0, transform: "scale(.2)" }, { opacity: 1, transform: "scale(1)" }], { duration: 300, delay: 220, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" }], [sway, swayT]]);
       } else if (mood === "zap") {
+        var svg = document.createElementNS(ns, "svg");
+        svg.setAttribute("class", "wfx-hover");
+        svg.setAttribute("viewBox", "-14 -14 " + (w + 28) + " " + (h + 28));
+        el.appendChild(svg); live.push(svg);
         /* holographic arcs flicker around the border */
         for (var z = 0; z < 3; z++) {
           var p2 = document.createElementNS(ns, "path");
@@ -158,35 +178,33 @@
           var seg = "M" + x0 + "," + y0;
           for (var q = 1; q <= 4; q++) seg += " L" + (x0 + q * 12) + "," + (y0 + (q % 2 ? -5 : 5));
           p2.setAttribute("d", seg); p2.setAttribute("fill", "none");
-          p2.setAttribute("stroke", z ? "#7fd4ff" : "#c9a7ff"); p2.setAttribute("stroke-width", "1.8");
+          p2.setAttribute("stroke", z ? "#7fd4ff" : "#c9a7ff"); p2.setAttribute("stroke-width", "2.6");
           p2.setAttribute("stroke-linecap", "round");
-          p2.style.filter = "drop-shadow(0 0 4px rgba(120,210,255,.9))";
+          p2.style.filter = "drop-shadow(0 0 7px rgba(120,210,255,.95))";
+          if (!z) el.style.boxShadow = "0 0 22px -4px rgba(120,210,255,.6)";
           p2.animate([{ opacity: 0 }, { opacity: 1 }, { opacity: .25 }, { opacity: 1 }, { opacity: 0 }],
             { duration: 700, delay: z * 130, iterations: Infinity });
           svg.appendChild(p2);
         }
       } else {
-        /* sun: golden rays fan out from behind */
-        for (var r = 0; r < 10; r++) {
-          var ln = document.createElementNS(ns, "line");
-          var ang = (r / 10) * Math.PI * 2, cx = w / 2, cy = h / 2;
-          var rx = w / 2 + 8, ry = h / 2 + 8;
-          ln.setAttribute("x1", cx + Math.cos(ang) * rx); ln.setAttribute("y1", cy + Math.sin(ang) * ry);
-          ln.setAttribute("x2", cx + Math.cos(ang) * (rx + 9)); ln.setAttribute("y2", cy + Math.sin(ang) * (ry + 9));
-          ln.setAttribute("stroke", r % 2 ? "#f7c948" : "#d99a3d"); ln.setAttribute("stroke-width", "2.6");
-          ln.setAttribute("stroke-linecap", "round");
-          ln.animate([{ opacity: 0, transform: "scale(.85)" }, { opacity: 1, transform: "scale(1)" }],
-            { duration: 320, delay: r * 26, easing: "ease-out", fill: "forwards" });
-          ln.style.opacity = 0; ln.style.transformOrigin = cx + "px " + cy + "px";
-          svg.appendChild(ln);
-        }
-        el.style.transition = "box-shadow .35s"; el.style.boxShadow = "0 0 30px -6px rgba(247,201,72,.55)";
+        /* the painted smiling sun rises from behind the button and turns
+           slowly — the sticker itself IS the rays */
+        var sw = Math.min(74, Math.max(46, h * 1.5));
+        spr("orn-sun.webp", { left: "50%", top: (-sw * 0.62) + "px", width: sw + "px", marginLeft: (-sw / 2) + "px", opacity: 0, zIndex: -1 },
+          [[[{ opacity: 0, transform: "translateY(" + (sw * 0.4) + "px) rotate(-20deg)" }, { opacity: 1, transform: "translateY(0) rotate(0deg)" }],
+            { duration: 480, easing: "cubic-bezier(.34,1.4,.6,1)", fill: "forwards" }],
+           [[{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
+            { duration: 26000, delay: 500, iterations: Infinity, easing: "linear" }]]);
+        el.style.transition = "box-shadow .35s"; el.style.boxShadow = "0 0 30px -6px rgba(247,201,72,.6)";
       }
-      el.appendChild(svg); live = svg;
     });
     el.addEventListener("mouseleave", function () {
       el.style.boxShadow = "";
-      if (live) { var v = live; live = null; v.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }); setTimeout(function () { v.remove(); }, 260); }
+      if (live.length) {
+        var v = live; live = [];
+        v.forEach(function (n) { n.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }); });
+        setTimeout(function () { v.forEach(function (n) { n.remove(); }); }, 260);
+      }
     });
     /* magnetic lean */
     if (finePointer && !reduce) {
@@ -201,7 +219,17 @@
   function armButtons() {
     document.querySelectorAll(BTN_SEL).forEach(hoverFx);
   }
-  if (!IS_LANDING) { armButtons(); setTimeout(armButtons, 1200); }
+  armButtons(); setTimeout(armButtons, 1200);
+  /* most buttons are rendered by page scripts AFTER load — delegation arms
+     any matching element the first time the cursor reaches it, then
+     replays the mouseenter so the effect fires on that very hover */
+  document.addEventListener("mouseover", function (e) {
+    var el = e.target.closest && e.target.closest(BTN_SEL);
+    if (el && !el.dataset.wfx) {
+      hoverFx(el);
+      el.dispatchEvent(new MouseEvent("mouseenter"));
+    }
+  }, { passive: true });
 
   /* =====================================================
      5) FLYERS — bird / rushed robot / hot air balloon

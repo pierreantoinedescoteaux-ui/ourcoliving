@@ -246,7 +246,7 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- VILLAGE SCENE ---------- */
 .could{padding:clamp(70px,10vh,130px) 0 0}
-.scenewrap{position:relative;height:360vh}
+.scenewrap{position:relative;height:560vh}
 .scenepin{position:sticky;top:64px;height:calc(100vh - 84px);display:flex;flex-direction:column;justify-content:center;
   gap:clamp(6px,1.4vh,16px);max-width:1520px;margin:0 auto;padding:0 clamp(16px,3vw,56px)}
 .cohead{text-align:center}
@@ -263,8 +263,12 @@ a{color:inherit;text-decoration:none}
 .poss .finale.litp{opacity:1;transform:none}
 .scene{flex:1.35;min-width:0}
 .scene svg{width:100%;height:auto;max-height:calc(100vh - 250px)}
-.scene .vwrap{position:relative;border-radius:20px;overflow:hidden;
-  box-shadow:0 34px 80px -34px rgba(23,58,44,.55);background:#2c2418}
+/* the village is a painted vignette floating ON the paper (like the
+   landing's asset stills) — no card, no frame; a soft mask melts the
+   film's baked cream margin into the page background */
+.scene .vwrap{position:relative;
+  -webkit-mask-image:radial-gradient(118% 112% at 50% 50%,#000 56%,transparent 85%);
+  mask-image:radial-gradient(118% 112% at 50% 50%,#000 56%,transparent 85%)}
 .scene .vwrap img,.scene .vwrap video{display:block;width:100%;height:auto;max-height:calc(100vh - 260px);object-fit:cover}
 .scene .vwrap video{position:absolute;inset:0;height:100%;opacity:0;transition:opacity .5s}
 .scene .vwrap.live video{opacity:1}

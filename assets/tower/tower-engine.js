@@ -343,6 +343,38 @@ function mountScrollWorld(container, config) {
       window.scrollTo({ top: seg.start + (seg.end - seg.start) * 0.5, behavior: 'auto' });
     }, 60);
   }
+
+  // ---- auto-settle ----
+  // Nobody should get stranded mid-flight: if the visitor idles between
+  // dwell points (copy not fully dark, or inside a transition), glide them
+  // to the nearest scene's resting point — a smooth constant-pace scroll,
+  // never a teleport. Any real input cancels instantly.
+  if (!reduce) {
+    const dwellCenter = i => { const g = SECTIONS[i]._seg; return g.start + (g.end - g.start) * 0.5; };
+    let lastInput = performance.now(), settleRaf = 0;
+    const cancelSettle = () => { if (settleRaf) { cancelAnimationFrame(settleRaf); settleRaf = 0; } lastInput = performance.now(); };
+    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(ev => window.addEventListener(ev, cancelSettle, { passive: true }));
+    window.addEventListener('scroll', () => { if (!settleRaf) lastInput = performance.now(); }, { passive: true });
+    setInterval(() => {
+      if (settleRaf || document.hidden || performance.now() - lastInput < 2600) return;
+      const y = window.scrollY;
+      if (y <= dwellCenter(0) || y >= dwellCenter(N - 1)) return;  // resting zones at both ends
+      let target = null, bd = Infinity;
+      for (let i = 0; i < N; i++) { const c = dwellCenter(i); const d = Math.abs(c - y); if (d < bd) { bd = d; target = c; } }
+      if (bd < vh * 0.03) return;                                  // already settled
+      const from = y, dist = target - from;
+      const dur = Math.min(1800, Math.max(300, Math.abs(dist) / 1.1)); // ~1.1px/ms, gentle
+      const t0 = performance.now();
+      const step = () => {
+        if (!settleRaf) return;
+        const t = Math.min(1, (performance.now() - t0) / dur);
+        window.scrollTo(0, from + dist * (0.5 - 0.5 * Math.cos(Math.PI * t)));
+        if (t >= 1) { settleRaf = 0; lastInput = performance.now(); }
+        else settleRaf = requestAnimationFrame(step);
+      };
+      settleRaf = requestAnimationFrame(step);
+    }, 400);
+  }
   requestAnimationFrame(raf);
 
   // ---- helpers ----
