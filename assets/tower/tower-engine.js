@@ -333,6 +333,16 @@ function mountScrollWorld(container, config) {
   window.addEventListener('orientationchange', layout);
   window.addEventListener('load', layout);
   layout();
+
+  // Deep links: index.html#library (etc.) lands mid-dwell on that floor.
+  const hashId = (location.hash || '').slice(1);
+  if (hashId) {
+    const hi = SECTIONS.findIndex(s => s.id === hashId);
+    if (hi >= 0) setTimeout(() => {
+      const seg = SECTIONS[hi]._seg;
+      window.scrollTo({ top: seg.start + (seg.end - seg.start) * 0.5, behavior: 'auto' });
+    }, 60);
+  }
   requestAnimationFrame(raf);
 
   // ---- helpers ----

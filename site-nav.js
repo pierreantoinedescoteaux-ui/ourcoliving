@@ -164,8 +164,164 @@
     document.head.appendChild(s);
   }
 
+  /* ===================================================================
+     WORLD LAYER — every interior page keeps a trace of the tower scene
+     its doorway came from: a slim painted banner under the nav (ambient
+     video on flagship pages), the scene's accent as --scene-accent, a
+     "back to the tower" link into the right floor, and the shared film
+     grain. All free: the images/clips are the landing's own assets.
+     =================================================================== */
+  var SCENES = {
+    commons: { img: "assets/tower/S2.webp", accent: "#c96b32", label: "the commons" },
+    library: { img: "assets/tower/S3.webp", accent: "#2b8b8f", label: "the library",
+               video: "assets/tower/vid/loop-s3.mp4", videoM: "assets/tower/vid/loop-s3-m.mp4" },
+    makers:  { img: "assets/tower/S4.webp", accent: "#a8712c", label: "the makers hall" },
+    gardens: { img: "assets/tower/S5.webp", accent: "#d08a2e", label: "the gardens" },
+    homes:   { img: "assets/tower/S6.webp", accent: "#b3543e", label: "the homes",
+               video: "assets/tower/vid/loop-s6.mp4", videoM: "assets/tower/vid/loop-s6-m.mp4" },
+    lookout: { img: "assets/tower/S7.webp", accent: "#3e7db0", label: "the lookout",
+               video: "assets/tower/vid/loop-s7.mp4", videoM: "assets/tower/vid/loop-s7-m.mp4" }
+  };
+  var PAGE_SCENE = {
+    "projects.html": "commons", "inspiration.html": "commons", "detail.html": "commons",
+    "resources.html": "library", "type.html": "library", "talkpieces.html": "library",
+    "themes.html": "gardens",
+    "design.html": "makers", "designers.html": "makers", "work.html": "makers",
+    "story.html": "homes", "about.html": "homes", "project.html": "homes",
+    "map.html": "lookout"
+  };
+  /* ambient video only on the flagships — everyone else gets the still */
+  var VIDEO_PAGES = { "resources.html": 1, "about.html": 1, "map.html": 1 };
+  /* the landing IS the world — no banner, no extra grain there */
+  var WORLD_SKIP = { "index.html": 1, "tower.html": 1, "home-classic.html": 1, "index-v2.html": 1, "manifesto.html": 1 };
+
+  function pageFile() {
+    return (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  }
+
+  var WORLD_CSS = "" +
+".wband{position:relative;height:clamp(150px,24vh,270px);overflow:hidden}" +
+".wband .wmedia{position:absolute;inset:-7% -3%;will-change:transform;transition:transform .25s ease-out}" +
+".wband .wmedia img,.wband .wmedia video{width:100%;height:100%;object-fit:cover;object-position:50% 38%}" +
+".wband .wveil{position:absolute;inset:0;pointer-events:none}" +
+".wband .wback{position:absolute;left:clamp(20px,5vw,88px);bottom:14px;display:inline-flex;align-items:center;gap:8px;" +
+  "font-family:'Switzer',system-ui,sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;" +
+  "color:var(--scene-accent,#3c6b32);background:rgba(255,253,248,.88);backdrop-filter:blur(6px);" +
+  "padding:8px 15px;border-radius:99px;text-decoration:none;box-shadow:0 10px 26px -14px rgba(34,48,31,.5);" +
+  "transition:background .3s,color .3s,transform .3s}" +
+".wband .wback:hover{background:var(--scene-accent,#3c6b32);color:#fffdf8;transform:translateY(-2px)}" +
+"@media(max-width:640px){.wband{height:clamp(110px,18vh,160px)}.wband .wback{font-size:.6rem;padding:7px 12px;left:16px;bottom:10px}}" +
+".wgrain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.34;mix-blend-mode:multiply;" +
+  "background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E\")}";
+
+  function injectWorldCss() {
+    if (document.getElementById("world-css")) return;
+    var st = document.createElement("style");
+    st.id = "world-css";
+    st.textContent = WORLD_CSS;
+    document.head.appendChild(st);
+  }
+
+  /* veil: the painting dissolves into whatever background THIS page uses */
+  function pageBg() {
+    var c = getComputedStyle(document.body).backgroundColor || "";
+    var m = c.match(/rgba?\(([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+    if (!m || (c.indexOf("rgba") === 0 && /rgba\([\d.\s,]+0\)/.test(c))) return [246, 242, 231];
+    return [+m[1], +m[2], +m[3]];
+  }
+
+  function mountWorld() {
+    var f = pageFile();
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /* grain everywhere except the landing (it has paint texture already)
+       and pages that ship their own .grain layer */
+    if (!WORLD_SKIP[f] && !document.querySelector(".grain,.wgrain")) {
+      var g = document.createElement("div");
+      g.className = "wgrain";
+      g.setAttribute("aria-hidden", "true");
+      document.body.appendChild(g);
+    }
+    var key = PAGE_SCENE[f];
+    if (!key || WORLD_SKIP[f] || document.querySelector(".wband")) return;
+    var sc = SCENES[key];
+    var nav = document.querySelector(".snav");
+    if (!nav) return;
+    document.documentElement.style.setProperty("--scene-accent", sc.accent);
+    injectWorldCss();
+
+    var band = document.createElement("div");
+    band.className = "wband";
+    band.setAttribute("data-scene", key);
+    var bg = pageBg();
+    var solid = "rgb(" + bg.join(",") + ")", clear = "rgba(" + bg.join(",") + ",0)";
+    band.innerHTML =
+      '<div class="wmedia"><img src="' + sc.img + '" alt="" decoding="async"></div>' +
+      '<div class="wveil" style="background:linear-gradient(180deg,' + clear + ' 55%,' + solid + ' 100%)"></div>' +
+      '<a class="wback" href="index.html#' + key + '">↑ ' + esc(sc.label) + " · back to the tower</a>";
+    nav.parentNode.insertBefore(band, nav.nextSibling);
+
+    /* selection color joins the scene */
+    var sel = document.createElement("style");
+    sel.textContent = "::selection{background:" + sc.accent + ";color:#fffdf8}";
+    document.head.appendChild(sel);
+
+    /* ambient clip on flagship pages: lazy (idle), mobile encode on phones,
+       paused whenever the banner scrolls away, skipped under reduced motion */
+    if (VIDEO_PAGES[f] && sc.video && !reduce) {
+      var later = window.requestIdleCallback || function (cb) { setTimeout(cb, 1200); };
+      later(function () {
+        var v = document.createElement("video");
+        v.muted = true; v.loop = true; v.playsInline = true; v.preload = "auto";
+        v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+        v.poster = sc.img;
+        v.src = (window.innerWidth < 700 && sc.videoM) ? sc.videoM : sc.video;
+        v.style.opacity = "0"; v.style.transition = "opacity .8s";
+        var media = band.querySelector(".wmedia");
+        v.addEventListener("playing", function () { v.style.opacity = "1"; }, { once: true });
+        media.appendChild(v);
+        v.play().catch(function () {});
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (en) {
+            en.forEach(function (e) {
+              if (e.isIntersecting) { v.play().catch(function () {}); }
+              else v.pause();
+            });
+          }).observe(band);
+        }
+      });
+    }
+
+    /* gentle parallax: the painting leans a few px against the cursor.
+       transform-only + rAF-coalesced = no layout work, no jank. */
+    if (!reduce && window.matchMedia("(pointer:fine)").matches) {
+      var media2 = band.querySelector(".wmedia"), px = 0, py = 0, raf = 0;
+      band.addEventListener("mousemove", function (e) {
+        var r = band.getBoundingClientRect();
+        px = ((e.clientX - r.left) / r.width - 0.5) * -10;
+        py = ((e.clientY - r.top) / r.height - 0.5) * -6;
+        if (!raf) raf = requestAnimationFrame(function () {
+          raf = 0;
+          media2.style.transform = "translate(" + px.toFixed(1) + "px," + py.toFixed(1) + "px)";
+        });
+      });
+      band.addEventListener("mouseleave", function () {
+        media2.style.transform = "translate(0,0)";
+      });
+    }
+  }
+
+  /* app.js pages render the nav after us — retry briefly until .snav exists */
+  function mountWorldWhenReady() {
+    var tries = 0;
+    (function tick() {
+      mountWorld();
+      if (!document.querySelector(".wband") && PAGE_SCENE[pageFile()] && ++tries < 25) setTimeout(tick, 120);
+    })();
+  }
+
   function init() {
     injectCss();
+    injectWorldCss();
     mountToTop();
     mountEditMode();
     var slots = document.querySelectorAll("[data-sitenav]");
@@ -177,6 +333,7 @@
         document.body.appendChild(d.firstChild);
       }
     }
+    mountWorldWhenReady();
     function fill(el) { el.outerHTML = navHtml(); }
   }
 
