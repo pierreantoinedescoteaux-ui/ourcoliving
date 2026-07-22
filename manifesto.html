@@ -123,13 +123,24 @@ a{color:inherit;text-decoration:none}
 .fieldbed{position:relative;width:100%;height:var(--bedh,520vh);z-index:2}
 .fieldpin{position:sticky;top:0;height:100vh;max-width:1240px;margin:0 auto}
 .fieldtail{display:none}
+/* painted stage: the gray field is always there; the blooming field fades
+   in as thoughts are illuminated (--p = popped fraction). A cream veil
+   keeps the bubbles readable on top of the painting. */
+.fieldbg{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;border-radius:22px}
+.fieldbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fieldbg .b-gray{opacity:.6}
+.fieldbg .b-bloom{opacity:calc(var(--p,0)*.85);transition:opacity 1.4s ease}
+.fieldbg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(246,242,231,.66) 0%,rgba(246,242,231,.38) 30%,rgba(246,242,231,.42) 78%,rgba(246,242,231,.78) 100%)}
+@media(max-width:900px){.fieldbg{display:none}}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
-.bvinesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
-.bvinesvg .seg{fill:none;stroke:var(--green);stroke-width:2.6;stroke-linecap:round;opacity:.8}
-.bvinesvg .bleaf{fill:var(--gold);opacity:0;transition:opacity .7s ease}
-.bvinesvg .bleaf.d{fill:var(--gold-deep)}
-.bvinesvg .bleaf.on{opacity:.85}
+.bvinesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
+/* the vine is painted: the stroke reveals real gouache brushwork (tile
+   cropped from the blooming field) instead of a flat vector line */
+.bvinesvg .seg{fill:none;stroke:url(#vinetex) #5c9e4a;stroke-width:5;stroke-linecap:round;opacity:.9}
+.bvinesvg .bleaf{opacity:0;transition:opacity .7s ease}
+.bvinesvg .bleaf.on{opacity:.95}
 /* desktop: bands dissolve (display:contents); bubbles at stage coordinates
    (--x/--y = PERCENT of the pinned stage, randomized scatter) */
 .bband{display:contents}
@@ -138,7 +149,12 @@ a{color:inherit;text-decoration:none}
 .bub .gray{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;border:0;cursor:pointer;
   min-height:124px;padding:22px 22px;font-family:var(--serif);font-weight:300;font-style:italic;
   font-size:clamp(1rem,1.15vw,1.18rem);line-height:1.4;color:#4d4a43;
-  background:var(--gtone);box-shadow:0 14px 34px -18px rgba(60,58,50,.4);
+  background:
+    radial-gradient(85% 85% at 32% 26%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 58%),
+    radial-gradient(120% 110% at 72% 82%, rgba(108,106,98,.28) 0%, rgba(108,106,98,0) 62%),
+    var(--gtone);
+  box-shadow:0 14px 34px -18px rgba(60,58,50,.45),0 0 26px 8px rgba(232,230,222,.5),
+    inset 0 8px 16px rgba(255,255,255,.4),inset 0 -8px 18px rgba(108,106,98,.2);
   animation:drift var(--dur) ease-in-out var(--del) infinite alternate;
   transition:transform .3s,box-shadow .3s}
 /* hover = a preview of the pop: it shudders and catches a little light */
@@ -246,7 +262,7 @@ a{color:inherit;text-decoration:none}
 .poss .finale{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:clamp(1.25rem,1.9vw,1.8rem);color:var(--gold-deep);opacity:0;transform:translateY(8px);transition:opacity .9s,transform .9s}
 .poss .finale.litp{opacity:1;transform:none}
 .scene{flex:1.35;min-width:0}
-.scene svg{width:100%;height:auto;max-height:calc(100vh - 250px)}
+.scene svg{width:100%;height:auto;max-height:calc(100vh - 250px);filter:url(#roughline)}
 .liblink{text-align:center;padding:clamp(28px,4.5vh,50px) 0 0}
 .liblink a{display:inline-block;font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.2rem,2.1vw,1.8rem);color:var(--green-deep);border-bottom:2px solid var(--green);padding-bottom:5px;transition:color .3s}
 .liblink a:hover{color:var(--ink)}
@@ -345,7 +361,15 @@ a{color:inherit;text-decoration:none}
 
   <div class="fieldbed" id="fieldbed">
     <div class="fieldpin" id="fieldpin">
-      <svg class="bvinesvg" id="bvine" aria-hidden="true"></svg>
+      <div class="fieldbg" aria-hidden="true">
+        <img class="b-gray" src="assets/world/field-gray.webp" alt="" loading="lazy" decoding="async">
+        <img class="b-bloom" src="assets/world/field-bloom.webp" alt="" loading="lazy" decoding="async">
+      </div>
+      <svg class="bvinesvg" id="bvine" aria-hidden="true"><defs>
+        <pattern id="vinetex" patternUnits="userSpaceOnUse" width="160" height="160">
+          <image href="assets/world/vine-tex.webp" width="160" height="160"/>
+        </pattern>
+      </defs></svg>
       <div class="stageprompt" aria-hidden="true">
         <svg viewBox="0 0 26 26" width="26" height="26" fill="none" stroke="#d99a3d" stroke-width="1.8" stroke-linecap="round">
           <circle cx="13" cy="13" r="5" fill="#f7c948" stroke="#d99a3d"/>
@@ -370,6 +394,10 @@ a{color:inherit;text-decoration:none}
       <ul class="poss" id="poss"></ul>
       <div class="scene">
         <svg viewBox="0 0 1200 620" fill="none" aria-label="A village of the future assembling itself">
+          <defs><filter id="roughline" x="-2%" y="-2%" width="104%" height="104%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="7" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+          </filter></defs>
           <!-- s0 · it starts with ONE house -->
           <g class="st" id="s0" stroke="#3c6b32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <path pathLength="1" d="M380,432 L380,318 L470,262 L560,318 L560,432 Z"/>
@@ -653,11 +681,15 @@ var segs=[];
     var p=document.createElementNS(ns,"path");
     p.setAttribute("class","seg");
     bvine.appendChild(p);
+    /* painted leaves + wildflowers from the sticker kit, alternating */
+    var SPR=["vk-leaf-a","vk-flower-gold","vk-leaf-b","vk-flower-pink","vk-tendril","vk-flower-white"];
     var lvs=[];
     for(var k=0;k<2;k++){
-      var lf=document.createElementNS(ns,"ellipse");
-      lf.setAttribute("class","bleaf"+((i+k)%3===0?" d":""));
-      lf.setAttribute("rx",13); lf.setAttribute("ry",5.5);
+      var lf=document.createElementNS(ns,"image");
+      lf.setAttribute("class","bleaf");
+      lf.setAttribute("href","assets/world/"+SPR[(i*2+k)%SPR.length]+".webp");
+      lf.setAttribute("width",30); lf.setAttribute("height",30);
+      lf.setAttribute("preserveAspectRatio","xMidYMid meet");
       bvine.appendChild(lf); lvs.push(lf);
     }
     segs.push({el:p,leaves:lvs,prog:0,target:0});
@@ -691,8 +723,8 @@ function vineGeom(){
       var t=k?0.68:0.34, vis=s.prog>=t;
       if(vis){
         var pt=s.el.getPointAtLength(L*t), pt2=s.el.getPointAtLength(Math.min(L,L*t+8));
-        var ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI+((i+k)%2?52:-52);
-        lf.setAttribute("cx",pt.x); lf.setAttribute("cy",pt.y);
+        var ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI+((i+k)%2?38:-38);
+        lf.setAttribute("x",pt.x-15); lf.setAttribute("y",pt.y-15);
         lf.setAttribute("transform","rotate("+ang.toFixed(1)+" "+pt.x+" "+pt.y+")");
       }
       lf.classList.toggle("on",vis);

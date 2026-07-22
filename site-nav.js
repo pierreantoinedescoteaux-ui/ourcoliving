@@ -72,6 +72,8 @@
 ".snav .mpanel a.subm{font-weight:400;font-size:.86rem;color:#5c6b57;padding-left:16px}" +
 "@media(max-width:900px){.snav .top{display:none}.snav .mbtn{display:inline-block}}" +
 ".sfooter{margin-top:clamp(50px,8vh,90px);border-top:1px solid rgba(34,48,31,.14);background:rgba(246,242,231,.7);padding:clamp(36px,6vh,60px) clamp(20px,5vw,88px) clamp(18px,3vh,26px);font-family:'Switzer',system-ui,sans-serif;color:#22301f}" +
+".sfooter .fbranch{text-align:center;margin:-14px auto 26px}" +
+".sfooter .fbranch img{width:min(430px,72vw);height:auto;opacity:.92}" +
 ".sfooter .frow{display:flex;justify-content:space-between;align-items:flex-start;gap:28px 60px;flex-wrap:wrap;max-width:1500px;margin:0 auto}" +
 ".sfooter .note{font-family:'Zodiak',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(1.15rem,1.8vw,1.5rem);color:#3c4636;margin:0 0 8px}" +
 ".sfooter .sig{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#8f6215}" +
@@ -109,6 +111,7 @@
   function footerHtml() {
     var yr = new Date().getFullYear();
     return '<footer class="sfooter">' +
+      '<div class="fbranch" aria-hidden="true"><img src="assets/world/orn-branch.webp" alt="" loading="lazy"></div>' +
       '<div class="frow">' +
         '<div class="fbrand">' +
           '<p class="note">This site is built of hope and love.</p>' +
@@ -153,6 +156,19 @@
     st.id = "snav-css";
     st.textContent = CSS;
     document.head.appendChild(st);
+  }
+
+  /* painted sun favicon on every page that doesn't declare its own */
+  function mountFavicon() {
+    var ex = document.querySelector('link[rel~="icon"]');
+    if (ex && ex.getAttribute("href") !== "data:,") return;
+    if (ex) ex.remove();
+    [[64, "favicon-64.png"], [32, "favicon-32.png"]].forEach(function (f) {
+      var l = document.createElement("link");
+      l.rel = "icon"; l.type = "image/png"; l.sizes = f[0] + "x" + f[0];
+      l.href = "assets/world/" + f[1];
+      document.head.appendChild(l);
+    });
   }
 
   /* visual edit mode (local only — edit-mode.js gates itself on file://) */
@@ -315,13 +331,24 @@
     var tries = 0;
     (function tick() {
       mountWorld();
-      if (!document.querySelector(".wband") && PAGE_SCENE[pageFile()] && ++tries < 25) setTimeout(tick, 120);
+      if (!document.querySelector(".wband") && PAGE_SCENE[pageFile()] && ++tries < 25) { setTimeout(tick, 120); return; }
+      mountFx();
     })();
+  }
+
+  /* the delight layer (pollen, click-blooms, hover moods, flyers, forge
+     transition) — loaded after the world layer so it can read the scene */
+  function mountFx() {
+    if (document.querySelector('script[src$="world-fx.js"]')) return;
+    var s = document.createElement("script");
+    s.src = "world-fx.js";
+    document.head.appendChild(s);
   }
 
   function init() {
     injectCss();
     injectWorldCss();
+    mountFavicon();
     mountToTop();
     mountEditMode();
     var slots = document.querySelectorAll("[data-sitenav]");
