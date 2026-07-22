@@ -2,12 +2,12 @@
 
 Ideas discussed and liked but deferred. Date = when parked.
 
-## Village finale revamp (manifesto bottom) — P-A wants this, do LAST of the current arc
-2026-07-22. Replace the line-drawn village SVG at the bottom of manifesto.html with
-ONE village / group of houses being built / rising — even more human and hopeful than
-the landing page. Could be a generated animation (seedance loop) or layered painted
-stills assembling on scroll. P-A: "it should be way more human/hopeful than the landing
-page, but maybe we do this one last."
+## ~~Village finale revamp (manifesto bottom)~~ — SHIPPED 2026-07-22
+Scroll-scrubbed painted time-lapse: neighbors raising the first timber frame →
+lantern-lit village at dinner (seedance A→B, frame-locked, 8s). Stills in
+`_landing/build2/raw/village-{a,b}.png`, film at `assets/world/village.mp4`.
+Possible later polish: regenerate at 12s for a slower build, or add ambient
+loop mode when idle at the end state.
 
 ## Per-asset generated animations
 2026-07-22. Every sticker in `assets/world/` currently animates via CSS only

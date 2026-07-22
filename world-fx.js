@@ -208,9 +208,12 @@
      ===================================================== */
   if (!reduce && !IS_LANDING) {
     var FLYERS = [
-      { img: "flyer-bird.webp",    w: 54, dur: 15000, top: [10, 22], bob: 14, weight: 5 },
-      { img: "flyer-robot.webp",   w: 46, dur: 6500,  top: [16, 30], bob: 5,  weight: 2, tilt: 10 },
-      { img: "flyer-balloon.webp", w: 82, dur: 52000, top: [4, 12],  bob: 0,  weight: 3, rise: -40 }
+      /* wander = how far (fraction of viewport height) the flight path may
+         drift up/down as it crosses. The bird meanders; the robot is late
+         for something and flies a beeline; the balloon sways gently. */
+      { img: "flyer-bird.webp",    w: 54, dur: 17000, top: [12, 40], bob: 14, weight: 5, wander: 0.17 },
+      { img: "flyer-robot.webp",   w: 46, dur: 6500,  top: [16, 30], bob: 5,  weight: 2, tilt: 10, wander: 0.02 },
+      { img: "flyer-balloon.webp", w: 82, dur: 52000, top: [4, 12],  bob: 0,  weight: 3, rise: -40, wander: 0.05 }
     ];
     var airborne = false, seq = 0;
     function launch() {
@@ -232,10 +235,29 @@
         el.appendChild(im);
         document.body.appendChild(el);
         var fromX = -f.w - 20, toX = W;
-        el.animate([
-          { transform: "translate(" + fromX + "px," + topPx + "px)" },
-          { transform: "translate(" + toX + "px," + (topPx + (f.rise || 0)) + "px)" }
-        ], { duration: f.dur, easing: "linear", fill: "forwards" }).onfinish = function () {
+        /* wandering flight: 7 waypoints, x uniform (steady crossing speed),
+           y drifting smoothly within the wander band — never off-screen,
+           each segment eased so turns are soft, not zigzag */
+        var SEGS = 7, pts = [], yy = topPx;
+        var amp = (f.wander || 0) * vh;
+        for (var s = 0; s <= SEGS; s++) {
+          var x = fromX + (toX - fromX) * s / SEGS;
+          if (s > 0) {
+            yy += (Math.random() - 0.5) * 2 * amp + (f.rise || 0) / SEGS;
+            yy = Math.max(vh * 0.04, Math.min(vh * 0.75, yy));
+          }
+          pts.push([x, yy]);
+        }
+        var frames = pts.map(function (pt, s) {
+          /* the bird banks into climbs and dives; balloon and robot stay level */
+          var rot = 0;
+          if (amp > vh * 0.1) {
+            var a = pts[Math.max(0, s - 1)], b2 = pts[Math.min(SEGS, s + 1)];
+            rot = Math.max(-14, Math.min(14, Math.atan2(b2[1] - a[1], b2[0] - a[0]) * 180 / Math.PI));
+          }
+          return { transform: "translate(" + pt[0].toFixed(0) + "px," + pt[1].toFixed(0) + "px) rotate(" + rot.toFixed(1) + "deg)", easing: "ease-in-out" };
+        });
+        el.animate(frames, { duration: f.dur, fill: "forwards" }).onfinish = function () {
           el.remove(); airborne = false; schedule();
         };
         if (f.bob) im.animate([
