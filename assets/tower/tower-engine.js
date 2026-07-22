@@ -201,7 +201,11 @@ function mountScrollWorld(container, config) {
     if (reduce || s.loading || !s.clip) return;
     s.loading = true;
     // Serve the lighter mobile encode on phones when one was provided.
-    const url = (isMobile() && s.clipM) ? s.clipM : s.clip;
+    // The -m encodes are PORTRAIT 9:16 crops of the same shots (native
+    // pixels for phones instead of a blown-up landscape crop) — only
+    // correct when the viewport is actually portrait. Landscape tablets
+    // and rotated phones get the full desktop encode.
+    const url = (isMobile() && s.clipM && window.matchMedia('(orientation: portrait)').matches) ? s.clipM : s.clip;
     fetch(url).then(r => r.ok ? r.blob() : Promise.reject(new Error('404')))
       .then(blob => {
         const v = document.createElement('video');
