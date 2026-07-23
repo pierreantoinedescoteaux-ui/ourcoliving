@@ -20,6 +20,9 @@ For every visual slot, in order:
 2. **Generated image** — via `ASSETS.md` pipeline (3 concepts → P-A picks → style-anchored prompt / image MCP).
 3. **Licensed photo** — Wikimedia/press/permission; log in `images/CREDITS.md`.
 
+### Generated-asset art direction (P-A, 2026-07-22 — ALL new site art, content pages included)
+New generated art = storybook gouache **asset-vignette**: the scene painted with soft irregular dry-brush edges dissolving into plain cream/paper background, generous paper margin, floating ON the page (no card frame, no hard rectangle). Solarpunk means VISIBLE technology + modernity blended with the warm organic world — never "old village." Ornaments/hover art use the painted sticker kit (`assets/world/`), never code-drawn vector shapes. Reference recipe: `_landing/build2/raw/village-a2/b2.png` + `_landing/build2/prompts/village-a2/b2.txt`. Films from stills keep vignette edges completely still and get a CSS radial mask to melt into the page.
+
 ## Taste rule (P-A, 2026-07-11 — after 2 misses)
 Do NOT guess aesthetics from adjectives. P-A provides visual references (`moodboard/`, ludiq.org); Claude does structure, interactions, content, and faithful rebuild-to-reference. If a visual call has no reference to anchor it, ask or propose options — don't invent.
 

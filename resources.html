@@ -46,6 +46,14 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
 .rcard .visit{display:inline-block;margin-top:14px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
 .rcard .visit:hover{opacity:.75}
 .young{border:1.5px dashed rgba(34,48,31,.25);border-radius:var(--r);padding:22px 26px;color:var(--ink-faint);font-size:.9rem;text-align:center;margin-bottom:clamp(40px,6vh,70px)}
+.rcat{margin-bottom:clamp(36px,5.5vh,56px)}
+.rcat .cathead{margin-bottom:clamp(16px,2.5vh,24px)}
+.rcat .cathead h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:6px}
+.rcat .cathead .catline{font-size:.92rem;color:var(--ink-faint);font-style:italic}
+@media(max-width:760px){
+  .rcat .cathead h2{font-size:1.4rem}
+  .rcat .cathead .catline{font-size:.95rem}
+}
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -60,8 +68,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
 </header>
 
 <main class="wrap">
-  <div class="filters" id="filters" role="tablist" aria-label="Filter resources"></div>
-  <div class="cards" id="cards"></div>
+  <div id="cats"></div>
   <div class="young">This directory is young — it grows as the territory does. Know a resource that belongs here? <a href="mailto:pierreantoinedescoteaux@gmail.com" style="color:var(--green-deep);font-weight:600">Tell me →</a></div>
 </main>
 
@@ -71,32 +78,20 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
 (function(){
 "use strict";
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-var FILTERS=[
-  {key:"all",label:"Everything"},
-  {key:"communities",label:"Find communities"},
-  {key:"know-how",label:"Find know-how"},
-  {key:"experts",label:"Find experts"}
-];
-var TAGL={communities:"Communities","know-how":"Know-how",experts:"Experts"};
-var cur="all";
-var fEl=document.getElementById("filters"),cEl=document.getElementById("cards");
-function draw(){
-  fEl.innerHTML=FILTERS.map(function(f){
-    return '<button type="button" class="'+(f.key===cur?"onf":"")+'" data-k="'+f.key+'">'+esc(f.label)+"</button>";
-  }).join("");
-  var list=RESOURCES.filter(function(r){return cur==="all"||r.tags.indexOf(cur)>=0;});
-  cEl.innerHTML=list.map(function(r){
-    return '<div class="rcard"><h3>'+esc(r.name)+"</h3>"+
-      '<div class="tags">'+r.tags.map(function(t){return '<span class="tag">'+esc(TAGL[t]||t)+"</span>";}).join("")+"</div>"+
-      "<p>"+esc(r.def)+"</p>"+
-      '<a class="visit" href="'+esc(r.url)+'" target="_blank" rel="noopener">Visit '+esc(r.url.replace(/^https?:\/\/(www\.)?/,""))+" →</a></div>";
-  }).join("");
+function shortUrl(u){return u.replace(/^https?:\/\/(www\.)?/,"").replace(/\/$/,"");}
+function card(r){
+  return '<div class="rcard"><h3>'+esc(r.name)+"</h3>"+
+    "<p>"+esc(r.def)+"</p>"+
+    '<a class="visit" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.linkLabel||("Visit "+shortUrl(r.url)))+" →</a></div>";
 }
-fEl.addEventListener("click",function(e){
-  var b=e.target.closest("button"); if(!b)return;
-  cur=b.getAttribute("data-k"); draw();
-});
-draw();
+document.getElementById("cats").innerHTML = RESOURCE_CATS.map(function(cat){
+  var list = RESOURCES.filter(function(r){ return r.cat === cat.key; });
+  if(!list.length) return "";
+  return '<section class="rcat">'+
+    '<div class="cathead"><h2>'+esc(cat.name)+'</h2><p class="catline">'+esc(cat.line)+'</p></div>'+
+    '<div class="cards">'+list.map(card).join("")+'</div>'+
+  '</section>';
+}).join("");
 })();
 </script>
 </body>

@@ -2,22 +2,73 @@
    RESOURCES DIRECTORY CONTENT LAYER — resources.html
    Pointers to organizations that have ALREADY mapped the territory —
    this page is a directory of directories, not a duplicate of them.
-   tags: "communities" | "know-how" | "experts"
-   Seed v1 (2026-07-11, P-A's picks). Future: grow from
-   _research/directory-scrape-2026-07-11.md.
+   v2 (2026-07-22): categorized (maps & directories / networks &
+   movements / learning & how-to) + 6 new entries (Agartha + 5 peers,
+   links curl-verified live). Each entry links the SPECIFIC useful
+   subpage, not just the homepage, when a deeper page is the value.
    ===================================================================== */
 
+const RESOURCE_CATS = [
+  { key: "maps",     name: "Maps & directories",   line: "Where the existing communities are — searchable, by region and model." },
+  { key: "networks", name: "Networks & movements", line: "The people organizing the space — associations, gatherings, pop-up villages." },
+  { key: "learning", name: "Learning & how-to",    line: "How it's actually done — writing, courses and hard-won practice." }
+];
+
 const RESOURCES = [
+  /* ---- maps & directories ---- */
   {
     name: "Foundation for Intentional Community (FIC)",
+    cat: "maps",
     url: "https://www.ic.org",
-    tags: ["communities", "know-how", "experts"],
     def: "The oldest and largest directory of intentional communities — a searchable worldwide map of thousands of existing communities and forming groups, plus courses, a bookstore, classifieds and consultants for starting or joining one."
   },
   {
     name: "Global Ecovillage Network (GEN)",
+    cat: "maps",
     url: "https://ecovillage.org",
-    tags: ["communities", "know-how"],
     def: "The worldwide network of ecovillages and regenerative communities — regional maps and project database across every continent, plus Ecovillage Design Education: the closest thing to a curriculum for building a village."
+  },
+  {
+    name: "Eurotopia",
+    cat: "maps",
+    url: "https://www.eurotopia.de/en/",
+    def: "The closest thing Europe has to FIC's directory — a searchable database of intentional communities and ecovillages, strongest in the German-speaking countries but covering the wider continent, refreshed with a new print edition each spring."
+  },
+  {
+    name: "Cohousing Alliance",
+    cat: "maps",
+    url: "https://cohousingalliance.org/cohousing-directory-map-and-metrics/",
+    linkLabel: "Open the directory & map",
+    def: "The US national body for cohousing (formerly the Cohousing Association of the US) keeps a directory and map of American cohousing communities with basic self-reported stats — the place to look if you mean cohousing specifically: shared facilities, resident-run, privately owned homes."
+  },
+
+  /* ---- networks & movements ---- */
+  {
+    name: "Agartha",
+    cat: "networks",
+    url: "https://www.agartha.one/map",
+    linkLabel: "Open the map",
+    def: "Agartha keeps a map (agartha.one/map) of solarpunk and regenerative communities — a network with one foot in tech/web3 and one in coliving, mainly in the US and Europe but growing internationally. They periodically host pop-up villages and month-long residencies for people in the space to learn and co-build together."
+  },
+  {
+    name: "Co-Liv",
+    cat: "networks",
+    url: "https://co-liv.org/",
+    def: "The trade-association side of coliving — a global network of operators, investors and designers with its own summit and a deep research library. Less useful if you're looking for a place to live; very useful if you want to understand who is building the industry."
+  },
+  {
+    name: "UK Cohousing Network",
+    cat: "networks",
+    url: "https://cohousing.org.uk/members-directory/",
+    linkLabel: "Open the members directory",
+    def: "The UK's national cohousing body — a directory of UK groups plus a short course for people seriously considering starting or joining one. A good complement to the US- and Europe-heavy directories above."
+  },
+
+  /* ---- learning & how-to ---- */
+  {
+    name: "Supernuclear",
+    cat: "learning",
+    url: "https://supernuclear.substack.com/",
+    def: "The best ongoing read on the culture side of coliving — practical, opinionated essays on hosting, community facilitation and what actually kills a community, written by people who have run these houses and still publishing."
   }
 ];
