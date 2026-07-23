@@ -348,6 +348,31 @@ function mountScrollWorld(container, config) {
     }, 60);
   }
 
+  // Land framed: never ARRIVE mid-transition. Browsers restore the previous
+  // scroll position on reload/back-nav, which can drop the visitor inside a
+  // transition clip (frozen mid-flight instead of a living scene). After
+  // layout + scroll restoration settle, if we're outside every dwell segment,
+  // snap instantly to the nearest scene's resting point. Instant on purpose —
+  // this runs at arrival, before the visitor has formed any sense of place.
+  function landFramed() {
+    if (hashId) return;
+    const y = window.scrollY;
+    if (y <= 4) return;                                   // top = scene 1, fine
+    for (let i = 0; i < N; i++) {
+      const g = SECTIONS[i]._seg;
+      if (y >= g.start && y <= g.end) return;             // already framed on a loop
+    }
+    let target = null, bd = Infinity;
+    for (let i = 0; i < N; i++) {
+      const g = SECTIONS[i]._seg, c = g.start + (g.end - g.start) * 0.5;
+      const d = Math.abs(c - y);
+      if (d < bd) { bd = d; target = c; }
+    }
+    if (target != null) window.scrollTo(0, target);
+  }
+  setTimeout(landFramed, 90);
+  window.addEventListener('load', () => setTimeout(landFramed, 160), { once: true });
+
   // ---- auto-settle ----
   // Nobody should get stranded mid-flight: if the visitor idles between
   // dwell points (copy not fully dark, or inside a transition), glide them

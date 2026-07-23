@@ -53,20 +53,54 @@
      1) POLLEN — warm motes drifting, shy of the cursor
      ===================================================== */
   if (!reduce) {
-    var MOTES = window.innerWidth < 700 ? 6 : 11;
-    var motes = [], mx = -999, my = -999;
+    var MOTES = window.innerWidth < 700 ? 7 : 16;
+    var motes = [], mx = -999, my = -999, pmx = -999, pmy = -999, lastDust = 0;
     for (var i = 0; i < MOTES; i++) {
       var m = document.createElement("div");
       m.className = "wfx-mote";
-      var s = 5 + (i % 4) * 1.5;
+      var s = 5.5 + (i % 4) * 1.7;
       m.style.width = s + "px"; m.style.height = s + "px";
-      m.style.background = i % 3 ? "rgba(217,154,61," + (0.5 + (i % 3) * 0.15) + ")" : "rgba(247,201,72,.65)";
-      m.style.boxShadow = "0 0 " + (6 + (i % 3) * 4) + "px rgba(247,201,72,.5)";
+      m.style.background = i % 3 ? "rgba(217,154,61," + (0.55 + (i % 3) * 0.15) + ")" : "rgba(247,201,72,.75)";
+      m.style.boxShadow = "0 0 " + (8 + (i % 3) * 5) + "px rgba(247,201,72,.6)";
       document.body.appendChild(m);
       motes.push({ el: m, x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
         vx: 0, vy: 0, ph: Math.random() * 6.28, sp: 0.14 + Math.random() * 0.2 });
     }
-    if (finePointer) document.addEventListener("mousemove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+    /* dust kicked up by a moving cursor: tiny specks spawn under a fast
+       mouse and dart AWAY from its direction of travel, then settle-fade.
+       Pooled + throttled; each speck is one WAAPI one-shot (no rAF cost). */
+    function kickDust(x, y, dx, dy, speed) {
+      var n = speed > 26 ? 3 : 2;
+      var mag = Math.sqrt(dx * dx + dy * dy) || 1;
+      for (var k = 0; k < n; k++) {
+        var p = document.createElement("span");
+        p.className = "wfx-mote";
+        var ps = 3 + Math.random() * 3.5;
+        p.style.width = ps + "px"; p.style.height = ps + "px";
+        p.style.background = k % 2 ? "rgba(217,154,61,.85)" : "rgba(247,201,72,.9)";
+        p.style.boxShadow = "0 0 6px rgba(247,201,72,.7)";
+        p.style.left = "0"; p.style.top = "0";
+        p.style.transform = "translate(" + x + "px," + y + "px)";
+        document.body.appendChild(p);
+        /* flee direction: opposite the cursor's travel, fanned outward */
+        var ang = Math.atan2(-dy / mag, -dx / mag) + (Math.random() - 0.5) * 1.7;
+        var dist = 34 + Math.random() * 46 + speed * 0.8;
+        p.animate([
+          { transform: "translate(" + x + "px," + y + "px) scale(1)", opacity: 0.95 },
+          { transform: "translate(" + (x + Math.cos(ang) * dist) + "px," + (y + Math.sin(ang) * dist - 8) + "px) scale(.4)", opacity: 0 }
+        ], { duration: 480 + Math.random() * 260, easing: "cubic-bezier(.2,.7,.4,1)", fill: "forwards" });
+        (function (el) { setTimeout(function () { el.remove(); }, 800); })(p);
+      }
+    }
+    if (finePointer) document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      var now = performance.now();
+      if (pmx > -900 && now - lastDust > 45) {
+        var dx = mx - pmx, dy = my - pmy, sp2 = Math.sqrt(dx * dx + dy * dy);
+        if (sp2 > 9) { kickDust(mx, my, dx, dy, sp2); lastDust = now; }
+      }
+      pmx = mx; pmy = my;
+    }, { passive: true });
     /* on touch screens the finger IS the mouse: motes scatter from the
        touch point and resettle when the finger lifts */
     document.addEventListener("touchmove", function (e) {
@@ -86,7 +120,7 @@
         o.vx += Math.cos(o.ph + i) * 0.002 * dt * o.sp;
         o.vy += (Math.sin(o.ph * 0.8) * 0.0016 - 0.0007) * dt * o.sp; /* slight upward bias */
         var dx = o.x - mx, dy = o.y - my, d2 = dx * dx + dy * dy;
-        if (d2 < 57600) { var d = Math.sqrt(d2) || 1, f = (240 - d) * 0.02 * dt; o.vx += dx / d * f; o.vy += dy / d * f; }
+        if (d2 < 90000) { var d = Math.sqrt(d2) || 1, f = (300 - d) * 0.024 * dt; o.vx += dx / d * f; o.vy += dy / d * f; }
         o.vx *= 0.985; o.vy *= 0.985;
         o.x += o.vx * dt * 0.06; o.y += o.vy * dt * 0.06;
         if (o.x < -20) o.x = W + 10; if (o.x > W + 20) o.x = -10;
@@ -128,15 +162,23 @@
      cards, secondary pills/arrows/inline CTAs, landing doorway links.
      Excluded on purpose: inputs, .gray thought-bubbles, .snav items,
      #chart .node map markers (all have their own interactions). */
+  /* Trimmed 2026-07-22 (P-A): moods on REAL calls-to-action only. Small
+     utility chrome (filter chips, pagers, arrows, rail/gallery tiles,
+     modal tools, back-to-top) no longer sprouts — the effect read as
+     noise there, not delight. */
   var BTN_SEL = 'a[class*="btn"],a[class*="cta"],.ctas a,.sw-copy__cta a,.sw-copy__tags a,.wback,.liblink a,button[type="submit"],' +
     '.btn-pill,.hope-cta,a.mail,a.project-card,.exp-card,.door,a.piece,.insp-card--link,.bcard,a.pcard,' +
-    '.filters button,.chip,.caro .arrow,.presets button,.s-arrow,.peek,.mtool,.pager a,.fgarrow,.gr-item,.gtile,' +
-    '.d-link,.b-go,.exp-go,.visit,.read,.deep,.i-link,.int,a.tg,.mclose,.stotop';
+    '.d-link,.b-go,.exp-go,.visit,.read,.deep,.i-link,.int,a.tg';
+  /* Pages where the moods never fire at all (P-A: not relevant on the
+     atlas map or inside a field guide — the content IS the show there).
+     Primary CTAs keep their sun; everything else stays quiet. */
+  var MOODS_OFF = { "map.html": 1, "type.html": 1 }[FILE] === 1;
   /* the three moods rotate across buttons — decided once per button by its
      arming order (deterministic, no runtime randomness) */
   var moodSeq = 0;
   function hoverFx(el) {
     if (el.dataset.wfx) return;
+    if (MOODS_OFF && !el.matches(".primary,[data-fx-sun]")) return;
     el.dataset.wfx = "1";
     var mood = el.matches(".primary,[data-fx-sun]") ? "sun" : ["leaf", "zap", "sun"][moodSeq++ % 3];
     if (getComputedStyle(el).position === "static") el.style.position = "relative";

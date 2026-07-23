@@ -684,6 +684,10 @@ img{display:block;max-width:100%}
   backdrop.addEventListener("click",close);
   document.getElementById("mClose").addEventListener("click",close);
   document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&activeSlug) close(); });
+  /* Back/forward cache restores the page with the popup still open and the
+     backdrop swallowing every click — the page feels dead (P-A item 2,
+     2026-07-22). On bfcache restore, close cleanly. */
+  window.addEventListener("pageshow",function(e){ if(e.persisted&&activeSlug) close(); });
 
   /* ---- init ---- */
   layout();

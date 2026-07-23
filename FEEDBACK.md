@@ -15,6 +15,7 @@
 
 ## 📥 Inbox (unprocessed)
 <!-- P-A or any session appends below. Format: - [date] item. One line each, specifics welcome. -->
+- [2026-07-22] (batch, processing now — this session) 1. Hover sun/plant/zap moods on 12-types menu: P-A questions relevance. 2. BUG: 12-types preview → click one → fullscreen sometimes fails / animation delayed — must always kick in. 3. Same hover moods not felt on map page + field guides. 4. Footer logo: wants a "co-living" brand mark (not his name) representing what the site is about. 5. Mouse "dust runs away from cursor" still not felt + cursor itself could match site aesthetic. 6. BUG: landing sometimes lands mid-transition instead of on a scene's ambient loop — must land framed on the static animation. 7. S1→S2 transition (zoom to boat → jump-cut to market) doesn't work, regenerate — approach the Commons aerially so arrival reads as the market; P-A unsure of exact look, Claude judgment. 8. Want a skill/clear directives for screen-size scaling: 4K fonts too small, small laptops overflow; must not be compute-heavy. 9. Manifesto bottom village animation NOT WORKING — replace with proper asset: transparent/page-bg blend, 3D-ish feel like other assets, compound of 5 houses in half-circle + small houses behind, built artistically (buildings grow, trees grow around, then nature + people come play in front), landing aesthetic scaled down. Do LAST if context allows.
 
 ## ⏳ Escalated — needs P-A's call
 <!-- Judgment items pulled from inbox during processing land here with the question spelled out. -->
