@@ -160,13 +160,23 @@ Mobile is not "desktop but smaller" — it's the same DRAMA delivered vertically
   `width: min(90vw, 600px);` for a modal, or `padding-inline: max(20px, 4vw);` for a
   section that should breathe more on slightly wider phones without a breakpoint.
 
-## QA gate (mandatory before claiming ANY page done)
+## QA gate (two tiers — P-A calibration, 2026-07-22)
+
+**Full gate** — fires only on LARGE work: a new page, a change to a shared file
+(site-nav.js, mobile.css, data files consumed by multiple pages), or a
+layout/structure change to a page:
 1. `cd _qa && node mobile-audit.js <repoRoot>` — must show for your page:
    `ovfX=0`, `imgs=0` issues, no JS errors, tiny-text not increased.
 2. Look at the full-page phone screenshot it produces (`_qa/mshots/<page>.png`):
    walk it top-to-bottom asking "does every photo sit with its text? is every screen
    legible? did the page keep its impact?"
-3. Never claim done without running both. "It should work" is not verification.
+
+**Spot check** — for small content/style edits scoped to one page:
+one desktop + one phone (390×844) screenshot of THAT page + a JS-error check.
+No sitewide audit. (Why: full gate after every slight modification is too slow —
+P-A accepted the tradeoff that cross-page surprises wait for the next full gate.)
+
+Either tier: never claim done without running it. "It should work" is not verification.
 
 ## Don'ts
 - ❌ No separate mobile site / duplicated pages.
