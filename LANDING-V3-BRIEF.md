@@ -1,113 +1,100 @@
-# LANDING v3 — build brief (one-shot spec)
+# LANDING v3 — build brief (one-shot spec, ANSWERS LOCKED 2026-07-27)
 
-Status: OPEN QUESTIONS pending P-A (see §6). Everything tagged LOCKED is P-A's
-explicit feedback from 2026-07-27 (verbatim-derived); PROPOSED = Claude
-proposal awaiting his answer. The build happens in a FRESH chat that reads
-this file first, loads `frontend-design` + `ui-ux-pro-max` skills, and studies
-index.html (the current landing) for the quality bar before writing a line.
+All of P-A's answers are in. Build in a FRESH chat: read this file fully,
+load `frontend-design` + `ui-ux-pro-max`, study index.html + tower-engine.js
+(the quality bar AND the substrate — v3 is an EVOLUTION of that page, not a
+new page), plus MOBILE-RULES.md + DESKTOP-SCALE-RULES.md. Stage as
+`landing-v3.html` (copy of index.html + changes) for P-A's verdict; swap to
+index.html only after approval. landing-v2.html = dead test, delete after v3
+ships.
 
-## 1. What this page is
-The site's front door. The tower is the literal map of the site: labeled
-places, each answering one plain question. The scroll climb (index.html)
-survives as "the slow tour" — linked, not replaced. landing-v2.html was a
-mechanics test; P-A's verdict: mechanics direction OK, execution a regression.
-This brief is the corrective spec. Do NOT call the areas "rooms" (P-A).
-Working term: places (confirm in §6).
+## 0. THE ARCHITECTURE (P-A's answer #3 — this changes everything)
+The map and the scenes are ONE page. Clicking a space does NOT navigate to a
+section page — it zoom-blurs INTO that scene's ambient-loop dwell, which
+ALREADY EXISTS as the scroll landing's scenes (S2–S7 dwells in
+index.html/tower-engine). "It would be great if this feels more like zooming
+in the room on this page than loading and appearing on a new page."
+So v3 = index.html evolved:
+1. The first dwell (S1) becomes MAP MODE: full-screen S1 ambient loop with
+   the labeled spaces layered on top.
+2. Click a label → fast zoom + blur veil → arrive AT that scene's dwell
+   (engine hash-jump to section exists; add the zoom-blur veil transition and
+   make it feel continuous, not a page load).
+3. Each scene's overlay copy is REWRITTEN (see §3) to be self-explanatory
+   about what the space is, with sublinks to the real pages (the existing
+   doorway-link mechanism). No fictional-building narration.
+4. "Take the slow tour" = the reverse-order tour (see §5).
 
-## 2. LOCKED — visual bar
-- Full-screen hero, consistent with the current landing's quality: the scene
-  fills the viewport with a proper text layout — NOT a cropped image floating
-  mid-page (P-A: "big regression... weirdly cropped photo in the middle").
-- Use the existing world assets; the current landing's ambient S1 loop
-  (`assets/tower/vid/loop-s1.mp4` + poster `assets/tower/S1.webp`) is the
-  expected base layer. No new scene generation unless it clearly serves the
-  spec.
-- Labels are PART OF THE DESIGN, visible before any interaction: each place's
-  name in black text with a thin hairline line pointing to its spot on the
-  tower (architectural-callout style, monograph voice). A small BLACK mark
-  (logo) sits next to each name (style question in §6).
-- Hover/tap a label (or its region): the label takes the place's accent
-  color, the one-line description appears, and the region highlights — a
-  BETTER highlight than v2's colored polygon fill (P-A: "terrible").
-  PROPOSED: no fill at all — the rest of the scene dims/desaturates gently
-  while the region keeps full color inside a soft feathered edge (painted
-  vignette logic, not vector polygon logic).
-- Region shapes must match what the thing actually looks like in the art —
-  hand-traced tight, not blocky octagons. (Garden-position paradox parked by
-  P-A — don't over-solve.)
-- Click: an animation that lands you IN that place's scene — zoom toward the
-  region while that scene's ambient loop fades in (the S2–S7 loops exist),
-  then hand off to the page. Interior pages already carry scene banners
-  (site-nav world layer) so arrival continuity exists.
-- Legend under the hero, quiet, non-distracting — only there if you don't
-  know where to go: coliving knowledge → library + workshop (+ summit);
-  vision / hope → garden (+ writings); about me → home. Exact groupings §6.
+## 1. LOCKED — map mode (the hero)
+- Full-screen S1 ambient loop (`loop-s1.mp4` family) exactly like today's
+  landing dwell — labels layered on top. No cropped mid-page image.
+- Every space: name in black + a SMALL BLACK MARK (same minimalist line-mark
+  language as type.html's guide icons — P-A confirmed) + a thin hairline line
+  UNDER the name pointing to the part of the image that best fits the space.
+  All visible BEFORE any interaction — the labels are part of the design.
+- Hover/tap: the label takes the space's accent color, its one-line
+  description appears, and the region highlights painterly — soft feathered
+  edge, rest of scene gently dims/desaturates. NO colored polygon fills, no
+  stroked octagons. Region shapes hand-traced to the actual drawn features.
+- Legend under the hero, quiet (only for people who don't know where to go):
+  "coliving knowledge → the library & the workshop (& the summit) ·
+   the vision & the hope → the garden · about me → the home."
+- Plain-language list of spaces further down the page (a11y/SEO) as in v2.
 
-## 3. LOCKED — copy bar
-- Humble, hopeful, concrete. ZERO selling. P-A: the chat line was right —
-  "what if this whole site is built around one question." The hero must let a
-  context-free stranger understand what the site is in seconds.
-- Draft to react to (P-A rewrites voice):
-  headline: "This whole site grew out of one question: what if our homes
-  were designed to bring us together?"
-  sub: "I've been chasing it for years — in books, in drawings, and in
-  houses I've run. Everything it produced lives in this village. Click a
-  place to enter, or take the slow tour."
-- The hero (or text beside the tower) must say what to DO (click a place /
-  take the tour) in plain words.
-- RULE (applies beyond the landing, log for every section page): each page's
-  hero/text states that page's purpose plainly, no context required — no
-  atmospheric copy that only makes sense if you already get it.
+## 2. LOCKED — copy (hero)
+Humble, hopeful, concrete, zero selling. A stranger with no context gets in
+seconds: this site = (a) resources on coliving — some created by P-A, some
+pooled from experts and organizations, leaning toward a directory; (b) a
+manifesto of hope; (c) his story and work — so that wherever someone is in
+their coliving journey, something here is for them. That's the VIBE, not
+verbatim (P-A: "don't copy any of this verbatim"). Write it plainly, in his
+register, [edit]-marked. Say what to do: click a space, or take the tour.
 
-## 4. The places (semantics LOCKED from the one-question scheme)
-| Place | Question it answers | Opens | Accent |
+## 3. LOCKED — the six spaces (word is "space", never "room")
+Scene copy rule: each scene's overlay states what the SPACE is about (real
+site content, zero fiction, no context needed) + sublinks to its pages.
+| Space | It answers | Scene | Links to |
 |---|---|---|---|
-| The Summit | Where is this happening? | map.html (+ guides = places out there) | sky |
-| The Homes | Who lives here? | about.html OR work.html (§6) | warm rose |
-| The Library | What's been written? | talkpieces.html | teal |
-| The Workshop | How does it get built? | design.html | gold |
-| The Garden | Why do this at all? | manifesto.html | green |
-| The Commons | Where do you come in? | resources.html | clay |
+| The Summit | Where is this happening? | S7 lookout | map.html, type.html (the shapes of coliving) |
+| The Homes | Who lives here? | S6 dwellings | story.html, work.html, about.html |
+| The Library | What's known? | S3 library | resources learning, designers.html, themes? (knowledge collection — NOT "literature") |
+| The Workshop | How does it get built? | S4 workshop | design.html (+ the 20 themes as the workbench questions) |
+| The Garden | Why do this at all? | S5 greenhouse belt | manifesto.html + talkpieces.html (writings = opinions = they live with the vision, P-A provisional: "put it there for now, I might switch it") |
+| The Commons | Where do you come in? | S2 plaza | resources networks/orgs, contact |
+Note Library/Garden shift: Writings moved OUT of Library into Garden.
+Library is the knowledge/reading collection, not "literature."
 
-## 5. Engineering notes for the builder
-- Reuse the v2 mechanics that WORK (region hit-testing, mobile sheet,
-  plain-language list fallback, reduced-motion path) — rebuild the visual
-  layer per §2. landing-v2.html stays until v3 replaces it.
-- Ambient loop base = blob-load + autoplay muted (copy the engine's pattern);
-  poster-first so first paint is instant.
-- Feathered region highlight: SVG mask with blurred edge (feGaussianBlur on
-  the mask shape) or a pre-rendered per-region alpha matte — NOT a stroked
-  polygon.
-- The 6 black marks: if code-drawn is rejected (taste rule!) slice from the
-  painted sticker kit or generate ONE 6-mark sticker sheet (gpt_image_2,
-  black ink marks, ~0.5cr) and slice — ask P-A first (§6).
-- Compute discipline: no scene regeneration; the only candidate generation is
-  the mark sheet. QA: `_qa/shoot-lv2.js` pattern extended (labels visible
-  pre-hover, click lands on loop, phone).
-- Skills to load in the build chat: frontend-design, ui-ux-pro-max
-  (+ scroll-world reference for engine patterns). Study index.html +
-  DESKTOP-SCALE-RULES.md + MOBILE-RULES.md first.
+## 4. LOCKED — click transition
+Fast-paced zoom toward the space's spot on the tower + blur, fading INTO the
+scene's ambient loop dwell. Continuous, in-world, no page-load feel.
+Reduced-motion: instant jump, no zoom.
 
-## 6. OPEN QUESTIONS → P-A (answer these, then the fresh chat one-shots)
-1. Hero base: ambient S1 loop as full-screen background (like today's
-   landing) with labels layered on it — confirmed? Or the still, animated
-   only on interaction?
-2. The 6 black marks next to names: same minimalist line-mark language as the
-   type.html guide icons (code-drawn, already approved there) — or painted
-   marks from a generated ink sticker sheet (~0.5cr)?
-3. Homes opens about.html or work.html?
-4. Legend groupings confirmed? (knowledge → library+workshop+summit · hope →
-   garden+writings · me → home) — and do the Writings stay inside the Library
-   or get their own legend mention?
-5. Collective word for the six: "places"? (Not "rooms".)
-6. Click behavior: zoom → scene loop fills the screen for a beat → page
-   loads. Or skip the loop moment and go zoom → page directly (faster)?
-7. Headline/sub draft in §3 — right direction for the voice pass, or rewrite
-   from scratch?
+## 5. LOCKED — the slow tour (reverse order, ZERO rebuild)
+Reverse narrative: start at the top (summit) and descend space by space —
+"it's literally the same as when I scroll back up." The engine already plays
+every transition backwards on upward scroll. Implement by entry point +
+direction (e.g. tour button zooms to the summit dwell, then the visitor
+proceeds through the existing sequence in reverse), NOT by re-encoding or
+rebuilding clips. Day-arc note: reversed, light runs sunrise→dusk→morning —
+accepted for now; flag to P-A after first build if it feels wrong.
 
-## 7. Parked (explicitly, by P-A)
-- Garden's physical position on the tower vs its meaning — don't over-solve.
-- Rooms-within-places (click bookshelf → books) — after v3 lands.
-- Flip the scroll-tour order (coliving forms → me → why): ANSWERED as
-  feasible-cheap (reverse configs + reverse-scrub or reversed re-encodes,
-  zero credits; day-arc lighting + copy are the real work). Decide separately.
+## 6. Engineering + discipline
+- Reuse v2's working mechanics (hit regions, mobile pills + sheet,
+  reduced-motion, plain list) with the new visual layer. Feathered
+  highlight: blurred SVG mask or pre-rendered alpha matte per region.
+- Six black marks: inline SVG line-marks in the type.html icon language —
+  free, no generation. (Painted-sticker route explicitly NOT needed; P-A
+  approved the line-mark language.)
+- NO scene generation. No credits expected for this build.
+- Mobile: labels must work always-visible on phones (pills or stacked
+  callouts — design it, don't punt); scene dwells already phone-aware.
+- QA: extend `_qa/shoot-lv2.js` pattern — labels visible pre-hover, hover
+  highlight, click lands in scene dwell (video playing, copy visible),
+  tour-reverse entry, phone pass, 0 console errors, screenshots eyeballed.
+- Interior/section PAGES keep their own copy-clarity rule (every page hero
+  states its purpose plainly — separate round, logged in FEEDBACK.md).
+
+## 7. Parked (P-A said so)
+- Garden's physical position paradox — don't over-solve.
+- Spaces-within-spaces (click the bookshelf → books) — after v3 lands.
+- Writings placement is provisional (Garden) — P-A may move them.
