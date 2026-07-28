@@ -56,7 +56,6 @@ function renderHome() {
         <a href="#intentions">Intentions</a>
         <a href="#work">Work</a>
         <a href="story.html">Story</a>
-        <a href="hope.html">Hope</a>
         <a href="inspiration.html">Inspiration</a>
         <a href="#contact">Contact</a>
       </div>
