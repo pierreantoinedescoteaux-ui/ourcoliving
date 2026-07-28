@@ -230,7 +230,10 @@
    the same layer as the eyebrow, the heading and the body, so it fades in
    and out with them as you scroll instead of floating over everything.
    Understated, but obviously clickable. */
-.lv3-backlink{display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+/* this link lives in the ENGINE's copy block, not in the .lv3 map layers, so
+   the page's "no underline on links" rule does not reach it — it was getting
+   the browser's default underline on top of the rule below */
+.lv3-backlink{display:inline-flex;align-items:center;gap:7px;cursor:pointer;text-decoration:none;
   font-family:var(--sw-font-body);font-size:.8rem;font-weight:600;letter-spacing:.02em;
   color:var(--sw-ink-soft);border-bottom:1px solid color-mix(in srgb,var(--sw-ink-soft) 40%,transparent);
   padding-bottom:2px;transition:color .22s,border-color .22s,gap .22s;}

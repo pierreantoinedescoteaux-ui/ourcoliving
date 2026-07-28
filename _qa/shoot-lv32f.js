@@ -66,6 +66,12 @@ const OUT = __dirname;
   });
   check(lit.copy > 0.9 && lit.rail > 0.9, "resting in a scene, both are back up (copy " + lit.copy.toFixed(2) + ", rail " + lit.rail.toFixed(2) + ")");
   check(lit.linkVisible && lit.pe === "auto", "the back link is visible and clickable there");
+  const rule = await p.evaluate(() => {
+    const a = document.querySelectorAll("#world .sw-copy")[3].querySelector(".lv3-backlink");
+    const s = getComputedStyle(a);
+    return { td: s.textDecorationLine, bb: s.borderBottomStyle };
+  });
+  check(rule.td === "none" && rule.bb === "solid", "it is underlined ONCE — the rule, not the browser default too (" + rule.td + " + " + rule.bb + ")");
   await p.screenshot({ path: path.join(OUT, "lv32f-scene.png") });
 
   /* and it still works */
