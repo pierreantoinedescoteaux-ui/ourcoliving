@@ -32,13 +32,27 @@ const BASE = "http://localhost:8123/manifesto.html";
       await page.screenshot({ path: path.join(__dirname, `vil2-${tag}-${i}.png`) });
     }
     const state = await page.evaluate(() => {
-      const v = document.getElementById("vilvid"), w = document.getElementById("vilwrap");
-      return { live: w.classList.contains("live"), t: +v.currentTime.toFixed(2), dur: +(v.duration || 0).toFixed(2) };
+      const v = document.getElementById("vilvid"), w = document.getElementById("vilwrap"), l = document.getElementById("villoop");
+      return { live: w.classList.contains("live"), alpha: w.classList.contains("alpha"),
+               resting: w.classList.contains("resting"), loopPlaying: l && !l.paused,
+               poster: (document.getElementById("vilposter").currentSrc || "").split("/").pop(),
+               t: +v.currentTime.toFixed(2), dur: +(v.duration || 0).toFixed(2) };
     });
     console.log(tag + " film state:", JSON.stringify(state));
     check(state.live, tag + ": film went live (first frame painted)");
     check(state.dur > 14, tag + ": film is the 16s master (dur " + state.dur + ")");
     check(state.t > state.dur * 0.8, tag + ": scrub reached the finale");
+    check(state.alpha, tag + ": alpha path active (Chromium)");
+    check(state.poster === "village-a-alpha.webp", tag + ": transparent poster (" + state.poster + ")");
+    // hold at the very end for the idle loop to fade in
+    await page.evaluate(([t, h]) => scrollTo(0, Math.round(t + (h - innerHeight) * 1)), [wrapTop, wrapH]);
+    await page.waitForTimeout(2500);
+    const rest = await page.evaluate(() => {
+      const w = document.getElementById("vilwrap"), l = document.getElementById("villoop");
+      return { resting: w.classList.contains("resting"), playing: l && !l.paused && l.currentTime > 0 };
+    });
+    check(rest.resting && rest.playing, tag + ": idle loop playing at scroll end " + JSON.stringify(rest));
+    await page.screenshot({ path: path.join(__dirname, `vil2-${tag}-rest.png`) });
     check(errors.length === 0, tag + ": 0 console/page errors" + (errors.length ? " -> " + errors.slice(0, 3).join(" | ") : ""));
     await page.close();
   }

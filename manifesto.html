@@ -271,7 +271,12 @@ a{color:inherit;text-decoration:none}
   mask-image:radial-gradient(115% 110% at 50% 50%,#000 46%,transparent 76%)}
 .scene .vwrap img,.scene .vwrap video{display:block;width:100%;height:auto;max-height:calc(100vh - 260px);object-fit:cover}
 .scene .vwrap video{position:absolute;inset:0;height:100%;opacity:0;transition:opacity .5s}
-.scene .vwrap.live video{opacity:1}
+.scene .vwrap.live #vilvid{opacity:1}
+/* alpha path: the film carries real transparency — no mask needed */
+.scene .vwrap.alpha{-webkit-mask-image:none;mask-image:none}
+/* ambient idle loop, crossfaded in once the growth scrub completes */
+.scene .vwrap #villoop{transition:opacity .7s}
+.scene .vwrap.resting #villoop{opacity:1}
 .liblink{text-align:center;padding:clamp(28px,4.5vh,50px) 0 0}
 .liblink a{display:inline-block;font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.2rem,2.1vw,1.8rem);color:var(--green-deep);border-bottom:2px solid var(--green);padding-bottom:5px;transition:color .3s}
 .liblink a:hover{color:var(--ink)}
@@ -410,6 +415,7 @@ a{color:inherit;text-decoration:none}
         <div class="vwrap" id="vilwrap" aria-label="A small floating island where a village grows: houses build themselves, gardens and animals arrive, a waterfall begins to flow and neighbors gather at one long table">
           <img id="vilposter" src="assets/world/village-a.webp" alt="An empty grassy plot on a small floating island, waiting to be built on">
           <video id="vilvid" muted playsinline preload="none"></video>
+          <video id="villoop" muted playsinline loop preload="none"></video>
         </div>
         <svg viewBox="0 0 1200 620" fill="none" style="display:none" aria-hidden="true">
           <defs><filter id="roughline" x="-2%" y="-2%" width="104%" height="104%">
@@ -671,13 +677,29 @@ var TH=[0.02,0.12,0.26,0.40,0.54,0.68,0.82];
    scroll progress. Poster (still A) holds until the first frame paints;
    reduced-motion gets the finished village (still B) instead. ---- */
 var vilwrap=document.getElementById("vilwrap"), vilvid=document.getElementById("vilvid"), vilposter=document.getElementById("vilposter");
-var vilReady=false, vilLoading=false, vilSeeking=false, vilPending=-1;
-if(reduced){ vilposter.src="assets/world/village-b.webp"; }
+var villoop=document.getElementById("villoop");
+var vilReady=false, vilLoading=false, vilSeeking=false, vilPending=-1, loopLoading=false, loopReady=false;
+/* alpha path: VP9-with-alpha webm (Chrome/Edge/Firefox/Android). Safari plays
+   VP9 in some versions but not its alpha channel -> keep the graded mp4 there. */
+var VIL_ALPHA=(function(){
+  try{
+    var vp9=vilvid.canPlayType('video/webm; codecs="vp9"')!=="";
+    var safari=/^((?!chrome|crios|android).)*safari/i.test(navigator.userAgent);
+    return vp9&&!safari;
+  }catch(e){ return false; }
+})();
+if(VIL_ALPHA){
+  vilwrap.classList.add("alpha");
+  vilposter.src="assets/world/village-a-alpha.webp";
+}
+if(reduced){ vilposter.src=VIL_ALPHA?"assets/world/village-b-alpha.webp":"assets/world/village-b.webp"; }
 function vilLoad(){
   if(vilLoading||reduced) return;
   vilLoading=true;
   var mob=window.matchMedia("(max-width:700px)").matches;
-  fetch(mob?"assets/world/village-m.mp4":"assets/world/village.mp4")
+  var file=VIL_ALPHA?(mob?"assets/world/village-alpha-m.webm":"assets/world/village-alpha.webm")
+                    :(mob?"assets/world/village-m.mp4":"assets/world/village.mp4");
+  fetch(file)
     .then(function(r){ if(!r.ok) throw 0; return r.blob(); })
     .then(function(b){
       vilvid.src=URL.createObjectURL(b);
@@ -691,6 +713,21 @@ function vilLoad(){
     })
     .catch(function(){ /* film missing: the poster painting stays */ });
 }
+/* the finished village keeps living: ambient idle loop once the scrub ends */
+function loopLoad(){
+  if(loopLoading||reduced) return;
+  loopLoading=true;
+  var mob=window.matchMedia("(max-width:700px)").matches;
+  var file=VIL_ALPHA?(mob?"assets/world/village-loop-alpha-m.webm":"assets/world/village-loop-alpha.webm")
+                    :(mob?"assets/world/village-loop-m.mp4":"assets/world/village-loop.mp4");
+  villoop.addEventListener("loadeddata",function(){ loopReady=true; });
+  villoop.src=file; villoop.load();
+}
+function vilRest(on){
+  vilwrap.classList.toggle("resting",on&&loopReady);
+  if(on&&loopReady){ try{ villoop.play(); }catch(e){} }
+  else{ try{ villoop.pause(); }catch(e){} }
+}
 function vilSeek(t){
   if(vilSeeking){ vilPending=t; return; }
   vilSeeking=true;
@@ -703,10 +740,12 @@ function sceneUpdate(){
   var p=Math.min(1,Math.max(0,(-r.top)/(r.height-vh)));
   if(!reduced){
     if(!vilLoading&&r.top<vh*1.5) vilLoad();
+    if(!loopLoading&&p>0.75) loopLoad();
     if(vilReady&&vilvid.duration){
       var t=Math.min(vilvid.duration-0.05,Math.max(0,p*vilvid.duration));
       if(Math.abs(t-(vilvid.currentTime||0))>0.035) vilSeek(t);
     }
+    vilRest(p>=0.985);
   }
   possItems.forEach(function(li,i){ li.classList.toggle("litp",p>=TH[i+2]); });
   finale.classList.toggle("litp",p>=0.93);

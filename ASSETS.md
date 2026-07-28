@@ -87,3 +87,6 @@ Swap in by adding `src:` to the entry in work-data.js — placeholder auto-repla
 - work:growth-hub-shaughnessy — WANTED from P-A — PHOTO WANTED — the Shaughnessy house exterior, wide enough to show the scale. This case study has no photos yet; the estate deserves one good shot minimum.
 - work:growth-hub-shaughnessy — WANTED from P-A — PHOTO WANTED — an interior common space that shows the estate's scale.
 - work:growth-hub-shaughnessy — WANTED from P-A — PHOTO WANTED — the grounds or the guest house.
+
+## Reusable generated assets
+- `assets/village/` — the floating-island village (P-A favorite, 2026-07-27): final/empty/construction stills, 16s growth master, 8s seamless idle loop, generation prompts + README with the alpha-key/regrade recipes. Site-served encodes in `assets/world/village*`.
