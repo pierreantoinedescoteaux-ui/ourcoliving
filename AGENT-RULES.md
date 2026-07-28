@@ -23,6 +23,19 @@ For every visual slot, in order:
 ### Generated-asset art direction (P-A, 2026-07-22 — ALL new site art, content pages included)
 New generated art = storybook gouache **asset-vignette**: the scene painted with soft irregular dry-brush edges dissolving into plain cream/paper background, generous paper margin, floating ON the page (no card frame, no hard rectangle). Solarpunk means VISIBLE technology + modernity blended with the warm organic world — never "old village." Ornaments/hover art use the painted sticker kit (`assets/world/`), never code-drawn vector shapes. Reference recipe: `_landing/build2/raw/village-a2/b2.png` + `_landing/build2/prompts/village-a2/b2.txt`. Films from stills keep vignette edges completely still and get a CSS radial mask to melt into the page.
 
+### Animation rules (P-A, 2026-07-27 — ALL future generated animations)
+**Idle / ambient loops ("static animations"):**
+- Mix obvious and subtle movement. 2-3 actions must be clearly visible at a glance (a person working, a child playing, an animal moving); the rest stays subtle (water, foliage, fabric). All-subtle reads as a broken still.
+- Any character drawn mid-action in the source still MUST be animated — a frozen runner or frozen farmer reads as a glitch. If it can't be animated, it shouldn't be mid-action in the still.
+- Elements that are supposed to visibly move (turbine blades, wheels, flags) must NOT be crisply drawn in the start still — the video model animates a second copy on top of the baked one (double-blade bug, 2026-07-27). Either remove/neutralize them in the still (hub only, motion blur) and let the video add the motion, or accept them fully static.
+- Loops: start image = end image, tail crossfaded into head (`seamless-loops.sh` pattern).
+
+**Camera transitions between scenes:**
+- ONE fluid motion, ONE direction. Never let the camera reverse or hesitate mid-clip — direction changes are where the world morphs into a different world. Prompt as a timed shot list (e.g. 0-40% orbit right, 40-70% descend, 70-100% straight push-in) and state "never reverses direction".
+- Proportions come from the camera, not the world: if a section must fill the frame, the camera zooms into it — the world never rescales.
+- Big camera journeys (aerial→ground, front→back) fail as single 8s generations: the model must invent too much. Break them into small legs bridged by generated stills that share geometry with both ends; validate each leg separately.
+- Before any 1080p spend on a new camera path: render a cheap low-res draft first to prove the path reads, then re-render final. Never burn full-price rerolls hunting a path.
+
 ## Taste rule (P-A, 2026-07-11 — after 2 misses)
 Do NOT guess aesthetics from adjectives. P-A provides visual references (`moodboard/`, ludiq.org); Claude does structure, interactions, content, and faithful rebuild-to-reference. If a visual call has no reference to anchor it, ask or propose options — don't invent.
 

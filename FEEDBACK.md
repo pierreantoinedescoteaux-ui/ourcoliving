@@ -15,6 +15,7 @@
 
 ## 📥 Inbox (unprocessed)
 <!-- P-A or any session appends below. Format: - [date] item. One line each, specifics welcome. -->
+- [2026-07-27] Village idle loop bugs (P-A): (1) turbine blades DOUBLED — baked static blades + animated blades on top (root cause + prevention rule now in AGENT-RULES.md §Animation rules); (2) kids-with-dog and farming person should be visibly animated but aren't (all-subtle motion); (3) color flash near the turbine every ~4-5s — inspect frames (seedance artifact vs alpha-key flicker), patch bad frames deterministically if isolated; regen the loop ONLY if frame-patching fails, and then per the new animation rules. t12: do NOT re-render without the leg-by-leg proofing plan (bridge still + cheap draft first) — P-A: no more full-price attempts.
 - [2026-07-22] STILL QUEUED: apply DESKTOP-SCALE-RULES.md sitewide (rulebook written, no pages migrated — its own round + full QA gate).
 
 ## ⏳ Escalated — needs P-A's call
