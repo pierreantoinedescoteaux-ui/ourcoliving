@@ -62,6 +62,13 @@
   #world .sw-stage .sw-scene:first-child .sw-scene__still{
     object-fit:contain;object-position:center center;}
   #world .sw-stage .sw-scene:first-child .sw-scene__still{transform:none !important;}
+  /* P-A 2026-07-28: the letterbox bands beside the contain-fit tower must be the
+     PAINTING's own field (#F1DBC0), not the page cream — otherwise the drawing
+     sits on a visibly lighter rectangle. Map mode only; the climb keeps cream. */
+  html.lv3-map,
+  html.lv3-map body,
+  html.lv3-map #world .sw-stage,
+  html.lv3-map #world .sw-stage .sw-scene:first-child{background:#F1DBC0;}
 }
 
 /* ---------------------------------------------------------------------
@@ -128,7 +135,22 @@
 /* P-A: the popup IS the main focus — on hover the label becomes a full bubble
    of the space's colour, bigger than the words, name + sentence inside it.
    The other focus is the highlighted zone; everything else recedes. */
-.lv3-label.is-hot{z-index:6;}
+/* P-A 2026-07-28: while a bubble is open the WHOLE bubble is the hover target —
+   moving the cursor from the name down onto the sentence must not collapse it.
+   (The label box is pointer-events:none at rest so its empty area never sits in
+   front of the hero; ::before inherits auto, so the coloured bubble itself is
+   hoverable.) */
+.lv3-label.is-hot{z-index:6;pointer-events:auto;}
+.lv3-label.is-hot .lv3-desc{pointer-events:auto;}
+/* ...and everything else recedes: the open popup and its zone are the only
+   two lit things on the map. */
+.lv3.is-hot .lv3-label:not(.is-hot),
+.lv3s.is-hot .lv3-label:not(.is-hot){opacity:.3;transition:opacity .25s ease;}
+.lv3.is-hot .lv3-leader:not(.is-hot),
+.lv3s.is-hot .lv3-leader:not(.is-hot){opacity:.16;}
+.lv3.is-hot .lv3-halo:not(.is-hot),
+.lv3s.is-hot .lv3-halo:not(.is-hot){opacity:.14;}
+.lv3.is-hot .lv3-chip{opacity:.38;transition:opacity .25s ease;}
 .lv3-label.is-hot::before{content:"";position:absolute;inset:-15px -19px -18px -19px;
   background:color-mix(in srgb,var(--rc) 72%,#20281a);border-radius:19px;
   box-shadow:0 16px 46px rgba(30,40,26,.42),0 3px 12px rgba(30,40,26,.3);z-index:-1;}
@@ -137,6 +159,7 @@
 .lv3-label.is-hot .lv3-desc{opacity:1;visibility:visible;transform:none;
   color:rgba(251,243,226,.96);text-shadow:none;
   font-size:clamp(1.04rem,.97rem + .22vw,1.2rem);max-width:30ch;}
+.lv3-label.no-tr,.lv3-label.no-tr *{transition:none !important;}
 .lv3-label:focus-visible .lv3-name{
   outline:2px solid rgba(251,243,226,.9);outline-offset:5px;border-radius:999px;}
 
@@ -163,7 +186,9 @@
 .on-phone{display:none;}
 /* A4 — the minimal legend: one quiet row of colour-dot + single-word chips.
    Smallest possible cognitive load — reads instantly. */
-.lv3-legend{margin:0 0 16px;display:flex;flex-wrap:wrap;gap:8px 15px;align-items:center;}
+.lv3-legend{position:absolute;left:clamp(18px,5vw,64px);bottom:clamp(18px,3.4vh,34px);
+  margin:0;max-width:min(46vw,560px);
+  display:flex;flex-wrap:wrap;gap:8px 15px;align-items:center;pointer-events:none;}
 .lv3-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--sw-font-body);
   font-weight:600;font-size:clamp(.95rem,.9rem + .12vw,1.08rem);color:var(--sw-ink);
   text-shadow:0 0 8px rgba(248,233,207,.98),0 1px 12px rgba(248,233,207,.9);}
@@ -329,8 +354,9 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 
   <nav class="lv3-stack" id="lv3stack" aria-label="The six spaces"></nav>
 
+  <p class="lv3-legend" id="lv3legend"></p>
+
   <nav class="lv3-plain" aria-label="The six spaces, in plain words">
-    <p class="lv3-legend" id="lv3legend"></p>
     <h2>The spaces, in plain words</h2>
     <ul id="lv3plain"></ul>
   </nav>
@@ -376,7 +402,7 @@ var LV3_SECTIONS = [
       eyebrow:'The library · what’s known',
       title:'The library holds what’s known.',
       body:'Books, designers, courses and reasons for hope — the reading on living together, gathered in one place. [edit]',
-      tags:[{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'},{label:'Visions of hope', href:'hope.html'},{label:'Learning & how-to', href:'resources.html#learning'}] },
+      tags:[{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'},{label:'Arts & multimedia', href:'arts.html'},{label:'Learning & how-to', href:'resources.html#learning'}] },
     { id:'makers', label:'The workshop', accent:'#a8712c',
       still:'assets/tower/S4.webp', stillMobile:'assets/tower/S4-m.webp', clip:'assets/tower/vid/loop-s4.mp4', clipMobile:'assets/tower/vid/loop-s4-m.mp4',
       eyebrow:'The workshop · how it gets built',
@@ -631,9 +657,16 @@ function hot(sp){
   holeEl.setAttribute('d', d); fillEl.setAttribute('d', d);
   dimEl.style.setProperty('--rc', sp.accent);
   map.classList.add('is-hot');
-  sp.el.classList.add('is-hot');
   sp.leader.classList.add('is-hot');
   sp.halo.classList.add('is-hot');
+  /* size-transitions off for one frame so the EXPANDED box can be measured
+     exactly (the name jumps a size on hover) — then slide it back on-screen */
+  sp.el.classList.add('no-tr');
+  sp.el.classList.add('is-hot');
+  void sp.el.offsetWidth;
+  fitHot(sp, px(sp.anchor[0], sp.anchor[1]));
+  void sp.el.offsetWidth;
+  sp.el.classList.remove('no-tr');
   WORLD.preload(sp.index);
 }
 function cool(){
@@ -642,6 +675,7 @@ function cool(){
   current.leader.classList.remove('is-hot');
   current.halo.classList.remove('is-hot');
   map.classList.remove('is-hot');
+  unfitHot(current, px(current.anchor[0], current.anchor[1]));
   current = null;
 }
 
@@ -670,7 +704,7 @@ function place(){
      AND of already-placed labels. The hero grew and the tower now sits smaller
      (contain-fit), so a couple of labels would otherwise land under the hero. */
   var blockers = [];
-  [document.querySelector('.lv3-hero'), document.querySelector('.lv3-plain'), document.querySelector('.snav')]
+  [document.querySelector('.lv3-hero'), document.querySelector('.lv3-legend'), document.querySelector('.snav')]
     .forEach(function(el){ if (el){ var rr = el.getBoundingClientRect(); if (rr.width && rr.height) blockers.push(rr); } });
   function overlaps(bx, by, bw, bh, r){ return !(bx + bw <= r.left || bx >= r.right || by + bh <= r.top || by >= r.bottom); }
 
@@ -702,22 +736,59 @@ function place(){
 
     sp.el.style.left = x + 'px';
     sp.el.style.top = y + 'px';
+    sp.rest = [x, y];
     blockers.push({ left:x, top:y, right:x + lw, bottom:y + lh });
-
-    /* hairline: run it under the name, then bend to the space */
-    var nw = sp.nameEl.getBoundingClientRect().width || w;
-    var uy = y + nameH + 3;
-    var a = px(sp.anchor[0], sp.anchor[1]);
-    var leftEnd = x, rightEnd = x + nw;
-    var near = (a.x < (leftEnd + rightEnd) / 2) ? leftEnd : rightEnd;
-    var far = (near === leftEnd) ? rightEnd : leftEnd;
-    var pts = far.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
-      near.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
-      a.x.toFixed(1) + ',' + a.y.toFixed(1);
-    sp.leader.setAttribute('points', pts);
-    sp.halo.setAttribute('points', pts);
-    if (sp.dot) { sp.dot.setAttribute('cx', a.x); sp.dot.setAttribute('cy', a.y); }
+    drawLeader(sp, px(sp.anchor[0], sp.anchor[1]));
+    if (sp === current) fitHot(sp, px(sp.anchor[0], sp.anchor[1]));   /* keep an open bubble on-screen */
   });
+}
+
+/* the hairline: run it under the name, then bend to the space. Redrawn whenever
+   the label moves — including when an open bubble is nudged back on-screen. */
+function drawLeader(sp, a){
+  var x = parseFloat(sp.el.style.left) || 0, y = parseFloat(sp.el.style.top) || 0;
+  var nb = sp.nameEl.getBoundingClientRect();
+  var nw = nb.width || 160, nameH = nb.height || 20;
+  var uy = y + nameH + 3;
+  var leftEnd = x, rightEnd = x + nw;
+  var near = (a.x < (leftEnd + rightEnd) / 2) ? leftEnd : rightEnd;
+  var far = (near === leftEnd) ? rightEnd : leftEnd;
+  var pts = far.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
+    near.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
+    a.x.toFixed(1) + ',' + a.y.toFixed(1);
+  sp.leader.setAttribute('points', pts);
+  sp.halo.setAttribute('points', pts);
+  if (sp.dot) { sp.dot.setAttribute('cx', a.x); sp.dot.setAttribute('cy', a.y); }
+}
+
+/* P-A 2026-07-28: The Commons opened OFF-SCREEN — its label sits at the bottom-
+   right edge of the cream, and the bubble only grows once it is hot (the
+   sentence appears, the name jumps a size, and the coloured plate outsets
+   another ~19px). So the moment a label goes hot, re-measure the EXPANDED box
+   plus the plate's outsets and slide it back inside the viewport, then redraw
+   its leader from the new spot. cool() puts it back where place() had it.
+   Only the hot label moves — the rest of the map holds still. */
+var HOT_OUT = { l:19, r:19, t:15, b:18 };
+function fitHot(sp, anchorPt){
+  var pad = 14, navPad = 74;
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var b = sp.el.getBoundingClientRect();
+  var L = b.left - HOT_OUT.l, R = b.right + HOT_OUT.r;
+  var T = b.top - HOT_OUT.t, B = b.bottom + HOT_OUT.b;
+  var dx = 0, dy = 0;
+  if (R > vw - pad) dx = (vw - pad) - R;
+  if (L + dx < pad) dx = pad - (L + dx);
+  if (B > vh - pad) dy = (vh - pad) - B;
+  if (T + dy < navPad) dy = navPad - (T + dy);
+  if (dx || dy){
+    sp.el.style.left = ((parseFloat(sp.el.style.left) || 0) + dx) + 'px';
+    sp.el.style.top = ((parseFloat(sp.el.style.top) || 0) + dy) + 'px';
+  }
+  drawLeader(sp, anchorPt);
+}
+function unfitHot(sp, anchorPt){
+  if (sp.rest){ sp.el.style.left = sp.rest[0] + 'px'; sp.el.style.top = sp.rest[1] + 'px'; }
+  drawLeader(sp, anchorPt);
 }
 
 /* ---------------------------------------------------------------------
@@ -865,8 +936,8 @@ var SCENE_SPOTS = [
       line:'the designers I keep going back to, and why. [edit]',
       anchor:[0.278,0.760], label:[0.350,0.800],
       polys:[[[0.195,0.900],[0.200,0.745],[0.235,0.700],[0.290,0.700],[0.325,0.735],[0.330,0.800],[0.310,0.880],[0.250,0.915]]] },
-    { name:'The murals', href:'hope.html', cat:CAT.resources,
-      line:'the vision — what all this could become, and the reasons for hope. [edit]',
+    { name:'The murals', href:'arts.html', cat:CAT.resources,
+      line:'the arts — films, music and images that make living together feel possible. [edit]',
       anchor:[0.795,0.450], label:[0.700,0.270],
       polys:[[[0.737,0.545],[0.737,0.375],[0.758,0.355],[0.850,0.360],[0.858,0.540]],
              [[0.888,0.560],[0.888,0.115],[0.912,0.065],[0.985,0.090],[0.990,0.560]]] },
@@ -1030,18 +1101,24 @@ function spathFor(sp, f){
   }).join(' ');
 }
 
-var sCurSpot = null, sceneOn = null, departing = false;
+var sCurSpot = null, sCurGroup = null, sceneOn = null, departing = false;
 
 function sHot(g, sp){
   if (sCurSpot === sp) return;
   sCool();
-  sCurSpot = sp;
-  var d = spathFor(sp, sceneFrame(g.index));
+  sCurSpot = sp; sCurGroup = g;
+  var f = sceneFrame(g.index);
+  var d = spathFor(sp, f);
   sHole.setAttribute('d', d); sFill.setAttribute('d', d);
   slayer.classList.add('is-hot');
-  sp.el.classList.add('is-hot');
   sp.leader.classList.add('is-hot');
   sp.halo.classList.add('is-hot');
+  sp.el.classList.add('no-tr');
+  sp.el.classList.add('is-hot');
+  void sp.el.offsetWidth;
+  fitHot(sp, spotAnchor(sp, f));
+  void sp.el.offsetWidth;
+  sp.el.classList.remove('no-tr');
 }
 function sCool(){
   if (!sCurSpot) return;
@@ -1049,7 +1126,8 @@ function sCool(){
   sCurSpot.leader.classList.remove('is-hot');
   sCurSpot.halo.classList.remove('is-hot');
   slayer.classList.remove('is-hot');
-  sCurSpot = null;
+  if (sCurGroup) unfitHot(sCurSpot, spotAnchor(sCurSpot, sceneFrame(sCurGroup.index)));
+  sCurSpot = null; sCurGroup = null;
 }
 
 function placeSpots(g){
@@ -1104,25 +1182,20 @@ function placeSpots(g){
     });
     sp.el.style.left = x + 'px';
     sp.el.style.top = y + 'px';
+    sp.rest = [x, y];
     blockers.push({ left:x, top:y, right:x + lw, bottom:y + lh });
-
-    var nw = sp.nameEl.getBoundingClientRect().width || w;
-    var uy = y + nameH + 3;
-    var ax = f.x + sp.anchor[0] * f.w, ay = f.y + sp.anchor[1] * f.h;
-    /* the anchor can fall in the cover-crop's hidden slice on tall viewports —
-       pin the leader's far end (and its dot) inside the visible frame, like labels */
-    ax = Math.min(Math.max(ax, Math.max(0, f.x) + 10), Math.min(vw, f.x + f.w) - 10);
-    ay = Math.min(Math.max(ay, Math.max(0, f.y) + 10), Math.min(vh, f.y + f.h) - 10);
-    var leftEnd = x, rightEnd = x + nw;
-    var near = (ax < (leftEnd + rightEnd) / 2) ? leftEnd : rightEnd;
-    var far = (near === leftEnd) ? rightEnd : leftEnd;
-    var pts = far.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
-      near.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
-      ax.toFixed(1) + ',' + ay.toFixed(1);
-    sp.leader.setAttribute('points', pts);
-    sp.halo.setAttribute('points', pts);
-    if (sp.dot){ sp.dot.setAttribute('cx', ax); sp.dot.setAttribute('cy', ay); }
+    drawLeader(sp, spotAnchor(sp, f));
+    if (sp === sCurSpot) fitHot(sp, spotAnchor(sp, f));   /* keep an open bubble on-screen */
   });
+}
+/* the anchor can fall in the cover-crop's hidden slice on tall viewports — pin
+   the leader's far end (and its dot) inside the visible frame, like the labels */
+function spotAnchor(sp, f){
+  var vw = window.innerWidth, vh = window.innerHeight;
+  return {
+    x: Math.min(Math.max(f.x + sp.anchor[0] * f.w, Math.max(0, f.x) + 10), Math.min(vw, f.x + f.w) - 10),
+    y: Math.min(Math.max(f.y + sp.anchor[1] * f.h, Math.max(0, f.y) + 10), Math.min(vh, f.y + f.h) - 10)
+  };
 }
 
 function showGroup(g){
