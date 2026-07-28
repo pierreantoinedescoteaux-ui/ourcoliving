@@ -260,6 +260,43 @@ html:not(.lv3-map) #lv3back{opacity:1;pointer-events:auto;transform:translateY(-
   transition:opacity .4s ease,transform .4s ease;}
 #lv3tourhint.on{opacity:1;transform:translateX(-50%);}
 
+/* ---------------------------------------------------------------------
+   THE INVITATION. P-A: if someone keeps scrolling against the lock, stop
+   nudging and ask them straight out. A paper bubble in the centre; clicking
+   it — or simply carrying on scrolling — opens it like a door and flies into
+   the summit. Once the tour has been taken, the map never locks again.
+   --------------------------------------------------------------------- */
+#lv3invite{position:fixed;left:50%;top:50%;z-index:1150;width:min(88vw,470px);
+  transform:translate(-50%,-50%) scale(.94);opacity:0;pointer-events:none;
+  background:rgba(253,250,240,.97);border:1px solid rgba(34,48,31,.16);border-radius:22px;
+  padding:clamp(22px,3.4vw,34px) clamp(20px,3vw,32px);text-align:center;
+  box-shadow:0 34px 80px -34px rgba(35,28,10,.6),0 4px 16px -8px rgba(35,28,10,.3);
+  transition:opacity .34s ease,transform .34s cubic-bezier(.2,.7,.25,1);
+  transform-origin:50% 50%;}
+#lv3invite.on{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;cursor:pointer;}
+/* the door: the bubble swings open on its left edge as the world zooms past it */
+#lv3invite.is-opening{pointer-events:none;
+  transform-origin:0% 50%;
+  transform:translate(-50%,-50%) perspective(760px) rotateY(-88deg) scale(1.06);
+  opacity:0;filter:blur(6px);
+  transition:transform .52s cubic-bezier(.5,0,.75,.6),opacity .42s ease-in .1s,filter .5s ease-in;}
+#lv3invite h2{margin:0;font-family:var(--sw-font-display);font-weight:300;
+  font-size:clamp(1.34rem,1.1rem + .74vw,1.86rem);line-height:1.18;color:var(--sw-ink);}
+#lv3invite p{margin:12px 0 0;font-family:var(--sw-font-body);
+  font-size:clamp(.95rem,.9rem + .16vw,1.06rem);line-height:1.5;color:var(--sw-ink-soft);}
+#lv3invite .lv3-inv-go{margin:19px 0 0;display:inline-flex;align-items:center;gap:9px;
+  font:600 clamp(.9rem,.86rem + .12vw,1.02rem)/1 var(--sw-font-body);color:var(--sw-ink);
+  background:none;border:1px solid rgba(34,48,31,.3);border-radius:999px;padding:13px 22px;
+  min-height:44px;cursor:pointer;transition:background .25s,border-color .25s;}
+#lv3invite:hover .lv3-inv-go{background:rgba(34,48,31,.06);border-color:rgba(34,48,31,.55);}
+#lv3invite .lv3-inv-x{position:absolute;top:9px;right:9px;width:36px;height:36px;border:0;
+  background:none;cursor:pointer;color:var(--sw-ink-soft);font:400 1.2rem/1 var(--sw-font-body);
+  border-radius:50%;}
+#lv3invite .lv3-inv-x:hover{background:rgba(34,48,31,.08);color:var(--sw-ink);}
+@media (prefers-reduced-motion:reduce){
+  #lv3invite,#lv3invite.is-opening{transition:opacity .01s;transform:translate(-50%,-50%);filter:none;}
+}
+
 /* A5 — the map is locked: a blocked scroll gives feedback so the visitor
    learns the two exits (click a space, or take the tour). A gentle nudge on
    the map + a soft glow pulse on the tour button. */
@@ -400,6 +437,13 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <svg class="lv3fx" id="lv3sfx" aria-hidden="true" focusable="false"></svg>
   <svg class="lv3lines" id="lv3slines" aria-hidden="true" focusable="false"></svg>
   <div class="lv3-labels" id="lv3slabels"></div>
+</div>
+
+<div id="lv3invite" role="dialog" aria-modal="false" aria-labelledby="lv3invitetitle">
+  <button class="lv3-inv-x" type="button" aria-label="No thanks">&times;</button>
+  <h2 id="lv3invitetitle">Do you want to take the tour of the tower? <span class="edit">[edit]</span></h2>
+  <p>See all the zones and explore the content — click or keep scrolling to start.</p>
+  <span class="lv3-inv-go">Start the tour</span>
 </div>
 
 <button id="lv3back" type="button" aria-label="Back to the tower map">
@@ -948,8 +992,9 @@ document.getElementById('lv3back').addEventListener('click', returnToMap);
 /* the slow tour: land on the summit, then walk back down the way you came.
    The engine already plays every transition backwards on upward scroll —
    nothing to re-encode, nothing to rebuild. */
-document.getElementById('lv3tour').addEventListener('click', function(){
+function startTour(){
   var summit = SPACES.filter(function(s){ return s.key === 'summit'; })[0];
+  tourTaken = true;                 /* P-A: after this the map never locks again */
   enter(summit, function(){
     tourMode = true;
     tourHint.textContent = reduced
@@ -958,7 +1003,8 @@ document.getElementById('lv3tour').addEventListener('click', function(){
     tourHint.classList.add('on');
     setTimeout(function(){ tourHint.classList.remove('on'); }, 9000);
   });
-});
+}
+document.getElementById('lv3tour').addEventListener('click', function(){ hideInvite(true); startTour(); });
 document.getElementById('lv3tour').addEventListener('mouseenter', function(){
   var summit = SPACES.filter(function(s){ return s.key === 'summit'; })[0];
   WORLD.preload(summit.index);
@@ -1406,11 +1452,76 @@ window.addEventListener('pageshow', function(e){
    --------------------------------------------------------------------- */
 var tourMode = false, bumpTs = 0, touchY = null;
 var tourBtn = document.getElementById('lv3tour');
+
+/* ---- the invitation ----------------------------------------------------
+   Two blocked gestures inside ~1.8s means the visitor is pushing against the
+   lock on purpose, so stop nudging and ask. While it is up, one more scroll
+   IS the yes. Esc / × / a click outside says no, and buys ten quiet seconds.
+   ------------------------------------------------------------------------ */
+var invite = document.getElementById('lv3invite');
+var inviteOn = false, inviteSnoozedTs = 0, inviteShownTs = 0, lastGestureTs = 0, gestures = [];
+var tourTaken = false;                  /* the lock is a one-time teaching device */
+
+function showInvite(){
+  if (inviteOn) return;
+  inviteOn = true; gestures.length = 0; inviteShownTs = Date.now();
+  invite.classList.remove('is-opening');
+  invite.classList.add('on');
+  WORLD.preload(SPACES.filter(function(s){ return s.key === 'summit'; })[0].index);
+}
+function hideInvite(silent){
+  if (!inviteOn) return;
+  inviteOn = false;
+  invite.classList.remove('on');
+  gestures.length = 0;
+  if (!silent) inviteSnoozedTs = Date.now();
+}
+/* the door: the bubble swings open on its hinge as the world flies past it */
+function openInviteDoor(){
+  if (!inviteOn) return;
+  inviteOn = false;
+  gestures.length = 0;
+  if (reduced){ invite.classList.remove('on'); startTour(); return; }
+  invite.classList.add('is-opening');
+  startTour();
+  setTimeout(function(){ invite.classList.remove('on', 'is-opening'); }, 640);
+}
+/* "keep scrolling to start" — but not with the very gesture that summoned it,
+   or the bubble would flash past unread. Give it a beat to be seen first. */
+function scrollYes(){
+  if (Date.now() - inviteShownTs < 900) return;
+  openInviteDoor();
+}
+function pushGesture(){
+  if (inviteOn || tourTaken || travelling) return;
+  var now = Date.now();
+  if (now - inviteSnoozedTs < 10000) return;
+  if (now - lastGestureTs < 480) return;          /* one wheel-spin = one gesture */
+  lastGestureTs = now;
+  gestures = gestures.filter(function(t){ return now - t <= 1800; });
+  gestures.push(now);
+  if (gestures.length >= 2) showInvite();
+}
+invite.addEventListener('click', function(e){
+  if (e.target.classList.contains('lv3-inv-x')){ hideInvite(); return; }
+  openInviteDoor();
+});
+document.addEventListener('click', function(e){
+  if (inviteOn && !invite.contains(e.target)) hideInvite();
+}, true);
+window.addEventListener('keydown', function(e){
+  if (!inviteOn) return;
+  if (e.key === 'Escape'){ hideInvite(); return; }
+  if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); openInviteDoor(); }
+});
 /* the tour hands back to the map once it reaches S1's resting point */
 function tourFloor(){ return WORLD.dwellCenter(0); }
 
+/* the lock teaches the two exits ONCE. P-A: once the tour has been taken —
+   by the button or the invitation — the map never locks again for the rest
+   of the visit, so reaching the map at the end of a descent is not a trap. */
 function mapLocked(){
-  return !tourMode && !travelling &&
+  return !tourMode && !travelling && !tourTaken &&
     document.documentElement.classList.contains('lv3-map');
 }
 function bumpLock(){
@@ -1449,7 +1560,7 @@ function descend(delta){                /* delta>0 = intent to go DOWN = descend
 function onWheel(e){
   if (travelling){ e.preventDefault(); return; }
   if (tourMode && !reduced){ e.preventDefault(); descend(e.deltaY); return; }
-  if (mapLocked()){ e.preventDefault(); bumpLock(); }
+  if (mapLocked()){ e.preventDefault(); if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); } }
 }
 function onTouchStart(e){ if (e.touches && e.touches.length) touchY = e.touches[0].clientY; }
 function onTouchMove(e){
@@ -1458,7 +1569,7 @@ function onTouchMove(e){
   touchY = y;
   if (travelling){ e.preventDefault(); return; }
   if (tourMode && !reduced){ e.preventDefault(); descend(dy); return; }
-  if (mapLocked()){ e.preventDefault(); bumpLock(); }
+  if (mapLocked()){ e.preventDefault(); if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); } }
 }
 function onTouchEnd(){ touchY = null; }
 
@@ -1476,7 +1587,7 @@ function onKey(e){
     descend(down ? step : -step);
     return;
   }
-  if (mapLocked()){ e.preventDefault(); bumpLock(); }
+  if (mapLocked()){ e.preventDefault(); if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); } }
 }
 
 window.addEventListener('wheel', onWheel, { passive:false });
