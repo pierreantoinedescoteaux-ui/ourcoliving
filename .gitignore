@@ -5,3 +5,10 @@ _landing/
 images/generated/candidates/
 _qa/mshots*/
 _qa/_crop_*.png
+
+# QA screenshots are build artefacts, not site content. 258 of them were being
+# tracked and therefore PUBLISHED with the site, and a v3 round nearly added
+# 256MB more. They do not affect page speed (nothing requests them) but they
+# bloat clones and the Pages deploy. Keep them local.
+_qa/*.png
+_qa/**/*.png

@@ -113,12 +113,16 @@
 /* only the name row (and the description once it is up) is a target — the
    label's empty box must never sit in front of the hero or the tour button */
 .lv3-label{position:absolute;pointer-events:none;cursor:pointer;display:block;
-  max-width:min(36vw,320px);}
+  max-width:min(42vw,380px);}
 .lv3-label:focus{outline:none;}
 /* the space name carries its category colour AT REST — toned toward ink so it
    stays legible over the drawing; hover saturates to the pure accent. The mark
    inherits it (currentColor). A stronger cream halo backs the coloured ink. */
-.lv3-name{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+.lv3-name{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;
+  /* P-A 2026-07-28: a retyped, longer title used to clip — nowrap plus a hard
+     max-width meant the pill, and the bubble drawn behind it, could not grow.
+     It wraps now, so the bubble always fits the words. */
+  white-space:normal;text-wrap:pretty;
   width:max-content;max-width:100%;
   font-family:var(--sw-font-body);font-weight:600;font-size:clamp(1.02rem,.92rem + .4vw,1.3rem);
   letter-spacing:.005em;color:color-mix(in srgb,var(--rc) 84%,#232a1c);
@@ -364,7 +368,7 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 .lv3s.is-hot .lv3fx{opacity:1;}
 .lv3s.is-hot .lv3-halo{opacity:.34;}
 .lv3s.is-hot .lv3-halo.is-hot{opacity:.75;}
-.lv3s .lv3-label{max-width:min(30vw,300px);}
+.lv3s .lv3-label{max-width:min(34vw,340px);}
 .lv3s .lv3-name{font-size:clamp(.88rem,.8rem + .22vw,1.06rem);gap:7px;padding:5px 11px;}
 .lv3s .lv3-name::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;
   flex:none;box-shadow:0 0 0 3px rgba(248,233,207,.75);}
@@ -1656,6 +1660,7 @@ document.addEventListener('click', function(e){
 window.addEventListener('keydown', function(e){
   if (!inviteOn) return;
   if (e.key === 'Escape'){ hideInvite(); return; }
+  if (typingInto(e.target)) return;              /* never steal a space mid-word */
   if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); openInviteDoor(); }
 });
 /* the tour hands back to the map once it reaches S1's resting point */
@@ -1718,9 +1723,17 @@ function onTouchMove(e){
 function onTouchEnd(){ touchY = null; }
 
 var SCROLL_KEYS = { ' ':1, 'Spacebar':1, 'PageDown':1, 'PageUp':1, 'ArrowDown':1, 'ArrowUp':1, 'Home':1, 'End':1 };
+/* Anything the visitor can type into must get its keystrokes untouched —
+   form fields AND contentEditable text (the pen tool makes copy editable in
+   place, and the map's scroll-lock was eating the space bar mid-word). */
+function typingInto(t){
+  if (!t) return false;
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName || '')) return true;
+  return !!(t.isContentEditable || (t.closest && t.closest('[contenteditable="true"]')));
+}
 function onKey(e){
   var t = e.target;
-  if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName || '')) return;
+  if (typingInto(t)) return;
   if (!SCROLL_KEYS[e.key]) return;     /* Tab / Enter / etc. pass through */
   if (tourMode && !reduced){
     e.preventDefault();
