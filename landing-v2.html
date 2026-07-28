@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Coliving — the village</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/world/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/world/favicon-64.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* LANDING v2 TEST — the tower as the literal map of the site.
+   Six rooms, six plain questions. Hover (or tap) highlights a room,
+   names it, says what's inside; click zooms into it and enters.
+   This page is a TEST — index.html (the scroll tour) is untouched and
+   becomes "the slow way in" if this direction is adopted. */
+:root{
+  --cream:#F8E9CF;--paper:#f6f2e7;--ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  /* room accents */
+  --c-summit:#7fb6c9;--c-homes:#c96f7f;--c-library:#2f8f8a;
+  --c-workshop:#d99a3d;--c-garden:#5c9e4a;--c-commons:#b5613c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:var(--cream);color:var(--ink);font-family:var(--grotesk);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* ---------- intro ---------- */
+.intro{max-width:1180px;margin:0 auto;padding:clamp(28px,5vh,64px) clamp(20px,4vw,56px) 0;text-align:center}
+.intro .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#8a6a2f}
+.intro h1{font-family:var(--serif);font-weight:300;font-size:clamp(1.7rem,3.6vw,3rem);line-height:1.12;letter-spacing:-.015em;margin:14px auto 10px;max-width:26ch}
+.intro .sub{color:var(--ink-soft);font-size:clamp(.98rem,1.25vw,1.15rem);max-width:52ch;margin:0 auto}
+.intro .sub a{color:#8a6a2f;border-bottom:1px solid rgba(138,106,47,.4);text-decoration:none}
+.intro .sub a:hover{color:var(--ink)}
+
+/* ---------- the map stage ---------- */
+.stagewrap{position:relative;max-width:1480px;margin:clamp(10px,2vh,26px) auto 0;padding:0 clamp(8px,2vw,40px)}
+.stage{position:relative;transition:transform .65s cubic-bezier(.5,0,.6,1),filter .65s ease,opacity .65s ease;transform-origin:50% 50%}
+.stage img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.stage.depart{transform:scale(2.15);filter:blur(9px);opacity:0}
+@media (prefers-reduced-motion:reduce){.stage{transition:none}}
+
+/* room shapes: invisible until hover; hover = tinted fill + soft stroke */
+.room{fill:transparent;stroke:transparent;cursor:pointer;pointer-events:all;
+  transition:fill .3s,stroke .3s}
+.room.hot{fill:var(--rc);fill-opacity:.16;stroke:var(--rc);stroke-width:3;stroke-opacity:.85;stroke-linejoin:round}
+/* everything-else dimmer: a hole is cut where the hot room is */
+#dim rect{fill:#3a2f1a;opacity:0;transition:opacity .3s;pointer-events:none}
+.dimmed #dim rect{opacity:.14}
+svg.debug .room{fill:#f0f;fill-opacity:.18;stroke:#f0f;stroke-width:2}
+
+/* label card */
+.card{position:absolute;z-index:40;pointer-events:none;opacity:0;transform:translateY(6px);
+  transition:opacity .25s,transform .25s;max-width:300px;background:#fffdf6;border-radius:14px;
+  padding:13px 16px 12px;box-shadow:0 18px 44px -18px rgba(35,28,10,.45);border-top:4px solid var(--rc,#888)}
+.card.on{opacity:1;transform:none}
+.card .q{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--rc)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:1.25rem;margin:3px 0 4px}
+.card p{font-size:.85rem;color:var(--ink-soft);line-height:1.45}
+.card .go{margin-top:7px;font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--rc)}
+
+/* mobile pills — always visible on coarse pointers */
+.pill{position:absolute;z-index:30;transform:translate(-50%,-50%);display:none;
+  background:#fffdf6;border:2px solid var(--rc);color:var(--ink);border-radius:999px;
+  font:600 .72rem/1 var(--grotesk);padding:7px 11px;box-shadow:0 8px 22px -10px rgba(35,28,10,.5);cursor:pointer;white-space:nowrap}
+.pill i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--rc);margin-right:6px}
+@media (hover:none){.pill{display:block}}
+
+/* mobile bottom sheet */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fffdf6;border-radius:22px 22px 0 0;
+  box-shadow:0 -18px 50px -20px rgba(35,28,10,.5);padding:20px 22px calc(18px + env(safe-area-inset-bottom));
+  transform:translateY(110%);visibility:hidden;
+  transition:transform .35s cubic-bezier(.2,.9,.3,1),visibility 0s .35s}
+.sheet.on{transform:none;visibility:visible;transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+.sheet .q{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--rc)}
+.sheet h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin:4px 0 6px}
+.sheet p{color:var(--ink-soft);font-size:.95rem}
+.sheet .row{display:flex;gap:12px;margin-top:14px}
+.sheet .enter{flex:1;text-align:center;background:var(--rc);color:#fff;border:none;border-radius:12px;
+  font:600 .95rem var(--grotesk);padding:13px;cursor:pointer;text-decoration:none}
+.sheet .close{background:none;border:1px solid rgba(34,48,31,.25);border-radius:12px;padding:13px 16px;
+  font:500 .9rem var(--grotesk);color:var(--ink-soft);cursor:pointer}
+
+/* ---------- plain list fallback ---------- */
+.rooms{max-width:1180px;margin:clamp(30px,6vh,70px) auto 0;padding:0 clamp(20px,4vw,56px)}
+.rooms h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.4rem,2.4vw,2rem);margin-bottom:6px}
+.rooms .hint{color:var(--ink-faint);font-size:.85rem;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.rgrid{display:block;background:#fffdf6;border-radius:16px;padding:18px 20px;text-decoration:none;
+  border-left:5px solid var(--rc);box-shadow:0 14px 34px -22px rgba(35,28,10,.35);transition:transform .25s,box-shadow .25s}
+.rgrid:hover{transform:translateY(-3px);box-shadow:0 22px 44px -22px rgba(35,28,10,.45)}
+.rgrid .q{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--rc)}
+.rgrid h3{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin:3px 0 4px}
+.rgrid p{font-size:.87rem;color:var(--ink-soft)}
+
+.foot{text-align:center;color:var(--ink-faint);font-size:.8rem;padding:clamp(36px,7vh,80px) 20px 40px}
+.foot a{color:#8a6a2f}
+</style>
+</head>
+<body>
+
+<header class="intro">
+  <div class="eyebrow">A project by Pierre-Antoine Descoteaux</div>
+  <h1>Our homes are making us lonely. I've spent years designing ones that don't. <span style="opacity:.4;font-size:.5em">[edit]</span></h1>
+  <p class="sub">Everything that came out of that lives in this village. Click where you want to go —
+    or <a href="index.html">take the slow tour</a>.</p>
+</header>
+
+<div class="stagewrap">
+  <div class="stage" id="stage">
+    <img id="towerimg" src="assets/tower/S1.webp" alt="A terraced garden tower village — the map of this site. Every part of it is a section you can enter.">
+    <svg id="mapsvg" viewBox="0 0 2048 1360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <mask id="holemask">
+          <rect x="0" y="0" width="2048" height="1360" fill="#fff"/>
+          <path id="hole" d="" fill="#000"/>
+        </mask>
+      </defs>
+      <g id="dim"><rect x="0" y="0" width="2048" height="1360" mask="url(#holemask)"/></g>
+      <g id="roomshapes"></g>
+    </svg>
+    <div class="card" id="card">
+      <div class="q" id="cardq"></div>
+      <h3 id="cardname"></h3>
+      <p id="carddesc"></p>
+      <div class="go">click to enter →</div>
+    </div>
+    <div id="pills"></div>
+  </div>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="q" id="sheetq"></div>
+  <h3 id="sheetname"></h3>
+  <p id="sheetdesc"></p>
+  <div class="row">
+    <a class="enter" id="sheetenter" href="#">Enter</a>
+    <button class="close" id="sheetclose">Not now</button>
+  </div>
+</div>
+
+<section class="rooms">
+  <h2>The rooms, in plain words</h2>
+  <div class="hint">Same doors as the picture — for readers, screen readers, and anyone the tower confuses.</div>
+  <div class="grid" id="roomlist"></div>
+</section>
+
+<div class="foot">
+  Prefer to wander? <a href="index.html">The scroll tour</a> climbs the whole tower in order. ·
+  <a href="manifesto.html">Manifesto</a> · <a href="map.html">Atlas</a> · <a href="work.html">Work</a>
+</div>
+
+<script>
+/* Six rooms. Each answers ONE plain question — that's its reason to exist.
+   Shapes are polygons in the image's 2048x1360 coordinate space.
+   A path may contain several sub-polygons (e.g. the garden's field fan +
+   greenhouse belt). Copy is Claude draft, [edit] = P-A voice pass. */
+var ROOMS=[
+ {id:"summit", name:"The Summit", q:"Where is this happening?", color:"var(--c-summit)",
+  desc:"The view from the top: the world map of real communities, and the twelve shapes co-living takes.",
+  href:"map.html",
+  polys:[[[616,18],[818,18],[834,268],[772,318],[624,288]]]},
+ {id:"homes", name:"The Homes", q:"Who lives here?", color:"var(--c-homes)",
+  desc:"Me. My story, and the houses and projects I've actually run.",
+  href:"about.html",
+  polys:[[[540,315],[750,290],[880,365],[1015,425],[1175,475],[1150,565],[930,500],[700,490],[552,452]]]},
+ {id:"library", name:"The Library", q:"What's been written?", color:"var(--c-library)",
+  desc:"My writings, the thinkers this stands on, and what to read next.",
+  href:"talkpieces.html",
+  polys:[[[768,430],[968,420],[988,562],[906,612],[788,602],[748,506]]]},
+ {id:"workshop", name:"The Workshop", q:"How does it get built?", color:"var(--c-workshop)",
+  desc:"Designing for connection — the concrete moves, and the questions every project has to answer.",
+  href:"design.html",
+  polys:[[[440,548],[740,512],[792,642],[772,802],[560,832],[430,702]]]},
+ {id:"garden", name:"The Garden", q:"Why do this at all?", color:"var(--c-garden)",
+  desc:"Where the hope grows: the manifesto — what our homes could be.",
+  href:"manifesto.html",
+  polys:[[[120,882],[680,802],[862,902],[882,1132],[700,1242],[262,1252],[92,1052]],
+         [[1092,562],[1402,542],[1472,652],[1422,762],[1152,762],[1062,652]]]},
+ {id:"commons", name:"The Commons", q:"Where do you come in?", color:"var(--c-commons)",
+  desc:"The wider movement — networks and doors beyond this site, and how to reach me.",
+  href:"resources.html",
+  polys:[[[862,802],[1242,742],[1422,852],[1432,1052],[1242,1182],[952,1202],[882,1002]]]}
+];
+
+var svg=document.getElementById("mapsvg"), shapes=document.getElementById("roomshapes");
+var stage=document.getElementById("stage"), hole=document.getElementById("hole");
+var card=document.getElementById("card");
+var NS="http://www.w3.org/2000/svg";
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var coarse=window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+function pathD(polys){
+  return polys.map(function(p){ return "M"+p.map(function(pt){return pt.join(",");}).join("L")+"Z"; }).join(" ");
+}
+function centroid(polys){
+  var big=polys[0], sx=0, sy=0;
+  big.forEach(function(pt){ sx+=pt[0]; sy+=pt[1]; });
+  return [sx/big.length, sy/big.length];
+}
+
+ROOMS.forEach(function(r){
+  var p=document.createElementNS(NS,"path");
+  p.setAttribute("d", pathD(r.polys));
+  p.setAttribute("class","room"); p.setAttribute("id","room-"+r.id);
+  p.style.setProperty("--rc", r.color);
+  shapes.appendChild(p);
+  r.el=p; r.c=centroid(r.polys);
+
+  if(!coarse){
+    p.addEventListener("mouseenter",function(){ hot(r); });
+    p.addEventListener("mouseleave",function(){ cool(r); });
+    p.addEventListener("click",function(){ enter(r); });
+  } else {
+    p.addEventListener("click",function(){ openSheet(r); });
+  }
+
+  /* mobile pill */
+  var pill=document.createElement("button");
+  pill.className="pill"; pill.style.setProperty("--rc", r.color);
+  pill.style.left=(r.c[0]/2048*100)+"%"; pill.style.top=(r.c[1]/1360*100)+"%";
+  pill.innerHTML="<i></i>"+r.name;
+  pill.addEventListener("click",function(){ openSheet(r); });
+  document.getElementById("pills").appendChild(pill);
+
+  /* plain list card */
+  var a=document.createElement("a");
+  a.className="rgrid"; a.href=r.href; a.style.setProperty("--rc", r.color);
+  a.innerHTML='<div class="q">'+r.q+'</div><h3>'+r.name+'</h3><p>'+r.desc+'</p>';
+  document.getElementById("roomlist").appendChild(a);
+});
+
+function hot(r){
+  r.el.classList.add("hot");
+  stage.classList.add("dimmed");
+  hole.setAttribute("d", pathD(r.polys));
+  card.style.setProperty("--rc", r.color);
+  document.getElementById("cardq").textContent=r.q;
+  document.getElementById("cardname").textContent=r.name;
+  document.getElementById("carddesc").textContent=r.desc;
+  /* anchor the card near the room, clamped inside the stage */
+  var rect=stage.getBoundingClientRect();
+  var x=r.c[0]/2048*rect.width, y=r.c[1]/1360*rect.height;
+  var cx=Math.min(Math.max(x+30, 10), rect.width-320);
+  var cy=Math.min(Math.max(y-120, 8), rect.height-170);
+  card.style.left=cx+"px"; card.style.top=cy+"px";
+  card.classList.add("on");
+  if(!reduced){
+    stage.style.transformOrigin=(r.c[0]/2048*100)+"% "+(r.c[1]/1360*100)+"%";
+    stage.style.transform="scale(1.035)";
+  }
+}
+function cool(r){
+  r.el.classList.remove("hot");
+  stage.classList.remove("dimmed");
+  card.classList.remove("on");
+  if(!reduced) stage.style.transform="";
+}
+function enter(r){
+  if(reduced){ location.href=r.href; return; }
+  card.classList.remove("on");
+  stage.style.transformOrigin=(r.c[0]/2048*100)+"% "+(r.c[1]/1360*100)+"%";
+  stage.classList.add("depart");
+  setTimeout(function(){ location.href=r.href; }, 620);
+}
+
+/* mobile sheet */
+var sheet=document.getElementById("sheet"), cur=null;
+function openSheet(r){
+  cur=r;
+  sheet.style.setProperty("--rc", r.color);
+  document.getElementById("sheetq").textContent=r.q;
+  document.getElementById("sheetname").textContent=r.name;
+  document.getElementById("sheetdesc").textContent=r.desc;
+  document.getElementById("sheetenter").href=r.href;
+  ROOMS.forEach(function(o){o.el.classList.remove("hot");});
+  r.el.classList.add("hot");
+  stage.classList.add("dimmed");
+  hole.setAttribute("d", pathD(r.polys));
+  sheet.classList.add("on");
+}
+document.getElementById("sheetclose").addEventListener("click",function(){
+  sheet.classList.remove("on"); stage.classList.remove("dimmed");
+  ROOMS.forEach(function(o){o.el.classList.remove("hot");});
+});
+document.getElementById("sheetenter").addEventListener("click",function(e){
+  if(!reduced && cur){
+    e.preventDefault();
+    sheet.classList.remove("on");
+    enter(cur);
+  }
+});
+
+/* debug: ?debug shows every polygon for calibration */
+if(location.search.indexOf("debug")>-1) svg.classList.add("debug");
+</script>
+</body>
+</html>
