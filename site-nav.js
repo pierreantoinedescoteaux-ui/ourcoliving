@@ -22,7 +22,9 @@
       { label: "The map — compare the 12 models", href: "map.html#map" },
       { label: "Field guides — one per model", href: "type.html?t=ecovillage" },
       { label: "Themes library — the recurring questions", href: "themes.html" },
-      { label: "Resources directory", href: "resources.html" }
+      { label: "Resources directory", href: "resources.html" },
+      { label: "Networks & movements", href: "networks.html" },
+      { label: "How-to guides", href: "how-to.html" }
     ]},
     { label: "Design for Connection", href: "design.html", key: "design", sub: [
       { label: "Design for Connection — start here", href: "design.html" },
@@ -34,15 +36,18 @@
     { label: "About", href: "about.html", key: "about", sub: [
       { label: "My story", href: "story.html" },
       { label: "Work & case studies", href: "work.html" }
-    ]}
+    ]},
+    { label: "The Community", href: "community.html", key: "community", sub: [] }
   ];
 
   var PAGE_KEY = {
     "manifesto.html": "manifesto", "separation.html": "writings", "projects.html": "manifesto",
     "inspiration.html": "manifesto", "detail.html": "manifesto",
     "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas", "themes.html": "atlas",
+    "networks.html": "atlas", "how-to.html": "atlas",
     "design.html": "design", "talkpieces.html": "writings", "designers.html": "design",
-    "about.html": "about", "story.html": "about", "story-v1.html": "about", "work.html": "about", "project.html": "about"
+    "about.html": "about", "story.html": "about", "story-v1.html": "about", "work.html": "about", "project.html": "about",
+    "community.html": "community"
   };
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -130,7 +135,7 @@
         it.sub.map(function (s) { return '<a class="subm" href="' + esc(s.href) + '">' + esc(s.label) + "</a>"; }).join("");
     }).join("");
     return '<nav class="snav" aria-label="Site">' +
-      '<a class="brand" href="index.html">Pierre-Antoine Descoteaux</a>' +
+      '<a class="brand" href="index.html">Our Coliving</a>' +
       '<div class="top">' + tops + "</div>" +
       '<button class="mbtn" type="button" aria-expanded="false" onclick="var p=this.parentNode.querySelector(\'.mpanel\');p.classList.toggle(\'openm\');this.setAttribute(\'aria-expanded\',p.classList.contains(\'openm\'))">Menu ▾</button>' +
       '<div class="mpanel">' + mob + "</div>" +

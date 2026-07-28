@@ -47,6 +47,15 @@ more sprites), maybe using vk-tendril along the border path.
 2026-07-21. ~940cr. Second camera chain rendered natively in portrait so phones get
 composed scenes instead of centre-crop. Do only if the phone crop bothers P-A.
 
+## Split resources.html into designed subpages per category
+2026-07-28. P-A: "these are not functional nor pretty pages, just a bunch of
+links." resources.html's three categories (maps & directories, networks &
+movements, learning & how-to) currently render as plain link cards on one
+long page. Eventual redesign: give each category its own designed page
+(networks.html shipped 2026-07-28 as a first step in this direction — plain
+card grid, not yet a full redesign) with real layout, imagery and voice
+instead of a directory-of-directories list.
+
 ## Mobile touch micro-animations
 2026-07-22. P-A: some mobile sites have small animations when you swipe / pass your
 finger on things. Out of scope for the mobile round-2 retrofit (his call). If wanted

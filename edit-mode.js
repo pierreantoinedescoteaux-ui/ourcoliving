@@ -233,6 +233,36 @@
     e.stopPropagation();
   }, true);
 
+  /* P-A 2026-07-28: you could not type a SPACE while editing a button's words.
+     Nothing here was eating it — a <button> (and a link) natively treats the
+     space bar as "activate me", so the browser fires the button instead of
+     inserting the character. Editable buttons need the key handled by hand.
+     Capture phase, so it lands before any page's own space/scroll handling. */
+  document.addEventListener("keydown", function (e) {
+    if (!editing) return;
+    if (e.key !== " " && e.key !== "Spacebar" && e.key !== "Enter") return;
+    var t = e.target;
+    if (!t || !t.isContentEditable) return;
+    if (!/^(BUTTON|A|SUMMARY|LABEL)$/.test(t.tagName || "")) return;
+    if (t.closest(".pa-editbar,.pa-editbtn")) return;      /* our own controls behave normally */
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === "Enter") return;                          /* one line per element — no stray breaks */
+    var ok = false;
+    try { ok = document.execCommand("insertText", false, " "); } catch (err) { ok = false; }
+    if (!ok) {                                              /* fallback: place the space by hand */
+      var sel = window.getSelection();
+      if (!sel || !sel.rangeCount) return;
+      var r = sel.getRangeAt(0);
+      r.deleteContents();
+      var n = document.createTextNode(" ");
+      r.insertNode(n);
+      r.setStartAfter(n); r.collapse(true);
+      sel.removeAllRanges(); sel.addRange(r);
+    }
+    t.dispatchEvent(new Event("input", { bubbles: true }));  /* keep autosave honest */
+  }, true);
+
   document.addEventListener("input", function (e) {
     if (!editing) return;
     var el = e.target.closest && e.target.closest("[data-pa-edit]");

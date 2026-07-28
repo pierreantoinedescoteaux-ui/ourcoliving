@@ -406,6 +406,22 @@ function mountScrollWorld(container, config) {
   }
   requestAnimationFrame(raf);
 
+  // ---- public handle ----
+  // Returned so a page can drive the world from its own UI (landing v3's map
+  // mode zooms into a scene instead of scrolling to it). Purely additive —
+  // callers that ignore the return value behave exactly as before.
+  return {
+    sections: SECTIONS.map((s, i) => ({ id: s.id, label: s.label, accent: s.accent, index: i })),
+    indexOf: id => SECTIONS.findIndex(s => s.id === id),
+    // where a section's ambient loop rests, in page pixels
+    dwellCenter: i => { const g = SECTIONS[i]._seg; return g.start + (g.end - g.start) * 0.5; },
+    jumpTo,                                                    // smooth (respects reduced motion)
+    jumpToInstant: i => window.scrollTo(0, SECTIONS[i]._seg.start + (SECTIONS[i]._seg.end - SECTIONS[i]._seg.start) * 0.5),
+    // start fetching a scene's clip early (on hover/focus) so arriving lands on video, not the poster
+    preload: i => { const g = SECTIONS[i] && SECTIONS[i]._seg; if (g) loadClip(g); },
+    stage, container, relayout: layout, isMobile, reduce
+  };
+
   // ---- helpers ----
   function el(tag, cls) { const n = document.createElement(tag); if (cls) n.className = cls; return n; }
   function pad(n) { return String(n).padStart(2, '0'); }

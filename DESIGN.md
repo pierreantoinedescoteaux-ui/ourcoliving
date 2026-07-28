@@ -22,6 +22,26 @@ Every agent building or restyling ANY page reads this first. Machine-readable to
 | --forest / --forest-2 | #173a2c / #1f4a38 | THE dark: reserved for closing blocks/footer bands only |
 | --clay / --clay-deep | #b5613c / #8f4a2c | Sparing accent (legacy Atelier); deep for small text (AA contrast) |
 
+## The tower / landing palette (added 2026-07-28, P-A)
+The landing world has its own grounds — the painted stills carry their own field colour, and the site cream is a shade lighter. Getting these two confused makes the tower sit on a visibly paler rectangle.
+
+| Name | Hex | Use |
+|---|---|---|
+| Tower field | **#F1DBC0** | The field the tower paintings are painted on. The letterbox bands beside the contain-fit map MUST be this — never the page cream. |
+| Landing cream | **#F8E9CF** | The landing page's own ground: label pills, leader-line halos, text glows, the zoom veil. |
+| Interior paper | #f6f2e7 | Every interior page's ground (= `--paper` above). |
+| Ink | #22301f | Text on all three grounds (= `--ink`). |
+
+**Category colours** — the five meanings a space can carry. Every space name, leader line, popup bubble and legend chip on the landing takes its colour from this table, and the same colour tints that space's zoom veil.
+
+| Category | Hex | Spaces |
+|---|---|---|
+| resources | **#2b8b8f** teal | The Library, The Workshop |
+| hope | **#d08a2e** amber | The Garden |
+| me | **#3e7db0** blue | The House |
+| overview | **#b3543e** terracotta | The Summit |
+| connect | **#3c6b32** green | The Commons |
+
 **Usage rules:** pages are MOSTLY BRIGHT — paper ground with saturated flat color blocks as section markers. Dark (forest) appears only as a closing band or footer, never as the default. Small text on cream must use the -deep variants (WCAG AA ≥ 4.5:1).
 
 ## Type

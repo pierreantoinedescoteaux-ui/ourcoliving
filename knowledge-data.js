@@ -244,7 +244,7 @@ const WHY = {
     ],
     ctas: [
       { label: "Explore the twelve models", href: "map.html" },
-      { label: "Read my vision", href: "hope.html" }
+      { label: "See what's coming next", href: "arts.html" }
     ]
   }
 };

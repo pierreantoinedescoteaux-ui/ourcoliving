@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="m-networks">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Networks &amp; movements — Our Coliving</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* NETWORKS & MOVEMENTS v1 — a curated slice of resources-data.js
+   (cat:'networks'), rendered in resources.html's card grammar. The
+   wider movement this site is part of, humbly pointed at. */
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:900px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(10px,2vh,18px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px}
+.lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
+.edit{opacity:.36;font-size:.5em;vertical-align:.4em;letter-spacing:.04em}
+.cards{display:grid;gap:16px;padding:clamp(28px,4vh,44px) 0 clamp(30px,5vh,50px)}
+.rcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3vw,34px);transition:border-color .3s,box-shadow .3s}
+.rcard:hover{border-color:var(--green);box-shadow:0 18px 44px -22px rgba(34,48,31,.3)}
+.rcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.15;margin-bottom:8px}
+.rcard p{font-size:.95rem;color:var(--ink-soft)}
+.rcard .visit{display:inline-block;margin-top:14px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
+.rcard .visit:hover{opacity:.75}
+.young{border:1.5px dashed rgba(34,48,31,.25);border-radius:var(--r);padding:22px 26px;color:var(--ink-faint);font-size:.9rem;text-align:center;margin-bottom:clamp(40px,6vh,70px)}
+@media(max-width:760px){
+  .cards{gap:14px}
+}
+</style>
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+
+<header class="head wrap">
+  <span class="eyebrow">Coliving Atlas · networks &amp; movements</span>
+  <h1>The wider movement this site is part of. <span class="edit">[edit]</span></h1>
+  <p class="lede">This isn't a solo project. People have been organizing around coliving, cohousing and intentional community for decades — associations, gatherings, pop-up villages. Here are the ones worth knowing. <span class="edit">[edit]</span></p>
+</header>
+
+<main class="wrap">
+  <div class="cards" id="cards"></div>
+  <div class="young">This list is young — it grows as the territory does. Know a network that belongs here? <a href="mailto:pierreantoinedescoteaux@gmail.com" style="color:var(--green-deep);font-weight:600">Tell me →</a></div>
+</main>
+
+<script src="resources-data.js"></script>
+<script src="site-nav.js"></script>
+<script>
+(function(){
+"use strict";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function shortUrl(u){return u.replace(/^https?:\/\/(www\.)?/,"").replace(/\/$/,"");}
+function card(r){
+  return '<div class="rcard"><h3>'+esc(r.name)+"</h3>"+
+    "<p>"+esc(r.def)+"</p>"+
+    '<a class="visit" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.linkLabel||("Visit "+shortUrl(r.url)))+" →</a></div>";
+}
+var list = RESOURCES.filter(function(r){ return r.cat === "networks"; });
+document.getElementById("cards").innerHTML = list.map(card).join("");
+})();
+</script>
+</body>
+</html>
