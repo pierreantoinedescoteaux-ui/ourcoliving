@@ -119,7 +119,7 @@
 .lv3-mark{width:21px;height:21px;flex:none;display:block;}
 .lv3-mark svg{width:21px;height:21px;display:block;
   fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
-.lv3-desc{margin-top:6px;font-size:clamp(.95rem,.89rem + .18vw,1.1rem);line-height:1.42;color:var(--sw-ink-soft);
+.lv3-desc{margin-top:6px;font-family:var(--sw-font-body);font-size:clamp(.95rem,.89rem + .18vw,1.1rem);line-height:1.42;color:var(--sw-ink-soft);
   max-width:32ch;opacity:0;visibility:hidden;pointer-events:none;
   transform:translateY(-3px);transition:opacity .25s,transform .25s;
   text-shadow:0 0 8px rgba(248,233,207,.98),0 0 4px rgba(248,233,207,.92);}
@@ -212,6 +212,40 @@
 /* while the map is locked the engine's "scroll to climb" hint would lie */
 html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 
+/* ---------------------------------------------------------------------
+   IN-SCENE HOTSPOTS (Slice C) — every dwell (S2-S7) gets its drawn
+   features labelled in the map's own language: quiet anchored names,
+   hairline leaders with a cream halo, painterly hover lift, coloured by
+   the scene's category. Coordinates are normalised to each still's
+   1600x900 frame and projected through the engine's COVER fit
+   (object-fit:cover; object-position:center 42% — tower-engine.js).
+   Phones use the portrait -m crops with a different framing, so this
+   layer is desktop-only; the tag pills remain the phone interface.
+   --------------------------------------------------------------------- */
+.lv3s,.lv3s *{box-sizing:border-box;}
+.lv3s{position:fixed;inset:0;z-index:26;pointer-events:none;opacity:var(--st,0);visibility:hidden;}
+.lv3s.is-on{visibility:visible;}
+.lv3s.is-leaving{opacity:0 !important;transition:opacity .18s ease-in;}
+.lv3s a{color:inherit;text-decoration:none;}
+.lv3s.is-hot .lv3fx{opacity:1;}
+.lv3s.is-hot .lv3-halo{opacity:.34;}
+.lv3s.is-hot .lv3-halo.is-hot{opacity:.75;}
+.lv3s .lv3-label{max-width:min(30vw,300px);}
+.lv3s .lv3-name{font-size:clamp(.88rem,.8rem + .22vw,1.06rem);gap:7px;}
+.lv3s .lv3-name::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;
+  flex:none;box-shadow:0 0 0 3px rgba(248,233,207,.75);}
+.lv3s .lv3-desc{max-width:30ch;font-size:clamp(.9rem,.85rem + .15vw,1.02rem);}
+.lv3s:not(.is-on) .lv3-name,.lv3s:not(.is-on) .lv3-hit{pointer-events:none !important;}
+/* on desktop the anchored spots ARE the in-scene links — the engine's tag
+   pills stand down (page CSS is unlayered, engine CSS sits in @layer sw,
+   so this wins without touching tower-engine.js) */
+@media (min-width:861px){ #world .sw-copy__tags{display:none;} }
+/* phantom-link guard: the engine's CSS re-enables pointer-events on EVERY
+   copy's tags/CTA, including copies faded to 0 — so an invisible scene's pill
+   could sit on top of the visible one and eat the tap. Inherit the article's
+   own lit/dark pointer state (the engine already flips it per scroll). */
+#world .sw-copy__tags,#world .sw-copy__cta{pointer-events:inherit;}
+
 @media (max-width:980px){
   .lv3-hero{width:min(62vw,430px);}
   .lv3-plain{width:min(70vw,560px);}
@@ -219,6 +253,13 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 
 /* ---- phones ---- */
 @media (max-width:860px){
+  /* the -m crops reframe every scene — the traced desktop coords don't
+     apply, so the spot layer stands down and the pills stay the interface */
+  .lv3s{display:none;}
+  /* the pills carry the phone: readable (≥16px) and tappable (≥44px) */
+  #world .sw-copy__tags{gap:9px;}
+  #world .sw-copy__tags li{font-size:1rem;padding:0;}
+  #world .sw-copy__tags li a{padding:12px 16px;line-height:1.25;}
   html.lv3-map .sw-copylayer::before{
     width:100%;height:100%;top:0;
     background:linear-gradient(180deg,var(--sw-bg) 0%,
@@ -255,7 +296,7 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .lv3-row span{display:none;}
 }
 @media (prefers-reduced-motion:reduce){
-  .lv3,.lv3fx,.lv3-desc,#lv3veil,#lv3tourhint,.lv3-leader{transition:none;}
+  .lv3,.lv3fx,.lv3-desc,#lv3veil,#lv3tourhint,.lv3-leader,.lv3s{transition:none;}
   .lv3.is-nudge,.lv3-tour.is-pulse{animation:none;}
 }
 </style>
@@ -291,6 +332,12 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   </nav>
 </div>
 
+<div class="lv3s" id="lv3scenes">
+  <svg class="lv3fx" id="lv3sfx" aria-hidden="true" focusable="false"></svg>
+  <svg class="lv3lines" id="lv3slines" aria-hidden="true" focusable="false"></svg>
+  <div class="lv3-labels" id="lv3slabels"></div>
+</div>
+
 <div id="lv3veil"></div>
 <div id="lv3tourhint" role="status"></div>
 
@@ -306,14 +353,11 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
    --------------------------------------------------------------------- */
 var EMAIL = "mailto:pierreantoinedescoteaux@gmail.com";
 
-var WORLD = mountScrollWorld(document.getElementById('world'), {
-  nav: false,
-  atmosphere: false,
-  hint: 'or scroll to climb',
-  diveScroll: 1.5,
-  connScroll: 1.15,
-  crossfade: 0.16,
-  sections: [
+/* Scene copy: title = a message-header for what the space MEANS; body = ONE
+   concrete sentence of what is actually there. Tags are the PHONE interface
+   (desktop ≥861px hides them in favour of the anchored in-scene spots below)
+   and mirror the element mapping exactly. */
+var LV3_SECTIONS = [
     { id:'approach', label:'The map', accent:'#2f7d4f',
       still:'assets/tower/S1.webp', stillMobile:'assets/tower/S1-m.webp', clip:'assets/tower/vid/loop-s1.mp4', clipMobile:'assets/tower/vid/loop-s1-m.mp4',
       scroll: 1.7 },
@@ -321,42 +365,51 @@ var WORLD = mountScrollWorld(document.getElementById('world'), {
       still:'assets/tower/S2.webp', stillMobile:'assets/tower/S2-m.webp', clip:'assets/tower/vid/loop-s2.mp4', clipMobile:'assets/tower/vid/loop-s2-m.mp4',
       eyebrow:'The commons · where you come in',
       title:'Nobody is doing this alone.',
-      body:'A directory of the organizations, networks and gatherings already working on coliving — the ones worth your time, with the useful page linked, not just the homepage. And the fastest way to reach me. [edit]',
-      tags:[{label:'The resources directory', href:'resources.html'},{label:'Networks & movements', href:'resources.html#networks'},{label:'Say hello', href:EMAIL}] },
+      body:'The community of people building this, the networks and movements that connect them, and a long table with the fastest way to reach me. [edit]',
+      tags:[{label:'The community', href:'community.html'},{label:'Networks & movements', href:'networks.html'},{label:'Say hello', href:EMAIL}] },
     { id:'library', label:'The library', accent:'#2b8b8f',
       still:'assets/tower/S3.webp', stillMobile:'assets/tower/S3-m.webp', clip:'assets/tower/vid/loop-s3.mp4', clipMobile:'assets/tower/vid/loop-s3-m.mp4',
       eyebrow:'The library · what’s known',
-      title:'The reading, in one place.',
-      body:'What people have already worked out about living together: courses and how-to from the ones who have done it, the books that shaped how I think, and the designers I keep going back to. [edit]',
-      tags:[{label:'Learning & how-to', href:'resources.html#learning'},{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'}] },
+      title:'The library holds what’s known.',
+      body:'Books, designers, courses and reasons for hope — the reading on living together, gathered in one place. [edit]',
+      tags:[{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'},{label:'Visions of hope', href:'hope.html'},{label:'Learning & how-to', href:'resources.html#learning'}] },
     { id:'makers', label:'The workshop', accent:'#a8712c',
       still:'assets/tower/S4.webp', stillMobile:'assets/tower/S4-m.webp', clip:'assets/tower/vid/loop-s4.mp4', clipMobile:'assets/tower/vid/loop-s4-m.mp4',
       eyebrow:'The workshop · how it gets built',
-      title:'The part where it becomes a building.',
-      body:'Design for Connection — the concrete moves that make a place social instead of merely shared — and the twenty questions every coliving project ends up having to answer. [edit]',
-      tags:[{label:'Design for Connection', href:'design.html'},{label:'The twenty themes', href:'themes.html'}] },
+      title:'The workshop is where coliving gets built.',
+      body:'Tools and guides for making it real — Design for Connection, the twenty themes every project answers, and the how-to guides. [edit]',
+      tags:[{label:'Design for Connection', href:'design.html'},{label:'The twenty themes', href:'themes.html'},{label:'How-to guides', href:'how-to.html'}] },
     { id:'gardens', label:'The garden', accent:'#d08a2e',
       still:'assets/tower/S5.webp', stillMobile:'assets/tower/S5-m.webp', clip:'assets/tower/vid/loop-s5.mp4', clipMobile:'assets/tower/vid/loop-s5-m.mp4',
       eyebrow:'The garden · why do this at all',
-      title:'The hope, written down.',
-      body:'The manifesto: what I think our homes could be, and why I keep at it. My writings live here too — the arguments, still being argued. [edit]',
-      tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Writings', href:'talkpieces.html'}] },
+      title:'A manifesto for hope we cultivate.',
+      body:'The manifesto of what our homes could be, and the talk pieces — my writings — growing alongside it. [edit]',
+      tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Talk pieces — writings', href:'talkpieces.html'}] },
     { id:'homes', label:'The homes', accent:'#b3543e',
       still:'assets/tower/S6.webp', stillMobile:'assets/tower/S6-m.webp', clip:'assets/tower/vid/loop-s6.mp4', clipMobile:'assets/tower/vid/loop-s6-m.mp4',
       eyebrow:'The homes · who lives here',
       title:'Mine, for what it’s worth.',
-      body:'How I got here, the houses and projects I have actually run, and what I would do differently. If you want to know who is behind all this, it is this floor. [edit]',
-      tags:[{label:'My story', href:'story.html'},{label:'Work & case studies', href:'work.html'},{label:'About me', href:'about.html'}] },
+      body:'The story of how I got here, the houses and projects I have actually run, and who I am. [edit]',
+      tags:[{label:'My story', href:'story.html'},{label:'Work & experience', href:'work.html'},{label:'About me', href:'about.html'}] },
     { id:'lookout', label:'The summit', accent:'#3e7db0',
       still:'assets/tower/S7.webp', stillMobile:'assets/tower/S7-m.webp', clip:'assets/tower/vid/loop-s7.mp4', clipMobile:'assets/tower/vid/loop-s7-m.mp4',
       scroll: 1.8,
       eyebrow:'The summit · where this is happening',
-      title:'Coliving is not one thing, and it is already everywhere.',
-      body:'The map of real communities around the world, and the twelve shapes coliving takes — so you can find the one that fits where you actually are. [edit]',
-      tags:[{label:'The coliving map', href:'map.html'},{label:'The twelve models', href:'type.html?t=ecovillage'},{label:'Real communities', href:'projects.html'}],
+      title:'Coliving takes many shapes.',
+      body:'From the top you can see the whole landscape — the atlas of real communities, and every form this takes, from cohousing to ecovillage. [edit]',
+      tags:[{label:'The coliving atlas', href:'map.html'},{label:'The twelve models', href:'type.html'},{label:'Real communities', href:'projects.html'}],
       cta:{ primary:{label:'Open the coliving map', href:'map.html'},
             secondary:{label:'Say hello', href:EMAIL} } }
-  ],
+];
+
+var WORLD = mountScrollWorld(document.getElementById('world'), {
+  nav: false,
+  atmosphere: false,
+  hint: 'or scroll to climb',
+  diveScroll: 1.5,
+  connScroll: 1.15,
+  crossfade: 0.16,
+  sections: LV3_SECTIONS,
   connectors: [
     'assets/tower/vid/t12.mp4','assets/tower/vid/t23.mp4','assets/tower/vid/t34.mp4',
     'assets/tower/vid/t45.mp4','assets/tower/vid/t56.mp4','assets/tower/vid/t67.mp4'
@@ -414,7 +467,7 @@ var SPACES = [
     polys:[[[0.572,0.470],[0.578,0.418],[0.600,0.392],[0.640,0.386],[0.678,0.404],[0.700,0.448],[0.706,0.520],[0.686,0.572],[0.646,0.578],[0.606,0.540]],
            [[0.148,0.760],[0.160,0.686],[0.196,0.638],[0.252,0.612],[0.310,0.622],[0.330,0.672],[0.322,0.742],[0.276,0.800],[0.208,0.816],[0.164,0.796]]] },
 
-  { key:'commons', id:'commons', name:'The Commons', accent:'#3c6b32', href:'resources.html',
+  { key:'commons', id:'commons', name:'The Commons', accent:'#3c6b32', href:'networks.html',
     q:'Where do you come in?',
     desc:'The networks and organizations already doing this — and how to reach me.',
     anchor:[0.752,0.740], label:[0.700,0.918],
@@ -746,6 +799,7 @@ function syncMap(){
   map.classList.toggle('is-off', !on);
   document.documentElement.classList.toggle('lv3-map', on);
   if (!on) cool();
+  syncSpots();
 }
 
 var placeQueued = false;
@@ -764,6 +818,391 @@ if (location.search.indexOf('debug') > -1) {
     lines.appendChild(dot); sp.dot = dot;
   });
 }
+
+/* ---------------------------------------------------------------------
+   7b. IN-SCENE HOTSPOTS (Slice C). Every dwell (S2-S7) labels its drawn
+   features — 2-4 per scene — in the map's own visual language, and
+   clicking one NAVIGATES to the real page: a fast zoom toward the
+   feature + blur + cream veil, then location.href once covered (~0.5s).
+   Coordinates are normalised against each still's 1600x900 frame and
+   projected through the engine's COVER fit (object-fit:cover;
+   object-position:center 42% — tower-engine.js .sw-scene__still/__video).
+   Desktop-only; phones keep the tag pills (the -m crops reframe).
+   Names are ELEMENT-based, not page names. Copy marked [edit] is a draft
+   in P-A's register; the two unmarked lines are P-A's own words.
+   --------------------------------------------------------------------- */
+var CAT = { resources:'#2b8b8f', hope:'#d08a2e', me:'#3e7db0', overview:'#b3543e', connect:'#3c6b32' };
+
+var SCENE_SPOTS = [
+  { id:'commons', spots:[
+    { name:'The market stalls', href:'community.html', cat:CAT.connect,
+      line:'the community — a place for the people building this to actually talk to each other. [edit]',
+      anchor:[0.845,0.600], label:[0.795,0.470],
+      polys:[[[0.715,0.620],[0.725,0.565],[0.775,0.535],[0.845,0.530],[0.920,0.555],[0.955,0.600],[0.950,0.700],[0.870,0.745],[0.765,0.720]],
+             [[0.205,0.665],[0.210,0.600],[0.245,0.565],[0.320,0.575],[0.415,0.600],[0.420,0.665],[0.340,0.685],[0.250,0.685]]] },
+    { name:'The gateway', href:'networks.html', cat:CAT.connect,
+      line:'networks & movements — the organized ways into the wider coliving world. [edit]',
+      anchor:[0.586,0.550], label:[0.545,0.370],
+      polys:[[[0.535,0.705],[0.535,0.550],[0.550,0.485],[0.585,0.460],[0.622,0.485],[0.638,0.550],[0.638,0.705]]] },
+    { name:'The long table', href:EMAIL, cat:CAT.connect,
+      line:'a seat’s open — say hello. [edit]',
+      anchor:[0.300,0.790], label:[0.435,0.760],
+      polys:[[[0.130,0.900],[0.135,0.775],[0.175,0.715],[0.280,0.700],[0.385,0.735],[0.405,0.810],[0.375,0.900],[0.250,0.925]]] }
+  ]},
+  { id:'library', spots:[
+    { name:'The bookshelves', href:'inspiration.html', cat:CAT.resources,
+      line:'books of inspiration on everything coliving: designing communities, our cities, permaculture, and how we got here.',
+      anchor:[0.075,0.300], label:[0.130,0.235],
+      polys:[[[0.002,0.960],[0.005,0.020],[0.100,0.020],[0.095,0.320],[0.070,0.600],[0.062,0.960]],
+             [[0.105,0.175],[0.107,0.020],[0.375,0.020],[0.370,0.075],[0.250,0.120],[0.155,0.175]]] },
+    { name:'The painter', href:'designers.html', cat:CAT.resources,
+      line:'the designers I keep going back to, and why. [edit]',
+      anchor:[0.278,0.760], label:[0.350,0.800],
+      polys:[[[0.195,0.900],[0.200,0.745],[0.235,0.700],[0.290,0.700],[0.325,0.735],[0.330,0.800],[0.310,0.880],[0.250,0.915]]] },
+    { name:'The murals', href:'hope.html', cat:CAT.resources,
+      line:'the vision — what all this could become, and the reasons for hope. [edit]',
+      anchor:[0.795,0.450], label:[0.700,0.270],
+      polys:[[[0.737,0.545],[0.737,0.375],[0.758,0.355],[0.850,0.360],[0.858,0.540]],
+             [[0.888,0.560],[0.888,0.115],[0.912,0.065],[0.985,0.090],[0.990,0.560]]] },
+    { name:'The study tables', href:'resources.html#learning', cat:CAT.resources,
+      line:'courses and how-to from the people who have actually done it. [edit]',
+      anchor:[0.878,0.820], label:[0.755,0.660],
+      polys:[[[0.815,0.905],[0.820,0.775],[0.860,0.740],[0.935,0.755],[0.950,0.840],[0.935,0.910]],
+             [[0.155,0.470],[0.158,0.245],[0.200,0.185],[0.290,0.200],[0.305,0.280],[0.295,0.450],[0.225,0.490]]] }
+  ]},
+  { id:'makers', spots:[
+    { name:'The blueprint', href:'design.html', cat:CAT.resources,
+      line:'Design for Connection — the concrete moves that make a place social instead of merely shared. [edit]',
+      anchor:[0.185,0.270], label:[0.285,0.115],
+      polys:[[[0.104,0.425],[0.104,0.135],[0.130,0.100],[0.255,0.105],[0.268,0.145],[0.265,0.410],[0.185,0.440]]] },
+    { name:'The model city', href:'themes.html', cat:CAT.resources,
+      line:'the twenty themes every coliving project ends up having to answer. [edit]',
+      anchor:[0.430,0.600], label:[0.530,0.330],
+      polys:[[[0.275,0.790],[0.290,0.600],[0.330,0.455],[0.375,0.345],[0.400,0.325],[0.440,0.390],[0.500,0.470],[0.575,0.550],[0.640,0.615],[0.660,0.710],[0.640,0.815],[0.545,0.875],[0.420,0.885],[0.315,0.850]]] },
+    { name:'The tool walls', href:'how-to.html', cat:CAT.resources,
+      line:'how-to guides — finding land, choosing a legal structure, running the first year. [edit]',
+      anchor:[0.933,0.270], label:[0.775,0.140],
+      polys:[[[0.874,0.470],[0.876,0.115],[0.910,0.070],[0.993,0.085],[0.993,0.460]]] }
+  ]},
+  { id:'gardens', spots:[
+    { name:'The gardens', href:'manifesto.html', cat:CAT.hope,
+      line:'a manifesto for hope we cultivate.',
+      anchor:[0.705,0.800], label:[0.575,0.540],
+      polys:[[[0.575,0.975],[0.585,0.735],[0.625,0.615],[0.695,0.585],[0.770,0.615],[0.815,0.710],[0.820,0.890],[0.755,0.975]],
+             [[0.830,0.760],[0.835,0.310],[0.868,0.245],[0.935,0.270],[0.952,0.550],[0.940,0.765]]] },
+    { name:'The waterworks', href:'talkpieces.html', cat:CAT.hope,
+      line:'the talk pieces — my writings, the arguments still being argued. [edit]',
+      anchor:[0.452,0.300], label:[0.517,0.140],
+      polys:[[[0.362,0.950],[0.370,0.030],[0.500,0.030],[0.505,0.280],[0.555,0.330],[0.565,0.600],[0.545,0.850],[0.470,0.950]]] }
+  ]},
+  { id:'homes', spots:[
+    { name:'The couch', href:'story.html', cat:CAT.me,
+      line:'my story — how I got from there to here. [edit]',
+      anchor:[0.462,0.585], label:[0.200,0.800],
+      polys:[[[0.398,0.685],[0.402,0.565],[0.430,0.510],[0.495,0.500],[0.525,0.550],[0.525,0.645],[0.470,0.690]]] },
+    { name:'The desk', href:'work.html', cat:CAT.me,
+      line:'the work — houses and projects I have actually run. [edit]',
+      anchor:[0.552,0.735], label:[0.720,0.860],
+      polys:[[[0.478,0.835],[0.483,0.710],[0.525,0.655],[0.600,0.660],[0.637,0.705],[0.632,0.795],[0.550,0.845]]] },
+    { name:'The balcony', href:'about.html', cat:CAT.me,
+      line:'about me — who is behind all this, in one page. [edit]',
+      anchor:[0.567,0.440], label:[0.700,0.240],
+      polys:[[[0.523,0.535],[0.523,0.360],[0.545,0.265],[0.600,0.245],[0.648,0.275],[0.652,0.430],[0.620,0.515],[0.565,0.550]]] }
+  ]},
+  { id:'lookout', spots:[
+    { name:'The telescope', href:'map.html', cat:CAT.overview,
+      line:'the coliving atlas — real communities around the world, mapped. [edit]',
+      anchor:[0.490,0.815], label:[0.545,0.895],
+      polys:[[[0.452,0.905],[0.455,0.815],[0.468,0.765],[0.505,0.752],[0.528,0.792],[0.522,0.870],[0.490,0.908]]] },
+    { name:'The villages', href:'type.html', cat:CAT.overview,
+      line:'the field guide — the twelve shapes coliving takes, from cohousing to ecovillage. [edit]',
+      anchor:[0.330,0.585], label:[0.440,0.680],
+      polys:[[[0.115,0.505],[0.120,0.365],[0.155,0.325],[0.235,0.330],[0.262,0.385],[0.255,0.470],[0.190,0.515]],
+             [[0.253,0.650],[0.258,0.545],[0.300,0.515],[0.390,0.530],[0.415,0.585],[0.400,0.655],[0.315,0.665]],
+             [[0.472,0.525],[0.478,0.435],[0.530,0.400],[0.628,0.415],[0.655,0.470],[0.640,0.525],[0.545,0.535]]] },
+    { name:'The half-built one', href:'projects.html', cat:CAT.overview,
+      line:'real communities — the projects that inspire me, finished or not. [edit]',
+      anchor:[0.394,0.725], label:[0.470,0.790],
+      polys:[[[0.335,0.800],[0.340,0.705],[0.362,0.665],[0.430,0.660],[0.457,0.700],[0.450,0.785],[0.390,0.805]]] }
+  ]}
+];
+
+var slayer = document.getElementById('lv3scenes');
+var sfx = document.getElementById('lv3sfx');
+var slines = document.getElementById('lv3slines');
+var slabelHost = document.getElementById('lv3slabels');
+
+sfx.innerHTML =
+  '<defs>' +
+    '<filter id="lv3sfeather" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">' +
+      '<feGaussianBlur stdDeviation="18"/></filter>' +
+    '<mask id="lv3smaskOut" maskUnits="userSpaceOnUse">' +
+      '<rect id="lv3soutbg" fill="#fff"/><path id="lv3shole" fill="#000" filter="url(#lv3sfeather)"/></mask>' +
+    '<mask id="lv3smaskIn" maskUnits="userSpaceOnUse">' +
+      '<rect id="lv3sinbg" fill="#000"/><path id="lv3sfill" fill="#fff" filter="url(#lv3sfeather)"/></mask>' +
+  '</defs>' +
+  '<rect id="lv3sdim" class="lv3-dim" mask="url(#lv3smaskOut)" opacity=".26"/>' +
+  '<rect id="lv3slift" class="lv3-lift" mask="url(#lv3smaskIn)" opacity=".18"/>';
+
+var sHole = sfx.querySelector('#lv3shole'), sFill = sfx.querySelector('#lv3sfill');
+var sDim = sfx.querySelector('#lv3sdim'), sLift = sfx.querySelector('#lv3slift');
+var sOutBg = sfx.querySelector('#lv3soutbg'), sInBg = sfx.querySelector('#lv3sinbg');
+var sceneDebug = location.search.indexOf('debug') > -1;
+if (sceneDebug) slines.classList.add('debug');
+
+SCENE_SPOTS.forEach(function(g){
+  g.index = WORLD.indexOf(g.id);
+  g.svg = document.createElementNS(NS, 'g');
+  g.svg.style.display = 'none';
+  slines.appendChild(g.svg);
+  g.host = document.createElement('div');
+  g.host.style.display = 'none';
+  slabelHost.appendChild(g.host);
+
+  g.spots.forEach(function(sp){
+    var hit = document.createElementNS(NS, 'path');
+    hit.setAttribute('class', 'lv3-hit');
+    g.svg.appendChild(hit); sp.hit = hit;
+    var halo = document.createElementNS(NS, 'polyline');
+    halo.setAttribute('class', 'lv3-halo');
+    g.svg.appendChild(halo); sp.halo = halo;
+    var leader = document.createElementNS(NS, 'polyline');
+    leader.setAttribute('class', 'lv3-leader');
+    leader.style.setProperty('--rc', sp.cat);
+    g.svg.appendChild(leader); sp.leader = leader;
+    if (sceneDebug){
+      var dot = document.createElementNS(NS, 'circle');
+      dot.setAttribute('class', 'lv3-anchor'); dot.setAttribute('r', 5);
+      g.svg.appendChild(dot); sp.dot = dot;
+    }
+
+    /* a real link — middle/ctrl-click opens the page in a new tab natively */
+    var a = document.createElement('a');
+    a.className = 'lv3-label';
+    a.href = sp.href;
+    a.style.setProperty('--rc', sp.cat);
+    a.innerHTML = '<span class="lv3-name">' + sp.name + '</span>' +
+      '<span class="lv3-desc">' + sp.line + '</span>';
+    g.host.appendChild(a);
+    sp.el = a; sp.nameEl = a.querySelector('.lv3-name');
+
+    a.addEventListener('mouseenter', function(){ sHot(g, sp); });
+    a.addEventListener('mouseleave', sCool);
+    a.addEventListener('focus', function(){ sHot(g, sp); });
+    a.addEventListener('blur', sCool);
+    a.addEventListener('click', function(e){ onSpot(e, g, sp); });
+    hit.addEventListener('mouseenter', function(){ sHot(g, sp); });
+    hit.addEventListener('mouseleave', sCool);
+    hit.addEventListener('click', function(e){ onSpot(e, g, sp); });
+  });
+});
+
+/* the scene's picture is drawn COVER-fit; project through the media element's
+   actual rendered box (getBoundingClientRect absorbs the engine's poster
+   push-transform, so anchors stay glued whether the clip has loaded or not) */
+function sceneMedia(index){
+  /* dives sit at even slots of the segment chain (every connector exists here) */
+  var scene = WORLD.stage.querySelectorAll('.sw-scene')[index * 2];
+  if (!scene) return null;
+  return scene.classList.contains('has-clip')
+    ? scene.querySelector('.sw-scene__video')
+    : scene.querySelector('.sw-scene__still');
+}
+function sceneFrame(index){
+  var mel = sceneMedia(index);
+  if (!mel) return { x:0, y:0, w:window.innerWidth, h:window.innerHeight };
+  var r = mel.getBoundingClientRect();
+  var k = Math.max(r.width / IMG_W, r.height / IMG_H);
+  var w = IMG_W * k, h = IMG_H * k;
+  return { x: r.left + (r.width - w) * 0.5, y: r.top + (r.height - h) * 0.42, w: w, h: h };
+}
+function spathFor(sp, f){
+  return sp.polys.map(function(poly){
+    return 'M' + poly.map(function(p){
+      return (f.x + p[0] * f.w).toFixed(1) + ',' + (f.y + p[1] * f.h).toFixed(1);
+    }).join('L') + 'Z';
+  }).join(' ');
+}
+
+var sCurSpot = null, sceneOn = null, departing = false;
+
+function sHot(g, sp){
+  if (sCurSpot === sp) return;
+  sCool();
+  sCurSpot = sp;
+  var d = spathFor(sp, sceneFrame(g.index));
+  sHole.setAttribute('d', d); sFill.setAttribute('d', d);
+  slayer.classList.add('is-hot');
+  sp.el.classList.add('is-hot');
+  sp.leader.classList.add('is-hot');
+  sp.halo.classList.add('is-hot');
+}
+function sCool(){
+  if (!sCurSpot) return;
+  sCurSpot.el.classList.remove('is-hot');
+  sCurSpot.leader.classList.remove('is-hot');
+  sCurSpot.halo.classList.remove('is-hot');
+  slayer.classList.remove('is-hot');
+  sCurSpot = null;
+}
+
+function placeSpots(g){
+  var vw = window.innerWidth, vh = window.innerHeight;
+  [sfx, slines].forEach(function(s){
+    s.setAttribute('viewBox', '0 0 ' + vw + ' ' + vh);
+    s.setAttribute('width', vw); s.setAttribute('height', vh);
+  });
+  [sOutBg, sInBg, sDim, sLift].forEach(function(r){
+    r.setAttribute('x', 0); r.setAttribute('y', 0);
+    r.setAttribute('width', vw); r.setAttribute('height', vh);
+  });
+  var f = sceneFrame(g.index);
+  if (sCurSpot){ var dd = spathFor(sCurSpot, f); sHole.setAttribute('d', dd); sFill.setAttribute('d', dd); }
+
+  var vis = {
+    x0: Math.max(0, -f.x / f.w), x1: Math.min(1, (vw - f.x) / f.w),
+    y0: Math.max(0, -f.y / f.h), y1: Math.min(1, (vh - f.y) / f.h)
+  };
+  var padTop = 74, padSide = 18, padRight = 62, padBottom = 16;
+
+  /* stay clear of the engine's overlay copy (left) + the nav + each other */
+  var blockers = [];
+  var copyEl = document.querySelectorAll('#world .sw-copy')[g.index];
+  [copyEl, document.querySelector('.snav')].forEach(function(el){
+    if (!el) return;
+    var rr = el.getBoundingClientRect();
+    var op = parseFloat(getComputedStyle(el).opacity);
+    if (rr.width && rr.height && (isNaN(op) || op > 0.05)) blockers.push(rr);
+  });
+  function overlaps(bx, by, bw, bh, r){ return !(bx + bw <= r.left || bx >= r.right || by + bh <= r.top || by >= r.bottom); }
+
+  g.spots.forEach(function(sp){
+    sp.hit.setAttribute('d', spathFor(sp, f));
+
+    var want = { x: f.x + sp.label[0] * f.w, y: f.y + sp.label[1] * f.h };
+    var box = sp.el.getBoundingClientRect();
+    var w = box.width || 150, nameH = sp.nameEl.getBoundingClientRect().height || 19;
+    var lw = w, lh = box.height || (nameH + 6);
+    var minX = Math.max(padSide, f.x + vis.x0 * f.w + 8);
+    var maxX = Math.min(vw - padRight - w, f.x + vis.x1 * f.w - w - 8);
+    var minY = Math.max(padTop, f.y + vis.y0 * f.h + 8);
+    var maxY = vh - padBottom - nameH - 26;
+    var x = Math.min(Math.max(want.x, minX), Math.max(minX, maxX));
+    var y = Math.min(Math.max(want.y, minY), Math.max(minY, maxY));
+    blockers.forEach(function(r){
+      if (!overlaps(x, y, lw, lh, r)) return;
+      var below = r.bottom + 10, above = r.top - lh - 10, right = r.right + 10;
+      if (below <= maxY) y = below;
+      else if (above >= minY) y = above;
+      else if (right <= Math.max(minX, maxX)) x = right;
+    });
+    sp.el.style.left = x + 'px';
+    sp.el.style.top = y + 'px';
+    blockers.push({ left:x, top:y, right:x + lw, bottom:y + lh });
+
+    var nw = sp.nameEl.getBoundingClientRect().width || w;
+    var uy = y + nameH + 3;
+    var ax = f.x + sp.anchor[0] * f.w, ay = f.y + sp.anchor[1] * f.h;
+    var leftEnd = x, rightEnd = x + nw;
+    var near = (ax < (leftEnd + rightEnd) / 2) ? leftEnd : rightEnd;
+    var far = (near === leftEnd) ? rightEnd : leftEnd;
+    var pts = far.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
+      near.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
+      ax.toFixed(1) + ',' + ay.toFixed(1);
+    sp.leader.setAttribute('points', pts);
+    sp.halo.setAttribute('points', pts);
+    if (sp.dot){ sp.dot.setAttribute('cx', ax); sp.dot.setAttribute('cy', ay); }
+  });
+}
+
+function showGroup(g){
+  if (sceneOn === g) return;
+  if (sceneOn){ sceneOn.svg.style.display = 'none'; sceneOn.host.style.display = 'none'; }
+  sCool();
+  sceneOn = g || null;
+  if (g){ g.svg.style.display = ''; g.host.style.display = ''; }
+}
+
+/* spots are live only while their scene is the CURRENT DWELL — same scroll
+   geometry the engine uses for its copy (dwellCenter ± half the dwell width) */
+function syncSpots(){
+  var act = null;
+  if (!isPhone() && !travelling && !departing){
+    var y = window.scrollY || 0, vh = window.innerHeight;
+    for (var i = 0; i < SCENE_SPOTS.length; i++){
+      var g = SCENE_SPOTS[i];
+      if (g.index < 0) continue;
+      var c = WORLD.dwellCenter(g.index);
+      var half = ((LV3_SECTIONS[g.index].scroll || 1.5) * vh) / 2;
+      var d = Math.abs(y - c);
+      if (d < half){
+        act = { g:g, t: d <= half * 0.42 ? 1 : 1 - (d - half * 0.42) / (half * 0.58) };
+        break;
+      }
+    }
+  }
+  if (!act || act.t <= 0.02){
+    slayer.classList.remove('is-on');
+    slayer.style.setProperty('--st', 0);
+    showGroup(null);
+    return;
+  }
+  showGroup(act.g);
+  slayer.style.setProperty('--st', act.t.toFixed(3));
+  slayer.classList.add('is-on');
+  placeSpots(act.g);
+  /* the engine paints copy opacity in ITS OWN rAF (queued on the same scroll
+     event), so the pass above can see a still-dark copy and skip the collision
+     nudge — re-place one frame later, after the engine's read() has painted */
+  queueSpotPlace();
+}
+var spotPlaceQueued = false;
+function queueSpotPlace(){
+  if (spotPlaceQueued) return;
+  spotPlaceQueued = true;
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      spotPlaceQueued = false;
+      if (sceneOn) placeSpots(sceneOn);
+    });
+  });
+}
+
+/* the departure: fast zoom toward the element + blur, veil covers, then a
+   REAL page load. Modifier clicks fall through to the native link. */
+function onSpot(e, g, sp){
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
+  e.preventDefault();
+  depart(g, sp);
+}
+function depart(g, sp){
+  if (travelling || departing) return;
+  if (reduced){ location.href = sp.href; return; }
+  departing = true;
+  var f = sceneFrame(g.index);
+  var ax = f.x + sp.anchor[0] * f.w, ay = f.y + sp.anchor[1] * f.h;
+  veil.style.setProperty('--vc', sp.cat);
+  var stage = WORLD.stage;
+  stage.style.transformOrigin = ax + 'px ' + ay + 'px';
+  stage.style.transition = 'transform .52s cubic-bezier(.55,.05,.85,.5), filter .52s ease-in';
+  stage.style.transform = 'scale(2.6)';
+  stage.style.filter = 'blur(13px)';
+  slayer.classList.add('is-leaving');
+  sCool();
+  setTimeout(function(){ veil.classList.add('on'); }, 130);
+  setTimeout(function(){ location.href = sp.href; }, 520);
+}
+/* back-nav from a bfcache restore would resurrect the frozen zoom — reset */
+window.addEventListener('pageshow', function(e){
+  if (!e.persisted) return;
+  departing = false;
+  veil.classList.remove('on');
+  slayer.classList.remove('is-leaving');
+  var stage = WORLD.stage;
+  stage.style.transition = 'none'; stage.style.transform = '';
+  stage.style.filter = ''; stage.style.transformOrigin = '';
+  syncMap();
+});
 
 /* ---------------------------------------------------------------------
    8. Input control — page-side (the engine has no scroll-lock API, and its
