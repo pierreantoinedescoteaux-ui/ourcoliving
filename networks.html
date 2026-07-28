@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="m-resources">
+<html lang="en" class="m-networks">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Resources directory — Our Coliving</title>
+<title>Networks &amp; movements — Our Coliving</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
 <style>
-/* RESOURCES DIRECTORY v1 — a directory of directories. Young page,
-   grows over time (seed content in resources-data.js). */
+/* NETWORKS & MOVEMENTS v1 — a curated slice of resources-data.js
+   (cat:'networks'), rendered in resources.html's card grammar. The
+   wider movement this site is part of, humbly pointed at. */
 :root{
   --paper:#f6f2e7;--card:#fffdf8;
   --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#93a08d;
@@ -16,7 +17,7 @@
   --sky-wash:#e3eff3;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
   --line:rgba(34,48,31,.14);
   --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
-  --max:980px;--gutter:clamp(20px,5vw,88px);--r:24px;
+  --max:900px;--gutter:clamp(20px,5vw,88px);--r:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:clip}
@@ -30,29 +31,18 @@ a{color:inherit;text-decoration:none}
 .eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
 .head{padding:clamp(50px,8vh,90px) 0 clamp(10px,2vh,18px)}
 h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px}
-.lede{color:var(--ink-soft);max-width:56ch;font-size:clamp(1rem,1.3vw,1.15rem)}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin:clamp(26px,4vh,40px) 0 clamp(20px,3vh,30px)}
-.filters button{border:1.5px solid rgba(34,48,31,.25);background:transparent;border-radius:99px;padding:9px 18px;
-  font-family:var(--grotesk);font-size:.8rem;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:all .25s}
-.filters button:hover{border-color:var(--green-deep);color:var(--green-deep)}
-.filters button.onf{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
-.cards{display:grid;gap:16px;padding-bottom:clamp(30px,5vh,50px)}
+.lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
+.edit{opacity:.36;font-size:.5em;vertical-align:.4em;letter-spacing:.04em}
+.cards{display:grid;gap:16px;padding:clamp(28px,4vh,44px) 0 clamp(30px,5vh,50px)}
 .rcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3vw,34px);transition:border-color .3s,box-shadow .3s}
 .rcard:hover{border-color:var(--green);box-shadow:0 18px 44px -22px rgba(34,48,31,.3)}
 .rcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.15;margin-bottom:8px}
-.rcard .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.rcard .tag{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);background:#eef2e2;border-radius:99px;padding:4px 11px}
 .rcard p{font-size:.95rem;color:var(--ink-soft)}
 .rcard .visit{display:inline-block;margin-top:14px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px}
 .rcard .visit:hover{opacity:.75}
 .young{border:1.5px dashed rgba(34,48,31,.25);border-radius:var(--r);padding:22px 26px;color:var(--ink-faint);font-size:.9rem;text-align:center;margin-bottom:clamp(40px,6vh,70px)}
-.rcat{margin-bottom:clamp(36px,5.5vh,56px)}
-.rcat .cathead{margin-bottom:clamp(16px,2.5vh,24px)}
-.rcat .cathead h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:6px}
-.rcat .cathead .catline{font-size:.92rem;color:var(--ink-faint);font-style:italic}
 @media(max-width:760px){
-  .rcat .cathead h2{font-size:1.4rem}
-  .rcat .cathead .catline{font-size:.95rem}
+  .cards{gap:14px}
 }
 </style>
 <link rel="stylesheet" href="mobile.css">
@@ -62,14 +52,14 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
 <div data-sitenav></div>
 
 <header class="head wrap">
-  <span class="eyebrow">Coliving Atlas · resources</span>
-  <h1>The people who already mapped it.</h1>
-  <p class="lede">You don’t need this site to reinvent the wheel — brilliant organizations have spent decades mapping communities, know-how and people. This directory points you straight to them.</p>
+  <span class="eyebrow">Coliving Atlas · networks &amp; movements</span>
+  <h1>The wider movement this site is part of. <span class="edit">[edit]</span></h1>
+  <p class="lede">This isn't a solo project. People have been organizing around coliving, cohousing and intentional community for decades — associations, gatherings, pop-up villages. Here are the ones worth knowing. <span class="edit">[edit]</span></p>
 </header>
 
 <main class="wrap">
-  <div id="cats"></div>
-  <div class="young">This directory is young — it grows as the territory does. Know a resource that belongs here? <a href="mailto:pierreantoinedescoteaux@gmail.com" style="color:var(--green-deep);font-weight:600">Tell me →</a></div>
+  <div class="cards" id="cards"></div>
+  <div class="young">This list is young — it grows as the territory does. Know a network that belongs here? <a href="mailto:pierreantoinedescoteaux@gmail.com" style="color:var(--green-deep);font-weight:600">Tell me →</a></div>
 </main>
 
 <script src="resources-data.js"></script>
@@ -84,28 +74,8 @@ function card(r){
     "<p>"+esc(r.def)+"</p>"+
     '<a class="visit" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.linkLabel||("Visit "+shortUrl(r.url)))+" →</a></div>";
 }
-document.getElementById("cats").innerHTML = RESOURCE_CATS.map(function(cat){
-  var list = RESOURCES.filter(function(r){ return r.cat === cat.key; });
-  if(!list.length) return "";
-  /* id = the category key, so the landing can send people straight to
-     "networks & movements" or "learning & how-to" */
-  return '<section class="rcat" id="'+esc(cat.key)+'">'+
-    '<div class="cathead"><h2>'+esc(cat.name)+'</h2><p class="catline">'+esc(cat.line)+'</p></div>'+
-    '<div class="cards">'+list.map(card).join("")+'</div>'+
-  '</section>';
-}).join("");
-
-/* the cards render after the browser has already resolved the hash, so
-   #maps / #networks / #learning have to be walked to by hand */
-if (location.hash.length > 1) {
-  var target = document.getElementById(location.hash.slice(1));
-  if (target) setTimeout(function(){
-    target.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "start"
-    });
-  }, 80);
-}
+var list = RESOURCES.filter(function(r){ return r.cat === "networks"; });
+document.getElementById("cards").innerHTML = list.map(card).join("");
 })();
 </script>
 </body>

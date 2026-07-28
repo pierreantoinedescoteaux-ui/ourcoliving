@@ -6,6 +6,10 @@
    movements / learning & how-to) + 6 new entries (Agartha + 5 peers,
    links curl-verified live). Each entry links the SPECIFIC useful
    subpage, not just the homepage, when a deeper page is the value.
+   v3 (2026-07-28): GEN + FIC also appear under networks (cat:'networks',
+   separate entries from their maps-category listing above) — feeds the
+   new networks.html "Networks & movements" page. Same organizations,
+   framed here as the people/movement, not the directory.
    ===================================================================== */
 
 const RESOURCE_CATS = [
@@ -62,6 +66,18 @@ const RESOURCES = [
     url: "https://cohousing.org.uk/members-directory/",
     linkLabel: "Open the members directory",
     def: "The UK's national cohousing body — a directory of UK groups plus a short course for people seriously considering starting or joining one. A good complement to the US- and Europe-heavy directories above."
+  },
+  {
+    name: "GEN — Global Ecovillage Network",
+    cat: "networks",
+    url: "https://ecovillage.org",
+    def: "Also the closest thing this movement has to a governing body — regional chapters, a members' assembly and Ecovillage Design Education convene ecovillagers across every continent, not just list them. If you want to find your people, not just find a place, this is where they gather."
+  },
+  {
+    name: "FIC — Foundation for Intentional Community",
+    cat: "networks",
+    url: "https://www.ic.org/",
+    def: "Beyond its directory, FIC is a working membership organization — conferences, a bookstore, classifieds and consultants that have kept the wider intentional-communities movement connected for decades. The people, not just the map."
   },
 
   /* ---- learning & how-to ---- */
