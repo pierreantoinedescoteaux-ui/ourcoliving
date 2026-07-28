@@ -87,11 +87,25 @@ function card(r){
 document.getElementById("cats").innerHTML = RESOURCE_CATS.map(function(cat){
   var list = RESOURCES.filter(function(r){ return r.cat === cat.key; });
   if(!list.length) return "";
-  return '<section class="rcat">'+
+  /* id = the category key, so the landing can send people straight to
+     "networks & movements" or "learning & how-to" */
+  return '<section class="rcat" id="'+esc(cat.key)+'">'+
     '<div class="cathead"><h2>'+esc(cat.name)+'</h2><p class="catline">'+esc(cat.line)+'</p></div>'+
     '<div class="cards">'+list.map(card).join("")+'</div>'+
   '</section>';
 }).join("");
+
+/* the cards render after the browser has already resolved the hash, so
+   #maps / #networks / #learning have to be walked to by hand */
+if (location.hash.length > 1) {
+  var target = document.getElementById(location.hash.slice(1));
+  if (target) setTimeout(function(){
+    target.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "start"
+    });
+  }, 80);
+}
 })();
 </script>
 </body>

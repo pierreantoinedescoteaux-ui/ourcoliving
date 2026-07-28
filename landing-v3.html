@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Our coliving — Pierre-Antoine Descoteaux</title>
+<meta name="description" content="Everything I've gathered about living closer together: a directory of coliving resources, a manifesto of what I still hope for, and the work I've actually done. Six spaces — pick the one you need.">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/world/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/world/favicon-32.png">
+<meta property="og:title" content="Our coliving — Pierre-Antoine Descoteaux">
+<meta property="og:description" content="Everything I've gathered about living closer together: a directory of coliving resources, a manifesto of what I still hope for, and the work I've actually done.">
+<meta property="og:image" content="https://ourcoliving.xyz/assets/world/og-tower.jpg">
+<meta property="og:url" content="https://ourcoliving.xyz/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   LANDING v3 — the map and the scenes are ONE page.
+   index.html's scroll-world is the substrate: S1's dwell becomes MAP MODE
+   (the ambient loop, full-screen, with the six spaces labelled on top).
+   Clicking a space zooms + blurs INTO that scene's dwell — same page, same
+   world, no page load. Scrolling still climbs the tower the long way.
+   Spec: LANDING-V3-BRIEF.md. Copy marked [edit] is a draft in P-A's
+   register, waiting on his voice pass.
+   ===================================================================== */
+  :root, .sw-root{
+    --sw-bg:#F8E9CF;            /* the stills' cream field — seams disappear into it */
+    --sw-ink:#22301f;
+    --sw-ink-soft:#5c6b57;
+    --sw-accent:#3c6b32;
+    --sw-font-display:'Zodiak',Georgia,serif;
+    --sw-font-body:'Switzer',system-ui,sans-serif;
+  }
+  html,body{margin:0;background:var(--sw-bg);}
+  /* the shared site nav rides above the engine's fixed layers */
+  .snav{position:fixed !important;left:0;right:0;top:0;}
+  #world{position:relative;}
+  /* engine scrollbar sits just under the nav */
+  .sw-scrollbar{top:0 !important;}
+  .sw-copy__title{font-weight:400;}
+  .sw-copy__eyebrow{letter-spacing:.22em;}
+  /* section 1 IS the map — its copy is rendered by the overlay below */
+  .sw-copylayer .sw-copy:first-child{display:none;}
+  /* In map mode the engine's left copy-scrim would wash out half the map.
+     Swap it for a soft top-left wash that only backs the hero. */
+  html.lv3-map .sw-copylayer::before{
+    width:min(52vw,660px);height:min(74vh,620px);top:0;
+    background:linear-gradient(155deg,var(--sw-bg) 0%,
+      color-mix(in srgb,var(--sw-bg) 74%,transparent) 32%,
+      color-mix(in srgb,var(--sw-bg) 30%,transparent) 62%,transparent 88%);
+  }
+
+/* ---------------------------------------------------------------------
+   MAP MODE
+   --------------------------------------------------------------------- */
+.lv3,.lv3 *{box-sizing:border-box;}
+.lv3{position:fixed;inset:0;z-index:32;pointer-events:none;
+  opacity:var(--mapt,1);transition:opacity .18s linear;}
+.lv3.is-off{visibility:hidden;}
+.lv3.is-leaving{opacity:0 !important;transition:opacity .3s ease-in;}
+.lv3 a{color:inherit;text-decoration:none;}
+
+/* painterly highlight: everything outside the space is dimmed + muted,
+   the space itself gets a soft lift. Both edges feathered — no polygon
+   fills, no strokes. */
+.lv3fx,.lv3lines{position:absolute;inset:0;width:100%;height:100%;}
+.lv3fx{opacity:0;transition:opacity .34s ease;}
+.lv3.is-hot .lv3fx{opacity:1;}
+.lv3-dim{fill:#4a4126;}
+.lv3-lift{fill:#fff7e6;}
+
+/* leader lines: hairline under the name, bending to the part of the
+   picture that space actually is. Visible before any interaction. */
+.lv3-halo{fill:none;stroke:#F8E9CF;stroke-width:3.4;stroke-linejoin:round;stroke-linecap:round;
+  opacity:.55;transition:opacity .25s;}
+.lv3.is-hot .lv3-halo{opacity:.34;}
+.lv3.is-hot .lv3-halo.is-hot{opacity:.75;}
+.lv3-leader{fill:none;stroke:#22301f;stroke-width:1;stroke-linejoin:round;
+  stroke-linecap:round;opacity:.62;transition:stroke .25s,opacity .25s,stroke-width .25s;
+  vector-effect:non-scaling-stroke;}
+.lv3-leader.is-hot{stroke:var(--rc);opacity:1;stroke-width:1.4;}
+.lv3-hit{fill:transparent;stroke:none;pointer-events:fill;cursor:pointer;}
+/* ?debug — shows the traced regions and their anchor points, so the shapes can
+   be re-calibrated by hand against S1.webp (same trick as landing-v2) */
+.lv3lines.debug .lv3-hit{fill:#f0f;fill-opacity:.16;stroke:#f0f;stroke-width:2;}
+.lv3lines.debug .lv3-anchor{fill:#f0f;}
+
+/* the labels */
+.lv3-labels{position:absolute;inset:0;}
+/* only the name row (and the description once it is up) is a target — the
+   label's empty box must never sit in front of the hero or the tour button */
+.lv3-label{position:absolute;pointer-events:none;cursor:pointer;display:block;
+  max-width:min(34vw,260px);}
+.lv3-label:focus{outline:none;}
+.lv3-name{pointer-events:auto;display:flex;align-items:center;gap:7px;white-space:nowrap;
+  width:max-content;max-width:100%;
+  font-family:var(--sw-font-body);font-weight:600;font-size:clamp(.86rem,1.05vw,1rem);
+  letter-spacing:.005em;color:#22301f;transition:color .25s;
+  /* a whisper of the paper behind the ink keeps it legible over the drawing */
+  text-shadow:0 0 7px rgba(248,233,207,.95),0 0 16px rgba(248,233,207,.8);}
+.lv3-mark{width:19px;height:19px;flex:none;display:block;}
+.lv3-mark svg{width:19px;height:19px;display:block;
+  fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+.lv3-desc{margin-top:5px;font-size:.76rem;line-height:1.35;color:var(--sw-ink-soft);
+  max-width:24ch;opacity:0;visibility:hidden;pointer-events:none;
+  transform:translateY(-3px);transition:opacity .25s,transform .25s;
+  text-shadow:0 0 7px rgba(248,233,207,.95);}
+.lv3-label.is-hot .lv3-name{color:var(--rc);}
+.lv3-label.is-hot .lv3-desc{opacity:1;visibility:visible;transform:none;}
+.lv3-label:focus-visible .lv3-name{color:var(--rc);
+  outline:2px solid var(--rc);outline-offset:5px;border-radius:3px;}
+
+/* the hero */
+.lv3-hero{position:absolute;left:clamp(18px,5vw,64px);top:clamp(78px,10vh,116px);
+  width:min(46vw,470px);pointer-events:auto;}
+.lv3-eyebrow{display:block;font-size:.68rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:#8a6a2f;}
+.lv3-hero h1{font-family:var(--sw-font-display);font-weight:300;
+  font-size:clamp(1.6rem,3.1vw,2.7rem);line-height:1.1;letter-spacing:-.014em;
+  margin:13px 0 0;color:var(--sw-ink);
+  text-shadow:0 2px 18px rgba(248,233,207,.85);}
+.lv3-hero .lede{margin:15px 0 0;font-size:clamp(.94rem,1.1vw,1.06rem);line-height:1.55;
+  color:color-mix(in srgb,var(--sw-ink) 80%,var(--sw-ink-soft));
+  text-shadow:0 1px 12px rgba(248,233,207,.9);}
+.edit{opacity:.36;font-size:.5em;vertical-align:.4em;letter-spacing:.04em;}
+.lv3-do{margin:17px 0 0;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;}
+.lv3-tour{pointer-events:auto;cursor:pointer;font:600 .86rem/1 var(--sw-font-body);
+  color:var(--sw-ink);background:none;border:1px solid rgba(34,48,31,.3);
+  border-radius:999px;padding:11px 18px;transition:background .25s,border-color .25s,transform .2s;}
+.lv3-tour:hover{background:rgba(34,48,31,.06);border-color:rgba(34,48,31,.55);transform:translateY(-1px);}
+.lv3-do .or{font-size:.82rem;color:var(--sw-ink-soft);}
+.on-phone{display:none;}
+/* the quiet legend — only for people who don't yet know where to go */
+.lv3-legend{margin:0 0 14px;font-size:.76rem;line-height:1.6;color:var(--sw-ink-soft);max-width:46ch;
+  text-shadow:0 0 8px rgba(248,233,207,.98),0 1px 14px rgba(248,233,207,.9);}
+.lv3-legend b{font-weight:600;color:var(--sw-ink);}
+
+/* the same six doors in plain words — for readers, screen readers and search */
+.lv3-plain{position:absolute;left:clamp(18px,5vw,64px);bottom:clamp(20px,4vh,40px);
+  width:min(42vw,470px);pointer-events:auto;}
+.lv3-plain::before{content:"";position:absolute;left:-7vw;right:-40%;top:-104px;bottom:-11vh;
+  z-index:-1;pointer-events:none;
+  /* paper rising from the corner: the gradient fades out vertically, the mask
+     fades it out horizontally — both reach nothing, so neither edge can show.
+     The text sits inside the opaque part; only the surround feathers. */
+  background:linear-gradient(to top,var(--sw-bg) 0%,var(--sw-bg) 42%,
+    color-mix(in srgb,var(--sw-bg) 86%,transparent) 64%,
+    color-mix(in srgb,var(--sw-bg) 38%,transparent) 84%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,#000 0%,#000 74%,transparent 99%);
+  mask-image:linear-gradient(to right,#000 0%,#000 74%,transparent 99%);}
+.lv3-plain h2{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:#8a9585;margin:0 0 7px;text-shadow:0 0 8px rgba(248,233,207,.98);}
+.lv3-plain ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:3px 16px;}
+.lv3-plain li{font-size:.78rem;color:var(--sw-ink-soft);
+  text-shadow:0 0 8px rgba(248,233,207,.98),0 1px 14px rgba(248,233,207,.9);}
+.lv3-plain a{font-weight:600;color:var(--sw-ink);border-bottom:1px solid rgba(34,48,31,.22);}
+.lv3-plain a:hover{border-bottom-color:currentColor;}
+
+/* the stacked callouts — phones get every space named and described,
+   always visible, no hover to discover and no image coordinates to miss
+   (the phone clip is a portrait crop of a different framing). */
+.lv3-stack{display:none;}
+
+/* the zoom veil: cream, the world's own field colour, so arriving reads as
+   flying into light rather than a page swap */
+#lv3veil{position:fixed;inset:0;z-index:1200;pointer-events:none;opacity:0;
+  background:radial-gradient(120% 90% at 50% 45%,
+    color-mix(in srgb,var(--vc,#3c6b32) 12%,#F8E9CF) 0%,#F8E9CF 62%);
+  transition:opacity .5s ease-out;}
+#lv3veil.on{opacity:1;transition:opacity .3s ease-in;}
+
+/* the tour's one line of guidance, after you land on the summit */
+#lv3tourhint{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(8px);z-index:1100;pointer-events:none;opacity:0;
+  background:rgba(253,250,240,.94);border:1px solid rgba(34,48,31,.16);border-radius:999px;
+  padding:10px 18px;font:500 .82rem/1.3 var(--sw-font-body);color:var(--sw-ink);
+  box-shadow:0 14px 34px -20px rgba(35,28,10,.6);text-align:center;max-width:calc(100vw - 40px);
+  transition:opacity .4s ease,transform .4s ease;}
+#lv3tourhint.on{opacity:1;transform:translateX(-50%);}
+
+@media (max-width:980px){
+  .lv3-hero{width:min(62vw,430px);}
+  .lv3-plain{width:min(70vw,560px);}
+}
+
+/* ---- phones ---- */
+@media (max-width:860px){
+  html.lv3-map .sw-copylayer::before{
+    width:100%;height:100%;top:0;
+    background:linear-gradient(180deg,var(--sw-bg) 0%,
+      color-mix(in srgb,var(--sw-bg) 78%,transparent) 26%,
+      color-mix(in srgb,var(--sw-bg) 62%,transparent) 58%,
+      color-mix(in srgb,var(--sw-bg) 86%,transparent) 100%);
+  }
+  .lv3-labels,.lv3fx,.lv3lines,.lv3-plain{display:none;}
+  .lv3{overflow:hidden;}
+  .lv3-hero{position:static;width:auto;padding:calc(64px + env(safe-area-inset-top)) 20px 0;}
+  .lv3-hero h1{font-size:clamp(1.45rem,6.4vw,2rem);}
+  .lv3-hero .lede{font-size:.95rem;margin-top:11px;}
+  .lv3-legend{display:none;}
+  .lv3-do{margin-top:14px;}
+  .lv3-stack{display:block;pointer-events:auto;padding:16px 14px calc(18px + env(safe-area-inset-bottom));}
+  .lv3-stack h2{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:#93a08d;margin:0 0 8px;padding-left:6px;}
+  .lv3-row{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;
+    padding:9px 12px;border-radius:13px;background:rgba(253,250,240,.86);
+    border:1px solid rgba(34,48,31,.1);border-left:3px solid var(--rc);
+    margin-bottom:7px;box-shadow:0 10px 26px -22px rgba(35,28,10,.5);}
+  .lv3-row .lv3-mark,.lv3-row .lv3-mark svg{width:20px;height:20px;color:var(--rc);margin-top:2px;}
+  .lv3-row > span:last-child{min-width:0;flex:1;}
+  .on-wide{display:none;} .on-phone{display:inline;}
+  /* the six doors ARE the route here — the rail and the scroll hint just
+     collide with them, so they stand down until the climb starts */
+  html.lv3-map .sw-route,html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
+  .sw-route{transition:opacity .3s ease;}
+  .lv3-row b{display:block;font-size:.94rem;font-weight:600;color:var(--sw-ink);line-height:1.25;}
+  .lv3-row span{display:block;font-size:.76rem;line-height:1.35;color:var(--sw-ink-soft);margin-top:2px;}
+}
+@media (max-width:860px) and (max-height:700px){
+  .lv3-hero .lede{display:none;}
+  .lv3-row span{display:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .lv3,.lv3fx,.lv3-desc,#lv3veil,#lv3tourhint,.lv3-leader{transition:none;}
+}
+</style>
+</head>
+<body data-nofooter>
+<div data-sitenav></div>
+<div id="world"></div>
+
+<div class="lv3" id="mapmode">
+  <svg class="lv3fx" id="lv3fx" aria-hidden="true" focusable="false"></svg>
+  <svg class="lv3lines" id="lv3lines" aria-hidden="true" focusable="false"></svg>
+
+  <header class="lv3-hero">
+    <span class="lv3-eyebrow">A project by Pierre-Antoine Descoteaux</span>
+    <h1>Wherever you are with coliving, something here is for you. <span class="edit">[edit]</span></h1>
+    <p class="lede">Everything I've gathered about living closer together — a little of it mine,
+      most of it from people further along — plus the manifesto of what I still hope for,
+      and the work I've actually done.</p>
+    <p class="lv3-do">
+      <button class="lv3-tour" id="lv3tour" type="button">Take the slow tour</button>
+      <span class="or"><span class="on-wide">or click a space in the picture</span><span class="on-phone">or tap a space below</span></span>
+    </p>
+  </header>
+
+  <div class="lv3-labels" id="lv3labels"></div>
+
+  <nav class="lv3-stack" id="lv3stack" aria-label="The six spaces"></nav>
+
+  <nav class="lv3-plain" aria-label="The six spaces, in plain words">
+    <p class="lv3-legend" id="lv3legend"></p>
+    <h2>The spaces, in plain words</h2>
+    <ul id="lv3plain"></ul>
+  </nav>
+</div>
+
+<div id="lv3veil"></div>
+<div id="lv3tourhint" role="status"></div>
+
+<script src="site-nav.js"></script>
+<script src="assets/tower/tower-engine.js"></script>
+<script>
+/* ---------------------------------------------------------------------
+   1. The world. Same seven scenes as index.html — scene 1 is the map,
+   scenes 2-7 are the six spaces. Every overlay says what its space
+   actually IS on this site (no fictional-building narration) and links
+   to the real pages. Section ids are unchanged so site-nav's
+   "back to the tower" deep links keep working.
+   --------------------------------------------------------------------- */
+var EMAIL = "mailto:pierreantoinedescoteaux@gmail.com";
+
+var WORLD = mountScrollWorld(document.getElementById('world'), {
+  nav: false,
+  atmosphere: false,
+  hint: 'or scroll to climb',
+  diveScroll: 1.5,
+  connScroll: 1.15,
+  crossfade: 0.16,
+  sections: [
+    { id:'approach', label:'The map', accent:'#2f7d4f',
+      still:'assets/tower/S1.webp', stillMobile:'assets/tower/S1-m.webp', clip:'assets/tower/vid/loop-s1.mp4', clipMobile:'assets/tower/vid/loop-s1-m.mp4',
+      scroll: 1.7 },
+    { id:'commons', label:'The commons', accent:'#c96b32',
+      still:'assets/tower/S2.webp', stillMobile:'assets/tower/S2-m.webp', clip:'assets/tower/vid/loop-s2.mp4', clipMobile:'assets/tower/vid/loop-s2-m.mp4',
+      eyebrow:'The commons · where you come in',
+      title:'Nobody is doing this alone.',
+      body:'A directory of the organizations, networks and gatherings already working on coliving — the ones worth your time, with the useful page linked, not just the homepage. And the fastest way to reach me. [edit]',
+      tags:[{label:'The resources directory', href:'resources.html'},{label:'Networks & movements', href:'resources.html#networks'},{label:'Say hello', href:EMAIL}] },
+    { id:'library', label:'The library', accent:'#2b8b8f',
+      still:'assets/tower/S3.webp', stillMobile:'assets/tower/S3-m.webp', clip:'assets/tower/vid/loop-s3.mp4', clipMobile:'assets/tower/vid/loop-s3-m.mp4',
+      eyebrow:'The library · what’s known',
+      title:'The reading, in one place.',
+      body:'What people have already worked out about living together: courses and how-to from the ones who have done it, the books that shaped how I think, and the designers I keep going back to. [edit]',
+      tags:[{label:'Learning & how-to', href:'resources.html#learning'},{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'}] },
+    { id:'makers', label:'The workshop', accent:'#a8712c',
+      still:'assets/tower/S4.webp', stillMobile:'assets/tower/S4-m.webp', clip:'assets/tower/vid/loop-s4.mp4', clipMobile:'assets/tower/vid/loop-s4-m.mp4',
+      eyebrow:'The workshop · how it gets built',
+      title:'The part where it becomes a building.',
+      body:'Design for Connection — the concrete moves that make a place social instead of merely shared — and the twenty questions every coliving project ends up having to answer. [edit]',
+      tags:[{label:'Design for Connection', href:'design.html'},{label:'The twenty themes', href:'themes.html'}] },
+    { id:'gardens', label:'The garden', accent:'#d08a2e',
+      still:'assets/tower/S5.webp', stillMobile:'assets/tower/S5-m.webp', clip:'assets/tower/vid/loop-s5.mp4', clipMobile:'assets/tower/vid/loop-s5-m.mp4',
+      eyebrow:'The garden · why do this at all',
+      title:'The hope, written down.',
+      body:'The manifesto: what I think our homes could be, and why I keep at it. My writings live here too — the arguments, still being argued. [edit]',
+      tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Writings', href:'talkpieces.html'}] },
+    { id:'homes', label:'The homes', accent:'#b3543e',
+      still:'assets/tower/S6.webp', stillMobile:'assets/tower/S6-m.webp', clip:'assets/tower/vid/loop-s6.mp4', clipMobile:'assets/tower/vid/loop-s6-m.mp4',
+      eyebrow:'The homes · who lives here',
+      title:'Mine, for what it’s worth.',
+      body:'How I got here, the houses and projects I have actually run, and what I would do differently. If you want to know who is behind all this, it is this floor. [edit]',
+      tags:[{label:'My story', href:'story.html'},{label:'Work & case studies', href:'work.html'},{label:'About me', href:'about.html'}] },
+    { id:'lookout', label:'The summit', accent:'#3e7db0',
+      still:'assets/tower/S7.webp', stillMobile:'assets/tower/S7-m.webp', clip:'assets/tower/vid/loop-s7.mp4', clipMobile:'assets/tower/vid/loop-s7-m.mp4',
+      scroll: 1.8,
+      eyebrow:'The summit · where this is happening',
+      title:'Coliving is not one thing, and it is already everywhere.',
+      body:'The map of real communities around the world, and the twelve shapes coliving takes — so you can find the one that fits where you actually are. [edit]',
+      tags:[{label:'The coliving map', href:'map.html'},{label:'The twelve models', href:'type.html?t=ecovillage'},{label:'Real communities', href:'projects.html'}],
+      cta:{ primary:{label:'Open the coliving map', href:'map.html'},
+            secondary:{label:'Say hello', href:EMAIL} } }
+  ],
+  connectors: [
+    'assets/tower/vid/t12.mp4','assets/tower/vid/t23.mp4','assets/tower/vid/t34.mp4',
+    'assets/tower/vid/t45.mp4','assets/tower/vid/t56.mp4','assets/tower/vid/t67.mp4'
+  ],
+  connectorsMobile: [
+    'assets/tower/vid/t12-m.mp4','assets/tower/vid/t23-m.mp4','assets/tower/vid/t34-m.mp4',
+    'assets/tower/vid/t45-m.mp4','assets/tower/vid/t56-m.mp4','assets/tower/vid/t67-m.mp4'
+  ]
+});
+
+/* ---------------------------------------------------------------------
+   2. The six spaces, laid over S1.
+   `anchor` / `label` / `polys` are normalised to S1.webp's 1600x900 frame
+   and hand-traced to the drawn features. The marks are inline line-marks
+   in type.html's icon language (24-unit box, stroke only, ground line).
+   --------------------------------------------------------------------- */
+var MARK = {
+  summit:  '<path d="M2.5 20.2h19"/><path d="M6 20.2l6-10.6 6 10.6"/><path d="M12 9.6V3"/><path d="M12 3.4h4.4l-1.5 1.6 1.5 1.6H12"/>',
+  homes:   '<path d="M3 19.6v-5.4l4-3.4 4 3.4v5.4H3z"/><path d="M13 19.6v-5.4l4-3.4 4 3.4v5.4h-8z"/><path d="M2 19.6h20"/>',
+  library: '<path d="M12 6.9C10.2 5.5 7.8 4.9 5 5.1v11.6c2.8-.2 5.2.4 7 1.8 1.8-1.4 4.2-2 7-1.8V5.1c-2.8-.2-5.2.4-7 1.8z"/><path d="M12 6.9v11.6"/><path d="M3 20.4h18"/>',
+  workshop:'<path d="M2.5 20.4h19"/><path d="M4.6 20.4v-6.6h14.8v6.6"/><path d="M3.2 13.8h17.6"/><path d="M12 13.8V8.2"/><path d="M8.4 8.2h7.2"/><path d="M12 8.2V4.4"/>',
+  garden:  '<path d="M2.5 20.4h19"/><path d="M5 20.4v-6.9c0-3.9 3.1-7 7-7s7 3.1 7 7v6.9"/><path d="M12 20.4v-7"/><path d="M12 13.4c-2.1 0-3.4-1.3-3.4-3.2 2.1 0 3.4 1.3 3.4 3.2z"/><path d="M12 13.4c2.1 0 3.4-1.3 3.4-3.2-2.1 0-3.4 1.3-3.4 3.2z"/>',
+  commons: '<path d="M2.5 20.4h19"/><path d="M4.4 16.4h15.2"/><path d="M6.6 16.4v4M17.4 16.4v4"/><circle cx="8.2" cy="10.4" r="2"/><circle cx="15.8" cy="10.4" r="2"/><path d="M8.2 12.4v4M15.8 12.4v4"/>'
+};
+
+var SPACES = [
+  { key:'summit', id:'lookout', name:'The Summit', accent:'#3e7db0', href:'map.html',
+    q:'Where is this happening?',
+    desc:'The map of real communities, and the twelve shapes coliving takes.',
+    anchor:[0.356,0.092], label:[0.430,0.052],
+    polys:[[[0.312,0.178],[0.300,0.114],[0.318,0.048],[0.336,0.022],[0.357,0.031],[0.373,0.076],[0.393,0.141],[0.401,0.206],[0.368,0.236],[0.330,0.223]]] },
+
+  { key:'homes', id:'homes', name:'The Homes', accent:'#b3543e', href:'about.html',
+    q:'Who lives here?',
+    desc:'My story, the work I have actually run, and who is behind this.',
+    anchor:[0.290,0.408], label:[0.128,0.505],
+    polys:[[[0.266,0.470],[0.270,0.398],[0.284,0.312],[0.304,0.243],[0.348,0.228],[0.386,0.252],[0.392,0.320],[0.386,0.400],[0.358,0.470],[0.312,0.500]]] },
+
+  { key:'library', id:'library', name:'The Library', accent:'#2b8b8f', href:'resources.html',
+    q:'What is known?',
+    desc:'Courses, books and designers — the reading, gathered in one place.',
+    anchor:[0.446,0.300], label:[0.522,0.168],
+    polys:[[[0.382,0.360],[0.386,0.318],[0.404,0.292],[0.432,0.286],[0.456,0.300],[0.468,0.330],[0.466,0.372],[0.440,0.394],[0.404,0.390]]] },
+
+  { key:'workshop', id:'makers', name:'The Workshop', accent:'#a8712c', href:'design.html',
+    q:'How does it get built?',
+    desc:'Design for Connection, and the twenty questions every project answers.',
+    anchor:[0.482,0.548], label:[0.052,0.632],
+    polys:[[[0.478,0.560],[0.474,0.492],[0.492,0.436],[0.528,0.418],[0.566,0.430],[0.582,0.470],[0.578,0.530],[0.552,0.572],[0.510,0.582]]] },
+
+  { key:'garden', id:'gardens', name:'The Garden', accent:'#d08a2e', href:'manifesto.html',
+    q:'Why do this at all?',
+    desc:'The manifesto — what our homes could be — and the writings around it.',
+    anchor:[0.680,0.428], label:[0.772,0.346],
+    polys:[[[0.572,0.470],[0.578,0.418],[0.600,0.392],[0.640,0.386],[0.678,0.404],[0.700,0.448],[0.706,0.520],[0.686,0.572],[0.646,0.578],[0.606,0.540]],
+           [[0.148,0.760],[0.160,0.686],[0.196,0.638],[0.252,0.612],[0.310,0.622],[0.330,0.672],[0.322,0.742],[0.276,0.800],[0.208,0.816],[0.164,0.796]]] },
+
+  { key:'commons', id:'commons', name:'The Commons', accent:'#c96b32', href:'resources.html',
+    q:'Where do you come in?',
+    desc:'The networks and organizations already doing this — and how to reach me.',
+    anchor:[0.752,0.740], label:[0.700,0.918],
+    polys:[[[0.300,0.880],[0.302,0.796],[0.336,0.726],[0.398,0.694],[0.462,0.704],[0.492,0.756],[0.486,0.836],[0.432,0.892],[0.360,0.906]],
+           [[0.630,0.800],[0.634,0.720],[0.668,0.664],[0.724,0.638],[0.786,0.652],[0.812,0.700],[0.804,0.766],[0.752,0.804],[0.686,0.812]]] }
+];
+
+/* ---------------------------------------------------------------------
+   3. Geometry. The scene is a 1600x900 clip drawn object-fit:cover with
+   the engine's object-position, so image coords have to be projected
+   through the same crop before anything can point at anything.
+   --------------------------------------------------------------------- */
+var IMG_W = 1600, IMG_H = 900;
+var NS = 'http://www.w3.org/2000/svg';
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var phoneMQ = window.matchMedia('(max-width: 860px)');
+var coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+function isPhone(){ return coarse || phoneMQ.matches; }
+
+function frame(){
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var sc = Math.max(vw / IMG_W, vh / IMG_H);
+  var w = IMG_W * sc, h = IMG_H * sc;
+  /* mirrors .sw-scene__video object-position in the engine's CSS */
+  var py = phoneMQ.matches
+    ? (window.matchMedia('(orientation: portrait)').matches ? 0.44 : 0.46)
+    : 0.42;
+  return { x:(vw - w) * 0.5, y:(vh - h) * py, w:w, h:h };
+}
+function px(nx, ny){ var f = frame(); return { x:f.x + nx * f.w, y:f.y + ny * f.h }; }
+function pathFor(sp){
+  var f = frame();
+  return sp.polys.map(function(poly){
+    return 'M' + poly.map(function(p){
+      return (f.x + p[0] * f.w).toFixed(1) + ',' + (f.y + p[1] * f.h).toFixed(1);
+    }).join('L') + 'Z';
+  }).join(' ');
+}
+
+/* ---------------------------------------------------------------------
+   4. Build the overlay.
+   --------------------------------------------------------------------- */
+var map = document.getElementById('mapmode');
+var fx = document.getElementById('lv3fx');
+var lines = document.getElementById('lv3lines');
+var labelHost = document.getElementById('lv3labels');
+var veil = document.getElementById('lv3veil');
+var tourHint = document.getElementById('lv3tourhint');
+
+fx.innerHTML =
+  '<defs>' +
+    '<filter id="lv3feather" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">' +
+      '<feGaussianBlur stdDeviation="22"/></filter>' +
+    '<mask id="lv3maskOut" maskUnits="userSpaceOnUse">' +
+      '<rect id="lv3outbg" fill="#fff"/><path id="lv3hole" fill="#000" filter="url(#lv3feather)"/></mask>' +
+    '<mask id="lv3maskIn" maskUnits="userSpaceOnUse">' +
+      '<rect id="lv3inbg" fill="#000"/><path id="lv3fill" fill="#fff" filter="url(#lv3feather)"/></mask>' +
+  '</defs>' +
+  '<rect id="lv3dim" class="lv3-dim" mask="url(#lv3maskOut)" opacity=".3"/>' +
+  '<rect id="lv3lift" class="lv3-lift" mask="url(#lv3maskIn)" opacity=".16"/>';
+
+var holeEl = fx.querySelector('#lv3hole'), fillEl = fx.querySelector('#lv3fill');
+var dimEl = fx.querySelector('#lv3dim'), liftEl = fx.querySelector('#lv3lift');
+var outBg = fx.querySelector('#lv3outbg'), inBg = fx.querySelector('#lv3inbg');
+
+var gHalo = document.createElementNS(NS, 'g');
+var gLead = document.createElementNS(NS, 'g');
+var gHit = document.createElementNS(NS, 'g');
+lines.appendChild(gHalo); lines.appendChild(gLead); lines.appendChild(gHit);
+
+SPACES.forEach(function(sp){
+  sp.index = WORLD.indexOf(sp.id);
+
+  /* invisible hit region over the drawing — hovering the space works too */
+  var hit = document.createElementNS(NS, 'path');
+  hit.setAttribute('class', 'lv3-hit');
+  gHit.appendChild(hit); sp.hit = hit;
+
+  /* the hairline: under the name, then bending to the space. A cream
+     under-stroke keeps it readable where it crosses the drawing. */
+  var halo = document.createElementNS(NS, 'polyline');
+  halo.setAttribute('class', 'lv3-halo');
+  gHalo.appendChild(halo); sp.halo = halo;
+  var leader = document.createElementNS(NS, 'polyline');
+  leader.setAttribute('class', 'lv3-leader');
+  leader.style.setProperty('--rc', sp.accent);
+  gLead.appendChild(leader); sp.leader = leader;
+
+  /* the label itself — a real link, so no-JS and crawlers still get a door */
+  var a = document.createElement('a');
+  a.className = 'lv3-label';
+  a.href = sp.href;
+  a.style.setProperty('--rc', sp.accent);
+  a.innerHTML =
+    '<span class="lv3-name"><span class="lv3-mark" aria-hidden="true">' +
+      '<svg viewBox="0 0 24 24">' + MARK[sp.key] + '</svg></span>' + sp.name + '</span>' +
+    '<span class="lv3-desc">' + sp.desc + '</span>';
+  labelHost.appendChild(a);
+  sp.el = a; sp.nameEl = a.querySelector('.lv3-name');
+
+  a.addEventListener('mouseenter', function(){ hot(sp); });
+  a.addEventListener('mouseleave', cool);
+  a.addEventListener('focus', function(){ hot(sp); });
+  a.addEventListener('blur', cool);
+  a.addEventListener('click', function(e){ onDoor(e, sp); });
+  hit.addEventListener('mouseenter', function(){ hot(sp); });
+  hit.addEventListener('mouseleave', cool);
+  hit.addEventListener('click', function(e){ onDoor(e, sp); });
+});
+
+/* phone: stacked callouts, always visible */
+var stack = document.getElementById('lv3stack');
+stack.innerHTML = '<h2>Six spaces — tap one</h2>' + SPACES.map(function(sp){
+  return '<a class="lv3-row" href="' + sp.href + '" data-key="' + sp.key + '" style="--rc:' + sp.accent + '">' +
+    '<span class="lv3-mark" aria-hidden="true"><svg viewBox="0 0 24 24">' + MARK[sp.key] + '</svg></span>' +
+    '<span><b>' + sp.name + '</b><span>' + sp.desc + '</span></span></a>';
+}).join('');
+stack.querySelectorAll('.lv3-row').forEach(function(row){
+  var sp = SPACES.filter(function(s){ return s.key === row.dataset.key; })[0];
+  row.addEventListener('click', function(e){ onDoor(e, sp); });
+  row.addEventListener('touchstart', function(){ WORLD.preload(sp.index); }, { passive:true });
+});
+
+/* plain words + the quiet legend */
+document.getElementById('lv3plain').innerHTML = SPACES.map(function(sp){
+  return '<li><a href="' + sp.href + '">' + sp.name + '</a> — ' + sp.q.toLowerCase().replace(/\?$/, '') + '</li>';
+}).join('');
+document.getElementById('lv3legend').innerHTML =
+  '<b>Coliving knowledge</b> → the library &amp; the workshop (and the summit) · ' +
+  '<b>the vision &amp; the hope</b> → the garden · <b>about me</b> → the homes';
+
+/* ---------------------------------------------------------------------
+   5. Highlight + layout.
+   --------------------------------------------------------------------- */
+var current = null;
+
+function hot(sp){
+  if (current === sp) return;
+  cool();
+  current = sp;
+  var d = pathFor(sp);
+  holeEl.setAttribute('d', d); fillEl.setAttribute('d', d);
+  dimEl.style.setProperty('--rc', sp.accent);
+  map.classList.add('is-hot');
+  sp.el.classList.add('is-hot');
+  sp.leader.classList.add('is-hot');
+  sp.halo.classList.add('is-hot');
+  WORLD.preload(sp.index);
+}
+function cool(){
+  if (!current) return;
+  current.el.classList.remove('is-hot');
+  current.leader.classList.remove('is-hot');
+  current.halo.classList.remove('is-hot');
+  map.classList.remove('is-hot');
+  current = null;
+}
+
+function place(){
+  var vw = window.innerWidth, vh = window.innerHeight, f = frame();
+  [fx, lines].forEach(function(s){
+    s.setAttribute('viewBox', '0 0 ' + vw + ' ' + vh);
+    s.setAttribute('width', vw); s.setAttribute('height', vh);
+  });
+  [outBg, inBg, dimEl, liftEl].forEach(function(r){
+    r.setAttribute('x', 0); r.setAttribute('y', 0);
+    r.setAttribute('width', vw); r.setAttribute('height', vh);
+  });
+  if (current) { var d = pathFor(current); holeEl.setAttribute('d', d); fillEl.setAttribute('d', d); }
+
+  if (isPhone()) return;   /* phones use the stacked callouts, not the plate */
+
+  /* the visible slice of the picture, so nothing is labelled off-screen */
+  var vis = {
+    x0: Math.max(0, -f.x / f.w), x1: Math.min(1, (vw - f.x) / f.w),
+    y0: Math.max(0, -f.y / f.h), y1: Math.min(1, (vh - f.y) / f.h)
+  };
+  var padTop = 74, padSide = 18, padRight = 62, padBottom = 16;   /* padRight clears the route rail */
+
+  SPACES.forEach(function(sp){
+    sp.hit.setAttribute('d', pathFor(sp));
+
+    var want = px(sp.label[0], sp.label[1]);
+    var box = sp.el.getBoundingClientRect();
+    var w = box.width || 160, nameH = sp.nameEl.getBoundingClientRect().height || 20;
+    /* keep the label on the paper AND on the screen */
+    var minX = Math.max(padSide, f.x + vis.x0 * f.w + 8);
+    var maxX = Math.min(vw - padRight - w, f.x + vis.x1 * f.w - w - 8);
+    var minY = Math.max(padTop, f.y + vis.y0 * f.h + 8);
+    var maxY = vh - padBottom - nameH - 26;
+    var x = Math.min(Math.max(want.x, minX), Math.max(minX, maxX));
+    var y = Math.min(Math.max(want.y, minY), Math.max(minY, maxY));
+    sp.el.style.left = x + 'px';
+    sp.el.style.top = y + 'px';
+
+    /* hairline: run it under the name, then bend to the space */
+    var nw = sp.nameEl.getBoundingClientRect().width || w;
+    var uy = y + nameH + 3;
+    var a = px(sp.anchor[0], sp.anchor[1]);
+    var leftEnd = x, rightEnd = x + nw;
+    var near = (a.x < (leftEnd + rightEnd) / 2) ? leftEnd : rightEnd;
+    var far = (near === leftEnd) ? rightEnd : leftEnd;
+    var pts = far.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
+      near.toFixed(1) + ',' + uy.toFixed(1) + ' ' +
+      a.x.toFixed(1) + ',' + a.y.toFixed(1);
+    sp.leader.setAttribute('points', pts);
+    sp.halo.setAttribute('points', pts);
+    if (sp.dot) { sp.dot.setAttribute('cx', a.x); sp.dot.setAttribute('cy', a.y); }
+  });
+}
+
+/* ---------------------------------------------------------------------
+   6. The door: zoom + blur INTO the scene's dwell. Same page, same world.
+   --------------------------------------------------------------------- */
+var travelling = false;
+
+function onDoor(e, sp){
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;  /* let the link be a link */
+  e.preventDefault();
+  enter(sp);
+}
+
+function enter(sp, after){
+  if (travelling) return;
+  var i = sp.index;
+  if (i < 0) { location.href = sp.href; return; }
+  if (reduced) { WORLD.jumpToInstant(i); syncMap(); if (after) after(); return; }
+
+  travelling = true;
+  WORLD.preload(i);
+  var stage = WORLD.stage;
+  var a = px(sp.anchor[0], sp.anchor[1]);
+  veil.style.setProperty('--vc', sp.accent);
+
+  stage.style.transformOrigin = a.x + 'px ' + a.y + 'px';
+  stage.style.transition = 'transform .58s cubic-bezier(.45,0,.62,1), filter .58s ease-in';
+  stage.style.transform = 'scale(2.5)';
+  stage.style.filter = 'blur(14px)';
+  map.classList.add('is-leaving');
+  cool();
+  setTimeout(function(){ veil.classList.add('on'); }, 200);
+
+  setTimeout(function(){
+    WORLD.jumpToInstant(i);
+    /* land already moving: a hair of overshoot that settles as the veil lifts */
+    stage.style.transition = 'none';
+    stage.style.transformOrigin = '50% 50%';
+    stage.style.transform = 'scale(1.2)';
+    stage.style.filter = 'blur(8px)';
+    void stage.offsetWidth;
+    stage.style.transition = 'transform .8s cubic-bezier(.2,.7,.25,1), filter .6s ease-out';
+    stage.style.transform = 'scale(1)';
+    stage.style.filter = 'blur(0px)';
+    veil.classList.remove('on');
+    setTimeout(function(){
+      stage.style.transition = ''; stage.style.transform = '';
+      stage.style.filter = ''; stage.style.transformOrigin = '';
+      map.classList.remove('is-leaving');
+      travelling = false;
+      syncMap();
+      if (after) after();
+    }, 820);
+  }, 580);
+}
+
+/* the slow tour: land on the summit, then walk back down the way you came.
+   The engine already plays every transition backwards on upward scroll —
+   nothing to re-encode, nothing to rebuild. */
+document.getElementById('lv3tour').addEventListener('click', function(){
+  var summit = SPACES.filter(function(s){ return s.key === 'summit'; })[0];
+  enter(summit, function(){
+    tourHint.textContent = 'You are at the top. Scroll up to come back down the tower, space by space.';
+    tourHint.classList.add('on');
+    setTimeout(function(){ tourHint.classList.remove('on'); }, 9000);
+  });
+});
+document.getElementById('lv3tour').addEventListener('mouseenter', function(){
+  var summit = SPACES.filter(function(s){ return s.key === 'summit'; })[0];
+  WORLD.preload(summit.index);
+});
+
+/* ---------------------------------------------------------------------
+   7. Map mode lives in scene 1's dwell: full at the top, gone by the time
+   the climb has begun. Scrolling back up brings it back.
+   --------------------------------------------------------------------- */
+function syncMap(){
+  var y = window.scrollY || window.pageYOffset || 0;
+  var t = 1 - Math.min(1, y / (window.innerHeight * 0.42));
+  map.style.setProperty('--mapt', t.toFixed(3));
+  var on = t > 0.02;
+  map.classList.toggle('is-off', !on);
+  document.documentElement.classList.toggle('lv3-map', on);
+  if (!on) cool();
+}
+
+var placeQueued = false;
+function queuePlace(){
+  if (placeQueued) return;
+  placeQueued = true;
+  requestAnimationFrame(function(){ placeQueued = false; place(); });
+}
+
+/* calibration view: landing-v3.html?debug */
+if (location.search.indexOf('debug') > -1) {
+  lines.classList.add('debug');
+  SPACES.forEach(function(sp){
+    var dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('class', 'lv3-anchor'); dot.setAttribute('r', 5);
+    lines.appendChild(dot); sp.dot = dot;
+  });
+}
+
+window.addEventListener('scroll', syncMap, { passive:true });
+window.addEventListener('resize', function(){ queuePlace(); syncMap(); });
+window.addEventListener('orientationchange', function(){ setTimeout(queuePlace, 120); });
+window.addEventListener('load', function(){ queuePlace(); syncMap(); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(queuePlace);
+place(); syncMap();
+/* the label boxes need one more pass once webfonts settle the text metrics */
+setTimeout(place, 300); setTimeout(place, 1200);
+</script>
+</body>
+</html>
