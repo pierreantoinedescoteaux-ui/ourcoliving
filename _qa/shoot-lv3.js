@@ -170,7 +170,12 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
     return {
       count: labels.length,
       visible: labels.filter(l => getComputedStyle(l).visibility !== "hidden" && l.getBoundingClientRect().width > 0).length,
-      inViewport: labels.filter(onScreen).length,
+      /* at rest only the NAME PILL is visible -- the sentence is in flow but
+         hidden, so a label whose invisible box hangs past the edge is fine.
+         P-A parks The Commons on the cream at the bottom-right on purpose.
+         The full bubble staying on-screen ON HOVER is checked in
+         _qa/shoot-lv32b.js, which is where that rule now lives. */
+      inViewport: labels.filter(l => onScreen(l.querySelector(".lv3-name"))).length,
       names: labels.map(l => l.querySelector(".lv3-name").textContent.trim()),
       marks: labels.filter(l => l.querySelector(".lv3-mark svg path,.lv3-mark svg circle")).length,
       leaders: leaders.filter(l => (l.getAttribute("points") || "").split(" ").length === 3).length,
@@ -260,11 +265,16 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
       accent: l ? getComputedStyle(l.querySelector(".lv3-name")).color : "",
       fxOn: getComputedStyle(document.getElementById("lv3fx")).opacity !== "0",
       holeHasPath: (document.getElementById("lv3hole").getAttribute("d") || "").length > 20,
-      descShown: l ? getComputedStyle(l.querySelector(".lv3-desc")).opacity === "1" : false
+      descShown: l ? getComputedStyle(l.querySelector(".lv3-desc")).opacity === "1" : false,
+      plate: l ? getComputedStyle(l, "::before").backgroundColor : "",
+      othersDim: [...document.querySelectorAll("#lv3labels .lv3-label:not(.is-hot)")]
+        .every(o => +getComputedStyle(o).opacity <= 0.4)
     };
   });
   check(hov.hot && hov.descShown, "desktop: hover names the space + reveals its line (" + hov.name + ")");
-  check(hov.accent === "rgb(43, 139, 143)", "desktop: hovered label takes the space accent (" + hov.accent + ")");
+  check(hov.accent === "rgb(251, 243, 226)", "desktop: hovered label's words go cream inside the bubble (" + hov.accent + ")");
+  check(!!hov.plate && !/^rgba\(0, 0, 0, 0\)$|^transparent$/.test(hov.plate), "desktop: ...on a full bubble of the space's colour (" + hov.plate + ")");
+  check(hov.othersDim, "desktop: the other labels recede while one is open");
   check(hov.fxOn && hov.holeHasPath, "desktop: feathered region highlight paints");
 
   /* click it: we should end up inside the library dwell, same page */
@@ -353,15 +363,27 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   check(descended, "B1: wheel-DOWN descends one dwell at a time — scrollY " + yStart + " -> " + marks.map(m => m.y).join(" -> "));
   check(idxDropped, "B1: descent steps to lower scenes — top lit index " + idxStart + " -> " + marks.map(m => m.maxIdx).join(" -> "));
 
-  /* keep descending to the ground: tour ends, map + lock re-engage */
-  for (let j = 0; j < 60; j++) { await p.mouse.wheel(0, 700); await p.waitForTimeout(15); }
+  /* keep descending to the ground: the tour ends and the map re-forms.
+     CHANGED in v3.2d, at P-A's request: the lock is a one-time teaching
+     device, so it does NOT re-engage -- once the tour has been taken,
+     arriving back at the map must not be a trap. Scroll now climbs. */
+  /* stop the moment the ground is reached — past that point the wheel is a
+     normal scroll again (that is the point of the change) and would climb */
+  for (let j = 0; j < 60; j++) {
+    /* the tour hands back at scene 1's dwell centre and then GLIDES the last
+       stretch to the top — stop wheeling the moment it hands back, or the
+       test races its own glide */
+    if (await p.evaluate(() => !tourMode)) break;
+    await p.mouse.wheel(0, 700); await p.waitForTimeout(20);
+  }
   await p.waitForTimeout(900);
-  const ended = await p.evaluate(() => ({ y: Math.round(scrollY), mapOn: document.documentElement.classList.contains("lv3-map") }));
-  await p.mouse.wheel(0, 600);
-  await p.waitForTimeout(200);
-  const relocked = await p.evaluate(() => Math.round(scrollY));
+  const ended = await p.evaluate(() => ({ y: Math.round(scrollY), mapOn: document.documentElement.classList.contains("lv3-map"), taken: tourTaken, tour: tourMode }));
   check(ended.mapOn && ended.y <= 4, "B1: descent to the ground restores map mode (scrollY=" + ended.y + ", mapOn=" + ended.mapOn + ")");
-  check(relocked <= 4, "B1: the scroll lock re-engages after the descent (scrollY=" + relocked + ")");
+  check(ended.taken === true && ended.tour === false, "B1: the tour is over and remembered");
+  await p.mouse.wheel(0, 600);
+  await p.waitForTimeout(250);
+  const after = await p.evaluate(() => Math.round(scrollY));
+  check(after > 4, "B1: the map does NOT re-lock after a tour — scrolling climbs (scrollY=" + after + ")");
 
   check(errs.length === 0, "desktop: 0 same-origin console/page errors" + (errs.length ? " -> " + errs.join(" | ") : noise(errs)));
   await p.close();
