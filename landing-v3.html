@@ -217,6 +217,40 @@
   transition:opacity .5s ease-out;}
 #lv3veil.on{opacity:1;transition:opacity .3s ease-in;}
 
+/* ---------------------------------------------------------------------
+   GETTING BACK. P-A: once you are inside a space there was no way home
+   except scrolling. Two fixes, both live only while the map is NOT showing:
+   a back arrow on the LEFT, and the engine's route rail on the right made
+   properly readable over the paintings (it was washing out into them).
+   The engine's own CSS sits in @layer sw and this page's does not, so these
+   rules win without touching tower-engine.js.
+   --------------------------------------------------------------------- */
+#lv3back{position:fixed;left:clamp(12px,2vw,26px);top:50%;transform:translateY(-50%) translateX(-6px);
+  z-index:41;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+  min-height:44px;padding:11px 17px 11px 13px;border-radius:999px;
+  font:600 clamp(.86rem,.82rem + .1vw,.98rem)/1 var(--sw-font-body);color:var(--sw-ink);
+  background:rgba(248,233,207,.92);border:1px solid rgba(34,48,31,.18);
+  box-shadow:0 14px 34px -18px rgba(35,28,10,.55);backdrop-filter:blur(7px);
+  opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease,background .25s;}
+html:not(.lv3-map) #lv3back{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0);}
+#lv3back:hover{background:rgba(253,250,240,.98);}
+#lv3back svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* the rail: cream plate behind it, and every stop named at rest — it only
+   works as a menu if you can read it over the drawing */
+#world .sw-route{background:rgba(248,233,207,.86);border:1px solid rgba(34,48,31,.14);
+  border-radius:999px;box-shadow:0 16px 40px -22px rgba(35,28,10,.6);backdrop-filter:blur(7px);}
+#world .sw-route__dot i{box-shadow:0 0 0 2px rgba(248,233,207,.9);}
+#world .sw-route__label{background:rgba(248,233,207,.95);color:var(--sw-ink);
+  border-color:rgba(34,48,31,.16);box-shadow:0 10px 26px -18px rgba(35,28,10,.55);
+  font-size:.84rem;}
+@media (min-width:1100px){
+  /* wide screens read the rail as a table of contents, not a row of dots */
+  #world .sw-route__label{opacity:1;transform:translateY(-50%) translateX(0);}
+  #world .sw-route__dot.is-active .sw-route__label{font-weight:700;}
+}
+
 /* the tour's one line of guidance, after you land on the summit */
 #lv3tourhint{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));
   transform:translateX(-50%) translateY(8px);z-index:1100;pointer-events:none;opacity:0;
@@ -367,6 +401,11 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <svg class="lv3lines" id="lv3slines" aria-hidden="true" focusable="false"></svg>
   <div class="lv3-labels" id="lv3slabels"></div>
 </div>
+
+<button id="lv3back" type="button" aria-label="Back to the tower map">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>
+  <span>Back to the tower</span>
+</button>
 
 <div id="lv3veil"></div>
 <div id="lv3tourhint" role="status"></div>
@@ -844,6 +883,67 @@ function enter(sp, after){
     }, 820);
   }, 580);
 }
+
+/* ---------------------------------------------------------------------
+   6b. The way home. The mirror of enter(): pull the camera back out of the
+   scene, cover with the cream veil, land on the map already re-forming.
+   Ends any tour in progress, so the map is a real reset.
+   --------------------------------------------------------------------- */
+function returnToMap(){
+  if (travelling || departing) return;
+  if ((window.scrollY || 0) <= 2){ return; }
+  if (reduced){ tourMode = false; tourHint.classList.remove('on'); window.scrollTo(0, 0); syncMap(); return; }
+
+  travelling = true;
+  cool(); sCool();
+  var stage = WORLD.stage;
+  veil.style.setProperty('--vc', '#3c6b32');
+  stage.style.transformOrigin = '50% 50%';
+  stage.style.transition = 'transform .5s cubic-bezier(.45,0,.62,1), filter .5s ease-in';
+  stage.style.transform = 'scale(1.9)';
+  stage.style.filter = 'blur(12px)';
+  setTimeout(function(){ veil.classList.add('on'); }, 170);
+
+  setTimeout(function(){
+    tourMode = false;
+    tourHint.classList.remove('on');
+    window.scrollTo(0, 0);
+    /* arrive pulled slightly back, settling out as the veil lifts — the
+       reverse of the overshoot enter() lands on */
+    stage.style.transition = 'none';
+    stage.style.transform = 'scale(.9)';
+    stage.style.filter = 'blur(7px)';
+    void stage.offsetWidth;
+    stage.style.transition = 'transform .78s cubic-bezier(.2,.7,.25,1), filter .58s ease-out';
+    stage.style.transform = 'scale(1)';
+    stage.style.filter = 'blur(0px)';
+    veil.classList.remove('on');
+    setTimeout(function(){
+      stage.style.transition = ''; stage.style.transform = '';
+      stage.style.filter = ''; stage.style.transformOrigin = '';
+      travelling = false;
+      window.scrollTo(0, 0);
+      syncMap(); queuePlace();
+    }, 800);
+  }, 500);
+}
+document.getElementById('lv3back').addEventListener('click', returnToMap);
+
+/* the rail's first stop IS the map — but the engine's jumpTo lands on scene
+   1's dwell CENTRE, which is not the top, so the map stayed half-faded.
+   Intercept it on the rail (capture, so it never reaches the engine's own
+   handler on the dot) and go all the way home instead. */
+(function(){
+  var rail = document.querySelector('#world .sw-route');
+  if (!rail) return;
+  rail.addEventListener('click', function(e){
+    var dot = e.target.closest ? e.target.closest('.sw-route__dot') : null;
+    if (!dot || dot !== rail.firstElementChild) return;
+    e.preventDefault(); e.stopPropagation();
+    if ((window.scrollY || 0) <= 2) return;
+    returnToMap();
+  }, true);
+})();
 
 /* the slow tour: land on the summit, then walk back down the way you came.
    The engine already plays every transition backwards on upward scroll —
