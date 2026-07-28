@@ -225,31 +225,31 @@
    The engine's own CSS sits in @layer sw and this page's does not, so these
    rules win without touching tower-engine.js.
    --------------------------------------------------------------------- */
-#lv3back{position:fixed;left:clamp(12px,2vw,26px);top:50%;transform:translateY(-50%) translateX(-6px);
-  z-index:41;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
-  min-height:44px;padding:11px 17px 11px 13px;border-radius:999px;
-  font:600 clamp(.86rem,.82rem + .1vw,.98rem)/1 var(--sw-font-body);color:var(--sw-ink);
-  background:rgba(248,233,207,.92);border:1px solid rgba(34,48,31,.18);
-  box-shadow:0 14px 34px -18px rgba(35,28,10,.55);backdrop-filter:blur(7px);
-  opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease,background .25s;}
-html:not(.lv3-map) #lv3back{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0);}
-#lv3back:hover{background:rgba(253,250,240,.98);}
-#lv3back svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;
-  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+/* The way back sits INSIDE the scene's own copy block, in the slot the
+   "01 / 07" counter used to hold. That is the whole point: it is part of
+   the same layer as the eyebrow, the heading and the body, so it fades in
+   and out with them as you scroll instead of floating over everything.
+   Understated, but obviously clickable. */
+.lv3-backlink{display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font-family:var(--sw-font-body);font-size:.8rem;font-weight:600;letter-spacing:.02em;
+  color:var(--sw-ink-soft);border-bottom:1px solid color-mix(in srgb,var(--sw-ink-soft) 40%,transparent);
+  padding-bottom:2px;transition:color .22s,border-color .22s,gap .22s;}
+.lv3-backlink:hover{color:var(--sw-ink);border-color:var(--sw-ink);gap:10px;}
+.lv3-backlink svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+@media (max-width:860px){ .lv3-backlink{font-size:.86rem;padding:6px 0;} }
 
-/* the rail: cream plate behind it, and every stop named at rest — it only
-   works as a menu if you can read it over the drawing */
-#world .sw-route{background:rgba(248,233,207,.86);border:1px solid rgba(34,48,31,.14);
-  border-radius:999px;box-shadow:0 16px 40px -22px rgba(35,28,10,.6);backdrop-filter:blur(7px);}
-#world .sw-route__dot i{box-shadow:0 0 0 2px rgba(248,233,207,.9);}
-#world .sw-route__label{background:rgba(248,233,207,.95);color:var(--sw-ink);
-  border-color:rgba(34,48,31,.16);box-shadow:0 10px 26px -18px rgba(35,28,10,.55);
-  font-size:.84rem;}
-@media (min-width:1100px){
-  /* wide screens read the rail as a table of contents, not a row of dots */
-  #world .sw-route__label{opacity:1;transform:translateY(-50%) translateX(0);}
-  #world .sw-route__dot.is-active .sw-route__label{font-weight:700;}
-}
+/* The rail keeps the engine's own restraint — a stop is named when it is the
+   one you are on, or when you point at it, and nothing more. Two small
+   nudges only: the resting dots were too faint to read as a control, and
+   the name needs a little more cream under it to survive the drawing.
+   Its OPACITY is driven from the script to follow the scene copy, so during
+   a transition it fades with the text instead of hanging above it. */
+#world .sw-route__dot i{background:color-mix(in srgb,var(--sw-accent) 62%,transparent);
+  box-shadow:0 0 0 2px rgba(248,233,207,.55);}
+#world .sw-route__label{background:rgba(248,233,207,.92);color:var(--sw-ink);
+  border-color:rgba(34,48,31,.14);box-shadow:0 8px 22px -16px rgba(35,28,10,.5);}
+#world .sw-route{transition:opacity .28s ease;}
 
 /* ---------------------------------------------------------------------
    EDIT MODE (?edit) — P-A moves the anchors and the bubbles himself instead
@@ -480,11 +480,6 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <p>See all the zones and explore the content — click or keep scrolling to start.</p>
   <span class="lv3-inv-go">Start the tour</span>
 </div>
-
-<button id="lv3back" type="button" aria-label="Back to the tower map">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>
-  <span>Back to the tower</span>
-</button>
 
 <div id="lv3veil"></div>
 <div id="lv3tourhint" role="status"></div>
@@ -1044,7 +1039,48 @@ function returnToMap(){
     }, 800);
   }, 500);
 }
-document.getElementById('lv3back').addEventListener('click', returnToMap);
+/* the way back lives in each scene's copy block, in the counter's slot, so it
+   belongs to the same layer as that scene's words and fades with them */
+Array.prototype.forEach.call(document.querySelectorAll('#world .sw-copy'), function(c, i){
+  var num = c.querySelector('.sw-copy__num');
+  if (!num || i === 0) return;              /* scene 1's copy IS the map overlay */
+  num.innerHTML = '';
+  var a = document.createElement('a');
+  a.className = 'lv3-backlink';
+  a.href = '#';
+  a.setAttribute('aria-label', 'Back to the tower map');
+  a.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>Back to the tower';
+  a.addEventListener('click', function(e){ e.preventDefault(); returnToMap(); });
+  num.appendChild(a);
+});
+
+/* the rail is part of the scene layer too: it follows the copy's own fade, so
+   during a transition it goes quiet with the text instead of floating above
+   it. On the map it stays up — there it IS the menu. */
+var railEl = document.querySelector('#world .sw-route');
+var copyEls = document.querySelectorAll('#world .sw-copy');
+function syncRail(){
+  if (!railEl) return;
+  if (document.documentElement.classList.contains('lv3-map')){ railEl.style.opacity = ''; return; }
+  var m = 0;
+  for (var i = 0; i < copyEls.length; i++){
+    var o = parseFloat(copyEls[i].style.opacity);      /* the engine writes this inline */
+    if (o > m) m = o;
+  }
+  railEl.style.opacity = Math.max(0.15, m || 0).toFixed(3);
+}
+/* the engine paints the copy opacities in ITS OWN rAF, queued on the same
+   scroll event — so reading them straight out of the scroll handler gets
+   last frame's values and the rail lags a whole transition behind. Same trap
+   the in-scene spots hit (see queueSpotPlace); same fix. */
+var railQueued = false;
+function queueRail(){
+  if (railQueued) return;
+  railQueued = true;
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ railQueued = false; syncRail(); });
+  });
+}
 
 /* the rail's first stop IS the map — but the engine's jumpTo lands on scene
    1's dwell CENTRE, which is not the top, so the map stayed half-faded.
@@ -1096,6 +1132,7 @@ function syncMap(){
   document.documentElement.classList.toggle('lv3-map', on);
   if (!on) cool();
   syncSpots();
+  syncRail(); queueRail();
 }
 
 var placeQueued = false;

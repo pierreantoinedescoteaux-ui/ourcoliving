@@ -25,7 +25,7 @@ function thumb(p) {
 
 /* ---------- HOME ---------- */
 function renderHome() {
-  document.title = `${SITE.name} — ${SITE.role}`;
+  document.title = `Our Coliving — ${SITE.role}`;
 
   const intentions = INTENTIONS.map(t => `
     <div class="theme" id="${esc(t.slug)}">
@@ -51,7 +51,7 @@ function renderHome() {
 
   document.querySelector("#app").innerHTML = `
     <nav class="nav"><div class="wrap">
-      <a class="brand" href="index.html">${esc(SITE.name)}</a>
+      <a class="brand" href="index.html">Our Coliving</a>
       <div class="links">
         <a href="#intentions">Intentions</a>
         <a href="#work">Work</a>
@@ -147,7 +147,7 @@ function renderProject() {
 function navHTML() {
   if (window.SITENAV) { SITENAV.injectCss(); return SITENAV.html(); }
   return `<nav class="nav"><div class="wrap">
-    <a class="brand" href="index.html">${esc(SITE.name)}</a>
+    <a class="brand" href="index.html">Our Coliving</a>
     <div class="links">
       <a href="manifesto.html">Manifesto</a>
       <a href="map.html">Coliving Atlas</a>
