@@ -1103,6 +1103,10 @@ function placeSpots(g){
     var nw = sp.nameEl.getBoundingClientRect().width || w;
     var uy = y + nameH + 3;
     var ax = f.x + sp.anchor[0] * f.w, ay = f.y + sp.anchor[1] * f.h;
+    /* the anchor can fall in the cover-crop's hidden slice on tall viewports —
+       pin the leader's far end (and its dot) inside the visible frame, like labels */
+    ax = Math.min(Math.max(ax, Math.max(0, f.x) + 10), Math.min(vw, f.x + f.w) - 10);
+    ay = Math.min(Math.max(ay, Math.max(0, f.y) + 10), Math.min(vh, f.y + f.h) - 10);
     var leftEnd = x, rightEnd = x + nw;
     var near = (ax < (leftEnd + rightEnd) / 2) ? leftEnd : rightEnd;
     var far = (near === leftEnd) ? rightEnd : leftEnd;
