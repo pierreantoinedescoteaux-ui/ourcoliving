@@ -54,7 +54,7 @@ const SCENES = [
   if (DEBUG_ONLY) {
     const d = await b.newPage({ viewport: { width: 1440, height: 900 } });
     watch(d);
-    await d.goto(BASE + "/landing-v3.html?debug", { waitUntil: "load" });
+    await d.goto(BASE + "/index.html?debug", { waitUntil: "load" });
     await d.waitForTimeout(1500);
     for (const sc of SCENES) {
       await jump(d, sc.index);
@@ -69,7 +69,7 @@ const SCENES = [
   /* ---------- main desktop pass: 1440x900 ---------- */
   const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
   const errs = watch(p);
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1600);
   const H264 = await p.evaluate(() => !!document.createElement("video").canPlayType('video/mp4; codecs="avc1.42E01E"'));
   if (!H264) console.log("NOTE  no H.264 decoder here — posters (not playback) verified, as in index.html");
@@ -179,7 +179,7 @@ const SCENES = [
   /* ---------- click test: departs then REALLY navigates ---------- */
   const c = await b.newPage({ viewport: { width: 1440, height: 900 } });
   const cerrs = watch(c);
-  await c.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await c.goto(BASE + "/index.html", { waitUntil: "load" });
   await c.waitForTimeout(1200);
   await jump(c, 3);              /* the workshop */
   await c.waitForTimeout(800);
@@ -199,7 +199,7 @@ const SCENES = [
   const ctx2 = await b.newContext({ viewport: { width: 1440, height: 900 } });
   const c2 = await ctx2.newPage();
   watch(c2);
-  await c2.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await c2.goto(BASE + "/index.html", { waitUntil: "load" });
   await c2.waitForTimeout(1200);
   await jump(c2, 3);
   await c2.waitForTimeout(800);
@@ -207,7 +207,7 @@ const SCENES = [
   await c2.locator("#lv3slabels .lv3-label:visible", { hasText: "The blueprint" }).first().locator(".lv3-name").click({ modifiers: ["Control"] });
   const popup = await popupWait;
   await c2.waitForTimeout(400);
-  const stayed = c2.url().indexOf("landing-v3.html") > -1;
+  const stayed = c2.url().indexOf("index.html") > -1;
   check(stayed, "ctrl-click: the landing page does NOT navigate away");
   check(!!popup, "ctrl-click: opens the target in a new tab (native link behaviour)");
   await ctx2.close();
@@ -215,11 +215,11 @@ const SCENES = [
   /* reduced motion: plain navigation, no zoom choreography */
   const rm = await b.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
   watch(rm);
-  await rm.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await rm.goto(BASE + "/index.html", { waitUntil: "load" });
   await rm.waitForTimeout(1000);
   await jump(rm, 5);             /* the homes */
   await rm.waitForTimeout(700);
-  await rm.locator("#lv3slabels .lv3-label:visible", { hasText: "The couch" }).first().locator(".lv3-name").click();
+  await rm.locator("#lv3slabels .lv3-label:visible", { hasText: "The story book" }).first().locator(".lv3-name").click();
   await rm.waitForURL("**/story.html", { timeout: 3000 });
   check(true, "reduced motion: spot click navigates plainly to story.html");
   await rm.close();
@@ -228,7 +228,7 @@ const SCENES = [
   for (const vp of [{ width: 1280, height: 800 }, { width: 1920, height: 1080 }, { width: 2560, height: 1080 }]) {
     const v = await b.newPage({ viewport: vp });
     const verrs = watch(v);
-    await v.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+    await v.goto(BASE + "/index.html", { waitUntil: "load" });
     await v.waitForTimeout(1200);
     for (const sc of SCENES) {
       await jump(v, sc.index);
@@ -255,7 +255,7 @@ const SCENES = [
   /* ---------- phone 390x844 ---------- */
   const m = await b.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const merrs = watch(m);
-  await m.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await m.goto(BASE + "/index.html", { waitUntil: "load" });
   await m.waitForTimeout(1600);
   const ph = await m.evaluate(() => {
     const layer = document.getElementById("lv3scenes");

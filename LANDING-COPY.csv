@@ -8,7 +8,7 @@ Main map,tour button — aside (phone),or tap a space below
 Main map,tour invite — heading,Do you want to take the tour of the tower?
 Main map,tour invite — body,See all the zones and explore the content — click or keep scrolling to start.
 Main map,tour invite — button,Start the tour
-Main map,back to the map button,Back to the tower
+Main map,back to the map link (in every scene),Back to the tower
 Main map,legend chip 1,resources
 Main map,legend chip 2,hope
 Main map,legend chip 3,me
@@ -86,12 +86,12 @@ The house,scene hero — body,"The story of how I got here, the houses and proje
 The house,phone pill — story.html,My story
 The house,phone pill — work.html,Work & experience
 The house,phone pill — about.html,About me
-The house,hotspot — The couch (name),The couch
-The house,hotspot — The couch (sentence),my story — how I got from there to here.
-The house,hotspot — The desk (name),The desk
-The house,hotspot — The desk (sentence),the work — houses and projects I have actually run.
-The house,hotspot — The balcony (name),The balcony
-The house,hotspot — The balcony (sentence),"about me — who is behind all this, in one page."
+The house,hotspot — The story book (name),The story book
+The house,hotspot — The story book (sentence),Read about my story and defining moments and projects that got me to where I am.
+The house,hotspot — The work desk (name),The work desk
+The house,hotspot — The work desk (sentence),"See my past work and projects. Read their stories and learn what I built, its impact and how it changed me."
+The house,hotspot — The view point (name),The view point
+The house,hotspot — The view point (sentence),let you see a little bit about me and the meaning this project has for me.
 The summit,scene hero — eyebrow,The summit · where this is happening
 The summit,scene hero — heading,Coliving takes many shapes.
 The summit,scene hero — body,"From the top you can see the whole landscape — the atlas of real communities, and every form this takes, from cohousing to ecovillage."
@@ -101,9 +101,9 @@ The summit,phone pill — projects.html,Real communities
 The summit,button (primary),Open the coliving map
 The summit,button (secondary),Say hello
 The summit,hotspot — The telescope (name),The telescope
-The summit,hotspot — The telescope (sentence),"the coliving atlas — real communities around the world, mapped."
+The summit,hotspot — The telescope (sentence),"A map that positions different types of coliving and how they compare on things like complexity, technology, financing, sustainability and governance."
 The summit,hotspot — The villages (name),The villages
-The summit,hotspot — The villages (sentence),"the field guide — the twelve shapes coliving takes, from cohousing to ecovillage."
-The summit,hotspot — The half-built one (name),The half-built one
-The summit,hotspot — The half-built one (sentence),"real communities — the projects that inspire me, finished or not."
+The summit,hotspot — The villages (sentence),"Learn about 12 different forms of coliving from cohousing to ecovillages, what defines them and learnings to grab from each."
+The summit,hotspot — The communities in construction (name),The communities in construction
+The summit,hotspot — The communities in construction (sentence),"Real communities, projects that inspire me and the people building these hopeful futures."
 Tour,hint after landing on the summit,"You're at the top — scroll down to descend through the tower, space by space."

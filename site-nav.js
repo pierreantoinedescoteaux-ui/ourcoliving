@@ -392,7 +392,7 @@
      scene — the note, a tiny branch, and the signature. Nothing else. */
   function mountMiniFooter() {
     var f = pageFile();
-    if (!{ "index.html": 1, "tower.html": 1, "landing-v3.html": 1 }[f] || document.querySelector(".sminifoot")) return;
+    if (!{ "index.html": 1, "tower.html": 1 }[f] || document.querySelector(".sminifoot")) return;
     var d = document.createElement("div");
     d.className = "sminifoot";
     d.innerHTML =

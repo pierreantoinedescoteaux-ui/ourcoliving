@@ -1,4 +1,4 @@
-/* Applies P-A's edited LANDING-COPY.csv back into landing-v3.html.
+/* Applies P-A's edited LANDING-COPY.csv back into index.html.
    Safety model, learned from the pen-tool data-loss incident (commit fe726bc):
    nothing is guessed and nothing is silently skipped.
      1. re-dumps the CURRENT copy from the live page (the same extractor the
@@ -14,7 +14,7 @@ const fs = require("fs"), path = require("path"), cp = require("child_process");
 
 const ROOT = path.join(__dirname, "..");
 const CSV = path.join(ROOT, "LANDING-COPY.csv");
-const PAGE = path.join(ROOT, "landing-v3.html");
+const PAGE = path.join(ROOT, "index.html");
 const DRY = process.argv.indexOf("--dry") > -1;
 
 /* --- a small RFC4180 reader (quotes, embedded commas and newlines) --- */
@@ -73,7 +73,7 @@ if (applied.length && !DRY) {
   fs.writeFileSync(PAGE, html, "utf8");
 }
 
-console.log("\n" + (DRY ? "DRY RUN — nothing written" : applied.length ? "applied to landing-v3.html (backup: landing-v3.html.bak)" : "nothing to apply"));
+console.log("\n" + (DRY ? "DRY RUN — nothing written" : applied.length ? "applied to index.html (backup: index.html.bak)" : "nothing to apply"));
 console.log("  " + applied.length + " changed, " + unchanged.length + " unchanged, " + skipped.length + " need a hand\n");
 applied.forEach(a => console.log("  CHANGED  " + a[0] + "\n      was: " + a[1] + "\n      now: " + a[2]));
 if (skipped.length) {

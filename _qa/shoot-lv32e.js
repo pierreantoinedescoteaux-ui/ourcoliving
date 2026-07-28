@@ -20,7 +20,7 @@ const OUT = __dirname;
   const ctx = await b.newContext({ viewport: { width: 1600, height: 900 }, permissions: ["clipboard-read", "clipboard-write"] });
   const p = await ctx.newPage();
   const errs = []; p.on("pageerror", e => errs.push(e.message));
-  await p.goto(BASE + "/landing-v3.html?edit", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html?edit", { waitUntil: "load" });
   await p.waitForTimeout(1500);
 
   check(await p.evaluate(() => document.documentElement.classList.contains("lv3-edit")), "?edit turns edit mode on");
@@ -116,7 +116,7 @@ const OUT = __dirname;
   check(clip.indexOf('"spaces"') > -1, "...and the clipboard really has the JSON (" + clip.length + " chars)");
 
   /* --- and none of this leaks into the normal page --- */
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1400);
   const clean = await p.evaluate(() => ({
     edit: document.documentElement.classList.contains("lv3-edit"),

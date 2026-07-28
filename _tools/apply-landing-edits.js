@@ -1,4 +1,4 @@
-/* Bakes the JSON from landing-v3.html?edit ("Copy the JSON") into the file,
+/* Bakes the JSON from index.html?edit ("Copy the JSON") into the file,
    so P-A's dragged anchors, moved bubbles, retyped words, added and deleted
    spots become the real defaults instead of living in his browser.
 
@@ -17,7 +17,7 @@
 const fs = require("fs"), path = require("path");
 
 const ROOT = path.join(__dirname, "..");
-const PAGE = path.join(ROOT, "landing-v3.html");
+const PAGE = path.join(ROOT, "index.html");
 const DRY = process.argv.indexOf("--dry") > -1;
 const src = process.argv[2];
 if (!src || src.startsWith("--")) { console.error("usage: node _tools/apply-landing-edits.js <edits.json> [--dry]"); process.exit(1); }
@@ -57,13 +57,47 @@ Object.keys(edits.spaces || {}).forEach(key => {
   if (o.desc)   patch(head, "desc",   "'" + esc(o.desc) + "'", key + " → sentence");
 });
 
+/* Finds one scene's slice of SCENE_SPOTS, so a renamed spot can still be
+   identified by what it LINKS TO. Edit mode keys spots by name, so the moment
+   P-A retypes a name the file no longer contains it — the link is the stable
+   identity. */
+function sceneSlice(scene) {
+  const at = html.indexOf("{ id:'" + scene + "', spots:[");
+  if (at < 0) return null;
+  let end = html.indexOf("\n  { id:'", at + 5);
+  if (end < 0) end = html.indexOf("\n];", at);
+  return { at, end: end < 0 ? html.length : end };
+}
+/* the spot's current name in the file, located by scene + href */
+function nameByHref(scene, href) {
+  const s = sceneSlice(scene);
+  if (!s) return null;
+  const seg = html.slice(s.at, s.end);
+  const re = new RegExp("name:'((?:[^'\\\\]|\\\\.)*)',\\s*href:'" + href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "'");
+  const m = seg.match(re);
+  return m ? m[1] : null;
+}
+
 /* --- the in-scene hotspots --- */
 Object.keys(edits.spots || {}).forEach(k => {
-  const o = edits.spots[k], name = k.split("::")[1], head = "name:'" + esc(name) + "'";
+  const o = edits.spots[k], scene = k.split("::")[0], name = k.split("::")[1];
+  let head = "name:'" + esc(name) + "'";
+  let renamedFrom = null;
+
+  if (html.indexOf(head) < 0) {
+    /* renamed in edit mode — find it by what it links to, and rename it here */
+    const was = o.href ? nameByHref(scene, o.href) : null;
+    if (!was) { todo.push([k, "renamed, and no entry in '" + scene + "' links to " + (o.href || "(no link given)") + " — do this one by hand"]); return; }
+    renamedFrom = was;
+    head = "name:'" + esc(was) + "'";
+  }
+
   if (o.anchor) patch(head, "anchor", pair(o.anchor), k + " → anchor " + pair(o.anchor));
   if (o.label)  patch(head, "label",  pair(o.label),  k + " → label " + pair(o.label));
   if (o.line)   patch(head, "line",   "'" + esc(o.line) + "'", k + " → sentence");
   if (o.href)   patch(head, "href",   "'" + esc(o.href) + "'", k + " → link");
+  /* the rename LAST, so `head` stays valid for the patches above */
+  if (renamedFrom) patch(head, "name", "'" + esc(name) + "'", k + " → renamed from \"" + renamedFrom + "\"");
 });
 
 /* --- added and removed spots need a shape decision (the traced region), so
@@ -84,7 +118,7 @@ if (done.length && !DRY) {
   fs.writeFileSync(PAGE, html, "utf8");
 }
 
-console.log("\n" + (DRY ? "DRY RUN — nothing written" : done.length ? "applied to landing-v3.html (backup: landing-v3.html.bak)" : "nothing applied"));
+console.log("\n" + (DRY ? "DRY RUN — nothing written" : done.length ? "applied to index.html (backup: index.html.bak)" : "nothing applied"));
 console.log("  " + done.length + " baked in, " + todo.length + " need a hand\n");
 done.forEach(d => console.log("  OK   " + d));
 if (todo.length) { console.log("\nBY HAND:"); todo.forEach(t => console.log("  " + t[0] + "\n      " + t[1])); }

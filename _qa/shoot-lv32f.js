@@ -19,7 +19,7 @@ const OUT = __dirname;
   const ctx = await b.newContext({ viewport: { width: 1600, height: 900 } });
   const p = await ctx.newPage();
   const errs = []; p.on("pageerror", e => errs.push(e.message));
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1500);
 
   check(await p.evaluate(() => !document.getElementById("lv3back")), "the floating back button is gone");

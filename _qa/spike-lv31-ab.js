@@ -40,7 +40,7 @@ const CATS = ["rgb(43, 139, 143)", "rgb(208, 138, 46)", "rgb(62, 125, 176)", "rg
   for (const vp of [{ width: 1280, height: 800 }, { width: 1920, height: 1080 }, { width: 2560, height: 1080 }]) {
     const s = await b.newPage({ viewport: vp });
     const serrs = watch(s);
-    await s.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+    await s.goto(BASE + "/index.html", { waitUntil: "load" });
     await s.waitForTimeout(1400);
     const r = await s.evaluate(() => {
       const sc = document.querySelector("#world .sw-stage .sw-scene");
@@ -70,7 +70,7 @@ const CATS = ["rgb(43, 139, 143)", "rgb(208, 138, 46)", "rgb(62, 125, 176)", "rg
   /* ---------- main desktop pass: colours, chips, debug, lock, tour ---------- */
   const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
   const errs = watch(p);
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1600);
   const H264 = await p.evaluate(() => !!document.createElement("video").canPlayType('video/mp4; codecs="avc1.42E01E"'));
   if (!H264) console.log("NOTE  no H.264 decoder here — checking posters, not playback (index.html fails the same way)");
@@ -165,7 +165,7 @@ const CATS = ["rgb(43, 139, 143)", "rgb(208, 138, 46)", "rgb(62, 125, 176)", "rg
   /* ---------- ?debug alignment screenshot ---------- */
   const d = await b.newPage({ viewport: { width: 1440, height: 900 } });
   watch(d);
-  await d.goto(BASE + "/landing-v3.html?debug", { waitUntil: "load" });
+  await d.goto(BASE + "/index.html?debug", { waitUntil: "load" });
   await d.waitForTimeout(1600);
   await d.screenshot({ path: path.join(OUT, "lv31-a-debug.png") });
   await d.close();
@@ -173,7 +173,7 @@ const CATS = ["rgb(43, 139, 143)", "rgb(208, 138, 46)", "rgb(62, 125, 176)", "rg
   /* ---------- phone: coloured stacked rows, tap enters scene ---------- */
   const m = await b.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const merrs = watch(m);
-  await m.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await m.goto(BASE + "/index.html", { waitUntil: "load" });
   await m.waitForTimeout(1800);
   const phone = await m.evaluate(() => {
     const rows = [...document.querySelectorAll(".lv3-row")];

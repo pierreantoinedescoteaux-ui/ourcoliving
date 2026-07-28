@@ -28,7 +28,7 @@ const KEYS = ["summit", "homes", "library", "workshop", "garden", "commons"];
     const p = await ctx.newPage();
     const errs = [];
     p.on("pageerror", e => errs.push(e.message));
-    await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+    await p.goto(BASE + "/index.html", { waitUntil: "load" });
     await p.waitForTimeout(1500);
     const tag = vp.width + "x" + vp.height;
 
@@ -101,7 +101,7 @@ const KEYS = ["summit", "homes", "library", "workshop", "garden", "commons"];
   const p = await ctx.newPage();
   const errs = [];
   p.on("pageerror", e => errs.push(e.message));
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1200);
   await p.evaluate(() => { WORLD.jumpToInstant(2); });
   await p.waitForTimeout(900);

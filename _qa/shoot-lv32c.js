@@ -22,7 +22,7 @@ const OUT = __dirname;
   let ctx = await b.newContext({ viewport: { width: 1920, height: 1080 } });
   let p = await ctx.newPage();
   let errs = []; p.on("pageerror", e => errs.push(e.message));
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1400);
 
   const first = await p.evaluate(() => {
@@ -48,7 +48,7 @@ const OUT = __dirname;
   ctx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   p = await ctx.newPage();
   errs = []; p.on("pageerror", e => errs.push(e.message));
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1400);
   await p.evaluate(() => { WORLD.jumpToInstant(3); });
   await p.waitForTimeout(900);

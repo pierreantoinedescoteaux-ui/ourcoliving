@@ -1,4 +1,4 @@
-/* Pulls every line of copy off landing-v3.html into LANDING-COPY.csv.
+/* Pulls every line of copy off index.html into LANDING-COPY.csv.
    Reads the page's own data (SPACES / SCENE_SPOTS / LV3_SECTIONS / the hero
    and invite DOM) so the sheet can never drift from what actually renders.
    P-A edits the Copy column; apply it back with _tools/apply-landing-copy.js.
@@ -23,7 +23,7 @@ const cell = v => {
   try { b = await chromium.launch({ headless: true, channel: launch.executablePath ? undefined : "chrome", ...launch }); }
   catch (e) { b = await chromium.launch({ headless: true, ...launch }); }
   const p = await (await b.newContext({ viewport: { width: 1600, height: 900 } })).newPage();
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1200);
 
   const rows = await p.evaluate(() => {
@@ -41,7 +41,8 @@ const cell = v => {
     out.push(["Main map", "tour invite — heading", t(document.querySelector("#lv3invite h2"))]);
     out.push(["Main map", "tour invite — body", t(document.querySelector("#lv3invite p"))]);
     out.push(["Main map", "tour invite — button", t(document.querySelector("#lv3invite .lv3-inv-go"))]);
-    out.push(["Main map", "back to the map button", t(document.querySelector("#lv3back span"))]);
+    out.push(["Main map", "back to the map link (in every scene)",
+      t(document.querySelector("#world .sw-copy .lv3-backlink"))]);
     /* one row per chip, each named after itself — every Zone+Element pair in
        this sheet must be UNIQUE or the applier cannot tell the rows apart */
     document.querySelectorAll(".lv3-chip").forEach((c, i) =>

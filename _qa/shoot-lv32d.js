@@ -21,7 +21,7 @@ const spin = async (p, n) => { for (let i = 0; i < n; i++) { await p.mouse.wheel
     const ctx = await b.newContext({ viewport: { width: 1600, height: 900 } });
     const p = await ctx.newPage();
     p.on("pageerror", e => { console.log("PAGEERROR " + e.message); fails++; });
-    await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+    await p.goto(BASE + "/index.html", { waitUntil: "load" });
     await p.waitForTimeout(1400);
     await p.mouse.move(800, 500);
     return { ctx, p };

@@ -55,11 +55,12 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   const watch = p => {
     const errs = [], ext = [];
     const mine = u => !u || u.indexOf(BASE) === 0;
-    p.on("pageerror", e => errs.push(e.message));
+    const BENIGN = /The play\(\) request was interrupted/;   /* loop paused mid-play as it scrolls out — harmless */
+    p.on("pageerror", e => { (BENIGN.test(e.message) ? ext : errs).push(e.message); });
     p.on("console", m => {
       if (m.type() !== "error") return;
       const u = (m.location() && m.location().url) || "";
-      (mine(u) ? errs : ext).push(m.text() + (u ? " [" + u + "]" : ""));
+      (mine(u) && !BENIGN.test(m.text()) ? errs : ext).push(m.text() + (u ? " [" + u + "]" : ""));
     });
     p.on("requestfailed", r => { if (!mine(r.url())) ext.push(r.url()); });
     errs.external = ext;
@@ -72,7 +73,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   if (DEBUG_ONLY) {
     const d = await b.newPage({ viewport: { width: 1440, height: 900 } });
     watch(d);
-    await d.goto(BASE + "/landing-v3.html?debug", { waitUntil: "load" });
+    await d.goto(BASE + "/index.html?debug", { waitUntil: "load" });
     await d.waitForTimeout(1600);
     await d.screenshot({ path: path.join(OUT, "lv31-final-debug-map.png") });
     for (const sc of SCENES) {
@@ -88,7 +89,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   for (const vp of [{ width: 1280, height: 800 }, { width: 1920, height: 1080 }, { width: 2560, height: 1080 }, { width: 1024, height: 1366 }]) {
     const s = await b.newPage({ viewport: vp });
     const serrs = watch(s);
-    await s.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+    await s.goto(BASE + "/index.html", { waitUntil: "load" });
     await s.waitForTimeout(1400);
     const r = await s.evaluate(() => {
       const sc = document.querySelector("#world .sw-stage .sw-scene");
@@ -138,8 +139,12 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
           const last = pts[pts.length - 1].split(",");
           const ax = parseFloat(last[0]), ay = parseFloat(last[1]);
           if (!(ax >= 0 && ax <= innerWidth && ay >= 0 && ay <= innerHeight)) badAnchor.push(sp2.name);
-          const lr = sp2.el.getBoundingClientRect();
-          if (lr.left < 0 || lr.top < 0 || lr.right > innerWidth || lr.bottom > innerHeight + 40) offLabel.push(sp2.name);
+          /* measure the VISIBLE pill, like the map's labels: the sentence sits
+             in flow beneath it but is hidden until hover, and hover pulls the
+             whole bubble back on-screen (fitHot, checked in shoot-lv32b.js).
+             P-A parks some spots low on purpose. */
+          const lr = sp2.nameEl.getBoundingClientRect();
+          if (lr.left < 0 || lr.top < 0 || lr.right > innerWidth || lr.bottom > innerHeight) offLabel.push(sp2.name);
         });
         return { badAnchor, offLabel };
       }, sc.index);
@@ -153,7 +158,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   /* ================= 2. main desktop pass: 1440x900 ================= */
   const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
   const errs = watch(p);
-  await p.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await p.goto(BASE + "/index.html", { waitUntil: "load" });
   await p.waitForTimeout(1800);
 
   /* Playwright's bundled Chromium ships without the proprietary H.264 decoder,
@@ -391,7 +396,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   /* ================= 3. in-scene hotspots (Slice C) — per scene ================= */
   const h = await b.newPage({ viewport: { width: 1440, height: 900 } });
   const herrs = watch(h);
-  await h.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await h.goto(BASE + "/index.html", { waitUntil: "load" });
   await h.waitForTimeout(1600);
 
   const mapState = await h.evaluate(() => ({
@@ -423,7 +428,10 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
       return {
         on: layer.classList.contains("is-on"), op: +getComputedStyle(layer).opacity,
         spots: vis.length,
-        onScreen: vis.filter(l => { const r = l.getBoundingClientRect(); return r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight + 40; }).length,
+        /* the VISIBLE pill, not the box — the sentence sits in flow beneath it
+           but is hidden until hover, and hover pulls the whole bubble back on
+           screen (fitHot; checked in shoot-lv32b.js) */
+        onScreen: vis.filter(l => { const r = l.querySelector(".lv3-name").getBoundingClientRect(); return r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight; }).length,
         pillsHidden: tags.every(t => getComputedStyle(t).display === "none"),
         overCopy, pairHits
       };
@@ -481,7 +489,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   /* ---------------- click test: departs then REALLY navigates ---------------- */
   const c = await b.newPage({ viewport: { width: 1440, height: 900 } });
   const cerrs = watch(c);
-  await c.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await c.goto(BASE + "/index.html", { waitUntil: "load" });
   await c.waitForTimeout(1200);
   await jump(c, 3);
   await c.waitForTimeout(800);
@@ -500,7 +508,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   const ctx2 = await b.newContext({ viewport: { width: 1440, height: 900 } });
   const c2 = await ctx2.newPage();
   watch(c2);
-  await c2.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await c2.goto(BASE + "/index.html", { waitUntil: "load" });
   await c2.waitForTimeout(1200);
   await jump(c2, 3);
   await c2.waitForTimeout(800);
@@ -508,14 +516,14 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   await c2.locator("#lv3slabels .lv3-label:visible", { hasText: "The blueprint" }).first().locator(".lv3-name").click({ modifiers: ["Control"] });
   const popup = await popupWait;
   await c2.waitForTimeout(400);
-  check(c2.url().indexOf("landing-v3.html") > -1, "ctrl-click: the landing page does NOT navigate away");
+  check(c2.url().indexOf("index.html") > -1, "ctrl-click: the landing page does NOT navigate away");
   check(!!popup, "ctrl-click: opens the target in a new tab (native link behaviour)");
   await ctx2.close();
 
   /* reduced motion: instant jump on map click; plain navigation on a spot click */
   const r = await b.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
   const rerrs = watch(r);
-  await r.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await r.goto(BASE + "/index.html", { waitUntil: "load" });
   await r.waitForTimeout(1200);
   const rbox = await r.evaluate(() => {
     const l = [...document.querySelectorAll("#lv3labels .lv3-label")].find(x => x.textContent.includes("Garden"));
@@ -531,7 +539,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   check(rjump.y > 0 && rjump.stageClean, "reduced motion: map click is an instant jump, no zoom (y=" + rjump.y + ")");
   await jump(r, 5);
   await r.waitForTimeout(700);
-  await r.locator("#lv3slabels .lv3-label:visible", { hasText: "The couch" }).first().locator(".lv3-name").click();
+  await r.locator("#lv3slabels .lv3-label:visible", { hasText: "The story book" }).first().locator(".lv3-name").click();
   await r.waitForURL("**/story.html", { timeout: 3000 });
   check(true, "reduced motion: in-scene spot click navigates plainly to story.html");
   check(rerrs.length === 0, "reduced motion: 0 errors" + (rerrs.length ? " -> " + rerrs.join(" | ") : noise(rerrs)));
@@ -540,7 +548,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   /* ================= 4. phone pass (390x844) ================= */
   const m = await b.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const merrs = watch(m);
-  await m.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await m.goto(BASE + "/index.html", { waitUntil: "load" });
   await m.waitForTimeout(1800);
   const phone = await m.evaluate(() => {
     const rows = [...document.querySelectorAll(".lv3-row")];
@@ -613,7 +621,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   /* headline 2560px map shot (separate, no interaction needed) */
   const wide = await b.newPage({ viewport: { width: 2560, height: 1080 } });
   watch(wide);
-  await wide.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await wide.goto(BASE + "/index.html", { waitUntil: "load" });
   await wide.waitForTimeout(1500);
   await wide.screenshot({ path: path.join(OUT, "lv31-final-map-2560.png") });
   await wide.close();
@@ -647,7 +655,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
 
   /* ================= 6. every hotspot href + tag href + new-page link resolves ================= */
   const l = await b.newPage({ viewport: { width: 1440, height: 900 } });
-  await l.goto(BASE + "/landing-v3.html", { waitUntil: "load" });
+  await l.goto(BASE + "/index.html", { waitUntil: "load" });
   await l.waitForTimeout(1200);
   const mapHrefs = await l.evaluate(() => [...new Set([...document.querySelectorAll("#lv3labels .lv3-label,.lv3-row,.lv3-plain a")].map(a => a.getAttribute("href")))]);
   const spotHrefs = await l.evaluate(() => [...new Set(SCENE_SPOTS.flatMap(g => g.spots.map(s => s.href)))]);
