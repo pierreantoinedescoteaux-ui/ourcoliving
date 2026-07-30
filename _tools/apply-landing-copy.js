@@ -53,10 +53,18 @@ const key = r => norm(r[0]) + " │ " + norm(r[1]);
 const base = new Map(); baseRows.forEach(r => { if (!base.has(key(r))) base.set(key(r), norm(r[2])); });
 
 let html = fs.readFileSync(PAGE, "utf8");
-const applied = [], skipped = [], unchanged = [];
+const applied = [], skipped = [], unchanged = [], usedNewCol = [];
 
 editRows.forEach(r => {
-  const k = key(r), now = base.get(k), want = norm(r[2]);
+  /* Two places a rewrite can land, and both are honoured. The sheet has
+     always carried a "New copy" column that NOTHING read — anything typed
+     there was silently thrown away, which is the same class of trap as the
+     pen tool that lost hours of edits (commit fe726bc). "New copy" now wins
+     when it is filled; editing the Copy cell in place still works. */
+  const k = key(r), now = base.get(k);
+  const fresh = norm(r[3]), inPlace = norm(r[2]);
+  const want = fresh || inPlace;
+  if (fresh && inPlace && fresh !== inPlace) usedNewCol.push(k);
   if (now === undefined) { skipped.push([k, "no such row on the page any more"]); return; }
   if (now === want) { unchanged.push(k); return; }
   if (!now) { skipped.push([k, "the old text was empty — apply this one by hand"]); return; }
@@ -76,6 +84,9 @@ if (applied.length && !DRY) {
 console.log("\n" + (DRY ? "DRY RUN — nothing written" : applied.length ? "applied to index.html (backup: index.html.bak)" : "nothing to apply"));
 console.log("  " + applied.length + " changed, " + unchanged.length + " unchanged, " + skipped.length + " need a hand\n");
 applied.forEach(a => console.log("  CHANGED  " + a[0] + "\n      was: " + a[1] + "\n      now: " + a[2]));
+if (usedNewCol.length) {
+  console.log("\n  (" + usedNewCol.length + " row(s) took the rewrite from the \"New copy\" column)");
+}
 if (skipped.length) {
   console.log("\nNOT APPLIED — do these by hand:");
   skipped.forEach(s => console.log("  " + s[0] + "  — " + s[1]));

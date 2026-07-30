@@ -188,6 +188,10 @@
 .lv3-tour:hover{background:rgba(34,48,31,.06);border-color:rgba(34,48,31,.55);transform:translateY(-1px);}
 .lv3-do .or{font-size:clamp(.86rem,.82rem + .1vw,1rem);color:var(--sw-ink-soft);}
 .on-phone{display:none;}
+/* the phone-only furniture: the doors, the gate and the scroll cue exist in
+   the DOM on every width (one page, one copy source) but only the phone
+   block above turns them on. Desktop keeps the anchored map it already has. */
+.lv3-cue,.lv3-doors,.lv3-gate,.lv3-pins{display:none;}
 /* A4 — the minimal legend: one quiet row of colour-dot + single-word chips.
    Smallest possible cognitive load — reads instantly. */
 .lv3-legend{position:absolute;left:clamp(18px,5vw,64px);bottom:clamp(18px,3.4vh,34px);
@@ -322,6 +326,67 @@ html.lv3-edit #lv3edit{display:block;}
   transform:translate(-50%,-50%) perspective(760px) rotateY(-88deg) scale(1.06);
   opacity:0;filter:blur(6px);
   transition:transform .52s cubic-bezier(.5,0,.75,.6),opacity .42s ease-in .1s,filter .5s ease-in;}
+/* ---------------------------------------------------------------------
+   THE DOOR (desktop, 2026-07-30). P-A asked for the invitation to be a real
+   painted double door that opens, rather than a paper bubble that swings.
+
+   The art is ONE painted image; the two leaves are the same image shown
+   twice, each clipped to its half, so the seam is exactly the seam the
+   painter drew. Opening rotates each half on its own outer hinge while the
+   world flies through the gap. Nothing is cut up on disk: swapping the
+   artwork is one line, --door-art below.
+
+   ⚑ The image in place is CONCEPT C of three (see _landing/build3/raw/).
+   P-A picks; A and B swap in by changing --door-art.
+   --------------------------------------------------------------------- */
+:root{ --door-art:url("assets/world/door.webp"); }
+.lv3-door2{display:block;position:relative;width:min(58vh,340px);aspect-ratio:900/1355;
+  margin:0 auto 4px;perspective:1100px;
+  }
+/* The standing art rule: nothing on this site sits in a hard rectangle.
+   Each LEAF is feathered rather than the frame around them, with the fade
+   centred on the seam — so the top, bottom and outer edges dissolve into the
+   paper while the two inner edges stay crisp against each other. Masking the
+   container instead would have to be dropped the moment the door opens (or
+   it clips the swinging leaves), and the cream box would flash back. */
+.lv3-door2 .lf{-webkit-mask-image:radial-gradient(150% 78% at 100% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);
+  mask-image:radial-gradient(150% 78% at 100% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);}
+.lv3-door2 .rt{-webkit-mask-image:radial-gradient(150% 78% at 0% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);
+  mask-image:radial-gradient(150% 78% at 0% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);}
+.lv3-door2 span{position:absolute;top:0;bottom:0;width:50%;
+  background-image:var(--door-art);background-size:200% 100%;background-repeat:no-repeat;
+  transition:transform .62s cubic-bezier(.5,.02,.34,1);
+  backface-visibility:hidden;}
+.lv3-door2 .lf{left:0;background-position:left center;transform-origin:0% 50%;}
+.lv3-door2 .rt{right:0;background-position:right center;transform-origin:100% 50%;}
+#lv3invite.is-opening .lv3-door2 .lf{transform:rotateY(-96deg);}
+#lv3invite.is-opening .lv3-door2 .rt{transform:rotateY(96deg);}
+/* a warm glow behind the leaves, so what opens reads as a lit room and not a hole */
+.lv3-door2::before{content:"";position:absolute;inset:14% 18%;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(255,214,140,.85),rgba(255,214,140,0) 70%);
+  opacity:0;transition:opacity .5s ease .12s;}
+#lv3invite.is-opening .lv3-door2::before{opacity:1;}
+/* with the door in it, the invitation is the door: no card behind it */
+/* no card, but the question still has to be readable over a busy painting:
+   a soft cream halo, painted rather than boxed */
+#lv3invite:has(.lv3-door2){background:radial-gradient(58% 50% at 50% 78%,
+    var(--sw-bg) 0%, color-mix(in srgb,var(--sw-bg) 88%,transparent) 42%,
+    color-mix(in srgb,var(--sw-bg) 40%,transparent) 72%, transparent 100%);
+  border:0;box-shadow:none;padding:0 10px 8px;
+  width:min(88vw,420px);}
+#lv3invite:has(.lv3-door2).is-opening{transform:translate(-50%,-50%) scale(1.04);
+  filter:none;opacity:1;
+  transition:transform .6s cubic-bezier(.5,0,.75,.6),opacity .3s ease-in .34s;}
+#lv3invite:has(.lv3-door2).is-opening .lv3-inv-x,
+#lv3invite:has(.lv3-door2).is-opening h2,
+#lv3invite:has(.lv3-door2).is-opening p,
+#lv3invite:has(.lv3-door2).is-opening .lv3-inv-go{opacity:0;transition:opacity .22s ease;}
+#lv3invite:has(.lv3-door2) h2,#lv3invite:has(.lv3-door2) p{
+  text-shadow:0 1px 14px var(--sw-bg),0 0 26px var(--sw-bg);}
+@media (prefers-reduced-motion:reduce){
+  .lv3-door2 span,.lv3-door2::before{transition:none;}
+}
+
 #lv3invite h2{margin:0;font-family:var(--sw-font-display);font-weight:300;
   font-size:clamp(1.34rem,1.1rem + .74vw,1.86rem);line-height:1.18;color:var(--sw-ink);}
 #lv3invite p{margin:12px 0 0;font-family:var(--sw-font-body);
@@ -393,49 +458,222 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .lv3-plain{width:min(70vw,560px);}
 }
 
-/* ---- phones ---- */
+/* =====================================================================
+   PHONES — rebuilt 2026-07-30 (P-A: "the interactive map just is not
+   working on mobile").
+
+   The desktop verb is "point at the world": the whole tower is on screen
+   and every space is a place you aim at. A 390px screen cannot carry
+   that (the whole tower contain-fit is ~220px tall, and the portrait
+   video crop keeps only the middle third of the width), so the phone
+   gets a different verb: ARRIVE, then CHOOSE.
+
+     screen 1   the tower, alone. Nothing on top of the art but the
+                headline sitting in a scrim across the bottom third.
+     one scroll the three doors rise: take the tour · jump to resources ·
+                learn about me. The tower stays visible above them.
+     a door     the tour flies to the summit (unchanged mechanics), or a
+                gate slides in with that group's zones.
+
+   Every size below is held to MOBILE-RULES.md: reading text ≥16px,
+   micro-labels ≥12px, taps ≥44px. `_qa/mobile-audit.js` now fails the
+   run if this regresses, so do not hand-tune these down.
+   ===================================================================== */
 @media (max-width:860px){
   /* the -m crops reframe every scene — the traced desktop coords don't
-     apply, so the spot layer stands down and the pills stay the interface */
+     apply wholesale, so the desktop spot layer stands down. The Summit
+     re-earns its pins further down, from re-projected coordinates. */
   .lv3s{display:none;}
-  /* the pills carry the phone: readable (≥16px) and tappable (≥44px) */
-  #world .sw-copy__tags{gap:9px;}
-  #world .sw-copy__tags li{font-size:1rem;padding:0;}
-  #world .sw-copy__tags li a{padding:12px 16px;line-height:1.25;}
+  .lv3-labels,.lv3fx,.lv3lines,.lv3-plain,.lv3-legend{display:none;}
+  /* the desktop tour invitation is dead weight here: the doors already give
+     the visitor three answers to the same gesture */
+  #lv3invite{display:none !important;}
+  .on-wide{display:none;} .on-phone{display:inline;}
+  .lv3{overflow:hidden;}
+
+  /* THE CLIMB's scrim. Stacking the scene's subpage links into full-width
+     buttons (below) makes the copy block roughly three times taller than
+     the engine's own phone scrim was drawn for, so the heading and the
+     sentence were left sitting on bare painting and could not be read.
+     The scrim grows to match: clear sky at the top, cream under the words. */
+  .sw-copylayer::before{
+    width:100%;height:100%;top:0;bottom:auto;
+    background:linear-gradient(180deg,
+      transparent 0%,
+      transparent 16%,
+      color-mix(in srgb,var(--sw-bg) 40%,transparent) 27%,
+      color-mix(in srgb,var(--sw-bg) 78%,transparent) 38%,
+      color-mix(in srgb,var(--sw-bg) 92%,transparent) 50%,
+      var(--sw-bg) 62%);
+  }
+  /* The map's own scrim. The art was drowning under a full-height wash at
+     up to 86%: the top two thirds of the tower are clean now, and the text
+     sits on the part that is dark enough to read on. */
   html.lv3-map .sw-copylayer::before{
     width:100%;height:100%;top:0;
-    background:linear-gradient(180deg,var(--sw-bg) 0%,
-      color-mix(in srgb,var(--sw-bg) 78%,transparent) 26%,
-      color-mix(in srgb,var(--sw-bg) 62%,transparent) 58%,
-      color-mix(in srgb,var(--sw-bg) 86%,transparent) 100%);
+    background:linear-gradient(180deg,
+      transparent 0%,
+      transparent 34%,
+      color-mix(in srgb,var(--sw-bg) 42%,transparent) 52%,
+      color-mix(in srgb,var(--sw-bg) 84%,transparent) 70%,
+      var(--sw-bg) 88%);
   }
-  .lv3-labels,.lv3fx,.lv3lines,.lv3-plain{display:none;}
-  .lv3{overflow:hidden;}
-  .lv3-hero{position:static;width:auto;padding:calc(64px + env(safe-area-inset-top)) 20px 0;}
-  .lv3-hero h1{font-size:clamp(1.45rem,6.4vw,2rem);}
-  .lv3-hero .lede{font-size:.95rem;margin-top:11px;}
-  .lv3-legend{display:none;}
-  .lv3-do{margin-top:14px;}
-  .lv3-stack{display:block;pointer-events:auto;padding:10px 14px calc(14px + env(safe-area-inset-bottom));}
-  .lv3-stack h2{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:#93a08d;margin:0 0 6px;padding-left:6px;}
-  .lv3-row{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;
-    padding:7px 12px;border-radius:13px;background:rgba(253,250,240,.86);
-    border:1px solid rgba(34,48,31,.1);border-left:3px solid var(--rc);
-    margin-bottom:5px;box-shadow:0 10px 26px -22px rgba(35,28,10,.5);}
-  .lv3-row .lv3-mark,.lv3-row .lv3-mark svg{width:20px;height:20px;color:var(--rc);margin-top:2px;}
-  .lv3-row > span:last-child{min-width:0;flex:1;}
-  .on-wide{display:none;} .on-phone{display:inline;}
-  /* the six doors ARE the route here — the rail and the scroll hint just
-     collide with them, so they stand down until the climb starts */
+  /* the doors are the route on a phone — the rail and the engine's own
+     scroll hint only collide with them */
   html.lv3-map .sw-route,html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .sw-route{transition:opacity .3s ease;}
-  .lv3-row b{display:block;font-size:.94rem;font-weight:600;color:var(--sw-ink);line-height:1.25;}
-  .lv3-row span{display:block;font-size:.76rem;line-height:1.35;color:var(--sw-ink-soft);margin-top:2px;}
+
+  /* ---- screen 1: the tower, and the words at the foot of it ---- */
+  .lv3-hero{position:absolute;left:0;right:0;width:auto;
+    top:auto;bottom:calc(84px + env(safe-area-inset-bottom));
+    padding:0 20px;text-align:left;}
+  .lv3-eyebrow{font-size:.78rem;letter-spacing:.18em;}
+  .lv3-hero h1{font-size:clamp(1.72rem,7.4vw,2.3rem);margin-top:10px;line-height:1.12;}
+  .lv3-hero .lede{font-size:1rem;line-height:1.5;margin-top:12px;
+    max-width:34ch;}
+  /* the tour button is a door now, so the hero's own row stands down and
+     only the scroll cue remains */
+  .lv3-do{display:none;}
+
+  /* the cue: what to do next, and the only thing asking for a gesture */
+  .lv3-cue{display:flex;position:absolute;left:0;right:0;
+    bottom:calc(18px + env(safe-area-inset-bottom));
+    align-items:center;justify-content:center;gap:9px;
+    font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    color:var(--sw-ink-soft);pointer-events:none;
+    transition:opacity .3s ease;}
+  .lv3-cue svg{width:15px;height:15px;animation:lv3nod 2.6s ease-in-out infinite;}
+  @keyframes lv3nod{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+  html.lv3-doorsup .lv3-cue{opacity:0;}
+
+  /* ---- the three doors ---- */
+  .lv3-doors{display:block;position:absolute;left:0;right:0;
+    bottom:0;padding:0 14px calc(14px + env(safe-area-inset-bottom));
+    pointer-events:auto;
+    transform:translateY(112%);opacity:0;visibility:hidden;
+    transition:transform .46s cubic-bezier(.22,.9,.3,1),opacity .3s ease,visibility 0s .46s;}
+  html.lv3-doorsup .lv3-doors{transform:none;opacity:1;visibility:visible;
+    transition:transform .46s cubic-bezier(.22,.9,.3,1),opacity .3s ease;}
+  /* the hero lifts out of the doors' way rather than being covered by them */
+  html.lv3-doorsup .lv3-hero{bottom:auto;top:calc(66px + env(safe-area-inset-top));
+    transition:top .46s cubic-bezier(.22,.9,.3,1),bottom .46s;}
+  html.lv3-doorsup .lv3-hero .lede{display:none;}
+  /* at the top the headline sits on the busiest part of the painting, so the
+     scrim flips: cream at the head for the words, clear through the middle
+     for the art, cream at the foot under the doors */
+  html.lv3-doorsup.lv3-map .sw-copylayer::before{
+    background:linear-gradient(180deg,
+      var(--sw-bg) 0%,
+      color-mix(in srgb,var(--sw-bg) 82%,transparent) 13%,
+      color-mix(in srgb,var(--sw-bg) 34%,transparent) 24%,
+      transparent 34%,
+      transparent 50%,
+      color-mix(in srgb,var(--sw-bg) 46%,transparent) 66%,
+      color-mix(in srgb,var(--sw-bg) 88%,transparent) 80%,
+      var(--sw-bg) 92%);
+  }
+  /* the credit line has done its job by now and only costs two lines of room */
+  html.lv3-doorsup .lv3-eyebrow{display:none;}
+  html.lv3-doorsup .lv3-hero h1{font-size:clamp(1.5rem,6.2vw,1.95rem);margin-top:0;}
+
+  .lv3-door{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    min-height:64px;padding:13px 15px;margin:0 0 8px;
+    border-radius:15px;background:rgba(253,250,240,.94);
+    border:1px solid rgba(34,48,31,.12);border-left:4px solid var(--rc);
+    box-shadow:0 16px 34px -24px rgba(35,28,10,.72);
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+    font-family:inherit;color:inherit;cursor:pointer;
+    transition:transform .18s ease,box-shadow .18s ease;}
+  .lv3-door:active{transform:scale(.985);}
+  .lv3-door .lv3-mark,.lv3-door .lv3-mark svg{width:26px;height:26px;color:var(--rc);flex:none;}
+  .lv3-door > span:last-child{min-width:0;flex:1;}
+  .lv3-door b{display:block;font-size:1.06rem;font-weight:600;line-height:1.25;
+    color:var(--sw-ink);}
+  /* the door's line is a sentence, so it is reading content and holds the
+     16px floor, not the 12px micro-label one */
+  .lv3-door i{display:block;font-style:normal;font-size:1rem;line-height:1.38;
+    color:var(--sw-ink-soft);margin-top:4px;}
+  .lv3-door u{flex:none;text-decoration:none;color:var(--rc);font-size:1.25rem;line-height:1;}
+
+  /* ---- the gate: a group's zones, one layer above the tower ---- */
+  /* above the sticky site nav (z 1000): the gate is a full takeover with its
+     own way back, so the nav must not sit on top of it and eat the taps */
+  .lv3-gate{position:fixed;inset:0;z-index:1200;display:flex;flex-direction:column;
+    background:var(--sw-bg);
+    transform:translateY(100%);visibility:hidden;
+    transition:transform .4s cubic-bezier(.22,.9,.3,1),visibility 0s .4s;
+    overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+  .lv3-gate.on{transform:none;visibility:visible;
+    transition:transform .4s cubic-bezier(.22,.9,.3,1);}
+  .lv3-gate__top{position:sticky;top:0;z-index:2;background:var(--sw-bg);
+    padding:calc(10px + env(safe-area-inset-top)) 16px 8px;}
+  .lv3-gate__back{display:inline-flex;align-items:center;gap:8px;min-height:44px;
+    padding:0 4px;background:none;border:0;cursor:pointer;font-family:inherit;
+    font-size:1rem;color:var(--sw-ink-soft);}
+  /* the painted band: the zone's own scene, melting into the paper the way
+     every generated asset on this site does (AGENT-RULES.md, asset-vignette) */
+  .lv3-gate__band{height:34svh;min-height:190px;margin-top:-52px;
+    background-size:cover;background-position:center 38%;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 26%,#000 52%,transparent 97%);
+    mask-image:linear-gradient(180deg,transparent 0,#000 26%,#000 52%,transparent 97%);}
+  .lv3-gate__body{padding:2px 16px calc(28px + env(safe-area-inset-bottom));margin-top:-40px;}
+  .lv3-gate h2{font-family:var(--sw-font-display);font-weight:300;
+    font-size:clamp(1.8rem,7.6vw,2.3rem);line-height:1.1;margin:6px 0 0;color:var(--sw-ink);}
+  .lv3-gate__lede{font-size:1rem;line-height:1.5;color:var(--sw-ink-soft);margin:10px 0 22px;}
+  .lv3-zone{margin:0 0 18px;padding:15px 15px 13px;border-radius:16px;
+    background:rgba(255,253,246,.9);border:1px solid rgba(34,48,31,.1);
+    border-left:4px solid var(--rc);}
+  .lv3-zone__chip{display:inline-flex;align-items:center;gap:7px;
+    font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--rc);}
+  .lv3-zone__chip i{width:9px;height:9px;border-radius:50%;background:var(--rc);flex:none;}
+  .lv3-zone h3{font-family:var(--sw-font-display);font-weight:400;font-size:1.32rem;
+    line-height:1.2;margin:7px 0 0;color:var(--sw-ink);}
+  .lv3-zone p{font-size:1rem;line-height:1.5;color:var(--sw-ink-soft);margin:7px 0 12px;}
+  .lv3-zone a{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    min-height:48px;padding:11px 14px;margin-top:7px;border-radius:11px;
+    background:rgba(34,48,31,.045);border:1px solid rgba(34,48,31,.1);
+    font-size:1rem;font-weight:600;line-height:1.3;color:var(--sw-ink);
+    text-decoration:none;}
+  .lv3-zone a::after{content:"→";color:var(--rc);flex:none;font-weight:400;}
+  .lv3-zone a:active{background:rgba(34,48,31,.09);}
+
+  /* ---- the pins (The Summit only, the experiment) ----
+     A pin is a dot on the painting with its name beside it. No description:
+     the sentence lives in the scene's own copy, and a phone screen cannot
+     afford to cover the art twice. */
+  .lv3-pins{display:block;position:fixed;inset:0;z-index:25;pointer-events:none;
+    opacity:var(--pt,0);visibility:hidden;transition:opacity .3s ease;}
+  .lv3-pins.is-on{visibility:visible;}
+  .lv3-pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;
+    display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px 8px 10px;
+    border-radius:999px;background:rgba(253,250,240,.93);
+    border:1px solid rgba(34,48,31,.14);
+    box-shadow:0 12px 26px -18px rgba(35,28,10,.8);
+    font-size:1rem;font-weight:600;line-height:1.2;color:var(--sw-ink);
+    text-decoration:none;white-space:nowrap;max-width:74vw;}
+  .lv3-pin::before{content:"";width:9px;height:9px;border-radius:50%;
+    background:var(--rc);flex:none;box-shadow:0 0 0 3px rgba(248,233,207,.7);}
+  .lv3-pin:active{background:#fff;}
+
+  /* ---- the climb: scene copy is the same shape as the gate ----
+     Zone name, one line on what is here, then subpage names as buttons.
+     The engine's own body size lands just under the floor on a phone, so
+     the page pins it. */
+  #world .sw-copy__body{font-size:1rem;line-height:1.5;}
+  #world .sw-copy__eyebrow{font-size:.78rem;letter-spacing:.16em;}
+  #world .sw-copy__tags{gap:8px;display:flex;flex-direction:column;}
+  #world .sw-copy__tags li{font-size:1rem;padding:0;width:100%;}
+  #world .sw-copy__tags li a{display:flex;align-items:center;justify-content:space-between;
+    min-height:48px;padding:12px 15px;line-height:1.3;font-size:1rem;font-weight:600;
+    border-radius:11px;width:100%;}
+  #world .sw-copy__tags li a::after{content:"→";opacity:.65;flex:none;font-weight:400;}
 }
+/* short phones: the lede is the first thing to go, never the sizes */
 @media (max-width:860px) and (max-height:700px){
   .lv3-hero .lede{display:none;}
-  .lv3-row span{display:none;}
+  .lv3-door i{display:none;}
+  .lv3-door{min-height:56px;}
 }
 @media (prefers-reduced-motion:reduce){
   .lv3,.lv3fx,.lv3-desc,#lv3veil,#lv3tourhint,.lv3-leader,.lv3s{transition:none;}
@@ -465,7 +703,13 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 
   <div class="lv3-labels" id="lv3labels"></div>
 
-  <nav class="lv3-stack" id="lv3stack" aria-label="The six spaces"></nav>
+  <!-- phone: the cue asks for the one gesture, the doors answer it -->
+  <p class="lv3-cue" id="lv3cue" aria-hidden="true">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+         stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M6 13.5l6 6 6-6"/></svg>
+  </p>
+  <nav class="lv3-doors" id="lv3doors" aria-label="Three ways in"></nav>
 
   <p class="lv3-legend" id="lv3legend"></p>
 
@@ -475,14 +719,32 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   </nav>
 </div>
 
+<!-- phone: the pin experiment, on The Summit only. See section 7b. -->
+<div class="lv3-pins" id="lv3pins" aria-hidden="true"></div>
+
 <div class="lv3s" id="lv3scenes">
   <svg class="lv3fx" id="lv3sfx" aria-hidden="true" focusable="false"></svg>
   <svg class="lv3lines" id="lv3slines" aria-hidden="true" focusable="false"></svg>
   <div class="lv3-labels" id="lv3slabels"></div>
 </div>
 
+<!-- phone: the gate a door opens onto. Built from the same SPACES + scene tags
+     the rest of the page uses, so a copy edit lands here too. -->
+<div class="lv3-gate" id="lv3gate" role="dialog" aria-modal="true" aria-labelledby="lv3gatetitle" hidden>
+  <div class="lv3-gate__top">
+    <button class="lv3-gate__back" id="lv3gateback" type="button">&larr; Back to the tower</button>
+  </div>
+  <div class="lv3-gate__band" id="lv3gateband" aria-hidden="true"></div>
+  <div class="lv3-gate__body">
+    <h2 id="lv3gatetitle"></h2>
+    <p class="lv3-gate__lede" id="lv3gatelede"></p>
+    <div id="lv3gatezones"></div>
+  </div>
+</div>
+
 <div id="lv3invite" role="dialog" aria-modal="false" aria-labelledby="lv3invitetitle">
   <button class="lv3-inv-x" type="button" aria-label="No thanks">&times;</button>
+  <span class="lv3-door2" aria-hidden="true"><span class="lf"></span><span class="rt"></span></span>
   <h2 id="lv3invitetitle">Do you want to take the tour of the tower? <span class="edit">[edit]</span></h2>
   <p>See all the zones and explore the content — click or keep scrolling to start.</p>
   <span class="lv3-inv-go">Start the tour</span>
@@ -773,18 +1035,148 @@ SPACES.forEach(function(sp){
   hit.addEventListener('click', function(e){ onDoor(e, sp); });
 });
 
-/* phone: stacked callouts, always visible */
-var stack = document.getElementById('lv3stack');
-stack.innerHTML = '<h2>Six spaces — tap one</h2>' + SPACES.map(function(sp){
-  return '<a class="lv3-row" href="' + sp.href + '" data-key="' + sp.key + '" style="--rc:' + sp.accent + '">' +
-    '<span class="lv3-mark" aria-hidden="true"><svg viewBox="0 0 24 24">' + MARK[sp.key] + '</svg></span>' +
-    '<span><b>' + sp.name + '</b><span>' + sp.desc + '</span></span></a>';
+/* ---------------------------------------------------------------------
+   2c. THE THREE DOORS (phones) — P-A, 2026-07-30.
+
+   Six identical tiles gave the visitor six equal decisions and hid the
+   tower behind them. Three doors give one decision, and they only appear
+   once the visitor has asked for them with a scroll.
+
+   The wording is his: "keep taking the tour (see all there is in a visual
+   journey through the tower)", "jump to resources", "learn about me".
+   Concrete names, no invented vocabulary — the site says resources when it
+   means resources.
+
+   The two content doors group the six spaces by what the visitor came for.
+   Say hello sits under "learn about me" because reaching him is about him;
+   the networks and the community stay under resources because they are
+   other people's work, not his.
+   --------------------------------------------------------------------- */
+var GROUPS = [
+  { key:'tour', mark:'summit', accent:'#b3543e', tour:true,
+    name:'Take the tour',
+    blurb:'See all there is, in a visual journey through the tower.' },
+
+  { key:'resources', mark:'library', accent:'#2b8b8f',
+    name:'Jump to resources',
+    blurb:'The maps, books, designers, courses and guides I have gathered.',
+    gateTitle:'Resources',
+    lede:'Everything I have found about living together, most of it from people further along than me. Take what is useful.',
+    zones:['summit','library','workshop','commons'] },
+
+  { key:'me', mark:'homes', accent:'#3e7db0',
+    name:'Learn about me',
+    blurb:'My story, the houses I have run, and what I still hope for.',
+    gateTitle:'About me',
+    lede:'Who I am, the work I have actually done, and the manifesto of what I think our homes could be.',
+    zones:['homes','garden'],
+    extra:[{ label:'Say hello', href:EMAIL }] }
+];
+
+/* the one-word category each space belongs to, so a zone always carries the
+   same coloured word the legend uses */
+var ZONE_CAT = { summit:'overview', library:'resources', workshop:'resources',
+                 garden:'hope', homes:'me', commons:'connect' };
+
+/* a zone's subpages are the scene's own tags — one source, so a copy edit in
+   LV3_SECTIONS lands on the gate and on the climb at the same time */
+function zoneLinks(spaceKey){
+  var sp = SPACES.filter(function(s){ return s.key === spaceKey; })[0];
+  var sec = LV3_SECTIONS.filter(function(s){ return s.id === sp.id; })[0];
+  return (sec && sec.tags) || [];
+}
+
+var doors = document.getElementById('lv3doors');
+doors.innerHTML = GROUPS.map(function(g){
+  return '<button class="lv3-door" type="button" data-group="' + g.key + '" style="--rc:' + g.accent + '">' +
+    '<span class="lv3-mark" aria-hidden="true"><svg viewBox="0 0 24 24">' + MARK[g.mark] + '</svg></span>' +
+    '<span><b>' + g.name + '</b><i>' + g.blurb + '</i></span>' +
+    '<u aria-hidden="true">' + (g.tour ? '↑' : '→') + '</u></button>';
 }).join('');
-stack.querySelectorAll('.lv3-row').forEach(function(row){
-  var sp = SPACES.filter(function(s){ return s.key === row.dataset.key; })[0];
-  row.addEventListener('click', function(e){ onDoor(e, sp); });
-  row.addEventListener('touchstart', function(){ WORLD.preload(sp.index); }, { passive:true });
+
+/* ---- the gate ---- */
+var gate = document.getElementById('lv3gate');
+var gateBack = document.getElementById('lv3gateback');
+var gateOpen = false, gateReturnFocus = null;
+
+function renderGate(g){
+  document.getElementById('lv3gatetitle').textContent = g.gateTitle;
+  document.getElementById('lv3gatelede').textContent = g.lede;
+  /* the gate is not a bare cream page: it wears the painting of its own
+     first zone as a band that dissolves into the paper, the same
+     asset-vignette treatment the interior pages use. The still is already
+     on disk, and it is fetched only when a door is actually opened. */
+  var lead = SPACES.filter(function(s){ return s.key === g.zones[0]; })[0];
+  var sec = LV3_SECTIONS.filter(function(s){ return s.id === lead.id; })[0];
+  var band = document.getElementById('lv3gateband');
+  band.style.backgroundImage = sec ? 'url("' + (sec.stillMobile || sec.still) + '")' : 'none';
+  var zones = g.zones.map(function(key){
+    var sp = SPACES.filter(function(s){ return s.key === key; })[0];
+    var cat = ZONE_CAT[key];
+    var col = (CATS.filter(function(c){ return c.word === cat; })[0] || {}).color || sp.accent;
+    /* subpages are names only. P-A: no descriptions on the buttons, so they
+       stay small and never cover the reading. */
+    var links = zoneLinks(key).map(function(t){
+      return '<a href="' + t.href + '">' + t.label + '</a>';
+    }).join('');
+    return '<section class="lv3-zone" style="--rc:' + col + '">' +
+      '<span class="lv3-zone__chip"><i></i>' + cat + '</span>' +
+      '<h3>' + sp.name + '</h3><p>' + sp.desc + '</p>' + links + '</section>';
+  }).join('');
+  var extra = (g.extra || []).map(function(t){
+    return '<section class="lv3-zone" style="--rc:#3c6b32"><a href="' + t.href + '">' + t.label + '</a></section>';
+  }).join('');
+  document.getElementById('lv3gatezones').innerHTML = zones + extra;
+}
+function openGate(g, from){
+  renderGate(g);
+  gate.hidden = false;
+  gateReturnFocus = from || null;
+  void gate.offsetWidth;                 /* let the browser see the start state */
+  gate.classList.add('on');
+  gateOpen = true;
+  document.documentElement.classList.add('lv3-gateon');
+  gateBack.focus();
+}
+function closeGate(){
+  if (!gateOpen) return;
+  gateOpen = false;
+  gate.classList.remove('on');
+  document.documentElement.classList.remove('lv3-gateon');
+  setTimeout(function(){ if (!gateOpen) gate.hidden = true; }, 420);
+  if (gateReturnFocus && gateReturnFocus.focus) gateReturnFocus.focus();
+}
+gateBack.addEventListener('click', closeGate);
+window.addEventListener('keydown', function(e){ if (gateOpen && e.key === 'Escape') closeGate(); });
+window.addEventListener('popstate', function(){ if (gateOpen) closeGate(); });
+
+doors.querySelectorAll('.lv3-door').forEach(function(btn){
+  var g = GROUPS.filter(function(x){ return x.key === btn.dataset.group; })[0];
+  if (g.tour){
+    /* the tour door does exactly what the tour button has always done:
+       fly to the summit, then scrolling descends. Untouched mechanics. */
+    btn.addEventListener('touchstart', function(){
+      WORLD.preload(SPACES.filter(function(s){ return s.key === 'summit'; })[0].index);
+    }, { passive:true });
+    btn.addEventListener('click', function(){ hideDoors(); startTour(); });
+  } else {
+    btn.addEventListener('click', function(){ openGate(g, btn); });
+  }
 });
+
+/* the doors are summoned by the first scroll, not shown on arrival — the
+   first screen belongs to the artwork */
+var doorsUp = false;
+function showDoors(){
+  if (doorsUp) return;
+  doorsUp = true;
+  document.documentElement.classList.add('lv3-doorsup');
+}
+function hideDoors(){
+  if (!doorsUp) return;
+  doorsUp = false;
+  document.documentElement.classList.remove('lv3-doorsup');
+}
 
 /* plain words + the quiet legend */
 document.getElementById('lv3plain').innerHTML = SPACES.map(function(sp){
@@ -1138,6 +1530,9 @@ function syncMap(){
   map.classList.toggle('is-off', !on);
   document.documentElement.classList.toggle('lv3-map', on);
   if (!on) cool();
+  /* phone: once the lock is spent, standing at the map always shows the doors,
+     however the visitor got back here (tour end, back-to-the-tower, reload) */
+  if (on && tourTaken && isPhone()) showDoors();
   syncSpots();
   syncRail(); queueRail();
 }
@@ -1502,7 +1897,120 @@ function showGroup(g){
 
 /* spots are live only while their scene is the CURRENT DWELL — same scroll
    geometry the engine uses for its copy (dwellCenter ± half the dwell width) */
+/* ---------------------------------------------------------------------
+   7b. PINS ON A PHONE — the experiment P-A asked for, 2026-07-30.
+
+   The phone videos are `crop=608:1080:656:0` out of the 1920x1080 masters
+   (_landing/build2/mobile-portrait.sh), so a phone only ever sees the
+   middle 31.7% of the width. Running the 18 traced element positions
+   through that window: EIGHT survive, TEN are cut off, and the whole
+   Library falls outside. Pins can therefore never be the interface — the
+   scene's own buttons carry every destination.
+
+   It gets worse than the crop. On a phone the scene's own heading, sentence
+   and buttons fill the lower half of the screen, and SEVEN of those eight
+   survivors sit behind that block. Exactly one element in the whole tower
+   is both inside the crop and high enough to be named on the painting
+   without covering the reading: THE WATERWORKS, in the Garden.
+
+   So the honest answer to "is there a way to keep the elements on mobile"
+   is: for one of eighteen. The Garden is wired up as the single live
+   example, so P-A can look at the effect on a real phone and decide
+   whether even that one earns its place. Everything else reaches its
+   destination through the scene's buttons, which is complete and never
+   covers the art twice.
+
+   To turn the experiment off: empty PHONE_PIN_SCENES. To extend it, add a
+   scene id — the placement below refuses any pin that would land on the
+   copy, so a bad addition goes quiet instead of breaking the page.
+   --------------------------------------------------------------------- */
+var PHONE_PIN_SCENES = ['gardens'];
+var CROP_L = 656 / 1920, CROP_W = 608 / 1920;   /* the portrait window */
+var M_ASPECT = 608 / 1080;                       /* the portrait encode */
+var pinLayer = document.getElementById('lv3pins');
+
+/* desktop-frame x -> phone-frame x. Outside 0..1 means the feature is not
+   in the picture at all on a phone. */
+function toPhoneX(nx){ return (nx - CROP_L) / CROP_W; }
+
+/* the engine paints the clip with object-fit:cover and object-position
+   center 42% — the same projection, so a pin lands on its feature */
+function projectPhone(nx, ny){
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var w, h, ox, oy;
+  if (M_ASPECT > vw / vh){ h = vh; w = vh * M_ASPECT; ox = (vw - w) / 2; oy = 0; }
+  else { w = vw; h = vw / M_ASPECT; ox = 0; oy = (vh - h) * 0.42; }
+  return { x: ox + nx * w, y: oy + ny * h };
+}
+
+var pinScene = null;
+function buildPins(g){
+  if (pinScene === g.id) return;
+  pinScene = g.id;
+  pinLayer.innerHTML = g.spots.map(function(sp){
+    var px = toPhoneX(sp.anchor[0]);
+    if (px < 0.04 || px > 0.96) return '';        /* not in the phone's frame */
+    return '<a class="lv3-pin" href="' + sp.href + '" style="--rc:' + (sp.cat || CAT.overview) + '" ' +
+      'data-x="' + px.toFixed(4) + '" data-y="' + sp.anchor[1].toFixed(4) + '">' + sp.name + '</a>';
+  }).join('');
+}
+/* the rectangle the scene's own words occupy right now — a pin may never
+   land on it, because covering the reading to decorate the painting is a
+   straight loss */
+function copyBox(){
+  var lit = [].slice.call(document.querySelectorAll('#world .sw-copy'))
+    .filter(function(c){ return parseFloat(getComputedStyle(c).opacity || 0) > 0.05; });
+  if (!lit.length) return null;
+  var r = lit[lit.length - 1].getBoundingClientRect();
+  return { top:r.top - 10, bottom:r.bottom + 10, left:r.left - 10, right:r.right + 10 };
+}
+function placePins(){
+  var box = copyBox();
+  pinLayer.querySelectorAll('.lv3-pin').forEach(function(el){
+    var p = projectPhone(parseFloat(el.dataset.x), parseFloat(el.dataset.y));
+    /* keep the whole pill on screen — a name half off the edge is worse
+       than a name nudged a few pixels off its feature */
+    var w = el.offsetWidth, h = el.offsetHeight, m = 12, navGuard = 78;
+    var x = Math.max(w / 2 + m, Math.min(window.innerWidth - w / 2 - m, p.x));
+    var y = Math.max(h / 2 + navGuard, Math.min(window.innerHeight - h / 2 - m, p.y));
+    var hits = box && (y + h / 2 > box.top && y - h / 2 < box.bottom &&
+                       x + w / 2 > box.left && x - w / 2 < box.right);
+    if (hits){
+      /* try lifting it clear of the copy; if there is no room above, the
+         pin stands down rather than sitting on the words */
+      var lifted = box.top - h / 2 - 6;
+      if (lifted >= h / 2 + navGuard){ y = lifted; hits = false; }
+    }
+    el.style.display = hits ? 'none' : '';
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+  });
+}
+function syncPins(){
+  if (!isPhone() || travelling || departing || gateOpen){
+    pinLayer.classList.remove('is-on'); pinLayer.style.setProperty('--pt', 0); return;
+  }
+  var y = window.scrollY || 0, vh = window.innerHeight, act = null;
+  for (var i = 0; i < SCENE_SPOTS.length; i++){
+    var g = SCENE_SPOTS[i];
+    if (g.index < 0 || PHONE_PIN_SCENES.indexOf(g.id) < 0) continue;
+    var c = WORLD.dwellCenter(g.index);
+    var half = ((LV3_SECTIONS[g.index].scroll || 1.5) * vh) / 2;
+    var d = Math.abs(y - c);
+    if (d < half){ act = { g:g, t: d <= half * 0.42 ? 1 : 1 - (d - half * 0.42) / (half * 0.58) }; break; }
+  }
+  if (!act || act.t <= 0.02){
+    pinLayer.classList.remove('is-on'); pinLayer.style.setProperty('--pt', 0); return;
+  }
+  buildPins(act.g);
+  placePins();
+  pinLayer.style.setProperty('--pt', act.t.toFixed(3));
+  pinLayer.classList.add('is-on');
+}
+window.addEventListener('resize', placePins);
+
 function syncSpots(){
+  syncPins();
   var act = null;
   if (!isPhone() && !travelling && !departing){
     var y = window.scrollY || 0, vh = window.innerHeight;
@@ -1591,6 +2099,12 @@ window.addEventListener('pageshow', function(e){
      · MAP MODE  → scrolling is LOCKED. The only ways out are clicking a space
        or taking the tour. A blocked attempt nudges the map + pulses the tour
        button so the visitor learns the two exits.
+       ON A PHONE the lock behaves differently (P-A, 2026-07-30): the first
+       blocked gesture RAISES THE THREE DOORS instead of nudging. The scroll
+       is answered rather than refused, which was the whole complaint. A
+       second push, once the doors have had a beat to be read, is taken as
+       "yes, take me in" and starts the tour, exactly as the desktop
+       invitation does.
      · TOUR MODE → scroll direction is INVERTED, so a natural scroll-DOWN
        DESCENDS the tower (which for the engine means scrollY heading to 0).
        When it reaches S1's dwell, the tour ends and map mode + lock re-engage.
@@ -1688,6 +2202,10 @@ function endTour(){
   if (!tourMode) return;
   tourMode = false;
   tourHint.classList.remove('on');
+  /* Back at the map on a phone, the lock is spent (tourTaken), so a scroll
+     would no longer summon the doors. Leave them standing: from here on they
+     ARE the map's navigation. */
+  if (isPhone()) showDoors();
   if (reduced){ window.scrollTo(0, 0); syncMap(); return; }
   /* glide the last short stretch to the very top so the map re-forms fully
      and the lock re-engages seamlessly */
@@ -1706,19 +2224,38 @@ function descend(delta){                /* delta>0 = intent to go DOWN = descend
   if ((window.scrollY || 0) <= tourFloor()) endTour();
 }
 
+/* What a blocked gesture means. On a phone it is a request the page answers;
+   on a desktop it stays the teaching nudge P-A approved on 2026-07-28. */
+var doorsUpTs = 0;
+function onBlockedScroll(){
+  if (isPhone()){
+    if (!doorsUp){ showDoors(); doorsUpTs = Date.now(); return; }
+    /* the same beat the desktop invitation uses: the gesture that summoned
+       the doors must not also walk through them */
+    if (Date.now() - doorsUpTs < 900) return;
+    hideDoors(); startTour();
+    return;
+  }
+  if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); }
+}
+/* the gate has its own scroll — never let the page-level lock eat it */
+function inGate(t){ return gateOpen && t && t.closest && t.closest('#lv3gate'); }
+
 function onWheel(e){
+  if (inGate(e.target)) return;
   if (travelling){ e.preventDefault(); return; }
   if (tourMode && !reduced){ e.preventDefault(); descend(e.deltaY); return; }
-  if (mapLocked()){ e.preventDefault(); if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); } }
+  if (mapLocked()){ e.preventDefault(); onBlockedScroll(); }
 }
 function onTouchStart(e){ if (e.touches && e.touches.length) touchY = e.touches[0].clientY; }
 function onTouchMove(e){
+  if (inGate(e.target)) return;
   if (touchY == null) return;
   var y = e.touches[0].clientY, dy = touchY - y;   /* finger up (dy>0) = go down */
   touchY = y;
   if (travelling){ e.preventDefault(); return; }
   if (tourMode && !reduced){ e.preventDefault(); descend(dy); return; }
-  if (mapLocked()){ e.preventDefault(); if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); } }
+  if (mapLocked()){ e.preventDefault(); onBlockedScroll(); }
 }
 function onTouchEnd(){ touchY = null; }
 
@@ -1744,7 +2281,7 @@ function onKey(e){
     descend(down ? step : -step);
     return;
   }
-  if (mapLocked()){ e.preventDefault(); if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); } }
+  if (mapLocked()){ e.preventDefault(); onBlockedScroll(); }
 }
 
 window.addEventListener('wheel', onWheel, { passive:false });

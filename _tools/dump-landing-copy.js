@@ -43,6 +43,21 @@ const cell = v => {
     out.push(["Main map", "tour invite — button", t(document.querySelector("#lv3invite .lv3-inv-go"))]);
     out.push(["Main map", "back to the map link (in every scene)",
       t(document.querySelector("#world .sw-copy .lv3-backlink"))]);
+
+    /* the phone's three doors and the two gates behind them (2026-07-30).
+       These strings live in the GROUPS array in index.html. */
+    out.push(["Phone — three doors", "scroll cue", t(document.querySelector("#lv3cue span"))]);
+    GROUPS.forEach(g => {
+      out.push(["Phone — three doors", "door — " + g.key + " (name)", g.name]);
+      out.push(["Phone — three doors", "door — " + g.key + " (line)", g.blurb]);
+      if (g.gateTitle) {
+        out.push(["Phone — three doors", "gate — " + g.key + " (heading)", g.gateTitle]);
+        out.push(["Phone — three doors", "gate — " + g.key + " (intro)", g.lede]);
+      }
+      (g.extra || []).forEach((x, i) =>
+        out.push(["Phone — three doors", "gate — " + g.key + " (extra link " + (i + 1) + ")", x.label]));
+    });
+    out.push(["Phone — three doors", "gate — way back", t(document.getElementById("lv3gateback"))]);
     /* one row per chip, each named after itself — every Zone+Element pair in
        this sheet must be UNIQUE or the applier cannot tell the rows apart */
     document.querySelectorAll(".lv3-chip").forEach((c, i) =>
@@ -80,8 +95,25 @@ const cell = v => {
     return out;
   });
 
-  const csv = "﻿" + ["Zone,Element,Copy"].concat(rows.map(r => r.map(cell).join(","))).join("\r\n") + "\r\n";
+  /* Three working columns. "New copy" is where P-A rewrites; the applier
+     reads that column. "Notes" carries two flags rather than opinions:
+       · who wrote the line as it stands (a line still carrying [edit] is a
+         Claude draft; the marker is stripped from the Copy cell itself)
+       · whether it contains an em dash, which P-A wants gone from the site
+         (2026-07-30) — flagged, never auto-replaced, because removing one
+         changes the rhythm of the sentence and that is his call. */
+  const EM = "—";
+  const withNotes = rows.map(r => {
+    const raw = String(r[2] == null ? "" : r[2]);
+    const notes = [];
+    if (/\[edit\]/.test(raw)) notes.push("Claude draft");
+    if (raw.indexOf(EM) > -1) notes.push("contains an em dash");
+    return [r[0], r[1], raw, "", notes.join("; ")];
+  });
+  const dashes = withNotes.filter(r => /em dash/.test(r[4])).length;
+  const csv = "﻿" + ["Zone,Element,Copy,New copy,Notes"]
+    .concat(withNotes.map(r => r.map(cell).join(","))).join("\r\n") + "\r\n";
   fs.writeFileSync(OUT, csv, "utf8");
-  console.log("wrote " + OUT + " — " + rows.length + " lines of copy");
+  console.log("wrote " + OUT + " — " + rows.length + " lines of copy, " + dashes + " containing an em dash");
   await b.close();
 })();

@@ -104,7 +104,9 @@
 ".sminifoot .mnote img{width:80px;height:auto;opacity:.9;filter:drop-shadow(0 1px 6px rgba(248,233,207,.8))}" +
 ".sminifoot .mby{position:absolute;right:clamp(16px,2.2vw,26px);bottom:70px;font-size:.58rem;letter-spacing:.06em;text-align:right;line-height:1.5;" +
   "text-shadow:0 1px 8px rgba(248,233,207,.95),0 0 16px rgba(248,233,207,.9),0 0 30px rgba(248,233,207,.8)}" +
-"@media(max-width:640px){.sminifoot .mnote img{display:none}.sminifoot .mnote{font-size:.85rem}.sminifoot .mby{font-size:.68rem;bottom:64px}}" +
+/* the landing's mini-footer: the note is a sentence (16px floor) and the
+   copyright is a micro-label (12px floor). Both were under, 2026-07-30. */
+"@media(max-width:640px){.sminifoot .mnote img{display:none}.sminifoot .mnote{font-size:1rem}.sminifoot .mby{font-size:.75rem;bottom:66px}}" +
 "@media(max-width:760px){" +
   ".sfooter{padding-bottom:max(14px,env(safe-area-inset-bottom))}" +
   ".sfooter .frow{flex-direction:column;gap:22px}" +
@@ -114,7 +116,15 @@
   ".sfooter .flinks a{font-size:1rem;padding:11px 0;display:block}" +
   ".sfooter .fbranch img{width:min(240px,64vw)}" +
   ".sfooter .fbase{flex-direction:column;align-items:flex-start;gap:6px;font-size:.85rem}" +
-  ".sfooter .fby{text-align:left;margin-left:0}" +
+  /* 2026-07-30: the credit line is a full sentence, so it holds the 16px
+     reading floor, and its one link is a real tap target. Caught by the
+     mobile audit the first time it was allowed to fail the run. */
+  ".sfooter .fby{text-align:left;margin-left:0;font-size:1rem;line-height:1.5}" +
+  ".sfooter .fby a{display:inline-block;padding:12px 0;min-height:44px}" +
+  /* the brand and the menu button are the two things every visitor reaches
+     for first, and both sat under 44px */
+  ".snav .brand{display:inline-flex;align-items:center;min-height:44px}" +
+  ".snav .mbtn{min-height:44px;padding:12px 18px}" +
 "}" +
 /* back-to-top: frozen in the bottom-right corner of every page */
 ".stotop{position:fixed;right:clamp(14px,2.2vw,26px);bottom:clamp(14px,2.6vh,26px);z-index:75;width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(34,48,31,.3);background:rgba(255,253,248,.92);backdrop-filter:blur(6px);color:#22301f;font-size:1.1rem;cursor:pointer;box-shadow:0 12px 30px -14px rgba(34,48,31,.4);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .35s,visibility .35s,transform .35s,color .3s,border-color .3s}" +

@@ -36,6 +36,35 @@ New generated art = storybook gouache **asset-vignette**: the scene painted with
 - Big camera journeys (aerial→ground, front→back) fail as single 8s generations: the model must invent too much. Break them into small legs bridged by generated stills that share geometry with both ends; validate each leg separately.
 - Before any 1080p spend on a new camera path: render a cheap low-res draft first to prove the path reads, then re-render final. Never burn full-price rerolls hunting a path.
 
+## Copy rule: concrete words, never invented ones (P-A, 2026-07-30)
+Say the plain thing. If the page means resources, it says "resources". Do not
+coin a phrase where a common word exists.
+
+> "stop with this stupid vocabulary like 'what's gathered' this is just a very
+> unclear way to say 'resources'. you keep making things not concrete sometimes
+> in the copy."
+
+Concrete failures to avoid: naming a section after a feeling instead of its
+contents; a label the visitor has to decode before they can decide; a clever
+phrase where a noun would do. Before shipping a label, ask what a visitor
+would have to already know to understand it. If the answer is anything, rename it.
+
+**No em dashes anywhere on this site (P-A, 2026-07-30).** He reads them as the
+clearest tell of AI-written text. Use commas, periods, colons or parentheses.
+Existing copy still carries 18 of them on the landing; they are flagged in the
+Notes column of `LANDING-COPY.csv` and come out with his voice pass, not by a
+blind find-and-replace, because removing one changes the sentence's rhythm.
+
+## Mobile sizes are enforced, not advised (2026-07-30)
+The numbers live in `MOBILE-RULES.md`: reading text 16px minimum, small labels
+12px minimum, tap targets 44px. Do not copy them into new files and do not
+hand-tune below them.
+
+`node _qa/mobile-audit.js` (with `BASE=http://127.0.0.1:8123` to include the
+homepage) now FAILS on a breach instead of printing a warning. Known older
+breaches are recorded in `_qa/mobile-baseline.json`; that file may only shrink.
+Fix a page, then `node _qa/mobile-audit.js --rebaseline` to clear its entries.
+
 ## Taste rule (P-A, 2026-07-11 — after 2 misses)
 Do NOT guess aesthetics from adjectives. P-A provides visual references (`moodboard/`, ludiq.org); Claude does structure, interactions, content, and faithful rebuild-to-reference. If a visual call has no reference to anchor it, ask or propose options — don't invent.
 

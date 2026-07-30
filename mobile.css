@@ -1239,3 +1239,24 @@
      wrapped, never visible as a scrollbar). Let it wrap onto two lines
      instead. ---- */
 }
+
+/* =====================================================================
+   TYPE-FLOOR SWEEP — 2026-07-30
+
+   The mobile audit only ever printed its findings and exited clean, so
+   the floors in MOBILE-RULES.md were advisory. It now fails the run, and
+   the first honest pass turned up these breaches on live pages. They are
+   fixed here rather than by lowering the floor.
+   ===================================================================== */
+@media (max-width: 760px) {
+  /* detail.html: the picture caption is a sentence, and 12px is the label
+     floor, not the reading one */
+  .dt-cap { font-size: 1rem; line-height: 1.5; }
+
+  /* separation.html: the book's byline under its title, same reason */
+  .bookrow .bt span { font-size: 1rem; line-height: 1.45; }
+
+  /* inspiration.html: the two deep links out of the page were 39px rows,
+     just under the thumb floor */
+  .inspo-out a, .ilinks a { min-height: 44px; display: inline-flex; align-items: center; }
+}

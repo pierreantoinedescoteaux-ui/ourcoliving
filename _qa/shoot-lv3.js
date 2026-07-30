@@ -550,25 +550,76 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   const merrs = watch(m);
   await m.goto(BASE + "/index.html", { waitUntil: "load" });
   await m.waitForTimeout(1800);
+  /* RECONCILED 2026-07-30. The six stacked callouts are gone: they covered
+     the tower with six equal choices. The phone now arrives on the artwork
+     alone and the first scroll raises three doors. Detailed coverage of the
+     new flow lives in `shoot-mobile-landing.js`; these checks are the
+     regression guard inside the consolidated suite. */
   const phone = await m.evaluate(() => {
-    const rows = [...document.querySelectorAll(".lv3-row")];
-    const vh = innerHeight;
+    const doors = [...document.querySelectorAll(".lv3-door")];
     const layer = document.getElementById("lv3scenes");
     return {
-      rows: rows.length,
-      onScreen: rows.filter(x => { const r = x.getBoundingClientRect(); return r.top >= 0 && r.bottom <= vh; }).length,
+      stackGone: !document.querySelector(".lv3-row"),
+      doorsHiddenOnArrival: getComputedStyle(document.getElementById("lv3doors")).visibility === "hidden",
+      doors: doors.length,
+      borderCols: doors.map(x => getComputedStyle(x).borderLeftColor),
+      cueShown: getComputedStyle(document.getElementById("lv3cue")).display !== "none",
       labelsHidden: getComputedStyle(document.querySelector(".lv3-labels")).display === "none",
       heroUp: document.querySelector(".lv3-hero h1").getBoundingClientRect().width > 0,
-      borderCols: rows.map(x => getComputedStyle(x).borderLeftColor),
       spotLayerHidden: getComputedStyle(layer).display === "none"
     };
   });
-  check(phone.rows === 6 && phone.onScreen === 6, "phone: six stacked callouts, all on screen (" + phone.onScreen + ")");
+  check(phone.stackGone, "phone: the six-tile stack is gone");
+  check(phone.doorsHiddenOnArrival, "phone: arrival is the artwork alone, doors not yet up");
+  check(phone.cueShown, "phone: the scroll cue asks for the gesture");
   check(phone.labelsHidden, "phone: the desktop image labels are off (portrait clip is a different crop)");
   check(phone.heroUp, "phone: hero copy is up");
-  check(phone.borderCols.length === 6 && phone.borderCols.every(c => CATS.indexOf(c) > -1), "phone: each row shows its category colour (left border) -> " + phone.borderCols.join(","));
   check(phone.spotLayerHidden, "phone: desktop in-scene spot layer fully hidden");
-  await m.screenshot({ path: path.join(OUT, "lv31-final-phone-map.png") });
+  await m.screenshot({ path: path.join(OUT, "lv31-final-phone-arrive.png") });
+
+  /* one scroll raises the doors, and the page must NOT scroll away */
+  await m.mouse.move(195, 500);
+  await m.mouse.wheel(0, 240);
+  await m.waitForTimeout(800);
+  const dz = await m.evaluate(() => {
+    const d = document.getElementById("lv3doors");
+    const btns = [...d.querySelectorAll(".lv3-door")];
+    return {
+      up: getComputedStyle(d).visibility === "visible",
+      y: Math.round(scrollY),
+      labels: btns.map(b => b.querySelector("b").textContent),
+      cols: btns.map(b => getComputedStyle(b).borderLeftColor),
+      minH: Math.min(...btns.map(b => b.getBoundingClientRect().height)),
+      artTop: Math.round(d.getBoundingClientRect().top)
+    };
+  });
+  check(dz.up && dz.y === 0, "phone: one scroll raises the doors without scrolling the page (y=" + dz.y + ")");
+  check(dz.labels.length === 3, "phone: three doors -> " + dz.labels.join(" · "));
+  check(dz.cols.every(c => CATS.indexOf(c) > -1), "phone: each door carries a category colour -> " + dz.cols.join(","));
+  check(dz.minH >= 44, "phone: every door tap target >=44px (min " + dz.minH.toFixed(1) + ")");
+  check(dz.artTop > 300, "phone: the tower is still visible above the doors (top=" + dz.artTop + ")");
+  await m.screenshot({ path: path.join(OUT, "lv31-final-phone-doors.png") });
+
+  /* a content door opens its gate, and the gate must sit above the site nav */
+  await m.tap('.lv3-door[data-group="resources"]');
+  await m.waitForTimeout(800);
+  const gt = await m.evaluate(() => {
+    const el = document.getElementById("lv3gate");
+    const back = document.getElementById("lv3gateback");
+    const r = back.getBoundingClientRect();
+    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    return {
+      on: el.classList.contains("on"),
+      title: el.querySelector("h2").textContent,
+      zones: [...el.querySelectorAll(".lv3-zone h3")].map(h => h.textContent),
+      backReachable: !!(hit && (hit === back || back.contains(hit)))
+    };
+  });
+  check(gt.on && gt.zones.length === 4, "phone: the resources gate opens with its four zones -> " + gt.zones.join(" · "));
+  check(gt.backReachable, "phone: the site nav does not sit on top of the gate's way back");
+  await m.tap("#lv3gateback");
+  await m.waitForTimeout(700);
+  check(await m.evaluate(() => !document.getElementById("lv3gate").classList.contains("on")), "phone: the gate closes back onto the tower");
 
   /* pills: hidden >=861px checked above; on phone, present with tap targets */
   await jump(m, 4);   /* gardens: 2 pills, distinct count from others */
@@ -588,23 +639,22 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   check(pillsCheck.minFs >= 16, "phone: pill text >=16px (min " + pillsCheck.minFs + ")");
   await m.screenshot({ path: path.join(OUT, "lv31-final-phone-scene.png") });
 
+  /* the tour door does what the tour button has always done: fly to the
+     summit, then scrolling descends */
   await m.evaluate(() => scrollTo(0, 0));
   await m.waitForTimeout(600);
-  await m.tap(".lv3-row");
+  await m.tap('.lv3-door[data-group="tour"]');
   await m.waitForTimeout(2800);
   const mland = await m.evaluate(() => ({
     y: Math.round(scrollY),
     lit: [...document.querySelectorAll(".sw-copy")].map((c, i) => ({ i, op: +getComputedStyle(c).opacity })).filter(c => c.op > 0.5).map(c => c.i),
     mapOff: !document.documentElement.classList.contains("lv3-map")
   }));
-  check(mland.y > 0 && mland.lit.length === 1 && mland.mapOff, "phone: tapping a callout lands in that scene's dwell -> copy " + mland.lit.join(","));
+  check(mland.y > 0 && mland.lit.length === 1 && mland.mapOff, "phone: the tour door lands at the summit dwell -> copy " + mland.lit.join(","));
 
-  /* back to the map before the second, targeted tap — the stacked callouts
-     only exist while map mode is showing */
-  await m.evaluate(() => scrollTo(0, 0));
-  await m.waitForTimeout(900);
-  await m.tap('.lv3-row[data-key="garden"]');
-  await m.waitForTimeout(2800);
+  /* and a scene's own buttons still carry every destination */
+  await jump(m, 4);
+  await m.waitForTimeout(1600);
   const gpills = await m.evaluate(() => {
     const copies = [...document.querySelectorAll("#world .sw-copy")];
     const lit = copies.map((c, i) => ({ i, op: +getComputedStyle(c).opacity })).filter(x => x.op > 0.5).map(x => x.i);
@@ -657,7 +707,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   const l = await b.newPage({ viewport: { width: 1440, height: 900 } });
   await l.goto(BASE + "/index.html", { waitUntil: "load" });
   await l.waitForTimeout(1200);
-  const mapHrefs = await l.evaluate(() => [...new Set([...document.querySelectorAll("#lv3labels .lv3-label,.lv3-row,.lv3-plain a")].map(a => a.getAttribute("href")))]);
+  const mapHrefs = await l.evaluate(() => [...new Set([...document.querySelectorAll("#lv3labels .lv3-label,.lv3-door,.lv3-plain a")].map(a => a.getAttribute("href")))]);
   const spotHrefs = await l.evaluate(() => [...new Set(SCENE_SPOTS.flatMap(g => g.spots.map(s => s.href)))]);
   const tagHrefs = await l.evaluate(() => [...new Set([...document.querySelectorAll(".sw-copy__tags a,.sw-btn")].map(a => a.getAttribute("href")))]);
   const navHrefs = await l.evaluate(() => [...new Set([...document.querySelectorAll(".snav a")].map(a => a.getAttribute("href")))]);

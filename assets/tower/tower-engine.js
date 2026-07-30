@@ -139,8 +139,14 @@ function mountScrollWorld(container, config) {
   SEGMENTS.forEach(s => {
     const scene = el('div', 'sw-scene'); scene.style.setProperty('--sw-accent', s.accent || '');
     const img = el('img', 'sw-scene__still'); img.alt = ''; img.decoding = 'async'; img.loading = 'lazy';
-    const poster = (isMobile() && s.stillM) ? s.stillM : s.still;
-    if (poster) img.src = poster;
+    // Every scene lives in the same fixed stage, so the browser treats them
+    // all as "near the viewport" and loading="lazy" never fires: all seven
+    // posters were being fetched on arrival even though only the first is
+    // ever seen (measured 2026-07-30, ~0.9MB of it on a phone). Only the
+    // first poster is wired now; the rest are attached by primeStill() as
+    // the visitor approaches them, on the same trigger as the clips.
+    s.poster = (isMobile() && s.stillM) ? s.stillM : s.still;
+    if (s.poster && SEGMENTS.indexOf(s) === 0) { img.src = s.poster; s.posterOn = true; }
     scene.appendChild(img); stage.appendChild(scene);
     s.el = scene; s.img = img; s.video = null; s.hasClip = false;
     s.loading = false; s.ready = false; s.cur = 0; s.target = 0; s.visible = false;
@@ -195,6 +201,15 @@ function mountScrollWorld(container, config) {
     window.scrollTo({ top: seg.start + (seg.end - seg.start) * 0.5, behavior: reduce ? 'auto' : 'smooth' });
   }
 
+  // Attach a scene's poster the first time the visitor comes near it. Called
+  // from the same proximity test as loadClip, and from preload(), so a still
+  // is always on screen before its clip can be.
+  function primeStill(s) {
+    if (s.posterOn || !s.poster) return;
+    s.posterOn = true;
+    s.img.src = s.poster;
+  }
+
   function loadClip(s) {
     // Under prefers-reduced-motion we never load the clips at all — the stills stay up
     // and simply cross-dissolve as you scroll. No scrubbed video motion, no decode cost.
@@ -237,6 +252,9 @@ function mountScrollWorld(container, config) {
 
     for (let i = 0; i < NSEG; i++) {
       const s = SEGMENTS[i];
+      // the still comes in a screen earlier than the clip: it is small, and
+      // it must never be the thing the visitor is waiting for
+      if (y > s.start - 2.6 * vh && y < s.end + 2.6 * vh) primeStill(s);
       if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadClip(s);
       const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
       s.target = s.linger ? lingerEase(local, s.linger) : local;
@@ -418,7 +436,7 @@ function mountScrollWorld(container, config) {
     jumpTo,                                                    // smooth (respects reduced motion)
     jumpToInstant: i => window.scrollTo(0, SECTIONS[i]._seg.start + (SECTIONS[i]._seg.end - SECTIONS[i]._seg.start) * 0.5),
     // start fetching a scene's clip early (on hover/focus) so arriving lands on video, not the poster
-    preload: i => { const g = SECTIONS[i] && SECTIONS[i]._seg; if (g) loadClip(g); },
+    preload: i => { const g = SECTIONS[i] && SECTIONS[i]._seg; if (g) { primeStill(g); loadClip(g); } },
     stage, container, relayout: layout, isMobile, reduce
   };
 

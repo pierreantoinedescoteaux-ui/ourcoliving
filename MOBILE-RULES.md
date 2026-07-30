@@ -10,6 +10,23 @@ Read this BEFORE building or restyling any page. Written so a Sonnet agent can f
 it without judgment calls. Companion files: `mobile.css` (sitewide retrofit layer),
 `_tools/wire-mobile-css.mjs` (wires new pages in), `_qa/mobile-audit.js` (the QA gate).
 
+## The gate (2026-07-30) — these numbers are enforced now
+
+`node _qa/mobile-audit.js` used to print its findings and exit clean, so every
+floor below was advisory. It now exits non-zero on a breach.
+
+- Run it with `BASE=http://127.0.0.1:8123` (serve the repo first) so the
+  homepage is included. Without a BASE it runs on file:// and skips index.html,
+  because the landing fetches its clips as blobs.
+- Turning it on found breaches on 13 interior pages built up over months. They
+  are recorded in `_qa/mobile-baseline.json` so the run passes on the known debt
+  and fails on anything NEW. The baseline may only ever shrink.
+- Fix a page, then `node _qa/mobile-audit.js --rebaseline` to clear its entries.
+- `index.html` is never baselined. The homepage holds the floors outright.
+
+Two documented exemptions from the reading floor, both boilerplate rather than
+reading: the `[edit]` authoring markers, and the `.mby` copyright strip.
+
 ## The one-sentence rule
 On a phone, the DOM order IS the story: every screen must read
 **heading → its text → its image → next thing**, at legible sizes, with nothing cut off

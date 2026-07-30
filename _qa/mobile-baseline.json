@@ -1,0 +1,107 @@
+{
+ "story.html": [
+  "micro|a.btn-pill|11.5",
+  "reading|p.ph-scene|12",
+  "tap|a.b-go|43",
+  "tap|a.b-go|43",
+  "tap|a.b-go|43",
+  "tap|a.b-go|43",
+  "tap|a.btn-pill|44",
+  "tap|a|40"
+ ],
+ "work.html": [
+  "micro|a.btn-pill|11.5",
+  "tap|a.btn-pill|44"
+ ],
+ "design.html": [
+  "micro|a|11.8",
+  "micro|span.i-note|11.2",
+  "reading|p.c-cap|15.4",
+  "reading|p.w-sub|15.7",
+  "reading|p|15.7",
+  "reading|span|13.8",
+  "reading|p.t-more|15.4",
+  "reading|p.t-more|14.7",
+  "reading|p.growing|14.4",
+  "tap|a|19",
+  "tap|button.on|15",
+  "tap|button|11",
+  "tap|button|11",
+  "tap|button|11",
+  "tap|button|11",
+  "tap|button|11",
+  "tap|a.i-link|24"
+ ],
+ "project.html?p=montreal": [
+  "micro|p.hero-cap|11.5",
+  "micro|figcaption.cap|11.5",
+  "micro|a|11.5",
+  "reading|span.p-kicker|12",
+  "reading|p.m-t|15.2"
+ ],
+ "why.html": [
+  "reading|div#vCredit|12",
+  "tap|a.brand|26"
+ ],
+ "map.html": [
+  "reading|p|14.4",
+  "reading|p|15.2",
+  "reading|span.hint|12.8",
+  "reading|span|12.8",
+  "reading|div.dd|13.6",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24",
+  "tap|a.open|24"
+ ],
+ "type.html?t=intergenerational": [
+  "reading|figcaption|12",
+  "reading|div.who|13"
+ ],
+ "manifesto.html": [
+  "reading|figcaption#heroCredit|12",
+  "reading|footer|12",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a.deep|40",
+  "tap|a|37"
+ ],
+ "hope.html": [
+  "reading|div.cc-cite|12"
+ ],
+ "resources.html": [
+  "reading|p.catline|15.2",
+  "tap|a|21"
+ ],
+ "designers.html": [
+  "reading|div.known|13.6",
+  "tap|a|42",
+  "tap|a.int|42",
+  "tap|a|42",
+  "tap|a|42",
+  "tap|a.int|42",
+  "tap|a|42",
+  "tap|a|42",
+  "tap|a|42",
+  "tap|a.int|42",
+  "tap|a|42"
+ ],
+ "inspiration.html": [
+  "tap|a|39",
+  "tap|a|39"
+ ],
+ "credits.html": [
+  "tap|a|29"
+ ]
+}
