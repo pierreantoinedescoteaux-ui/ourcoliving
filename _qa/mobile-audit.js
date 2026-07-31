@@ -45,8 +45,12 @@ const VW = 390, VH = 844;
   for (const url of pages) {
     const p = await b.newPage({ viewport: { width: VW, height: VH }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
     const errors = [];
-    p.on("pageerror", e => errors.push(String(e).slice(0, 200)));
-    p.on("console", m => { if (m.type() === "error") errors.push(m.text().slice(0, 200)); });
+    /* the engine pauses a loop mid-play as it scrolls out of view; the browser
+       reports the abandoned play() as an error. Harmless, and already treated
+       as noise by shoot-lv3.js. */
+    const BENIGN = /play\(\) request was interrupted/;
+    p.on("pageerror", e => { if (!BENIGN.test(String(e))) errors.push(String(e).slice(0, 200)); });
+    p.on("console", m => { if (m.type() === "error" && !BENIGN.test(m.text())) errors.push(m.text().slice(0, 200)); });
     await p.goto(root + url, { waitUntil: "networkidle", timeout: 30000 }).catch(e => errors.push("NAV: " + e.message.slice(0, 100)));
     // scroll through to trigger lazy/reveal content
     await p.evaluate(async () => { const h = document.body.scrollHeight; for (let y = 0; y <= h; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } window.scrollTo(0, 0); });

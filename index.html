@@ -44,7 +44,7 @@
   .sw-copylayer .sw-copy:first-child{display:none;}
   /* In map mode the engine's left copy-scrim would wash out half the map.
      Swap it for a soft top-left wash that only backs the hero. */
-  html.lv3-map .sw-copylayer::before{
+  html.lv3-map .sw-copylayer::before{display:block;
     width:min(52vw,660px);height:min(74vh,620px);top:0;
     background:linear-gradient(155deg,var(--sw-bg) 0%,
       color-mix(in srgb,var(--sw-bg) 74%,transparent) 32%,
@@ -517,25 +517,28 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .on-wide{display:none;} .on-phone{display:inline;}
   .lv3{overflow:hidden;}
 
-  /* THE CLIMB's scrim. Stacking the scene's subpage links into full-width
-     buttons (below) makes the copy block roughly three times taller than
-     the engine's own phone scrim was drawn for, so the heading and the
-     sentence were left sitting on bare painting and could not be read.
-     The scrim grows to match: clear sky at the top, cream under the words. */
-  .sw-copylayer::before{
-    width:100%;height:100%;top:0;bottom:auto;
+  /* THE CLIMB's scrim. P-A, 2026-07-31: "there's way too much empty space...
+     as soon as the text fades out, the rest of the image is there" — but it
+     was not, because the scrim lived on the copy LAYER, which never fades.
+     Once a scene's words went, its cream slab stayed behind and covered the
+     bottom half of the painting with nothing on it.
+     It belongs to the words, so it now sits on the copy block itself and
+     inherits its opacity: text present, cream present; text gone, painting
+     back. It is also tighter than before, hugging the words rather than
+     washing half the screen. */
+  .sw-copylayer::before{display:none;}
+  #world .sw-copy{isolation:isolate;}
+  #world .sw-copy::before{content:"";position:absolute;z-index:-1;
+    left:-18px;right:-18px;top:-34px;bottom:-200px;
     background:linear-gradient(180deg,
       transparent 0%,
-      transparent 16%,
-      color-mix(in srgb,var(--sw-bg) 40%,transparent) 27%,
-      color-mix(in srgb,var(--sw-bg) 78%,transparent) 38%,
-      color-mix(in srgb,var(--sw-bg) 92%,transparent) 50%,
-      var(--sw-bg) 62%);
-  }
+      color-mix(in srgb,var(--sw-bg) 55%,transparent) 12%,
+      color-mix(in srgb,var(--sw-bg) 88%,transparent) 26%,
+      var(--sw-bg) 44%);}
   /* The map's own scrim. The art was drowning under a full-height wash at
      up to 86%: the top two thirds of the tower are clean now, and the text
      sits on the part that is dark enough to read on. */
-  html.lv3-map .sw-copylayer::before{
+  html.lv3-map .sw-copylayer::before{display:block;
     width:100%;height:100%;top:0;
     background:linear-gradient(180deg,
       transparent 0%,
@@ -597,10 +600,11 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   /* while the page is held at the arrival point, that scene's own words stand
      down — the three doors are the question being asked, and two blocks of
      copy over one painting is one too many */
-  html.lv3-landed #world .sw-copy{opacity:0 !important;pointer-events:none;}
-  html.lv3-landed .lv3-pback{display:none;}
+  html.lv3-landed #world .sw-copy,
+  html.lv3-riding #world .sw-copy{opacity:0 !important;pointer-events:none;}
+  html.lv3-landed .lv3-pback,html.lv3-riding .lv3-pback{display:none;}
   /* and the scrim leans to the foot, where the doors are */
-  html.lv3-landed .sw-copylayer::before{
+  html.lv3-landed .sw-copylayer::before,html.lv3-riding .sw-copylayer::before{display:block;
     background:linear-gradient(180deg,
       transparent 0%,transparent 26%,
       color-mix(in srgb,var(--sw-bg) 34%,transparent) 40%,
@@ -1319,6 +1323,16 @@ function land(){
   document.documentElement.classList.add('lv3-landed');
   showDoors();
   syncPhoneBack();
+  /* A flick's momentum outlives the gesture, and momentum is not a touchmove
+     so the hold cannot refuse it. For half a second after landing, any drift
+     is eased back to the mark — gently, so it settles rather than snaps. */
+  var t0 = performance.now();
+  (function pin(){
+    if (stage !== 'landed') return;
+    var f = arrivalFloor(), d = (window.scrollY || 0) - f;
+    if (Math.abs(d) > 1) window.scrollTo(0, f + d * 0.72);
+    if (performance.now() - t0 < 620) requestAnimationFrame(pin);
+  })();
 }
 function unland(){
   if (stage === 'free') return;
@@ -1330,17 +1344,36 @@ function unland(){
    keep holding after it lands, because a flick carries momentum the browser
    will not let us cancel — so the clamp stays armed for as long as the hold
    is on, and each frame pulls the page back to the mark. */
+/* P-A: "the tower turns a little bit and then it's back to where it was."
+   That was this clamp yanking the page back on every scroll event while the
+   flick still had momentum, which reads as the world bouncing. It waits for
+   the gesture to settle now and then GLIDES to the arrival point once, so the
+   ride is one long continuous move that comes to rest. */
+var settleT = null;
+function glideTo(y, then){
+  var from = window.scrollY || 0, t0 = performance.now(), dur = 420;
+  (function step(){
+    var k = Math.min(1, (performance.now() - t0) / dur);
+    var e = 0.5 - 0.5 * Math.cos(Math.PI * k);
+    window.scrollTo(0, from + (y - from) * e);
+    if (k < 1) requestAnimationFrame(step); else if (then) then();
+  })();
+}
 window.addEventListener('scroll', function(){
-  if (!isPhone() || travelling || departing || stage === 'free') return;
-  var floor = arrivalFloor();
-  if (stage === 'map' && (window.scrollY || 0) >= floor - 4){
-    window.scrollTo(0, floor);
-    land();
-    return;
-  }
-  if (stage === 'landed' && Math.abs((window.scrollY || 0) - floor) > 1){
-    window.scrollTo(0, floor);
-  }
+  if (!isPhone() || travelling || departing || stage !== 'map') return;
+  var floor = arrivalFloor(), y = window.scrollY || 0;
+  if (y < floor - 4) return;
+  /* Someone put WELL past the arrival point was not riding to it — a rail
+     stop, a deep link, the way back out of a space. Dragging them to the
+     Commons would be baffling, so the arrival is simply spent. */
+  if (y > floor + window.innerHeight * 0.75){ stage = 'free'; landedOnce = true; return; }
+  /* past the mark: stop taking new gestures at once, then settle */
+  stage = 'arriving';
+  clearTimeout(settleT);
+  settleT = setTimeout(function(){
+    if (stage !== 'arriving') return;
+    glideTo(arrivalFloor(), function(){ stage = 'map'; land(); });
+  }, 90);
 }, { passive:true });
 
 /* leaving the arrival for anywhere else releases the hold and the scene's
@@ -1625,6 +1658,20 @@ Array.prototype.forEach.call(document.querySelectorAll('#world .sw-copy'), funct
   num.appendChild(a);
 });
 
+/* P-A, 2026-07-31: "as much as the text on top of the heading for each space
+   is cute with the accent colour, I wonder if it's useful because it's just a
+   repetition of what the pills are." He is right: "The summit · the map and
+   the models" says what the three pills underneath already say. The coloured
+   zone NAME earns its place, because it is the legend that tells you which
+   part of the world you are standing in. The descriptor after it does not.
+   Phones keep the name, drop the rest. Desktop is unchanged: there is room. */
+if (isPhone()){
+  Array.prototype.forEach.call(document.querySelectorAll('#world .sw-copy__eyebrow'), function(e){
+    var t = (e.textContent || '').split('·')[0].trim();
+    if (t) e.textContent = t;
+  });
+}
+
 /* PHONES: one way back for the whole page instead of one per scene.
    Inside the copy it cost ~60px of the screen the painting needed, and it
    cannot be lifted out with position:fixed because the engine transforms the
@@ -1727,6 +1774,10 @@ function syncMap(){
      is a real camera move again. Once they have landed at least once the
      doors stay to hand rather than making them earn it twice. */
   if (isPhone()){
+    /* riding = between the map and the arrival point. The scene's own words
+       must not flash up mid-flight (P-A saw the Commons copy arrive before
+       the three doors did). */
+    document.documentElement.classList.toggle('lv3-riding', onArrivalRide() && y > 40);
     if (on && stage === 'landed') unland();
     /* Once they have been through the arrival once, the doors are simply the
        navigation: standing back on the map always offers them, however they
@@ -2424,9 +2475,37 @@ function endTour(){
   })();
 }
 
+/* P-A, 2026-07-31: "when I go to the summit and try to scroll down nothing
+   works and then I have to scroll up... I know we're doing the reverse
+   scrolling, but it should still feel like I'm scrolling down."
+
+   Right. The tower is built bottom-to-top in scroll terms, so descending it
+   means scrollY heading to 0 — and the inversion that makes a downward thumb
+   descend was only switched on during the TOUR. Anyone who walked into a
+   space from the doors got the raw direction, and at the summit (the end of
+   the document) a downward flick did nothing at all. It applies to the whole
+   world on a phone now, not just the tour. */
+/* The arrival ride is the one stretch where the scroll runs the natural way:
+   it climbs AWAY from the map on purpose, and inverting it there would drag
+   the visitor straight back down. It ends at the arrival point — past that,
+   however you got there, you are inside the world. Keying this on the stage
+   alone was wrong: someone who walks into a space from the doors, or lands on
+   a deep link, is past the ride but the stage never said so, and at the top
+   of the document a downward flick then did nothing at all. */
+function onArrivalRide(){
+  return (stage === 'map' || stage === 'arriving') &&
+         (window.scrollY || 0) <= arrivalFloor() + 8;
+}
+function descending(){
+  if (tourMode) return true;
+  if (!isPhone() || travelling || departing) return false;
+  if (phoneHeld()) return false;          /* a push is a question for the tour door */
+  if (onArrivalRide()) return false;
+  return !document.documentElement.classList.contains('lv3-map');
+}
 function descend(delta){                /* delta>0 = intent to go DOWN = descend */
   window.scrollBy(0, -delta);
-  if ((window.scrollY || 0) <= tourFloor()) endTour();
+  if (tourMode && (window.scrollY || 0) <= tourFloor()) endTour();
 }
 
 /* What a blocked gesture means. On a phone it is a request the page answers;
@@ -2444,7 +2523,8 @@ function onBlockedScroll(){
 /* On a phone the page holds at the arrival point until the tour is taken,
    and while it holds the tour door is what a further push points at. */
 function phoneHeld(){
-  return isPhone() && stage === 'landed' && !tourMode && !travelling && !departing;
+  return isPhone() && (stage === 'landed' || stage === 'arriving') &&
+         !tourMode && !travelling && !departing;
 }
 var pulseTs = 0;
 function pulseTourDoor(){
@@ -2462,7 +2542,7 @@ function inGate(t){ return gateOpen && t && t.closest && t.closest('#lv3gate'); 
 function onWheel(e){
   if (inGate(e.target)) return;
   if (travelling){ e.preventDefault(); return; }
-  if (tourMode && !reduced){ e.preventDefault(); descend(e.deltaY); return; }
+  if (descending() && !reduced){ e.preventDefault(); descend(e.deltaY); return; }
   if (mapLocked()){ e.preventDefault(); onBlockedScroll(); }
 }
 function onTouchStart(e){ if (e.touches && e.touches.length) touchY = e.touches[0].clientY; }
@@ -2472,7 +2552,7 @@ function onTouchMove(e){
   var y = e.touches[0].clientY, dy = touchY - y;   /* finger up (dy>0) = go down */
   touchY = y;
   if (travelling){ if (e.cancelable) e.preventDefault(); return; }
-  if (tourMode && !reduced){ if (e.cancelable) e.preventDefault(); descend(dy); return; }
+  if (descending() && !reduced){ if (e.cancelable) e.preventDefault(); descend(dy); return; }
   if (mapLocked()){ if (e.cancelable) e.preventDefault(); onBlockedScroll(); }
 }
 function onTouchEnd(){ touchY = null; }
@@ -2490,7 +2570,7 @@ function onKey(e){
   var t = e.target;
   if (typingInto(t)) return;
   if (!SCROLL_KEYS[e.key]) return;     /* Tab / Enter / etc. pass through */
-  if (tourMode && !reduced){
+  if (descending() && !reduced){
     e.preventDefault();
     var down = (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown' ||
                 e.key === 'PageDown' || e.key === 'End');

@@ -106,7 +106,17 @@
   "text-shadow:0 1px 8px rgba(248,233,207,.95),0 0 16px rgba(248,233,207,.9),0 0 30px rgba(248,233,207,.8)}" +
 /* the landing's mini-footer: the note is a sentence (16px floor) and the
    copyright is a micro-label (12px floor). Both were under, 2026-07-30. */
-"@media(max-width:640px){.sminifoot .mnote img{display:none}.sminifoot .mnote{font-size:1rem}.sminifoot .mby{font-size:.75rem;bottom:66px}}" +
+/* P-A, 2026-07-31: "the double signature at the bottom seems too much, the
+   sentences almost mean the same thing." On a phone the two credits stacked
+   and said each other twice. One line now, across the full width: what the
+   site is, who made it, that it was made with love, and a small copyright. */
+"@media(max-width:640px){" +
+  ".sminifoot .mnote{display:none}" +
+  ".sminifoot .mby{position:static;right:auto;bottom:auto;width:100%;text-align:center;" +
+    "font-size:.8rem;letter-spacing:.02em;line-height:1.5;padding:0 16px calc(10px + env(safe-area-inset-bottom))}" +
+  ".sminifoot{align-items:flex-end;padding-bottom:0}" +
+  ".sminifoot .mby .mysep{opacity:.5;padding:0 6px}" +
+"}" +
 "@media(max-width:760px){" +
   ".sfooter{padding-bottom:max(14px,env(safe-area-inset-bottom))}" +
   ".sfooter .frow{flex-direction:column;gap:22px}" +
@@ -408,8 +418,9 @@
     d.innerHTML =
       '<div class="mnote">This site is built of hope and love, by Pierre-Antoine Descoteaux.' +
         '<img src="assets/world/orn-branch.webp" alt="" loading="lazy"></div>' +
-      '<div class="mby">a project, resources and portfolio<br>' +
-        "&copy; " + new Date().getFullYear() + " Pierre-Antoine Descoteaux</div>";
+      '<div class="mby">a resource and portfolio by Pierre-Antoine Descoteaux' +
+        '<span class="mysep">·</span>made with love' +
+        '<span class="mysep">·</span>&copy; ' + new Date().getFullYear() + "</div>";
     document.body.appendChild(d);
     function onS() {
       var end = document.documentElement.scrollHeight - window.innerHeight;
