@@ -91,7 +91,7 @@ const cell = v => {
 
     /* the tour's one line of guidance */
     out.push(["Tour", "hint after landing on the summit",
-      "You're at the top — scroll down to descend through the tower, space by space."]);
+      "You're at the top. Scroll down to descend through the tower, space by space."]);
     return out;
   });
 

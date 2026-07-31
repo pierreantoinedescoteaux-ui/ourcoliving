@@ -1,17 +1,15 @@
 ﻿Zone,Element,Copy,New copy,Notes
 Main map,hero — eyebrow,A project by Pierre-Antoine Descoteaux,,
 Main map,hero — heading,"Wherever you are with coliving, something here is for you.",,Claude draft
-Main map,hero — body,"Everything I've gathered about living closer together — a little of it mine, most of it from people further along — plus the manifesto of what I still hope for, and the work I've actually done.",,contains an em dash
+Main map,hero — body,"Everything I've gathered about living closer together. A little of it mine, most of it from people further along, plus the manifesto of what I still hope for and the work I've actually done.",,
 Main map,tour button,Take the slow tour,,
 Main map,tour button — aside,or click a space in the picture,,
 Main map,tour button — aside (phone),or tap a space below,,
 Main map,tour invite — heading,Do you want to take the tour of the tower?,,Claude draft
-Main map,tour invite — body,See all the zones and explore the content — click or keep scrolling to start.,,contains an em dash
+Main map,tour invite — body,See all the zones and explore the content. Click or keep scrolling to start.,,
 Main map,tour invite — button,Start the tour,,
 Main map,back to the map link (in every scene),Back to the tower,,
-Phone — three doors,scroll cue,Scroll,,
-Phone — three doors,door — tour (name),Take the tour,,
-Phone — three doors,door — tour (line),"See all there is, in a visual journey through the tower.",,
+Phone — three doors,scroll cue,Scroll into the tower,,
 Phone — three doors,door — resources (name),Jump to resources,,
 Phone — three doors,door — resources (line),"The maps, books, designers, courses and guides I have gathered.",,
 Phone — three doors,gate — resources (heading),Resources,,
@@ -21,6 +19,8 @@ Phone — three doors,door — me (line),"My story, the houses I have run, and w
 Phone — three doors,gate — me (heading),About me,,
 Phone — three doors,gate — me (intro),"Who I am, the work I have actually done, and the manifesto of what I think our homes could be.",,
 Phone — three doors,gate — me (extra link 1),Say hello,,
+Phone — three doors,door — tour (name),Take the tour,,
+Phone — three doors,door — tour (line),"Ride the whole tower from the summit down, one space at a time.",,
 Phone — three doors,gate — way back,← Back to the tower,,
 Main map,legend chip 1,resources,,
 Main map,legend chip 2,hope,,
@@ -34,32 +34,32 @@ Main map,space popup — The House (name),The House,,
 Main map,space popup — The House (sentence),"My story, the work I have actually run, and who is behind this.",,
 Main map,space popup — The House (plain words),Who lives here?,,
 Main map,space popup — The Library (name),The Library,,
-Main map,space popup — The Library (sentence),"Courses, books and designers — the reading, gathered in one place.",,contains an em dash
+Main map,space popup — The Library (sentence),"Courses, books and designers, the reading gathered in one place.",,
 Main map,space popup — The Library (plain words),What is known?,,
 Main map,space popup — The Workshop (name),The Workshop,,
 Main map,space popup — The Workshop (sentence),"Design for Connection, and the twenty questions every project answers.",,
 Main map,space popup — The Workshop (plain words),How does it get built?,,
 Main map,space popup — The Garden (name),The Garden,,
-Main map,space popup — The Garden (sentence),The manifesto — what our homes could be — and the writings around it.,,contains an em dash
+Main map,space popup — The Garden (sentence),"The manifesto of what our homes could be, and the writings around it.",,
 Main map,space popup — The Garden (plain words),Why do this at all?,,
 Main map,space popup — The Commons (name),The Commons,,
-Main map,space popup — The Commons (sentence),The networks and organizations already doing this — and how to reach me.,,contains an em dash
+Main map,space popup — The Commons (sentence),"The networks and organizations already doing this, and how to reach me.",,
 Main map,space popup — The Commons (plain words),Where do you come in?,,
-The commons,scene hero — eyebrow,The commons · where you come in,,
+The commons,scene hero — eyebrow,The commons · people and networks,,
 The commons,scene hero — heading,Nobody is doing this alone.,,
 The commons,scene hero — body,"The community of people building this, the networks and movements that connect them, and a long table with the fastest way to reach me.",,Claude draft
 The commons,phone pill — community.html,The community,,
 The commons,phone pill — networks.html,Networks & movements,,
 The commons,phone pill — mailto:pierreantoinedescoteaux@gmail.com,Say hello,,
 The commons,hotspot — The market stalls (name),The market stalls,,
-The commons,hotspot — The market stalls (sentence),the community — a place for the people building this to actually talk to each other.,,Claude draft; contains an em dash
+The commons,hotspot — The market stalls (sentence),"the community, a place for the people building this to actually talk to each other.",,Claude draft
 The commons,hotspot — The gateway (name),The gateway,,
-The commons,hotspot — The gateway (sentence),networks & movements — the organized ways into the wider coliving world.,,Claude draft; contains an em dash
+The commons,hotspot — The gateway (sentence),"networks and movements, the organized ways into the wider coliving world.",,Claude draft
 The commons,hotspot — The long table (name),The long table,,
-The commons,hotspot — The long table (sentence),a seat’s open — say hello.,,Claude draft; contains an em dash
-The library,scene hero — eyebrow,The library · what’s known,,
-The library,scene hero — heading,The library holds what’s known.,,
-The library,scene hero — body,"Books, designers, courses and reasons for hope — the reading on living together, gathered in one place.",,Claude draft; contains an em dash
+The commons,hotspot — The long table (sentence),a seat is open. Say hello.,,Claude draft
+The library,scene hero — eyebrow,"The library · books, courses and designers",,
+The library,scene hero — heading,"Everything worth reading, in one place.",,
+The library,scene hero — body,"Books, designers, courses and reasons for hope. The reading on living together, gathered in one place.",,Claude draft
 The library,phone pill — inspiration.html,Books of inspiration,,
 The library,phone pill — designers.html,Designers that inspire me,,
 The library,phone pill — arts.html,Arts & multimedia,,
@@ -69,32 +69,32 @@ The library,hotspot — The bookshelves (sentence),"books of inspiration on ever
 The library,hotspot — The painter (name),The painter,,
 The library,hotspot — The painter (sentence),"the designers I keep going back to, and why.",,Claude draft
 The library,hotspot — The murals (name),The murals,,
-The library,hotspot — The murals (sentence),"the arts — films, music and images that make living together feel possible.",,Claude draft; contains an em dash
+The library,hotspot — The murals (sentence),"the arts: films, music and images that make living together feel possible.",,Claude draft
 The library,hotspot — The study tables (name),The study tables,,
 The library,hotspot — The study tables (sentence),courses and how-to from the people who have actually done it.,,Claude draft
-The workshop,scene hero — eyebrow,The workshop · how it gets built,,
+The workshop,scene hero — eyebrow,The workshop · design guides and tools,,
 The workshop,scene hero — heading,The workshop is where coliving gets built.,,
-The workshop,scene hero — body,"Tools and guides for making it real — Design for Connection, the twenty themes every project answers, and the how-to guides.",,Claude draft; contains an em dash
+The workshop,scene hero — body,"Tools and guides for making it real: Design for Connection, the twenty themes every project answers, and the how-to guides.",,Claude draft
 The workshop,phone pill — design.html,Design for Connection,,
 The workshop,phone pill — themes.html,The twenty themes,,
 The workshop,phone pill — how-to.html,How-to guides,,
 The workshop,hotspot — The blueprint (name),The blueprint,,
-The workshop,hotspot — The blueprint (sentence),Design for Connection — the concrete moves that make a place social instead of merely shared.,,Claude draft; contains an em dash
+The workshop,hotspot — The blueprint (sentence),Design for Connection: the concrete moves that make a place social instead of merely shared.,,Claude draft
 The workshop,hotspot — The model city (name),The model city,,
 The workshop,hotspot — The model city (sentence),the twenty themes every coliving project ends up having to answer.,,Claude draft
 The workshop,hotspot — The tool walls (name),The tool walls,,
-The workshop,hotspot — The tool walls (sentence),"how-to guides — finding land, choosing a legal structure, running the first year.",,Claude draft; contains an em dash
-The garden,scene hero — eyebrow,The garden · why do this at all,,
+The workshop,hotspot — The tool walls (sentence),"how-to guides on finding land, choosing a legal structure and running the first year.",,Claude draft
+The garden,scene hero — eyebrow,The garden · the manifesto and the writings,,
 The garden,scene hero — heading,A manifesto for hope we cultivate.,,
-The garden,scene hero — body,"The manifesto of what our homes could be, and the talk pieces — my writings — growing alongside it.",,Claude draft; contains an em dash
+The garden,scene hero — body,"The manifesto of what our homes could be, and the talk pieces, my writings, growing alongside it.",,Claude draft
 The garden,phone pill — manifesto.html,Read the manifesto,,
-The garden,phone pill — talkpieces.html,Talk pieces — writings,,contains an em dash
+The garden,phone pill — talkpieces.html,"Talk pieces, my writings",,
 The garden,hotspot — The gardens (name),The gardens,,
 The garden,hotspot — The gardens (sentence),a manifesto for hope we cultivate.,,
 The garden,hotspot — The waterworks (name),The waterworks,,
-The garden,hotspot — The waterworks (sentence),"the talk pieces — my writings, the arguments still being argued.",,Claude draft; contains an em dash
-The house,scene hero — eyebrow,The house · who lives here,,
-The house,scene hero — heading,"Mine, for what it’s worth.",,
+The garden,hotspot — The waterworks (sentence),"the talk pieces, my writings, the arguments still being argued.",,Claude draft
+The house,scene hero — eyebrow,The house · my story and my work,,
+The house,scene hero — heading,"My story, and the houses I have run.",,
 The house,scene hero — body,"The story of how I got here, the houses and projects I have actually run, and who I am.",,Claude draft
 The house,phone pill — story.html,My story,,
 The house,phone pill — work.html,Work & experience,,
@@ -105,9 +105,9 @@ The house,hotspot — The work desk (name),The work desk,,
 The house,hotspot — The work desk (sentence),"See my past work and projects. Read their stories and learn what I built, its impact and how it changed me.",,
 The house,hotspot — The view point (name),The view point,,
 The house,hotspot — The view point (sentence),let you see a little bit about me and the meaning this project has for me.,,
-The summit,scene hero — eyebrow,The summit · where this is happening,,
+The summit,scene hero — eyebrow,The summit · the map and the models,,
 The summit,scene hero — heading,Coliving takes many shapes.,,
-The summit,scene hero — body,"From the top you can see the whole landscape — the atlas of real communities, and every form this takes, from cohousing to ecovillage.",,Claude draft; contains an em dash
+The summit,scene hero — body,"From the top you can see the whole landscape: the atlas of real communities, and every form this takes, from cohousing to ecovillage.",,Claude draft
 The summit,phone pill — map.html,The coliving atlas,,
 The summit,phone pill — type.html,The twelve models,,
 The summit,phone pill — projects.html,Real communities,,
@@ -119,4 +119,4 @@ The summit,hotspot — The villages (name),The villages,,
 The summit,hotspot — The villages (sentence),"Learn about 12 different forms of coliving from cohousing to ecovillages, what defines them and learnings to grab from each.",,
 The summit,hotspot — The communities in construction (name),The communities in construction,,
 The summit,hotspot — The communities in construction (sentence),"Real communities, projects that inspire me and the people building these hopeful futures.",,
-Tour,hint after landing on the summit,"You're at the top — scroll down to descend through the tower, space by space.",,contains an em dash
+Tour,hint after landing on the summit,"You're at the top. Scroll down to descend through the tower, space by space.",,

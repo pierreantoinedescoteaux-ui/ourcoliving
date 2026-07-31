@@ -577,15 +577,24 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   check(phone.spotLayerHidden, "phone: desktop in-scene spot layer fully hidden");
   await m.screenshot({ path: path.join(OUT, "lv31-final-phone-arrive.png") });
 
-  /* one scroll raises the doors, and the page must NOT scroll away */
-  await m.mouse.move(195, 500);
-  await m.mouse.wheel(0, 240);
+  /* RECONCILED again, 2026-07-30 round 2. The first scroll is now meant to
+     MOVE THE WORLD (P-A: "I definitely need to see a first scroll... the 3D
+     scrolling is the coolest part"), so the page rides one scene, holds
+     there, and the doors come up on that screen. The detailed walk of that
+     flow lives in shoot-mobile-arrival.js; this is the regression guard. */
+  for (let i = 0; i < 10; i++) {
+    if (await m.evaluate(() => document.documentElement.classList.contains("lv3-landed"))) break;
+    await m.mouse.move(195, 500);
+    await m.mouse.wheel(0, 420);
+    await m.waitForTimeout(320);
+  }
   await m.waitForTimeout(800);
   const dz = await m.evaluate(() => {
     const d = document.getElementById("lv3doors");
     const btns = [...d.querySelectorAll(".lv3-door")];
     return {
       up: getComputedStyle(d).visibility === "visible",
+      landed: document.documentElement.classList.contains("lv3-landed"),
       y: Math.round(scrollY),
       labels: btns.map(b => b.querySelector("b").textContent),
       cols: btns.map(b => getComputedStyle(b).borderLeftColor),
@@ -593,9 +602,12 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
       artTop: Math.round(d.getBoundingClientRect().top)
     };
   });
-  check(dz.up && dz.y === 0, "phone: one scroll raises the doors without scrolling the page (y=" + dz.y + ")");
+  check(dz.y > 60, "phone: the first scroll MOVES THE WORLD rather than popping a menu (y=" + dz.y + ")");
+  check(dz.up && dz.landed, "phone: it holds one scene later and the doors come up there");
   check(dz.labels.length === 3, "phone: three doors -> " + dz.labels.join(" · "));
-  check(dz.cols.every(c => CATS.indexOf(c) > -1), "phone: each door carries a category colour -> " + dz.cols.join(","));
+  /* the tour door is deliberately warmer-plated, so its border is a blend
+     rather than a flat category colour — two of three must still be flat */
+  check(dz.cols.filter(c => CATS.indexOf(c) > -1).length >= 2, "phone: the doors carry category colours -> " + dz.cols.join(","));
   check(dz.minH >= 44, "phone: every door tap target >=44px (min " + dz.minH.toFixed(1) + ")");
   check(dz.artTop > 300, "phone: the tower is still visible above the doors (top=" + dz.artTop + ")");
   await m.screenshot({ path: path.join(OUT, "lv31-final-phone-doors.png") });
@@ -611,7 +623,7 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
     return {
       on: el.classList.contains("on"),
       title: el.querySelector("h2").textContent,
-      zones: [...el.querySelectorAll(".lv3-zone h3")].map(h => h.textContent),
+      zones: [...el.querySelectorAll(".lv3-zone__name")].map(h => h.textContent),
       backReachable: !!(hit && (hit === back || back.contains(hit)))
     };
   });

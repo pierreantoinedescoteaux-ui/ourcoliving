@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Our Coliving</title>
-<meta name="description" content="Everything I've gathered about living closer together: a directory of coliving resources, a manifesto of what I still hope for, and the work I've actually done. Six spaces — pick the one you need. — Pierre-Antoine Descoteaux">
+<meta name="description" content="Everything I've gathered about living closer together: a directory of coliving resources, a manifesto of what I still hope for, and the work I've actually done. Six spaces pick the one you need. Pierre-Antoine Descoteaux">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/world/favicon-64.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/world/favicon-32.png">
 <meta property="og:title" content="Our Coliving">
-<meta property="og:description" content="Everything I've gathered about living closer together: a directory of coliving resources, a manifesto of what I still hope for, and the work I've actually done. — Pierre-Antoine Descoteaux">
+<meta property="og:description" content="Everything I've gathered about living closer together: a directory of coliving resources, a manifesto of what I still hope for, and the work I've actually done. Pierre-Antoine Descoteaux">
 <meta property="og:image" content="https://ourcoliving.xyz/assets/world/og-tower.jpg">
 <meta property="og:url" content="https://ourcoliving.xyz/">
 <meta name="twitter:card" content="summary_large_image">
@@ -248,7 +248,27 @@
 .lv3-backlink:hover{color:var(--sw-ink);border-color:var(--sw-ink);gap:10px;}
 .lv3-backlink svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;
   stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
-@media (max-width:860px){ .lv3-backlink{font-size:.86rem;padding:6px 0;} }
+/* On a phone the way back sits at the very top of the copy, which on several
+   scenes lands on the busiest part of the painting — over the library's tree
+   it vanished completely (P-A screenshot, 2026-07-30). It gets a cream plate
+   of its own rather than relying on the scrim reaching that high. */
+/* the phone's single way back, on the page rather than inside a scene's copy */
+.lv3-pback{display:none;}
+@media (max-width:860px){
+  #world .sw-copy .lv3-backlink{display:none;}
+  .lv3-pback{display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+    position:fixed;left:14px;top:calc(58px + env(safe-area-inset-top));z-index:30;
+    font-family:var(--sw-font-body);font-size:.92rem;font-weight:600;
+    padding:9px 15px;min-height:44px;border-radius:999px;
+    background:rgba(253,250,240,.92);border:1px solid rgba(34,48,31,.14);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    color:var(--sw-ink);box-shadow:0 10px 26px -20px rgba(35,28,10,.75);
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .28s ease,transform .28s ease,visibility 0s .28s;}
+  .lv3-pback.on{opacity:1;visibility:visible;transform:none;
+    transition:opacity .28s ease,transform .28s ease;}
+  .lv3-pback svg{width:15px;height:15px;flex:none;}
+}
 
 /* The rail keeps the engine's own restraint — a stop is named when it is the
    one you are on, or when you point at it, and nothing more. Two small
@@ -546,35 +566,52 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   @keyframes lv3nod{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
   html.lv3-doorsup .lv3-cue{opacity:0;}
 
-  /* ---- the three doors ---- */
-  .lv3-doors{display:block;position:absolute;left:0;right:0;
-    bottom:0;padding:0 14px calc(14px + env(safe-area-inset-bottom));
+  /* ---- the arrival screen: three doors over the scene you rode into ----
+     Fixed to the page rather than parented to the map, because the map layer
+     fades out during the camera move and this has to outlive it. */
+  .lv3-doors{display:block;position:fixed;left:0;right:0;bottom:0;z-index:28;
+    padding:0 14px calc(14px + env(safe-area-inset-bottom));
     pointer-events:auto;
     transform:translateY(112%);opacity:0;visibility:hidden;
-    transition:transform .46s cubic-bezier(.22,.9,.3,1),opacity .3s ease,visibility 0s .46s;}
+    transition:transform .5s cubic-bezier(.22,.9,.3,1),opacity .32s ease,visibility 0s .5s;}
   html.lv3-doorsup .lv3-doors{transform:none;opacity:1;visibility:visible;
-    transition:transform .46s cubic-bezier(.22,.9,.3,1),opacity .3s ease;}
-  /* the hero lifts out of the doors' way rather than being covered by them */
-  html.lv3-doorsup .lv3-hero{bottom:auto;top:calc(66px + env(safe-area-inset-top));
-    transition:top .46s cubic-bezier(.22,.9,.3,1),bottom .46s;}
-  html.lv3-doorsup .lv3-hero .lede{display:none;}
-  /* at the top the headline sits on the busiest part of the painting, so the
-     scrim flips: cream at the head for the words, clear through the middle
-     for the art, cream at the foot under the doors */
-  html.lv3-doorsup.lv3-map .sw-copylayer::before{
+    transition:transform .5s cubic-bezier(.22,.9,.3,1),opacity .32s ease;}
+  .lv3-doors__lede{margin:0 0 11px;padding:0 6px;font-size:1rem;line-height:1.45;
+    color:var(--sw-ink-soft);text-shadow:0 1px 12px var(--sw-bg),0 0 22px var(--sw-bg);}
+  .lv3-doors__lede b{font-weight:600;color:var(--sw-ink);}
+  /* the site's floating back-to-top lands on the third door */
+  html.lv3-doorsup .stotop{opacity:0 !important;visibility:hidden !important;}
+
+  /* The route rail on the right stays exactly as it looks — P-A: "leave the
+     thing on the right to know where you are, it's perfect." Its dots were
+     28px targets though, so the box grows to 44px while the painted dot
+     inside keeps its size. Nothing moves; the thumb just gets more room. */
+  #world .sw-route__dot{width:44px;height:44px;margin:-8px 0;}
+
+  /* while the page is held at the arrival point, that scene's own words stand
+     down — the three doors are the question being asked, and two blocks of
+     copy over one painting is one too many */
+  html.lv3-landed #world .sw-copy{opacity:0 !important;pointer-events:none;}
+  html.lv3-landed .lv3-pback{display:none;}
+  /* and the scrim leans to the foot, where the doors are */
+  html.lv3-landed .sw-copylayer::before{
     background:linear-gradient(180deg,
-      var(--sw-bg) 0%,
-      color-mix(in srgb,var(--sw-bg) 82%,transparent) 13%,
-      color-mix(in srgb,var(--sw-bg) 34%,transparent) 24%,
-      transparent 34%,
-      transparent 50%,
-      color-mix(in srgb,var(--sw-bg) 46%,transparent) 66%,
-      color-mix(in srgb,var(--sw-bg) 88%,transparent) 80%,
-      var(--sw-bg) 92%);
+      transparent 0%,transparent 26%,
+      color-mix(in srgb,var(--sw-bg) 34%,transparent) 40%,
+      color-mix(in srgb,var(--sw-bg) 76%,transparent) 56%,
+      var(--sw-bg) 74%);
   }
-  /* the credit line has done its job by now and only costs two lines of room */
-  html.lv3-doorsup .lv3-eyebrow{display:none;}
-  html.lv3-doorsup .lv3-hero h1{font-size:clamp(1.5rem,6.2vw,1.95rem);margin-top:0;}
+
+  /* the tour door is the one that hands over the whole tower, so it reads
+     differently: warmer plate, and it answers a push against the hold */
+  .lv3-door.is-tour{background:linear-gradient(180deg,rgba(253,248,236,.96),rgba(250,238,216,.96));
+    border-color:color-mix(in srgb,var(--rc) 34%,transparent);}
+  @keyframes lv3doorpulse{
+    0%{transform:none;box-shadow:0 16px 34px -24px rgba(35,28,10,.72),0 0 0 0 color-mix(in srgb,var(--rc) 55%,transparent);}
+    45%{transform:translateY(-3px);box-shadow:0 20px 36px -22px rgba(35,28,10,.8),0 0 0 10px rgba(179,84,62,0);}
+    100%{transform:none;box-shadow:0 16px 34px -24px rgba(35,28,10,.72),0 0 0 0 rgba(179,84,62,0);}
+  }
+  .lv3-door.is-pulse{animation:lv3doorpulse .66s ease-out;}
 
   .lv3-door{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
     min-height:64px;padding:13px 15px;margin:0 0 8px;
@@ -620,23 +657,38 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .lv3-gate h2{font-family:var(--sw-font-display);font-weight:300;
     font-size:clamp(1.8rem,7.6vw,2.3rem);line-height:1.1;margin:6px 0 0;color:var(--sw-ink);}
   .lv3-gate__lede{font-size:1rem;line-height:1.5;color:var(--sw-ink-soft);margin:10px 0 22px;}
-  .lv3-zone{margin:0 0 18px;padding:15px 15px 13px;border-radius:16px;
-    background:rgba(255,253,246,.9);border:1px solid rgba(34,48,31,.1);
-    border-left:4px solid var(--rc);}
-  .lv3-zone__chip{display:inline-flex;align-items:center;gap:7px;
-    font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  /* a zone preview: the space's own painting inside a door-shaped outline,
+     with the same sentence that greets you when you get there */
+  .lv3-zone{display:flex;align-items:stretch;gap:14px;width:100%;text-align:left;
+    margin:0 0 14px;padding:12px 14px 12px 12px;border-radius:16px;
+    background:rgba(255,253,246,.92);border:1px solid rgba(34,48,31,.1);
+    border-left:4px solid var(--rc);font-family:inherit;color:inherit;cursor:pointer;
+    box-shadow:0 14px 30px -26px rgba(35,28,10,.7);
+    transition:transform .18s ease;}
+  .lv3-zone:active{transform:scale(.987);}
+  .lv3-zone__art{flex:none;width:88px;align-self:stretch;min-height:118px;
+    background-size:cover;background-position:center 40%;
+    /* the door outline: arched head, straight foot */
+    border-radius:44px 44px 10px 10px;
+    border:2px solid color-mix(in srgb,var(--rc) 45%,transparent);
+    box-shadow:inset 0 0 0 3px rgba(253,250,240,.6),0 6px 16px -12px rgba(35,28,10,.9);}
+  .lv3-zone__txt{min-width:0;flex:1;display:block;padding-top:2px;}
+  .lv3-zone__chip{display:inline-flex;align-items:center;gap:6px;
+    font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
     color:var(--rc);}
-  .lv3-zone__chip i{width:9px;height:9px;border-radius:50%;background:var(--rc);flex:none;}
-  .lv3-zone h3{font-family:var(--sw-font-display);font-weight:400;font-size:1.32rem;
-    line-height:1.2;margin:7px 0 0;color:var(--sw-ink);}
-  .lv3-zone p{font-size:1rem;line-height:1.5;color:var(--sw-ink-soft);margin:7px 0 12px;}
-  .lv3-zone a{display:flex;align-items:center;justify-content:space-between;gap:10px;
-    min-height:48px;padding:11px 14px;margin-top:7px;border-radius:11px;
-    background:rgba(34,48,31,.045);border:1px solid rgba(34,48,31,.1);
-    font-size:1rem;font-weight:600;line-height:1.3;color:var(--sw-ink);
-    text-decoration:none;}
-  .lv3-zone a::after{content:"→";color:var(--rc);flex:none;font-weight:400;}
-  .lv3-zone a:active{background:rgba(34,48,31,.09);}
+  .lv3-zone__chip i{width:8px;height:8px;border-radius:50%;background:var(--rc);flex:none;}
+  .lv3-zone__name{display:block;font-family:var(--sw-font-display);font-weight:400;
+    font-size:1.3rem;line-height:1.18;margin:5px 0 0;color:var(--sw-ink);}
+  .lv3-zone__desc{display:block;font-size:1rem;line-height:1.42;color:var(--sw-ink-soft);
+    margin:6px 0 0;}
+  .lv3-zone__count{display:block;font-size:.8rem;font-weight:600;letter-spacing:.02em;
+    color:var(--rc);margin:8px 0 0;}
+  .lv3-zone__count::after{content:" →";}
+  /* the plain row (say hello) has no space behind it, so no door */
+  .lv3-zone--plain{text-decoration:none;min-height:56px;align-items:center;}
+  .lv3-zone--plain .lv3-zone__name{font-size:1.08rem;margin:0;font-family:var(--sw-font-body);
+    font-weight:600;}
+  .lv3-zone--plain .lv3-zone__name::after{content:" →";color:var(--rc);}
 
   /* ---- the pins (The Summit only, the experiment) ----
      A pin is a dot on the painting with its name beside it. No description:
@@ -662,12 +714,22 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
      the page pins it. */
   #world .sw-copy__body{font-size:1rem;line-height:1.5;}
   #world .sw-copy__eyebrow{font-size:.78rem;letter-spacing:.16em;}
-  #world .sw-copy__tags{gap:8px;display:flex;flex-direction:column;}
-  #world .sw-copy__tags li{font-size:1rem;padding:0;width:100%;}
-  #world .sw-copy__tags li a{display:flex;align-items:center;justify-content:space-between;
-    min-height:48px;padding:12px 15px;line-height:1.3;font-size:1rem;font-weight:600;
-    border-radius:11px;width:100%;}
-  #world .sw-copy__tags li a::after{content:"→";opacity:.65;flex:none;font-weight:400;}
+  /* P-A, 2026-07-30 round 2: stacking these full width was a regression. It
+     ate two thirds of the screen and buried the painting. They go back to
+     small pills that wrap, exactly as they read before this round, and still
+     hold the 44px thumb height and 16px label. */
+  #world .sw-copy__tags{display:flex;flex-wrap:wrap;align-items:flex-start;gap:9px;}
+  #world .sw-copy__tags li{font-size:1rem;padding:0;width:auto;}
+  #world .sw-copy__tags li a{display:block;padding:12px 14px;line-height:1.25;
+    white-space:nowrap;}
+  /* a little more room across so two pills share a row instead of each taking
+     one — that alone is the difference between half the screen and a third */
+  #world .sw-copy{left:16px;right:16px;}
+  /* the copy block is a third of the screen, not half: tighter rhythm above
+     the pills so the artwork is the thing you are looking at */
+  #world .sw-copy__title{font-size:clamp(1.5rem,6.6vw,1.92rem);line-height:1.14;}
+  #world .sw-copy__body{margin-top:9px;}
+  #world .sw-copy__tags{margin-top:13px;}
 }
 /* short phones: the lede is the first thing to go, never the sizes */
 @media (max-width:860px) and (max-height:700px){
@@ -692,8 +754,8 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <header class="lv3-hero">
     <span class="lv3-eyebrow">A project by Pierre-Antoine Descoteaux</span>
     <h1>Wherever you are with coliving, something here is for you. <span class="edit">[edit]</span></h1>
-    <p class="lede">Everything I've gathered about living closer together — a little of it mine,
-      most of it from people further along — plus the manifesto of what I still hope for,
+    <p class="lede">Everything I've gathered about living closer together. A little of it mine,
+      most of it from people further along, plus the manifesto of what I still hope for
       and the work I've actually done.</p>
     <p class="lv3-do">
       <button class="lv3-tour" id="lv3tour" type="button">Take the slow tour</button>
@@ -703,13 +765,12 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 
   <div class="lv3-labels" id="lv3labels"></div>
 
-  <!-- phone: the cue asks for the one gesture, the doors answer it -->
+  <!-- phone: the cue asks for the one gesture that moves the world -->
   <p class="lv3-cue" id="lv3cue" aria-hidden="true">
-    <span>Scroll</span>
+    <span>Scroll into the tower</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
          stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M6 13.5l6 6 6-6"/></svg>
   </p>
-  <nav class="lv3-doors" id="lv3doors" aria-label="Three ways in"></nav>
 
   <p class="lv3-legend" id="lv3legend"></p>
 
@@ -718,6 +779,12 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     <ul id="lv3plain"></ul>
   </nav>
 </div>
+
+<!-- phone: the arrival screen. It sits on the page, NOT inside #mapmode, because
+     the map layer fades out as the camera moves and this has to survive that. -->
+<nav class="lv3-doors" id="lv3doors" aria-label="Three ways in">
+  <p class="lv3-doors__lede" id="lv3doorslede">You are in the tower. <b>Where do you want to go?</b></p>
+</nav>
 
 <!-- phone: the pin experiment, on The Summit only. See section 7b. -->
 <div class="lv3-pins" id="lv3pins" aria-hidden="true"></div>
@@ -746,7 +813,7 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <button class="lv3-inv-x" type="button" aria-label="No thanks">&times;</button>
   <span class="lv3-door2" aria-hidden="true"><span class="lf"></span><span class="rt"></span></span>
   <h2 id="lv3invitetitle">Do you want to take the tour of the tower? <span class="edit">[edit]</span></h2>
-  <p>See all the zones and explore the content — click or keep scrolling to start.</p>
+  <p>See all the zones and explore the content. Click or keep scrolling to start.</p>
   <span class="lv3-inv-go">Start the tour</span>
 </div>
 
@@ -775,40 +842,40 @@ var LV3_SECTIONS = [
       scroll: 1.7 },
     { id:'commons', label:'The commons', accent:'#c96b32',
       still:'assets/tower/S2.webp', stillMobile:'assets/tower/S2-m.webp', clip:'assets/tower/vid/loop-s2.mp4', clipMobile:'assets/tower/vid/loop-s2-m.mp4',
-      eyebrow:'The commons · where you come in',
+      eyebrow:'The commons · people and networks',
       title:'Nobody is doing this alone.',
       body:'The community of people building this, the networks and movements that connect them, and a long table with the fastest way to reach me. [edit]',
       tags:[{label:'The community', href:'community.html'},{label:'Networks & movements', href:'networks.html'},{label:'Say hello', href:EMAIL}] },
     { id:'library', label:'The library', accent:'#2b8b8f',
       still:'assets/tower/S3.webp', stillMobile:'assets/tower/S3-m.webp', clip:'assets/tower/vid/loop-s3.mp4', clipMobile:'assets/tower/vid/loop-s3-m.mp4',
-      eyebrow:'The library · what’s known',
-      title:'The library holds what’s known.',
-      body:'Books, designers, courses and reasons for hope — the reading on living together, gathered in one place. [edit]',
+      eyebrow:'The library · books, courses and designers',
+      title:'Everything worth reading, in one place.',
+      body:'Books, designers, courses and reasons for hope. The reading on living together, gathered in one place. [edit]',
       tags:[{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'},{label:'Arts & multimedia', href:'arts.html'},{label:'Learning & how-to', href:'resources.html#learning'}] },
     { id:'makers', label:'The workshop', accent:'#a8712c',
       still:'assets/tower/S4.webp', stillMobile:'assets/tower/S4-m.webp', clip:'assets/tower/vid/loop-s4.mp4', clipMobile:'assets/tower/vid/loop-s4-m.mp4',
-      eyebrow:'The workshop · how it gets built',
+      eyebrow:'The workshop · design guides and tools',
       title:'The workshop is where coliving gets built.',
-      body:'Tools and guides for making it real — Design for Connection, the twenty themes every project answers, and the how-to guides. [edit]',
+      body:'Tools and guides for making it real: Design for Connection, the twenty themes every project answers, and the how-to guides. [edit]',
       tags:[{label:'Design for Connection', href:'design.html'},{label:'The twenty themes', href:'themes.html'},{label:'How-to guides', href:'how-to.html'}] },
     { id:'gardens', label:'The garden', accent:'#d08a2e',
       still:'assets/tower/S5.webp', stillMobile:'assets/tower/S5-m.webp', clip:'assets/tower/vid/loop-s5.mp4', clipMobile:'assets/tower/vid/loop-s5-m.mp4',
-      eyebrow:'The garden · why do this at all',
+      eyebrow:'The garden · the manifesto and the writings',
       title:'A manifesto for hope we cultivate.',
-      body:'The manifesto of what our homes could be, and the talk pieces — my writings — growing alongside it. [edit]',
-      tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Talk pieces — writings', href:'talkpieces.html'}] },
+      body:'The manifesto of what our homes could be, and the talk pieces, my writings, growing alongside it. [edit]',
+      tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Talk pieces, my writings', href:'talkpieces.html'}] },
     { id:'homes', label:'The house', accent:'#b3543e',
       still:'assets/tower/S6.webp', stillMobile:'assets/tower/S6-m.webp', clip:'assets/tower/vid/loop-s6.mp4', clipMobile:'assets/tower/vid/loop-s6-m.mp4',
-      eyebrow:'The house · who lives here',
-      title:'Mine, for what it’s worth.',
+      eyebrow:'The house · my story and my work',
+      title:'My story, and the houses I have run.',
       body:'The story of how I got here, the houses and projects I have actually run, and who I am. [edit]',
       tags:[{label:'My story', href:'story.html'},{label:'Work & experience', href:'work.html'},{label:'About me', href:'about.html'}] },
     { id:'lookout', label:'The summit', accent:'#3e7db0',
       still:'assets/tower/S7.webp', stillMobile:'assets/tower/S7-m.webp', clip:'assets/tower/vid/loop-s7.mp4', clipMobile:'assets/tower/vid/loop-s7-m.mp4',
       scroll: 1.8,
-      eyebrow:'The summit · where this is happening',
+      eyebrow:'The summit · the map and the models',
       title:'Coliving takes many shapes.',
-      body:'From the top you can see the whole landscape — the atlas of real communities, and every form this takes, from cohousing to ecovillage. [edit]',
+      body:'From the top you can see the whole landscape: the atlas of real communities, and every form this takes, from cohousing to ecovillage. [edit]',
       tags:[{label:'The coliving atlas', href:'map.html'},{label:'The twelve models', href:'type.html'},{label:'Real communities', href:'projects.html'}],
       cta:{ primary:{label:'Open the coliving map', href:'map.html'},
             secondary:{label:'Say hello', href:EMAIL} } }
@@ -862,7 +929,7 @@ var SPACES = [
 
   { key:'library', id:'library', name:'The Library', accent:'#2b8b8f', href:'resources.html',
     q:'What is known?',
-    desc:'Courses, books and designers — the reading, gathered in one place.',
+    desc:'Courses, books and designers, the reading gathered in one place.',
     anchor:[0.446,0.300], label:[0.522,0.168],
     polys:[[[0.382,0.360],[0.386,0.318],[0.404,0.292],[0.432,0.286],[0.456,0.300],[0.468,0.330],[0.466,0.372],[0.440,0.394],[0.404,0.390]]] },
 
@@ -874,14 +941,14 @@ var SPACES = [
 
   { key:'garden', id:'gardens', name:'The Garden', accent:'#d08a2e', href:'manifesto.html',
     q:'Why do this at all?',
-    desc:'The manifesto — what our homes could be — and the writings around it.',
+    desc:'The manifesto of what our homes could be, and the writings around it.',
     anchor:[0.680,0.428], label:[0.772,0.346],
     polys:[[[0.572,0.470],[0.578,0.418],[0.600,0.392],[0.640,0.386],[0.678,0.404],[0.700,0.448],[0.706,0.520],[0.686,0.572],[0.646,0.578],[0.606,0.540]],
            [[0.148,0.760],[0.160,0.686],[0.196,0.638],[0.252,0.612],[0.310,0.622],[0.330,0.672],[0.322,0.742],[0.276,0.800],[0.208,0.816],[0.164,0.796]]] },
 
   { key:'commons', id:'commons', name:'The Commons', accent:'#3c6b32', href:'networks.html',
     q:'Where do you come in?',
-    desc:'The networks and organizations already doing this — and how to reach me.',
+    desc:'The networks and organizations already doing this, and how to reach me.',
     anchor:[0.752,0.740], label:[0.895,0.958],
     polys:[[[0.300,0.880],[0.302,0.796],[0.336,0.726],[0.398,0.694],[0.462,0.704],[0.492,0.756],[0.486,0.836],[0.432,0.892],[0.360,0.906]],
            [[0.630,0.800],[0.634,0.720],[0.668,0.664],[0.724,0.638],[0.786,0.652],[0.812,0.700],[0.804,0.766],[0.752,0.804],[0.686,0.812]]] }
@@ -1053,10 +1120,6 @@ SPACES.forEach(function(sp){
    other people's work, not his.
    --------------------------------------------------------------------- */
 var GROUPS = [
-  { key:'tour', mark:'summit', accent:'#b3543e', tour:true,
-    name:'Take the tour',
-    blurb:'See all there is, in a visual journey through the tower.' },
-
   { key:'resources', mark:'library', accent:'#2b8b8f',
     name:'Jump to resources',
     blurb:'The maps, books, designers, courses and guides I have gathered.',
@@ -1070,7 +1133,13 @@ var GROUPS = [
     gateTitle:'About me',
     lede:'Who I am, the work I have actually done, and the manifesto of what I think our homes could be.',
     zones:['homes','garden'],
-    extra:[{ label:'Say hello', href:EMAIL }] }
+    extra:[{ label:'Say hello', href:EMAIL }] },
+
+  /* last, and dressed differently: it is the one that unlocks the scroll and
+     hands the whole tower over. P-A's order, and his framing of it. */
+  { key:'tour', mark:'summit', accent:'#b3543e', tour:true,
+    name:'Take the tour',
+    blurb:'Ride the whole tower from the summit down, one space at a time.' }
 ];
 
 /* the one-word category each space belongs to, so a zone always carries the
@@ -1087,18 +1156,32 @@ function zoneLinks(spaceKey){
 }
 
 var doors = document.getElementById('lv3doors');
-doors.innerHTML = GROUPS.map(function(g){
-  return '<button class="lv3-door" type="button" data-group="' + g.key + '" style="--rc:' + g.accent + '">' +
+doors.insertAdjacentHTML('beforeend', GROUPS.map(function(g){
+  return '<button class="lv3-door' + (g.tour ? ' is-tour' : '') + '" type="button" ' +
+    'data-group="' + g.key + '" style="--rc:' + g.accent + '">' +
     '<span class="lv3-mark" aria-hidden="true"><svg viewBox="0 0 24 24">' + MARK[g.mark] + '</svg></span>' +
     '<span><b>' + g.name + '</b><i>' + g.blurb + '</i></span>' +
     '<u aria-hidden="true">' + (g.tour ? '↑' : '→') + '</u></button>';
-}).join('');
+}).join(''));
 
 /* ---- the gate ---- */
 var gate = document.getElementById('lv3gate');
 var gateBack = document.getElementById('lv3gateback');
 var gateOpen = false, gateReturnFocus = null;
 
+/* ---------------------------------------------------------------------
+   THE GATE, v2 (P-A, 2026-07-30 round 2).
+
+   v1 listed every subpage behind a door, which sent people straight past
+   the spaces: "the goal is actually more that people click on the zone,
+   the space, not the sub page... I'm expecting three previews of the zones."
+
+   So a gate is now previews. Each zone is a door-shaped outline holding a
+   crop of that space's own painting, its colour word, its name, and the
+   same sentence that greets you inside it. Tapping one does not open a
+   list: it FLIES INTO that space in the tower, where the subpages already
+   live. One journey, no duplicated menu.
+   --------------------------------------------------------------------- */
 function renderGate(g){
   document.getElementById('lv3gatetitle').textContent = g.gateTitle;
   document.getElementById('lv3gatelede').textContent = g.lede;
@@ -1112,21 +1195,37 @@ function renderGate(g){
   band.style.backgroundImage = sec ? 'url("' + (sec.stillMobile || sec.still) + '")' : 'none';
   var zones = g.zones.map(function(key){
     var sp = SPACES.filter(function(s){ return s.key === key; })[0];
+    var sec = LV3_SECTIONS.filter(function(s){ return s.id === sp.id; })[0];
     var cat = ZONE_CAT[key];
     var col = (CATS.filter(function(c){ return c.word === cat; })[0] || {}).color || sp.accent;
-    /* subpages are names only. P-A: no descriptions on the buttons, so they
-       stay small and never cover the reading. */
-    var links = zoneLinks(key).map(function(t){
-      return '<a href="' + t.href + '">' + t.label + '</a>';
-    }).join('');
-    return '<section class="lv3-zone" style="--rc:' + col + '">' +
-      '<span class="lv3-zone__chip"><i></i>' + cat + '</span>' +
-      '<h3>' + sp.name + '</h3><p>' + sp.desc + '</p>' + links + '</section>';
+    var art = sec ? (sec.stillMobile || sec.still) : '';
+    var n = zoneLinks(key).length;
+    return '<button class="lv3-zone" type="button" data-space="' + key + '" style="--rc:' + col + '">' +
+      '<span class="lv3-zone__art" style="background-image:url(\'' + art + '\')" aria-hidden="true"></span>' +
+      '<span class="lv3-zone__txt">' +
+        '<span class="lv3-zone__chip"><i></i>' + cat + '</span>' +
+        '<span class="lv3-zone__name">' + sp.name + '</span>' +
+        '<span class="lv3-zone__desc">' + sp.desc + '</span>' +
+        (n ? '<span class="lv3-zone__count">' + n + ' inside</span>' : '') +
+      '</span></button>';
   }).join('');
   var extra = (g.extra || []).map(function(t){
-    return '<section class="lv3-zone" style="--rc:#3c6b32"><a href="' + t.href + '">' + t.label + '</a></section>';
+    return '<a class="lv3-zone lv3-zone--plain" href="' + t.href + '" style="--rc:#3c6b32">' +
+      '<span class="lv3-zone__txt"><span class="lv3-zone__name">' + t.label + '</span></span></a>';
   }).join('');
-  document.getElementById('lv3gatezones').innerHTML = zones + extra;
+  var host = document.getElementById('lv3gatezones');
+  host.innerHTML = zones + extra;
+  /* tapping a preview walks into the space itself, not into another menu */
+  host.querySelectorAll('.lv3-zone[data-space]').forEach(function(btn){
+    var sp = SPACES.filter(function(s){ return s.key === btn.dataset.space; })[0];
+    btn.addEventListener('touchstart', function(){ WORLD.preload(sp.index); }, { passive:true });
+    btn.addEventListener('click', function(){
+      closeGate();
+      /* let the gate finish sliding down before the world starts moving,
+         or the two animations fight for the same frames */
+      setTimeout(function(){ leaveArrival(); hideDoors(); enter(sp); }, 260);
+    });
+  });
 }
 function openGate(g, from){
   renderGate(g);
@@ -1158,14 +1257,40 @@ doors.querySelectorAll('.lv3-door').forEach(function(btn){
     btn.addEventListener('touchstart', function(){
       WORLD.preload(SPACES.filter(function(s){ return s.key === 'summit'; })[0].index);
     }, { passive:true });
-    btn.addEventListener('click', function(){ hideDoors(); startTour(); });
+    btn.addEventListener('click', function(){ leaveArrival(); hideDoors(); startTour(); });
   } else {
     btn.addEventListener('click', function(){ openGate(g, btn); });
   }
 });
 
-/* the doors are summoned by the first scroll, not shown on arrival — the
-   first screen belongs to the artwork */
+/* ---------------------------------------------------------------------
+   THE ARRIVAL (P-A, 2026-07-30 round 2).
+
+   Round 1 popped the three doors on the first blocked gesture, so the
+   scroll never moved the world: "it's like an instant get to the three
+   buttons... the scroll and the 3D scrolling is the coolest part... I
+   definitely need to see a first scroll."
+
+   So the phone now opens the same way the desktop does, in three beats:
+
+     'map'     you are on the tower and the scroll is FREE, but only as far
+               as the next scene. The real S1 to S2 camera move plays,
+               scrubbed by the thumb — the cinematic bit, not a jump cut.
+     'landed'  at that scene the page holds, exactly as the desktop map
+               holds you, and the three doors come up over it. Pushing on
+               against the hold pulses the tour door instead of nudging
+               nothing.
+     'free'    taking the tour releases the hold and hands over the whole
+               tower.
+   --------------------------------------------------------------------- */
+var stage = 'map', landedOnce = false;
+
+/* how far the free scroll reaches: the resting point of the second scene */
+function arrivalFloor(){
+  var c = WORLD.dwellCenter(1);
+  return (c && c > 0) ? c : window.innerHeight * 1.6;
+}
+
 var doorsUp = false;
 function showDoors(){
   if (doorsUp) return;
@@ -1178,9 +1303,47 @@ function hideDoors(){
   document.documentElement.classList.remove('lv3-doorsup');
 }
 
+/* the hold, and the doors, arrive together the moment the camera settles */
+function land(){
+  if (stage !== 'map') return;
+  stage = 'landed'; landedOnce = true;
+  document.documentElement.classList.add('lv3-landed');
+  showDoors();
+  syncPhoneBack();
+}
+function unland(){
+  if (stage === 'free') return;
+  stage = 'map';
+  document.documentElement.classList.remove('lv3-landed');
+  if (!landedOnce) hideDoors();
+}
+/* Watch the free stretch and stop the page at the arrival point. It has to
+   keep holding after it lands, because a flick carries momentum the browser
+   will not let us cancel — so the clamp stays armed for as long as the hold
+   is on, and each frame pulls the page back to the mark. */
+window.addEventListener('scroll', function(){
+  if (!isPhone() || travelling || departing || stage === 'free') return;
+  var floor = arrivalFloor();
+  if (stage === 'map' && (window.scrollY || 0) >= floor - 4){
+    window.scrollTo(0, floor);
+    land();
+    return;
+  }
+  if (stage === 'landed' && Math.abs((window.scrollY || 0) - floor) > 1){
+    window.scrollTo(0, floor);
+  }
+}, { passive:true });
+
+/* leaving the arrival for anywhere else releases the hold and the scene's
+   own words come back */
+function leaveArrival(){
+  stage = 'free';
+  document.documentElement.classList.remove('lv3-landed');
+}
+
 /* plain words + the quiet legend */
 document.getElementById('lv3plain').innerHTML = SPACES.map(function(sp){
-  return '<li><a href="' + sp.href + '">' + sp.name + '</a> — ' + sp.q.toLowerCase().replace(/\?$/, '') + '</li>';
+  return '<li><a href="' + sp.href + '">' + sp.name + '</a>: ' + sp.q.toLowerCase().replace(/\?$/, '') + '</li>';
 }).join('');
 /* the minimal chip legend — five category colours, one word each */
 var CATS = [
@@ -1453,6 +1616,27 @@ Array.prototype.forEach.call(document.querySelectorAll('#world .sw-copy'), funct
   num.appendChild(a);
 });
 
+/* PHONES: one way back for the whole page instead of one per scene.
+   Inside the copy it cost ~60px of the screen the painting needed, and it
+   cannot be lifted out with position:fixed because the engine transforms the
+   copy block (a transformed ancestor makes fixed behave like absolute). So
+   the per-scene links stand down on a phone and this single button, which
+   lives on the page itself, takes over. It shows whenever you are inside a
+   scene rather than standing on the map. */
+var phoneBack = document.createElement('button');
+phoneBack.className = 'lv3-pback';
+phoneBack.type = 'button';
+phoneBack.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
+  'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>' +
+  'Back to the tower';
+phoneBack.addEventListener('click', function(){ returnToMap(); });
+document.body.appendChild(phoneBack);
+function syncPhoneBack(){
+  var show = isPhone() && !document.documentElement.classList.contains('lv3-map') &&
+             !gateOpen && !travelling && !departing;
+  phoneBack.classList.toggle('on', !!show);
+}
+
 /* the rail is part of the scene layer too: it follows the copy's own fade, so
    during a transition it goes quiet with the text instead of floating above
    it. On the map it stays up — there it IS the menu. */
@@ -1507,7 +1691,7 @@ function startTour(){
     tourMode = true;
     tourHint.textContent = reduced
       ? 'You are at the top. Scroll up to descend through the tower, space by space.'
-      : "You're at the top — scroll down to descend through the tower, space by space.";
+      : "You're at the top. Scroll down to descend through the tower, space by space.";
     tourHint.classList.add('on');
     setTimeout(function(){ tourHint.classList.remove('on'); }, 9000);
   });
@@ -1530,9 +1714,18 @@ function syncMap(){
   map.classList.toggle('is-off', !on);
   document.documentElement.classList.toggle('lv3-map', on);
   if (!on) cool();
-  /* phone: once the lock is spent, standing at the map always shows the doors,
-     however the visitor got back here (tour end, back-to-the-tower, reload) */
-  if (on && tourTaken && isPhone()) showDoors();
+  /* phone: standing back on the map resets the arrival, so the first scroll
+     is a real camera move again. Once they have landed at least once the
+     doors stay to hand rather than making them earn it twice. */
+  if (isPhone()){
+    if (on && stage === 'landed') unland();
+    /* Once they have been through the arrival once, the doors are simply the
+       navigation: standing back on the map always offers them, however they
+       got here and whether or not the hold is spent. Gating this on the stage
+       left anyone returning from a space with no way onward. */
+    if (on && landedOnce) showDoors();
+    if (typeof syncPhoneBack === 'function') syncPhoneBack();
+  }
   syncSpots();
   syncRail(); queueRail();
 }
@@ -1571,16 +1764,16 @@ var CAT = { resources:'#2b8b8f', hope:'#d08a2e', me:'#3e7db0', overview:'#b3543e
 var SCENE_SPOTS = [
   { id:'commons', spots:[
     { name:'The market stalls', href:'community.html', cat:CAT.connect,
-      line:'the community — a place for the people building this to actually talk to each other. [edit]',
+      line:'the community, a place for the people building this to actually talk to each other. [edit]',
       anchor:[0.845,0.600], label:[0.795,0.470],
       polys:[[[0.715,0.620],[0.725,0.565],[0.775,0.535],[0.845,0.530],[0.920,0.555],[0.955,0.600],[0.950,0.700],[0.870,0.745],[0.765,0.720]],
              [[0.205,0.665],[0.210,0.600],[0.245,0.565],[0.320,0.575],[0.415,0.600],[0.420,0.665],[0.340,0.685],[0.250,0.685]]] },
     { name:'The gateway', href:'networks.html', cat:CAT.connect,
-      line:'networks & movements — the organized ways into the wider coliving world. [edit]',
+      line:'networks and movements, the organized ways into the wider coliving world. [edit]',
       anchor:[0.586,0.550], label:[0.545,0.370],
       polys:[[[0.535,0.705],[0.535,0.550],[0.550,0.485],[0.585,0.460],[0.622,0.485],[0.638,0.550],[0.638,0.705]]] },
     { name:'The long table', href:EMAIL, cat:CAT.connect,
-      line:'a seat’s open — say hello. [edit]',
+      line:'a seat is open. Say hello. [edit]',
       anchor:[0.300,0.790], label:[0.435,0.760],
       polys:[[[0.130,0.900],[0.135,0.775],[0.175,0.715],[0.280,0.700],[0.385,0.735],[0.405,0.810],[0.375,0.900],[0.250,0.925]]] }
   ]},
@@ -1595,7 +1788,7 @@ var SCENE_SPOTS = [
       anchor:[0.278,0.760], label:[0.350,0.800],
       polys:[[[0.195,0.900],[0.200,0.745],[0.235,0.700],[0.290,0.700],[0.325,0.735],[0.330,0.800],[0.310,0.880],[0.250,0.915]]] },
     { name:'The murals', href:'arts.html', cat:CAT.resources,
-      line:'the arts — films, music and images that make living together feel possible. [edit]',
+      line:'the arts: films, music and images that make living together feel possible. [edit]',
       anchor:[0.795,0.450], label:[0.700,0.270],
       polys:[[[0.737,0.545],[0.737,0.375],[0.758,0.355],[0.850,0.360],[0.858,0.540]],
              [[0.888,0.560],[0.888,0.115],[0.912,0.065],[0.985,0.090],[0.990,0.560]]] },
@@ -1607,7 +1800,7 @@ var SCENE_SPOTS = [
   ]},
   { id:'makers', spots:[
     { name:'The blueprint', href:'design.html', cat:CAT.resources,
-      line:'Design for Connection — the concrete moves that make a place social instead of merely shared. [edit]',
+      line:'Design for Connection: the concrete moves that make a place social instead of merely shared. [edit]',
       anchor:[0.185,0.270], label:[0.285,0.115],
       polys:[[[0.104,0.425],[0.104,0.135],[0.130,0.100],[0.255,0.105],[0.268,0.145],[0.265,0.410],[0.185,0.440]]] },
     { name:'The model city', href:'themes.html', cat:CAT.resources,
@@ -1615,7 +1808,7 @@ var SCENE_SPOTS = [
       anchor:[0.430,0.600], label:[0.530,0.330],
       polys:[[[0.275,0.790],[0.290,0.600],[0.330,0.455],[0.375,0.345],[0.400,0.325],[0.440,0.390],[0.500,0.470],[0.575,0.550],[0.640,0.615],[0.660,0.710],[0.640,0.815],[0.545,0.875],[0.420,0.885],[0.315,0.850]]] },
     { name:'The tool walls', href:'how-to.html', cat:CAT.resources,
-      line:'how-to guides — finding land, choosing a legal structure, running the first year. [edit]',
+      line:'how-to guides on finding land, choosing a legal structure and running the first year. [edit]',
       anchor:[0.933,0.270], label:[0.775,0.140],
       polys:[[[0.874,0.470],[0.876,0.115],[0.910,0.070],[0.993,0.085],[0.993,0.460]]] }
   ]},
@@ -1626,7 +1819,7 @@ var SCENE_SPOTS = [
       polys:[[[0.575,0.975],[0.585,0.735],[0.625,0.615],[0.695,0.585],[0.770,0.615],[0.815,0.710],[0.820,0.890],[0.755,0.975]],
              [[0.830,0.760],[0.835,0.310],[0.868,0.245],[0.935,0.270],[0.952,0.550],[0.940,0.765]]] },
     { name:'The waterworks', href:'talkpieces.html', cat:CAT.hope,
-      line:'the talk pieces — my writings, the arguments still being argued. [edit]',
+      line:'the talk pieces, my writings, the arguments still being argued. [edit]',
       anchor:[0.452,0.300], label:[0.517,0.140],
       polys:[[[0.362,0.950],[0.370,0.030],[0.500,0.030],[0.505,0.280],[0.555,0.330],[0.565,0.600],[0.545,0.850],[0.470,0.950]]] }
   ]},
@@ -2184,6 +2377,10 @@ function tourFloor(){ return WORLD.dwellCenter(0); }
    by the button or the invitation — the map never locks again for the rest
    of the visit, so reaching the map at the end of a descent is not a trap. */
 function mapLocked(){
+  /* Phones: the map itself is NOT locked any more — the first scroll is meant
+     to move the world. The hold happens one scene later, at the arrival
+     point, and phoneHeld() owns it. */
+  if (isPhone()) return phoneHeld();
   return !tourMode && !travelling && !tourTaken &&
     document.documentElement.classList.contains('lv3-map');
 }
@@ -2202,10 +2399,9 @@ function endTour(){
   if (!tourMode) return;
   tourMode = false;
   tourHint.classList.remove('on');
-  /* Back at the map on a phone, the lock is spent (tourTaken), so a scroll
-     would no longer summon the doors. Leave them standing: from here on they
-     ARE the map's navigation. */
-  if (isPhone()) showDoors();
+  /* The tour has been taken, so the hold is spent for good. Back at the map
+     the doors stay standing: from here on they ARE the navigation. */
+  if (isPhone()){ stage = 'free'; landedOnce = true; showDoors(); }
   if (reduced){ window.scrollTo(0, 0); syncMap(); return; }
   /* glide the last short stretch to the very top so the map re-forms fully
      and the lock re-engages seamlessly */
@@ -2229,15 +2425,28 @@ function descend(delta){                /* delta>0 = intent to go DOWN = descend
 var doorsUpTs = 0;
 function onBlockedScroll(){
   if (isPhone()){
-    if (!doorsUp){ showDoors(); doorsUpTs = Date.now(); return; }
-    /* the same beat the desktop invitation uses: the gesture that summoned
-       the doors must not also walk through them */
-    if (Date.now() - doorsUpTs < 900) return;
-    hideDoors(); startTour();
+    /* pushing on against the hold is a question, and the tour door is the
+       answer: it lights up rather than the page nudging nothing */
+    pulseTourDoor();
     return;
   }
   if (inviteOn) scrollYes(); else { bumpLock(); pushGesture(); }
 }
+/* On a phone the page holds at the arrival point until the tour is taken,
+   and while it holds the tour door is what a further push points at. */
+function phoneHeld(){
+  return isPhone() && stage === 'landed' && !tourMode && !travelling && !departing;
+}
+var pulseTs = 0;
+function pulseTourDoor(){
+  var el = doors.querySelector('.lv3-door[data-group="tour"]');
+  if (!el || reduced) return;
+  var now = Date.now();
+  if (now - pulseTs < 700) return;
+  pulseTs = now;
+  el.classList.remove('is-pulse'); void el.offsetWidth; el.classList.add('is-pulse');
+}
+doors.addEventListener('animationend', function(e){ e.target.classList.remove('is-pulse'); });
 /* the gate has its own scroll — never let the page-level lock eat it */
 function inGate(t){ return gateOpen && t && t.closest && t.closest('#lv3gate'); }
 
@@ -2253,9 +2462,9 @@ function onTouchMove(e){
   if (touchY == null) return;
   var y = e.touches[0].clientY, dy = touchY - y;   /* finger up (dy>0) = go down */
   touchY = y;
-  if (travelling){ e.preventDefault(); return; }
-  if (tourMode && !reduced){ e.preventDefault(); descend(dy); return; }
-  if (mapLocked()){ e.preventDefault(); onBlockedScroll(); }
+  if (travelling){ if (e.cancelable) e.preventDefault(); return; }
+  if (tourMode && !reduced){ if (e.cancelable) e.preventDefault(); descend(dy); return; }
+  if (mapLocked()){ if (e.cancelable) e.preventDefault(); onBlockedScroll(); }
 }
 function onTouchEnd(){ touchY = null; }
 
@@ -2369,7 +2578,7 @@ if (EDIT) (function(){
   /* the only place that reports a save — and only after eSave() confirms */
   function saved(what){
     if (eSave()) say('Saved: ' + what);
-    else say('COULD NOT SAVE — browser storage refused. Copy the JSON now.', true);
+    else say('COULD NOT SAVE. Browser storage refused. Copy the JSON now.', true);
   }
   function spotKey(g, sp){ return g.id + '::' + sp.name; }
   function spaceRec(sp){
@@ -2500,7 +2709,7 @@ if (EDIT) (function(){
   /* --- add / delete ---------------------------------------------------- */
   panel.querySelector('#eadd').addEventListener('click', function(){
     var g = sceneOn;
-    if (!g){ say('Scroll into a scene first — new spots belong to a scene, and the map\'s six spaces are fixed.', true); return; }
+    if (!g){ say('Scroll into a scene first. New spots belong to a scene, and the map\'s six spaces are fixed.', true); return; }
     var n = 'New spot ' + (EDITS.added.filter(function(a){ return a.scene === g.id; }).length + 1);
     var rec = { scene:g.id, name:n, href:'#', cat:CAT.resources,
                 line:'what this is. [edit]', anchor:[0.5,0.5], label:[0.5,0.42] };
@@ -2518,7 +2727,7 @@ if (EDIT) (function(){
   });
   panel.querySelector('#edel').addEventListener('click', function(){
     if (!picked){ say('Pick something first.', true); return; }
-    if (picked.kind === 'space'){ say('The map\'s six spaces are the structure of the site — they cannot be deleted here.', true); return; }
+    if (picked.kind === 'space'){ say('The map\'s six spaces are the structure of the site, so they cannot be deleted here.', true); return; }
     var g = picked.g, sp = picked.sp;
     var i = EDITS.added.map(function(a){ return a.scene + '::' + a.name; }).indexOf(spotKey(g, sp));
     if (i > -1) EDITS.added.splice(i, 1);
@@ -2542,11 +2751,11 @@ if (EDIT) (function(){
       var ok = false;
       try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
       document.body.removeChild(ta);
-      if (ok) say('Copied — paste it to Claude.');
-      else { say('Could not reach the clipboard. The JSON is in the console (F12) — copy it from there.', true); console.log(out); }
+      if (ok) say('Copied. Paste it to Claude.');
+      else { say('Could not reach the clipboard. The JSON is in the console (F12). Copy it from there.', true); console.log(out); }
     }
     if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(out).then(function(){ say('Copied — paste it to Claude.'); }, fallback);
+      navigator.clipboard.writeText(out).then(function(){ say('Copied. Paste it to Claude.'); }, fallback);
     } else fallback();
   });
   panel.querySelector('#ereset').addEventListener('click', function(){
