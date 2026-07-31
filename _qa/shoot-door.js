@@ -20,35 +20,47 @@ const ok = (l, c, d) => { if (!c) fails++; console.log((c ? '  ok   ' : '  FAIL 
   await p.goto('http://127.0.0.1:8123/index.html', { waitUntil: 'networkidle' });
   await p.waitForTimeout(3000);
 
-  // two blocked scrolls inside 1.8s summon the invitation
+  // ONE small scroll summons it now (P-A: it used to take far too many)
   await p.mouse.move(720, 500);
-  await p.mouse.wheel(0, 200); await p.waitForTimeout(560);
-  await p.mouse.wheel(0, 200); await p.waitForTimeout(900);
+  await p.mouse.wheel(0, 160);
+  await p.waitForTimeout(900);
 
   const closed = await p.evaluate(() => {
     const inv = document.getElementById('lv3invite');
     const d = inv.querySelector('.lv3-door2');
     const lf = d && d.querySelector('.lf'), rt = d && d.querySelector('.rt');
+    const frame = d && d.querySelector('.lv3-door2__frame');
     const cs = lf && getComputedStyle(lf);
     return {
       on: inv.classList.contains('on'),
       hasDoor: !!d,
       art: cs && cs.backgroundImage,
+      frameArt: getComputedStyle(d.querySelector('.lv3-door2__frame')).backgroundImage,
       leafW: lf ? Math.round(lf.getBoundingClientRect().width) : 0,
-      doorW: d ? Math.round(d.getBoundingClientRect().width) : 0,
+      doorW: d ? Math.round(d.querySelector('.lv3-door2__leaves').getBoundingClientRect().width) : 0,
       seam: lf && rt ? Math.round(rt.getBoundingClientRect().left - lf.getBoundingClientRect().right) : null,
       cardBg: getComputedStyle(inv).backgroundColor,
       inView: d ? (() => { const r = d.getBoundingClientRect(); return r.top >= 0 && r.bottom <= 900; })() : false
     };
   });
-  ok('the invitation came up on the second blocked scroll', closed.on);
+  ok('one small scroll summons the door', closed.on);
   ok('it is a double door, not a paper bubble', closed.hasDoor);
-  ok('the painted art is loaded', /door\.webp/.test(closed.art || ''), closed.art);
-  ok('two leaves, each half the door', closed.leafW * 2 === closed.doorW, closed.leafW + '+' + closed.leafW + ' vs ' + closed.doorW);
+  ok('the leaf art is loaded', /gate-leaf-l\.webp/.test(closed.art || ''), (closed.art||'').slice(0,70));
+  ok('the arch stays its own layer', /gate-frame\.webp/.test(closed.frameArt || ''), (closed.frameArt||'').slice(0,70));
+  ok('two leaves fill the opening', Math.abs(closed.leafW * 2 - closed.doorW) <= 2, closed.leafW + 'x2 vs ' + closed.doorW);
   ok('the leaves meet with no gap at the seam', closed.seam === 0, 'gap=' + closed.seam);
   ok('the card behind the door is gone', /rgba\(0, 0, 0, 0\)|transparent/.test(closed.cardBg), closed.cardBg);
   ok('the whole door is on screen', closed.inView);
   await p.screenshot({ path: path.join(OUT, 'door-1-closed.png') });
+
+  // scrolling must NOT walk through it: the door has to be clicked
+  await p.mouse.wheel(0, 400); await p.waitForTimeout(700);
+  const stillShut = await p.evaluate(() => ({
+    on: document.getElementById('lv3invite').classList.contains('on'),
+    opening: document.getElementById('lv3invite').classList.contains('is-opening'),
+    y: Math.round(scrollY)
+  }));
+  ok('scrolling does not open it', stillShut.on && !stillShut.opening, 'y=' + stillShut.y);
 
   // open it and catch the swing
   await p.evaluate(() => document.getElementById('lv3invite').click());
@@ -57,12 +69,13 @@ const ok = (l, c, d) => { if (!c) fails++; console.log((c ? '  ok   ' : '  FAIL 
   const mid = await p.evaluate(() => {
     const d = document.querySelector('.lv3-door2');
     const t = s => getComputedStyle(d.querySelector(s)).transform;
-    return { lf: t('.lf'), rt: t('.rt'), glow: +getComputedStyle(d, '::before').opacity };
+    const fr = getComputedStyle(d.querySelector('.lv3-door2__frame')).transform;
+    return { lf: t('.lf'), rt: t('.rt'), frame: fr };
   });
   ok('the left leaf is swinging', mid.lf !== 'none', mid.lf.slice(0, 40));
   ok('the right leaf is swinging', mid.rt !== 'none', mid.rt.slice(0, 40));
-  ok('the leaves swing in opposite directions',
-    mid.lf !== mid.rt, 'lf!=rt');
+  ok('the leaves swing in opposite directions', mid.lf !== mid.rt, 'lf!=rt');
+  ok('the stone arch does NOT move', mid.frame === 'none', mid.frame);
 
   await p.waitForTimeout(2600);
   await p.screenshot({ path: path.join(OUT, 'door-3-through.png') });

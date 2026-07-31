@@ -347,64 +347,70 @@ html.lv3-edit #lv3edit{display:block;}
   opacity:0;filter:blur(6px);
   transition:transform .52s cubic-bezier(.5,0,.75,.6),opacity .42s ease-in .1s,filter .5s ease-in;}
 /* ---------------------------------------------------------------------
-   THE DOOR (desktop, 2026-07-30). P-A asked for the invitation to be a real
-   painted double door that opens, rather than a paper bubble that swings.
+   THE GREAT DOOR (desktop). Rebuilt 2026-07-31 after P-A: "that image is
+   super faded... it's on the white background and it's literally the white
+   background that's opening... I was imagining the large door of the tower,
+   not a random door floating in space."
 
-   The art is ONE painted image; the two leaves are the same image shown
-   twice, each clipped to its half, so the seam is exactly the seam the
-   painter drew. Opening rotates each half on its own outer hinge while the
-   world flies through the gap. Nothing is cut up on disk: swapping the
-   artwork is one line, --door-art below.
+   All three were the same mistake: ONE flat painting split down the middle,
+   so the stonework swung open along with the timber and the baked cream
+   rectangle came with it.
 
-   ⚑ The image in place is CONCEPT C of three (see _landing/build3/raw/).
-   P-A picks; A and B swap in by changing --door-art.
+   It is three layers now, cut by _landing/build3/make-door.py:
+     __frame   the stone arch, the vines and the solar glass. Never moves.
+               Its opening is knocked through to transparency, so what shows
+               inside the arch is the world itself.
+     .lf .rt   the two timber leaves, hinged on their outer jambs, swinging
+               INWARD away from the viewer.
+   Everything is keyed to real transparency, so nothing rectangular ever
+   moves and the door can sit on the painting rather than on a slab.
+
+   Swapping the artwork: re-run make-door.py on a new painting and set the
+   four --door-* numbers it prints.
    --------------------------------------------------------------------- */
-:root{ --door-art:url("assets/world/door.webp"); }
-.lv3-door2{display:block;position:relative;width:min(58vh,340px);aspect-ratio:900/1355;
-  margin:0 auto 4px;perspective:1100px;
-  }
-/* The standing art rule: nothing on this site sits in a hard rectangle.
-   Each LEAF is feathered rather than the frame around them, with the fade
-   centred on the seam — so the top, bottom and outer edges dissolve into the
-   paper while the two inner edges stay crisp against each other. Masking the
-   container instead would have to be dropped the moment the door opens (or
-   it clips the swinging leaves), and the cream box would flash back. */
-.lv3-door2 .lf{-webkit-mask-image:radial-gradient(150% 78% at 100% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);
-  mask-image:radial-gradient(150% 78% at 100% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);}
-.lv3-door2 .rt{-webkit-mask-image:radial-gradient(150% 78% at 0% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);
-  mask-image:radial-gradient(150% 78% at 0% 48%,#000 56%,rgba(0,0,0,.45) 82%,transparent 100%);}
-.lv3-door2 span{position:absolute;top:0;bottom:0;width:50%;
-  background-image:var(--door-art);background-size:200% 100%;background-repeat:no-repeat;
-  transition:transform .62s cubic-bezier(.5,.02,.34,1);
+.lv3-door2{display:block;position:relative;width:min(74vw,560px);
+  aspect-ratio:2048/1360;margin:0 auto 6px;perspective:1300px;
+  /* where the opening sits inside the painting (make-door.py prints these) */
+  --door-x:20.46%; --door-y:22.50%; --door-w:59.23%; --door-h:72.13%;}
+.lv3-door2__frame{position:absolute;inset:0;z-index:3;
+  background:url("assets/world/gate-frame.webp") center/contain no-repeat;
+  pointer-events:none;}
+.lv3-door2__leaves{position:absolute;left:var(--door-x);top:var(--door-y);
+  width:var(--door-w);height:var(--door-h);z-index:2;transform-style:preserve-3d;}
+.lv3-door2__leaves span{position:absolute;top:0;bottom:0;width:50%;
+  background-size:100% 100%;background-repeat:no-repeat;
+  transition:transform .78s cubic-bezier(.42,.02,.28,1),filter .78s ease;
   backface-visibility:hidden;}
-.lv3-door2 .lf{left:0;background-position:left center;transform-origin:0% 50%;}
-.lv3-door2 .rt{right:0;background-position:right center;transform-origin:100% 50%;}
-#lv3invite.is-opening .lv3-door2 .lf{transform:rotateY(-96deg);}
-#lv3invite.is-opening .lv3-door2 .rt{transform:rotateY(96deg);}
-/* a warm glow behind the leaves, so what opens reads as a lit room and not a hole */
-.lv3-door2::before{content:"";position:absolute;inset:14% 18%;border-radius:50%;
-  background:radial-gradient(ellipse at center,rgba(255,214,140,.85),rgba(255,214,140,0) 70%);
-  opacity:0;transition:opacity .5s ease .12s;}
-#lv3invite.is-opening .lv3-door2::before{opacity:1;}
-/* with the door in it, the invitation is the door: no card behind it */
-/* no card, but the question still has to be readable over a busy painting:
-   a soft cream halo, painted rather than boxed */
-#lv3invite:has(.lv3-door2){background:radial-gradient(58% 50% at 50% 78%,
-    var(--sw-bg) 0%, color-mix(in srgb,var(--sw-bg) 88%,transparent) 42%,
-    color-mix(in srgb,var(--sw-bg) 40%,transparent) 72%, transparent 100%);
-  border:0;box-shadow:none;padding:0 10px 8px;
-  width:min(88vw,420px);}
-#lv3invite:has(.lv3-door2).is-opening{transform:translate(-50%,-50%) scale(1.04);
+.lv3-door2 .lf{left:0;background-image:url("assets/world/gate-leaf-l.webp");
+  transform-origin:0% 50%;}
+.lv3-door2 .rt{right:0;background-image:url("assets/world/gate-leaf-r.webp");
+  transform-origin:100% 50%;}
+/* they swing INWARD, and the face turning away from the light darkens */
+#lv3invite.is-opening .lv3-door2 .lf{transform:rotateY(78deg);filter:brightness(.62);}
+#lv3invite.is-opening .lv3-door2 .rt{transform:rotateY(-78deg);filter:brightness(.62);}
+/* warm light coming up out of the opening as it widens */
+.lv3-door2__leaves::before{content:"";position:absolute;inset:-2% -1% 0;z-index:-1;
+  border-radius:50% 50% 6% 6%/34% 34% 4% 4%;
+  background:radial-gradient(ellipse at 50% 62%,rgba(255,214,140,.95),rgba(255,196,110,.5) 45%,rgba(255,190,110,0) 78%);
+  opacity:0;transition:opacity .6s ease .16s;}
+#lv3invite.is-opening .lv3-door2__leaves::before{opacity:1;}
+/* the door IS the invitation: no card, no plate, just a cream halo so the
+   question underneath stays readable over the painting */
+#lv3invite:has(.lv3-door2){background:radial-gradient(62% 46% at 50% 84%,
+    var(--sw-bg) 0%, color-mix(in srgb,var(--sw-bg) 86%,transparent) 44%,
+    color-mix(in srgb,var(--sw-bg) 34%,transparent) 74%, transparent 100%);
+  border:0;box-shadow:none;padding:0 10px 10px;width:min(88vw,600px);}
+#lv3invite:has(.lv3-door2).is-opening{transform:translate(-50%,-50%) scale(1.06);
   filter:none;opacity:1;
-  transition:transform .6s cubic-bezier(.5,0,.75,.6),opacity .3s ease-in .34s;}
+  transition:transform .82s cubic-bezier(.4,0,.7,.62),opacity .34s ease-in .5s;}
 #lv3invite:has(.lv3-door2).is-opening .lv3-inv-x,
 #lv3invite:has(.lv3-door2).is-opening h2,
 #lv3invite:has(.lv3-door2).is-opening p,
-#lv3invite:has(.lv3-door2).is-opening .lv3-inv-go{opacity:0;transition:opacity .22s ease;}
+#lv3invite:has(.lv3-door2).is-opening .lv3-inv-go{opacity:0;transition:opacity .24s ease;}
 #lv3invite:has(.lv3-door2) h2,#lv3invite:has(.lv3-door2) p{
   text-shadow:0 1px 14px var(--sw-bg),0 0 26px var(--sw-bg);}
 @media (prefers-reduced-motion:reduce){
-  .lv3-door2 span,.lv3-door2::before{transition:none;}
+  .lv3-door2__leaves span,.lv3-door2__leaves::before{transition:none;}
 }
 
 #lv3invite h2{margin:0;font-family:var(--sw-font-display);font-weight:300;
@@ -811,9 +817,12 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 
 <div id="lv3invite" role="dialog" aria-modal="false" aria-labelledby="lv3invitetitle">
   <button class="lv3-inv-x" type="button" aria-label="No thanks">&times;</button>
-  <span class="lv3-door2" aria-hidden="true"><span class="lf"></span><span class="rt"></span></span>
+  <span class="lv3-door2" aria-hidden="true">
+    <span class="lv3-door2__leaves"><span class="lf"></span><span class="rt"></span></span>
+    <span class="lv3-door2__frame"></span>
+  </span>
   <h2 id="lv3invitetitle">Do you want to take the tour of the tower? <span class="edit">[edit]</span></h2>
-  <p>See all the zones and explore the content. Click or keep scrolling to start.</p>
+  <p>See every space in one ride down the tower. Click below to start.</p>
   <span class="lv3-inv-go">Start the tour</span>
 </div>
 
@@ -2341,21 +2350,21 @@ function openInviteDoor(){
   startTour();
   setTimeout(function(){ invite.classList.remove('on', 'is-opening'); }, 640);
 }
-/* "keep scrolling to start" — but not with the very gesture that summoned it,
-   or the bubble would flash past unread. Give it a beat to be seen first. */
-function scrollYes(){
-  if (Date.now() - inviteShownTs < 900) return;
-  openInviteDoor();
-}
+/* Scrolling used to open it. It no longer does: a door that opens on the same
+   gesture that summoned it is a door nobody sees. Pushing on just keeps it
+   up, and the only way through is the button. */
+function scrollYes(){ /* deliberately does nothing — click the door */ }
+/* P-A, 2026-07-31: "you have to scroll like a lot" before it appears, and
+   then "you barely have to scroll anything for it to open" — the door was
+   gone before he could look at it. One small scroll summons it now, and
+   scrolling can no longer walk through it: only clicking does. */
 function pushGesture(){
   if (inviteOn || tourTaken || travelling) return;
   var now = Date.now();
   if (now - inviteSnoozedTs < 10000) return;
-  if (now - lastGestureTs < 480) return;          /* one wheel-spin = one gesture */
+  if (now - lastGestureTs < 260) return;
   lastGestureTs = now;
-  gestures = gestures.filter(function(t){ return now - t <= 1800; });
-  gestures.push(now);
-  if (gestures.length >= 2) showInvite();
+  showInvite();
 }
 invite.addEventListener('click', function(e){
   if (e.target.classList.contains('lv3-inv-x')){ hideInvite(); return; }
