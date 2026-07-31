@@ -127,17 +127,24 @@ const VW = 390, VH = 844;
         if (!r.width || !r.height) continue;               // not rendered at all
         const fs2 = parseFloat(cs.fontSize);
         if (!fs2) continue;
-        // Two documented exemptions, both boilerplate rather than reading:
-        //   .edit  P-A's own authoring markers, deliberately faint, removed
-        //          with his copy pass. Making them louder would be backwards.
-        //   .mby   the copyright strip. Long enough to trip the sentence
-        //          proxy, but nobody reads it; it holds the 12px label floor.
-        if (el.classList.contains("edit") || el.classList.contains("mby")) continue;
+        // .edit — P-A's own authoring markers, deliberately faint, removed
+        // with his copy pass. Making them louder would be backwards. This one
+        // is exempt from both floors; it is not site copy at all.
+        if (el.classList.contains("edit")) continue;
+        // CREDIT LINES. Long enough to trip the sentence proxy, but nobody
+        // sits and reads a byline — they are eyebrows, which MOBILE-RULES
+        // puts at the 12px label floor. They are still held to THAT floor:
+        // the exemption is from the reading check only, not from both.
+        //   .mby           the copyright strip in the footer
+        //   .lv3-eyebrow   the landing's byline, which on a phone moves to
+        //                  the top-right sky at 12px (P-A, 2026-07-31)
+        const isCredit = el.classList.contains("mby") || el.classList.contains("lv3-eyebrow") ||
+                         (el.parentElement && el.parentElement.classList.contains("lv3-eyebrow"));
         const key = sel(el) + "@" + fs2.toFixed(1);
         if (seenText.has(key)) continue;
         seenText.add(key);
         if (fs2 < FLOOR_MICRO) micro.push({ sel: sel(el), px: +fs2.toFixed(1), text: own.slice(0, 44) });
-        else if (own.length >= SENTENCE && fs2 < FLOOR_READING) reading.push({ sel: sel(el), px: +fs2.toFixed(1), text: own.slice(0, 44) });
+        else if (!isCredit && own.length >= SENTENCE && fs2 < FLOOR_READING) reading.push({ sel: sel(el), px: +fs2.toFixed(1), text: own.slice(0, 44) });
       }
       out.belowMicroFloor = micro.slice(0, 10);
       out.belowReadingFloor = reading.slice(0, 10);

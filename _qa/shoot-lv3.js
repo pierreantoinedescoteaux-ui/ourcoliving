@@ -385,10 +385,28 @@ const NEW_PAGES = ["networks.html", "how-to.html", "community.html"];
   const ended = await p.evaluate(() => ({ y: Math.round(scrollY), mapOn: document.documentElement.classList.contains("lv3-map"), taken: tourTaken, tour: tourMode }));
   check(ended.mapOn && ended.y <= 4, "B1: descent to the ground restores map mode (scrollY=" + ended.y + ", mapOn=" + ended.mapOn + ")");
   check(ended.taken === true && ended.tour === false, "B1: the tour is over and remembered");
+  /* THE ARRIVAL CARD (P-A, 2026-07-31). Landing back on the map now says so,
+     and the one thing it holds is the descent: "you arrive at the map, you
+     keep scrolling down and it automatically gets you back to the commons...
+     maybe it temporarily blocks it, and if you close the pop-up you can
+     scroll down again."
+     So the old assertion here — that a wheel immediately climbs again — is
+     now only true on the far side of the card. Both halves are checked. */
+  const card = await p.evaluate(() => {
+    const e = document.getElementById("lv3end");
+    return { on: e.classList.contains("on"), text: e.innerText.replace(/\s+/g, " ").trim().slice(0, 60) };
+  });
+  check(card.on, "B1: landing back on the map is acknowledged -> " + card.text);
+  await p.mouse.wheel(0, 600);
+  await p.waitForTimeout(250);
+  const held = await p.evaluate(() => Math.round(scrollY));
+  check(held <= 4, "B1: while the card is up the descent is held (scrollY=" + held + ")");
+  await p.evaluate(() => document.querySelector(".lv3-end__x").click());
+  await p.waitForTimeout(700);
   await p.mouse.wheel(0, 600);
   await p.waitForTimeout(250);
   const after = await p.evaluate(() => Math.round(scrollY));
-  check(after > 4, "B1: the map does NOT re-lock after a tour — scrolling climbs (scrollY=" + after + ")");
+  check(after > 4, "B1: closing the card hands scrolling back, and the map never re-locks (scrollY=" + after + ")");
 
   check(errs.length === 0, "desktop: 0 same-origin console/page errors" + (errs.length ? " -> " + errs.join(" | ") : noise(errs)));
   await p.close();

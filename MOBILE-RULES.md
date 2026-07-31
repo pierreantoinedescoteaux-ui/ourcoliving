@@ -127,6 +127,12 @@ Mobile is not "desktop but smaller" — it's the same DRAMA delivered vertically
 - One idea per screen-height where possible; use spacing (`margin: 48px 0` between
   sections), not size reduction, to create rhythm.
 - Cutting content to fit is a design decision — flag it, never do it silently.
+- **Credit lines are labels, not reading.** A byline or a copyright strip is an
+  eyebrow that happens to run long, so it sits at the 12px label floor, not the
+  16px reading floor. The audit's reading check skips them by class (`.mby`,
+  `.lv3-eyebrow`) and still holds them to 12px. This is the ONLY class of copy
+  that gets this, and the list is deliberately short: if a new one is proposed,
+  the question to answer first is "would a visitor ever sit and read this?"
 - **The art fills the screen; the words sit ON it.** (P-A, 2026-07-31, with a
   red circle round the foot of a scene.) Nothing on a full-bleed painted page
   is allowed to end in a rectangle of blank paper — no cream slab under the

@@ -243,6 +243,62 @@
 #lv3night.on{opacity:1;}
 
 /* ---------------------------------------------------------------------
+   THE END OF THE DESCENT. P-A, 2026-07-31: "when you finish scrolling it
+   brings you back to the beginning. There should be a pop-up that's like,
+   you're back on the map... my goal is to take people on a journey, so it
+   should be a little bit artistic, not fake and salesy, but like a tale.
+   Just to acknowledge that they're back at the map and they finished
+   scrolling, and a little incentivation to look at the work."
+
+   So: a card in the corner, not a takeover. It names the ride rather than
+   selling it, and the two links are the two rooms most people are actually
+   looking for. It leaves on its own after fifteen seconds, or when closed.
+   --------------------------------------------------------------------- */
+#lv3end{position:fixed;z-index:1160;
+  /* clear of the colour legend, which lives in the same bottom-left corner */
+  left:clamp(18px,5vw,64px);bottom:clamp(58px,7vh,78px);
+  width:min(92vw,392px);
+  padding:20px 22px 18px;border-radius:20px;
+  background:rgba(253,250,240,.93);border:1px solid rgba(34,48,31,.14);
+  box-shadow:0 30px 70px -34px rgba(35,28,10,.6),0 3px 14px -8px rgba(35,28,10,.28);
+  opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .5s ease,transform .6s cubic-bezier(.22,.9,.3,1);}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  #lv3end{background:rgba(253,250,240,.8);
+    -webkit-backdrop-filter:blur(16px) saturate(1.2);
+    backdrop-filter:blur(16px) saturate(1.2);}
+}
+#lv3end.on{opacity:1;transform:none;pointer-events:auto;}
+#lv3end .lv3-end__eyebrow{margin:0;font-family:var(--sw-font-display);font-weight:700;
+  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#8a6a2f;}
+#lv3end .lv3-end__line{margin:9px 0 0;font-family:var(--sw-font-display);font-weight:300;
+  font-size:clamp(1.24rem,1.1rem + .5vw,1.6rem);line-height:1.16;color:var(--sw-ink);}
+#lv3end .lv3-end__sub{margin:10px 0 0;font-size:.95rem;line-height:1.5;color:var(--sw-ink-soft);}
+#lv3end .lv3-end__go{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0;}
+#lv3end .lv3-end__go a{display:inline-flex;align-items:center;min-height:44px;
+  padding:0 17px;border-radius:999px;text-decoration:none;
+  font:600 .95rem/1 var(--sw-font-body);color:var(--sw-ink);
+  border:1px solid rgba(34,48,31,.28);transition:background .22s,border-color .22s;}
+#lv3end .lv3-end__go a:hover{background:rgba(34,48,31,.06);border-color:rgba(34,48,31,.55);}
+#lv3end .lv3-end__x{position:absolute;top:8px;right:8px;width:38px;height:38px;border:0;
+  background:none;cursor:pointer;color:var(--sw-ink-soft);
+  font:400 1.24rem/1 var(--sw-font-body);border-radius:50%;}
+#lv3end .lv3-end__x:hover{background:rgba(34,48,31,.08);color:var(--sw-ink);}
+@media (max-width:860px){
+  /* A phone's bottom belongs to the three doors, and after the descent they
+     are up. So the card takes the top of the screen instead — under the nav,
+     over the sky, which is the same empty corner the byline uses. */
+  #lv3end{left:14px;right:14px;width:auto;
+    top:82px;bottom:auto;
+    transform:translateY(-16px);}
+  #lv3end.on{transform:none;}
+  #lv3end .lv3-end__sub{font-size:.92rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  #lv3end{transition:opacity .01s;transform:none;}
+}
+
+/* ---------------------------------------------------------------------
    GETTING BACK. P-A: once you are inside a space there was no way home
    except scrolling. Two fixes, both live only while the map is NOT showing:
    a back arrow on the LEFT, and the engine's route rail on the right made
@@ -616,16 +672,27 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
      across the title and the sentence, which is the only place it was ever
      doing a job. */
   #world .sw-copy::before{content:"";position:absolute;z-index:-1;
-    left:-18px;right:-18px;top:-34px;
+    /* P-A, 2026-07-31: "maybe the faded part could extend a bit higher so
+       there's more white a bit higher — I just want to make sure it doesn't
+       hide that much more of the image."
+       It costs 34px, and they are the 34px directly above the scene's name,
+       which is the part he could not read. The gradient still opens from
+       fully transparent, so what those pixels actually take from the picture
+       is a few percent of wash at the very top of the fade, not paper. */
+    left:-18px;right:-18px;top:-68px;
     /* mirrors .sw-copy's own two bottom declarations, in the same order, so a
        browser without dvh keeps the vh fallback instead of losing the rule */
     bottom:calc(-1 * clamp(64px,14vh,120px));
     bottom:calc(-1 * (clamp(56px,12dvh,110px) + env(safe-area-inset-bottom)));
+    /* stops re-timed for the taller box: the scene's name now lands around
+       16-21% down instead of at the very top, so the wash has to be doing
+       real work by then rather than just starting */
     background:linear-gradient(180deg,
       transparent 0%,
-      color-mix(in srgb,var(--sw-bg) 46%,transparent) 12%,
-      color-mix(in srgb,var(--sw-bg) 82%,transparent) 26%,
-      color-mix(in srgb,var(--sw-bg) 86%,transparent) 58%,
+      color-mix(in srgb,var(--sw-bg) 30%,transparent) 10%,
+      color-mix(in srgb,var(--sw-bg) 66%,transparent) 20%,
+      color-mix(in srgb,var(--sw-bg) 84%,transparent) 32%,
+      color-mix(in srgb,var(--sw-bg) 86%,transparent) 60%,
       color-mix(in srgb,var(--sw-bg) 60%,transparent) 82%,
       color-mix(in srgb,var(--sw-bg) 24%,transparent) 94%,
       transparent 100%);}
@@ -665,10 +732,35 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .lv3-hero{position:absolute;left:0;right:0;width:auto;
     top:auto;bottom:calc(84px + env(safe-area-inset-bottom));
     padding:0 20px;text-align:left;}
-  .lv3-eyebrow{font-size:.78rem;letter-spacing:.18em;}
-  .lv3-hero h1{font-size:clamp(1.72rem,7.4vw,2.3rem);margin-top:10px;line-height:1.12;}
+  /* P-A, 2026-07-31: "the subheading that says a project by and then my name,
+     we don't see it at all. Could we have it in the top right corner under
+     the nav bar — a project, resource and portfolio by Pierre-Antoine
+     Descoteaux."
+     So on a phone it leaves the headline block entirely and goes to sit in
+     the sky, which is the one part of this painting with nothing in it. It
+     is the smallest type the site allows (12px is the floor the QA gate
+     enforces) and it keeps the warm ink it always had. */
+  .lv3-eyebrow{position:fixed;z-index:26;
+    top:82px;right:16px;                    /* the nav measures ~66px here */
+    width:min(46vw,196px);text-align:right;
+    font-size:12px;line-height:1.45;letter-spacing:.04em;
+    font-weight:500;text-transform:none;
+    color:color-mix(in srgb,#8a6a2f 84%,#000);   /* its own gold, deepened */
+    text-shadow:0 1px 2px var(--sw-bg),0 0 8px var(--sw-bg),0 0 16px var(--sw-bg);
+    transition:opacity .3s ease;}
+  /* it belongs to screen one only: off the moment the camera leaves the map */
+  html:not(.lv3-map) .lv3-eyebrow,
+  html.lv3-doorsup .lv3-eyebrow{opacity:0;}
+  /* P-A: "the white thing to make the text pop is too faded, it's a bit hard
+     to read." The headline gets its own halo rather than leaning entirely on
+     the page-wide wash, which has to stay light now that the painting runs
+     to the bottom edge. */
+  .lv3-hero h1{font-size:clamp(1.72rem,7.4vw,2.3rem);margin-top:0;line-height:1.12;
+    text-shadow:0 1px 2px var(--sw-bg),0 0 10px var(--sw-bg),
+                0 0 20px var(--sw-bg),0 0 34px var(--sw-bg);}
   .lv3-hero .lede{font-size:1rem;line-height:1.5;margin-top:12px;
-    max-width:34ch;}
+    max-width:34ch;
+    text-shadow:0 1px 2px var(--sw-bg),0 0 8px var(--sw-bg),0 0 18px var(--sw-bg);}
   /* the tour button is a door now, so the hero's own row stands down and
      only the scroll cue remains */
   .lv3-do{display:none;}
@@ -678,7 +770,10 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     bottom:calc(18px + env(safe-area-inset-bottom));
     align-items:center;justify-content:center;gap:9px;
     font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-    color:var(--sw-ink-soft);pointer-events:none;
+    color:var(--sw-ink);pointer-events:none;
+    /* the wash is light at the foot of the screen now, so the cue carries its
+       own paper the way the headline above it does */
+    text-shadow:0 1px 2px var(--sw-bg),0 0 8px var(--sw-bg),0 0 18px var(--sw-bg);
     transition:opacity .3s ease;}
   .lv3-cue svg{width:15px;height:15px;animation:lv3nod 2.6s ease-in-out infinite;}
   @keyframes lv3nod{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
@@ -706,24 +801,30 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     transition:transform .5s cubic-bezier(.22,.9,.3,1),opacity .32s ease,visibility 0s .5s;}
   html.lv3-doorsup .lv3-doors{transform:none;opacity:1;visibility:visible;
     transition:transform .5s cubic-bezier(.22,.9,.3,1),opacity .32s ease;}
-  /* With the scrim off the foot of the painting, a cream glow round cream
-     type over a cream-lit painting stopped being legible — "You are in the
-     tower" all but vanished into the arches behind it. It gets the same
-     piece of glass the doors are made of, so it reads as part of them
-     rather than as text dropped on the art. */
-  .lv3-doors__lede{display:inline-block;margin:0 0 11px;
-    padding:8px 14px;border-radius:999px;
-    font-size:1rem;line-height:1.4;color:var(--sw-ink-soft);
-    background:rgba(253,250,240,.9);border:1px solid rgba(34,48,31,.1);}
-  @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
-    .lv3-doors__lede{background:rgba(253,250,240,.42);
-      -webkit-backdrop-filter:blur(14px) saturate(1.2);
-      backdrop-filter:blur(14px) saturate(1.2);
-      border-color:rgba(253,250,240,.5);}
-  }
-  .lv3-doors__lede b{font-weight:600;color:var(--sw-ink);}
+  /* P-A, 2026-07-31: "you don't need to create a pill or a button for it,
+     just text on it would be okay — these buttons already take a lot of
+     space." So the pill goes and it is type on the painting again. What it
+     keeps is a real halo: four stacked shadows in the paper colour make a
+     soft page behind the letters that follows their shape, which is what
+     the single shadow it had before was not doing. */
+  .lv3-doors__lede{margin:0 0 11px;padding:0 8px;
+    font-size:1rem;line-height:1.45;color:var(--sw-ink);
+    text-shadow:0 1px 2px var(--sw-bg),0 0 7px var(--sw-bg),
+                0 0 15px var(--sw-bg),0 0 26px var(--sw-bg);}
+  .lv3-doors__lede b{font-weight:700;color:var(--sw-ink);}
   /* the site's floating back-to-top lands on the third door */
   html.lv3-doorsup .stotop{opacity:0 !important;visibility:hidden !important;}
+  /* P-A, 2026-07-31: "if you click on the middle of the button it doesn't
+     work, you have to click the arrow... it works for about me and to
+     resources, but not for the tour."
+     Exactly right, and it was never the button. The engine's own scroll hint
+     (the little wheel that says keep going) is fixed to the bottom of the
+     screen at a layer ABOVE the doors, so it sat invisibly across the middle
+     of the third one and ate every tap that landed there. The title still
+     worked because it is above the hint, and the arrow because it is beside
+     it. The hint has nothing to say while the doors are asking a question,
+     so it stands down with them. */
+  html.lv3-doorsup #world .sw-hint{opacity:0 !important;pointer-events:none;}
 
   /* The route rail on the right stays exactly as it looks — P-A: "leave the
      thing on the right to know where you are, it's perfect." Its dots were
@@ -814,8 +915,13 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .lv3-door:active{transform:scale(.985);}
   .lv3-door .lv3-mark,.lv3-door .lv3-mark svg{width:26px;height:26px;color:var(--rc);flex:none;}
   .lv3-door > span:last-child{min-width:0;flex:1;}
-  .lv3-door b{display:block;font-size:1.06rem;font-weight:600;line-height:1.25;
-    color:var(--sw-ink);}
+  /* P-A, 2026-07-31: "maybe the heading for these three buttons should be in
+     the colour of the button." It should — the coloured left edge and the
+     coloured mark were already saying which door this is, and the name in
+     flat black was the only part not joining in. Darkened against the glass
+     so it still carries as a heading rather than reading as a link. */
+  .lv3-door b{display:block;font-size:1.06rem;font-weight:700;line-height:1.25;
+    color:color-mix(in srgb,var(--rc) 82%,#241d10);}
   /* the door's line is a sentence, so it is reading content and holds the
      16px floor, not the 12px micro-label one */
   .lv3-door i{display:block;font-style:normal;font-size:1rem;line-height:1.38;
@@ -903,7 +1009,15 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
      The engine's own body size lands just under the floor on a phone, so
      the page pins it. */
   #world .sw-copy__body{font-size:1rem;line-height:1.5;}
-  #world .sw-copy__eyebrow{font-size:.78rem;letter-spacing:.16em;}
+  /* P-A, 2026-07-31: "the name of the scene — the commons, the garden — could
+     be written a bit bigger. It shouldn't overpower the heading either, I
+     just feel we don't see the name of the room well enough."
+     .78rem to .95rem, which is about a fifth bigger, with the tracking pulled
+     in slightly so the extra size does not turn it into a second headline.
+     The title is still roughly twice its size, so the order of the page is
+     unchanged. The scrim reaches higher to carry it — see below. */
+  #world .sw-copy__eyebrow{font-size:.95rem;letter-spacing:.13em;
+    font-weight:700;}
   /* P-A, 2026-07-30 round 2: stacking these full width was a regression. It
      ate two thirds of the screen and buried the painting. They go back to
      small pills that wrap, exactly as they read before this round, and still
@@ -942,7 +1056,11 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <svg class="lv3lines" id="lv3lines" aria-hidden="true" focusable="false"></svg>
 
   <header class="lv3-hero">
-    <span class="lv3-eyebrow">A project by Pierre-Antoine Descoteaux</span>
+    <!-- the phone says the whole thing, because up in the corner it has the
+         room for it and it is the only place the site introduces itself
+         before you scroll (P-A, 2026-07-31) -->
+    <span class="lv3-eyebrow"><span class="on-wide">A project by Pierre-Antoine Descoteaux</span><span
+      class="on-phone">A project, resource and portfolio by Pierre-Antoine Descoteaux</span></span>
     <h1>Wherever you are with coliving, something here is for you. <span class="edit">[edit]</span></h1>
     <p class="lede">Everything I've gathered about living closer together. A little of it mine,
       most of it from people further along, plus the manifesto of what I still hope for
@@ -1000,6 +1118,20 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 </div>
 
 <div id="lv3night" aria-hidden="true"></div>
+
+<!-- the end of the descent. It is not a dialog: it does not take the page,
+     it just sits in the corner and says the ride is over. -->
+<aside id="lv3end" role="status" hidden>
+  <button class="lv3-end__x" type="button" aria-label="Close">&times;</button>
+  <p class="lv3-end__eyebrow">You are back on the map</p>
+  <p class="lv3-end__line">That was the whole tower, top to bottom. <span class="edit">[edit]</span></p>
+  <p class="lv3-end__sub">A project, resource and portfolio by Pierre-Antoine Descoteaux.
+    Every room stays open. Go and look around. <span class="edit">[edit]</span></p>
+  <p class="lv3-end__go">
+    <a href="work.html">See the work</a>
+    <a href="resources.html">The resources</a>
+  </p>
+</aside>
 
 <div id="lv3invite" role="dialog" aria-modal="false" aria-labelledby="lv3invitetitle">
   <button class="lv3-inv-x" type="button" aria-label="No thanks">&times;</button>
@@ -1071,9 +1203,16 @@ var LV3_SECTIONS = [
       eyebrow:'The summit · the map and the models',
       title:'Coliving takes many shapes.',
       body:'From the top you can see the whole landscape: the atlas of real communities, and every form this takes, from cohousing to ecovillage. [edit]',
-      tags:[{label:'The coliving atlas', href:'map.html'},{label:'The twelve models', href:'type.html'},{label:'Real communities', href:'projects.html'}],
-      cta:{ primary:{label:'Open the coliving map', href:'map.html'},
-            secondary:{label:'Say hello', href:EMAIL} } }
+      /* P-A, 2026-07-31: "when I open the summit there's a duplicate — the
+         coliving atlas, which is the coliving map... and the say hello
+         doesn't make any sense either. Just keep the pills."
+         He is right on both counts. The summit was the only scene in the
+         tower carrying a pair of buttons under its pills, and one of them
+         went to the same page as the first pill while the other asked for an
+         email from the top of a mountain. Three pills, like every other
+         space. Desktop loses nothing: its three in-scene spots (the
+         telescope, the villages, the communities) already reach all three. */
+      tags:[{label:'The coliving atlas', href:'map.html'},{label:'The twelve models', href:'type.html'},{label:'Real communities', href:'projects.html'}] }
 ];
 
 var WORLD = mountScrollWorld(document.getElementById('world'), {
@@ -1486,7 +1625,7 @@ function arrivalFloor(){
   return (c && c > 0) ? c : window.innerHeight * 1.6;
 }
 
-var doorsUp = false;
+var doorsUp = false, pinning = false;
 function showDoors(){
   if (doorsUp) return;
   doorsUp = true;
@@ -1510,13 +1649,17 @@ function land(){
   syncPhoneBack();
   /* A flick's momentum outlives the gesture, and momentum is not a touchmove
      so the hold cannot refuse it. For half a second after landing, any drift
-     is eased back to the mark — gently, so it settles rather than snaps. */
+     is eased back to the mark — gently, so it settles rather than snaps.
+     `pinning` keeps the scroll watcher above from reading the pin's own
+     easing as the visitor moving on, which would spend the hold instantly. */
   var t0 = performance.now();
+  pinning = true;
   (function pin(){
-    if (stage !== 'landed') return;
+    if (stage !== 'landed'){ pinning = false; return; }
     var f = arrivalFloor(), d = (window.scrollY || 0) - f;
     if (Math.abs(d) > 1) window.scrollTo(0, f + d * 0.72);
     if (performance.now() - t0 < 620) requestAnimationFrame(pin);
+    else pinning = false;
   })();
 }
 function unland(){
@@ -1544,7 +1687,29 @@ function glideTo(y, then){
     if (k < 1) requestAnimationFrame(step); else if (then) then();
   })();
 }
+/* P-A, 2026-07-31: "if you scroll fast on mobile before arriving at the three
+   doors, the scrolling is not locked — I can keep scrolling and I'll have the
+   three bubbles on top of the design of the other pages. Ironic, because if I
+   scroll slow it's properly locked."
+
+   Not ironic at all, and his description was the diagnosis. Landing arms a
+   620ms pin that eases the page back to the mark, because a flick's momentum
+   is not a touchmove and cannot be refused. A slow scroll is spent by then. A
+   hard flick is not: the momentum outlives the pin, the page keeps travelling
+   down the tower, and nothing was watching — the stage stayed 'landed', so
+   the doors rode down over the Garden.
+
+   The hold is now spent the moment the page has actually left the arrival
+   point. Momentum carries you into the tower, which is a perfectly good place
+   to end up; the doors just stop pretending they are still the question. */
 window.addEventListener('scroll', function(){
+  if (isPhone() && !travelling && !departing && stage === 'landed' && !pinning){
+    var mark = arrivalFloor();
+    if (Math.abs((window.scrollY || 0) - mark) > window.innerHeight * 0.55){
+      leaveArrival(); hideDoors();
+      if (typeof syncPhoneBack === 'function') syncPhoneBack();
+    }
+  }
   if (!isPhone() || travelling || departing || stage !== 'map') return;
   var floor = arrivalFloor(), y = window.scrollY || 0;
   if (y < floor - 4) return;
@@ -2377,7 +2542,17 @@ function showGroup(g){
    scene id — the placement below refuses any pin that would land on the
    copy, so a bad addition goes quiet instead of breaking the page.
    --------------------------------------------------------------------- */
-var PHONE_PIN_SCENES = ['gardens'];
+/* VERDICT, P-A 2026-07-31: the experiment is over and the answer is no.
+   "You know the waterworks that's shown on the design for the garden? On
+   mobile it's not realistic to have the clickable part of the design, so we
+   should just remove it, it's just not reliable."
+   He is judging the thing the measurements already predicted: one of the
+   eighteen traced elements survived the portrait crop without landing under
+   the reading, and one pin on one scene is a rule the visitor cannot learn.
+   The machinery below stays — it is what proves the case, and it is the same
+   projection the desktop spots use — but nothing is wired to it. Putting a
+   scene id back in this list turns it on again. */
+var PHONE_PIN_SCENES = [];
 var CROP_L = 656 / 1920, CROP_W = 608 / 1920;   /* the portrait window */
 var M_ASPECT = 608 / 1080;                       /* the portrait encode */
 var pinLayer = document.getElementById('lv3pins');
@@ -2700,7 +2875,7 @@ function endTour(){
   /* The tour has been taken, so the hold is spent for good. Back at the map
      the doors stay standing: from here on they ARE the navigation. */
   if (isPhone()){ stage = 'free'; landedOnce = true; showDoors(); }
-  if (reduced){ window.scrollTo(0, 0); syncMap(); return; }
+  if (reduced){ window.scrollTo(0, 0); syncMap(); showEnd(); return; }
   /* glide the last short stretch to the very top so the map re-forms fully
      and the lock re-engages seamlessly */
   var from = window.scrollY || 0, t0 = performance.now(), dur = 460;
@@ -2709,9 +2884,49 @@ function endTour(){
     var k = Math.min(1, (performance.now() - t0) / dur);
     var e = 0.5 - 0.5 * Math.cos(Math.PI * k);
     window.scrollTo(0, from * (1 - e));
-    if (k < 1) requestAnimationFrame(step); else syncMap();
+    if (k < 1) requestAnimationFrame(step);
+    else { syncMap(); showEnd(); }
   })();
 }
+
+/* ---------------------------------------------------------------------
+   ARRIVING BACK. The descent used to just stop, which is not an ending.
+
+   While the card is up, a downward push does NOT walk back into the tower.
+   P-A: "right now you arrive at the map, you keep scrolling down and it
+   automatically gets you back to the commons... maybe it temporarily blocks
+   it, and if you close the pop-up you can scroll down again." That is the
+   only thing it holds — the way out is still there, on the card, in the nav,
+   and by closing it.
+   --------------------------------------------------------------------- */
+var endEl = document.getElementById('lv3end');
+var endOn = false, endShownTs = 0, endTimer = null, endSeen = false;
+var END_MS = 15000;
+
+function showEnd(){
+  if (endOn || endSeen) return;      /* once a visit: an ending, not a nag */
+  endOn = true; endSeen = true; endShownTs = Date.now();
+  endEl.hidden = false;
+  void endEl.offsetWidth;
+  endEl.classList.add('on');
+  clearTimeout(endTimer);
+  endTimer = setTimeout(hideEnd, END_MS);
+}
+function hideEnd(){
+  if (!endOn) return;
+  endOn = false;
+  clearTimeout(endTimer);
+  endEl.classList.remove('on');
+  setTimeout(function(){ if (!endOn) endEl.hidden = true; }, 560);
+}
+/* the hold the card carries, read by descending() */
+function endHolding(){ return endOn; }
+
+endEl.querySelector('.lv3-end__x').addEventListener('click', hideEnd);
+window.addEventListener('keydown', function(e){ if (endOn && e.key === 'Escape') hideEnd(); });
+/* taking the tour again is a fresh ride, so the card may greet you at the
+   end of that one too */
+document.getElementById('lv3tour').addEventListener('click', function(){ hideEnd(); endSeen = false; });
 
 /* P-A, 2026-07-31: "when I go to the summit and try to scroll down nothing
    works and then I have to scroll up... I know we're doing the reverse
@@ -2780,6 +2995,9 @@ function inGate(t){ return gateOpen && t && t.closest && t.closest('#lv3gate'); 
 function onWheel(e){
   if (inGate(e.target)) return;
   if (travelling){ e.preventDefault(); return; }
+  /* the arrival card holds the descent, and only the descent: going back UP
+     from the map does nothing anyway, and every other way out stays open */
+  if (endHolding() && e.deltaY > 0){ e.preventDefault(); return; }
   if (descending() && !reduced){ e.preventDefault(); descend(e.deltaY); return; }
   if (mapLocked()){ e.preventDefault(); onBlockedScroll(); }
 }
@@ -2790,6 +3008,7 @@ function onTouchMove(e){
   var y = e.touches[0].clientY, dy = touchY - y;   /* finger up (dy>0) = go down */
   touchY = y;
   if (travelling){ if (e.cancelable) e.preventDefault(); return; }
+  if (endHolding() && dy > 0){ if (e.cancelable) e.preventDefault(); return; }
   if (descending() && !reduced){ if (e.cancelable) e.preventDefault(); descend(dy); return; }
   if (mapLocked()){ if (e.cancelable) e.preventDefault(); onBlockedScroll(); }
 }
