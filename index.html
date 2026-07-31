@@ -225,6 +225,23 @@
   transition:opacity .5s ease-out;}
 #lv3veil.on{opacity:1;transition:opacity .3s ease-in;}
 
+/* The house lights, for the door. P-A, 2026-07-31: "maybe the rest of the
+   background beside the door is a bit more dimmed, black faded a little bit
+   ... you have the bubble of text underneath the door as super faded, I don't
+   like that, it's a bit odd. I would rather you dim everything else, add a
+   layer of opacity underneath, and the only thing above that layer is the
+   door and the popup."
+
+   That is what this is: one sheet of dark over the whole world, with only the
+   door and its question above it. The cream halo that used to sit behind the
+   words is gone — the question is now light type on a dimmed tower, which is
+   how a lit doorway at night actually reads. */
+#lv3night{position:fixed;inset:0;z-index:1140;pointer-events:none;opacity:0;
+  background:radial-gradient(78% 62% at 50% 48%,
+    rgba(16,22,14,.34) 0%, rgba(14,19,12,.6) 58%, rgba(12,16,10,.72) 100%);
+  transition:opacity .42s ease;}
+#lv3night.on{opacity:1;}
+
 /* ---------------------------------------------------------------------
    GETTING BACK. P-A: once you are inside a space there was no way home
    except scrolling. Two fixes, both live only while the map is NOT showing:
@@ -394,23 +411,79 @@ html.lv3-edit #lv3edit{display:block;}
   background:radial-gradient(ellipse at 50% 62%,rgba(255,214,140,.95),rgba(255,196,110,.5) 45%,rgba(255,190,110,0) 78%);
   opacity:0;transition:opacity .6s ease .16s;}
 #lv3invite.is-opening .lv3-door2__leaves::before{opacity:1;}
-/* the door IS the invitation: no card, no plate, just a cream halo so the
-   question underneath stays readable over the painting */
-#lv3invite:has(.lv3-door2){background:radial-gradient(62% 46% at 50% 84%,
-    var(--sw-bg) 0%, color-mix(in srgb,var(--sw-bg) 86%,transparent) 44%,
-    color-mix(in srgb,var(--sw-bg) 34%,transparent) 74%, transparent 100%);
+/* the door IS the invitation: no card, no plate, and no halo either — the
+   dim sheet behind it does that job now, so the words sit straight on the
+   dark with nothing washed out behind them */
+#lv3invite:has(.lv3-door2){background:none;
   border:0;box-shadow:none;padding:0 10px 10px;width:min(88vw,600px);}
-#lv3invite:has(.lv3-door2).is-opening{transform:translate(-50%,-50%) scale(1.06);
-  filter:none;opacity:1;
-  transition:transform .82s cubic-bezier(.4,0,.7,.62),opacity .34s ease-in .5s;}
+#lv3invite:has(.lv3-door2) h2{color:#FBF3E2;
+  text-shadow:0 2px 22px rgba(10,14,9,.85),0 0 46px rgba(10,14,9,.6);}
+#lv3invite:has(.lv3-door2) p{color:rgba(247,238,220,.84);
+  text-shadow:0 2px 18px rgba(10,14,9,.85),0 0 38px rgba(10,14,9,.55);}
+#lv3invite:has(.lv3-door2) .lv3-inv-go{color:#FBF3E2;
+  border-color:rgba(251,243,226,.5);
+  text-shadow:0 1px 12px rgba(10,14,9,.7);}
+#lv3invite:has(.lv3-door2):hover .lv3-inv-go{background:rgba(251,243,226,.14);
+  border-color:rgba(251,243,226,.8);}
+#lv3invite:has(.lv3-door2) .lv3-inv-x{color:rgba(247,238,220,.72);}
+#lv3invite:has(.lv3-door2) .lv3-inv-x:hover{background:rgba(251,243,226,.14);color:#FBF3E2;}
+
+/* ---------------------------------------------------------------------
+   GOING THROUGH IT. P-A, 2026-07-31: "make sure the animation finishes
+   before moving to the new page — right now it kind of does both at the
+   same time and it also fades the door itself, so you don't really see the
+   animation... if it's not too hard I would like that the door opens and
+   then we zoom in through the door, so the door becomes bigger and bigger
+   until it's full screen, and we feel we're going through it."
+
+   Two states now instead of one:
+     .is-opening   the leaves swing, and NOTHING else moves. The question and
+                   the button step aside so you are looking at the door.
+     .is-through   the camera walks into the opening: the whole door scales up
+                   from the middle of its own doorway until the arch is past
+                   the edges of the screen and only the lit gap is left.
+   startTour() is not called until the second one is nearly through, so the
+   world never moves underneath the door.
+   --------------------------------------------------------------------- */
+#lv3invite:has(.lv3-door2).is-opening{transform:translate(-50%,-50%) scale(1);
+  filter:none;opacity:1;transition:none;}
 #lv3invite:has(.lv3-door2).is-opening .lv3-inv-x,
 #lv3invite:has(.lv3-door2).is-opening h2,
 #lv3invite:has(.lv3-door2).is-opening p,
-#lv3invite:has(.lv3-door2).is-opening .lv3-inv-go{opacity:0;transition:opacity .24s ease;}
-#lv3invite:has(.lv3-door2) h2,#lv3invite:has(.lv3-door2) p{
-  text-shadow:0 1px 14px var(--sw-bg),0 0 26px var(--sw-bg);}
+#lv3invite:has(.lv3-door2).is-opening .lv3-inv-go{opacity:0;
+  transform:translateY(7px);
+  transition:opacity .3s ease,transform .3s ease;}
+#lv3invite:has(.lv3-door2) h2,
+#lv3invite:has(.lv3-door2) p,
+#lv3invite:has(.lv3-door2) .lv3-inv-go,
+#lv3invite:has(.lv3-door2) .lv3-inv-x{transition:opacity .3s ease,transform .3s ease;}
+
+/* the walk through. Origin is the centre of the doorway the leaves just
+   opened (--door-x + half of --door-w across, same down), so the growth
+   pushes the opening at the screen rather than the middle of the painting. */
+.lv3-door2{transform-origin:calc(var(--door-x) + var(--door-w) / 2)
+                            calc(var(--door-y) + var(--door-h) / 2);
+  transition:transform 1.05s cubic-bezier(.55,.02,.72,.55),
+             opacity .34s ease .72s;}
+#lv3invite.is-through .lv3-door2{transform:scale(11);opacity:0;}
+/* the light out of the opening grows with it, so the last thing on screen
+   before the summit is the glow, not an edge of timber */
+#lv3invite.is-through .lv3-door2__leaves::before{opacity:1;
+  transition:opacity .5s ease;}
+#lv3invite.is-through{pointer-events:none;}
+/* the one frame in which the door is put back where it started, unseen */
+#lv3invite.is-reset,
+#lv3invite.is-reset .lv3-door2,
+#lv3invite.is-reset .lv3-door2__leaves span,
+#lv3invite.is-reset .lv3-door2__leaves::before,
+#lv3invite.is-reset h2,
+#lv3invite.is-reset p,
+#lv3invite.is-reset .lv3-inv-go,
+#lv3invite.is-reset .lv3-inv-x{transition:none !important;}
+
 @media (prefers-reduced-motion:reduce){
-  .lv3-door2__leaves span,.lv3-door2__leaves::before{transition:none;}
+  .lv3-door2__leaves span,.lv3-door2__leaves::before,.lv3-door2{transition:none;}
+  #lv3invite.is-through .lv3-door2{transform:none;}
 }
 
 #lv3invite h2{margin:0;font-family:var(--sw-font-display);font-weight:300;
@@ -528,13 +601,34 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
      washing half the screen. */
   .sw-copylayer::before{display:none;}
   #world .sw-copy{isolation:isolate;}
+  /* P-A, 2026-07-31, with a red circle round the foot of a scene: "at the
+     bottom of each page there's still a lot of white space... I would rather
+     it be transparent at the bottom and you see the design as well, so you
+     feel the text is on top of the design and it's not like the design is
+     two thirds of the page and the rest is the text."
+
+     Two things were making that band. The scrim ran a flat 200px BELOW the
+     copy block, and from 44% down it was fully opaque paper — so everything
+     under the last pill was a cream rectangle with nothing on it.
+     It now ends exactly at the bottom of the screen (the same distance the
+     copy is lifted off it) and comes off again on the way down, so the
+     painting closes the page instead of the paper. It still holds its weight
+     across the title and the sentence, which is the only place it was ever
+     doing a job. */
   #world .sw-copy::before{content:"";position:absolute;z-index:-1;
-    left:-18px;right:-18px;top:-34px;bottom:-200px;
+    left:-18px;right:-18px;top:-34px;
+    /* mirrors .sw-copy's own two bottom declarations, in the same order, so a
+       browser without dvh keeps the vh fallback instead of losing the rule */
+    bottom:calc(-1 * clamp(64px,14vh,120px));
+    bottom:calc(-1 * (clamp(56px,12dvh,110px) + env(safe-area-inset-bottom)));
     background:linear-gradient(180deg,
       transparent 0%,
-      color-mix(in srgb,var(--sw-bg) 55%,transparent) 12%,
-      color-mix(in srgb,var(--sw-bg) 88%,transparent) 26%,
-      var(--sw-bg) 44%);}
+      color-mix(in srgb,var(--sw-bg) 46%,transparent) 12%,
+      color-mix(in srgb,var(--sw-bg) 82%,transparent) 26%,
+      color-mix(in srgb,var(--sw-bg) 86%,transparent) 58%,
+      color-mix(in srgb,var(--sw-bg) 60%,transparent) 82%,
+      color-mix(in srgb,var(--sw-bg) 24%,transparent) 94%,
+      transparent 100%);}
   /* The map's own scrim. The art was drowning under a full-height wash at
      up to 86%: the top two thirds of the tower are clean now, and the text
      sits on the part that is dark enough to read on. */
@@ -544,8 +638,23 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
       transparent 0%,
       transparent 34%,
       color-mix(in srgb,var(--sw-bg) 42%,transparent) 52%,
-      color-mix(in srgb,var(--sw-bg) 84%,transparent) 70%,
-      var(--sw-bg) 88%);
+      color-mix(in srgb,var(--sw-bg) 82%,transparent) 70%,
+      /* it used to go fully solid here and stay solid to the bottom edge, so
+         screen one ended in a band of blank paper. It holds its weight under
+         the headline and then lets the tower back through at the foot. */
+      color-mix(in srgb,var(--sw-bg) 84%,transparent) 84%,
+      color-mix(in srgb,var(--sw-bg) 44%,transparent) 96%,
+      color-mix(in srgb,var(--sw-bg) 22%,transparent) 100%);
+  }
+  /* with the doors up the headline is gone, so the wash gets out of the way
+     of the painting entirely and only the glass doors sit on the art */
+  html.lv3-map.lv3-doorsup .sw-copylayer::before{
+    background:linear-gradient(180deg,
+      transparent 0%,transparent 40%,
+      color-mix(in srgb,var(--sw-bg) 22%,transparent) 60%,
+      color-mix(in srgb,var(--sw-bg) 44%,transparent) 82%,
+      color-mix(in srgb,var(--sw-bg) 24%,transparent) 96%,
+      transparent 100%);
   }
   /* the doors are the route on a phone — the rail and the engine's own
      scroll hint only collide with them */
@@ -575,6 +684,18 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   @keyframes lv3nod{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
   html.lv3-doorsup .lv3-cue{opacity:0;}
 
+  /* P-A, 2026-07-31: "there's like multi overlapping things of text."
+     Coming back to the top of the map after the arrival has been taken shows
+     the doors again (they are the navigation, syncMap keeps them to hand) —
+     but nothing stood the map's own headline down, so the h1, the lede, the
+     eyebrow and three doors all painted into the same bottom third.
+     The doors ask the question once they are up, so the headline yields to
+     them. Screen one on a fresh arrival is untouched: the doors are not up
+     yet, so the hero has the screen to itself exactly as before. */
+  .lv3-hero{transition:opacity .32s ease,transform .42s cubic-bezier(.22,.9,.3,1);}
+  html.lv3-doorsup .lv3-hero{opacity:0;transform:translateY(-14px);
+    pointer-events:none;}
+
   /* ---- the arrival screen: three doors over the scene you rode into ----
      Fixed to the page rather than parented to the map, because the map layer
      fades out during the camera move and this has to outlive it. */
@@ -585,8 +706,21 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     transition:transform .5s cubic-bezier(.22,.9,.3,1),opacity .32s ease,visibility 0s .5s;}
   html.lv3-doorsup .lv3-doors{transform:none;opacity:1;visibility:visible;
     transition:transform .5s cubic-bezier(.22,.9,.3,1),opacity .32s ease;}
-  .lv3-doors__lede{margin:0 0 11px;padding:0 6px;font-size:1rem;line-height:1.45;
-    color:var(--sw-ink-soft);text-shadow:0 1px 12px var(--sw-bg),0 0 22px var(--sw-bg);}
+  /* With the scrim off the foot of the painting, a cream glow round cream
+     type over a cream-lit painting stopped being legible — "You are in the
+     tower" all but vanished into the arches behind it. It gets the same
+     piece of glass the doors are made of, so it reads as part of them
+     rather than as text dropped on the art. */
+  .lv3-doors__lede{display:inline-block;margin:0 0 11px;
+    padding:8px 14px;border-radius:999px;
+    font-size:1rem;line-height:1.4;color:var(--sw-ink-soft);
+    background:rgba(253,250,240,.9);border:1px solid rgba(34,48,31,.1);}
+  @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+    .lv3-doors__lede{background:rgba(253,250,240,.42);
+      -webkit-backdrop-filter:blur(14px) saturate(1.2);
+      backdrop-filter:blur(14px) saturate(1.2);
+      border-color:rgba(253,250,240,.5);}
+  }
   .lv3-doors__lede b{font-weight:600;color:var(--sw-ink);}
   /* the site's floating back-to-top lands on the third door */
   html.lv3-doorsup .stotop{opacity:0 !important;visibility:hidden !important;}
@@ -603,19 +737,36 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   html.lv3-landed #world .sw-copy,
   html.lv3-riding #world .sw-copy{opacity:0 !important;pointer-events:none;}
   html.lv3-landed .lv3-pback,html.lv3-riding .lv3-pback{display:none;}
-  /* and the scrim leans to the foot, where the doors are */
+  /* and the scrim leans to the foot, where the doors are.
+     P-A, 2026-07-31: the doors are glass now, so this no longer has to carry
+     their legibility — it only has to keep the one lede line readable. It
+     lifts to a wash in the middle and comes back OFF at the very bottom, so
+     the painting runs to the edge of the screen behind the doors instead of
+     ending in a cream slab. Nothing on this page is allowed to end in a
+     rectangle of paper any more. */
   html.lv3-landed .sw-copylayer::before,html.lv3-riding .sw-copylayer::before{display:block;
     background:linear-gradient(180deg,
-      transparent 0%,transparent 26%,
-      color-mix(in srgb,var(--sw-bg) 34%,transparent) 40%,
-      color-mix(in srgb,var(--sw-bg) 76%,transparent) 56%,
-      var(--sw-bg) 74%);
+      transparent 0%,transparent 30%,
+      color-mix(in srgb,var(--sw-bg) 20%,transparent) 44%,
+      color-mix(in srgb,var(--sw-bg) 48%,transparent) 60%,
+      color-mix(in srgb,var(--sw-bg) 52%,transparent) 80%,
+      color-mix(in srgb,var(--sw-bg) 26%,transparent) 94%,
+      transparent 100%);
   }
 
   /* the tour door is the one that hands over the whole tower, so it reads
      differently: warmer plate, and it answers a push against the hold */
   .lv3-door.is-tour{background:linear-gradient(180deg,rgba(253,248,236,.96),rgba(250,238,216,.96));
     border-color:color-mix(in srgb,var(--rc) 34%,transparent);}
+  /* it keeps its warmer tint through the glass, just at the same weight as
+     the other two so one door is not a solid slab next to two windows */
+  @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+    .lv3-door.is-tour{background:linear-gradient(180deg,rgba(253,244,224,.46),rgba(250,232,202,.44));
+      border-top-color:color-mix(in srgb,var(--rc) 40%,transparent);
+      border-right-color:color-mix(in srgb,var(--rc) 40%,transparent);
+      border-bottom-color:color-mix(in srgb,var(--rc) 40%,transparent);
+      border-left-color:var(--rc);}
+  }
   @keyframes lv3doorpulse{
     0%{transform:none;box-shadow:0 16px 34px -24px rgba(35,28,10,.72),0 0 0 0 color-mix(in srgb,var(--rc) 55%,transparent);}
     45%{transform:translateY(-3px);box-shadow:0 20px 36px -22px rgba(35,28,10,.8),0 0 0 10px rgba(179,84,62,0);}
@@ -623,14 +774,43 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   }
   .lv3-door.is-pulse{animation:lv3doorpulse .66s ease-out;}
 
+  /* P-A, 2026-07-31: "I would rather if they could be transparent, but enough
+     opacity that you can read the text. If they're transparent we would see
+     the design more and the design could be full page like all the other
+     design."
+
+     So the plate drops to a third of its opacity and the work is done by a
+     heavy backdrop blur instead: the painting still reads through the door,
+     but as a soft wash rather than detail competing with the words. The blur
+     is what keeps the text legible over a bright roof or a dark tree — an
+     alpha low enough to see through is not on its own enough to read on.
+     Safari has had backdrop-filter since 9, but the fallback below keeps a
+     denser plate for anything that lacks it, because unreadable is worse
+     than opaque. */
+  /* the right-hand rail sits at x 328-384 on a 390px screen and it is not
+     allowed to move (P-A: "leave the thing on the right, it's perfect"), so
+     the door's arrow steps in far enough to clear it instead of being
+     printed underneath it */
   .lv3-door{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
-    min-height:64px;padding:13px 15px;margin:0 0 8px;
-    border-radius:15px;background:rgba(253,250,240,.94);
+    min-height:64px;padding:13px 52px 13px 15px;margin:0 0 8px;
+    border-radius:15px;background:rgba(253,250,240,.9);
     border:1px solid rgba(34,48,31,.12);border-left:4px solid var(--rc);
     box-shadow:0 16px 34px -24px rgba(35,28,10,.72);
-    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
     font-family:inherit;color:inherit;cursor:pointer;
     transition:transform .18s ease,box-shadow .18s ease;}
+  @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+    .lv3-door{background:rgba(253,250,240,.38);
+      -webkit-backdrop-filter:blur(14px) saturate(1.25);
+      backdrop-filter:blur(14px) saturate(1.25);
+      /* three sides only: the left edge is the door's category colour and it
+         is the one thing on the plate that says WHICH door this is */
+      border-top-color:rgba(253,250,240,.45);
+      border-right-color:rgba(253,250,240,.45);
+      border-bottom-color:rgba(253,250,240,.45);
+      border-left-color:var(--rc);
+      box-shadow:0 16px 34px -26px rgba(35,28,10,.6),
+                 inset 0 1px 0 rgba(255,253,246,.5);}
+  }
   .lv3-door:active{transform:scale(.985);}
   .lv3-door .lv3-mark,.lv3-door .lv3-mark svg{width:26px;height:26px;color:var(--rc);flex:none;}
   .lv3-door > span:last-child{min-width:0;flex:1;}
@@ -818,6 +998,8 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     <div id="lv3gatezones"></div>
   </div>
 </div>
+
+<div id="lv3night" aria-hidden="true"></div>
 
 <div id="lv3invite" role="dialog" aria-modal="false" aria-labelledby="lv3invitetitle">
   <button class="lv3-inv-x" type="button" aria-label="No thanks">&times;</button>
@@ -1321,6 +1503,9 @@ function land(){
   if (stage !== 'map') return;
   stage = 'landed'; landedOnce = true;
   document.documentElement.classList.add('lv3-landed');
+  /* the ride is over: drop its class here rather than waiting for the next
+     scroll event, which may never come */
+  document.documentElement.classList.remove('lv3-riding');
   showDoors();
   syncPhoneBack();
   /* A flick's momentum outlives the gesture, and momentum is not a touchmove
@@ -1381,6 +1566,7 @@ window.addEventListener('scroll', function(){
 function leaveArrival(){
   stage = 'free';
   document.documentElement.classList.remove('lv3-landed');
+  document.documentElement.classList.remove('lv3-riding');
 }
 
 /* plain words + the quiet legend */
@@ -1776,8 +1962,22 @@ function syncMap(){
   if (isPhone()){
     /* riding = between the map and the arrival point. The scene's own words
        must not flash up mid-flight (P-A saw the Commons copy arrive before
-       the three doors did). */
-    document.documentElement.classList.toggle('lv3-riding', onArrivalRide() && y > 40);
+       the three doors did).
+
+       P-A, 2026-07-31, and he was right that it never went away: the class
+       was keyed to onArrivalRide(), which stops the moment the scroll passes
+       the arrival mark. A flick always passes it — that is what the settle
+       glide is for — so for the ~500ms of overshoot-then-glide the class came
+       off, the Commons copy faded up at full strength, and then the doors
+       arrived and hid it again. The flash WAS the arrival working.
+       The ride now owns the screen for the whole of it: from the first pixel
+       of scroll until either the doors are up or the visitor is so far past
+       the mark that the arrival is spent (the same threshold the scroll
+       handler uses to hand over to the free climb). */
+    var floor = arrivalFloor();
+    var riding = (stage === 'map' || stage === 'arriving') &&
+                 y > 40 && y < floor + window.innerHeight * 0.75;
+    document.documentElement.classList.toggle('lv3-riding', riding);
     if (on && stage === 'landed') unland();
     /* Once they have been through the arrival once, the doors are simply the
        navigation: standing back on the map always offers them, however they
@@ -2377,29 +2577,67 @@ var invite = document.getElementById('lv3invite');
 var inviteOn = false, inviteSnoozedTs = 0, inviteShownTs = 0, lastGestureTs = 0, gestures = [];
 var tourTaken = false;                  /* the lock is a one-time teaching device */
 
+var dim = document.getElementById('lv3night');
+
 function showInvite(){
   if (inviteOn) return;
   inviteOn = true; gestures.length = 0; inviteShownTs = Date.now();
-  invite.classList.remove('is-opening');
+  invite.classList.remove('is-opening', 'is-through');
   invite.classList.add('on');
+  dim.classList.add('on');            /* the house lights go down with it */
   WORLD.preload(SPACES.filter(function(s){ return s.key === 'summit'; })[0].index);
 }
 function hideInvite(silent){
   if (!inviteOn) return;
   inviteOn = false;
   invite.classList.remove('on');
+  dim.classList.remove('on');
   gestures.length = 0;
   if (!silent) inviteSnoozedTs = Date.now();
 }
-/* the door: the bubble swings open on its hinge as the world flies past it */
+
+/* ---------------------------------------------------------------------
+   THROUGH THE DOOR (P-A, 2026-07-31).
+
+   It used to swing, fade and fly all at once, on top of a world that had
+   already started moving — three animations over each other, so none of them
+   was legible. It is a sequence now, and each beat waits for the one before:
+
+     0ms     the leaves swing open. The question and the button step aside.
+             Nothing else on the page moves.
+     820ms   the door starts growing out of its own opening, toward the
+             viewer, until the arch passes the edges of the screen.
+     1520ms  only now does the tour start. By then the doorway is wider than
+             the window, so the world moving underneath is behind the door,
+             which is the whole point of walking through one.
+     1970ms  the door is taken down, the lights come back up.
+   --------------------------------------------------------------------- */
+var SWING_MS = 820, WALK_MS = 700, CLEAR_MS = 1150;
 function openInviteDoor(){
   if (!inviteOn) return;
   inviteOn = false;
   gestures.length = 0;
-  if (reduced){ invite.classList.remove('on'); startTour(); return; }
+  if (reduced){
+    invite.classList.remove('on');
+    dim.classList.remove('on');
+    startTour();
+    return;
+  }
   invite.classList.add('is-opening');
-  startTour();
-  setTimeout(function(){ invite.classList.remove('on', 'is-opening'); }, 640);
+  setTimeout(function(){ invite.classList.add('is-through'); }, SWING_MS);
+  setTimeout(function(){ startTour(); }, SWING_MS + WALK_MS);
+  setTimeout(function(){
+    /* Taking the classes off lets every transition run BACKWARDS — the door
+       shrinks from eleven times back to one over a second, and the tail of
+       that was showing through as the veil lifted on the summit. Kill the
+       transitions for the frame it takes to reset, then hand them back. */
+    invite.classList.add('is-reset');
+    invite.classList.remove('on', 'is-opening', 'is-through');
+    dim.classList.remove('on');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ invite.classList.remove('is-reset'); });
+    });
+  }, SWING_MS + CLEAR_MS);
 }
 /* Scrolling used to open it. It no longer does: a door that opens on the same
    gesture that summoned it is a door nobody sees. Pushing on just keeps it

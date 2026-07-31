@@ -127,6 +127,18 @@ Mobile is not "desktop but smaller" — it's the same DRAMA delivered vertically
 - One idea per screen-height where possible; use spacing (`margin: 48px 0` between
   sections), not size reduction, to create rhythm.
 - Cutting content to fit is a design decision — flag it, never do it silently.
+- **The art fills the screen; the words sit ON it.** (P-A, 2026-07-31, with a
+  red circle round the foot of a scene.) Nothing on a full-bleed painted page
+  is allowed to end in a rectangle of blank paper — no cream slab under the
+  last button, no solid band at the bottom of the viewport. Two rules follow:
+  - A copy scrim ends at the BOTTOM OF THE SCREEN, not some fixed distance
+    past the copy block, and it fades back to transparent on the way down.
+    Anchor it to the same value the copy is lifted off the bottom by.
+  - Panels laid over a painting are glass, not plates: a low alpha plus a real
+    `backdrop-filter` blur. The blur is what makes the text readable — an alpha
+    low enough to see through is not, on its own, enough to read on. Always
+    ship an opaque fallback outside `@supports`, and never set plain
+    `border-color` on a panel whose left edge is carrying a category colour.
 
 ### 10. Viewport-height pitfalls (svh/dvh vs vh)
 - **Never use plain `vh` for full-bleed mobile sections.** Mobile browser chrome
