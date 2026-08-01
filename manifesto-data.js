@@ -25,7 +25,14 @@ const MANIFESTO = {
     kicker: "The story we were handed",
     title: "The broken status quo.",
     lede: "Most of what feels inevitable about modern life isn’t a law of nature — it’s a story, barely a century old, and it’s cracking. Touch a gray thought.",
-    sparkTitle: "What if…"
+    sparkTitle: "What if…",
+    /* [edit] Claude draft, 2026-08-01 — P-A's direction: the power of our
+       imagination, keep sparking it, because asking what if and letting
+       yourself believe it for an instant is the only way anything different
+       ever gets built. Same shape as the lede above so the swap reads as the
+       same block changing its mind. */
+    sparkKicker: "Now imagine",
+    sparkLede: "Nothing was ever built that nobody imagined first. So keep asking, and let yourself believe the answer for a second. That second is where anything better starts."
   },
 
   /* Each story: gray (Story of Separation, lived & personal) → flip

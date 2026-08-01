@@ -63,7 +63,9 @@ a{color:inherit;text-decoration:none}
     radial-gradient(80% 50% at 85% 70%, rgba(127,182,201,.14) 0%, transparent 60%),
     linear-gradient(180deg,#eef2e4 0%,#f2f4e8 55%,var(--paper) 100%)}
 /* the heading HOLDS (sticky) for ~half a screen of scroll before handing
-   over to the What if — heading + thoughts read as one unit */
+   over to the What if — heading + thoughts read as one unit.
+   PHONE ONLY since 2026-08-01: on a wide screen the hold now runs the whole
+   section and the heading swaps its own words (see ONE SECTION, below). */
 .headhold{height:46vh}
 .field .head{text-align:center;position:sticky;top:64px;z-index:16}
 .field .head .eyebrow{color:#8a877f;transition:color 1s}
@@ -74,16 +76,21 @@ a{color:inherit;text-decoration:none}
 .field.lit .head .lede{color:var(--ink-soft)}
 /* pinned stage overlays: the prompt (bottom-left) + the inspiration note
    (bottom-right) ride with the stage until the village section */
-.stageprompt{position:absolute;left:clamp(16px,3vw,44px);top:calc(var(--navh,56px) + 20px);z-index:20;
-  display:flex;align-items:center;gap:10px;font-size:clamp(1rem,1.25vw,1.22rem);font-weight:600;
-  letter-spacing:.06em;color:var(--gold-deep);pointer-events:none}
-.stageprompt svg{flex:0 0 26px;animation:sunspin 14s linear infinite}
-@keyframes sunspin{to{transform:rotate(360deg)}}
+/* the credit sits in the corner of the stage, and since the stage now starts
+   below the heading its corner is the corner of the window — where the
+   bottom row of thoughts also lives. It carries the page's paper halo so the
+   two never read as one smudge. */
 .stagenote{position:absolute;right:clamp(16px,3vw,44px);bottom:clamp(14px,2.5vh,30px);z-index:20;
-  max-width:min(300px,30vw);font-size:.7rem;line-height:1.5;color:var(--ink-faint);text-align:right}
+  max-width:min(300px,30vw);font-size:.7rem;line-height:1.5;color:var(--ink-faint);text-align:right;
+  text-shadow:0 1px 6px var(--paper),0 0 14px rgba(246,242,231,.95),0 0 26px rgba(246,242,231,.85)}
 .stagenote a{color:var(--gold-deep);border-bottom:1px solid rgba(143,98,21,.35)}
 .stagenote a:hover{color:var(--ink)}
-@media(max-width:900px){.stageprompt,.stagenote{display:none}}
+@media(max-width:900px){.stagenote{display:none}
+  /* the swap is a wide-screen idea: the phone keeps the design P-A signed
+     off in round 7, where the gold What if travels with the thoughts. Without
+     this the second state simply stacks under the first and the phone reads
+     the question twice. */
+  .field .head .hs-ask{display:none}}
 
 /* spark title — the question the thoughts answer, so it HOLDS at the top
    while they are still opening. Height 0 so it reserves no gap between the
@@ -124,6 +131,85 @@ a{color:inherit;text-decoration:none}
 .whatif .star:nth-child(5){left:47%;top:-42%;font-size:.42em;animation-delay:.42s!important}
 @keyframes spark{0%{opacity:0;transform:scale(0) rotate(0)}35%{opacity:1;transform:scale(1.25) rotate(40deg)}100%{opacity:0;transform:scale(.4) rotate(90deg)}}
 
+/* ============ ONE SECTION (wide screens), P-A 2026-08-01 ==============
+   His drawing: the broken status quo and the What if stop being two
+   sections. You arrive, the dying forest is already the whole background,
+   the gray thoughts are already underneath the heading, and after a little
+   scrolling — not none, not a lot — the heading's own words change from
+   the broken status quo to the question, keeping the same shape: eyebrow,
+   title, one paragraph under it.
+
+   So on a wide screen .headhold dissolves and the heading becomes a direct
+   child of .field, which makes the section itself its holding range: it
+   presides over the thoughts for as long as they are on screen. That is
+   the job the separate .whatif used to do, which is why it stands down.
+
+   The heading sits ON the painting and over the top of the thought scatter,
+   so it carries the page's paper halo — the same answer this page already
+   uses, a soft radial that dissolves, never a rectangle.
+   ===================================================================== */
+@media(min-width:901px){
+  .headhold{display:contents}
+  .field .head{position:sticky;top:calc(var(--navh,56px) + 16px);z-index:16;
+    display:grid;isolation:isolate}
+  /* the thoughts climb UP to meet the heading (his up-arrow): the stage no
+     longer starts a screen below it, it starts directly under it and takes
+     the rest of the window. So all ten thoughts are on screen the moment you
+     arrive, instead of four of them hanging off the bottom edge.
+
+     Why an offset and not a negative margin: the scatter's own top row sits
+     at 27% of the stage, which cleared the old one-line What if but not a
+     heading with a three-line paragraph under it — on a laptop they landed
+     on each other. Giving the stage the leftover height instead of the whole
+     window keeps every percentage in the scatter honest at any screen size.
+     --headh is measured, never assumed. */
+  .field .fieldpin{top:var(--headh,300px);height:calc(100vh - var(--headh,300px))}
+  .field .head .hstate{grid-area:1/1;
+    transition:opacity .8s ease,transform .8s cubic-bezier(.34,1.4,.64,1)}
+  .field .head .hs-ask{opacity:0;transform:translateY(12px) scale(.985);pointer-events:none}
+  .field.asking .head .hs-quo{opacity:0;transform:translateY(-12px) scale(.99);pointer-events:none}
+  .field.asking .head .hs-ask{opacity:1;transform:none;pointer-events:auto}
+  /* the paper the words stand on */
+  /* sized to the WORDS (the lede is 52ch, ~620px), not to the old one-line
+     What if halo: at 1180px it reached the outer thought spots and bleached
+     the one at the right edge. */
+  .field .head::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;
+    pointer-events:none;width:min(72vw,800px);height:185%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(56% 58% at 50% 50%,
+      var(--paper) 0%, rgba(246,242,231,.93) 40%, rgba(246,242,231,.6) 64%,
+      rgba(246,242,231,0) 84%)}
+  /* the light. His ask: "a halo around it kinda radiating a little bit,
+     like a tiny sun". Slow, wide and warm — it must never become a spotlight,
+     so it lives behind the paper and only breathes. */
+  .field .head::after{content:"";position:absolute;left:50%;top:48%;z-index:-2;
+    pointer-events:none;width:min(88vw,820px);aspect-ratio:1;border-radius:50%;
+    transform:translate(-50%,-50%) scale(.9);opacity:0;
+    transition:opacity 1.4s ease;
+    background:radial-gradient(circle,
+      rgba(247,201,72,.34) 0%, rgba(240,183,60,.18) 30%,
+      rgba(240,183,60,.07) 52%, rgba(240,183,60,0) 70%)}
+  .field.asking .head::after{opacity:1;animation:sunbreath 7.5s ease-in-out infinite}
+  .field h2.askt{font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(2.2rem,5.4vw,4.4rem);line-height:1.02;letter-spacing:-.02em;
+    color:var(--gold-deep);margin:10px auto 14px;
+    text-shadow:0 2px 30px rgba(246,242,231,.9)}
+  .field.asking h2.askt{animation:askglow 7.5s ease-in-out infinite}
+  .field .head .hs-ask .eyebrow{color:var(--gold-deep)}
+  .field .head .askl{color:var(--ink-soft);max-width:52ch;margin:0 auto;
+    font-size:clamp(.95rem,1.2vw,1.1rem)}
+  /* the question is the heading now */
+  .whatif{display:none}
+}
+@keyframes sunbreath{
+  0%,100%{transform:translate(-50%,-50%) scale(.9);opacity:.7}
+  50%{transform:translate(-50%,-50%) scale(1.07);opacity:1}}
+@keyframes askglow{
+  0%,100%{text-shadow:0 2px 30px rgba(246,242,231,.9),0 0 26px rgba(247,201,72,.18)}
+  50%{text-shadow:0 2px 30px rgba(246,242,231,.95),0 0 48px rgba(247,201,72,.42)}}
+@media(prefers-reduced-motion:reduce){
+  .field.asking .head::after,.field.asking h2.askt{animation:none}}
+
 /* vines */
 .vine{display:none}
 .vine.l{left:0}.vine.r{right:0}
@@ -150,12 +236,20 @@ a{color:inherit;text-decoration:none}
    pin with a viewport-wide box (safe: html,body already run overflow-x:clip).
    No radius and no card edge — it dissolves into the paper on all four
    sides, the way every other painting on this site sits on the page. */
-.fieldbg{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);
-  overflow:hidden;z-index:0;pointer-events:none;border-radius:0}
+/* NOTE, 2026-08-01: .fieldbg is no longer a child of the pinned stage — it
+   is a child of .field and spans the whole section, so the forest is behind
+   the heading from the moment you arrive. It must NOT carry overflow:hidden:
+   an overflow ancestor is a scrollport, and a sticky child of a scrollport
+   that never scrolls simply stops following the window. The clipping is done
+   by .fieldbgin, which is the box that holds. left:calc(50% - 50vw) rather
+   than a transform, for the same reason. */
+.fieldbg{position:absolute;top:0;bottom:0;left:calc(50% - 50vw);width:100vw;
+  z-index:0;pointer-events:none;border-radius:0}
+.fieldbgin{position:sticky;top:0;height:100vh;overflow:hidden}
 .fieldbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .fieldbg .b-gray{opacity:.6}
 .fieldbg .b-bloom{opacity:calc(var(--p,0)*.85);transition:opacity 1.4s ease}
-.fieldbg::after{content:"";position:absolute;inset:0;
+.fieldbgin::after{content:"";position:absolute;inset:0;
   background:
     linear-gradient(90deg,var(--paper) 0%,rgba(246,242,231,.55) 4%,rgba(246,242,231,0) 13%,
       rgba(246,242,231,0) 87%,rgba(246,242,231,.55) 96%,var(--paper) 100%),
@@ -426,32 +520,44 @@ a{color:inherit;text-decoration:none}
     <ellipse class="leaf d" style="--th:.9" cx="40" cy="2140" rx="14" ry="6" transform="rotate(34 40 2140)"/>
   </svg></div>
 
+  <!-- the forest is the background of the WHOLE section now, not of the stage
+       alone: it starts under the nav, holds while you read, and blooms with
+       --p. P-A, 2026-08-01. The inner box is what holds; the outer one just
+       marks out the section, so it must NOT clip (an overflow ancestor makes
+       a scrollport and sticky stops following the window). -->
+  <div class="fieldbg" aria-hidden="true"><div class="fieldbgin">
+    <img class="b-gray" src="assets/world/field-gray.webp" alt="" loading="lazy" decoding="async">
+    <img class="b-bloom" src="assets/world/field-bloom.webp" alt="" loading="lazy" decoding="async">
+  </div></div>
+
+  <!-- one heading, two minds. It holds at the top of the section and its
+       words swap from the broken status quo to the question after a little
+       scrolling. There is no second section and no second title. -->
   <div class="headhold"><div class="wrap head">
-    <span class="eyebrow" id="fKicker"></span>
-    <h2 class="status" id="fTitle"></h2>
-    <p class="lede" id="fLede"></p>
+    <div class="hstate hs-quo">
+      <span class="eyebrow" id="fKicker"></span>
+      <h2 class="status" id="fTitle"></h2>
+      <p class="lede" id="fLede"></p>
+    </div>
+    <div class="hstate hs-ask">
+      <span class="eyebrow" id="askKicker"></span>
+      <h2 class="askt" id="askTitle"></h2>
+      <p class="lede askl" id="askLede"></p>
+    </div>
   </div></div>
 
   <h2 class="whatif" id="whatif" aria-hidden="true"><span class="star">✦</span><span class="star">✦</span><span class="star">✦</span><span class="star">✦</span><span class="star">✦</span><span id="whatifTxt"></span></h2>
 
   <div class="fieldbed" id="fieldbed">
     <div class="fieldpin" id="fieldpin">
-      <div class="fieldbg" aria-hidden="true">
-        <img class="b-gray" src="assets/world/field-gray.webp" alt="" loading="lazy" decoding="async">
-        <img class="b-bloom" src="assets/world/field-bloom.webp" alt="" loading="lazy" decoding="async">
-      </div>
       <svg class="bvinesvg" id="bvine" aria-hidden="true"><defs>
         <pattern id="vinetex" patternUnits="userSpaceOnUse" width="160" height="160">
           <image href="assets/world/vine-tex.webp" width="160" height="160"/>
         </pattern>
       </defs></svg>
-      <div class="stageprompt" aria-hidden="true">
-        <svg viewBox="0 0 26 26" width="26" height="26" fill="none" stroke="#d99a3d" stroke-width="1.8" stroke-linecap="round">
-          <circle cx="13" cy="13" r="5" fill="#f7c948" stroke="#d99a3d"/>
-          <path d="M13 1.5v3.2M13 21.3v3.2M1.5 13h3.2M21.3 13h3.2M4.9 4.9l2.2 2.2M18.9 18.9l2.2 2.2M21.1 4.9l-2.2 2.2M7.1 18.9l-2.2 2.2"/>
-        </svg>
-        <span>Illuminate a gray thought to give it hope</span>
-      </div>
+      <!-- the "Illuminate a gray thought" prompt is gone (P-A, 2026-08-01):
+           the section's own lede already says to touch one, so the prompt
+           was the same instruction twice. -->
       <div class="stagenote">The arc of this page — gray to green, separation to hope — is borrowed from Charles Eisenstein's <a href="separation.html"><em>The More Beautiful World Our Hearts Knows Is Possible</em></a>.</div>
     </div>
   </div>
@@ -594,6 +700,9 @@ document.getElementById("fKicker").textContent=fi.kicker;
 document.getElementById("fTitle").textContent=fi.title;
 document.getElementById("fLede").textContent=noEdit(fi.lede);
 document.getElementById("whatifTxt").textContent=fi.sparkTitle;
+document.getElementById("askKicker").textContent=fi.sparkKicker||"";
+document.getElementById("askTitle").textContent=fi.sparkTitle;
+document.getElementById("askLede").textContent=noEdit(fi.sparkLede||"");
 
 var bed=document.getElementById("fieldbed");
 var pin=document.getElementById("fieldpin");
@@ -676,6 +785,16 @@ function unpop(bub){
   if(typeof setFreed==="function") setFreed(popped>=total);
   refreshSegTargets();
 }
+/* how much room the heading takes at the top, measured rather than guessed:
+   where it holds, plus its own height (the grid makes that the taller of its
+   two states), plus a breath. The stage starts below it. */
+function measureHead(){
+  if(!isDesk.matches){ field.style.removeProperty("--headh"); return; }
+  var h=field.querySelector(".head");
+  var stick=parseFloat(getComputedStyle(h).top)||78;
+  field.style.setProperty("--headh",Math.round(stick+h.offsetHeight+18)+"px");
+}
+
 var bubs=Array.prototype.slice.call(bed.querySelectorAll(".bub"));
 bubs.forEach(function(bub){
   bub.querySelector(".gray").addEventListener("click",function(){delete bub.dataset.manual;pop(bub);});
@@ -691,6 +810,12 @@ bubs.forEach(function(bub){
    the whole time its window is active. Clicking any thought opens it early;
    un-popped-by-hand thoughts (data-manual) are left alone. */
 var isDesk=window.matchMedia("(min-width:901px)");
+measureHead();
+window.addEventListener("resize",measureHead);
+/* the nav is measured a beat after load (--navh), and the heading holds off
+   it, so take the measurement again once that has settled */
+setTimeout(measureHead,400);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measureHead);
 
 /* ---- releasing the question ----------------------------------------
    While thoughts are still opening the What if holds at the top: it is
@@ -723,6 +848,14 @@ function dockPops(){
   var wr=whatifEl?whatifEl.getBoundingClientRect():null;
   var selfSeen=!!wr&&wr.top<window.innerHeight*0.92&&wr.bottom>0;
   field.classList.toggle("show",headR.bottom<=70||selfSeen);
+  /* the words change their mind. "A little bit of scrolling. Not nothing and
+     not too much." — P-A, 2026-08-01. Just under half a screen into the
+     section, and it changes back if you go up again. Wide screens only: the
+     phone keeps the design he signed off in round 7. */
+  if(isDesk.matches){
+    var into=-field.getBoundingClientRect().top;
+    field.classList.toggle("asking",into>window.innerHeight*0.42);
+  }
   setFreed(total>0&&popped>=total);
   if(isDesk.matches){
     var bedR=bed.getBoundingClientRect(), vh=window.innerHeight;
