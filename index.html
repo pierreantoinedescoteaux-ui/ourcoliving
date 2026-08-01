@@ -79,11 +79,15 @@
    its 68px back while you are standing on the map, and takes it again the
    moment you start to climb. Nothing geometric changes. */
 @media (max-width:860px){
-  html.lv3-map .snav{background:transparent;box-shadow:none;backdrop-filter:none;
+  /* ...but only while the menu is closed. With the panel down, a see-through
+     bar reads as the menu floating on the painting with the tower showing
+     through its own header (P-A, 2026-08-01). .menuopen is stamped on the
+     nav by the Menu button in site-nav.js. */
+  html.lv3-map .snav:not(.menuopen){background:transparent;box-shadow:none;backdrop-filter:none;
     transition:background .3s ease,box-shadow .3s ease;}
-  html.lv3-map .snav .brand,html.lv3-map .snav .mbtn{
+  html.lv3-map .snav:not(.menuopen) .brand,html.lv3-map .snav:not(.menuopen) .mbtn{
     text-shadow:0 1px 2px #F1DBC0,0 0 10px #F1DBC0,0 0 20px #F1DBC0;}
-  html.lv3-map .snav .mbtn{background:rgba(253,250,240,.72);}
+  html.lv3-map .snav:not(.menuopen) .mbtn{background:rgba(253,250,240,.72);}
 
   /* THE SUMMIT, reframed rather than re-rendered (P-A, 2026-08-01: "the
      summit I thought we were just shifting the existing video, cropped?" —
@@ -3116,9 +3120,15 @@ function pulseTourDoor(){
 doors.addEventListener('animationend', function(e){ e.target.classList.remove('is-pulse'); });
 /* the gate has its own scroll — never let the page-level lock eat it */
 function inGate(t){ return gateOpen && t && t.closest && t.closest('#lv3gate'); }
+/* and so does the site menu. The panel is 20 links tall, taller than a phone,
+   and every touchmove over it was being eaten by the map lock below — so the
+   list could not be scrolled and "The Community" was simply unreachable.
+   P-A, 2026-08-01. Same escape hatch as the gate. */
+function inMenu(t){ return t && t.closest && t.closest('.snav .mpanel.openm'); }
+function inScroller(t){ return inGate(t) || inMenu(t); }
 
 function onWheel(e){
-  if (inGate(e.target)) return;
+  if (inScroller(e.target)) return;
   if (travelling){ e.preventDefault(); return; }
   /* the arrival card holds the descent, and only the descent: going back UP
      from the map does nothing anyway, and every other way out stays open */
@@ -3128,7 +3138,7 @@ function onWheel(e){
 }
 function onTouchStart(e){ if (e.touches && e.touches.length) touchY = e.touches[0].clientY; }
 function onTouchMove(e){
-  if (inGate(e.target)) return;
+  if (inScroller(e.target)) return;
   if (touchY == null) return;
   var y = e.touches[0].clientY, dy = touchY - y;   /* finger up (dy>0) = go down */
   touchY = y;

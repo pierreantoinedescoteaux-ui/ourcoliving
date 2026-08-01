@@ -71,8 +71,22 @@
 ".snav .drop a{display:block;font-family:'Switzer',system-ui,sans-serif;font-size:.9rem;font-weight:500;color:#22301f;text-decoration:none;padding:10px 13px;border-radius:10px}" +
 ".snav .drop a:hover{background:#f1f4e8;color:#3c6b32}" +
 ".snav .mbtn{display:none;border:1px solid rgba(34,48,31,.25);background:transparent;border-radius:99px;font-family:'Switzer',system-ui,sans-serif;font-size:.8rem;font-weight:600;color:#22301f;padding:11px 18px;cursor:pointer}" +
-".snav .mpanel{display:none;position:absolute;top:100%;left:0;right:0;background:#fffdf8;border-bottom:1px solid rgba(34,48,31,.14);box-shadow:0 30px 50px -25px rgba(34,48,31,.35);padding:10px clamp(20px,5vw,88px) 18px;max-height:calc(100vh - 60px);overflow:auto}" +
+/* the panel is 20 links tall and the last one ("The Community") was
+   unreachable on a phone: 100vh is the browser's TALLEST state, so on a
+   844px screen with the address bar showing, the foot of the panel sat
+   below the glass with nothing to scroll it into view. dvh measures what
+   is actually visible; the safe-area pad keeps the last row off the home
+   indicator. P-A, 2026-08-01. */
+".snav .mpanel{display:none;position:absolute;top:100%;left:0;right:0;background:#fffdf8;border-bottom:1px solid rgba(34,48,31,.14);box-shadow:0 30px 50px -25px rgba(34,48,31,.35);padding:10px clamp(20px,5vw,88px) 18px;max-height:calc(100vh - 60px);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}" +
+/* box-sizing matters here: max-height sizes the CONTENT box by default, so
+   the panel's own padding was added on top of the limit and the last row
+   still ended below the screen. Measured 852 against an 844px viewport. */
+".snav .mpanel{box-sizing:border-box;max-height:calc(100dvh - 70px);padding-bottom:calc(18px + env(safe-area-inset-bottom))}" +
 ".snav .mpanel.openm{display:block}" +
+/* the pen tool's button is fixed bottom-left at z-index 9990 and the panel
+   only reaches 1000, so with the menu open it sat squarely on the last row
+   ("The Community"). It steps aside for as long as the menu is down. */
+"body:has(.snav.menuopen) .pa-editbtn,body:has(.snav.menuopen) .stotop{opacity:0;pointer-events:none}" +
 ".snav .mpanel a{display:block;font-family:'Switzer',system-ui,sans-serif;font-size:1rem;font-weight:600;color:#22301f;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(34,48,31,.08)}" +
 ".snav .mpanel a.subm{font-weight:400;font-size:.92rem;color:#5c6b57;padding:10px 0 10px 16px}" +
 "@media(max-width:900px){.snav .top{display:none}.snav .mbtn{display:inline-block}}" +
@@ -157,7 +171,12 @@
     return '<nav class="snav" aria-label="Site">' +
       '<a class="brand" href="index.html">Our Coliving</a>' +
       '<div class="top">' + tops + "</div>" +
-      '<button class="mbtn" type="button" aria-expanded="false" onclick="var p=this.parentNode.querySelector(\'.mpanel\');p.classList.toggle(\'openm\');this.setAttribute(\'aria-expanded\',p.classList.contains(\'openm\'))">Menu ▾</button>' +
+      /* the nav wears .menuopen while the panel is down, so a page that has
+         made the bar see-through (the homepage does, to give the tower back
+         its peak) can put its own background back for as long as the menu
+         is standing on it. P-A, 2026-08-01: "the menu kinda lives where you
+         could see the background on the nav bar." */
+      '<button class="mbtn" type="button" aria-expanded="false" onclick="var n=this.parentNode,p=n.querySelector(\'.mpanel\'),o=p.classList.toggle(\'openm\');n.classList.toggle(\'menuopen\',o);this.setAttribute(\'aria-expanded\',o)">Menu ▾</button>' +
       '<div class="mpanel">' + mob + "</div>" +
       "</nav>";
   }

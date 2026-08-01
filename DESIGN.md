@@ -67,6 +67,16 @@ The landing world has its own grounds — the painted stills carry their own fie
 - **Generated diagrams are near-monochrome (duotone).** Each illustration uses exactly ONE main accent color (across its full range of tints and shades) plus ONE secondary accent (small highlights only) on the neutral paper ground (#f6f2e7) — a calm monochrome-poster feel, never the full palette in a single image. Both accents stay within the palette above. Assign a distinct main accent per subject so the set reads cohesive but each type is still distinguishable.
 - Real house photos: P-A's curation bar — only shots that survive an architect's eye; dedupe by function.
 
+## Drawn lines — vines, rails, threads (P-A, 2026-08-01)
+
+A drawn line is a growing thing, not a diagram connector. It applies to the case-study vine and to anything of that family.
+
+- **Never straight.** Not a straight vertical, and above all not a straight diagonal. Every run carries long slow curves with small ripples riding on them — at minimum, ondulations. A ruled segment anywhere in the path is the failure.
+- **It lives on the LEFT.** Not the right: a line travelling right pulls the eye off the words and then off the page, and reading suffers for it.
+- **When it has to travel, it travels off-screen.** The line may leave by an edge, make its horizontal move out of sight, and come back on the left after a stretch of page. It never crosses the reading column to get somewhere.
+- **It may be absent.** Long picture runs can carry no line at all; it returns on the left further down.
+- Reference: P-A's own drawing over the Montréal case study, `Case study testines approximations.pdf` — the pattern, not the exact coordinates (his words: "by no mean a perfect representation"), and its right-hand excursions are superseded by the left-only rule above.
+
 ## Banned moves
 - Dark-by-default pages or brown-black bands (old direction, explicitly rejected).
 - Body text under 18px; walls of text (layer with read-more instead).
