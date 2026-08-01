@@ -72,15 +72,24 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 /* ---- the story + its vine rail ---- */
 .story{position:relative;padding-bottom:clamp(30px,5vh,60px)}
-.storyrail{display:none;position:absolute;left:0;top:0;width:96px;height:100%;overflow:visible;pointer-events:none}
+/* the thread lives UNDER the story, so a photo covers it and the words are
+   never touched — the route keeps it off them in the first place. It runs
+   the whole width now, and bleeds into the page gutter, which on a phone is
+   the only free column it has. */
+.storyrail{display:block;position:absolute;left:0;top:0;width:100%;height:100%;
+  overflow:visible;pointer-events:none;z-index:0}
 .storyrail .railpath{fill:none;stroke:url(#vinetex) #8faf72;stroke-width:8;stroke-linecap:round;opacity:.9}
-.railnode{position:absolute;pointer-events:none;user-select:none}
+.railnode{position:absolute;pointer-events:none;user-select:none;z-index:0}
+.chap{position:relative;z-index:1}
+/* a phone gets a thinner thread: P-A asked that it not take up space */
+@media(max-width:700px){
+  .storyrail .railpath{stroke-width:5;opacity:.85}
+}
 .chap{margin-bottom:clamp(52px,8vh,96px);scroll-margin-top:90px}
 .chap .chapeye{display:flex;align-items:center;gap:10px;margin-bottom:clamp(14px,2vh,22px)}
 .chap .chapleaf{width:20px;height:20px;object-fit:contain;transform:rotate(-8deg)}
 @media(min-width:1100px){
   .story{padding-left:120px}
-  .storyrail{display:block}
   .chap .chapleaf{display:none}
 }
 
@@ -380,64 +389,307 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   },{threshold:0.12});
   document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
 
-  /* ---- the story vine: painted thread growing down the margin ----
-     Path meanders inside the 96px rail; nodes = chapter starts.
-     Seedling at the start, leaves along the way, gold bloom at the end.
-     Desktop ≥1100px only; reduced-motion gets it fully drawn. */
+  /* ---- the story vine: a painted thread that crosses the page --------
+     P-A: "it'd be really cool if that vine kind of grows across the page
+     as you read... it starts on the left and eventually it goes underneath
+     some stuff and then it goes back to the left... but definitely in
+     sections where it's least distracting. It shouldn't distract from the
+     text. Ideally it doesn't pass underneath text. It could pass underneath
+     images or bubble popups and whitespace, but not [under the text]."
+     And on a phone: "at the extreme left side of the page, as you scroll
+     the vine grows, a little twirling, but it shouldn't use a lot of
+     space."
+
+     So the route is not drawn, it is SOLVED. The story is cut into bands,
+     the boxes of the actual WORDS are subtracted from each one, and the
+     thread is threaded through whatever is left. It wants to cross — a
+     slow wave pulls it from side to side — but it can only ever sit in
+     free space, so it crosses where the page opens up (a photo, a pull
+     quote, a margin) and hugs the edge where the prose is dense. That is
+     the same behaviour P-A described, arrived at by measurement instead
+     of by hand-placing curves.
+
+     It renders UNDER the content, so an image covers it, which he asked
+     for. The words it simply never reaches.
+
+     One solver, both screens: on a phone the only free column is the page
+     gutter, so the vine lives there and crosses at the pictures. */
   var rail = document.getElementById("pRail");
   var story = document.getElementById("pStory");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var pathEl = null, pathLen = 0, ticking = false;
 
-  function railActive(){ return window.matchMedia("(min-width: 1100px)").matches; }
+  /* what counts as words. Everything else (pictures, cards, quotes with
+     their own background) the vine is allowed to pass beneath. */
+  var TEXT_SEL = "p,h1,h2,h3,h4,li,blockquote,figcaption,.eyebrow,.chapeye," +
+                 ".lede,.lede-serif,.s-label,.t-kicker,.p-kicker,.hero-cap,.note,a";
+  var BAND = 22;      /* how finely the page is sliced */
+  var CLEAR = 11;     /* sideways clearance from a word */
+  var CLEAR_Y = 5;    /* clearance above and below one */
+  var THICK = 8;      /* the stroke, so the gap must fit half of it too */
+  /* Sideways and vertical clearance are NOT the same number. Sideways it
+     should be generous, so the thread never crowds a line of type. But the
+     only way to cross the column is through the gap between two
+     paragraphs, and inflating that gap by the sideways figure at both ends
+     closes it — which is exactly why the first version stayed in the left
+     margin the whole way down.
+
+     A phone has one free column, the page gutter, about 20px wide. At the
+     desktop clearance it measures as too narrow to stand in and no thread
+     gets drawn at all, so there the thread is thinner and hugs closer,
+     which is what P-A asked for there anyway. */
+  function tune(){
+    var narrow = window.innerWidth < 700;
+    THICK = narrow ? 5 : 8;
+    CLEAR = narrow ? 6 : 11;
+    CLEAR_Y = narrow ? 4 : 5;
+  }
+
+  function freeSpans(obst, x0, x1){
+    /* [x0,x1] minus the obstacles, as a list of open intervals */
+    var out = [[x0, x1]];
+    obst.forEach(function(o){
+      var next = [];
+      out.forEach(function(s){
+        if(o.b <= s[0] || o.a >= s[1]){ next.push(s); return; }
+        if(o.a > s[0]) next.push([s[0], o.a]);
+        if(o.b < s[1]) next.push([o.b, s[1]]);
+      });
+      out = next;
+    });
+    return out.filter(function(s){ return s[1] - s[0] >= THICK + 2; });
+  }
 
   function buildRail(){
-    if(!railActive()){ rail.innerHTML=""; story.querySelectorAll(".railnode").forEach(function(n){n.remove();}); pathEl=null; return; }
-    var H = story.scrollHeight;
-    rail.setAttribute("viewBox","0 0 96 "+H);
-    rail.setAttribute("width","96"); rail.setAttribute("height",H);
+    tune();
+    story.querySelectorAll(".railnode").forEach(function(n){ n.remove(); });
     var nodes = story.querySelectorAll("[data-node]");
-    var ys = [];
-    nodes.forEach(function(n){ ys.push({y: n.offsetTop + 8, sprite: n.getAttribute("data-sprite")}); });
-    if(!ys.length){ rail.innerHTML=""; return; }
-    var endY = Math.min(H, ys[ys.length-1].y + 60);
-    // gently meandering cubic path from first node to just past the last
-    var d = "M 48 "+ys[0].y;
-    var xs = [48,64,34,60,38,58,44];
-    var startY = ys[0].y;
-    var segs = 6, span = (endY - startY)/segs;
-    for(var i=1;i<=segs;i++){
-      var y0 = startY + span*(i-1), y1 = startY + span*i;
-      var x0 = xs[(i-1)%xs.length], x1 = xs[i%xs.length];
-      d += " C 48 "+(y0+span*.45)+", "+x1+" "+(y1-span*.45)+", "+x1+" "+y1;
+    if(!nodes.length){ rail.innerHTML = ""; pathEl = null; return; }
+
+    var sRect = story.getBoundingClientRect();
+    var W = story.clientWidth, H = story.scrollHeight;
+    if(!W || !H){ rail.innerHTML = ""; pathEl = null; return; }
+
+    /* the thread may also use the page gutter on either side, which on a
+       phone is the only room it has. Capped so it never leaves the screen. */
+    var bleedL = Math.max(0, Math.min(30, sRect.left));
+    var bleedR = Math.max(0, Math.min(30, window.innerWidth - sRect.right));
+    var X0 = -bleedL, X1 = W + bleedR;
+
+    /* ---- the obstacles: where the words actually are ---- */
+    var obst = [];
+    story.querySelectorAll(TEXT_SEL).forEach(function(el){
+      if(el.classList.contains("railnode")) return;
+      var cs = getComputedStyle(el);
+      if(cs.display === "none" || cs.visibility === "hidden") return;
+      if(!el.textContent.trim()) return;
+      var r = el.getBoundingClientRect();
+      if(r.width < 8 || r.height < 6) return;
+      obst.push({
+        top:  r.top  - sRect.top  - CLEAR_Y,
+        bot:  r.bottom - sRect.top + CLEAR_Y,
+        a:    r.left - sRect.left - CLEAR,
+        b:    r.right - sRect.left + CLEAR
+      });
+    });
+
+    /* ---- the route ---------------------------------------------------
+       Picking the nicest x for each band independently does not work: two
+       neighbouring bands can each be legal while the move between them
+       crosses a paragraph. The thread has to travel down a CORRIDOR that
+       is open the whole way.
+
+       So it is solved as a shortest path. Each band offers a handful of
+       candidate positions inside its free spans. A move from one band to
+       the next is only allowed when a single free span in EACH band
+       contains both positions — that is what makes the segment between
+       them legal. Among the legal routes, the cheapest is the one that
+       stays near the wave (so it wants to cross), moves gently, and
+       prefers open page to a narrow slot. */
+    var bands = Math.max(2, Math.ceil(H / BAND));
+    /* MAXSTEP is generous on purpose. The corridor rule already guarantees
+       a move is legal; this only shapes how it looks. A small cap made the
+       thread too timid to ever leave the left margin, because crossing the
+       column means darting through a two-band gap between paragraphs. A
+       big cap plus a cost per pixel gives the right behaviour: it ambles
+       while the page is dense and swoops when the page opens. */
+    var WAVES = 2.6, MAXSTEP = 230, STEP_COST = 0.22, ROOM_BONUS = 0.3;
+    var spansOf = new Array(bands), wants = new Array(bands);
+    for(var i = 0; i < bands; i++){
+      var yTop = i * BAND, yBot = yTop + BAND;
+      var here = obst.filter(function(o){ return o.bot > yTop && o.top < yBot; });
+      spansOf[i] = freeSpans(here, X0, X1);
+      wants[i] = X0 + (X1 - X0) * (0.5 - 0.5 * Math.cos(Math.PI * 2 * WAVES * (i / bands)));
     }
-    rail.innerHTML = '<defs><pattern id="vinetex" patternUnits="userSpaceOnUse" width="160" height="160">'+
-      '<image href="assets/world/vine-tex.webp" width="160" height="160"/></pattern></defs>'+
-      '<path class="railpath" d="'+d+'"/>';
+
+    /* candidates: the ends of each span, its middle, and a few steps in
+       between, so the solver has somewhere to stand without going quadratic */
+    function candidates(spans){
+      var out = [];
+      spans.forEach(function(s, si){
+        var lo = s[0] + THICK / 2, hi = s[1] - THICK / 2;
+        if(hi < lo) return;
+        var room = s[1] - s[0];
+        /* the standing places inside a span must be closer together than a
+           single step is long, or no move between two of them is ever legal
+           and the thread freezes against one edge. Spacing <= MAXSTEP/2. */
+        var n = Math.min(14, Math.max(2, Math.ceil((hi - lo) / (MAXSTEP / 2)) + 1));
+        for(var k = 0; k < n; k++){
+          out.push({ x: lo + (hi - lo) * (n === 1 ? 0.5 : k / (n - 1)), s: si, room: room });
+        }
+      });
+      return out;
+    }
+
+    var cands = spansOf.map(candidates);
+    /* bands with nothing free at all cannot be stood in; carry the corridor
+       through them by reusing the previous band's spans */
+    for(var i2 = 0; i2 < bands; i2++){
+      if(!cands[i2].length){
+        var src = i2 > 0 ? spansOf[i2 - 1] : (spansOf[i2 + 1] || []);
+        spansOf[i2] = src; cands[i2] = candidates(src);
+      }
+    }
+
+    var first = Math.max(0, Math.floor((nodes[0].offsetTop + 8) / BAND));
+    var endY = Math.min(H, nodes[nodes.length - 1].offsetTop + 90);
+    var last = Math.min(bands - 1, Math.ceil(endY / BAND));
+    if(last - first < 2 || !cands[first].length){ rail.innerHTML = ""; pathEl = null; return; }
+
+    function spanHolds(spans, si, a, b2){
+      var s = spans[si]; if(!s) return false;
+      var lo = Math.min(a, b2), hi = Math.max(a, b2);
+      return lo >= s[0] + THICK / 2 - 0.6 && hi <= s[1] - THICK / 2 + 0.6;
+    }
+
+    var cost = cands[first].map(function(c){ return Math.abs(c.x - wants[first]) - Math.min(80, c.room) * ROOM_BONUS; });
+    var from = cands[first].map(function(){ return -1; });
+    var prevCost = cost, prevFrom = from, back = [];
+    for(var i3 = first + 1; i3 <= last; i3++){
+      var cur = cands[i3], cc = new Array(cur.length), cf = new Array(cur.length);
+      for(var a2 = 0; a2 < cur.length; a2++){
+        var bestC = Infinity, bestJ = -1;
+        for(var j2 = 0; j2 < cands[i3 - 1].length; j2++){
+          var p = cands[i3 - 1][j2];
+          var dx = Math.abs(cur[a2].x - p.x);
+          if(dx > MAXSTEP) continue;
+          /* the move has to fit inside one open span on BOTH sides */
+          if(!spanHolds(spansOf[i3 - 1], p.s, p.x, cur[a2].x)) continue;
+          if(!spanHolds(spansOf[i3], cur[a2].s, p.x, cur[a2].x)) continue;
+          var c2 = prevCost[j2] + dx * STEP_COST;
+          if(c2 < bestC){ bestC = c2; bestJ = j2; }
+        }
+        cc[a2] = bestC + Math.abs(cur[a2].x - wants[i3]) - Math.min(80, cur[a2].room) * ROOM_BONUS;
+        cf[a2] = bestJ;
+      }
+      /* every route died (a band with no legal move): restart from the
+         cheapest legal standing place so the thread continues rather than
+         stopping mid-story */
+      if(!cc.some(function(v){ return isFinite(v); })){
+        for(var a3 = 0; a3 < cur.length; a3++){
+          cc[a3] = Math.abs(cur[a3].x - wants[i3]) - Math.min(80, cur[a3].room) * ROOM_BONUS;
+          cf[a3] = -1;
+        }
+      }
+      back.push(cf);
+      prevCost = cc; prevFrom = cf;
+    }
+
+    var endI = 0;
+    for(var e = 1; e < prevCost.length; e++) if(prevCost[e] < prevCost[endI]) endI = e;
+    var route = new Array(last - first + 1);
+    var idx = endI;
+    for(var i4 = last; i4 >= first; i4--){
+      route[i4 - first] = cands[i4][idx] ? cands[i4][idx].x : (route[i4 - first + 1] || X0 + THICK);
+      if(i4 > first){
+        var prevIdx = back[i4 - first - 1][idx];
+        idx = prevIdx >= 0 ? prevIdx : 0;
+      }
+    }
+
+    /* ---- take the corners off, without giving up the guarantee --------
+       The solver optimises cost, not grace, so it can switchback where a
+       gentler line would do. Each point is offered the average of its
+       neighbours and only KEEPS it if the softer position is still inside
+       a free span and both moves in and out remain legal. So the thread
+       relaxes wherever it can and stays exactly where it must. */
+    function legalAt(band, x){
+      return spansOf[band].some(function(s){ return x >= s[0] + THICK / 2 - 0.6 && x <= s[1] - THICK / 2 + 0.6; });
+    }
+    function moveOk(band, a, b2){
+      return spansOf[band].some(function(s){
+        return Math.min(a, b2) >= s[0] + THICK / 2 - 0.6 && Math.max(a, b2) <= s[1] - THICK / 2 + 0.6;
+      });
+    }
+    for(var pass = 0; pass < 4; pass++){
+      for(var r2 = 1; r2 < route.length - 1; r2++){
+        var band = first + r2;
+        var soft = (route[r2 - 1] + route[r2] * 2 + route[r2 + 1]) / 4;
+        if(Math.abs(soft - route[r2]) < 0.3) continue;
+        if(!legalAt(band, soft)) continue;
+        if(!moveOk(band - 1, route[r2 - 1], soft) || !moveOk(band, route[r2 - 1], soft)) continue;
+        if(!moveOk(band, soft, route[r2 + 1]) || !moveOk(band + 1, soft, route[r2 + 1])) continue;
+        route[r2] = soft;
+      }
+    }
+
+    var pts = [];
+    for(var i5 = 0; i5 < route.length; i5++) pts.push([route[i5], (first + i5) * BAND + BAND / 2]);
+    if(pts.length < 2){ rail.innerHTML = ""; pathEl = null; return; }
+
+    /* ---- smoothing that cannot overshoot -----------------------------
+       A catmull-rom bulges past its own control points, which is how the
+       first version still grazed a paragraph. Quadratics anchored on the
+       MIDPOINTS stay inside the polyline they came from, so a route that
+       is legal stays legal once it is curved. */
+    var d = "M " + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
+    for(var i6 = 1; i6 < pts.length - 1; i6++){
+      var mx = (pts[i6][0] + pts[i6 + 1][0]) / 2, my = (pts[i6][1] + pts[i6 + 1][1]) / 2;
+      d += " Q " + pts[i6][0].toFixed(1) + " " + pts[i6][1].toFixed(1) + ", " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    d += " L " + pts[pts.length - 1][0].toFixed(1) + " " + pts[pts.length - 1][1].toFixed(1);
+    var sm = route, smOffset = first;
+    /* the solved route, for _qa/probe-vine.js — it is the only way to see
+       WHY the thread went where it went rather than guessing from a picture */
+    window.__vine = { route: route, first: first, last: last, band: BAND,
+      wants: wants.slice(first, last + 1), X0: X0, X1: X1,
+      spans: spansOf.slice(first, last + 1).map(function(ss){ return ss.length; }) };
+
+    rail.style.left = (-bleedL) + "px";
+    rail.style.width = (X1 - X0) + "px";
+    rail.setAttribute("viewBox", X0 + " 0 " + (X1 - X0) + " " + H);
+    rail.setAttribute("width", X1 - X0); rail.setAttribute("height", H);
+    rail.innerHTML = '<defs><pattern id="vinetex" patternUnits="userSpaceOnUse" width="160" height="160">' +
+      '<image href="assets/world/vine-tex.webp" width="160" height="160"/></pattern></defs>' +
+      '<path class="railpath" d="' + d + '"/>';
     pathEl = rail.querySelector(".railpath");
     pathLen = pathEl.getTotalLength();
     if(!reduce){
       pathEl.style.strokeDasharray = pathLen;
       pathEl.style.strokeDashoffset = pathLen;
     }
-    // sprites at nodes
-    story.querySelectorAll(".railnode").forEach(function(n){n.remove();});
-    ys.forEach(function(nd, i){
+
+    /* ---- the sprites ride the thread ---- */
+    var small = window.innerWidth < 700;
+    Array.prototype.forEach.call(nodes, function(n, i){
+      var nd = { y: n.offsetTop + 8, sprite: n.getAttribute("data-sprite") };
       var img = document.createElement("img");
-      var isSeed = nd.sprite==="seed", isBloom = nd.sprite==="bloom";
-      img.src = isSeed ? SEED : (isBloom ? BLOOM : (i%2 ? LEAF_B : LEAF_A));
+      var isSeed = nd.sprite === "seed", isBloom = nd.sprite === "bloom";
+      img.src = isSeed ? SEED : (isBloom ? BLOOM : (i % 2 ? LEAF_B : LEAF_A));
       img.className = "railnode";
-      img.alt = ""; img.setAttribute("aria-hidden","true");
-      var size = isSeed ? 44 : (isBloom ? 46 : 32);
-      // x position: sample the path near this y for a snug fit
-      var x = 48;
+      img.alt = ""; img.setAttribute("aria-hidden", "true");
+      var size = (isSeed ? 44 : (isBloom ? 46 : 32)) * (small ? 0.62 : 1);
+      var bi = Math.round(nd.y / BAND) - smOffset;
+      var x = sm[Math.max(0, Math.min(sm.length - 1, bi))];
       if(pathEl && pathLen){
-        var lo=0, hi=pathLen;
-        for(var k=0;k<18;k++){ var mid=(lo+hi)/2; if(pathEl.getPointAtLength(mid).y < nd.y) lo=mid; else hi=mid; }
-        x = pathEl.getPointAtLength((lo+hi)/2).x;
+        var lo = 0, hi = pathLen;
+        for(var k = 0; k < 18; k++){ var mid = (lo + hi) / 2; if(pathEl.getPointAtLength(mid).y < nd.y) lo = mid; else hi = mid; }
+        var pt = pathEl.getPointAtLength((lo + hi) / 2);
+        if(Math.abs(pt.y - nd.y) < BAND * 2) x = pt.x;
       }
-      img.style.cssText = "left:"+(x-size/2)+"px;top:"+(nd.y-size/2)+"px;width:"+size+"px;height:"+size+"px;"+
-        "transform:rotate("+(isSeed? -4 : (i%2? 14 : -12))+"deg)";
+      img.style.cssText = "left:" + (x - size / 2) + "px;top:" + (nd.y - size / 2) + "px;" +
+        "width:" + size + "px;height:" + size + "px;" +
+        "transform:rotate(" + (isSeed ? -4 : (i % 2 ? 14 : -12)) + "deg)";
       story.appendChild(img);
     });
     growRail();
