@@ -84,6 +84,51 @@
   html.lv3-map .snav .brand,html.lv3-map .snav .mbtn{
     text-shadow:0 1px 2px #F1DBC0,0 0 10px #F1DBC0,0 0 20px #F1DBC0;}
   html.lv3-map .snav .mbtn{background:rgba(253,250,240,.72);}
+
+  /* THE SUMMIT, reframed rather than re-rendered (P-A, 2026-08-01: "the
+     summit I thought we were just shifting the existing video, cropped?" —
+     he was right, everything he asked for there is framing).
+
+     His notes: the text box goes UP into the sky, with enough sky above and
+     below that it still reads as sky; the design shifts DOWN so more sky
+     shows, but NOT past the telescope, which must stay visible; and a
+     little to the RIGHT so more of the gardener shows. He explicitly ruled
+     out bringing in the house with the chimney smoke: "that's too far."
+
+     Measured on the phone encode: the gardeners sit at 0.926 of the clip's
+     width and the cover crop was cutting everything past 0.911, which is
+     why they were missing. The window moves right to bring them in. The
+     telescope is at 0.45 and stays comfortably inside. */
+  #world .sw-scene[data-scene="lookout"] .sw-scene__video,
+  #world .sw-scene[data-scene="lookout"] .sw-scene__still{
+    object-position:82% 34%;}
+  /* the words move into the sunrise, and keep sky on both sides of them */
+  #world .sw-copy[data-scene="lookout"]{
+    top:calc(var(--navh,68px) + 14px);bottom:auto;}
+  #world .sw-copy[data-scene="lookout"] .sw-copy__body{max-width:30ch;}
+  /* a short phone has less sky to sit in, so the summit's words tighten
+     rather than run down onto the terrace. Nothing is hidden — it is the
+     same sentence, set smaller, so there is still sky underneath it. */
+  @media (max-height:760px){
+    #world .sw-copy[data-scene="lookout"] .sw-copy__num{font-size:.66rem;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__eyebrow{margin-top:10px;font-size:.72rem;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__title{font-size:clamp(1.5rem,6vw,2rem);margin-top:6px;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__body{margin-top:9px;font-size:.9rem;line-height:1.4;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__tags{margin-top:12px;}
+  }
+  @media (max-height:700px){
+    #world .sw-copy[data-scene="lookout"] .sw-copy__num{display:none;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__eyebrow{margin-top:0;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__title{font-size:1.36rem;line-height:1.08;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__body{margin-top:7px;font-size:.86rem;line-height:1.36;}
+    #world .sw-copy[data-scene="lookout"] .sw-copy__tags{margin-top:9px;gap:6px;}
+  }
+  /* the copy layer's scrim is a bottom-up wash on phones; for this one floor
+     it has to be a top-down one, or the words in the sky sit on nothing */
+  html[data-floor="lookout"] #world .sw-copylayer::before{
+    top:0;bottom:auto;height:52%;
+    background:linear-gradient(180deg,var(--sw-bg) 6%,
+      color-mix(in srgb,var(--sw-bg) 68%,transparent) 48%,transparent 100%);}
 }
 
 /* ---------------------------------------------------------------------

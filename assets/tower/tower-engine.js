@@ -86,7 +86,7 @@ function mountScrollWorld(container, config) {
   // ---- build the interleaved segment chain: dive0, conn0, dive1, … diveN-1 ----
   const SEGMENTS = [];
   SECTIONS.forEach((s, i) => {
-    const dive = { kind: 'dive', si: i, loopPlay: true, clip: s.clip, clipM: s.clipMobile, still: s.still, stillM: s.stillMobile,
+    const dive = { kind: 'dive', si: i, id: s.id, loopPlay: true, clip: s.clip, clipM: s.clipMobile, still: s.still, stillM: s.stillMobile,
                    accent: s.accent, w: s.scroll || DIVE_W, linger: s.linger || 0 };
     SEGMENTS.push(dive);
     s._seg = dive;
@@ -138,6 +138,9 @@ function mountScrollWorld(container, config) {
   // segment scenes
   SEGMENTS.forEach(s => {
     const scene = el('div', 'sw-scene'); scene.style.setProperty('--sw-accent', s.accent || '');
+    /* the scene's own name, so a page can frame one floor differently from
+       the rest without counting children (P-A's summit, 2026-08-01) */
+    if (s.id) scene.dataset.scene = s.id;
     const img = el('img', 'sw-scene__still'); img.alt = ''; img.decoding = 'async'; img.loading = 'lazy';
     // Every scene lives in the same fixed stage, so the browser treats them
     // all as "near the viewport" and loading="lazy" never fires: all seven
@@ -156,6 +159,7 @@ function mountScrollWorld(container, config) {
   const copies = [], dots = [];
   SECTIONS.forEach((s, i) => {
     const c = el('article', 'sw-copy'); c.style.setProperty('--sw-accent', s.accent || '');
+    if (s.id) c.dataset.scene = s.id;   /* so one floor's words can sit differently */
     c.innerHTML =
       `<span class="sw-copy__num">${pad(i + 1)} / ${pad(N)}</span>` +
       (s.eyebrow ? `<span class="sw-copy__eyebrow">${esc(s.eyebrow)}</span>` : '') +
@@ -292,6 +296,11 @@ function mountScrollWorld(container, config) {
       : (((y - cur.start) / (cur.end - cur.start)) > 0.5 ? cur.si + 1 : cur.si), 0, N - 1);
     if (near !== activeIndex) {
       activeIndex = near;
+      /* the floor you are standing on, by name, so a page can dress one of
+         them differently (P-A's summit words in the sky, 2026-08-01) */
+      if (SECTIONS[near] && SECTIONS[near].id) {
+        document.documentElement.setAttribute('data-floor', SECTIONS[near].id);
+      }
       dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
       nav.querySelectorAll('.sw-nav__item').forEach((n, k) => n.classList.toggle('is-active', k === near));
       container.style.setProperty('--sw-accent', SECTIONS[near].accent || '');
