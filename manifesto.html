@@ -712,9 +712,17 @@ function setFreed(on){
 }
 
 function dockPops(){
-  /* the What if takes over the instant the section heading scrolls away */
+  /* The What if takes over the instant the section heading scrolls away.
+     That test alone is wrong on a phone: .head is sticky at 64px, so its
+     bottom never drops to 70 until the whole field has gone by, and since
+     the phone no longer holds the What if at the top it had already
+     scrolled off before it was ever allowed to appear. P-A, 2026-08-01:
+     "on mobile there is no what if on the manifesto." So it also shows
+     whenever it is itself on screen. */
   var headR=field.querySelector(".head").getBoundingClientRect();
-  field.classList.toggle("show",headR.bottom<=70);
+  var wr=whatifEl?whatifEl.getBoundingClientRect():null;
+  var selfSeen=!!wr&&wr.top<window.innerHeight*0.92&&wr.bottom>0;
+  field.classList.toggle("show",headR.bottom<=70||selfSeen);
   setFreed(total>0&&popped>=total);
   if(isDesk.matches){
     var bedR=bed.getBoundingClientRect(), vh=window.innerHeight;

@@ -34,8 +34,13 @@
   /* --frame is the width the WHOLE painting would have. Every piece takes
      its measured share of it, so the balloon stays the right size next to
      the tower while the composition is free to be portrait. */
-  --frame:152vw;
-  --baseline:70%;        /* where the island's feet sit at rest */
+  /* P-A 2026-08-01: "the top is full of white space... the design is
+     supposed to be cropped higher." Measured before this change: 163px of
+     cream between the nav and the tower on a 390x844 phone. The painting
+     is bigger and its feet sit higher, so the tower starts just under the
+     nav and the sky is a margin rather than a third of the screen. */
+  --frame:172vw;
+  --baseline:62%;        /* where the island's feet sit at rest */
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -214,14 +219,18 @@ body{min-height:100%;overscroll-behavior-y:none;}
   /* faded, but faded ENOUGH: the first third stays light so the boat and
      the water still read through it, then it comes up quickly so the words
      are on paper rather than on a market */
+  /* P-A 2026-08-01: "the buttons are too small and too faded... the text
+     too faded." He asked for small in the round before this one and I went
+     past it, then faded them on top. Bigger type, and the paper comes up
+     sooner and further so the words sit ON something. */
   background:linear-gradient(180deg,transparent 0%,
-    color-mix(in srgb,var(--bg) 22%,transparent) 12%,
-    color-mix(in srgb,var(--bg) 60%,transparent) 30%,
-    color-mix(in srgb,var(--bg) 82%,transparent) 50%,
-    color-mix(in srgb,var(--bg) 90%,transparent) 72%,
-    color-mix(in srgb,var(--bg) 92%,transparent) 100%);}
+    color-mix(in srgb,var(--bg) 40%,transparent) 10%,
+    color-mix(in srgb,var(--bg) 78%,transparent) 26%,
+    color-mix(in srgb,var(--bg) 92%,transparent) 44%,
+    color-mix(in srgb,var(--bg) 96%,transparent) 68%,
+    color-mix(in srgb,var(--bg) 97%,transparent) 100%);}
 .arrived .ways{opacity:1;transform:none;pointer-events:auto;}
-.ways__q{margin:0 0 6px;font-size:1.05rem;line-height:1.28;color:var(--ink);
+.ways__q{margin:0 0 8px;font-size:1.2rem;line-height:1.28;color:var(--ink);
   font-family:var(--display);font-weight:300;
   text-shadow:0 1px 2px var(--bg),0 0 10px var(--bg),0 0 20px var(--bg);}
 .ways__q b{font-weight:700;color:var(--gold);}
@@ -232,10 +241,10 @@ body{min-height:100%;overscroll-behavior-y:none;}
 .way:last-of-type{border-bottom:0;}
 .way__t{flex:1;min-width:0;}
 .way__n{display:block;font-family:var(--display);font-weight:700;
-  font-size:1rem;line-height:1.18;color:var(--rc);
+  font-size:1.14rem;line-height:1.18;color:var(--rc);
   text-shadow:0 1px 2px var(--bg),0 0 8px var(--bg);}
-.way__s{display:block;margin-top:2px;font-size:.76rem;line-height:1.28;
-  letter-spacing:.02em;color:var(--ink-soft);
+.way__s{display:block;margin-top:2px;font-size:.84rem;line-height:1.3;
+  letter-spacing:.02em;color:color-mix(in srgb,var(--ink) 74%,var(--ink-soft));
   text-shadow:0 1px 2px var(--bg),0 0 7px var(--bg);}
 .way__a{flex:none;font-size:1.15rem;line-height:1;color:var(--rc);}
 

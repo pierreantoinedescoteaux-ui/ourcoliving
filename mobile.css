@@ -103,7 +103,13 @@
 
   /* ---- round 1b: reading-size floors (max() can only grow, never shrink) ---- */
   html.m-themes main a { font-size: max(16px, 1em) !important; }
-  html.m-about a { font-size: max(16px, 1em) !important; }
+  /* NOT the injected pill. This rule exists for reading links inside the
+     prose, but `a` also catches site-nav.js's "back to the tower" pill, and
+     !important beat the shared rule — so about.html rendered its pill at
+     18px while every other page rendered 12px. That is the "odd random
+     size" P-A saw, 2026-08-01. Any future blanket `a` rule needs the same
+     exclusion. */
+  html.m-about a:not(.wback) { font-size: max(16px, 1em) !important; }
   html.m-work b { font-size: max(15px, 1em) !important; }
   html.m-map b { font-size: max(15px, 1em) !important; }
   html.m-type .pl, html.m-type .lab, html.m-type .tip { font-size: 12px !important; }
