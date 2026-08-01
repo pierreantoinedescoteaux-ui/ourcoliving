@@ -85,9 +85,19 @@ a{color:inherit;text-decoration:none}
 .stagenote a:hover{color:var(--ink)}
 @media(max-width:900px){.stageprompt,.stagenote{display:none}}
 
-/* spark title — STICKY, and HEIGHT 0 so it reserves no gap between the
-   section heading and the thoughts. Appears the moment the heading
-   scrolls away (.show), not on first pop. */
+/* spark title — the question the thoughts answer, so it HOLDS at the top
+   while they are still opening. Height 0 so it reserves no gap between the
+   section heading and the thoughts. Appears the moment the heading scrolls
+   away (.show), not on first pop.
+
+   It carries its own paper halo (::before) because a held element sits over
+   a moving column: without the halo the thoughts collide with it, which is
+   exactly what P-A caught. The halo is a soft radial, never a rectangle —
+   the page's own paper, dissolving at the edges.
+
+   RELEASE: once every thought is open the question has been answered, so it
+   stops holding and travels with the composition (.field.freed). The JS
+   pins it to the spot it already occupies, so nothing jumps. */
 .whatif{position:sticky;top:calc(var(--navh,56px) + 28px);z-index:15;pointer-events:none;display:block;text-align:center;
   height:0;overflow:visible;
   font-family:var(--serif);font-style:italic;font-weight:300;
@@ -95,7 +105,16 @@ a{color:inherit;text-decoration:none}
   margin:0 auto;opacity:0;transform:translateY(14px) scale(.94);
   transition:opacity .9s cubic-bezier(.34,1.56,.64,1),transform .9s cubic-bezier(.34,1.56,.64,1);
   text-shadow:0 2px 30px rgba(246,242,231,.9)}
+.whatif::before{content:"";position:absolute;left:50%;top:.42em;z-index:-1;pointer-events:none;
+  width:min(128vw,1180px);height:3.4em;transform:translate(-50%,-50%);
+  background:radial-gradient(58% 62% at 50% 50%,
+    var(--paper) 0%, rgba(246,242,231,.94) 38%, rgba(246,242,231,.62) 62%, rgba(246,242,231,0) 82%);
+  opacity:0;transition:opacity .9s ease}
+.field.show .whatif::before{opacity:1}
 .field.show .whatif{opacity:1;transform:none}
+/* freed: it leaves the top and rides with the thoughts, at the distance it
+   already had. Absolute inside .field, which is position:relative. */
+.field.freed .whatif{position:absolute;top:var(--freed-y,0px);left:0;right:0}
 .whatif .star{position:absolute;font-style:normal;color:var(--gold);opacity:0;pointer-events:none;font-size:.35em}
 .field.show .whatif .star{animation:spark 1.4s ease forwards}
 .whatif .star:nth-child(1){left:12%;top:-30%;animation-delay:.15s!important}
@@ -126,12 +145,21 @@ a{color:inherit;text-decoration:none}
 /* painted stage: the gray field is always there; the blooming field fades
    in as thoughts are illuminated (--p = popped fraction). A cream veil
    keeps the bubbles readable on top of the painting. */
-.fieldbg{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;border-radius:22px}
+/* the painted field is the WORLD, so it runs the full width of the window
+   even though the thoughts stay on their 1240px stage. It breaks out of the
+   pin with a viewport-wide box (safe: html,body already run overflow-x:clip).
+   No radius and no card edge — it dissolves into the paper on all four
+   sides, the way every other painting on this site sits on the page. */
+.fieldbg{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);
+  overflow:hidden;z-index:0;pointer-events:none;border-radius:0}
 .fieldbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .fieldbg .b-gray{opacity:.6}
 .fieldbg .b-bloom{opacity:calc(var(--p,0)*.85);transition:opacity 1.4s ease}
 .fieldbg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(246,242,231,.66) 0%,rgba(246,242,231,.38) 30%,rgba(246,242,231,.42) 78%,rgba(246,242,231,.78) 100%)}
+  background:
+    linear-gradient(90deg,var(--paper) 0%,rgba(246,242,231,.55) 4%,rgba(246,242,231,0) 13%,
+      rgba(246,242,231,0) 87%,rgba(246,242,231,.55) 96%,var(--paper) 100%),
+    linear-gradient(180deg,rgba(246,242,231,.66) 0%,rgba(246,242,231,.38) 30%,rgba(246,242,231,.42) 78%,rgba(246,242,231,.78) 100%)}
 @media(max-width:900px){.fieldbg{display:none}}
 /* vine segments: one curvy path per consecutive bubble pair, drawn only
    when BOTH ends are popped; geometry follows the live (sticky) bubbles */
@@ -242,6 +270,17 @@ a{color:inherit;text-decoration:none}
   .bub{position:static;width:min(340px,88vw)}
   .bband:nth-of-type(odd) .bub{align-self:flex-start;margin-left:2vw}
   .bband:nth-of-type(even) .bub{align-self:flex-end;margin-right:2vw}
+  /* THE PHONE NEVER HOLDS THE QUESTION.
+     On desktop the What if can hold at the top because the stage is pinned
+     behind it and the scatter keeps a zone clear. A phone has no pinned
+     stage — the thoughts are a flowing column — so holding it means the
+     column runs straight through the letters, which is what P-A caught.
+     Here it is an ordinary heading: it sits above the thoughts, on their
+     layer, at a fixed distance, and travels with them. */
+  .whatif{position:relative;top:auto;height:auto;overflow:visible;
+    font-size:clamp(2.1rem,10vw,3.1rem);margin:6px auto 2px}
+  .whatif::before{width:132vw;height:2.9em;top:50%}
+  .field.freed .whatif{position:relative;top:auto}
 }
 
 /* ---------- VILLAGE SCENE ---------- */
@@ -287,12 +326,33 @@ a{color:inherit;text-decoration:none}
 .scene .st.on .f{opacity:1}
 @media(max-width:900px){
   .scenewrap{height:420vh}
-  .corow{flex-direction:column;justify-content:center;gap:8px}
+  .corow{flex-direction:column;justify-content:flex-start;gap:8px}
   .poss{flex:none;width:100%;max-width:500px}
   .poss li{padding:7px 0;font-size:1rem}
   .cohead .lede{display:none}
   .scene{flex:none;width:100%}
   .scene svg{max-height:46vh}
+  /* THE VOID UNDER THE HEADING, measured: five list items sitting at
+     opacity 0 reserved 224px between "A village within reach" and the
+     island, for the first couple of screens of scroll — a heading, a hole,
+     and a small island. On a phone the island comes first and the lines
+     grow in UNDER it, out of space that was empty anyway. The pin packs
+     from the top so nothing above ever moves as they arrive. */
+  .scenepin{justify-content:flex-start;padding-top:4px;padding-bottom:10px}
+  .scene{order:-1}
+  .poss li{max-height:0;padding:0;overflow:hidden;border-bottom-color:transparent;
+    transition:max-height .55s ease,padding .55s ease,opacity .8s ease,transform .8s ease}
+  .poss li.litp{max-height:120px;padding:7px 0;border-bottom-color:var(--line)}
+  .poss .finale{margin-top:10px}
+  /* and the island takes whatever the lines are not using, so the screen is
+     never a heading with a speck on it. contain, so the painting keeps its
+     whole shape and the growth film stays registered with its poster. */
+  .corow{flex:1;min-height:0}
+  .poss{flex:0 0 auto}
+  .scene{flex:1 1 auto;min-height:0;position:relative}
+  .scene .vwrap{position:absolute;inset:0;display:block}
+  .scene .vwrap img,.scene .vwrap video{position:absolute;inset:0;
+    width:100%;height:100%;max-height:none;object-fit:contain}
 }
 
 /* ---------- CLOSE (bright) ---------- */
@@ -603,6 +663,7 @@ function pop(bub){
   popped++;
   field.style.setProperty("--p",(popped/total).toFixed(2));
   if(popped===1) field.classList.add("lit");
+  if(typeof setFreed==="function") setFreed(popped>=total);
   if(typeof refreshSegTargets==="function") refreshSegTargets();
 }
 function unpop(bub){
@@ -612,6 +673,7 @@ function unpop(bub){
   bub.querySelector(".gray").setAttribute("aria-expanded","false");
   popped--;
   field.style.setProperty("--p",(popped/total).toFixed(2));
+  if(typeof setFreed==="function") setFreed(popped>=total);
   refreshSegTargets();
 }
 var bubs=Array.prototype.slice.call(bed.querySelectorAll(".bub"));
@@ -629,10 +691,31 @@ bubs.forEach(function(bub){
    the whole time its window is active. Clicking any thought opens it early;
    un-popped-by-hand thoughts (data-manual) are left alone. */
 var isDesk=window.matchMedia("(min-width:901px)");
+
+/* ---- releasing the question ----------------------------------------
+   While thoughts are still opening the What if holds at the top: it is
+   what they are answering. The moment the last one opens it stops holding
+   and rides with the composition, at the distance it already had.
+
+   The handover has to be invisible, so the spot it is freed at is the spot
+   it is already occupying: measured while it is still held, written to
+   --freed-y, and only then does the class change. Un-open a thought and it
+   goes back to holding. */
+var whatifEl=document.getElementById("whatif");
+function setFreed(on){
+  if(on===field.classList.contains("freed")) return;
+  if(on){
+    var wr=whatifEl.getBoundingClientRect(), fr=field.getBoundingClientRect();
+    field.style.setProperty("--freed-y",(wr.top-fr.top).toFixed(1)+"px");
+  }
+  field.classList.toggle("freed",on);
+}
+
 function dockPops(){
   /* the What if takes over the instant the section heading scrolls away */
   var headR=field.querySelector(".head").getBoundingClientRect();
   field.classList.toggle("show",headR.bottom<=70);
+  setFreed(total>0&&popped>=total);
   if(isDesk.matches){
     var bedR=bed.getBoundingClientRect(), vh=window.innerHeight;
     var p=Math.min(1,Math.max(0,(-bedR.top)/(bedR.height-vh)));
