@@ -71,6 +71,21 @@
   html.lv3-map #world .sw-stage .sw-scene:first-child{background:#F1DBC0;}
 }
 
+/* P-A 2026-08-01: "the padding is still odd on mobile, it's very tight at
+   the top." Measured: the phone encode's cover fit is height-exact, so the
+   whole painting IS on screen — the nav is simply sitting on its top 81px,
+   which is the peak of the tower. Moving the artwork would move the copy
+   block and the scene seams with it, so instead the nav gives the painting
+   its 68px back while you are standing on the map, and takes it again the
+   moment you start to climb. Nothing geometric changes. */
+@media (max-width:860px){
+  html.lv3-map .snav{background:transparent;box-shadow:none;backdrop-filter:none;
+    transition:background .3s ease,box-shadow .3s ease;}
+  html.lv3-map .snav .brand,html.lv3-map .snav .mbtn{
+    text-shadow:0 1px 2px #F1DBC0,0 0 10px #F1DBC0,0 0 20px #F1DBC0;}
+  html.lv3-map .snav .mbtn{background:rgba(253,250,240,.72);}
+}
+
 /* ---------------------------------------------------------------------
    MAP MODE
    --------------------------------------------------------------------- */
