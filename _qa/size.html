@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What size is this screen?</title>
+<style>
+  html,body{margin:0;height:100%;background:#f6f2e7;color:#22301f;
+    font-family:system-ui,sans-serif;display:grid;place-items:center;text-align:center}
+  .n{font-size:clamp(2rem,7vw,7rem);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+  .l{font-size:clamp(.9rem,1.6vw,1.6rem);opacity:.65;margin-top:.4em;letter-spacing:.08em;text-transform:uppercase}
+  .r{margin-top:2.2em;font-size:clamp(.9rem,1.4vw,1.4rem);opacity:.8;line-height:1.9}
+  b{font-variant-numeric:tabular-nums}
+  button{margin-top:1.6em;font:inherit;font-size:clamp(.9rem,1.3vw,1.3rem);
+    padding:.7em 1.4em;border-radius:99px;border:1.5px solid rgba(34,48,31,.3);
+    background:#fffdf8;cursor:pointer}
+</style>
+<div>
+  <div class="n" id="n">…</div>
+  <div class="l">the size your browser is actually drawing at</div>
+  <div class="r">
+    screen: <b id="s"></b><br>
+    pixel ratio: <b id="d"></b> &middot; browser zoom: <b id="z"></b><br>
+    one rem is <b id="r"></b>
+  </div>
+  <button id="c">Copy this</button>
+</div>
+<script>
+function read(){
+  var w=window.innerWidth,h=window.innerHeight,dpr=window.devicePixelRatio||1;
+  document.getElementById('n').textContent=w+' × '+h;
+  document.getElementById('s').textContent=screen.width+' × '+screen.height;
+  document.getElementById('d').textContent=dpr;
+  document.getElementById('z').textContent=Math.round(dpr*100)/100*100+'%';
+  document.getElementById('r').textContent=
+    getComputedStyle(document.documentElement).fontSize;
+  window.__size=w+'x'+h+' dpr'+dpr+' screen'+screen.width+'x'+screen.height;
+}
+read(); window.addEventListener('resize',read);
+document.getElementById('c').onclick=function(){
+  navigator.clipboard.writeText(window.__size).then(function(){
+    document.getElementById('c').textContent='Copied — paste it in the chat';
+  });
+};
+</script>

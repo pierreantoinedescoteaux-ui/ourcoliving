@@ -153,17 +153,52 @@ a{color:inherit;text-decoration:none}
   .field .head{position:sticky;top:calc(var(--navh,56px) + 16px);z-index:16;
     display:grid;isolation:isolate}
   /* the thoughts climb UP to meet the heading (his up-arrow): the stage no
-     longer starts a screen below it, it starts directly under it and takes
-     the rest of the window. So all ten thoughts are on screen the moment you
-     arrive, instead of four of them hanging off the bottom edge.
+     longer starts a screen below it, it starts directly under it. So all ten
+     thoughts are on screen the moment you arrive, instead of four of them
+     hanging off the bottom edge. --headh is measured, never assumed.
 
-     Why an offset and not a negative margin: the scatter's own top row sits
-     at 27% of the stage, which cleared the old one-line What if but not a
-     heading with a three-line paragraph under it — on a laptop they landed
-     on each other. Giving the stage the leftover height instead of the whole
-     window keeps every percentage in the scatter honest at any screen size.
-     --headh is measured, never assumed. */
-  .field .fieldpin{top:var(--headh,300px);height:calc(100vh - var(--headh,300px))}
+     THE STAGE KEEPS ITS SHAPE, 2026-08-01. This is the bug that has come
+     back for weeks. The stage's width was frozen at 1240px while its height
+     was whatever the window had left, so the SAME scatter was drawn into a
+     1240x514 letterbox on a short laptop and a 1240x1852 portrait on a 4K
+     screen. Measured: the vertical gap between rows of thoughts ran 37px on
+     the laptop and 339px on the 4K — oceans of space on big screens,
+     collisions on short ones, and no amount of tuning fixes both because
+     they are the same numbers.
+
+     So the stage is now a FIXED SHAPE that grows and shrinks whole: it takes
+     the largest 16:9 box that fits the room it has, and everything inside it
+     is sized as a fraction of that box (see the container query below).
+     The composition is now similar at every screen size instead of stretched.
+
+     container-type here is deliberate and is NOT the page-shell use the
+     desktop rulebook bans: the scatter is a component with its own frame,
+     and cqw is the only honest way to say "this card is a fifth of the
+     stage" without a JS resize listener, which the same rulebook also bans. */
+  .field .fieldpin{top:var(--headh,300px);max-width:none;height:auto;
+    width:min(92vw, calc((100vh - var(--headh,300px)) * 16 / 9), 2400px);
+    aspect-ratio:16 / 9;container-type:inline-size}
+  .field .bub{width:clamp(150px,19cqw,470px)}
+  /* the floors are deliberately low: they are what stops a card shrinking
+     with the stage, and a card that stops shrinking starts colliding. They
+     only bite below a stage about 1000px wide, i.e. a window under ~820px
+     tall, where small is the honest answer. */
+  .field .bub .gray{font-size:clamp(.74rem,1.4cqw,1.95rem);
+    min-height:clamp(54px,7.2cqw,190px);
+    padding:clamp(7px,1.15cqw,26px) clamp(9px,1.35cqw,30px)}
+  /* the open card's minimum height was the whole collision. At rest the
+     village line and the "go deeper" link are collapsed (they open on
+     hover), so this floor — not the words — is what set the card's size,
+     and it did not shrink with the stage. */
+  .field .bub .cardp{min-height:clamp(56px,6.6cqw,190px);
+    padding:clamp(7px,1.05cqw,24px)}
+  .field .bub .flip{font-size:clamp(.76rem,1.35cqw,1.85rem)}
+  .field .bub .vil{font-size:clamp(.64rem,1.02cqw,1.45rem)}
+  .field .bub .deep{font-size:clamp(.54rem,.85cqw,1.2rem)}
+  /* NOTE: the two height media queries deleted above also styled `.cardp .im`
+     and `.cardp .vrow`. Neither element exists — the card is built in JS as
+     .cardp > img.cardbg + .cardfront > (.flip, .vil, .deep). They were dead
+     rules from an older card, carried through every round since. */
   .field .head .hstate{grid-area:1/1;
     transition:opacity .8s ease,transform .8s cubic-bezier(.34,1.4,.64,1)}
   .field .head .hs-ask{opacity:0;transform:translateY(12px) scale(.985);pointer-events:none}
@@ -173,8 +208,8 @@ a{color:inherit;text-decoration:none}
   /* sized to the WORDS (the lede is 52ch, ~620px), not to the old one-line
      What if halo: at 1180px it reached the outer thought spots and bleached
      the one at the right edge. */
-  .field .head::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;
-    pointer-events:none;width:min(72vw,800px);height:185%;
+  .field .head::before{content:"";position:absolute;left:50%;top:50%;z-index:-2;
+    pointer-events:none;width:min(72vw,52vh + 640px);height:185%;
     transform:translate(-50%,-50%);
     background:radial-gradient(56% 58% at 50% 50%,
       var(--paper) 0%, rgba(246,242,231,.93) 40%, rgba(246,242,231,.6) 64%,
@@ -182,16 +217,38 @@ a{color:inherit;text-decoration:none}
   /* the light. His ask: "a halo around it kinda radiating a little bit,
      like a tiny sun". Slow, wide and warm — it must never become a spotlight,
      so it lives behind the paper and only breathes. */
-  .field .head::after{content:"";position:absolute;left:50%;top:48%;z-index:-2;
-    pointer-events:none;width:min(88vw,820px);aspect-ratio:1;border-radius:50%;
+  /* THE LIGHT SITS ON THE PAPER, NOT UNDER IT (2026-08-01). It was at -2 and
+     the paper halo at -1, so the paper's own opaque cream centre swallowed
+     it and P-A reported seeing no halo at all. The order is now reversed:
+     the paper keeps the words readable, the light lies over it and warms it.
+     It is also sized off the window rather than a fixed 820px cap, which on
+     a 4K screen was a small blob in the middle of a very large painting. */
+  .field .head::after{content:"";position:absolute;left:50%;top:46%;z-index:-1;
+    pointer-events:none;width:min(96vw,58vh + 700px);aspect-ratio:1;border-radius:50%;
     transform:translate(-50%,-50%) scale(.9);opacity:0;
-    transition:opacity 1.4s ease;
+    transition:opacity 1.4s ease;mix-blend-mode:multiply;
     background:radial-gradient(circle,
-      rgba(247,201,72,.34) 0%, rgba(240,183,60,.18) 30%,
-      rgba(240,183,60,.07) 52%, rgba(240,183,60,0) 70%)}
+      rgba(255,214,110,.62) 0%, rgba(249,196,80,.40) 26%,
+      rgba(240,183,60,.18) 46%, rgba(240,183,60,.05) 64%,
+      rgba(240,183,60,0) 76%)}
   .field.asking .head::after{opacity:1;animation:sunbreath 7.5s ease-in-out infinite}
+  /* TYPE THAT ACTUALLY GROWS, 2026-08-01. Measured: at 3840x2160 every size
+     on this section was IDENTICAL to a 1512x950 laptop — title 58px, lede
+     18px, credit 11px — because every clamp caps below 1512. On a screen
+     2.5x wider that reads as tiny words in an ocean of paint, which is
+     exactly what P-A saw.
+
+     The preferred value mixes vw AND vh on purpose. Width alone would blow
+     the heading up on a short wide window and steal the room the thoughts
+     need; the pair grows on a big screen and stays modest on a shallow one. */
+  .field h2.status{font-size:clamp(3rem,2.6vw + 2.8vh,9.5rem)}
+  .field .head .lede{font-size:clamp(1.1rem,.8vw + .95vh,3.2rem);line-height:1.5}
+  /* these two were still frozen on their 12px floor all the way to 2560px —
+     caught by the growth test, which is the whole reason it exists */
+  .field .head .eyebrow{font-size:clamp(.75rem,.44vw + .5vh,1.8rem)}
+  .stagenote{font-size:clamp(.78rem,.46vw + .52vh,1.6rem);max-width:min(34ch,26vw)}
   .field h2.askt{font-family:var(--serif);font-style:italic;font-weight:300;
-    font-size:clamp(2.2rem,5.4vw,4.4rem);line-height:1.02;letter-spacing:-.02em;
+    font-size:clamp(3.4rem,3.1vw + 3.2vh,11rem);line-height:1.02;letter-spacing:-.02em;
     color:var(--gold-deep);margin:10px auto 14px;
     text-shadow:0 2px 30px rgba(246,242,231,.9)}
   .field.asking h2.askt{animation:askglow 7.5s ease-in-out infinite}
@@ -330,32 +387,16 @@ a{color:inherit;text-decoration:none}
 
 /* laptop screens (short viewports): everything on the stage shrinks so the
    scatter never stacks — the #1 resize complaint */
-@media(min-width:901px) and (max-height:880px){
-  .bub{width:min(216px,20vw)}
-  .bub .gray{min-height:94px;padding:14px 16px;font-size:.94rem}
-  .bub .cardp{padding:13px 14px 12px}
-  .cardp .flip{font-size:1.04rem}
-  .cardp .im,.cardp .im img{flex-basis:62px;width:62px;height:62px}
-  .cardp .vil{font-size:.82rem}
-  .cardp .deep{font-size:.6rem;margin-top:6px}
-  .whatif{font-size:clamp(2rem,4.6vw,3.6rem)}
-  .stageprompt{font-size:.92rem}
-  .stagenote{font-size:.62rem;max-width:250px}
-}
-/* very short viewports (small laptops w/ browser chrome): shrink harder */
-@media(min-width:901px) and (max-height:700px){
-  .bub{width:min(184px,18vw)}
-  .bub .gray{min-height:76px;padding:11px 13px;font-size:.84rem;line-height:1.32}
-  .bub .cardp{padding:10px 11px 9px}
-  .cardp .flip{font-size:.92rem}
-  .cardp .vrow{margin-top:6px}
-  .cardp .im,.cardp .im img{flex-basis:50px;width:50px;height:50px}
-  .cardp .vil{font-size:.72rem}
-  .cardp .deep{font-size:.54rem;margin-top:4px}
-  .whatif{font-size:clamp(1.7rem,4vw,2.8rem)}
-  .stageprompt{font-size:.82rem}
-  .stagenote{font-size:.56rem;max-width:210px;bottom:8px}
-}
+/* DELETED 2026-08-01: two height media queries (<=880px and <=700px tall)
+   that hard-shrank the cards, their pictures and the credit line. They were
+   the previous two attempts at this same complaint, and they were part of
+   the problem, not the fix: they pinned card text to fixed rem sizes and the
+   credit to .62rem/.56rem, so on a 1873x822 window the credit rendered at
+   9.9px no matter what any later rule asked for, and on 4K nothing grew at
+   all. Everything inside the stage is now a fraction of the stage, which
+   handles a short window and a 4K screen with the same numbers — see "THE
+   STAGE KEEPS ITS SHAPE" above. This is the height-media-query the desktop
+   rulebook says not to add back without evidence. */
 
 @media(max-width:900px){
   /* mobile: the original static column — bubbles flow, pop near the top */
@@ -715,10 +756,17 @@ var field=document.getElementById("field");
 /* stage scatter — randomized-looking spread over the full stage, clear of
    the What if zone (top ~25%). Right-column spots use `xr` (distance from
    the RIGHT edge) so the outermost padding is symmetric on any screen. */
+/* 2026-08-01 — the three rows were at 27/53/74% with the last one starting
+   at 77%. An OPEN card is 18% of the stage tall on a 4K screen but 28% on a
+   short laptop (its picture and its type have pixel floors, so it stops
+   shrinking before the stage does), and at 28% it walks straight into the
+   row below: measured 8 overlapping pairs at 1873x822. The rows now start
+   higher and spread wider, which costs nothing on a big screen and buys the
+   whole difference on a short one. Same scatter, same character. */
 var SPOTS=[
-  {x:4,y:28},{x:29,y:34},{x:56,y:27},{xr:4,y:31},
-  {x:14,y:53},{x:41,y:57},{xr:13,y:54},
-  {x:4,y:74},{x:35,y:77},{xr:8,y:74}
+  {x:4,y:13},{x:29,y:16},{x:56,y:12},{xr:4,y:15},
+  {x:14,y:42},{x:41,y:45},{xr:13,y:43},
+  {x:4,y:70},{x:35,y:73},{xr:8,y:70}
 ];
 pin.insertAdjacentHTML("beforeend",MANIFESTO.stories.map(function(s,i){
   var t=TONES[s.tone%TONES.length];
@@ -773,6 +821,9 @@ function pop(bub){
   field.style.setProperty("--p",(popped/total).toFixed(2));
   if(popped===1) field.classList.add("lit");
   if(typeof setFreed==="function") setFreed(popped>=total);
+  /* the question answers to the thoughts, so it must update on a CLICK too —
+     dockPops only runs on scroll, and opening one by hand is not a scroll */
+  if(isDesk.matches) field.classList.toggle("asking",popped>=1);
   if(typeof refreshSegTargets==="function") refreshSegTargets();
 }
 function unpop(bub){
@@ -783,6 +834,9 @@ function unpop(bub){
   popped--;
   field.style.setProperty("--p",(popped/total).toFixed(2));
   if(typeof setFreed==="function") setFreed(popped>=total);
+  /* the question answers to the thoughts, so it must update on a CLICK too —
+     dockPops only runs on scroll, and opening one by hand is not a scroll */
+  if(isDesk.matches) field.classList.toggle("asking",popped>=1);
   refreshSegTargets();
 }
 /* how much room the heading takes at the top, measured rather than guessed:
@@ -848,14 +902,13 @@ function dockPops(){
   var wr=whatifEl?whatifEl.getBoundingClientRect():null;
   var selfSeen=!!wr&&wr.top<window.innerHeight*0.92&&wr.bottom>0;
   field.classList.toggle("show",headR.bottom<=70||selfSeen);
-  /* the words change their mind. "A little bit of scrolling. Not nothing and
-     not too much." — P-A, 2026-08-01. Just under half a screen into the
-     section, and it changes back if you go up again. Wide screens only: the
-     phone keeps the design he signed off in round 7. */
-  if(isDesk.matches){
-    var into=-field.getBoundingClientRect().top;
-    field.classList.toggle("asking",into>window.innerHeight*0.42);
-  }
+  /* the words change their mind — WITH THE FIRST THOUGHT, not on a scroll
+     distance. P-A, 2026-08-01: "I would like the what if to happen to pop
+     only at the same time as the first bubble pops." A distance was arbitrary
+     and arrived long before anything had happened; now the question turns up
+     the moment the page gives its first answer, and goes back if you close
+     it. Wide screens only: the phone keeps the round-7 design. */
+  if(isDesk.matches) field.classList.toggle("asking",popped>=1);
   setFreed(total>0&&popped>=total);
   if(isDesk.matches){
     var bedR=bed.getBoundingClientRect(), vh=window.innerHeight;

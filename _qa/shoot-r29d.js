@@ -25,7 +25,10 @@ const ok = (l, c, d) => { if (!c) fails++; console.log((c ? '  ok   ' : '  FAIL 
 
     const armed = await page.evaluate(() => {
       const el = document.getElementById('balloon');
-      return !!(el && el.dataset.wfxBalloon === '1' && el.getAttribute('role') === 'button');
+      if (!el) return false;
+      const r = el.getBoundingClientRect();
+      return el.dataset.wfxBalloon === '1' && el.getAttribute('role') === 'button' &&
+        r.width > 0 && r.height > 0;
     });
     ok(`${vp.tag}: the balloon is something you can click`, armed);
 
@@ -43,12 +46,17 @@ const ok = (l, c, d) => { if (!c) fails++; console.log((c ? '  ok   ' : '  FAIL 
       const w = document.querySelector('.wfx-pcwrap');
       if (!w) return null;
       const pc = w.querySelector('.wfx-pc');
+      if (!pc) return null;
       const r = pc.getBoundingClientRect();
       const txt = pc.textContent;
+      const stampImg = pc.querySelector('.wfx-stamp img');
+      const stampR = stampImg ? stampImg.getBoundingClientRect() : null;
       return {
-        onScreen: r.left >= 0 && r.right <= innerWidth + 1 && r.top >= 0 && r.bottom <= innerHeight + 1,
+        open: r.width > 0 && r.height > 0,
+        onScreen: r.width > 0 && r.height > 0 &&
+                  r.left >= 0 && r.right <= innerWidth + 1 && r.top >= 0 && r.bottom <= innerHeight + 1,
         w: Math.round(r.width),
-        hasStamp: !!pc.querySelector('.wfx-stamp img'),
+        hasStamp: !!(stampImg && stampR && stampR.width > 0 && stampR.height > 0 && stampImg.naturalWidth > 0),
         mailto: (pc.querySelector('.wfx-go') || {}).href || '',
         emDash: /—/.test(txt),
         /* he chose: no street address published */
@@ -57,7 +65,7 @@ const ok = (l, c, d) => { if (!c) fails++; console.log((c ? '  ok   ' : '  FAIL 
         closeH: Math.round((pc.querySelector('.wfx-x') || { getBoundingClientRect: () => ({ height: 0 }) }).getBoundingClientRect().height)
       };
     });
-    ok(`${vp.tag}: the postcard opens`, !!card);
+    ok(`${vp.tag}: the postcard opens`, !!card && card.open);
     if (card) {
       ok(`${vp.tag}: it fits on the screen`, card.onScreen, `${card.w}px wide`);
       ok(`${vp.tag}: it carries the painted balloon as its stamp`, card.hasStamp);

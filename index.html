@@ -712,8 +712,12 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   .lv3s{display:none;}
   .lv3-labels,.lv3fx,.lv3lines,.lv3-plain,.lv3-legend{display:none;}
   /* the desktop tour invitation is dead weight here: the doors already give
-     the visitor three answers to the same gesture */
-  #lv3invite{display:none !important;}
+     the visitor three answers to the same gesture — EXCEPT while
+     walkThroughDoor() is running it silently (.is-silent), which is the
+     phone's own door-swing animation. Hiding it unconditionally meant the
+     walkthrough ran on a 0x0 element and nothing ever drew (bug found
+     2026-08-01: "the door animation isn't even visible on mobile"). */
+  #lv3invite:not(.is-silent){display:none !important;}
   .on-wide{display:none;} .on-phone{display:inline;}
   .lv3{overflow:hidden;}
 

@@ -70,6 +70,7 @@ const CROP0 = 656 / 1920, CROPW = 608 / 1920;
       /* object-position places the overflow */
       const offX = (r.width - dw) * px, offY = (r.height - dh) * py;
 
+      const mediaVisible = r.width > 0 && r.height > 0;
       const out = {};
       for (const [name, p] of Object.entries(POINTS)) {
         /* source fraction -> phone clip fraction (the clip is a crop) */
@@ -78,7 +79,7 @@ const CROP0 = 656 / 1920, CROPW = 608 / 1920;
         const x = r.left + offX + cx * dw;
         const y = r.top + offY + cy * dh;
         out[name] = { x: Math.round(x), y: Math.round(y),
-          on: x >= 0 && x <= innerWidth && y >= 0 && y <= innerHeight };
+          on: mediaVisible && x >= 0 && x <= innerWidth && y >= 0 && y <= innerHeight };
       }
       /* the words live in the copy LAYER, not inside the scene */
       const copy = document.querySelector('.sw-copy[data-scene="lookout"]');
@@ -102,7 +103,7 @@ const CROP0 = 656 / 1920, CROPW = 608 / 1920;
        the terrace begins around 0.62 of the frame, so the words have to
        finish clear of it */
     ok(`${vp.w}px: the words sit in the sky, not on the terrace`,
-      m.copy && m.copy.b < m.vh * 0.58,
+      m.copy && (m.copy.b - m.copy.t) > 0 && m.copy.b < m.vh * 0.58,
       m.copy ? `copy ${m.copy.t}..${m.copy.b} of ${m.vh}` : 'no copy block');
     ok(`${vp.w}px: sky above the words too`, m.copy && m.copy.t > 40,
       m.copy ? `starts at ${m.copy.t}` : '');

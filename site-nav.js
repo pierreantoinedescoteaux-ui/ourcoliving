@@ -308,12 +308,22 @@
 ".wband .wmedia{position:absolute;inset:-7% -3%;will-change:transform;transition:transform .25s ease-out}" +
 ".wband .wmedia img,.wband .wmedia video{width:100%;height:100%;object-fit:cover;object-position:50% 30%}" +
 ".wband .wveil{position:absolute;inset:0;pointer-events:none}" +
-".wbandwrap .wback{position:absolute;left:clamp(20px,5vw,88px);top:14px;z-index:60;display:inline-flex;align-items:center;gap:8px;" +
+/* FIXED, not absolute: the old absolute-inside-a-zero-height-wrapper
+   positioning put the pill's containing block at height:0, so the instant
+   the page scrolled at all the pill rode up with the document and slid
+   UNDER the sticky nav (nav is position:sticky;top:0;z-index:1000 — not
+   touched here). Fixed pins it to the viewport, offset by the nav's REAL
+   measured height (--navh, synced in mountWorld below) so it always sits
+   just clear of the nav, at rest and at any scroll position, same size on
+   every doorway page. It retires (.wgone, added by syncPill in mountWorld)
+   once its own band has scrolled fully past, instead of hovering forever. */
+".wbandwrap .wback{position:fixed;left:clamp(20px,5vw,88px);top:calc(var(--navh,64px) + 14px);z-index:60;display:inline-flex;align-items:center;gap:8px;" +
   "font-family:'Switzer',system-ui,sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;" +
   "color:var(--scene-accent,#3c6b32);background:rgba(255,253,248,.88);backdrop-filter:blur(6px);" +
   "padding:8px 15px;border-radius:99px;text-decoration:none;box-shadow:0 10px 26px -14px rgba(34,48,31,.5);" +
-  "transition:background .3s,color .3s,transform .3s}" +
+  "transition:background .3s,color .3s,transform .3s,opacity .3s,visibility .3s}" +
 ".wbandwrap .wback:hover{background:var(--scene-accent,#3c6b32);color:#fffdf8;transform:translateY(-2px)}" +
+".wbandwrap .wback.wgone{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-6px)}" +
 /* words sitting on a painting need the page's own paper behind them, not a
    plate. .wonart is stamped on whatever actually overlaps the band, so the
    halo only exists where there is art to be read against; on cream it is
@@ -324,7 +334,7 @@
    thirteen pages — 97% on about.html, the one P-A called out. The arrow and
    the painting already say where it goes. */
 "@media(max-width:640px){.wband{--wbh:clamp(260px,40vh,360px)}" +
-  ".wbandwrap .wback{font-size:.75rem;letter-spacing:.1em;padding:0 16px;min-height:44px;left:12px;top:10px}" +
+  ".wbandwrap .wback{font-size:.75rem;letter-spacing:.1em;padding:0 16px;min-height:44px;left:12px;top:calc(var(--navh,56px) + 10px)}" +
   ".wbandwrap .wback .wbrest{display:none}}" +
 ".wgrain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.34;mix-blend-mode:multiply;" +
   "background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E\")}";
@@ -377,6 +387,36 @@
         '<span class="wbrest"> · back to the tower</span></a>';
     nav.parentNode.insertBefore(wrap, nav.nextSibling);
     var band = wrap.querySelector(".wband");
+    var pill = wrap.querySelector(".wback");
+
+    /* ---- pill placement + retirement --------------------------------
+       --navh holds the nav's REAL measured height (not guessed) so the
+       fixed pill (see WORLD_CSS above) always sits just clear of it,
+       whatever the nav's actual height turns out to be on this browser/
+       screen. Re-measured on resize and a beat after load (webfont
+       reflow can change nav height after first paint). The nav itself is
+       untouched — this only reads it. */
+    function syncNavH() {
+      document.documentElement.style.setProperty("--navh", Math.round(nav.getBoundingClientRect().height) + "px");
+    }
+    syncNavH();
+    window.addEventListener("resize", syncNavH);
+    setTimeout(syncNavH, 400);
+    setTimeout(syncNavH, 1200);
+
+    /* the pill is only useful while its own band is still (at least
+       partly) on screen below the nav; once the band has scrolled fully
+       past, it retires instead of hovering forever pinned under the nav. */
+    function syncPill() {
+      pill.classList.toggle("wgone", band.getBoundingClientRect().bottom <= nav.getBoundingClientRect().bottom);
+    }
+    syncPill();
+    var pillRaf = 0;
+    window.addEventListener("scroll", function () {
+      if (pillRaf) return;
+      pillRaf = requestAnimationFrame(function () { pillRaf = 0; syncPill(); });
+    }, { passive: true });
+    window.addEventListener("resize", syncPill);
 
     /* selection color joins the scene */
     var sel = document.createElement("style");
