@@ -11,6 +11,32 @@
 
 @media (max-width: 760px) {
 
+  /* ---- shared: the gutter .wrap promises, restored ----------------
+     Round 3 (2026-08-01). P-A: "the padding on the website is still odd
+     on mobile."  He was right, and it was one bug wearing two names.
+
+     .wrap sets padding-left/right to the page gutter. Several pages then
+     declare a padding SHORTHAND on the same element, AFTER it:
+
+         .head  { padding: clamp(50px,8vh,90px) 0 clamp(10px,2vh,18px) }
+         main.stage { padding: clamp(60px,10vh,120px) 0 }
+
+     The shorthand's `0` wipes left and right, so the heading, the eyebrow
+     and the lede sit flush on the screen edge. Twelve pages did it:
+     projects, resources, detail, inspiration, talkpieces, themes,
+     designers, networks, how-to, community, separation, arts. It hides on
+     desktop only because .wrap is max-width and centred there.
+
+     Fixed here rather than in twelve files so it cannot come back the
+     next time someone writes a padding shorthand. Vertical padding, which
+     is what those rules are actually for, is left alone.
+     Measured by _qa/probe-gutter.js — run it after touching any hero. */
+  main.wrap, header.wrap, section.wrap, div.wrap, article.wrap,
+  .wrap.head, .wrap.stage {
+    padding-left: var(--gutter, 20px);
+    padding-right: var(--gutter, 20px);
+  }
+
   /* ---- shared: micro-label floor (kickers/eyebrows are 8.6-11.2px) ---- */
   .eyebrow, .kicker,
   #eyebrow, #turnKicker, #lensKicker, #waysKicker, #closeKicker,
@@ -37,6 +63,8 @@
   html.m-project .p-kicker,
   html.m-project .t-kicker { font-size: 12px !important; }
   html.m-project .s-label { font-size: 12px !important; }
+  /* the photo caption was 11.5px, under the 12px label floor */
+  html.m-project .hero-cap { font-size: 12px !important; }
   html.m-project .pg-dir { font-size: 12px !important; }
 
   /* ---- why.html ---- */

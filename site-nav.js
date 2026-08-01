@@ -295,7 +295,18 @@
   "padding:8px 15px;border-radius:99px;text-decoration:none;box-shadow:0 10px 26px -14px rgba(34,48,31,.5);" +
   "transition:background .3s,color .3s,transform .3s}" +
 ".wbandwrap .wback:hover{background:var(--scene-accent,#3c6b32);color:#fffdf8;transform:translateY(-2px)}" +
-"@media(max-width:640px){.wband{--wbh:clamp(240px,36vh,320px)}.wbandwrap .wback{font-size:.75rem;letter-spacing:.12em;padding:14px 17px;left:12px;top:10px}}" +
+/* words sitting on a painting need the page's own paper behind them, not a
+   plate. .wonart is stamped on whatever actually overlaps the band, so the
+   halo only exists where there is art to be read against; on cream it is
+   invisible. Measured, not guessed: see _qa/probe-doorways.js. */
+".wonart{text-shadow:0 1px 2px var(--wpaper,#f6f2e7),0 0 10px var(--wpaper,#f6f2e7),0 0 22px var(--wpaper,#f6f2e7)}" +
+/* the phone drops the second half of the pill. It read
+   "↑ THE HOMES · BACK TO THE TOWER" and ate 74-97% of the screen on all
+   thirteen pages — 97% on about.html, the one P-A called out. The arrow and
+   the painting already say where it goes. */
+"@media(max-width:640px){.wband{--wbh:clamp(260px,40vh,360px)}" +
+  ".wbandwrap .wback{font-size:.75rem;letter-spacing:.1em;padding:0 16px;min-height:44px;left:12px;top:10px}" +
+  ".wbandwrap .wback .wbrest{display:none}}" +
 ".wgrain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.34;mix-blend-mode:multiply;" +
   "background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E\")}";
 
@@ -343,7 +354,8 @@
         '<div class="wmedia"><img src="' + sc.img + '" alt="" decoding="async"></div>' +
         '<div class="wveil" style="background:linear-gradient(180deg,rgba(' + bg.join(",") + ',.08) 0%,rgba(' + bg.join(",") + ',.38) 36%,rgba(' + bg.join(",") + ',.56) 64%,rgba(' + bg.join(",") + ',.82) 84%,' + solid + ' 97%)"></div>' +
       '</div>' +
-      '<a class="wback" href="index.html#' + key + '">↑ ' + esc(sc.label) + " · back to the tower</a>";
+      '<a class="wback" href="index.html#' + key + '">↑ ' + esc(sc.label) +
+        '<span class="wbrest"> · back to the tower</span></a>';
     nav.parentNode.insertBefore(wrap, nav.nextSibling);
     var band = wrap.querySelector(".wband");
 
@@ -351,6 +363,39 @@
     var sel = document.createElement("style");
     sel.textContent = "::selection{background:" + sc.accent + ";color:#fffdf8}";
     document.head.appendChild(sel);
+
+    /* ---- the words that land on the painting -----------------------
+       Eleven of the thirteen doorway pages put their own heading inside
+       the band, which is the design: the painting is the hero's
+       background. But resources.html puts green type straight onto a
+       market crowd and it stops being readable.
+
+       Rather than washing the painting out for everyone, the halo goes on
+       the words themselves, and only on the ones actually over art. The
+       glow is the page's own paper, sampled — so on the cream part of the
+       page it is invisible and costs nothing. */
+    document.documentElement.style.setProperty("--wpaper", solid);
+    var HALO = "h1,h2,h3,p,li,.eyebrow,.lede,.kicker,.sub,.wband ~ * .credit";
+    function haloOnArt() {
+      var bb = band.getBoundingClientRect();
+      var docTop = bb.top + (window.scrollY || 0), docBot = bb.bottom + (window.scrollY || 0);
+      document.querySelectorAll(HALO).forEach(function (el) {
+        if (el.closest(".wbandwrap") || el.closest(".snav") || el.closest(".sfooter")) return;
+        var r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        var t = r.top + (window.scrollY || 0), b2 = r.bottom + (window.scrollY || 0);
+        el.classList.toggle("wonart", t < docBot && b2 > docTop);
+      });
+    }
+    haloOnArt();
+    /* the band is a vh clamp, so its height moves with the window */
+    var haloT = 0;
+    window.addEventListener("resize", function () {
+      clearTimeout(haloT); haloT = setTimeout(haloOnArt, 160);
+    });
+    /* late content (data-driven pages render after mount) */
+    setTimeout(haloOnArt, 400);
+    setTimeout(haloOnArt, 1200);
 
     /* ambient clip on flagship pages: lazy (idle), mobile encode on phones,
        paused whenever the banner scrolls away, skipped under reduced motion */

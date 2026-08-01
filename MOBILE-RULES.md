@@ -221,3 +221,27 @@ Either tier: never claim done without running it. "It should work" is not verifi
   desktop must render byte-identical.
 - ❌ No editing `mobile.css` for new-page styles (it's the retrofit layer only).
 - ❌ No `!important` except to beat inline `style=""` attributes.
+
+## 10. A padding shorthand after `.wrap` eats the gutter
+
+`.wrap` promises the page gutter through `padding-left` / `padding-right`.
+Any rule that later sets a padding SHORTHAND on the same element wipes that
+promise, because the shorthand writes all four sides:
+
+```css
+.wrap { padding-left: var(--gutter); padding-right: var(--gutter) }
+.head { padding: clamp(50px,8vh,90px) 0 clamp(10px,2vh,18px) }  /* kills it */
+main.stage { padding: clamp(60px,10vh,120px) 0 }                 /* kills it */
+```
+
+On desktop nothing shows, because `.wrap` is `max-width` and centred there.
+On a phone the wrap fills the screen, so the heading, the eyebrow and the
+lede sit flush on the edge. Twelve pages did this before 2026-08-01.
+
+**Rule:** on an element that carries `.wrap`, set `padding-top` and
+`padding-bottom`, never the shorthand. `mobile.css` restores the gutter as a
+backstop, but write it correctly at the source.
+
+**Check:** `node _qa/probe-gutter.js` after touching any hero. It walks every
+page and reports reading text closer than 12px to either screen edge, and it
+knows to ignore deliberate full-bleed centred lines and carousel cards.

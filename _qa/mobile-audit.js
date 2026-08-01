@@ -138,8 +138,13 @@ const VW = 390, VH = 844;
         //   .mby           the copyright strip in the footer
         //   .lv3-eyebrow   the landing's byline, which on a phone moves to
         //                  the top-right sky at 12px (P-A, 2026-07-31)
-        const isCredit = el.classList.contains("mby") || el.classList.contains("lv3-eyebrow") ||
-                         (el.parentElement && el.parentElement.classList.contains("lv3-eyebrow"));
+        //   .hero-cap      the photo caption under a case study's hero image
+        //                  ("The main living room, exposed brick..."). It is
+        //                  a caption, the same species as a credit, and it
+        //                  is italic and faint on purpose. Held to 12px.
+        const CREDITISH = ["mby", "lv3-eyebrow", "hero-cap"];
+        const isCredit = CREDITISH.some(c => el.classList.contains(c)) ||
+                         (el.parentElement && CREDITISH.some(c => el.parentElement.classList.contains(c)));
         const key = sel(el) + "@" + fs2.toFixed(1);
         if (seenText.has(key)) continue;
         seenText.add(key);
