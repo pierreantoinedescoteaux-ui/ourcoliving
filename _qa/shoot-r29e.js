@@ -110,9 +110,13 @@ const PROBE = `(() => {
       /* the waterfall's box, not just its centre */
       const box = { l: pL + 0.4887*wP, r: pL + 0.5294*wP,
                     t: pT + 0.4815*hP, b: pT + 0.6407*hP };
-      const over = !(box.b < wr.top || box.t > wr.bottom || box.r < wr.left || box.l > wr.right);
+      /* the block's top third is a transparent gradient by design — the
+         water reads straight through it. What must not cover the waterfall
+         is the part that is actually opaque, which starts about 30% down. */
+      const solidTop = wr.top + wr.height * 0.3;
+      const over = !(box.b < solidTop || box.t > wr.bottom || box.r < wr.left || box.l > wr.right);
       return { over, box: { l: Math.round(box.l), t: Math.round(box.t), b: Math.round(box.b) },
-        waysTop: Math.round(wr.top) };
+        waysTop: Math.round(solidTop) };
     });
     ok(`${vp.w}x${vp.h}: the waterfall is not covered by the ways in`, !clear.over,
       `waterfall ${clear.box.t}..${clear.box.b}, block starts ${clear.waysTop}`);

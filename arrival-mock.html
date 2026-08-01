@@ -476,7 +476,19 @@ body{min-height:100%;overscroll-behavior-y:none;}
     var k = Math.max(W / vw, H / vh);
     /* ...and therefore where the flight has to finish: the painting exactly
        as wide as the clip draws it */
-    var sEnd = (CLIP_PAINT_W * k) / wPaint;
+    /* ...and then KEEPS GOING past it. P-A on the previous mock: "I really
+       like where you zoomed in on the tower image, I really like the
+       framing" — and that version pushed 1.34x beyond the framing the live
+       landing sits at. Landing exactly on the clip's own framing stops
+       short of the shot he approved, so the flight carries on into it. The
+       clip can be scaled past 1 and still fill the screen; it simply crops
+       tighter, which is the whole point. */
+    /* phone only: it is the phone flight he is judging, and on a wide screen
+       the same push makes the waterfall nearly the full height of the window,
+       which leaves the ways in nowhere to stand that is not on top of it. */
+    var EXTRA = W < 900 ? 1.34 : 1.0;
+    var sNat = (CLIP_PAINT_W * k) / wPaint;   /* the clip's own framing */
+    var sEnd = sNat * EXTRA;                  /* where the flight finishes */
 
     /* the anchor: in the stage now, and on screen when the clip is showing */
     var ax = pL + WF_X * wPaint, ay = pT + WF_Y * hPaint;
@@ -484,7 +496,7 @@ body{min-height:100%;overscroll-behavior-y:none;}
     var endAy = (H - vh * k) / 2 + (CLIP_PAINT_Y + WF_Y * CLIP_PAINT_H) * k;
     var endBridge = (H - vh * k) / 2 + (CLIP_PAINT_Y + BRIDGE_Y * CLIP_PAINT_H) * k;
 
-    geo = { W:W, H:H, k:k, sEnd:sEnd, ax:ax, ay:ay, stageTop:stage.offsetTop,
+    geo = { W:W, H:H, k:k, sEnd:sEnd, sNat:sNat, ax:ax, ay:ay, stageTop:stage.offsetTop,
             startAx:ax, startAy:ay + stage.offsetTop, endAx:endAx, endAy:endAy,
             endBridge:endBridge };
     measured = true;
@@ -549,7 +561,9 @@ body{min-height:100%;overscroll-behavior-y:none;}
 
     /* the clip carries the same geometry, so the two are the same picture
        at every moment and there is nothing to jump between */
-    var m = s / geo.sEnd;
+    /* the clip's scale is measured against ITS OWN framing, not against the
+       end of the flight — the flight now finishes past that framing */
+    var m = s / geo.sNat;
     loop.style.transformOrigin = geo.endAx.toFixed(1) + 'px ' + geo.endAy.toFixed(1) + 'px';
     loop.style.transform = 'translate3d(' + (Ax - geo.endAx).toFixed(1) + 'px,' +
       (Ay - geo.endAy).toFixed(1) + 'px,0) scale(' + m.toFixed(4) + ')';
