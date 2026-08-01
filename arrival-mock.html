@@ -1,28 +1,27 @@
 <!doctype html>
-<html lang="en" class="m-arrivalmock">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Arrival mock — Our Coliving</title>
+<title>Arrival mock v2 — Our Coliving</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=zodiak:300,400,700|switzer:400,500,600,700" rel="stylesheet">
 <style>
 /* =====================================================================
-   ARRIVAL MOCK — a staging page, not the site. Not in the nav, noindex.
+   ARRIVAL MOCK v2 — staging only, not in the nav, noindex.
 
-   Three ideas at once, for P-A to judge on a real phone:
-
-     1  the WHOLE tower instead of a crop of it, composed for a tall
-        screen, and the first scroll flies you into it
-     2  the painting cut into five planes that move at five speeds
-     5  the camera settling into rest on load instead of starting parked
-
-   The planes come from _landing/build4/cut-s1.py. The reason a parallax
-   is honest on this painting: the island is one silhouette standing on
-   flat paper, so every gap the movement opens is cream, which is what is
-   supposed to be there. Nothing is inpainted and nothing was generated.
+   P-A's round 2 notes, all of them:
+     - the birds were hidden behind the tower. They move to the right,
+       below the balloon, where the painting leaves the paper empty.
+     - THE TOWER DOES NOT MOVE. "It's a monument, it's a big building, it
+       shouldn't move." Only the sky answers a thumb now.
+     - the sky should be OBVIOUSLY moving on its own, not only when it is
+       touched: the balloon drifts, the flock crosses, clouds pass.
+     - one long scroll zooms all the way into the tower, past the framing
+       the live landing sits at, and lands ON the ambient clip, so the
+       water is already running when you arrive.
    ===================================================================== */
 :root{
   --bg:#F8E9CF;
@@ -32,58 +31,90 @@
   --display:'Zodiak',Georgia,serif;
   --body:'Switzer',system-ui,-apple-system,sans-serif;
 
-  /* THE COMPOSITION. The painting is 16:9 and a phone is 9:19.5, so the
-     frame is never fitted — each plane is placed for a tall screen at the
-     painter's own relative scale. --frame is the width the whole painting
-     WOULD have; every piece takes its share of it, so the balloon stays
-     the right size next to the tower. */
-  /* The island runs WIDER than the screen on purpose. Fitted inside 390px it
-     came out 295px tall on an 844px screen — correct, and small, which is the
-     thing the phone landing was already guilty of. Its outer tips are thin
-     terraces, so letting them run off both edges costs nothing and buys the
-     tower another third of its height. */
+  /* --frame is the width the WHOLE painting would have. Every piece takes
+     its measured share of it, so the balloon stays the right size next to
+     the tower while the composition is free to be portrait. */
   --frame:152vw;
-  --baseline:70%;        /* where the island's feet sit */
+  --baseline:70%;        /* where the island's feet sit at rest */
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:var(--body);-webkit-font-smoothing:antialiased;}
 body{min-height:100%;overscroll-behavior-y:none;}
 
-/* the page is tall so there is something to scroll; the world is fixed */
-.scroller{height:340vh;}
+/* a long page, because the zoom is meant to take the whole of one scroll */
+.scroller{height:300vh;}
 
-/* The zoom targets the MIDDLE of the tower, not its feet. Scaling from the
-   baseline pushed the whole island up out of the frame and left the bottom
-   half as blank paper, which is the opposite of flying into a place. */
-.stage{position:fixed;inset:0;overflow:hidden;z-index:1;
-  transform-origin:50% 46%;
-  will-change:transform;}
+.world{position:fixed;inset:0;overflow:hidden;z-index:1;}
+
+/* the still tower and its sky: one group, so the zoom carries them together */
+.stage{position:absolute;inset:0;transform-origin:50% 0;will-change:transform;}
 
 .pl{position:absolute;will-change:transform;
-  /* the whole point: each plane carries its own translate, and the settle
-     and the parallax both write into it */
   transform:translate3d(var(--px,0px),var(--py,0px),0) scale(var(--ps,1));}
 .pl img{display:block;width:100%;height:auto;}
 
-/* --- the island: the subject. Wider than the screen on purpose — the
-       silhouette's outer tips are thin, and letting them run off the edge
-       reads as "this continues" rather than "this is a small picture". */
+/* --- the island. Wider than the screen on purpose: fitted inside 390px it
+       comes out 295px tall, which is small, and small was the problem. */
 #island{left:50%;bottom:calc(100% - var(--baseline));
   width:calc(var(--frame) * 0.9634);
   margin-left:calc(var(--frame) * -0.4817);}
 
-/* --- the sky. Positions are a portrait composition, NOT the painting's
-       own layout: a phone has vertical room a 16:9 frame does not, and
-       these four things are the only ones free to move into it. Sizes ARE
-       the painting's, as a share of --frame, so the scale relationships
-       the painter drew are preserved.
-       The sun moved off the top right: that corner belongs to the byline,
-       and the two were printing over each other. */
-#balloon{left:8%;  top:9%;    width:calc(var(--frame) * 0.0503);}
-#sun    {left:31%; top:6%;    width:calc(var(--frame) * 0.0308);}
-#birds  {left:19%; top:17.5%; width:calc(var(--frame) * 0.1011);}
-#cloud  {right:5%; top:14.5%; width:calc(var(--frame) * 0.1577);}
+/* --- the sky. A portrait composition, not the painting's own layout.
+       The birds used to cross the tower and disappear into it, so they move
+       to the right-hand paper, below the balloon (P-A). */
+#balloon{left:8%;   top:8.5%;  width:calc(var(--frame) * 0.0503);}
+#sun    {left:30%;  top:5.5%;  width:calc(var(--frame) * 0.0308);}
+#birds  {right:9%;  top:20%;   width:calc(var(--frame) * 0.1011);}
+#cloud  {right:4%;  top:11%;   width:calc(var(--frame) * 0.1577);}
+/* the same painted cloud twice more, smaller and fainter, to cross behind */
+#cloud2 {left:-28%; top:16.5%; width:calc(var(--frame) * 0.115);}
+#cloud3 {left:-52%; top:6%;    width:calc(var(--frame) * 0.082);}
+
+/* --- THE AMBIENT LIFE ------------------------------------------------
+   P-A: "nothing is animated... I would rather have something that's
+   obviously moving and therefore it's kind of cool."
+   Nothing here was generated. It is the painted sprites, moved. Each
+   keyframe carries --px through, so a thumb can still nudge the sky
+   without the animation fighting it for the transform.
+   --------------------------------------------------------------------- */
+@keyframes drift{        /* the balloon: rises, sinks, leans */
+  0%  {transform:translate3d(var(--px,0px),0,0) rotate(-1.2deg);}
+  35% {transform:translate3d(calc(var(--px,0px) + 10px),-17px,0) rotate(1.4deg);}
+  70% {transform:translate3d(calc(var(--px,0px) - 7px),-6px,0) rotate(-.8deg);}
+  100%{transform:translate3d(var(--px,0px),0,0) rotate(-1.2deg);}
+}
+@keyframes fly{          /* the flock crosses, and comes round again */
+  0%  {transform:translate3d(calc(var(--px,0px) + 14vw),8px,0) scale(.86);opacity:0;}
+  10% {opacity:.95;}
+  55% {transform:translate3d(calc(var(--px,0px) - 20vw),-12px,0) scale(1);opacity:.95;}
+  90% {transform:translate3d(calc(var(--px,0px) - 58vw),-28px,0) scale(1.05);opacity:0;}
+  100%{transform:translate3d(calc(var(--px,0px) + 14vw),8px,0) scale(.86);opacity:0;}
+}
+@keyframes pass{         /* a cloud crossing the whole page, slowly */
+  0%  {transform:translate3d(var(--px,0px),0,0);}
+  100%{transform:translate3d(calc(var(--px,0px) + 190vw),0,0);}
+}
+@keyframes breathe{      /* the sun, barely */
+  0%,100%{transform:translate3d(var(--px,0px),0,0) scale(1);}
+  50%    {transform:translate3d(var(--px,0px),0,0) scale(1.045);}
+}
+.live #balloon{animation:drift 15s ease-in-out infinite;}
+.live #birds  {animation:fly 34s linear infinite;}
+.live #cloud  {animation:pass 104s linear infinite;}
+.live #cloud2 {animation:pass 146s linear infinite;animation-delay:-52s;opacity:.7;}
+.live #cloud3 {animation:pass 198s linear infinite;animation-delay:-118s;opacity:.5;}
+.live #sun    {animation:breathe 9s ease-in-out infinite;}
+@media (prefers-reduced-motion:reduce){
+  .live #balloon,.live #birds,.live #cloud,.live #cloud2,.live #cloud3,.live #sun{animation:none;}
+}
+
+/* --- the ambient clip the zoom lands on. It is the site's own S1 loop, the
+       one the live landing already plays, so arriving here IS arriving at
+       the landing, except the water is already running. */
+.loop{position:absolute;inset:0;opacity:0;will-change:transform,opacity;
+  transform-origin:50% 76%;}
+.loop video{width:100%;height:100%;object-fit:cover;display:block;}
 
 /* --- the words ------------------------------------------------------- */
 .byline{position:fixed;z-index:6;top:22px;right:16px;
@@ -91,7 +122,6 @@ body{min-height:100%;overscroll-behavior-y:none;}
   font-size:12px;line-height:1.45;letter-spacing:.04em;font-weight:500;
   color:color-mix(in srgb,var(--gold) 84%,#000);
   text-shadow:0 1px 2px var(--bg),0 0 8px var(--bg),0 0 16px var(--bg);}
-
 .copy{position:fixed;z-index:6;left:0;right:0;
   bottom:calc(74px + env(safe-area-inset-bottom));padding:0 20px;}
 .copy h1{margin:0;font-family:var(--display);font-weight:300;
@@ -99,7 +129,6 @@ body{min-height:100%;overscroll-behavior-y:none;}
   text-shadow:0 1px 2px var(--bg),0 0 10px var(--bg),0 0 20px var(--bg),0 0 34px var(--bg);}
 .copy p{margin:12px 0 0;max-width:34ch;font-size:1rem;line-height:1.5;color:var(--ink-soft);
   text-shadow:0 1px 2px var(--bg),0 0 8px var(--bg),0 0 18px var(--bg);}
-
 .cue{position:fixed;z-index:6;left:0;right:0;
   bottom:calc(18px + env(safe-area-inset-bottom));
   display:flex;align-items:center;justify-content:center;gap:9px;
@@ -109,8 +138,6 @@ body{min-height:100%;overscroll-behavior-y:none;}
 .cue svg{width:15px;height:15px;animation:nod 2.6s ease-in-out infinite;}
 @keyframes nod{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 
-/* a light wash under the words only, fading out at the very bottom so the
-   painting closes the page — the rule the site already runs on */
 .wash{position:fixed;z-index:5;left:0;right:0;bottom:0;height:46%;pointer-events:none;
   background:linear-gradient(180deg,transparent 0%,
     color-mix(in srgb,var(--bg) 30%,transparent) 22%,
@@ -119,73 +146,87 @@ body{min-height:100%;overscroll-behavior-y:none;}
     color-mix(in srgb,var(--bg) 34%,transparent) 93%,
     transparent 100%);}
 
-/* --- THE SETTLE (idea 5) --------------------------------------------
-   Everything arrives a little low and a little large and eases back to
-   rest, the sky first and the island last, so the picture comes to a stop
-   rather than appearing. The words follow it in.
-   The transition is put on by JS one frame after the start values are set,
-   so nothing animates from a half-loaded state. */
+/* --- the settle ------------------------------------------------------ */
 .settling .pl{opacity:0;}
 .settling .copy,.settling .byline,.settling .cue{opacity:0;transform:translateY(14px);}
-.armed .pl{transition:opacity .9s ease,transform 1.5s cubic-bezier(.16,.84,.28,1);}
+.armed .pl{opacity:1;transition:opacity .9s ease,transform 1.4s cubic-bezier(.16,.84,.28,1);}
 .armed .copy,.armed .byline,.armed .cue{opacity:1;transform:none;
-  transition:opacity .7s ease .55s,transform .9s cubic-bezier(.2,.8,.25,1) .55s;}
-.armed .pl{opacity:1;}
+  transition:opacity .7s ease .5s,transform .9s cubic-bezier(.2,.8,.25,1) .5s;}
 
-/* --- THE FLY-IN (idea 1) ---------------------------------------------
-   Past the threshold the camera walks into the island: the stage scales
-   from the island's own footing while the sky lifts away, and the climb
-   takes over underneath. */
-.stage{transition:transform .95s cubic-bezier(.62,0,.8,.42);}
-.flying .stage{transform:scale(3.9);}
-.flying #sun,.flying #cloud,.flying #balloon,.flying #birds{
-  opacity:0;transition:opacity .5s ease,transform .9s ease;}
-.flying .copy,.flying .cue,.flying .wash,.flying .byline{opacity:0;transition:opacity .4s ease;}
+/* --- WHERE THE ZOOM PUTS YOU DOWN ------------------------------------
+   P-A: "that's where the 3 gateways are, not the commons... make the
+   buttons small, the heading of each appearing more clearly and the
+   subtext small. Maybe they shouldn't be buttons, it kinda doesn't look
+   the most creative. The 'you are in the tower, where do you want to go'
+   whole section could be on a faded background a bit like all the
+   zones — each has a faded background for the text section. Maybe the
+   buttons could fit in there."
 
-/* what the climb looks like when it takes over — the scene the site
-   already flies you into, so the handoff is visible in the mock */
-.after{position:fixed;inset:0;z-index:3;opacity:0;pointer-events:none;
-  background:url("assets/tower/S2-m.webp") center/cover no-repeat;
-  transition:opacity .55s ease;}
-.flying .after{opacity:1;transition:opacity .5s ease .46s;}
-.after__cap{position:absolute;left:14px;right:14px;bottom:calc(84px + env(safe-area-inset-bottom));
-  margin:0;padding:16px 18px;border-radius:16px;
-  font-family:var(--display);font-size:1.34rem;line-height:1.18;
-  background:rgba(253,250,240,.88);border:1px solid rgba(34,48,31,.12);}
-.after__cap small{display:block;margin-top:8px;font-family:var(--body);font-size:.9rem;
+   So they stop being three plates and become one block of the site's own
+   furniture: the same faded page the scene copy sits on, a question, and
+   three ruled lines under it. Each line is its space's colour, a name, and
+   a short label — not a sentence, so it can be small honestly rather than
+   by breaking the type floor. The only thing that looks like a control is
+   the arrow.
+   --------------------------------------------------------------------- */
+.ways{position:fixed;z-index:7;left:0;right:0;bottom:0;
+  padding:46px 20px calc(10px + env(safe-area-inset-bottom));
+  opacity:0;transform:translateY(18px);pointer-events:none;
+  transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.25,1);
+  background:linear-gradient(180deg,transparent 0%,
+    color-mix(in srgb,var(--bg) 34%,transparent) 20%,
+    color-mix(in srgb,var(--bg) 78%,transparent) 42%,
+    color-mix(in srgb,var(--bg) 88%,transparent) 66%,
+    color-mix(in srgb,var(--bg) 84%,transparent) 100%);}
+.arrived .ways{opacity:1;transform:none;pointer-events:auto;}
+.ways__q{margin:0 0 4px;font-size:.95rem;line-height:1.4;color:var(--ink-soft);
+  text-shadow:0 1px 2px var(--bg),0 0 8px var(--bg),0 0 16px var(--bg);}
+.ways__q b{font-weight:700;color:var(--ink);}
+.way{display:flex;align-items:center;gap:12px;
+  padding:11px 2px;min-height:52px;text-decoration:none;color:inherit;
+  border-bottom:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
+.way:first-of-type{border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
+.way:last-of-type{border-bottom:0;}
+.way__t{flex:1;min-width:0;}
+.way__n{display:block;font-family:var(--display);font-weight:700;
+  font-size:1.06rem;line-height:1.2;color:var(--rc);}
+.way__s{display:block;margin-top:3px;font-size:.8rem;line-height:1.3;
   letter-spacing:.02em;color:var(--ink-soft);}
+.way__a{flex:none;font-size:1.15rem;line-height:1;color:var(--rc);}
+.way:active{background:color-mix(in srgb,var(--rc) 8%,transparent);}
 
-/* the way back, so the mock can be replayed without a reload */
-.again{position:fixed;z-index:8;left:50%;transform:translateX(-50%);
-  bottom:calc(20px + env(safe-area-inset-bottom));
+.note{position:fixed;z-index:9;right:12px;bottom:10px;
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;
+  color:color-mix(in srgb,var(--gold) 70%,#000);opacity:.5;}
+.top{position:fixed;z-index:9;left:14px;top:calc(16px + env(safe-area-inset-top));
+  transform:none;
   min-height:44px;padding:0 20px;border-radius:999px;
   display:none;align-items:center;font:600 .95rem/1 var(--body);color:var(--ink);
   background:rgba(253,250,240,.92);border:1px solid rgba(34,48,31,.25);cursor:pointer;}
-.flying .again{display:inline-flex;}
-
-.note{position:fixed;z-index:9;left:12px;bottom:12px;
-  font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;
-  color:color-mix(in srgb,var(--gold) 70%,#000);opacity:.55;}
-
-@media (prefers-reduced-motion:reduce){
-  .armed .pl,.stage,.armed .copy,.armed .byline,.armed .cue{transition:none;}
-}
-/* on a wide screen this is only a preview of a phone idea, so say so */
-@media (min-width:861px){
-  .note::after{content:" — this is a phone design; open it on a phone";}
-}
+.arrived .top{display:inline-flex;}
 </style>
 </head>
 <body class="settling">
 
 <div class="scroller"></div>
 
-<div class="stage" id="stage">
-  <div class="pl" id="cloud"><img src="assets/tower/layers/cloud.webp" alt="" ></div>
-  <div class="pl" id="sun"><img src="assets/tower/layers/sun.webp" alt=""></div>
-  <div class="pl" id="balloon"><img src="assets/tower/layers/balloon.webp" alt=""></div>
-  <div class="pl" id="birds"><img src="assets/tower/layers/birds.webp" alt=""></div>
-  <div class="pl" id="island"><img src="assets/tower/layers/island.webp" alt="The tower"></div>
+<div class="world">
+  <div class="stage" id="stage">
+    <div class="pl" id="cloud3"><img src="assets/tower/layers/cloud.webp" alt=""></div>
+    <div class="pl" id="cloud"><img src="assets/tower/layers/cloud.webp" alt=""></div>
+    <div class="pl" id="cloud2"><img src="assets/tower/layers/cloud.webp" alt=""></div>
+    <div class="pl" id="sun"><img src="assets/tower/layers/sun.webp" alt=""></div>
+    <div class="pl" id="balloon"><img src="assets/tower/layers/balloon.webp" alt=""></div>
+    <div class="pl" id="birds"><img src="assets/tower/layers/birds.webp" alt=""></div>
+    <div class="pl" id="island"><img src="assets/tower/layers/island.webp" alt="The tower"></div>
+  </div>
+
+  <div class="loop" id="loop">
+    <video id="loopvid" muted playsinline loop preload="none"
+           poster="assets/tower/S1-m.webp">
+      <source src="assets/tower/vid/loop-s1-m.mp4" type="video/mp4">
+    </video>
+  </div>
 </div>
 
 <div class="wash"></div>
@@ -201,137 +242,185 @@ body{min-height:100%;overscroll-behavior-y:none;}
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
        stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M6 13.5l6 6 6-6"/></svg></p>
 
-<div class="after">
-  <p class="after__cap">and the climb takes over from here.
-    <small>The tour you already have, unchanged.</small></p>
-</div>
+<nav class="ways" id="ways" aria-label="Three ways in">
+  <p class="ways__q">You are in the tower. <b>Where do you want to go?</b></p>
+  <a class="way" href="resources.html" style="--rc:#2b8b8f">
+    <span class="way__t"><span class="way__n">Jump to resources</span>
+      <span class="way__s">maps · books · designers · courses</span></span>
+    <span class="way__a" aria-hidden="true">&rarr;</span></a>
+  <a class="way" href="about.html" style="--rc:#3e7db0">
+    <span class="way__t"><span class="way__n">Learn about me</span>
+      <span class="way__s">my story, the houses, the manifesto</span></span>
+    <span class="way__a" aria-hidden="true">&rarr;</span></a>
+  <a class="way" href="index.html" style="--rc:#b3543e">
+    <span class="way__t"><span class="way__n">Take the tour</span>
+      <span class="way__s">the whole tower, top to bottom</span></span>
+    <span class="way__a" aria-hidden="true">&uarr;</span></a>
+</nav>
 
-<button class="again" type="button" id="again">Watch it again</button>
-<p class="note">arrival mock</p>
+<button class="top" type="button" id="top">Back to the top</button>
+<p class="note">arrival mock v2</p>
 
 <script>
 (function(){
-  var reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var stage  = document.getElementById('stage');
+  var loop   = document.getElementById('loop');
+  var vid    = document.getElementById('loopvid');
+  var island = document.getElementById('island');
+  var copyEl = document.querySelector('.copy');
+  var washEl = document.querySelector('.wash');
+  var byEl   = document.querySelector('.byline');
+  var cueEl  = document.querySelector('.cue');
 
   /* ------------------------------------------------------------------
-     THE FIVE SPEEDS.
+     WHERE THE ZOOM HAS TO LAND — measured, not guessed.
 
-     Far things barely move, near things move most — the only rule that
-     makes a flat painting read as depth. The island is the stage rather
-     than the foreground, so it sits in the middle: the balloon and the
-     birds are what actually give the movement away, which is why they
-     were worth cutting out separately.
+     The island's silhouette was keyed out of BOTH the full painting and
+     the first frame of the ambient clip, and the two bounding boxes give
+     the mapping between them:
+
+        painting   island spans x 0.0239 - 0.9810  of 2048
+        clip       island spans x 0.1005 - 0.9036  of 1920
+
+     which places the 3:2 painting inside the 16:9 clip at 0.832 of its
+     width, pillarboxed. The phone encode is crop=608:1080:656:0 of that,
+     so the phone clip shows the middle 38.1% of the painting's width —
+     and after object-fit:cover takes its share of a tall screen, 31.3%.
+
+     So the zoom is finished when the painting's full width measures
+     viewport / 0.313. Every number below derives from that one, at
+     runtime, so it holds on any phone rather than just on mine.
      ------------------------------------------------------------------ */
-  var PLANES = [
-    { el: document.getElementById('sun'),     y: 0.10, x: 0.10, from: -26 },
-    { el: document.getElementById('cloud'),   y: 0.20, x: 0.18, from: -34 },
-    { el: document.getElementById('island'),  y: 0.52, x: 0.42, from:  46 },
-    { el: document.getElementById('balloon'), y: 0.88, x: 0.85, from: -58 },
-    { el: document.getElementById('birds'),   y: 1.12, x: 1.05, from: -70 }
-  ];
+  var ISLAND_FX = 0.0239, ISLAND_FW = 0.9571, ISLAND_FY = 0.0191;
+  var PAINT_AR  = 1360 / 2048;
+  var VISIBLE   = 0.313;
 
-  /* ---- the settle: start each plane off its mark, then let CSS ease it
-     home. Staggered so the sky arrives before the ground does. ---- */
+  var targetScale = 1, targetTy = 0, measured = false, curScale = 1;
+
+  function measure(){
+    /* read the island at scale 1 by dividing out whatever scale is applied */
+    var r = island.getBoundingClientRect();
+    if (!r.width) return;
+    var wStill = (r.width / curScale) / ISLAND_FW;
+    var hStill = wStill * PAINT_AR;
+    var top    = (r.top / curScale) - ISLAND_FY * hStill;
+    targetScale = (window.innerWidth / VISIBLE) / wStill;
+    /* the origin is the top centre, so a scale of S puts the painting's
+       centre at S*cy; the translate brings it back to the middle of the
+       screen, which is where the clip's framing sits */
+    var cy = top + hStill / 2;
+    targetTy = window.innerHeight / 2 - targetScale * cy;
+    measured = true;
+  }
+
+  /* ---- the settle ---- */
+  var PLANES = [
+    { el: document.getElementById('sun'),     from: -22 },
+    { el: document.getElementById('cloud'),   from: -30 },
+    { el: island,                             from:  44 },
+    { el: document.getElementById('balloon'), from: -52 },
+    { el: document.getElementById('birds'),   from: -64 }
+  ];
   PLANES.forEach(function(p, i){
     p.el.style.setProperty('--py', p.from + 'px');
     p.el.style.setProperty('--ps', (p.from > 0 ? 1.05 : 1.03));
     p.el.style.transitionDelay = (i * 60) + 'ms';
   });
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      document.body.classList.remove('settling');
-      document.body.classList.add('armed');
-      PLANES.forEach(function(p){
-        p.el.style.setProperty('--py', '0px');
-        p.el.style.setProperty('--ps', 1);
-      });
-      /* the settle owns the planes for its first second and a half; after
-         that the thumb does, so the eased transition has to come off or
-         every parallax frame fights it */
-      setTimeout(function(){
-        PLANES.forEach(function(p){ p.el.style.transition = 'opacity .5s ease'; p.el.style.transitionDelay = '0ms'; });
-        live = true;
-      }, 1700);
-    });
-  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    document.body.classList.remove('settling');
+    document.body.classList.add('armed');
+    PLANES.forEach(function(p){ p.el.style.setProperty('--py','0px'); p.el.style.setProperty('--ps',1); });
+    setTimeout(function(){
+      /* hand over: the settle's eased transition comes off so it cannot
+         fight the parallax, and the looping ambient animations come on */
+      PLANES.forEach(function(p){ p.el.style.transition='opacity .4s ease'; p.el.style.transitionDelay='0ms'; });
+      document.body.classList.add('live');
+      measure(); paint();
+    }, 1500);
+  }); });
 
-  /* ---- the parallax: scroll and drag both write the same offsets ---- */
-  var live = false, flying = false;
-  var dragX = 0, dragY = 0, tx = null, ty = null;
-  var TRIGGER = 0.55;                  /* of a screen height */
+  /* ---- a thumb moves the SKY, and only the sky.
+     P-A: "I want the tower to be fixed. It's a monument, it's a big
+     building, it shouldn't move. The rest can move." ---- */
+  var SKY = [
+    { el: document.getElementById('sun'),     k: 0.18 },
+    { el: document.getElementById('cloud'),   k: 0.42 },
+    { el: document.getElementById('cloud2'),  k: 0.55 },
+    { el: document.getElementById('cloud3'),  k: 0.30 },
+    { el: document.getElementById('balloon'), k: 1.00 },
+    { el: document.getElementById('birds'),   k: 1.25 }
+  ];
+  var dragX = 0, tx = null;
+  function sky(){ SKY.forEach(function(s){ s.el.style.setProperty('--px',(dragX*s.k).toFixed(1)+'px'); }); }
 
-  function paint(){
-    var y = window.scrollY || 0;
-    var k = y / window.innerHeight;
-    PLANES.forEach(function(p){
-      var oy = -(k * 190 * p.y) + dragY * p.y;
-      var ox = dragX * p.x;
-      p.el.style.setProperty('--py', oy.toFixed(2) + 'px');
-      p.el.style.setProperty('--px', ox.toFixed(2) + 'px');
-    });
-    if (!flying && k > TRIGGER) fly();
-  }
-  function onScroll(){ if (live && !flying) requestAnimationFrame(paint); }
-  window.addEventListener('scroll', onScroll, { passive:true });
-
-  /* a thumb resting on the picture moves it too, which is the half of the
-     effect a scroll cannot give you: it responds before you commit */
-  window.addEventListener('touchstart', function(e){
-    if (!live || flying) return;
-    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
-  }, { passive:true });
+  window.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, { passive:true });
   window.addEventListener('touchmove', function(e){
-    if (!live || flying || tx === null) return;
-    dragX = Math.max(-26, Math.min(26, (e.touches[0].clientX - tx) * 0.34));
-    dragY = Math.max(-18, Math.min(18, (e.touches[0].clientY - ty) * 0.16));
-    requestAnimationFrame(paint);
+    if (tx === null) return;
+    dragX = Math.max(-30, Math.min(30, (e.touches[0].clientX - tx) * 0.4));
+    sky();
   }, { passive:true });
   window.addEventListener('touchend', function(){
-    tx = ty = null;
-    /* let it drift home rather than snapping */
-    var t0 = performance.now(), x0 = dragX, y0 = dragY;
+    tx = null;
+    var t0 = performance.now(), x0 = dragX;
     (function ease(){
-      var k = Math.min(1, (performance.now() - t0) / 520);
-      var e = 1 - Math.pow(1 - k, 3);
-      dragX = x0 * (1 - e); dragY = y0 * (1 - e);
-      paint();
-      if (k < 1 && !flying) requestAnimationFrame(ease);
+      var k = Math.min(1, (performance.now() - t0) / 620);
+      dragX = x0 * Math.pow(1 - k, 3);
+      sky();
+      if (k < 1) requestAnimationFrame(ease);
     })();
   }, { passive:true });
 
-  /* mouse drag, so the idea can be judged on a laptop too */
-  var down = false;
-  window.addEventListener('mousedown', function(e){ if (live && !flying){ down = true; tx = e.clientX; ty = e.clientY; } });
-  window.addEventListener('mousemove', function(e){
-    if (!down) return;
-    dragX = Math.max(-26, Math.min(26, (e.clientX - tx) * 0.34));
-    dragY = Math.max(-18, Math.min(18, (e.clientY - ty) * 0.16));
-    paint();
-  });
-  window.addEventListener('mouseup', function(){ down = false; dragX = dragY = 0; paint(); });
+  /* ---- ONE long scroll, two acts sharing it.
+     Up to CROSS the painting is flown into. After it the ambient clip has
+     taken over and keeps going, past the framing the live landing sits
+     at, until the water is filling the screen. ---- */
+  var CROSS = 0.74;      /* where the painting hands over to the clip */
+  var EXTRA = 1.34;      /* how much further in the clip goes than the landing */
+  var raf = 0, loaded = false;
 
-  /* ---- the fly-in ---- */
-  function fly(){
-    if (flying) return;
-    flying = true;
-    document.body.classList.add('flying');
-    /* the sky does not just fade: it leaves, outward and up, the way things
-       do when you walk past them */
-    [['sun',-60,-90],['cloud',80,-70],['balloon',-120,-140],['birds',-150,-110]]
-      .forEach(function(s){
-        var el = document.getElementById(s[0]);
-        el.style.transition = 'opacity .5s ease,transform .9s cubic-bezier(.4,0,.7,.6)';
-        el.style.setProperty('--px', s[1] + 'px');
-        el.style.setProperty('--py', s[2] + 'px');
-        el.style.setProperty('--ps', 1.5);
-      });
+  function progress(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    return max > 0 ? Math.min(1, Math.max(0, (window.scrollY || 0) / max)) : 0;
   }
 
-  document.getElementById('again').addEventListener('click', function(){
-    location.reload();
-  });
+  function paint(){
+    raf = 0;
+    if (!measured) measure();
+    var p = progress();
 
-  if (reduced){ live = true; }
+    /* act one — the painting comes at you */
+    var e = Math.min(1, p / CROSS);
+    var sm = e * e * (3 - 2 * e);                        /* smoothstep */
+    curScale = 1 + (targetScale - 1) * sm;
+    stage.style.transform = 'translate3d(0,' + (targetTy * sm).toFixed(1) + 'px,0) scale(' + curScale.toFixed(4) + ')';
+
+    /* the sky is passed on the way in, so it is gone before the tower fills */
+    var out = Math.max(0, Math.min(1, (p - 0.08) / 0.30));
+    SKY.forEach(function(s){ s.el.style.opacity = (1 - out).toFixed(3); });
+
+    /* act two — the clip, already running, takes the picture over */
+    var c = Math.max(0, Math.min(1, (p - (CROSS - 0.16)) / 0.18));
+    loop.style.opacity = c.toFixed(3);
+    if (c > 0 && vid.paused) { var q = vid.play(); if (q && q.catch) q.catch(function(){}); }
+    var beyond = Math.max(0, Math.min(1, (p - CROSS) / (1 - CROSS)));
+    loop.style.transform = 'scale(' + (1 + (EXTRA - 1) * beyond).toFixed(4) + ')';
+
+    /* the words step aside as soon as the world starts moving */
+    var fade = (1 - Math.max(0, Math.min(1, (p - 0.03) / 0.15))).toFixed(3);
+    copyEl.style.opacity = fade; washEl.style.opacity = fade;
+    byEl.style.opacity = fade;   cueEl.style.opacity = fade;
+
+    document.body.classList.toggle('arrived', p > 0.90);
+
+    /* the clip is only fetched once the visitor is on their way to it */
+    if (!loaded && p > 0.10){ loaded = true; vid.load(); }
+  }
+
+  window.addEventListener('scroll', function(){ if (!raf) raf = requestAnimationFrame(paint); }, { passive:true });
+  window.addEventListener('resize', function(){ measured = false; if (!raf) raf = requestAnimationFrame(paint); });
+  document.getElementById('top').addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
 })();
 </script>
 </body>
