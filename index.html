@@ -581,6 +581,13 @@ html.lv3-edit #lv3edit{display:block;}
                             calc(var(--door-y) + var(--door-h) / 2);
   transition:transform 1.05s cubic-bezier(.55,.02,.72,.55),
              opacity .34s ease .72s;}
+/* the phone's door carries no words: the tap on "take the tour" already
+   asked and answered the question the desktop door asks (P-A, 2026-08-01) */
+#lv3invite.is-silent h2,
+#lv3invite.is-silent p,
+#lv3invite.is-silent .lv3-inv-go,
+#lv3invite.is-silent .lv3-inv-x{display:none;}
+#lv3invite.is-silent{pointer-events:none;cursor:default;}
 #lv3invite.is-through .lv3-door2{transform:scale(11);opacity:0;}
 /* the light out of the opening grows with it, so the last thing on screen
    before the summit is the glow, not an edge of timber */
@@ -1022,6 +1029,13 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     box-shadow:0 14px 30px -26px rgba(35,28,10,.7);
     transition:transform .18s ease;}
   .lv3-zone:active{transform:scale(.987);}
+  /* every other preview puts its door on the other side, so the column
+     reads as a path rather than a list (P-A, 2026-08-01). The words stay
+     left-aligned: it is the picture that alternates, not the reading. */
+  .lv3-zone--flip{flex-direction:row-reverse;
+    padding:12px 12px 12px 14px;
+    border-left:1px solid rgba(34,48,31,.1);
+    border-right:4px solid var(--rc);}
   .lv3-zone__art{flex:none;width:88px;align-self:stretch;min-height:118px;
     background-size:cover;background-position:center 40%;
     /* the door outline: arched head, straight foot */
@@ -1587,14 +1601,19 @@ function renderGate(g){
   var sec = LV3_SECTIONS.filter(function(s){ return s.id === lead.id; })[0];
   var band = document.getElementById('lv3gateband');
   band.style.backgroundImage = sec ? 'url("' + (sec.stillMobile || sec.still) + '")' : 'none';
-  var zones = g.zones.map(function(key){
+  /* P-A 2026-08-01: "could we have an alternation left and right for the
+     image/text — one time image left of text, then switch." Done by index
+     rather than by nth-of-type, because the plain rows underneath are
+     anchors and would restart the count. */
+  var zones = g.zones.map(function(key, zi){
     var sp = SPACES.filter(function(s){ return s.key === key; })[0];
     var sec = LV3_SECTIONS.filter(function(s){ return s.id === sp.id; })[0];
     var cat = ZONE_CAT[key];
     var col = (CATS.filter(function(c){ return c.word === cat; })[0] || {}).color || sp.accent;
     var art = sec ? (sec.stillMobile || sec.still) : '';
     var n = zoneLinks(key).length;
-    return '<button class="lv3-zone" type="button" data-space="' + key + '" style="--rc:' + col + '">' +
+    return '<button class="lv3-zone' + (zi % 2 ? ' lv3-zone--flip' : '') +
+      '" type="button" data-space="' + key + '" style="--rc:' + col + '">' +
       '<span class="lv3-zone__art" style="background-image:url(\'' + art + '\')" aria-hidden="true"></span>' +
       '<span class="lv3-zone__txt">' +
         '<span class="lv3-zone__chip"><i></i>' + cat + '</span>' +
@@ -1651,7 +1670,14 @@ doors.querySelectorAll('.lv3-door').forEach(function(btn){
     btn.addEventListener('touchstart', function(){
       WORLD.preload(SPACES.filter(function(s){ return s.key === 'summit'; })[0].index);
     }, { passive:true });
-    btn.addEventListener('click', function(){ leaveArrival(); hideDoors(); startTour(); });
+    /* P-A 2026-08-01: "when you click take the tour, maybe there could be
+       the door animation on mobile as well — the doors arrive and then they
+       open and then you get to the top."
+
+       It is the same painted door the desktop uses, so there is one door on
+       this site, not two. On a phone it arrives with nothing written on it:
+       the question was already asked and answered by the tap. */
+    btn.addEventListener('click', function(){ walkThroughDoor(); });
   } else {
     btn.addEventListener('click', function(){ openGate(g, btn); });
   }
@@ -2874,6 +2900,45 @@ function openInviteDoor(){
     });
   }, SWING_MS + CLEAR_MS);
 }
+/* ---------------------------------------------------------------------
+   THE SAME DOOR, ON A PHONE (P-A, 2026-08-01).
+
+   "When you click take the tour, maybe there could be the door animation on
+   mobile as well — the doors arrive and then they open and then you get to
+   the top."
+
+   The desktop summons this door when two gestures are blocked on the map,
+   and asks a question on it. A phone has already been asked: the tap on
+   "take the tour" IS the answer. So the door arrives silent — no question,
+   no button, no dismiss — swings on its own, and the tour starts behind it
+   on exactly the same clock the desktop uses.
+   --------------------------------------------------------------------- */
+function walkThroughDoor(){
+  if (reduced || !invite || !invite.querySelector('.lv3-door2')){
+    leaveArrival(); hideDoors(); startTour();
+    return;
+  }
+  leaveArrival();
+  hideDoors();
+  invite.classList.add('is-silent');
+  dim.classList.add('on');
+  invite.classList.add('on');
+  void invite.offsetWidth;              /* let the browser see it closed first */
+  setTimeout(function(){
+    invite.classList.add('is-opening');
+    setTimeout(function(){ invite.classList.add('is-through'); }, SWING_MS);
+    setTimeout(function(){ startTour(); }, SWING_MS + WALK_MS);
+    setTimeout(function(){
+      invite.classList.add('is-reset');
+      invite.classList.remove('on', 'is-opening', 'is-through', 'is-silent');
+      dim.classList.remove('on');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ invite.classList.remove('is-reset'); });
+      });
+    }, SWING_MS + CLEAR_MS);
+  }, 260);                              /* a beat, so the door is SEEN arriving */
+}
+
 /* Scrolling used to open it. It no longer does: a door that opens on the same
    gesture that summoned it is a door nobody sees. Pushing on just keeps it
    up, and the only way through is the button. */
