@@ -1,63 +1,72 @@
 {
- "source": [
-  2048,
-  1360
- ],
- "pieces": [
-  {
-   "name": "island",
-   "file": "island.webp",
-   "area": 1328377,
-   "w": 1280,
-   "h": 852,
-   "fx": 0.021,
-   "fy": 0.01471,
-   "fw": 0.96338,
-   "fh": 0.96618
-  },
-  {
-   "name": "cloud",
-   "file": "cloud.webp",
-   "area": 8648,
-   "w": 323,
-   "h": 145,
-   "fx": 0.76758,
-   "fy": 0.22574,
-   "fw": 0.15771,
-   "fh": 0.10662
-  },
-  {
-   "name": "sun",
-   "file": "sun.webp",
-   "area": 2126,
-   "w": 63,
-   "h": 65,
-   "fx": 0.80225,
-   "fy": 0.18309,
-   "fw": 0.03076,
-   "fh": 0.04779
-  },
-  {
-   "name": "balloon",
-   "file": "balloon.webp",
-   "area": 7356,
-   "w": 103,
-   "h": 140,
-   "fx": 0.13379,
-   "fy": 0.12279,
-   "fw": 0.05029,
-   "fh": 0.10294
-  },
-  {
-   "name": "birds",
-   "file": "birds.webp",
-   "area": 1007,
-   "w": 207,
-   "h": 150,
-   "fx": 0.11719,
-   "fy": 0.27721,
-   "fw": 0.10107,
-   "fh": 0.11029
+  "source": [
+    2048,
+    1360
+  ],
+  "pieces": [
+    {
+      "name": "island",
+      "file": "island.webp",
+      "area": 1328377,
+      "w": 1280,
+      "h": 852,
+      "fx": 0.021,
+      "fy": 0.01471,
+      "fw": 0.96338,
+      "fh": 0.96618
+    },
+    {
+      "name": "cloud",
+      "file": "cloud.webp",
+      "area": 8648,
+      "w": 323,
+      "h": 145,
+      "fx": 0.76758,
+      "fy": 0.22574,
+      "fw": 0.15771,
+      "fh": 0.10662
+    },
+    {
+      "name": "sun",
+      "file": "sun.webp",
+      "area": 2126,
+      "w": 63,
+      "h": 65,
+      "fx": 0.80225,
+      "fy": 0.18309,
+      "fw": 0.03076,
+      "fh": 0.04779
+    },
+    {
+      "name": "balloon",
+      "file": "balloon.webp",
+      "area": 7356,
+      "w": 103,
+      "h": 140,
+      "fx": 0.13379,
+      "fy": 0.12279,
+      "fw": 0.05029,
+      "fh": 0.10294
+    },
+    {
+      "name": "birds",
+      "file": "birds.webp",
+      "area": 1007,
+      "w": 207,
+      "h": 150,
+      "fx": 0.11719,
+      "fy": 0.27721,
+      "fw": 0.10107,
+      "fh": 0.11029
+    }
+  ],
+  "waterfall": {
+    "cx": 0.5091,
+    "cy": 0.5611,
+    "x0": 0.4887,
+    "x1": 0.5294,
+    "y0": 0.4815,
+    "y1": 0.6407,
+    "note": "densest sustained motion in loop-s1.mp4, in fractions of the painting. Found by _tools/find-waterfall.py, not by eye. Used as the anchor the arrival zoom flies toward."
   }
- ]
 }

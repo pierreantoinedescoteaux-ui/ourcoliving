@@ -47,8 +47,17 @@ body{min-height:100%;overscroll-behavior-y:none;}
 
 .world{position:fixed;inset:0;overflow:hidden;z-index:1;}
 
-/* the still tower and its sky: one group, so the zoom carries them together */
-.stage{position:absolute;inset:0;transform-origin:50% 0;will-change:transform;}
+/* the still tower and its sky: one group, so the zoom carries them together.
+   It starts BELOW the nav — P-A: "there will be a nav bar at the top that
+   will hide a little bit of stuff", and without this the balloon is the
+   thing it hides. */
+.stage{position:absolute;left:0;right:0;bottom:0;top:var(--navh,0px);
+  transform-origin:50% 0;will-change:transform;}
+/* the mock borrows the real nav so the composition is laid out under a real
+   nav. It does not want the rest of the furniture: the site footer sits at
+   the foot of a 300vh scroller, which is exactly where the ways in are, and
+   the site's own to-top button doubles the one already here. */
+.sminifoot,.stotop,.pa-editbtn{display:none !important;}
 
 .pl{position:absolute;will-change:transform;
   transform:translate3d(var(--px,0px),var(--py,0px),0) scale(var(--ps,1));}
@@ -109,15 +118,31 @@ body{min-height:100%;overscroll-behavior-y:none;}
   .live #balloon,.live #birds,.live #cloud,.live #cloud2,.live #cloud3,.live #sun{animation:none;}
 }
 
-/* --- the ambient clip the zoom lands on. It is the site's own S1 loop, the
-       one the live landing already plays, so arriving here IS arriving at
-       the landing, except the water is already running. */
-.loop{position:absolute;inset:0;opacity:0;will-change:transform,opacity;
-  transform-origin:50% 76%;}
+/* --- the ambient clip. P-A: "I would like the tower to have the animated
+       version with the waterfall... if the zooming in is actually the
+       animated version being zoomed in so that the waterfall is running the
+       whole time, that would be epic."
+
+       It is, and it does. The clip is not something the zoom lands on at
+       the end any more; it is registered to the painting from the first
+       frame and rides the same transform. Because the clip is a CROP of the
+       painting, at the start it can only cover the middle of the screen, so
+       it sits there as a small living rectangle inside the still world and
+       grows with the flight until it is the whole screen. The still and the
+       clip are the same picture, so the only thing that could give the seam
+       away is the encode: hence the feathered edge, which is dropped the
+       moment the clip covers everything. */
+.loop{position:absolute;inset:0;opacity:1;will-change:transform;
+  -webkit-mask-image:radial-gradient(closest-side,#000 62%,rgba(0,0,0,.55) 82%,transparent 100%);
+  mask-image:radial-gradient(closest-side,#000 62%,rgba(0,0,0,.55) 82%,transparent 100%);}
+.loop.full{-webkit-mask-image:none;mask-image:none;}
 .loop video{width:100%;height:100%;object-fit:cover;display:block;}
 
 /* --- the words ------------------------------------------------------- */
-.byline{position:fixed;z-index:6;top:22px;right:16px;
+/* P-A: "there will be a nav bar at the top that will hide a little bit of
+   stuff." The real nav is mounted below and measured into --navh, so the
+   composition is laid out under it instead of behind it. */
+.byline{position:fixed;z-index:6;top:calc(var(--navh,0px) + 18px);right:16px;
   width:min(46vw,196px);text-align:right;
   font-size:12px;line-height:1.45;letter-spacing:.04em;font-weight:500;
   color:color-mix(in srgb,var(--gold) 84%,#000);
@@ -169,30 +194,64 @@ body{min-height:100%;overscroll-behavior-y:none;}
    by breaking the type floor. The only thing that looks like a control is
    the arrow.
    --------------------------------------------------------------------- */
-.ways{position:fixed;z-index:7;left:0;right:0;bottom:0;
-  padding:46px 20px calc(10px + env(safe-area-inset-bottom));
+/* P-A on this block: "it's not faded enough... there's still white space at
+   the top... maybe the whole thing should be more faded. The 'you are in
+   the tower, where do you want to go' should be bigger, and the gray doesn't
+   render well. The text arrives just a little bit below the bridge on the
+   image; it should be the same, it can be a bit lower but not higher, and
+   still faded a little so we do see the boat."
+
+   So the block is no longer anchored to the bottom of the screen and padded
+   upward by a guess. Its top is --bridge, computed from the painting at
+   runtime, and it fades in from nothing over its own height, so the boat
+   and the water read straight through the first third of it. */
+.ways{position:fixed;z-index:7;left:0;right:0;
+  top:var(--bridge,58%);bottom:0;
+  padding:14px 20px calc(8px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;justify-content:flex-start;
   opacity:0;transform:translateY(18px);pointer-events:none;
   transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.25,1);
+  /* faded, but faded ENOUGH: the first third stays light so the boat and
+     the water still read through it, then it comes up quickly so the words
+     are on paper rather than on a market */
   background:linear-gradient(180deg,transparent 0%,
-    color-mix(in srgb,var(--bg) 34%,transparent) 20%,
-    color-mix(in srgb,var(--bg) 78%,transparent) 42%,
-    color-mix(in srgb,var(--bg) 88%,transparent) 66%,
-    color-mix(in srgb,var(--bg) 84%,transparent) 100%);}
+    color-mix(in srgb,var(--bg) 22%,transparent) 12%,
+    color-mix(in srgb,var(--bg) 60%,transparent) 30%,
+    color-mix(in srgb,var(--bg) 82%,transparent) 50%,
+    color-mix(in srgb,var(--bg) 90%,transparent) 72%,
+    color-mix(in srgb,var(--bg) 92%,transparent) 100%);}
 .arrived .ways{opacity:1;transform:none;pointer-events:auto;}
-.ways__q{margin:0 0 4px;font-size:.95rem;line-height:1.4;color:var(--ink-soft);
-  text-shadow:0 1px 2px var(--bg),0 0 8px var(--bg),0 0 16px var(--bg);}
-.ways__q b{font-weight:700;color:var(--ink);}
+.ways__q{margin:0 0 6px;font-size:1.05rem;line-height:1.28;color:var(--ink);
+  font-family:var(--display);font-weight:300;
+  text-shadow:0 1px 2px var(--bg),0 0 10px var(--bg),0 0 20px var(--bg);}
+.ways__q b{font-weight:700;color:var(--gold);}
 .way{display:flex;align-items:center;gap:12px;
-  padding:11px 2px;min-height:52px;text-decoration:none;color:inherit;
-  border-bottom:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
-.way:first-of-type{border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
+  padding:6px 2px;min-height:48px;text-decoration:none;color:inherit;
+  border-bottom:1px solid color-mix(in srgb,var(--ink) 16%,transparent);}
+.way:first-of-type{border-top:1px solid color-mix(in srgb,var(--ink) 16%,transparent);}
 .way:last-of-type{border-bottom:0;}
 .way__t{flex:1;min-width:0;}
 .way__n{display:block;font-family:var(--display);font-weight:700;
-  font-size:1.06rem;line-height:1.2;color:var(--rc);}
-.way__s{display:block;margin-top:3px;font-size:.8rem;line-height:1.3;
-  letter-spacing:.02em;color:var(--ink-soft);}
+  font-size:1rem;line-height:1.18;color:var(--rc);
+  text-shadow:0 1px 2px var(--bg),0 0 8px var(--bg);}
+.way__s{display:block;margin-top:2px;font-size:.76rem;line-height:1.28;
+  letter-spacing:.02em;color:var(--ink-soft);
+  text-shadow:0 1px 2px var(--bg),0 0 7px var(--bg);}
 .way__a{flex:none;font-size:1.15rem;line-height:1;color:var(--rc);}
+
+/* A wide screen crops the clip by width, so the painting is scaled up and
+   the waterfall becomes 400px tall. A stacked list underneath it cannot fit
+   between the water and the foot of the screen, and P-A's rule is that the
+   waterfall stays unobstructed. On a wide screen the three ways are a ROW,
+   which is what the space is shaped like anyway. */
+@media(min-width:900px){
+  .ways{flex-direction:row;align-items:center;gap:clamp(20px,3vw,48px);
+    padding:16px clamp(24px,5vw,72px) calc(14px + env(safe-area-inset-bottom));}
+  .ways__q{flex:0 0 auto;max-width:15ch;margin:0 0 4px;font-size:1.16rem;}
+  .way{flex:1 1 0;min-width:0;border-top:1px solid color-mix(in srgb,var(--ink) 16%,transparent);
+    border-bottom:0;padding:8px 2px;}
+  .way:first-of-type{border-top:1px solid color-mix(in srgb,var(--ink) 16%,transparent);}
+}
 .way:active{background:color-mix(in srgb,var(--rc) 8%,transparent);}
 
 .note{position:fixed;z-index:9;right:12px;bottom:10px;
@@ -206,7 +265,10 @@ body{min-height:100%;overscroll-behavior-y:none;}
 .arrived .top{display:inline-flex;}
 </style>
 </head>
-<body class="settling">
+<body class="settling" data-nofooter>
+
+<div data-sitenav></div>
+<script src="site-nav.js"></script>
 
 <div class="scroller"></div>
 
@@ -277,46 +339,11 @@ body{min-height:100%;overscroll-behavior-y:none;}
   var byEl   = document.querySelector('.byline');
   var cueEl  = document.querySelector('.cue');
 
-  /* ------------------------------------------------------------------
-     WHERE THE ZOOM HAS TO LAND — measured, not guessed.
-
-     The island's silhouette was keyed out of BOTH the full painting and
-     the first frame of the ambient clip, and the two bounding boxes give
-     the mapping between them:
-
-        painting   island spans x 0.0239 - 0.9810  of 2048
-        clip       island spans x 0.1005 - 0.9036  of 1920
-
-     which places the 3:2 painting inside the 16:9 clip at 0.832 of its
-     width, pillarboxed. The phone encode is crop=608:1080:656:0 of that,
-     so the phone clip shows the middle 38.1% of the painting's width —
-     and after object-fit:cover takes its share of a tall screen, 31.3%.
-
-     So the zoom is finished when the painting's full width measures
-     viewport / 0.313. Every number below derives from that one, at
-     runtime, so it holds on any phone rather than just on mine.
-     ------------------------------------------------------------------ */
-  var ISLAND_FX = 0.0239, ISLAND_FW = 0.9571, ISLAND_FY = 0.0191;
+  /* the island's own box inside the painting, from layers.json */
+  var ISLAND_FX = 0.021, ISLAND_FW = 0.96338, ISLAND_FY = 0.01471;
   var PAINT_AR  = 1360 / 2048;
-  var VISIBLE   = 0.313;
 
-  var targetScale = 1, targetTy = 0, measured = false, curScale = 1;
-
-  function measure(){
-    /* read the island at scale 1 by dividing out whatever scale is applied */
-    var r = island.getBoundingClientRect();
-    if (!r.width) return;
-    var wStill = (r.width / curScale) / ISLAND_FW;
-    var hStill = wStill * PAINT_AR;
-    var top    = (r.top / curScale) - ISLAND_FY * hStill;
-    targetScale = (window.innerWidth / VISIBLE) / wStill;
-    /* the origin is the top centre, so a scale of S puts the painting's
-       centre at S*cy; the translate brings it back to the middle of the
-       screen, which is where the clip's framing sits */
-    var cy = top + hStill / 2;
-    targetTy = window.innerHeight / 2 - targetScale * cy;
-    measured = true;
-  }
+  var measured = false, curScale = 1;
 
   /* ---- the settle ---- */
   var PLANES = [
@@ -339,6 +366,11 @@ body{min-height:100%;overscroll-behavior-y:none;}
       /* hand over: the settle's eased transition comes off so it cannot
          fight the parallax, and the looping ambient animations come on */
       PLANES.forEach(function(p){ p.el.style.transition='opacity .4s ease'; p.el.style.transitionDelay='0ms'; });
+      /* the settle's half-second delay comes off the words too, or they hang
+         about for half a scroll before they start stepping aside */
+      [copyEl, byEl, cueEl].forEach(function(el){
+        el.style.transition = 'opacity .35s ease'; el.style.transitionDelay = '0ms';
+      });
       document.body.classList.add('live');
       measure(); paint();
     }, 1500);
@@ -375,12 +407,122 @@ body{min-height:100%;overscroll-behavior-y:none;}
     })();
   }, { passive:true });
 
-  /* ---- ONE long scroll, two acts sharing it.
-     Up to CROSS the painting is flown into. After it the ambient clip has
-     taken over and keeps going, past the framing the live landing sits
-     at, until the water is filling the screen. ---- */
-  var CROSS = 0.74;      /* where the painting hands over to the clip */
-  var EXTRA = 1.34;      /* how much further in the clip goes than the landing */
+  /* ---- ONE long scroll: a flight toward the waterfall ----------------
+     P-A, three notes on the old version, all answered here:
+
+       "I want one point to be anchored as if you are a bird flying into
+        that. Right now it just feels the same as if I'm zooming in a photo."
+       "It's like almost a new image that jumps in. I scroll and it zooms in,
+        and if I keep scrolling it zooms out again, and then it's locked."
+       "I really like where you zoomed in on the tower image, I really like
+        the framing."
+
+     THE JUMP had a cause, and it was one hardcoded number. The old code
+     stopped the zoom when the painting's visible width hit 0.313 of the
+     screen — a figure measured once, on one phone. It is not a constant: it
+     depends on the viewport's aspect, because object-fit:cover decides how
+     much of the clip is on screen. On anything shorter than the phone it
+     was tuned on (his, the moment browser chrome appears) the still ended
+     ~15% MORE zoomed in than the clip, so the handover jumped backwards and
+     the clip growing afterwards read as recovering from it. Every number
+     below is derived at runtime instead.
+
+     THE ANCHOR is the waterfall, found by _tools/find-waterfall.py rather
+     than by eye, and the scale grows GEOMETRICALLY. A constant multiplying
+     rate is what reads as approach; growing it linearly is what reads as
+     pinching a photograph.
+
+     THE HOLD: he wants the level between the two framings held rather than
+     passed through, so the middle of the scroll is a plateau. */
+
+  /* the island's box inside the clip, in the clip's own original 1920x1080
+     frame, measured by keying its silhouette out of both pictures */
+  var CLIP_PAINT_X = 159.4;    /* the painting's left edge, in frame px */
+  var CLIP_PAINT_W = 1600.5;   /* the painting's width, in frame px */
+  var CLIP_PAINT_Y = 8.6;
+  var CLIP_PAINT_H = 1062.9;
+  var PHONE_CROP_X = 656;      /* crop=608:1080:656:0 — load-bearing */
+  /* the anchor, in fractions of the painting (assets/tower/layers/layers.json) */
+  var WF_X = 0.5091, WF_Y = 0.5611;
+  /* the stone bridge, for where the words are allowed to start */
+  var BRIDGE_Y = 0.755;
+
+  var geo = null;
+
+  /* the real nav eats the top of the composition, so it is measured rather
+     than assumed, and the sky is pushed down under it */
+  function navHeight(){
+    var n = document.querySelector('.snav');
+    return n ? Math.round(n.getBoundingClientRect().height) : 0;
+  }
+
+  function measure(){
+    var W = window.innerWidth, H = window.innerHeight;
+    var nh = navHeight();
+    document.documentElement.style.setProperty('--navh', nh + 'px');
+    var vw = vid.videoWidth || 608, vh = vid.videoHeight || 1080;
+    var cropX = vw < 1000 ? PHONE_CROP_X : 0;
+
+    /* the painting's box in stage coordinates, read from layout so it
+       survives any change to the CSS above */
+    var iw = island.offsetWidth, il = island.offsetLeft, it = island.offsetTop;
+    if (!iw) return false;
+    var wPaint = iw / ISLAND_FW;
+    var hPaint = wPaint * PAINT_AR;
+    var pL = il - ISLAND_FX * wPaint;
+    var pT = it - ISLAND_FY * hPaint;
+
+    /* the clip, laid out by object-fit:cover */
+    var k = Math.max(W / vw, H / vh);
+    /* ...and therefore where the flight has to finish: the painting exactly
+       as wide as the clip draws it */
+    var sEnd = (CLIP_PAINT_W * k) / wPaint;
+
+    /* the anchor: in the stage now, and on screen when the clip is showing */
+    var ax = pL + WF_X * wPaint, ay = pT + WF_Y * hPaint;
+    var endAx = (W - vw * k) / 2 + (CLIP_PAINT_X + WF_X * CLIP_PAINT_W - cropX) * k;
+    var endAy = (H - vh * k) / 2 + (CLIP_PAINT_Y + WF_Y * CLIP_PAINT_H) * k;
+    var endBridge = (H - vh * k) / 2 + (CLIP_PAINT_Y + BRIDGE_Y * CLIP_PAINT_H) * k;
+
+    geo = { W:W, H:H, k:k, sEnd:sEnd, ax:ax, ay:ay, stageTop:stage.offsetTop,
+            startAx:ax, startAy:ay + stage.offsetTop, endAx:endAx, endAy:endAy,
+            endBridge:endBridge };
+    measured = true;
+    /* The words are placed against the PAINTING, not against the screen:
+       P-A wants them starting just below the bridge. But the bridge is not
+       always high enough to leave room — on a short phone it is close to the
+       foot of the screen, and on a wide desktop the cover crop pushes it off
+       the bottom entirely. So the block sits at the bridge when it fits and
+       climbs only as far as it must, which keeps his rule wherever the rule
+       is possible. */
+    var waysEl = document.getElementById('ways');
+    document.documentElement.style.setProperty('--bridge', Math.round(endBridge) + 'px');
+    if (waysEl){
+      /* iterate: reading scrollHeight forces a layout, so moving the block
+         and asking again converges in a couple of passes. One pass is not
+         enough because the row wraps differently once it has more room. */
+      for (var fit = 0; fit < 4; fit++){
+        var need = waysEl.scrollHeight, avail = H - endBridge;
+        if (need <= avail) break;
+        endBridge = Math.max(0, endBridge - (need - avail) - 12);
+        document.documentElement.style.setProperty('--bridge', Math.round(endBridge) + 'px');
+      }
+    }
+    geo.endBridge = endBridge;
+    return true;
+  }
+
+  /* the shape of the flight: in, then a held plateau at the level P-A
+     prefers, then the last of the way in */
+  function flight(p){
+    var A = 0.46, B = 0.66, HOLD = 0.58;   /* the plateau sits here */
+    var e;
+    if (p <= A)      e = (p / A) * HOLD;
+    else if (p <= B) e = HOLD;
+    else             e = HOLD + (1 - HOLD) * ((p - B) / (1 - B));
+    return e * e * (3 - 2 * e);            /* smoothstep the whole thing */
+  }
+
   var raf = 0, loaded = false;
 
   function progress(){
@@ -390,39 +532,88 @@ body{min-height:100%;overscroll-behavior-y:none;}
 
   function paint(){
     raf = 0;
-    if (!measured) measure();
-    var p = progress();
+    if (!measured && !measure()) return;
+    var p = progress(), e = flight(p);
 
-    /* act one — the painting comes at you */
-    var e = Math.min(1, p / CROSS);
-    var sm = e * e * (3 - 2 * e);                        /* smoothstep */
-    curScale = 1 + (targetScale - 1) * sm;
-    stage.style.transform = 'translate3d(0,' + (targetTy * sm).toFixed(1) + 'px,0) scale(' + curScale.toFixed(4) + ')';
+    /* GEOMETRIC growth: a constant multiplying rate reads as approach */
+    var s = Math.exp(Math.log(geo.sEnd) * e);
+    curScale = s;
+    /* the anchor drifts from where the waterfall sits in the composition to
+       where the clip will put it, slowly enough to read as held */
+    var Ax = geo.startAx + (geo.endAx - geo.startAx) * e;
+    var Ay = geo.startAy + (geo.endAy - geo.startAy) * e;
 
-    /* the sky is passed on the way in, so it is gone before the tower fills */
-    var out = Math.max(0, Math.min(1, (p - 0.08) / 0.30));
-    SKY.forEach(function(s){ s.el.style.opacity = (1 - out).toFixed(3); });
+    var tx = Ax - (geo.W / 2 + (geo.ax - geo.W / 2) * s);
+    var ty = Ay - geo.stageTop - geo.ay * s;
+    stage.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) scale(' + s.toFixed(4) + ')';
 
-    /* act two — the clip, already running, takes the picture over */
-    var c = Math.max(0, Math.min(1, (p - (CROSS - 0.16)) / 0.18));
-    loop.style.opacity = c.toFixed(3);
-    if (c > 0 && vid.paused) { var q = vid.play(); if (q && q.catch) q.catch(function(){}); }
-    var beyond = Math.max(0, Math.min(1, (p - CROSS) / (1 - CROSS)));
-    loop.style.transform = 'scale(' + (1 + (EXTRA - 1) * beyond).toFixed(4) + ')';
+    /* the clip carries the same geometry, so the two are the same picture
+       at every moment and there is nothing to jump between */
+    var m = s / geo.sEnd;
+    loop.style.transformOrigin = geo.endAx.toFixed(1) + 'px ' + geo.endAy.toFixed(1) + 'px';
+    loop.style.transform = 'translate3d(' + (Ax - geo.endAx).toFixed(1) + 'px,' +
+      (Ay - geo.endAy).toFixed(1) + 'px,0) scale(' + m.toFixed(4) + ')';
+    loop.classList.toggle('full', m >= 0.995);
+
+    /* the sky is passed on the way in */
+    var out = Math.max(0, Math.min(1, (p - 0.06) / 0.26));
+    SKY.forEach(function(sk){ sk.el.style.opacity = (1 - out).toFixed(3); });
 
     /* the words step aside as soon as the world starts moving */
     var fade = (1 - Math.max(0, Math.min(1, (p - 0.03) / 0.15))).toFixed(3);
     copyEl.style.opacity = fade; washEl.style.opacity = fade;
     byEl.style.opacity = fade;   cueEl.style.opacity = fade;
 
-    document.body.classList.toggle('arrived', p > 0.90);
+    document.body.classList.toggle('arrived', p > 0.93);
 
-    /* the clip is only fetched once the visitor is on their way to it */
-    if (!loaded && p > 0.10){ loaded = true; vid.load(); }
+    if (!loaded){ loaded = true; vid.load(); }
+    if (vid.paused) { var q = vid.play(); if (q && q.catch) q.catch(function(){}); }
   }
 
   window.addEventListener('scroll', function(){ if (!raf) raf = requestAnimationFrame(paint); }, { passive:true });
   window.addEventListener('resize', function(){ measured = false; if (!raf) raf = requestAnimationFrame(paint); });
+  /* the display face changes the block's height, so it is measured again
+     once the real one has arrived */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){
+    measured = false; if (!raf) raf = requestAnimationFrame(paint);
+  });
+
+  /* ---- and it settles ------------------------------------------------
+     P-A: "for other zones you would scroll automatically to the fully
+     static page where everything is in its permanent shape. I want the
+     same for the tower, for the three buttons. If I scroll a little bit,
+     it should scroll all the way to there."
+
+     Same mechanic the climb already uses (tower-engine.js): idle for a
+     beat, then a constant-pace glide, cancelled by any input. Past the
+     halfway mark it commits forward; before it, it falls back to the top. */
+  var IDLE = 620, PACE = 1.15, settleRaf = 0, lastInput = performance.now();
+  function cancelSettle(){
+    if (settleRaf){ cancelAnimationFrame(settleRaf); settleRaf = 0; }
+    lastInput = performance.now();
+  }
+  ['wheel','touchstart','touchmove','keydown','mousedown'].forEach(function(ev){
+    window.addEventListener(ev, cancelSettle, { passive:true });
+  });
+  window.addEventListener('scroll', function(){ if (!settleRaf) lastInput = performance.now(); }, { passive:true });
+  setInterval(function(){
+    if (settleRaf || document.hidden || performance.now() - lastInput < IDLE) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max <= 0) return;
+    var y = window.scrollY || 0, p = y / max;
+    if (p < 0.02 || p > 0.98) return;              /* already resting */
+    var to = p >= 0.34 ? max : 0;                  /* a nudge commits the flight */
+    var from = y, dist = to - from;
+    var dur = Math.max(280, Math.min(1500, Math.abs(dist) / PACE));
+    var t0 = performance.now();
+    (function step(){
+      var t = Math.min(1, (performance.now() - t0) / dur);
+      var k = 0.5 - 0.5 * Math.cos(Math.PI * t);   /* cosine, like the engine */
+      window.scrollTo(0, from + dist * k);
+      if (t < 1) settleRaf = requestAnimationFrame(step);
+      else { settleRaf = 0; lastInput = performance.now(); }
+    })();
+  }, 200);
   document.getElementById('top').addEventListener('click', function(){
     window.scrollTo({ top:0, behavior:'smooth' });
   });
