@@ -17,6 +17,11 @@
   var finePointer = window.matchMedia("(pointer:fine)").matches;
   var FILE = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   var IS_LANDING = { "index.html": 1, "tower.html": 1, "home-classic.html": 1, "index-v2.html": 1 }[FILE] === 1;
+  /* A page can ask for the easter egg and nothing else: the arrival stages
+     its own sky and its own settle, and motes, flyers and a load cover on
+     top of that would be two designs fighting. Set window.WFX_MINIMAL
+     before the script loads. */
+  var MINIMAL = window.WFX_MINIMAL === true;
   var SPRITES = "assets/world/";
 
   /* floor mood: which hover effect this page's buttons get.
@@ -52,7 +57,7 @@
   /* =====================================================
      1) POLLEN — warm motes drifting, shy of the cursor
      ===================================================== */
-  if (!reduce) {
+  if (!reduce && !MINIMAL) {
     var MOTES = window.innerWidth < 700 ? 7 : 16;
     var motes = [], mx = -999, my = -999, pmx = -999, pmy = -999, lastDust = 0;
     for (var i = 0; i < MOTES; i++) {
@@ -134,7 +139,7 @@
   /* =====================================================
      2) CLICK-BLOOM — every click sprouts a tiny burst
      ===================================================== */
-  if (!reduce) document.addEventListener("click", function (e) {
+  if (!reduce && !MINIMAL) document.addEventListener("click", function (e) {
     if (e.target.closest("input,textarea,select,.gray")) return; /* bubbles have their own burst */
     var cols = [accent, "#5c9e4a", "#d99a3d", "#f7c948", "#3c6b32", "#e58ab7"];
     for (var k = 0; k < 13; k++) {
@@ -276,7 +281,7 @@
   /* =====================================================
      5) FLYERS — bird / rushed robot / hot air balloon
      ===================================================== */
-  if (!reduce && !IS_LANDING) {
+  if (!reduce && !IS_LANDING && !MINIMAL) {
     var FLYERS = [
       /* wander = how far (fraction of viewport height) the flight path may
          drift up/down as it crosses. The bird meanders; the robot is late
@@ -342,6 +347,122 @@
   }
 
   /* =====================================================
+     5b) THE BALLOON — P-A's easter egg.
+
+     "I thought it would be funny. If you click on the hot air balloon it
+     could have a little popup, send a postcard. I don't know if this is a
+     good idea or actually a bad idea."
+
+     It is a good idea, and it is the only thing on the site that rewards
+     poking at the scenery, which is what a painted world should do.
+
+     No street address on the page: he chose that. A published address is
+     permanent and scrapeable, and the invitation works just as well when
+     the address arrives by reply. Everything here is painted, out of the
+     sticker kit — a wink does not get to spend render credits.
+     ===================================================== */
+  var CARD_CSS =
+    ".wfx-pcwrap{position:fixed;inset:0;z-index:2200;display:flex;align-items:center;justify-content:center;" +
+      "padding:22px;opacity:0;transition:opacity .3s ease}" +
+    ".wfx-pcwrap.on{opacity:1}" +
+    ".wfx-pcwrap::before{content:'';position:absolute;inset:0;background:rgba(34,48,31,.32);backdrop-filter:blur(3px)}" +
+    ".wfx-pc{position:relative;width:min(400px,100%);padding:26px 24px 22px;border-radius:4px;" +
+      "background:#fdfaf0;color:#22301f;font-family:'Switzer',system-ui,sans-serif;text-align:left;" +
+      "box-shadow:0 30px 70px -28px rgba(34,48,31,.6),0 2px 0 rgba(34,48,31,.10);" +
+      "transform:rotate(-1.6deg) translateY(16px) scale(.96);transition:transform .45s cubic-bezier(.2,.9,.25,1)}" +
+    ".wfx-pcwrap.on .wfx-pc{transform:rotate(-1.6deg)}" +
+    /* the postcard's ruled edge and its divider, drawn the way a real one is */
+    ".wfx-pc::before{content:'';position:absolute;inset:7px;border:1px solid rgba(34,48,31,.16);border-radius:2px;pointer-events:none}" +
+    ".wfx-pc h3{margin:0 0 8px;font-family:'Zodiak',Georgia,serif;font-weight:300;font-size:1.42rem;line-height:1.14}" +
+    ".wfx-pc p{margin:0 0 16px;font-size:.98rem;line-height:1.55;color:#4a5a45;max-width:31ch}" +
+    ".wfx-pc .wfx-stamp{position:absolute;top:14px;right:14px;width:62px;height:62px;padding:5px;" +
+      "border:1px dashed rgba(34,48,31,.3);background:rgba(246,242,231,.7);transform:rotate(4deg)}" +
+    ".wfx-pc .wfx-stamp img{width:100%;height:100%;object-fit:contain;display:block}" +
+    ".wfx-pc .wfx-go{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:99px;" +
+      "background:#3c6b32;color:#fffdf8;text-decoration:none;font-weight:700;font-size:.8rem;letter-spacing:.13em;" +
+      "text-transform:uppercase;transition:background .25s}" +
+    ".wfx-pc .wfx-go:hover{background:#22301f}" +
+    ".wfx-pc .wfx-x{position:absolute;bottom:6px;right:8px;width:44px;height:44px;border:0;background:none;cursor:pointer;" +
+      "color:#7d8a76;font-size:1.4rem;line-height:1}" +
+    ".wfx-pc .wfx-x:hover{color:#22301f}" +
+    ".wfx-pc .edit{opacity:.35;font-size:.7rem}" +
+    "@media(max-width:420px){.wfx-pc .wfx-stamp{width:50px;height:50px}.wfx-pc h3{font-size:1.24rem}}";
+
+  var cardOpen = null;
+  function postcard() {
+    if (cardOpen) return;
+    if (!document.getElementById("wfx-pc-css")) {
+      var st = document.createElement("style");
+      st.id = "wfx-pc-css"; st.textContent = CARD_CSS;
+      document.head.appendChild(st);
+    }
+    var wrap = document.createElement("div");
+    wrap.className = "wfx-pcwrap";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
+    wrap.setAttribute("aria-label", "You found the balloon");
+    wrap.innerHTML =
+      '<div class="wfx-pc">' +
+        '<div class="wfx-stamp"><img src="' + SPRITES + 'flyer-balloon.webp" alt=""></div>' +
+        "<h3>You found the balloon.</h3>" +
+        "<p>Nothing is hidden up here, but if you feel like sending something " +
+        "by actual post, write to me and I will send you the address. " +
+        '<span class="edit">[edit]</span></p>' +
+        '<a class="wfx-go" href="mailto:pierreantoinedescoteaux@gmail.com' +
+          '?subject=I%20found%20the%20balloon">Write to me</a>' +
+        '<button class="wfx-x" type="button" aria-label="Close">&times;</button>' +
+      "</div>";
+    document.body.appendChild(wrap);
+    cardOpen = wrap;
+    requestAnimationFrame(function () { wrap.classList.add("on"); });
+    var btn = wrap.querySelector(".wfx-x");
+    btn.focus();
+
+    function shut() {
+      if (!cardOpen) return;
+      wrap.classList.remove("on");
+      document.removeEventListener("keydown", onKey);
+      setTimeout(function () { wrap.remove(); }, 320);
+      cardOpen = null;
+    }
+    function onKey(e) { if (e.key === "Escape") shut(); }
+    btn.addEventListener("click", shut);
+    wrap.addEventListener("click", function (e) { if (e.target === wrap) shut(); });
+    document.addEventListener("keydown", onKey);
+  }
+
+  /* anything painted can carry it. The arrival's balloon layer asks for it
+     by name; the drifting flyer gets it wired below. */
+  function armBalloon(el) {
+    if (!el || el.dataset.wfxBalloon) return;
+    el.dataset.wfxBalloon = "1";
+    el.style.pointerEvents = "auto";
+    el.style.cursor = "pointer";
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
+    if (!el.hasAttribute("role")) el.setAttribute("role", "button");
+    if (!el.hasAttribute("aria-label")) el.setAttribute("aria-label", "The hot air balloon");
+    el.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); postcard(); });
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); postcard(); }
+    });
+  }
+  /* the drifting balloon on interior pages is clickable too, for whoever
+     is quick enough to catch it */
+  new MutationObserver(function (recs) {
+    recs.forEach(function (r) {
+      Array.prototype.forEach.call(r.addedNodes, function (n) {
+        if (n.nodeType !== 1 || !n.classList || !n.classList.contains("wfx-flyer")) return;
+        var im = n.querySelector("img");
+        if (im && /flyer-balloon/.test(im.getAttribute("src") || "")) armBalloon(n);
+      });
+    });
+  }).observe(document.body, { childList: true });
+
+  window.WORLDFX = window.WORLDFX || {};
+  window.WORLDFX.postcard = postcard;
+  window.WORLDFX.armBalloon = armBalloon;
+
+  /* =====================================================
      6) THE FORGE — hammer + crystal + growing tree,
         landing load cover + page-transition moment
      ===================================================== */
@@ -400,10 +521,10 @@
     if (/^(https?:)?\/\//.test(href) || href.indexOf("mailto:") === 0 || href.charAt(0) === "#") return;
     sessionStorage.setItem("wfx-nav", "1");
   }, { passive: true });
-  if (!IS_LANDING) coverThenReveal();
+  if (!IS_LANDING && !MINIMAL) coverThenReveal();
 
   /* landing: hold a veil until the first scene's clip is actually painting */
-  if (IS_LANDING && !reduce) {
+  if (IS_LANDING && !reduce && !MINIMAL) {
     var lv = document.createElement("div");
     lv.className = "wfx-veil";
     lv.innerHTML = forgeHtml();

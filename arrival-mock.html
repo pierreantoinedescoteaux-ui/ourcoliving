@@ -261,6 +261,11 @@ body{min-height:100%;overscroll-behavior-y:none;}
 <button class="top" type="button" id="top">Back to the top</button>
 <p class="note">arrival mock v2</p>
 
+<!-- the easter egg only. The sky here is staged by hand and has its own
+     settle, so the rest of the delight layer stays switched off. -->
+<script>window.WFX_MINIMAL = true;</script>
+<script src="world-fx.js"></script>
+
 <script>
 (function(){
   var stage  = document.getElementById('stage');
@@ -421,6 +426,13 @@ body{min-height:100%;overscroll-behavior-y:none;}
   document.getElementById('top').addEventListener('click', function(){
     window.scrollTo({ top:0, behavior:'smooth' });
   });
+
+  /* the balloon is the one thing up here you can poke. P-A's easter egg. */
+  (function arm(n){
+    if (window.WORLDFX && window.WORLDFX.armBalloon){
+      window.WORLDFX.armBalloon(document.getElementById('balloon'));
+    } else if (n < 40) setTimeout(function(){ arm(n + 1); }, 100);
+  })(0);
 })();
 </script>
 </body>
