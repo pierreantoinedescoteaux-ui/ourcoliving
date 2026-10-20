@@ -5,7 +5,7 @@ kind: "case-study"
 source: "work-data.js (scaffold)"
 path: "work-data (scaffold)[3]"
 role: "Co-founder"
-kicker: "Case study · Canada · [edit: years]"
+kicker: "Case study · Canada"
 ---
 
 

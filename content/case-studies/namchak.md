@@ -4,8 +4,8 @@ slug: "namchak"
 kind: "case-study"
 source: "work-data.js (scaffold)"
 path: "work-data (scaffold)[7]"
-role: "[edit — your role]"
-kicker: "Case study · Montana, US · [edit: years]"
+role: ""
+kicker: "Case study · Montana, US"
 ---
 
 

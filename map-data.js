@@ -4,7 +4,7 @@
    - MAP_PRESETS = curated axis pairings
    - COLIVING_TYPES = the 12 mapped types. scores are 0–100 on each prop.
      Positions are editorial reads, not census data — tune freely.
-   - [edit] marks copy P-A should put in his own voice.
+   - marks copy P-A should put in his own voice.
    ===================================================================== */
 
 const MAP_PROPS = {
@@ -214,7 +214,7 @@ const COLIVING_TYPES = [
     scores: { ecoTech: 62, centralization: 35, financing: 15, difficulty: 25, independence: 45, scale: 20, permanence: 40, cost: 45 },
     body: [
       "Between the hacker house's chaos and the operator's sterility there's a middle path: one house, five to ten carefully chosen people, run by someone who actually lives there and designs the space around behavior — focus rooms, gathering tables, stillness corners.",
-      "This is the model I've built and run in Vancouver and Montreal for years. Almost no capital, no institution — just curation, intention, and a house whose bones get redesigned around the people in it. [edit — make this yours]"
+      "This is the model I've built and run in Vancouver and Montreal for years. Almost no capital, no institution — just curation, intention, and a house whose bones get redesigned around the people in it."
     ],
     who: "Entrepreneurs and self-directed people who want their home to push their life forward.",
     watch: "It runs on the host's energy. The design has to make community self-sustaining, or the host burns out.",

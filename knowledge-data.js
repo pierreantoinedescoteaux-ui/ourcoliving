@@ -5,7 +5,7 @@
      in map-data.js. origin / teaches / best (theme keys) / themes notes.
    - WHY: content for why.html (hope → how we got here → hope).
    Positions and claims are editorial; stats reuse the fact-checked set
-   in data.js (HOPE.crises). [edit] marks copy for P-A's voice.
+   in data.js (HOPE.crises). marks copy for P-A's voice.
    ===================================================================== */
 
 const THEMES = {
@@ -132,7 +132,7 @@ const TYPE_KNOWLEDGE = {
   "entrepreneur-house": {
     hero: { src: "images/mtl-living-room.jpg", cap: "My Montreal house — the living room" },
     diagram: { src: "images/generated/diagram-entrepreneur-house.jpg", cap: "Founder house: co-working, event, and living spaces fused in a single building" },
-    origin: "The middle path between the hacker house's chaos and the operator's sterility — one lived-in house, one intentional host, a curated handful of builders. My own practice sits here. [edit]",
+    origin: "The middle path between the hacker house's chaos and the operator's sterility — one lived-in house, one intentional host, a curated handful of builders. My own practice sits here.",
     teaches: "One person with intention can curate a household that changes its members' trajectories.",
     best: ["community", "space"],
     themes: {
@@ -191,7 +191,7 @@ const TYPE_KNOWLEDGE = {
    WHY — content for why.html. Arc: hope → how we got here → hope.
    Crisis stats are pulled at runtime from HOPE.crises (data.js) — not
    duplicated here. Solarpunk stills from "Dear Alice" (The Line studio),
-   used as inspiration imagery with credit. [edit] marks P-A voice spots.
+   used as inspiration imagery with credit. marks P-A voice spots.
    ===================================================================== */
 const WHY = {
   eyebrow: "Why co-living",
@@ -199,7 +199,7 @@ const WHY = {
   vignette: [
     "It's a Sunday morning, some years from now. Twenty people are eating at one long table under a tree — kids, founders, a retired carpenter teaching a nine-year-old how to hold a chisel. Someone's startup got funded this week; someone else's tomatoes came in. Nobody drove anywhere to be here.",
     "This isn't a commune fantasy or a rendering from a developer's brochure. Every piece of that morning already exists somewhere — in a Danish common house, a Zurich co-op, a Galician village, a Montreal living room. It just hasn't been put together at scale yet.",
-    "That's the work I want to do. But first, be honest about why it matters. [edit]"
+    "That's the work I want to do. But first, be honest about why it matters."
   ],
   vignetteImage: { src: "images/solarpunk-feast.jpg", credit: "Still from “Dear Alice” — The Line studio. The future, drawn the way it could feel." },
 
@@ -237,7 +237,7 @@ const WHY = {
   close: {
     kicker: "Back to hope",
     title: "The future is a place we build on purpose.",
-    body: "The solarpunk artists have already drawn it: technology in service of the table, energy from the sun, generations mixed, nobody optional. I don't think that future arrives by accident — I think it gets built, house by house, village by village, by people who decided isolation isn't a law of nature. [edit]",
+    body: "The solarpunk artists have already drawn it: technology in service of the table, energy from the sun, generations mixed, nobody optional. I don't think that future arrives by accident — I think it gets built, house by house, village by village, by people who decided isolation isn't a law of nature.",
     images: [
       { src: "images/solarpunk-solar.jpg", credit: "“Dear Alice” — The Line" },
       { src: "images/solarpunk-harvest.jpg", credit: "“Dear Alice” — The Line" }

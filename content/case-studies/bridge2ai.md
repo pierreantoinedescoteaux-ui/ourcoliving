@@ -5,7 +5,7 @@ kind: "case-study"
 source: "work-data.js (scaffold)"
 path: "work-data (scaffold)[0]"
 role: "Founder"
-kicker: "Case study · [edit: place · years]"
+kicker: "Case study"
 ---
 
 

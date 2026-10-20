@@ -5,7 +5,7 @@ kind: "case-study"
 source: "work-data.js"
 path: "work-data[2]"
 role: "Operations & management"
-kicker: "Case study 03 · Vancouver, BC · 2022 [edit: confirm dates]"
+kicker: "Case study 03 · Vancouver, BC · 2022"
 ---
 
 

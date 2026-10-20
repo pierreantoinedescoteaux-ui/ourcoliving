@@ -8,7 +8,7 @@
 const THEMES_LIB = {
   eyebrow: "Coliving Atlas · themes",
   title: "The themes library.",
-  lede: "Whatever shape a community takes, the same twenty questions come back. Each card names one, and points you at the best place to start — on this site first, then the people who've gone deepest. [edit]",
+  lede: "Whatever shape a community takes, the same twenty questions come back. Each card names one, and points you at the best place to start — on this site first, then the people who've gone deepest.",
   themes: [
     { name: "Governance & decision-making", q: "Who decides, and how, when thirty people share a roof?",
       start: [ { label: "Housing co-op field guide", href: "type.html?t=housing-coop" }, { label: "Sociocracy — how it works", href: "https://en.wikipedia.org/wiki/Sociocracy", ext: true } ] },

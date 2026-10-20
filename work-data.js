@@ -5,7 +5,7 @@
    evidence inside the resource, essay voice matching story v2.
    Facts: master story reference + data.js PROJECTS (superseded for
    these pages; data.js untouched for legacy renderers).
-   [edit] = Claude draft awaiting P-A's voice.
+ = Claude draft awaiting P-A's voice.
    Images: src renders a photo (curated set only — dedupe by function);
    no src renders a wanted-placeholder describing the shot to get.
    NOTE: work.html/project.html also load about-data.js and reuse
@@ -15,7 +15,7 @@
 const WORK_INTRO = {
   eyebrow: "Work & experience",
   titleHtml: "The <em>practice.</em>",
-  lede: "A working life in four kinds of work — the jobs, the causes, the houses and the side quests. Most are still being written up; the houses run deepest. Told honestly: what I built, what broke, what it taught me. [edit]"
+  lede: "A working life in four kinds of work — the jobs, the causes, the houses and the side quests. Most are still being written up; the houses run deepest. Told honestly: what I built, what broke, what it taught me."
 };
 
 /* ---------------------------------------------------------------------
@@ -30,13 +30,13 @@ const WORK_INTRO = {
      changed   { body, links }               — learnings / how it changed me
    Any story section may instead carry { prompt:"…" } → renders a gold
    "P-A writes" placeholder card (see WORK_CASE_SCAFFOLDS below).
-   ALL copy below = Claude draft from P-A's notes, awaiting his voice ([edit]).
+   ALL copy below = Claude draft from P-A's notes, awaiting his voice ().
    --------------------------------------------------------------------- */
 const WORK_CASES = [
   {
     slug: "montreal",
     name: "The Montréal house",
-    kicker: "Case study 01 · Montréal, QC · 2023 – today [edit: confirm dates]",
+    kicker: "Case study 01 · Montréal, QC · 2023 – today",
     role: "Designer & house manager",
     featured: true,
     summary: "Five people, three years, and the house where I finally designed everything myself.",
@@ -45,14 +45,14 @@ const WORK_CASES = [
     story: {
       open: {
         body: [
-          "I live here. That matters to the story: the Montréal house isn't a project I visited — it's the one I designed from the inside, across three years of Tuesday dinners, morning coworking sessions and the slow learning of what a room actually does to the people in it. [edit]",
-          "The house came with gifts — a heritage building with original woodwork, exposed brick, a turning staircase. Into it moved five entrepreneurs: five people who each needed to focus hard, rest well, and still want to find each other at the end of the day. [edit]"
+          "I live here. That matters to the story: the Montréal house isn't a project I visited — it's the one I designed from the inside, across three years of Tuesday dinners, morning coworking sessions and the slow learning of what a room actually does to the people in it.",
+          "The house came with gifts — a heritage building with original woodwork, exposed brick, a turning staircase. Into it moved five entrepreneurs: five people who each needed to focus hard, rest well, and still want to find each other at the end of the day."
         ]
       },
       challenge: {
         body: [
           "Five entrepreneurs living, working and connecting under one roof — without the three needs cannibalizing each other.",
-          "And almost no budget. No renovation, no architect, no furniture spree. When you can't build, you have to think — which turned out to be the best design teacher I've had. [edit]"
+          "And almost no budget. No renovation, no architect, no furniture spree. When you can't build, you have to think — which turned out to be the best design teacher I've had."
         ]
       },
       moves: [
@@ -60,7 +60,7 @@ const WORK_CASES = [
           heading: "Every room got one job",
           body: [
             "The work was reorganization, not construction. I zoned the house so each room carries exactly one behavioral job — focus, gathering, stillness, rest — and privacy and community stopped having to negotiate daily.",
-            "The stillness room is the clearest example: it's the one room in the house that does nothing else, and that's exactly why it works. [edit]"
+            "The stillness room is the clearest example: it's the one room in the house that does nothing else, and that's exactly why it works."
           ],
           method: { term: "Zoning by behavior", note: "Give each room one job, and design it to defend that job. When the space has already decided, people stop negotiating over it." },
           images: [
@@ -72,7 +72,7 @@ const WORK_CASES = [
           heading: "Working with the bones",
           body: [
             "The building gave me good bones and I worked with them, not against them. The additions were surgical: a long table sized for formal dinners, a rooftop terrace built out for the summer months, light and plants where rest needed defending.",
-            "Most of these moves are now written up as patterns in the Design for Connection room — this house was their laboratory. [edit — name 1-2 more specific moves]"
+            "Most of these moves are now written up as patterns in the Design for Connection room — this house was their laboratory."
           ],
           method: { term: "Reading the bones", note: "Before changing anything, ask what the building already wants to be. Heritage woodwork and a turning staircase aren't obstacles — they're the starting material." },
           images: [
@@ -85,7 +85,7 @@ const WORK_CASES = [
           heading: "Programming the year",
           body: [
             "A floor plan becomes a community through rhythm: coworking sessions, pitch nights, Sunday brunches that slid into music jams, yoga, barbecues — some just for the house, some opened to a wider circle.",
-            "The rooms set the stage; the calendar made the culture. [edit]"
+            "The rooms set the stage; the calendar made the culture."
           ],
           images: [
             { src: "images/mtl-brunch-jam.jpg", caption: "A Sunday brunch becoming a jam." },
@@ -95,8 +95,8 @@ const WORK_CASES = [
       ],
       outcome: {
         body: [
-          "The honest metric: people who could live anywhere kept choosing to stay. Three years in, the house still runs — the long table still fills, and the community has outlasted every version of the calendar that started it. [edit]",
-          "The design patterns it produced became the backbone of the Design for Connection room — tested here first, written up there. [edit]"
+          "The honest metric: people who could live anywhere kept choosing to stay. Three years in, the house still runs — the long table still fills, and the community has outlasted every version of the calendar that started it.",
+          "The design patterns it produced became the backbone of the Design for Connection room — tested here first, written up there."
         ],
         kpis: [
           { label: "Residents", value: "5" },
@@ -107,7 +107,7 @@ const WORK_CASES = [
       changed: {
         body: [
           "This house made me trust that space is a tool you can aim: zone the rooms, and the culture follows.",
-          "It also slowed me down. Three years of living inside my own design taught me that the best moves are small, patient and mostly invisible. [edit]"
+          "It also slowed me down. Three years of living inside my own design taught me that the best moves are small, patient and mostly invisible."
         ],
         links: [
           { label: "Design for Connection", href: "design.html" },
@@ -120,7 +120,7 @@ const WORK_CASES = [
   {
     slug: "growth-hub-dunbar",
     name: "Growth Hub — Dunbar",
-    kicker: "Case study 02 · Vancouver, BC · 2021 – 2022 [edit: confirm dates]",
+    kicker: "Case study 02 · Vancouver, BC · 2021 – 2022",
     role: "Founder & house manager",
     featured: false,
     summary: "My first house: six entrepreneurs in a home built by an art collector.",
@@ -129,20 +129,20 @@ const WORK_CASES = [
     story: {
       open: {
         body: [
-          "My first house. I was the one finding the building, writing the ads, reading the applications and choosing the six people who would live — and build — together in a home an art collector had already made remarkable. [edit]",
+          "My first house. I was the one finding the building, writing the ads, reading the applications and choosing the six people who would live — and build — together in a home an art collector had already made remarkable.",
           "This is where I learned the founder's half of the craft, end to end."
         ]
       },
       challenge: {
         body: [
-          "Fill a house from zero with six entrepreneurs who would sharpen each other — and make the economics work, including running one room on short-term stays to balance the books. [edit]"
+          "Fill a house from zero with six entrepreneurs who would sharpen each other — and make the economics work, including running one room on short-term stays to balance the books."
         ]
       },
       moves: [
         {
           heading: "Saying no well",
           body: [
-            "Ads I built brought in far more applicants than beds; the job was saying no well. The curation was the real product — six people chosen for how they'd sharpen each other, not just for how they'd pay rent. [edit — the applications number if you have it]"
+            "Ads I built brought in far more applicants than beds; the job was saying no well. The curation was the real product — six people chosen for how they'd sharpen each other, not just for how they'd pay rent."
           ],
           method: { term: "Curation", note: "A community is chosen before it is built. Marketing brings volume; the craft is the filter." },
           images: [
@@ -154,28 +154,28 @@ const WORK_CASES = [
           heading: "Reading a building I didn't design",
           body: [
             "I couldn't touch the architecture — an art collector had already made it remarkable — so the skill was reading it: which rooms wanted focus, which wanted gathering, where stillness could live. We built a meditation garden to give the house a quiet heart, and set up a coworking space inside it.",
-            "Designing from constraints first: I've used that reading-the-bones skill in every house since. [edit]"
+            "Designing from constraints first: I've used that reading-the-bones skill in every house since."
           ],
           images: [
             { src: "images/garden-summer.jpg", caption: "The meditation garden in full summer." },
-            { src: "images/interior-armchair-art.jpg", caption: "A corner of the collector's house. [edit: confirm this is Dunbar]" }
+            { src: "images/interior-armchair-art.jpg", caption: "A corner of the collector's house." }
           ]
         },
         {
           heading: "Keeping it alive",
           body: [
-            "Cold plunges, group workouts, barbecues, movie nights — rhythm is what turns co-tenants into a crew. [edit]"
+            "Cold plunges, group workouts, barbecues, movie nights — rhythm is what turns co-tenants into a crew."
           ],
           images: [
-            { src: "images/crew-poolside.jpg", caption: "The crew, poolside. [edit: confirm this is Dunbar]" },
+            { src: "images/crew-poolside.jpg", caption: "The crew, poolside." },
             { scene: "PHOTO WANTED — a strong event shot: cold plunge, group workout, or a full-table dinner at Dunbar." }
           ]
         }
       ],
       outcome: {
         body: [
-          "Two businesses were born at that kitchen table, and one of them has passed a hundred thousand in revenue. [edit]",
-          "The house still exists. It outlived my tenure — which, by my own definition, is the point. [edit]"
+          "Two businesses were born at that kitchen table, and one of them has passed a hundred thousand in revenue.",
+          "The house still exists. It outlived my tenure — which, by my own definition, is the point."
         ],
         kpis: [
           { label: "Residents", value: "6" },
@@ -198,7 +198,7 @@ const WORK_CASES = [
   {
     slug: "growth-hub-shaughnessy",
     name: "Growth Hub — Shaughnessy",
-    kicker: "Case study 03 · Vancouver, BC · 2022 [edit: confirm dates]",
+    kicker: "Case study 03 · Vancouver, BC · 2022",
     role: "Operations & management",
     featured: false,
     summary: "The scale test: nine bedrooms, a guest house, fourteen thousand square feet.",
@@ -207,19 +207,19 @@ const WORK_CASES = [
     story: {
       open: {
         body: [
-          "After Dunbar, the model got a bigger canvas: nine bedrooms, a separate guest house, fourteen thousand square feet to run as one community. [edit]"
+          "After Dunbar, the model got a bigger canvas: nine bedrooms, a separate guest house, fourteen thousand square feet to run as one community."
         ]
       },
       challenge: {
         body: [
-          "Everything that had been informal at six people needed structure at this size — cleaning rhythms, house economics, how decisions get made, who owns the common spaces. Warmth doesn't scale by itself. [edit]"
+          "Everything that had been informal at six people needed structure at this size — cleaning rhythms, house economics, how decisions get made, who owns the common spaces. Warmth doesn't scale by itself."
         ]
       },
       moves: [
         {
           heading: "Building the machinery",
           body: [
-            "At three times the size, culture stops being automatic. The work shifted from hosting to systems: rhythms for cleaning and upkeep, clear economics, decision-making that didn't depend on everyone being friends that week. [edit]"
+            "At three times the size, culture stops being automatic. The work shifted from hosting to systems: rhythms for cleaning and upkeep, clear economics, decision-making that didn't depend on everyone being friends that week."
           ],
           method: { term: "Culture with a system", note: "A house with a culture relies on people; a culture with a system survives them. Scale is where the difference shows." },
           images: [
@@ -230,7 +230,7 @@ const WORK_CASES = [
       ],
       outcome: {
         body: [
-          "It's where I learned the difference between a house with a culture and a culture with a system — and that my operator instincts hold at scale. [edit]"
+          "It's where I learned the difference between a house with a culture and a culture with a system — and that my operator instincts hold at scale."
         ],
         kpis: [
           { label: "Bedrooms", value: "9 + guest house" },
@@ -261,7 +261,7 @@ const WORK_CASES = [
 const WORK_CASE_SCAFFOLDS = [
   {
     slug: "bridge2ai", name: "Bridge2AI",
-    kicker: "Case study · [edit: place · years]", role: "Founder [edit]",
+    kicker: "Case study", role: "Founder",
     pull: "",
     hero: { scene: "PHOTO WANTED — you at work on Bridge2AI: a demo, a factory visit, a screen with the product." },
     story: {
@@ -274,7 +274,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "c2-studios", name: "C2 Studios",
-    kicker: "Case study · Montréal, QC · [edit: years]", role: "[edit — your role]",
+    kicker: "Case study · Montréal, QC", role: "",
     pull: "",
     hero: { scene: "PHOTO WANTED — a C2 room mid-event: a stage moving, a crowd being moved." },
     story: {
@@ -287,7 +287,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "mars-my-startr", name: "MaRS Discovery District & My Startr",
-    kicker: "Case study · Toronto, ON · [edit: years]", role: "[edit — your role]",
+    kicker: "Case study · Toronto, ON", role: "",
     pull: "",
     hero: { scene: "PHOTO WANTED — you at MaRS or with My Startr participants." },
     story: {
@@ -300,7 +300,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "reimagine17", name: "ReImagine17",
-    kicker: "Case study · Canada · [edit: years]", role: "Co-founder [edit]",
+    kicker: "Case study · Canada", role: "Co-founder",
     pull: "",
     hero: { scene: "PHOTO WANTED — the ReImagine17 team or an event; young people at work on the SDGs." },
     story: {
@@ -313,7 +313,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "canyouth", name: "CanYouth Network",
-    kicker: "Case study · Canada · [edit: years]", role: "[edit — your role]",
+    kicker: "Case study · Canada", role: "",
     pull: "",
     hero: { scene: "PHOTO WANTED — CanYouth gathering or advocacy moment." },
     story: {
@@ -326,7 +326,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "ocean-bridge", name: "Ocean Bridge",
-    kicker: "Case study · Canada · [edit: years]", role: "[edit — your role]",
+    kicker: "Case study · Canada", role: "",
     pull: "",
     hero: { scene: "PHOTO WANTED — you in the field with Ocean Bridge; coast, water, service project." },
     story: {
@@ -339,7 +339,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "alliance", name: "Alliance for Sustainable Development",
-    kicker: "Case study · Université Laval, Québec · [edit: years]", role: "Co-founder [edit]",
+    kicker: "Case study · Université Laval, Québec", role: "Co-founder",
     pull: "",
     hero: { scene: "PHOTO WANTED — the Alliance in action on campus; a gathering of the member groups." },
     story: {
@@ -352,7 +352,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "namchak", name: "Namchak Foundation",
-    kicker: "Case study · Montana, US · [edit: years]", role: "[edit — your role]",
+    kicker: "Case study · Montana, US", role: "",
     pull: "",
     hero: { scene: "PHOTO WANTED — the retreat land, a practice space, stillness." },
     story: {
@@ -365,7 +365,7 @@ const WORK_CASE_SCAFFOLDS = [
   },
   {
     slug: "la-factry", name: "La Factry",
-    kicker: "Case study · Montréal, QC · [edit: years]", role: "[edit — your role]",
+    kicker: "Case study · Montréal, QC", role: "",
     pull: "",
     hero: { scene: "PHOTO WANTED — a workshop in motion: sticky notes, people mid-idea." },
     story: {
@@ -397,7 +397,7 @@ const WORK_BEYOND = {
    Each card: title, org, role, blurb, hero {src}, logo (png, hidden if
    missing), wip. fromCases:true pulls the 3 real houses from WORK_CASES
    (clickable to project.html; type "Coliving projects").
-   [edit] = draft copy from P-A's one-liners, awaiting his voice.
+ = draft copy from P-A's one-liners, awaiting his voice.
    ===================================================================== */
 const WORK_TYPES = [
   { key: "work",         name: "Work" },
@@ -411,17 +411,17 @@ const WORK_THEMES = [
     name: "Work", key: "work",
     blurb: "Where I earned the craft — building organizations, products and rooms.",
     cards: [
-      { slug: "bridge2ai", title: "Bridge2AI", org: "Bridge2AI", role: "Founder [edit]",
-        blurb: "Building an AI startup in manufacturing during the AI boom. [edit]",
+      { slug: "bridge2ai", title: "Bridge2AI", org: "Bridge2AI", role: "Founder",
+        blurb: "Building an AI startup in manufacturing during the AI boom.",
         hero: { src: "images/projects/bridge2ai.jpg" }, logo: "images/projects/logos/bridge2ai.png", wip: true },
-      { slug: "c2-studios", title: "C2 Studios", org: "C2", role: "[edit — your role]",
-        blurb: "Building unforgettable experiences that move people and brands. [edit]",
+      { slug: "c2-studios", title: "C2 Studios", org: "C2", role: "",
+        blurb: "Building unforgettable experiences that move people and brands.",
         hero: { src: "images/projects/c2-studios.jpg" }, logo: "images/projects/logos/c2-studios.png", wip: true },
-      { slug: "mars-my-startr", title: "MaRS Discovery District & My Startr", org: "MaRS · My Startr", role: "[edit — your role]",
-        blurb: "Addressing youth unemployment as part of Canada's largest innovation hub. [edit]",
+      { slug: "mars-my-startr", title: "MaRS Discovery District & My Startr", org: "MaRS · My Startr", role: "",
+        blurb: "Addressing youth unemployment as part of Canada's largest innovation hub.",
         hero: { src: "images/projects/my-startr.jpg" }, logo: "images/projects/logos/mars-my-startr.png", wip: true },
-      { slug: "reimagine17", title: "ReImagine17", org: "ReImagine17", role: "Co-founder [edit]",
-        blurb: "Building a national nonprofit empowering young people's work on sustainable development. [edit]",
+      { slug: "reimagine17", title: "ReImagine17", org: "ReImagine17", role: "Co-founder",
+        blurb: "Building a national nonprofit empowering young people's work on sustainable development.",
         hero: { src: "images/projects/reimagine17.jpg" }, logo: "images/projects/logos/reimagine17.png", wip: true }
     ]
   },
@@ -434,14 +434,14 @@ const WORK_THEMES = [
     name: "Volunteering", key: "volunteering",
     blurb: "Where I gave the craft away — to young people, communities and causes.",
     cards: [
-      { slug: "canyouth", title: "CanYouth Network", org: "CanYouth", role: "[edit — your role]",
-        blurb: "Trying to build a representative body of youth to advise the Canadian government. [edit]",
+      { slug: "canyouth", title: "CanYouth Network", org: "CanYouth", role: "",
+        blurb: "Trying to build a representative body of youth to advise the Canadian government.",
         hero: { src: "images/projects/canyouth.jpg" }, logo: "images/projects/logos/canyouth.png", wip: true },
-      { slug: "ocean-bridge", title: "Ocean Bridge", org: "Ocean Bridge", role: "[edit — your role]",
-        blurb: "Advancing ocean conservation and literacy in Canada. [edit]",
+      { slug: "ocean-bridge", title: "Ocean Bridge", org: "Ocean Bridge", role: "",
+        blurb: "Advancing ocean conservation and literacy in Canada.",
         hero: { src: "images/projects/ocean-bridge.jpg" }, logo: "images/projects/logos/ocean-bridge.png", wip: true },
-      { slug: "alliance", title: "Alliance for Sustainable Development", org: "AllianceDDUL · Université Laval", role: "Co-founder [edit]",
-        blurb: "Co-founding a campus alliance that connected dozens of sustainability groups at Université Laval, using the UN's 17 goals as a shared language. [edit]",
+      { slug: "alliance", title: "Alliance for Sustainable Development", org: "AllianceDDUL · Université Laval", role: "Co-founder",
+        blurb: "Co-founding a campus alliance that connected dozens of sustainability groups at Université Laval, using the UN's 17 goals as a shared language.",
         hero: { src: "images/projects/alliance.jpg" }, logo: "images/projects/logos/alliance.png", wip: true }
     ]
   },
@@ -449,14 +449,14 @@ const WORK_THEMES = [
     name: "Other creative projects", key: "creative",
     blurb: "Side quests that shaped how I see practice, stillness and creativity.",
     cards: [
-      { slug: "namchak", title: "Namchak Foundation", org: "Namchak", role: "[edit — your role]",
-        blurb: "Growing still and healing with Tibetan Buddhist practices. [edit]",
+      { slug: "namchak", title: "Namchak Foundation", org: "Namchak", role: "",
+        blurb: "Growing still and healing with Tibetan Buddhist practices.",
         hero: { src: "images/projects/namchak.jpg" }, logo: "images/projects/logos/namchak.png", wip: true },
-      { slug: "la-factry", title: "La Factry", org: "La Factry", role: "[edit — your role]",
-        blurb: "Sparking creativity and facilitating design-thinking workshops. [edit]",
+      { slug: "la-factry", title: "La Factry", org: "La Factry", role: "",
+        blurb: "Sparking creativity and facilitating design-thinking workshops.",
         hero: { src: "images/projects/la-factry.jpg" }, logo: "images/projects/logos/la-factry.png", wip: true },
       { slug: "contractor", title: "Various — contractor mode", org: "Independent", role: "Contractor",
-        blurb: "Going contractor mode — lending the craft where it was needed. [edit]",
+        blurb: "Going contractor mode — lending the craft where it was needed.",
         hero: { src: "images/projects/contractor.jpg" }, wip: true }
     ]
   }

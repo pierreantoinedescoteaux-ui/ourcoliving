@@ -107,9 +107,9 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){retur
 function noEdit(s){return String(s||"").replace(/\s*\[edit[^\]]*\]/gi,"");}
 
 document.getElementById("stand").innerHTML=[
-  "In 2013, Charles Eisenstein published a book with a title that sounds naive on purpose: <em>The More Beautiful World Our Hearts Know Is Possible</em>. I keep coming back to it because it names something I felt in every shared house I’ve ever lived in — that our loneliness isn’t a personal failure. It’s the perfectly logical output of a story. [edit]",
-  "He calls it the <b>Story of Separation</b>: you are a self sealed inside your skin, the world is indifferent, resources are scarce, and more for you is less for me. Nobody teaches it in school; it’s simply the water we swim in — it built our suburbs, our mortgages, our nursing homes and our calendars. Against it he sets the <b>Story of Interbeing</b>: we are made of each other, gifts create bonds that transactions can’t, and security was always a matter of relationship. [edit]",
-  "What follows are ten places where the old story runs through an ordinary life — and what I’ve watched happen, up close, when people simply stop living by it. This is not a book summary. It’s the argument of this whole website, laid out once, properly. [edit]"
+  "In 2013, Charles Eisenstein published a book with a title that sounds naive on purpose: <em>The More Beautiful World Our Hearts Know Is Possible</em>. I keep coming back to it because it names something I felt in every shared house I’ve ever lived in — that our loneliness isn’t a personal failure. It’s the perfectly logical output of a story.",
+  "He calls it the <b>Story of Separation</b>: you are a self sealed inside your skin, the world is indifferent, resources are scarce, and more for you is less for me. Nobody teaches it in school; it’s simply the water we swim in — it built our suburbs, our mortgages, our nursing homes and our calendars. Against it he sets the <b>Story of Interbeing</b>: we are made of each other, gifts create bonds that transactions can’t, and security was always a matter of relationship.",
+  "What follows are ten places where the old story runs through an ordinary life — and what I’ve watched happen, up close, when people simply stop living by it. This is not a book summary. It’s the argument of this whole website, laid out once, properly."
 ].map(function(p){return "<p>"+noEdit(p)+"</p>";}).join("");
 
 document.getElementById("movs").innerHTML=MANIFESTO.stories.map(function(s,i){

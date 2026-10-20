@@ -7,7 +7,7 @@
 const TALKPIECES = {
   eyebrow: "The writing room",
   title: "Talk pieces.",
-  lede: "Not a blog — position pieces. Each one takes an idea this site keeps gesturing at and explores it properly: where it comes from, why it matters, what it could open up. Slow writing, updated when my thinking moves. [edit]",
+  lede: "Not a blog — position pieces. Each one takes an idea this site keeps gesturing at and explores it properly: where it comes from, why it matters, what it could open up. Slow writing, updated when my thinking moves.",
   pieces: [
     {
       slug: "separation",

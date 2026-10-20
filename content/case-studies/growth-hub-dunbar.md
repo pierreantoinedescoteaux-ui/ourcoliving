@@ -5,7 +5,7 @@ kind: "case-study"
 source: "work-data.js"
 path: "work-data[1]"
 role: "Founder & house manager"
-kicker: "Case study 02 · Vancouver, BC · 2021 – 2022 [edit: confirm dates]"
+kicker: "Case study 02 · Vancouver, BC · 2021 – 2022"
 ---
 
 
@@ -29,7 +29,7 @@ Fill a house from zero with six entrepreneurs who would sharpen each other — a
 
 ### Saying no well   <!-- story.moves[0] -->
 
-Ads I built brought in far more applicants than beds; the job was saying no well. The curation was the real product — six people chosen for how they'd sharpen each other, not just for how they'd pay rent. [edit — the applications number if you have it]
+Ads I built brought in far more applicants than beds; the job was saying no well. The curation was the real product — six people chosen for how they'd sharpen each other, not just for how they'd pay rent.
 
 _Method — Curation: A community is chosen before it is built. Marketing brings volume; the craft is the filter._
 
@@ -43,13 +43,13 @@ Designing from constraints first: I've used that reading-the-bones skill in ever
 
 _Photo caption — The meditation garden in full summer._
 
-_Photo caption — A corner of the collector's house. [edit: confirm this is Dunbar]_
+_Photo caption — A corner of the collector's house._
 
 ### Keeping it alive   <!-- story.moves[2] -->
 
 Cold plunges, group workouts, barbecues, movie nights — rhythm is what turns co-tenants into a crew.
 
-_Photo caption — The crew, poolside. [edit: confirm this is Dunbar]_
+_Photo caption — The crew, poolside._
 
 ## What came of it   <!-- story.outcome -->
 

@@ -4,8 +4,8 @@ slug: "c2-studios"
 kind: "case-study"
 source: "work-data.js (scaffold)"
 path: "work-data (scaffold)[1]"
-role: "[edit — your role]"
-kicker: "Case study · Montréal, QC · [edit: years]"
+role: ""
+kicker: "Case study · Montréal, QC"
 ---
 
 

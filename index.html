@@ -21,7 +21,7 @@
    (the ambient loop, full-screen, with the six spaces labelled on top).
    Clicking a space zooms + blurs INTO that scene's dwell — same page, same
    world, no page load. Scrolling still climbs the tower the long way.
-   Spec: LANDING-V3-BRIEF.md. Copy marked [edit] is a draft in P-A's
+   Spec: LANDING-V3-BRIEF.md. Copy marked is a draft in P-A's
    register, waiting on his voice pass.
    ===================================================================== */
   :root, .sw-root{
@@ -1143,13 +1143,13 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
          before you scroll (P-A, 2026-07-31) -->
     <span class="lv3-eyebrow"><span class="on-wide">A project by Pierre-Antoine Descoteaux</span><span
       class="on-phone">A project, resource and portfolio by Pierre-Antoine Descoteaux</span></span>
-    <h1>Wherever you are with coliving, something here is for you. <span class="edit">[edit]</span></h1>
-    <p class="lede">Everything I've gathered about living closer together. A little of it mine,
-      most of it from people further along, plus the manifesto of what I still hope for
-      and the work I've actually done.</p>
+    <h1>A dream of hope and resources to build it</h1>
+    <p class="lede">This site aims to centre coliving as a means to a healthier, more sustainable and communal
+      future. This tower is an artistic representation of my hopes. Each room acts as a gate to
+      different resources on coliving, design and building a better future. Hope you enjoy your stay.</p>
     <p class="lv3-do">
-      <button class="lv3-tour" id="lv3tour" type="button">Take the slow tour</button>
-      <span class="or"><span class="on-wide">or click a space in the picture</span><span class="on-phone">or tap a space below</span></span>
+      <button class="lv3-tour" id="lv3tour" type="button">Take the full tour</button>
+      <span class="or"><span class="on-wide">or click a space to visit it</span><span class="on-phone">or tap a space to visit it</span></span>
     </p>
   </header>
 
@@ -1206,9 +1206,9 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 <aside id="lv3end" role="status" hidden>
   <button class="lv3-end__x" type="button" aria-label="Close">&times;</button>
   <p class="lv3-end__eyebrow">You are back on the map</p>
-  <p class="lv3-end__line">That was the whole tower, top to bottom. <span class="edit">[edit]</span></p>
+  <p class="lv3-end__line">That was the whole tower, top to bottom.</p>
   <p class="lv3-end__sub">A project, resource and portfolio by Pierre-Antoine Descoteaux.
-    Every room stays open. Go and look around. <span class="edit">[edit]</span></p>
+    Every room stays open. Go and look around.</p>
   <p class="lv3-end__go">
     <a href="work.html">See the work</a>
     <a href="resources.html">The resources</a>
@@ -1221,9 +1221,9 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
     <span class="lv3-door2__leaves"><span class="lf"></span><span class="rt"></span></span>
     <span class="lv3-door2__frame"></span>
   </span>
-  <h2 id="lv3invitetitle">Do you want to take the tour of the tower? <span class="edit">[edit]</span></h2>
-  <p>See every space in one ride down the tower. Click below to start.</p>
-  <span class="lv3-inv-go">Start the tour</span>
+  <h2 id="lv3invitetitle">Take the tour of the tower?</h2>
+  <p>See all the spaces and explore their content on a journey down the tower. Click or keep scrolling to start.</p>
+  <span class="lv3-inv-go">Take me to the top.</span>
 </div>
 
 <div id="lv3veil"></div>
@@ -1251,40 +1251,40 @@ var LV3_SECTIONS = [
       scroll: 1.7 },
     { id:'commons', label:'The commons', accent:'#c96b32',
       still:'assets/tower/S2.webp', stillMobile:'assets/tower/S2-m.webp', clip:'assets/tower/vid/loop-s2.mp4', clipMobile:'assets/tower/vid/loop-s2-m.mp4',
-      eyebrow:'The commons · people and networks',
-      title:'Nobody is doing this alone.',
-      body:'The community of people building this, the networks and movements that connect them, and a long table with the fastest way to reach me. [edit]',
+      eyebrow:'The commons · find your people',
+      title:'Building villages in community. Find yours.',
+      body:'No one builds a village alone. Meet the people, networks and movements already at it, and pull up a chair at the long table if you’d like to talk.',
       tags:[{label:'The community', href:'community.html'},{label:'Networks & movements', href:'networks.html'},{label:'Say hello', href:EMAIL}] },
     { id:'library', label:'The library', accent:'#2b8b8f',
       still:'assets/tower/S3.webp', stillMobile:'assets/tower/S3-m.webp', clip:'assets/tower/vid/loop-s3.mp4', clipMobile:'assets/tower/vid/loop-s3-m.mp4',
-      eyebrow:'The library · books, courses and designers',
-      title:'Everything worth reading, in one place.',
-      body:'Books, designers, courses and reasons for hope. The reading on living together, gathered in one place. [edit]',
+      eyebrow:'The library · learn and get inspired',
+      title:'Everything I’ve been learning from, on the shelves for you.',
+      body:'Books, designers, art and courses that shaped how I think about living together. Take what helps, and tell me what’s missing.',
       tags:[{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'},{label:'Arts & multimedia', href:'arts.html'},{label:'Learning & how-to', href:'resources.html#learning'}] },
     { id:'makers', label:'The workshop', accent:'#a8712c',
       still:'assets/tower/S4.webp', stillMobile:'assets/tower/S4-m.webp', clip:'assets/tower/vid/loop-s4.mp4', clipMobile:'assets/tower/vid/loop-s4-m.mp4',
-      eyebrow:'The workshop · design guides and tools',
-      title:'The workshop is where coliving gets built.',
-      body:'Tools and guides for making it real: Design for Connection, the twenty themes every project answers, and the how-to guides. [edit]',
+      eyebrow:'The workshop · let’s build it',
+      title:'Where we figure out how to build it, together.',
+      body:'Tools and guides for turning the dream into a real place: design for connection, the twenty questions every project faces, and practical how-tos. I’m still learning too.',
       tags:[{label:'Design for Connection', href:'design.html'},{label:'The twenty themes', href:'themes.html'},{label:'How-to guides', href:'how-to.html'}] },
     { id:'gardens', label:'The garden', accent:'#d08a2e',
       still:'assets/tower/S5.webp', stillMobile:'assets/tower/S5-m.webp', clip:'assets/tower/vid/loop-s5.mp4', clipMobile:'assets/tower/vid/loop-s5-m.mp4',
-      eyebrow:'The garden · the manifesto and the writings',
-      title:'A manifesto for hope we cultivate.',
-      body:'The manifesto of what our homes could be, and the talk pieces, my writings, growing alongside it. [edit]',
+      eyebrow:'The garden · why it matters',
+      title:'Where we grow hope.',
+      body:'A manifesto for what our homes could become, and the writings growing around it. Mostly seeds for now. I’d love to see what grows.',
       tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Talk pieces, my writings', href:'talkpieces.html'}] },
     { id:'homes', label:'The house', accent:'#b3543e',
       still:'assets/tower/S6.webp', stillMobile:'assets/tower/S6-m.webp', clip:'assets/tower/vid/loop-s6.mp4', clipMobile:'assets/tower/vid/loop-s6-m.mp4',
-      eyebrow:'The house · my story and my work',
-      title:'My story, and the houses I have run.',
-      body:'The story of how I got here, the houses and projects I have actually run, and who I am. [edit]',
+      eyebrow:'The house · about me',
+      title:'Make yourself at home.',
+      body:'How I got here, the houses and projects I’ve lived in and run, and what they taught me.',
       tags:[{label:'My story', href:'story.html'},{label:'Work & experience', href:'work.html'},{label:'About me', href:'about.html'}] },
     { id:'lookout', label:'The summit', accent:'#3e7db0',
       still:'assets/tower/S7.webp', stillMobile:'assets/tower/S7-m.webp', clip:'assets/tower/vid/loop-s7.mp4', clipMobile:'assets/tower/vid/loop-s7-m.mp4',
       scroll: 1.8,
-      eyebrow:'The summit · the map and the models',
-      title:'Coliving takes many shapes.',
-      body:'From the top you can see the whole landscape: the atlas of real communities, and every form this takes, from cohousing to ecovillage. [edit]',
+      eyebrow:'The summit · the view from the top',
+      title:'From up here, you can see all the ways we can live together.',
+      body:'A map of the many forms coliving takes, from cohousing to ecovillages, and the real communities already living them.',
       /* P-A, 2026-07-31: "when I open the summit there's a duplicate — the
          coliving atlas, which is the coliving map... and the say hello
          doesn't make any sense either. Just keep the pills."
@@ -1332,39 +1332,39 @@ var MARK = {
 
 var SPACES = [
   { key:'summit', id:'lookout', name:'The Summit', accent:'#b3543e', href:'map.html',
-    q:'Where is this happening?',
-    desc:'The map of real communities, and the twelve shapes coliving takes.',
+    q:'What’s coliving',
+    desc:'From the summit you can see the landscape. Find a map of different forms of coliving, positioned on subjects ranging from complexity to financing, technology and sustainability. Each type comes with real community examples.',
     anchor:[0.356,0.092], label:[0.4677,0.117],
     polys:[[[0.312,0.178],[0.300,0.114],[0.318,0.048],[0.336,0.022],[0.357,0.031],[0.373,0.076],[0.393,0.141],[0.401,0.206],[0.368,0.236],[0.330,0.223]]] },
 
   { key:'homes', id:'homes', name:'The House', accent:'#3e7db0', href:'about.html',
-    q:'Who lives here?',
-    desc:'My story, the work I have actually run, and who is behind this.',
+    q:'About me',
+    desc:'The house creates an intimate setting for me to share my story, showcase some of my work and the defining experiences that shaped who I am, alongside the impacts and learnings I made.',
     anchor:[0.290,0.408], label:[0.128,0.505],
     polys:[[[0.266,0.470],[0.270,0.398],[0.284,0.312],[0.304,0.243],[0.348,0.228],[0.386,0.252],[0.392,0.320],[0.386,0.400],[0.358,0.470],[0.312,0.500]]] },
 
   { key:'library', id:'library', name:'The Library', accent:'#2b8b8f', href:'resources.html',
-    q:'What is known?',
-    desc:'Courses, books and designers, the reading gathered in one place.',
+    q:'Learn and get inspired',
+    desc:'The library contains books, art and work by authors and designers imagining alternative ways of living, hopeful futures and how we got here. Find inspiration or knowledge in its resources.',
     anchor:[0.446,0.300], label:[0.522,0.168],
     polys:[[[0.382,0.360],[0.386,0.318],[0.404,0.292],[0.432,0.286],[0.456,0.300],[0.468,0.330],[0.466,0.372],[0.440,0.394],[0.404,0.390]]] },
 
   { key:'workshop', id:'makers', name:'The Workshop', accent:'#2b8b8f', href:'design.html',
-    q:'How does it get built?',
-    desc:'Design for Connection, and the twenty questions every project answers.',
+    q:'How to build it',
+    desc:'The workshop is where we build the future. Find how-to guides on coliving, design principles and other practical advice.',
     anchor:[0.482,0.548], label:[0.052,0.632],
     polys:[[[0.478,0.560],[0.474,0.492],[0.492,0.436],[0.528,0.418],[0.566,0.430],[0.582,0.470],[0.578,0.530],[0.552,0.572],[0.510,0.582]]] },
 
   { key:'garden', id:'gardens', name:'The Garden', accent:'#d08a2e', href:'manifesto.html',
-    q:'Why do this at all?',
-    desc:'The manifesto of what our homes could be, and the writings around it.',
+    q:'Why it matters',
+    desc:'The garden is where we grow hope. Here is a manifesto for a better future and some thought pieces feeding it.',
     anchor:[0.680,0.428], label:[0.772,0.346],
     polys:[[[0.572,0.470],[0.578,0.418],[0.600,0.392],[0.640,0.386],[0.678,0.404],[0.700,0.448],[0.706,0.520],[0.686,0.572],[0.646,0.578],[0.606,0.540]],
            [[0.148,0.760],[0.160,0.686],[0.196,0.638],[0.252,0.612],[0.310,0.622],[0.330,0.672],[0.322,0.742],[0.276,0.800],[0.208,0.816],[0.164,0.796]]] },
 
   { key:'commons', id:'commons', name:'The Commons', accent:'#3c6b32', href:'networks.html',
-    q:'Where do you come in?',
-    desc:'The networks and organizations already doing this, and how to reach me.',
+    q:'Find your people',
+    desc:'The commons is a space for collaboration and community. Find networks, coliving groups and organizations already building new futures.',
     anchor:[0.752,0.740], label:[0.895,0.958],
     polys:[[[0.300,0.880],[0.302,0.796],[0.336,0.726],[0.398,0.694],[0.462,0.704],[0.492,0.756],[0.486,0.836],[0.432,0.892],[0.360,0.906]],
            [[0.630,0.800],[0.634,0.720],[0.668,0.664],[0.724,0.638],[0.786,0.652],[0.812,0.700],[0.804,0.766],[0.752,0.804],[0.686,0.812]]] }
@@ -2192,7 +2192,7 @@ function startTour(){
     tourMode = true;
     tourHint.textContent = reduced
       ? 'You are at the top. Scroll up to descend through the tower, space by space.'
-      : "You're at the top. Scroll down to descend through the tower, space by space.";
+      : "Welcome to the top. Scroll down and we'll make our way through the tower, room by room.";
     tourHint.classList.add('on');
     setTimeout(function(){ tourHint.classList.remove('on'); }, 9000);
   });
@@ -2275,7 +2275,7 @@ if (location.search.indexOf('debug') > -1 || EDIT) {
    projected through the engine's COVER fit (object-fit:cover;
    object-position:center 42% — tower-engine.js .sw-scene__still/__video).
    Desktop-only; phones keep the tag pills (the -m crops reframe).
-   Names are ELEMENT-based, not page names. Copy marked [edit] is a draft
+   Names are ELEMENT-based, not page names. Copy marked is a draft
    in P-A's register; the two unmarked lines are P-A's own words.
    --------------------------------------------------------------------- */
 var CAT = { resources:'#2b8b8f', hope:'#d08a2e', me:'#3e7db0', overview:'#b3543e', connect:'#3c6b32' };
@@ -2283,68 +2283,68 @@ var CAT = { resources:'#2b8b8f', hope:'#d08a2e', me:'#3e7db0', overview:'#b3543e
 var SCENE_SPOTS = [
   { id:'commons', spots:[
     { name:'The market stalls', href:'community.html', cat:CAT.connect,
-      line:'the community, a place for the people building this to actually talk to each other. [edit]',
+      line:'Where people building coliving can meet, swap notes and help each other along.',
       anchor:[0.845,0.600], label:[0.795,0.470],
       polys:[[[0.715,0.620],[0.725,0.565],[0.775,0.535],[0.845,0.530],[0.920,0.555],[0.955,0.600],[0.950,0.700],[0.870,0.745],[0.765,0.720]],
              [[0.205,0.665],[0.210,0.600],[0.245,0.565],[0.320,0.575],[0.415,0.600],[0.420,0.665],[0.340,0.685],[0.250,0.685]]] },
     { name:'The gateway', href:'networks.html', cat:CAT.connect,
-      line:'networks and movements, the organized ways into the wider coliving world. [edit]',
+      line:'Networks and movements: the doors into the wider coliving world.',
       anchor:[0.586,0.550], label:[0.545,0.370],
       polys:[[[0.535,0.705],[0.535,0.550],[0.550,0.485],[0.585,0.460],[0.622,0.485],[0.638,0.550],[0.638,0.705]]] },
     { name:'The long table', href:EMAIL, cat:CAT.connect,
-      line:'a seat is open. Say hello. [edit]',
+      line:'There’s a seat for you. Come say hello, I’d love to hear what you’re dreaming of.',
       anchor:[0.300,0.790], label:[0.435,0.760],
       polys:[[[0.130,0.900],[0.135,0.775],[0.175,0.715],[0.280,0.700],[0.385,0.735],[0.405,0.810],[0.375,0.900],[0.250,0.925]]] }
   ]},
   { id:'library', spots:[
     { name:'The bookshelves', href:'inspiration.html', cat:CAT.resources,
-      line:'books of inspiration on everything coliving: designing communities, our cities, permaculture, and how we got here.',
+      line:'Books that inspired me, on designing community, our cities, permaculture and how we got here.',
       anchor:[0.075,0.300], label:[0.130,0.235],
       polys:[[[0.002,0.960],[0.005,0.020],[0.100,0.020],[0.095,0.320],[0.070,0.600],[0.062,0.960]],
              [[0.105,0.175],[0.107,0.020],[0.375,0.020],[0.370,0.075],[0.250,0.120],[0.155,0.175]]] },
     { name:'The painter', href:'designers.html', cat:CAT.resources,
-      line:'the designers I keep going back to, and why. [edit]',
+      line:'the designers I keep going back to, and why.',
       anchor:[0.278,0.760], label:[0.350,0.800],
       polys:[[[0.195,0.900],[0.200,0.745],[0.235,0.700],[0.290,0.700],[0.325,0.735],[0.330,0.800],[0.310,0.880],[0.250,0.915]]] },
     { name:'The murals', href:'arts.html', cat:CAT.resources,
-      line:'the arts: films, music and images that make living together feel possible. [edit]',
+      line:'the arts: films, music and images that make living together feel possible.',
       anchor:[0.795,0.450], label:[0.700,0.270],
       polys:[[[0.737,0.545],[0.737,0.375],[0.758,0.355],[0.850,0.360],[0.858,0.540]],
              [[0.888,0.560],[0.888,0.115],[0.912,0.065],[0.985,0.090],[0.990,0.560]]] },
     { name:'The study tables', href:'resources.html#learning', cat:CAT.resources,
-      line:'courses and how-to from the people who have actually done it. [edit]',
+      line:'Courses and how-tos from people who’ve walked this road before us.',
       anchor:[0.878,0.820], label:[0.755,0.660],
       polys:[[[0.815,0.905],[0.820,0.775],[0.860,0.740],[0.935,0.755],[0.950,0.840],[0.935,0.910]],
              [[0.155,0.470],[0.158,0.245],[0.200,0.185],[0.290,0.200],[0.305,0.280],[0.295,0.450],[0.225,0.490]]] }
   ]},
   { id:'makers', spots:[
     { name:'The blueprint', href:'design.html', cat:CAT.resources,
-      line:'Design for Connection: the concrete moves that make a place social instead of merely shared. [edit]',
+      line:'Design for Connection: the concrete moves that make a place social instead of merely shared.',
       anchor:[0.185,0.270], label:[0.285,0.115],
       polys:[[[0.104,0.425],[0.104,0.135],[0.130,0.100],[0.255,0.105],[0.268,0.145],[0.265,0.410],[0.185,0.440]]] },
     { name:'The model city', href:'themes.html', cat:CAT.resources,
-      line:'the twenty themes every coliving project ends up having to answer. [edit]',
+      line:'the twenty themes every coliving project ends up having to answer.',
       anchor:[0.430,0.600], label:[0.530,0.330],
       polys:[[[0.275,0.790],[0.290,0.600],[0.330,0.455],[0.375,0.345],[0.400,0.325],[0.440,0.390],[0.500,0.470],[0.575,0.550],[0.640,0.615],[0.660,0.710],[0.640,0.815],[0.545,0.875],[0.420,0.885],[0.315,0.850]]] },
     { name:'The tool walls', href:'how-to.html', cat:CAT.resources,
-      line:'how-to guides on finding land, choosing a legal structure and running the first year. [edit]',
+      line:'how-to guides on finding land, choosing a legal structure and running the first year.',
       anchor:[0.933,0.270], label:[0.775,0.140],
       polys:[[[0.874,0.470],[0.876,0.115],[0.910,0.070],[0.993,0.085],[0.993,0.460]]] }
   ]},
   { id:'gardens', spots:[
     { name:'The gardens', href:'manifesto.html', cat:CAT.hope,
-      line:'a manifesto for hope we cultivate.',
+      line:'The manifesto: what I hope our homes can become.',
       anchor:[0.705,0.800], label:[0.575,0.540],
       polys:[[[0.575,0.975],[0.585,0.735],[0.625,0.615],[0.695,0.585],[0.770,0.615],[0.815,0.710],[0.820,0.890],[0.755,0.975]],
              [[0.830,0.760],[0.835,0.310],[0.868,0.245],[0.935,0.270],[0.952,0.550],[0.940,0.765]]] },
     { name:'The waterworks', href:'talkpieces.html', cat:CAT.hope,
-      line:'the talk pieces, my writings, the arguments still being argued. [edit]',
+      line:'My writings, questions I’m still thinking through out loud.',
       anchor:[0.452,0.300], label:[0.517,0.140],
       polys:[[[0.362,0.950],[0.370,0.030],[0.500,0.030],[0.505,0.280],[0.555,0.330],[0.565,0.600],[0.545,0.850],[0.470,0.950]]] }
   ]},
   { id:'homes', spots:[
     { name:'The story book', href:'story.html', cat:CAT.me,
-      line:'Read about my story and defining moments and projects that got me to where I am.',
+      line:'Read about my story and the defining moments and projects that got me to where I am.',
       anchor:[0.4857,0.574], label:[0.161,0.3565],
       polys:[[[0.398,0.685],[0.402,0.565],[0.430,0.510],[0.495,0.500],[0.525,0.550],[0.525,0.645],[0.470,0.690]]] },
     { name:'The work desk', href:'work.html', cat:CAT.me,
@@ -2352,7 +2352,7 @@ var SCENE_SPOTS = [
       anchor:[0.552,0.735], label:[0.804,0.6872],
       polys:[[[0.478,0.835],[0.483,0.710],[0.525,0.655],[0.600,0.660],[0.637,0.705],[0.632,0.795],[0.550,0.845]]] },
     { name:'The view point', href:'about.html', cat:CAT.me,
-      line:'let you see a little bit about me and the meaning this project has for me.',
+      line:'A little bit about me, and what this project means to me.',
       anchor:[0.6013,0.4403], label:[0.8058,0.3481],
       polys:[[[0.523,0.535],[0.523,0.360],[0.545,0.265],[0.600,0.245],[0.648,0.275],[0.652,0.430],[0.620,0.515],[0.565,0.550]]] }
   ]},
@@ -2362,7 +2362,7 @@ var SCENE_SPOTS = [
       anchor:[0.490,0.815], label:[0.5411,0.784],
       polys:[[[0.452,0.905],[0.455,0.815],[0.468,0.765],[0.505,0.752],[0.528,0.792],[0.522,0.870],[0.490,0.908]]] },
     { name:'The villages', href:'type.html', cat:CAT.overview,
-      line:'Learn about 12 different forms of coliving from cohousing to ecovillages, what defines them and learnings to grab from each.',
+      line:'Learn about 12 different forms of coliving, from cohousing to ecovillages, what defines them and what to learn from each.',
       anchor:[0.330,0.585], label:[0.3239,0.3726],
       polys:[[[0.115,0.505],[0.120,0.365],[0.155,0.325],[0.235,0.330],[0.262,0.385],[0.255,0.470],[0.190,0.515]],
              [[0.253,0.650],[0.258,0.545],[0.300,0.515],[0.390,0.530],[0.415,0.585],[0.400,0.655],[0.315,0.665]],
@@ -3397,7 +3397,7 @@ if (EDIT) (function(){
     if (!g){ say('Scroll into a scene first. New spots belong to a scene, and the map\'s six spaces are fixed.', true); return; }
     var n = 'New spot ' + (EDITS.added.filter(function(a){ return a.scene === g.id; }).length + 1);
     var rec = { scene:g.id, name:n, href:'#', cat:CAT.resources,
-                line:'what this is. [edit]', anchor:[0.5,0.5], label:[0.5,0.42] };
+                line:'what this is.', anchor:[0.5,0.5], label:[0.5,0.42] };
     EDITS.added.push(rec);
     var r = 0.045;
     var sp = { name:n, href:'#', cat:rec.cat, line:rec.line, _added:true,

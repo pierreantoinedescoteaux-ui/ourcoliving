@@ -5,7 +5,7 @@ kind: "case-study"
 source: "work-data.js"
 path: "work-data[0]"
 role: "Designer & house manager"
-kicker: "Case study 01 · Montréal, QC · 2023 – today [edit: confirm dates]"
+kicker: "Case study 01 · Montréal, QC · 2023 – today"
 ---
 
 
@@ -45,7 +45,7 @@ _Photo caption — The coworking room: one shared desk, everyone's projects in s
 
 The building gave me good bones and I worked with them, not against them. The additions were surgical: a long table sized for formal dinners, a rooftop terrace built out for the summer months, light and plants where rest needed defending.
 
-Most of these moves are now written up as patterns in the Design for Connection room — this house was their laboratory. [edit — name 1-2 more specific moves]
+Most of these moves are now written up as patterns in the Design for Connection room — this house was their laboratory.
 
 _Method — Reading the bones: Before changing anything, ask what the building already wants to be. Heritage woodwork and a turning staircase aren't obstacles — they're the starting material._
 

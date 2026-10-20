@@ -12,7 +12,7 @@
    - notice → the one sentence shown to the READER next to the image.
    Target files when generated: images/generated/dfc-<slug>.jpg
 
-   [edit] = P-A voice needed. v1 pattern bank absorbed 2026-07-11 (git has v1).
+ = P-A voice needed. v1 pattern bank absorbed 2026-07-11 (git has v1).
    ===================================================================== */
 
 const DFC_STYLE =
@@ -22,7 +22,7 @@ const DFC_STYLE =
 const DFC_INTRO = {
   eyebrow: "Design for connection",
   titleHtml: "We are a product of our environment. <em>Let&rsquo;s design for connection.</em>",
-  lede: "Every room quietly tells people how to act. Name the feeling you want — then design backwards. [edit]"
+  lede: "Every room quietly tells people how to act. Name the feeling you want — then design backwards."
 };
 
 /* Contrast section — hero's proof. Two REAL photos, hard contrast, so you feel
@@ -50,7 +50,7 @@ const DFC_CONTRAST = {
       scene: "Photorealistic interior photograph, warm inviting communal living room at golden hour, a few housemates gathered around a big wooden table sharing a meal and laughing, plants, soft warm lamplight, wood and textile textures, exposed brick, lived-in and cosy, honey-gold light, a feeling of belonging."
     }
   ],
-  close: "Neither is an accident. Both are design. The rest of this page is how you build the second one — on purpose. [edit]"
+  close: "Neither is an accident. Both are design. The rest of this page is how you build the second one — on purpose."
 };
 
 /* "Designing what?" — the two scales of design, before the themes. */
@@ -63,7 +63,7 @@ const DFC_WHAT = {
       name: "Our communities",
       scale: "Urbanism",
       sub: "The cities, neighbourhoods and common spaces between us.",
-      body: "Streets, shared courtyards, who lives near whom — more systemic, slower to move, mostly decided above any one household. Harder to control, but it shapes everything downstream. [edit]",
+      body: "Streets, shared courtyards, who lives near whom — more systemic, slower to move, mostly decided above any one household. Harder to control, but it shapes everything downstream.",
       image: {
           src: "images/generated/dfc2/what-community.jpg", pos: "center",
         scene: "A lived-in pedestrian lane in Trudeslund cohousing, Denmark — homes facing each other across a car-free path."
@@ -75,7 +75,7 @@ const DFC_WHAT = {
       name: "Our homes: inside and outside",
       scale: "Architecture & design",
       sub: "The rooms, light and objects we live among.",
-      body: "Rooms, light, furniture, thresholds — the scale you actually control. You can move a sofa tonight and change how your household behaves by the weekend. Most of this page lives here. [edit]",
+      body: "Rooms, light, furniture, thresholds — the scale you actually control. You can move a sofa tonight and change how your household behaves by the weekend. Most of this page lives here.",
       image: {
           src: "images/generated/dfc2/what-home.jpg", pos: "center",
         scene: "The bright living room of the Montreal house — brick wall, plants, big window, deep sofa."
@@ -87,7 +87,7 @@ const DFC_WHAT = {
 /* Live since 2026-07-12 — designers.html (content: designers-data.js). */
 const DFC_INSPIRE = {
   eyebrow: "The shoulders",
-  line: "People far better than me at these decisions — the architects and interior designers this page borrows from. [edit]",
+  line: "People far better than me at these decisions — the architects and interior designers this page borrows from.",
   label: "Designers that inspire me",
   href: "designers.html",
   note: "eight of them, for a start"
@@ -253,7 +253,7 @@ const DFC_THEMES = [
         slug: "stillness-room",
         name: "A stillness room",
         line: "One room with nothing to do in it.",
-        more: "In my Montreal house, the floor-seated stillness room — low light, tatami, plants, no screens — became the place people went to be alone together. Nobody was told its purpose; the room said it. [edit]",
+        more: "In my Montreal house, the floor-seated stillness room — low light, tatami, plants, no screens — became the place people went to be alone together. Nobody was told its purpose; the room said it.",
         image: {
           src: "images/generated/dfc2/stillness-room.jpg", pos: "center",
           scene: "The stillness room of the Montreal house — tatami mats, floor cushions, a low table, plants in the window light, slippers left at the edge of the mat.",
@@ -371,7 +371,7 @@ const DFC_THEMES = [
         slug: "instruments-open",
         name: "Instruments left open",
         line: "A closed piano is furniture; an open one is an invitation.",
-        more: "The Dunbar house inherited an art collector's walls and we kept the strangeness — music nights started themselves, because the instruments were already out. [edit]",
+        more: "The Dunbar house inherited an art collector's walls and we kept the strangeness — music nights started themselves, because the instruments were already out.",
         image: {
           src: "images/generated/dfc2/instruments-open.jpg", pos: "center",
           scene: "Two people at the keyboard by the window on a house night — sheet music lit by one lamp, city lights outside.",
@@ -419,7 +419,7 @@ const DFC_THEMES = [
         slug: "rooms-one-job",
         name: "Rooms with one job",
         line: "Zone the house by behavioural job.",
-        more: "The Montreal house gave every room a job — focus, gathering, rest — so five entrepreneurs could live, work and connect without the three needs cannibalizing each other. [edit]",
+        more: "The Montreal house gave every room a job — focus, gathering, rest — so five entrepreneurs could live, work and connect without the three needs cannibalizing each other.",
         image: {
           src: "images/generated/dfc2/rooms-one-job.jpg", pos: "center",
           scene: "A sunroom turned office — one desk and one chair under a glass roof full of trees.",
@@ -456,7 +456,7 @@ const DFC_THEMES = [
 const DFC_BUDGET = {
   eyebrow: "No matter the budget",
   title: "None of this needs an architect.",
-  lede: "Every feeling on this page has a version that costs almost nothing. Design for behaviour, not spend — the room does not know how much the furniture cost. [edit]",
+  lede: "Every feeling on this page has a version that costs almost nothing. Design for behaviour, not spend — the room does not know how much the furniture cost.",
   items: [
     {
       theme: "connection",

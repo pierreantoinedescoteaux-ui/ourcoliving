@@ -18,7 +18,7 @@ _A curated household of builders — my own practice sits here._
 
 Between the hacker house's chaos and the operator's sterility there's a middle path: one house, five to ten carefully chosen people, run by someone who actually lives there and designs the space around behavior — focus rooms, gathering tables, stillness corners.
 
-This is the model I've built and run in Vancouver and Montreal for years. Almost no capital, no institution — just curation, intention, and a house whose bones get redesigned around the people in it. [edit — make this yours]
+This is the model I've built and run in Vancouver and Montreal for years. Almost no capital, no institution — just curation, intention, and a house whose bones get redesigned around the people in it.
 
 ## Who it suits   <!-- who -->
 

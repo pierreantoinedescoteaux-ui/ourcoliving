@@ -4,8 +4,8 @@ slug: "mars-my-startr"
 kind: "case-study"
 source: "work-data.js (scaffold)"
 path: "work-data (scaffold)[2]"
-role: "[edit — your role]"
-kicker: "Case study · Toronto, ON · [edit: years]"
+role: ""
+kicker: "Case study · Toronto, ON"
 ---
 
 

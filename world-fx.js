@@ -407,7 +407,7 @@
         "<h3>You found the balloon.</h3>" +
         "<p>Nothing is hidden up here, but if you feel like sending something " +
         "by actual post, write to me and I will send you the address. " +
-        '<span class="edit">[edit]</span></p>' +
+        '</p>' +
         '<a class="wfx-go" href="mailto:pierreantoinedescoteaux@gmail.com' +
           '?subject=I%20found%20the%20balloon">Write to me</a>' +
         '<button class="wfx-x" type="button" aria-label="Close">&times;</button>' +

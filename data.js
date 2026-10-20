@@ -5,7 +5,7 @@
    - Skills are shown THROUGH the story, never as bullets.
    - For any image: set `src` to a file path. Leave `src: ""` and the page
      shows a labeled placeholder = your photo-gathering checklist.
-   - [edit] marks placeholder text Pierre-Antoine should rewrite.
+   - marks placeholder text Pierre-Antoine should rewrite.
    ===================================================================== */
 
 const SITE = {
@@ -17,7 +17,7 @@ const SITE = {
     "Vancouver and Montreal. My work sits where spatial design meets human behavior: how a " +
     "room invites focus or conversation, how privacy and shared space get balanced, how a " +
     "building's bones can be turned into a community. I don't come from architecture — I come " +
-    "from living inside these spaces and shaping them around the people in them. [edit]",
+    "from living inside these spaces and shaping them around the people in them.",
   email: "pierreantoinedescoteaux@gmail.com",
 
   // Intro line for the Intentions section. Carries the design philosophy +
@@ -25,7 +25,7 @@ const SITE = {
   intentionsIntro:
     "I don't design for budget — I design for behavior. Working with existing buildings and " +
     "almost no money, I put every effort where it changed how people actually lived: where they " +
-    "found stillness, where they gathered, where they did their best work. [edit]"
+    "found stillness, where they gathered, where they did their best work."
 };
 
 /* ---- INTENTIONS: design themes, each shown through real spaces ---- */
@@ -38,7 +38,7 @@ const INTENTIONS = [
       "meditation garden — a maple, a Buddhist figure, a ring of river stones — and watched it " +
       "hold the same calm through summer, autumn, and snow. Inside, in Montreal, I designed a " +
       "floor-seated room around stillness: low light, plants, tatami, no screens demanding " +
-      "attention. These are the spaces that reset a high-output household. [edit]",
+      "attention. These are the spaces that reset a high-output household.",
     images: [
       { src: "images/garden-summer.jpg", caption: "Meditation garden, summer — Vancouver" },
       { src: "images/garden-autumn.jpg", caption: "The same garden in autumn" },
@@ -53,7 +53,7 @@ const INTENTIONS = [
       "The thing I'm proudest of isn't a room — it's that strangers became a household. I " +
       "programmed the social life that did it: brunches, live-music nights, sports, big dinners — " +
       "some internal to the house, some opened to a wider circle. The spaces were designed to make " +
-      "gathering the path of least resistance. [edit — name the recurring events you ran]",
+      "gathering the path of least resistance.",
     images: [
       { src: "images/mtl-brunch-jam.jpg", caption: "A brunch jam session — Montreal" },
       { src: "images/mtl-formal-dinner.jpg", caption: "One of the house dinners" },
@@ -68,7 +68,7 @@ const INTENTIONS = [
       "These are houses of entrepreneurs, so the spaces have to hold two opposite needs: heads-down " +
       "focus and real collaboration. I zoned for both — quiet rooms that protect deep work, shared " +
       "tables and whiteboards that pull people into each other's problems — so the house itself " +
-      "pushed everyone's goals forward. [edit — coworking sessions, pitch nights, brainstorms]",
+      "pushed everyone's goals forward.",
     images: [
       { src: "images/mtl-coworking.jpg", caption: "The coworking room — shared desks under a heritage ceiling" },
       { src: "images/mtl-bookshelf.jpg", caption: "A quieter corner for focused, solo work" }
@@ -79,7 +79,7 @@ const INTENTIONS = [
 const PROJECTS = [
   {
     slug: "montreal",
-    name: "Montreal Co-living House", // [edit] — does this house have a name?
+    name: "Montreal Co-living House", // — does this house have a name?
     location: "Montreal, QC",
     years: "2023 – present",
     role: "Designer & House Manager",
@@ -103,7 +103,7 @@ const PROJECTS = [
           "connect under one roof without the three needs cannibalizing each other? Every room got " +
           "a behavioral job — focus, gathering, rest — and the house was segmented so privacy and " +
           "community could both exist. With almost no budget, the work was in reorganizing and " +
-          "reusing what was already there, not renovating. [edit — name the specific design moves]",
+          "reusing what was already there, not renovating.",
         images: [
           { src: "images/mtl-bedroom.jpg", caption: "A private room designed for rest — light, plants, calm" },
           { src: "images/mtl-lounge.jpg", caption: "The lounge — books, music, a place to gather" }
@@ -114,7 +114,7 @@ const PROJECTS = [
         body:
           "The building gave me good bones: a heritage Montreal house with original woodwork, exposed " +
           "brick, and a turning staircase. I worked with the architecture rather than against it, and " +
-          "added what the house was missing — a rooftop terrace for the long summer evenings. [edit]",
+          "added what the house was missing — a rooftop terrace for the long summer evenings.",
         images: [
           { src: "images/mtl-staircase.jpg", caption: "The original heritage staircase" },
           { src: "images/mtl-patio.jpg", caption: "The rooftop terrace we built out" }
@@ -125,7 +125,7 @@ const PROJECTS = [
         body:
           "Three years of programming turned a house into a community: coworking sessions, pitch " +
           "nights, brunches, music jams, yoga, barbecues, and larger parties — some internal to the " +
-          "house, some opened up to a wider circle. [edit]",
+          "house, some opened up to a wider circle.",
         images: [
           { src: "images/group-doorway.jpg", caption: "Residents in the heritage doorway" },
           { src: "images/mtl-brunch-jam.jpg", caption: "A Sunday brunch jam" }
@@ -138,7 +138,7 @@ const PROJECTS = [
     slug: "growth-hub-dunbar",
     name: "Growth Hub — Dunbar",
     location: "Vancouver, BC",
-    years: "[edit: years]",
+    years: "",
     role: "Founder & House Manager",
     featured: false,
     summary:
@@ -159,10 +159,10 @@ const PROJECTS = [
           "full of distinctive architectural elements. I didn't design the building, but the work was " +
           "in reading it: figuring out how its existing bones could host focused work, shared living, " +
           "and events. The meditation garden was one of the things we built to give the house a place " +
-          "of stillness. [edit]",
+          "of stillness.",
         images: [
           { src: "images/garden-summer.jpg", caption: "The meditation garden we built" },
-          { src: "images/interior-armchair-art.jpg", caption: "A curated corner of the house [edit: confirm this is Dunbar]" }
+          { src: "images/interior-armchair-art.jpg", caption: "A curated corner of the house" }
         ]
       },
       {
@@ -171,7 +171,7 @@ const PROJECTS = [
           "I assembled the group of entrepreneurs, set up a coworking space inside the house, ran the " +
           "ads and marketing that filled it, and managed short-term stays through Airbnb for one of the " +
           "rooms. We lived there together for a little over a year. Events kept it alive: cold plunges, " +
-          "group workouts, barbecues, dinners, movie nights. [edit]",
+          "group workouts, barbecues, dinners, movie nights.",
         images: [
           { src: "", caption: "a strong event photo (cold plunge / BBQ / dinner)" },
           { src: "", caption: "the ad / listing creative you made for the house" }
@@ -184,7 +184,7 @@ const PROJECTS = [
     slug: "growth-hub-shaughnessy",
     name: "Growth Hub — Shaughnessy",
     location: "Vancouver, BC",
-    years: "[edit: years]",
+    years: "",
     role: "House Manager",
     featured: false,
     summary:
@@ -202,7 +202,7 @@ const PROJECTS = [
         body:
           "After Dunbar, a much larger house: nine bedrooms, a separate guest house, and 14,000 square " +
           "feet of interior to run as one community. The challenge shifted from starting a house to " +
-          "operating one at scale — more people, more space, more to coordinate. [edit]",
+          "operating one at scale — more people, more space, more to coordinate.",
         images: [
           { src: "", caption: "an impressive interior / common space" },
           { src: "", caption: "the grounds or guest house" }
@@ -235,7 +235,7 @@ const STORY = {
       bubbles: [
         "I moved to Vancouver and into a shared house. It gave me something I didn't know I was " +
         "missing — a real sense of community. But it wasn't built around like-minded people, and " +
-        "that gap is what started everything. [edit]"
+        "that gap is what started everything."
       ]
     },
     {
@@ -248,9 +248,9 @@ const STORY = {
       ],
       bubbles: [
         "So the next year, I built my own. I brought five other entrepreneurs into a big house in " +
-        "Dunbar, carved a coworking space out of it, and made it a home. [edit]",
+        "Dunbar, carved a coworking space out of it, and made it a home.",
         "We had a great time — a constant rhythm of events, creatives, and people pushing each " +
-        "other forward. [edit]"
+        "other forward."
       ],
       detail: {
         summary:
@@ -262,7 +262,7 @@ const STORY = {
             body:
               "It started as a story. I wrote up the vision for the house and built ads around it — " +
               "and around 200 people applied to live there. That let me actually curate the group: " +
-              "five entrepreneurs who'd push each other. [edit]",
+              "five entrepreneurs who'd push each other.",
             images: [
               { src: "images/dunbar-front.jpg", caption: "The house I pitched" },
               { src: "", caption: "an ad / listing you made for the house" }
@@ -273,7 +273,7 @@ const STORY = {
             body:
               "Then the unglamorous part: cleaning, furnishing, and carving a real coworking space " +
               "out of a house that was never built for it. We even built a Japanese meditation " +
-              "garden for the quiet end of the day. [edit]",
+              "garden for the quiet end of the day.",
             images: [
               { src: "images/garden-summer.jpg", caption: "The meditation garden we built" },
               { src: "images/dunbar-deck.jpg", caption: "The shoji-screen deck pavilion" }
@@ -283,7 +283,7 @@ const STORY = {
             heading: "Hosting events",
             body:
               "Then we filled it with life: cold plunges, group workouts, barbecues, dinners, movie " +
-              "nights — the rituals that turned six people into a household. [edit]",
+              "nights — the rituals that turned six people into a household.",
             images: [
               { src: "images/dunbar-pool.jpg", caption: "The pool deck — where a lot of the hangouts happened" },
               { src: "", caption: "a strong event photo (cold plunge / BBQ / dinner)" }
@@ -301,7 +301,7 @@ const STORY = {
       ],
       bubbles: [
         "The model grew into a much bigger house in Shaughnessy — nine bedrooms, a guest house, and " +
-        "14,000 square feet to run as one community. [edit]"
+        "14,000 square feet to run as one community."
       ],
       detail: {
         summary: "Scaling the same idea into an estate — and learning what changes when a house gets big.",
@@ -311,7 +311,7 @@ const STORY = {
             body:
               "The challenge shifted from starting a house to running one at scale: more people, more " +
               "space, more coordination — and keeping the sense of community intact through all of " +
-              "it. [edit]",
+              "it.",
             images: [
               { src: "", caption: "an impressive interior / common space" }
             ]
@@ -329,7 +329,7 @@ const STORY = {
       ],
       bubbles: [
         "I handed the Vancouver house to Paul — one of the first residents, and a good friend — and " +
-        "moved to Montreal to start again. This time, I designed the space myself. [edit: confirm year]"
+        "moved to Montreal to start again. This time, I designed the space myself."
       ],
       detail: {
         summary:
@@ -341,14 +341,14 @@ const STORY = {
             body:
               "Montreal became the place to experiment with management itself — testing models from " +
               "fully collaborative to more centralized, and learning what each does to how people " +
-              "live together. [edit]",
+              "live together.",
             images: []
           },
           {
             heading: "Designing the space",
             body:
               "I furnished the place from scratch and ran a round of renovations — reshaping rooms " +
-              "around how people actually live, work, and rest. [edit]",
+              "around how people actually live, work, and rest.",
             images: [
               { src: "", caption: "BEFORE — a room before the redesign" },
               { src: "", caption: "AFTER — the same room redesigned" }
@@ -358,7 +358,7 @@ const STORY = {
             heading: "Building the community",
             body:
               "And then the part I love most: filling it with people. Brunch jams, pitch nights, " +
-              "music, dinners — the events the house is known for. [edit]",
+              "music, dinners — the events the house is known for.",
             images: [
               { src: "images/mtl-brunch-jam.jpg", caption: "A Sunday brunch jam" }
             ]
@@ -373,14 +373,14 @@ const STORY = {
    HOPE  —  the vision / manifesto subpage (hope.html).
    Visual-first, low text. Each chapter pairs a generated geometric form
    with a few lines. The forms progress: alone -> scattered -> connected
-   -> village. Rewrite anything marked [edit] in your own voice.
+   -> village. Rewrite anything marked in your own voice.
    ===================================================================== */
 const HOPE = {
   eyebrow: "Where this is going",
   thesis: "We have never been more connected, or more alone. I think the answer is in how — and with whom — we live.",
   lede:
     "This is the throughline behind every house I've built, and the reason I want to build " +
-    "something bigger. [edit]",
+    "something bigger.",
   chapters: [
     {
       form: "alone",
@@ -388,7 +388,7 @@ const HOPE = {
       title: "I had everything I needed, and still felt alone.",
       body:
         "I lived by myself. Independent, comfortable, free — and quietly isolated. Something " +
-        "essential was missing, and I couldn't name it yet. [edit]"
+        "essential was missing, and I couldn't name it yet."
     },
     {
       form: "scattered",
@@ -396,7 +396,7 @@ const HOPE = {
       title: "People nearby isn't the same as community.",
       body:
         "So I moved in with others. The loneliness lifted — but the house wasn't built on " +
-        "anything. No shared direction, no glue. Proximity without purpose. [edit]"
+        "anything. No shared direction, no glue. Proximity without purpose."
     },
     {
       form: "connected",
@@ -405,7 +405,7 @@ const HOPE = {
       body:
         "Builders, growth-minded, ambitious in the same direction. I learned more and grew more — " +
         "personally and professionally — than in any other years of my life. The space is what " +
-        "made it happen. [edit]"
+        "made it happen."
     },
     {
       form: "village",
@@ -414,7 +414,7 @@ const HOPE = {
       body:
         "Co-living communities for an age where isolation runs deepest and division keeps rising. " +
         "We answer with community — and with space. Because architecture and urbanism quietly " +
-        "shape how we behave, who we meet, and who we become. [edit]"
+        "shape how we behave, who we meet, and who we become."
     }
   ],
   journeyLabel: "How I found the answer",
@@ -479,14 +479,14 @@ const HOPE = {
    INSPIRATION  —  the reference library behind the vision (inspiration.html).
    Three groups of cards. Each card uses a generated geometric mark
    (no photos needed). All facts researched + verified 2026-06-30.
-   Swap, trim, or add your own — [edit] freely.
+   Swap, trim, or add your own — freely.
    ===================================================================== */
 const INSPIRATION = {
   eyebrow: "Inspiration",
   title: "The work, places, and ideas that shape how I think about living together.",
   lede:
     "A working library behind the vision — the thinkers, projects, and models I keep coming " +
-    "back to. Cards marked with a case study go deeper. [edit: add your own, cut what doesn't fit]",
+    "back to. Cards marked with a case study go deeper.",
   groups: [
     {
       key: "books",
@@ -555,7 +555,7 @@ const INSPIRATION = {
    hero, a lede, body blocks (text + optional image + optional quote),
    and a "What I take from it" list. Add more items with new slugs.
    Rooral content is built from their real site (rooral.co); prose is
-   embellished. [edit] = rewrite in your own voice.
+   embellished. = rewrite in your own voice.
    ===================================================================== */
 const DETAILS = {
   "everyday-utopia": {
@@ -590,7 +590,7 @@ const DETAILS = {
           "It reframes co-living not as a lifestyle trend but as a return to something older and more " +
           "workable. The book gives language to what I've felt building houses: that sharing space, " +
           "meals and care isn't a compromise on the good life — for most of human history it simply " +
-          "was the good life. [edit — add your own reaction]",
+          "was the good life.",
         image: "images/model-findhorn.jpg",
         caption: "Findhorn ecovillage, Scotland — designing the home, the economy and the ecology together." }
     ],
@@ -645,7 +645,7 @@ const DETAILS = {
           "Most co-living bonds people who are already alike. Rooral bonds people across the widest gap " +
           "there is — age, culture, the digital divide — and makes the village itself the thing that " +
           "heals. It's the clearest proof I've found that bringing young people back into rural " +
-          "communities can revive both at once. [edit — make this yours]",
+          "communities can revive both at once.",
         image: "images/rooral-portraits.jpg",
         caption: "Faces from the surrounding villages." }
     ],
@@ -694,7 +694,7 @@ const DETAILS = {
 
 /* =====================================================================
    ABOUT  —  the about / contact section on the home page.
-   Portrait + short bio + a few candid photos. [edit] the bio in your voice.
+   Portrait + short bio + a few candid photos. the bio in your voice.
    ===================================================================== */
 const ABOUT = {
   portrait: "images/about-portrait.jpg",
@@ -702,6 +702,6 @@ const ABOUT = {
   body:
     "For the last several years I've built and run houses in Montreal and Vancouver where strangers " +
     "become a community. I don't come from architecture — I come from living inside these places and " +
-    "shaping them around the people in them. [edit — make this yours]",
+    "shaping them around the people in them.",
   gallery: ["images/about-1.jpg", "images/about-2.jpg", "images/about-3.jpg"]
 };

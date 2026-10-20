@@ -6,13 +6,13 @@
    eisenstein-more-beautiful-world-separation-interbeing.md
    `stories` = the 10 live pairs. `assumptions` (13) + `whatifs` = LEGACY
    content bank, preserved (26 verified links) — not rendered on the page.
-   [edit] = P-A voice needed.
+ = P-A voice needed.
    ===================================================================== */
 
 const MANIFESTO = {
   eyebrow: "A manifesto",
   title: "What if we built for connection?",
-  lede: "The loneliest era in human history is a design problem. This page is about the more beautiful world on the other side of it — and the homes already being built there. [edit]",
+  lede: "The loneliest era in human history is a design problem. This page is about the more beautiful world on the other side of it — and the homes already being built there.",
 
   heroImg: {
     src: "images/solarpunk-feast.jpg",
@@ -26,7 +26,7 @@ const MANIFESTO = {
     title: "The broken status quo.",
     lede: "Most of what feels inevitable about modern life isn’t a law of nature — it’s a story, barely a century old, and it’s cracking. Touch a gray thought.",
     sparkTitle: "What if…",
-    /* [edit] Claude draft, 2026-08-01 — P-A's direction: the power of our
+    /* Claude draft, 2026-08-01 — P-A's direction: the power of our
        imagination, keep sparking it, because asking what if and letting
        yourself believe it for an instant is the only way anything different
        ever gets built. Same shape as the lede above so the swap reads as the
@@ -224,7 +224,7 @@ const MANIFESTO = {
       "Learning that crosses generations.",
       "Energy owned by the neighbourhood."
     ],
-    finale: "A future you can walk to. [edit]"
+    finale: "A future you can walk to."
   },
 
   /* ---- Close (BRIGHT — what this site aims to be) ------------------- */
@@ -232,8 +232,8 @@ const MANIFESTO = {
     kicker: "Why this site exists",
     title: "This is a manifesto of hope.",
     body: [
-      "I’m not writing this because the world is broken beyond repair. I’m writing it because the opposite keeps proving true: everywhere I look, people are already living the better story — in common houses and co-ops, farmhouses and shared kitchens where thirty people eat well and nobody is lonely. [edit]",
-      "Co-living is the piece of that story that gives me the most hope, because I’ve lived it. This site is my attempt to bring more attention to it: to map the shapes it takes, point you toward the projects already building it, and maybe help you find your own way in. [edit]"
+      "I’m not writing this because the world is broken beyond repair. I’m writing it because the opposite keeps proving true: everywhere I look, people are already living the better story — in common houses and co-ops, farmhouses and shared kitchens where thirty people eat well and nobody is lonely.",
+      "Co-living is the piece of that story that gives me the most hope, because I’ve lived it. This site is my attempt to bring more attention to it: to map the shapes it takes, point you toward the projects already building it, and maybe help you find your own way in."
     ],
     quote: {
       text: "An economist says that more for you is less for me. But the lover knows that more for you is more for me, too.",

@@ -4,8 +4,8 @@ slug: "ocean-bridge"
 kind: "case-study"
 source: "work-data.js (scaffold)"
 path: "work-data (scaffold)[5]"
-role: "[edit — your role]"
-kicker: "Case study · Canada · [edit: years]"
+role: ""
+kicker: "Case study · Canada"
 ---
 
 

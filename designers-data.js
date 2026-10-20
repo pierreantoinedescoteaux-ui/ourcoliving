@@ -7,7 +7,7 @@
 const DESIGNERS = {
   eyebrow: "Design for Connection · the shoulders",
   title: "Designers that inspire me.",
-  lede: "People far better than me at these decisions — the architects, urbanists and studios this site borrows from. Not a hall of fame: a working list of who I reach for when a design question stumps me. [edit]",
+  lede: "People far better than me at these decisions — the architects, urbanists and studios this site borrows from. Not a hall of fame: a working list of who I reach for when a design question stumps me.",
   people: [
     {
       name: "Christopher Alexander",
