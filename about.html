@@ -130,6 +130,39 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .bring .b-sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1rem,1.3vw,1.2rem);color:var(--ink-soft);margin:-10px 0 clamp(22px,3.5vh,36px)}
 @media(max-width:1000px){.asks{grid-template-columns:1fr 1fr}.pillars{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.asks,.pillars{grid-template-columns:1fr}}
+/* ---- v4 design pass (2026-10-20) ---- */
+.me-sec{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(30px,5vw,80px);align-items:center;padding:clamp(50px,8vh,100px) 0}
+.me-p{font-size:clamp(1.02rem,1.3vw,1.16rem);color:var(--ink-soft);line-height:1.7;max-width:52ch;margin-bottom:14px}
+.me-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;margin-top:clamp(18px,3vh,30px);padding-top:18px;border-top:1px dashed var(--line-strong,rgba(34,48,31,.3))}
+.me-facts dt{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px}
+.me-facts dd{font-family:var(--serif);font-size:1.05rem;color:var(--ink)}
+.me-photos{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px)}
+.polaroid{background:#fffdf8;padding:10px 10px 14px;border-radius:6px;box-shadow:0 18px 40px -22px rgba(34,48,31,.55);margin:0;transition:transform .4s}
+.polaroid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block}
+.polaroid figcaption{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--ink-soft);margin-top:8px;line-height:1.3}
+.polaroid.p1{transform:rotate(-2.2deg)}.polaroid.p2{transform:rotate(1.6deg) translateY(18px)}
+.polaroid.p3{transform:rotate(1.2deg)}.polaroid.p4{transform:rotate(-1.8deg) translateY(18px)}
+.polaroid:hover{transform:rotate(0) translateY(-4px)}
+.band{margin:clamp(30px,5vh,60px) calc(-1*clamp(0px,2vw,28px));padding:clamp(40px,7vh,80px) clamp(22px,4vw,64px);border-radius:32px}
+.quest-band{background:var(--green-wash,#e7f0e2)}
+.quest-band .quests{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.quest-band .quest{border:none;box-shadow:0 12px 30px -24px rgba(34,48,31,.6)}
+.q-badge{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;margin-bottom:12px;background:#f6f2e7}
+.quest:nth-child(3n+1) .q-badge{background:#fbe29a}.quest:nth-child(3n+2) .q-badge{background:#e3eff3}.quest:nth-child(3n) .q-badge{background:#f3dccf}
+.quest .q-badge svg{width:28px;height:28px;margin:0}
+.learn-band{background:var(--sky-wash,#e3eff3)}
+.learn-band .s-title{font-size:clamp(2.2rem,4.6vw,4.2rem)}
+.learn-band .s-intro{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.5vw,1.3rem)}
+.learn-band .questions{max-width:none;gap:0;margin-top:clamp(10px,2vh,20px)}
+.learn-band .questions li{display:grid;grid-template-columns:clamp(46px,6vw,80px) 1fr;align-items:baseline;padding:clamp(18px,3vh,30px) 0;border-top:1px solid rgba(61,114,134,.25);font-size:inherit}
+.learn-band .questions li::before{content:none}
+.learn-band .q-n{font-family:var(--serif);font-size:clamp(1rem,1.4vw,1.25rem);color:var(--sky-deep,#3d7286)}
+.learn-band .q-t{font-family:var(--serif);font-weight:300;font-style:normal;font-size:clamp(1.5rem,3vw,2.6rem);line-height:1.15;letter-spacing:-.01em;color:var(--ink)}
+.learn-band .shelf{margin-top:clamp(36px,6vh,60px)}
+.learn-band .book{background:#fffdf8}
+@media(max-width:900px){.me-sec{grid-template-columns:1fr}.me-photos{order:-1}}
+@media(max-width:640px){.me-facts{grid-template-columns:1fr}.band{margin-left:0;margin-right:0;border-radius:24px}}
+@media(prefers-reduced-motion:reduce){.polaroid{transition:none}}
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -153,10 +186,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   </div></section>
 
   <div class="wrap">
+    <section class="me-sec reveal" id="aMe"></section>
+    <section class="band quest-band reveal" id="aQuests"></section>
+    <section class="band learn-band reveal" id="aLearn"></section>
     <section class="sec now-sec reveal" id="aNow"></section>
     <section class="sec how-sec reveal" id="aHow"></section>
-    <section class="sec learn-sec reveal" id="aLearn"></section>
-    <section class="sec quest-sec reveal" id="aQuests"></section>
 
     <section class="bring reveal">
       <h2 id="aBringTitle"></h2>
@@ -198,6 +232,18 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
   function head(o){return '<span class="s-kicker">'+esc(o.kicker)+'</span><h2 class="s-title">'+esc(o.title)+'</h2>'+(o.intro||o.body?'<p class="s-intro">'+esc(o.intro||o.body)+'</p>':'');}
 
+  // About me: the person first
+  document.getElementById("aMe").innerHTML =
+    '<div class="me-text">'+
+      '<span class="s-kicker">'+esc(ABOUT_ME.kicker)+'</span>'+
+      '<h2 class="s-title">'+esc(ABOUT_ME.title)+'</h2>'+
+      ABOUT_ME.paras.map(function(p){return '<p class="me-p">'+esc(p)+'</p>';}).join("")+
+      '<dl class="me-facts">'+ABOUT_ME.facts.map(function(f){return '<div><dt>'+esc(f.k)+'</dt><dd>'+esc(f.v)+'</dd></div>';}).join("")+'</dl>'+
+    '</div>'+
+    '<div class="me-photos">'+ABOUT_ME.photos.map(function(p,i){
+      return '<figure class="polaroid p'+(i+1)+'"><img src="'+esc(p.src)+'" alt="'+esc(p.cap)+'" loading="lazy"><figcaption>'+esc(p.cap)+'</figcaption></figure>';
+    }).join("")+'</div>';
+
   // Right now
   document.getElementById("aNow").innerHTML = head(ABOUT_RIGHTNOW)+
     '<div class="asks">'+ABOUT_RIGHTNOW.asks.map(function(a){
@@ -212,7 +258,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
   // What I'm learning
   document.getElementById("aLearn").innerHTML = head(ABOUT_LEARNING)+
-    '<ol class="questions">'+ABOUT_LEARNING.questions.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ol>'+
+    '<ol class="questions">'+ABOUT_LEARNING.questions.map(function(q,i){return '<li><span class="q-n">'+String(i+1).padStart(2,"0")+'</span><span class="q-t">'+esc(q)+'</span></li>';}).join("")+'</ol>'+
     '<div class="shelf"><span class="shelf-k">'+esc(ABOUT_LEARNING.shelfTitle)+'</span>'+
       '<div class="books">'+ABOUT_LEARNING.shelf.map(function(b){
         return '<div class="book"><span class="b-t">'+esc(b.t)+'</span><span class="b-a">'+esc(b.a)+'</span></div>';
@@ -232,7 +278,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   };
   document.getElementById("aQuests").innerHTML = head(ABOUT_SIDEQUESTS)+
     '<div class="quests">'+ABOUT_SIDEQUESTS.items.map(function(q){
-      return '<div class="quest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICON[q.icon]||"")+'</svg>'+
+      return '<div class="quest"><span class="q-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICON[q.icon]||"")+'</svg></span>'+
         '<span class="q-k">'+esc(q.k)+'</span><p>'+esc(q.line)+'</p></div>';
     }).join("")+'</div>';
 
