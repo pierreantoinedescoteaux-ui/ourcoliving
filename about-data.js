@@ -8,15 +8,15 @@
    ===================================================================== */
 
 const ABOUT_INTRO = {
-  eyebrow: "About Pierre-Antoine",
-  titleHtml: "I explored my way <em>here</em>.",
-  lede: "Nonprofits, startups, events, shared houses — not a straight line, an exploration. What kept coming back: creating and facilitating spaces where people grow because of each other.",
-  portrait: { src: "images/about-portrait.jpg", scene: "Portrait of Pierre-Antoine — warm light, relaxed." }
+  eyebrow: "The house · about me",
+  titleHtml: "Hi, I'm <em>Pierre-Antoine.</em>",
+  lede: "I live in Montréal, in a shared house I designed and keep reshaping with the people who live there. I believe we can live closer together, and better, and I'm spending my life learning how. Nonprofits, events, a startup and a few houses later, the thread is simple: I love creating spaces where people grow because of each other.",
+  portrait: { src: "images/about-portrait.jpg", scene: "Portrait of Pierre-Antoine, smiling in the mountains." }
 };
 
 const ABOUT_THREAD = {
-  line: "A stone playhouse at five. An improv team at eighteen. A campus alliance, a national nonprofit, a startup, a house in Tokyo, four houses of my own. Not a straight line — an exploration. At the center of all of it, I keep finding the same craft: creating and facilitating spaces. Sometimes digital, sometimes intellectual, sometimes a room you can stand in.",
-  body: "This page is the short version. The long one — the story, told honestly, including the parts that didn't work — is one click away."
+  line: "I've never followed a straight line. Looking back, the same thing kept showing up: I love building spaces where people find each other. Some were online, some were ideas, some were rooms you could walk into. This is how I got here, and who helped along the way.",
+  body: ""
 };
 
 /* ------- the story chapters (story.html) ------- */
@@ -162,40 +162,40 @@ const ABOUT_CTA = {
   email: "pierreantoinedescoteaux@gmail.com"
 };
 
+
 /* =====================================================================
-   STORY v2 (story2.html) — P-A feedback 2026-07-12:
-   (1) weight by hiring value — charisma moments small (vignette strip),
-       skill-bearing eras keep full chapters;
-   (2) TONE = personal essay, "telling my story in my way" — humble,
-       funny, authentic, not pitchy.
-   Fresh copy (does NOT reuse ABOUT_CHAPTERS). story.html v1 untouched
-   for comparison. = Claude draft awaiting P-A's voice.
+   STORY + ABOUT v3 — 2026-10-20 revamp, written to _brand/GUIDE.md
+   (P-A's voice + internal character guide). Story = the journey;
+   About = who I am now. ABOUT_TRANSPARENCY / ABOUT_CTA above are kept
+   only because the Work page still reads them.
    ===================================================================== */
 
-/* small, charming, fast — authenticity texture, not resume weight */
+/* the early cards: small, warm, fast */
 const STORY2_TEXTURE = {
   kicker: "Before any of it had a name",
-  intro: "The short version of the first twenty years, because you have things to do.",
+  intro: "",
   items: [
-    { slug: "stone-house", years: "Age 5", line: "I stacked a playhouse out of stone bricks — twice my height, zero permits — and invited the neighbourhood in. I've been told the career plan hasn't changed much since.", image: { src: "images/story/story-age5-1.jpg", scene: "Me at five, in a hard hat, building a tower." } },
-    { slug: "organizer", years: "School years", line: "I was the kid who organized things. Class rep, school president in sixth grade, eventually 'organizer of the year' — mostly because nobody else wanted to run the student radio AND the dance AND the fair.", image: { src: "images/story/story-organizer-1.jpg", scene: "End-of-year school gala, 2017." } },
-    { slug: "coach", years: "16 – 20", line: "I coached improv teams and tennis players, kids and adults. Someone was paying me to care about other people's progress. I couldn't believe my luck.", image: { src: "images/story/story-coach-1.jpg", scene: "Coaching improv and tennis." } },
-    { slug: "first-company", years: "19", line: "I started a little accessories company between classes. It taught me every job at once — including the humbling ones, like selling face to face and doing my own books.", image: { src: "images/story/story-first-company-1.jpg", scene: "The Sway Accessories years." } }
+    { slug: "stone-house", years: "Age 5", line: "Small town, only child, raised by my mother, a teacher. There wasn't much to do, so I built: Duplo towers in a hard hat, and a stone-brick playhouse twice my height that I invited my friends into.", image: { src: "images/story/story-age5-1.jpg", scene: "Me at five, in a hard hat, building a tower.", caption: "Five years old, hard hat on." } },
+    { slug: "organizer", years: "School years", line: "I was the kid who organized things: class rep, school president in sixth grade, the student radio, the dances, the fair. They named me organizer of the year. I loved bringing people together long before I had a word for it.", image: { src: "images/story/story-organizer-1.jpg", scene: "End-of-year school gala, 2017.", caption: "End-of-year gala, 2017." } },
+    { slug: "coach", years: "16 – 20", line: "I coached improv teams and tennis players, kids and adults. Someone was paying me to care about other people's progress. I couldn't believe my luck.", image: { src: "images/story/story-coach-1.jpg", scene: "Coaching improv and tennis.", caption: "One of the improv teams I coached." } },
+    { slug: "first-company", years: "19", line: "I started Sway, a small accessories company, between classes. It taught me every job at once, including the humbling ones, like selling face to face and doing my own books.", image: { src: "images/story/story-first-company-1.jpg", scene: "The Sway Accessories years.", caption: "Sway, my first company." } }
   ]
 };
 
-/* the skill-bearing eras — full chapters, essay voice */
+/* the chapters: same shape each time, a closing line that points forward */
 const STORY2_CHAPTERS = [
   {
     slug: "facilitator",
     years: "2018 – 2019 · Université Laval",
-    title: "The facilitator of the space",
+    title: "Learning to hold the room",
     story: [
-      "I went into business school convinced that if you wanted to change anything you needed power, and that business was where power lived. University had other plans. I met a PhD student who had noticed something odd: dozens of groups on campus were working on sustainability — students, researchers, the administration — and none of them were talking to each other.",
-      "So instead of founding yet another club, we built the connective tissue. We mapped everyone, made the introductions, hosted the gatherings, and borrowed the UN's seventeen development goals as a common language so that sixty student associations and one administration could stop reinventing each other's wheels.",
-      "Nobody was in charge, and that was the discovery. Most spaces don't need another leader — they need someone who holds the room so everyone else can lead. I finally had a name for the thing I'd been doing since the stone house."
+      "I went into business school believing that to change anything you needed power, and that business was where power lived. University changed my mind. I met a PhD student who had noticed something odd: dozens of groups on campus, from students to researchers to the administration, were working on sustainability, and none of them were talking to each other.",
+      "So instead of founding yet another club, we built the connections between them. We mapped everyone, made the introductions, hosted the gatherings, and borrowed the UN's seventeen development goals as a common language, so sixty student associations and the administration could stop reinventing each other's wheels.",
+      "Nobody was in charge, and that was the discovery. Most spaces don't need another leader. They need someone who holds the room so everyone else can lead. I finally had a name for what I'd been doing since I was five."
     ],
-    stayed: "Map the players, build the common language, host the room.",
+    stayed: "Change starts when the people already doing the work find each other.",
+    builtWith: "Built with a PhD student, sixty student associations and Université Laval.",
+    margin: "Who taught me this: a PhD student who saw the gaps before anyone else did.",
     images: [ { src: "images/story/story-facilitator-1.jpg" }, { src: "images/story/story-facilitator-2.jpg" }, { src: "images/story/story-facilitator-3.jpg" } ]
   },
   {
@@ -203,23 +203,26 @@ const STORY2_CHAPTERS = [
     years: "2019 – 2021",
     title: "Trying it at the scale of a country",
     story: [
-      "That little alliance somehow got me to the UN's High-Level Political Forum in New York — badge, marble halls, imposter syndrome, the whole package. The useful part turned out to be the hallway, where I met young people from across Canada who had hit the same wall on their own campuses.",
-      "We started two things together. A national youth network, because we thought young people should choose their own representatives instead of being chosen — it reached over fifty thousand of them and kept people organizing through the first pandemic months. And ReImagine17, a nonprofit where we wrote the playbook for campus alliances and created paid sustainability jobs for students. At some point I was 'managing' fourteen people, a word I use loosely, because half of what I did was learn payroll the hard way.",
-      "Here's the part I'm actually proud of. We built a culture where everyone led something and backed everyone else's something. I stepped away for two years, came back to visit — and it was all still running. Better than when I left, in places. Nothing has taught me more about what building actually means."
+      "That little alliance took me to the UN's High-Level Political Forum in New York. The most useful part was the hallway, where I met young people from across Canada who had hit the same wall on their own campuses.",
+      "We started two things together. A national youth network, so young people could choose their own representatives instead of being chosen. It reached more than fifty thousand of them and kept people organizing through the first months of the pandemic. And ReImagine17, a nonprofit where we wrote the playbook for campus alliances and created paid sustainability jobs for students. Our team grew, and I learned a lot about leading, often the hard way.",
+      "Here's the part I'm proud of. We built a culture where everyone led something and backed everyone else's something. I stepped away, came back two years later to visit, and it was all still running. Better than when I left, in places."
     ],
     stayed: "A community is working when it no longer needs you.",
+    builtWith: "Built with the ReImagine17 team and young organizers across Canada.",
     images: [ { src: "images/story/story-scale-1.jpg" }, { src: "images/story/story-scale-2.jpg" }, { src: "images/story/story-scale-3.jpg" }, { src: "images/story/story-scale-4.jpg" } ]
   },
   {
     slug: "houses",
-    years: "2021 – today · Vancouver & Montréal",
+    years: "2020 – today · Vancouver & Montréal",
     title: "The houses",
     story: [
-      "Summer 2020, Vancouver, mid-pandemic. I was living in a house I genuinely loved — and still felt something missing. I was running ReImagine17 at the time, and I wanted to be surrounded by other people who were making things: creatives, entrepreneurs, the kind of energy you can't schedule.",
-      "So I tried to gather it. I posted ads online with stock photos of what a shared house could look like, pitched the vision in Vancouver groups, and interviewed a good fifty strangers — for a house I didn't even have yet. A group formed around the idea, and then we found the house together. That became the Growth Hub. More houses followed, and in Montréal I finally designed the interior myself — every room with one job to do.",
-      "Along the way I made most of the mistakes available on the market: wrong roommate calls, fuzzy house rules, a common room that was beautiful and completely dead until I understood why. But the heart of it was always simple — I created what I wished existed for myself, and let it teach me. The case studies on this site are those field notes."
+      "It started in Tokyo. During an exchange year I lived in a share-house with a common room big enough to host, in a city where almost nobody can. A rotating cast from everywhere, dinners that went long. I didn't call it coliving yet. I just knew I had never felt so at home.",
+      "Summer 2020, Vancouver, mid-pandemic. I wanted that feeling back, and I wanted to be surrounded by people making things. So I posted ads with stock photos of what a shared house could look like, and interviewed about fifty strangers for a house I didn't have yet. A group formed around the idea, we found the house together, and it became the Growth Hub. More houses followed. In Montréal I designed the interior myself, every room with one job to do.",
+      "I made plenty of mistakes: wrong roommate calls, fuzzy house rules, a beautiful common room nobody used. That last one taught me the most. The room only came alive when I asked the people living there what they actually needed, and redesigned it with them. The case studies on this site are those field notes."
     ],
-    stayed: "Create what you wish existed — then let it teach you.",
+    stayed: "Build it with the people who'll live in it, then let it teach you.",
+    builtWith: "Built with the housemates of the Growth Hub houses and the Montréal house.",
+    margin: "What I got wrong: designing for people instead of with them.",
     images: [ { src: "images/story/story-houses-1.jpg" }, { src: "images/story/story-houses-2.jpg" }, { src: "images/story/story-houses-3.jpg" }, { src: "images/story/story-houses-4.jpg" }, { src: "images/story/story-houses-5.jpg" } ]
   },
   {
@@ -227,11 +230,13 @@ const STORY2_CHAPTERS = [
     years: "2022 – 2024 · C2, Montréal",
     title: "Rooms that change people",
     story: [
-      "Back in Montréal I joined C2, the people behind one of the most theatrical business events anywhere. Officially I worked in sales and operations — I beat a ticket target by a third, migrated a CRM, wrote the playbooks, automated most of my own reporting, and made a lasting peace with spreadsheets.",
-      "But the real education was watching their designers work. Stages that move mid-session. Rooms engineered for the exact kind of collaboration they want to spark. I had spent years intuiting that space changes people; C2 was the first place I watched professionals aim it on purpose. A design-thinking program at La Factry then gave the instinct a method.",
-      "That's the strange gift of those years: I went for the craft, and left with a trained eye."
+      "Back in Montréal I joined C2, the team behind one of the most theatrical business events anywhere. Officially, I worked in sales and operations.",
+      "But the real education was watching their designers work. Stages that move mid-session. Rooms built for the exact kind of collaboration they want to spark. I had spent years sensing that space changes people. At C2 I watched professionals do it on purpose. A design-thinking program at La Factry then gave that instinct a method.",
+      "I came for a job in sales and left seeing rooms the way a designer does."
     ],
-    stayed: "Space is a tool you can aim.",
+    stayed: "Space is a tool you can aim at connection.",
+    builtWith: "Built with the C2 Montréal team.",
+    margin: "Who taught me this: C2's set and experience designers.",
     images: [ { src: "images/story/story-rooms-1.jpg" }, { src: "images/story/story-rooms-2.jpg" }, { src: "images/story/story-rooms-3.jpg" } ]
   },
   {
@@ -239,8 +244,8 @@ const STORY2_CHAPTERS = [
     years: "2024 – 2026 · Vancouver",
     title: "The startup years",
     story: [
-      "Then I co-founded an AI startup in manufacturing. I knew nothing about manufacturing, which in startup mythology is supposed to be charming. I was the business half — operations, revenue, learning an industry from zero. We joined an accelerator, made the San Francisco pilgrimage, slept in the office some nights, and got real work into real factories.",
-      "After a year and a half we looked at it honestly and chose to stop. The sales cycles were long, the market moved slowly, and our energy belonged elsewhere. I'm glad I lived it — it taught me how to operate under pressure, and it sharpened something quieter too.",
+      "Then I co-founded an AI startup in manufacturing, an industry I knew nothing about. I was the business half: operations, sales, learning everything from zero. We joined an accelerator, went to San Francisco, slept in the office some nights, and got real work into real factories.",
+      "After a year and a half we looked at it honestly and chose to stop. The sales cycles were long, the market moved slowly, and our energy belonged elsewhere. I'm glad I lived it. It taught me how to work under pressure, and it showed me what I actually want.",
       "Somewhere in those months I noticed which parts of my week I protected no matter what. They all looked like the house."
     ],
     stayed: "I can build the machine. I'd rather build the village.",
@@ -251,62 +256,118 @@ const STORY2_CHAPTERS = [
     years: "2026 · Montréal",
     title: "Now: the beginning of a new path",
     story: [
-      "Along the way there was a year-long fellowship on compassion — two retreats in the Montana mountains with Tibetan Buddhist teachers, which is a sentence I never expected to write — and a deepening obsession with psychology, meditation, and how environments shape minds. I run, I lift, I finished a marathon once and mention it exactly as often as marathon finishers do. The woods are still where my head gets quiet.",
-      "I'm not going to claim I've found the answer — I'm at the beginning of a new path, not the end of an old one. What I know is the direction: using my skills and my energy to build more hope, and co-living is where I've seen connection built most concretely. I have a lot to learn, and I want to.",
-      "This site is my workshop for that. If you're building a place where people grow because of each other, I'd love to learn alongside you and help build it."
+      "I'm not going to pretend I've found the answer. I'm at the beginning of a new path, not the end of an old one. What I know is the direction: putting my energy into building more hope, and coliving is where I've seen connection built most concretely.",
+      "I have a lot to learn, and I want to learn it with others. This site is my workshop for that: a tower of everything I'm gathering, built in the open."
     ],
-    stayed: "Community as the antidote to isolation — space as the tool that makes it stick.",
+    stayed: "Let's build the places where people find each other.",
     image: { src: "images/story/story-now-1.jpg", scene: "The beginning of a new path." }
   }
 ];
 
-/* the pillars — what every space (digital, intellectual, physical) taught;
-   P-A's approach to design in the LARGE sense. Rendered after the chapters. */
-const STORY2_PILLARS = {
-  kicker: "My approach",
-  title: "What all the spaces taught me.",
-  intro: "Some of the spaces were digital — ReImagine17, a national youth network. Some were intellectual — an alliance, a common language. Some you could stand in — houses, rooms, stages. Different materials, same craft. These are the pillars I design by, in the largest sense of the word:",
-  items: [
-    { t: "Co-create with humility", d: "The space belongs to the people in it. My job is to hold it, not to own it." },
-    { t: "Let the process take its time", d: "Communities and rooms both reject rushed designs. Slow is a feature." },
-    { t: "Design for shared values", d: "Curate for alignment first — everything else stands on it." },
-    { t: "Strengthen with shared rituals", d: "A table becomes a community through the meals that repeat at it." },
-    { t: "Watch what every change does", d: "Each design choice shifts the dynamic. Notice, adjust, stay honest about it." },
-    { t: "Stay highly communicative", d: "Spaces stay healthy out loud — expectations named, tensions surfaced early." }
+/* the forward-looking end of the story: leaves room for other people's dreams */
+const STORY2_CLOSE = {
+  kicker: "The floors above",
+  line: "The floors above aren't built yet.",
+  body: "I'd like to build them with people whose dreams are different from mine. Maybe one of them is yours.",
+  doors: [
+    { href: "about.html", t: "Who I am now", d: "About me" },
+    { href: "work.html", t: "The work", d: "Projects and case studies" }
   ]
 };
 
-/* Tokyo compressed into a single turning-point interlude (renders before the houses chapter) */
-const STORY2_INTERLUDE = {
-  before: "houses",
-  years: "2019 – 2020 · Tokyo",
-  quote: "Between those chapters I lived a year in Tokyo, in a share-house with a common room big enough to host — in a city where almost nobody can. A rotating cast from everywhere, dinners that went long. I was more alive there than anywhere I'd lived. I didn't call it co-living yet. I just didn't want it to end.",
-  image: { src: "images/tokyo-house.jpg", scene: "The Tokyo share-house." }
+/* About + Story contact box (the Work page keeps ABOUT_CTA) */
+const ABOUT_CLOSE = {
+  line: "Building something, dreaming of it, or just curious?",
+  sub: "I'd love to hear from you. I read every message myself.",
+  email: "pierreantoinedescoteaux@gmail.com"
 };
 
-/* what-I-bring v2: capability → honest receipt → where to see it */
+/* ---------------- ABOUT: who I am now ---------------- */
+const ABOUT_RIGHTNOW = {
+  kicker: "Right now",
+  title: "Living it, and looking for what's next.",
+  body: "I live in the Montréal house, I'm building this site in the open, and I'm looking for my next step in coliving. Whatever it turns out to be, I want to build it with people.",
+  asks: [
+    { k: "A team to join", d: "An organization building or running community housing, where I can bring what the houses taught me." },
+    { k: "People to build with", d: "If you're starting a coliving project, in Québec or elsewhere, I'd love to help shape it." },
+    { k: "Future housemates", d: "People who want to live this way, and maybe build the next house together." },
+    { k: "Conversations", d: "If you're further along than me, I'd love to learn from you. Coffee's on me." }
+  ]
+};
+
+/* "How I work" on About */
+const STORY2_PILLARS = {
+  kicker: "How I work",
+  title: "What the spaces taught me.",
+  intro: "Different spaces, same lessons. These are the principles I try to build by, most of them learned the hard way, and from people further along.",
+  items: [
+    { t: "Co-create with humility", d: "The space belongs to the people in it. My job is to hold it, not to own it." },
+    { t: "Let it take its time", d: "Good communities take time. Rushing them never works." },
+    { t: "Start from shared values", d: "Bring together people who share what matters. Everything else builds on that." },
+    { t: "Grow it with rituals", d: "A table becomes a community through the meals that repeat at it." },
+    { t: "Design with people, not for them", d: "My first common room was beautiful and empty. It came alive once we asked what people needed: a cozy corner to read, open space to host or do yoga." },
+    { t: "Say things out loud", d: "Name expectations, bring up tensions early. Spaces stay healthy when people talk." }
+  ]
+};
+
+const ABOUT_LEARNING = {
+  kicker: "What I'm learning",
+  title: "Questions I'm sitting with.",
+  intro: "I don't have answers to these yet. If you do, or if you're asking them too, write to me.",
+  questions: [
+    "How does the shape of a room change how people treat each other?",
+    "What makes a shared house feel like home to twelve very different people?",
+    "Where do inner work, like meditation, and community life meet?"
+  ],
+  shelfTitle: "A few books that changed how I think",
+  shelf: [
+    { t: "The Art of Gathering", a: "Priya Parker" },
+    { t: "The More Beautiful World Our Hearts Know Is Possible", a: "Charles Eisenstein" },
+    { t: "Let My People Go Surfing", a: "Yvon Chouinard" },
+    { t: "Siddhartha", a: "Hermann Hesse" },
+    { t: "The Untethered Soul", a: "Michael A. Singer" }
+  ],
+  shelfLink: { href: "inspiration.html", go: "More in the library" }
+};
+
+const ABOUT_SIDEQUESTS = {
+  kicker: "Side quests",
+  title: "More interests than hours.",
+  intro: "My main quest is building places where people grow together. Along the way I keep picking up side quests. Most of them come back as ideas, skills, or at least a good story.",
+  items: [
+    { icon: "run", k: "Running", line: "Twelve years of it and one marathon, mostly to find out if I could. My best ideas show up somewhere in the second hour." },
+    { icon: "guitar", k: "Guitar", line: "I play well enough to start every song at a party, and finish about half of them." },
+    { icon: "sit", k: "Meditation", line: "A year-long fellowship on compassion took me to two retreats in the Montana mountains. Doing less is still my hardest side quest." },
+    { icon: "sail", k: "Sailing", line: "Where I learned that a crew works when everyone knows their job and trusts the others to do theirs." },
+    { icon: "dance", k: "Salsa", line: "Proof that you can learn anything if you're willing to look a bit silly for the first few months." },
+    { icon: "book", k: "Books", line: "Psychology, Buddhism, cities, company culture, novels. My nightstand is a small library with no system." },
+    { icon: "path", k: "Careers", line: "Business, nonprofits, events, film, a startup. Each one handed me a tool I still use in the houses." }
+  ]
+};
+
+/* "Where I can help" on About */
 const ABOUT_NOW2 = {
-  title: "What I bring to a co-living team",
-  sub: "Four things I'm good at, with receipts instead of adjectives.",
+  title: "Where I can help",
+  sub: "If you're building something, here's where I can be useful.",
   items: [
     {
-      k: "Communities that outlive me",
-      line: "The culture we built at my nonprofit was still running two years after I left — humbling, in the best way. Since then: four houses of curation, onboarding, and the occasional late-night conflict mediation.",
+      k: "Communities that last",
+      line: "The culture we built at ReImagine17, a team of fourteen, was still running two years after I left. Since then, the houses: choosing people, welcoming them, and the occasional late-night conflict.",
       href: "story.html#scale", go: "That story"
     },
     {
-      k: "Space aimed at behavior",
-      line: "I designed the Montréal house room by room and trained my eye at C2, where stages literally move to change how a room feels. The design bank on this site is those lessons written down.",
+      k: "Spaces designed around people",
+      line: "I designed the Montréal house room by room, then reshaped it with the people living there. C2's designers taught me to see a room the way a director sees a scene.",
       href: "design.html", go: "Design for Connection"
     },
     {
-      k: "The unglamorous machinery",
-      line: "CRMs, playbooks, dashboards, automation — I learned the boring systems so the human stuff has room to happen. At C2 I beat a ticket target by 33% and automated most of my own reporting job.",
+      k: "The practical side",
+      line: "CRMs, playbooks, dashboards, automation. I learned the systems so the human side has room to breathe.",
       href: "story.html#rooms-that-move", go: "The C2 years"
     },
     {
-      k: "Zero-to-one, honestly",
-      line: "One company, three nonprofits, $100K+ raised, two businesses incubated at my kitchen table — and one startup I shut down after eighteen honest months. I count that last one as a credential too.",
+      k: "Starting things, with others",
+      line: "Three nonprofits, a company, a startup, and five businesses born in our houses. Over three years we raised more than $300K for the initiatives I started. The startup we chose to close taught me the most.",
       href: "work.html", go: "Work & case studies"
     }
   ]

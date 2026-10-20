@@ -100,6 +100,36 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .contact .c-sub{font-size:clamp(.95rem,1.1vw,1.05rem);color:var(--ink-soft);margin-bottom:28px}
 .btn-pill{display:inline-block;background:var(--green-deep);color:#fff;font-family:var(--grotesk);font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px 32px;border-radius:99px;text-decoration:none;transition:background .25s ease}
 .btn-pill:hover{background:var(--green)}
+/* ---- v3 sections (2026-10-20) ---- */
+.sec{padding:clamp(40px,6vh,70px) 0;border-top:1px solid var(--line)}
+.s-kicker{display:block;font-size:.66rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--green-deep);margin-bottom:10px}
+.s-title{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.2vw,3rem);line-height:1.08;letter-spacing:-.015em;margin-bottom:12px}
+.s-intro{font-size:clamp(1rem,1.25vw,1.12rem);color:var(--ink-soft);max-width:60ch;line-height:1.6;margin-bottom:clamp(22px,3.5vh,36px)}
+.asks{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ask{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 20px}
+.ask-k{display:block;font-weight:600;margin-bottom:6px}
+.ask p,.pillar p,.quest p{font-size:.92rem;color:var(--ink-soft);line-height:1.55}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pillar{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 20px}
+.pillar .p-n{display:block;font-family:var(--serif);font-style:italic;color:var(--gold-deep)}
+.pillar .p-t{display:block;font-weight:600;margin:4px 0 6px}
+.questions{list-style:none;counter-reset:q;display:grid;gap:14px;max-width:62ch}
+.questions li{counter-increment:q;font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.2rem,1.9vw,1.6rem);line-height:1.3;padding-left:2.2em;position:relative}
+.questions li::before{content:counter(q);position:absolute;left:0;top:.1em;font-style:normal;font-size:.7em;color:var(--gold-deep)}
+.shelf{margin-top:clamp(28px,4vh,44px)}
+.shelf-k{display:block;font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
+.books{display:flex;flex-wrap:wrap;gap:10px}
+.book{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--green-deep);border-radius:6px 14px 14px 6px;padding:10px 16px}
+.book .b-t{font-family:var(--serif);font-size:1rem}
+.book .b-a{font-size:.78rem;color:var(--ink-faint)}
+.shelf-go{display:inline-block;margin-top:14px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep)}
+.quests{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.quest{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 20px;color:var(--green-deep)}
+.quest svg{width:30px;height:30px;display:block;margin-bottom:10px}
+.quest .q-k{display:block;font-weight:600;color:var(--ink);margin-bottom:4px}
+.bring .b-sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1rem,1.3vw,1.2rem);color:var(--ink-soft);margin:-10px 0 clamp(22px,3.5vh,36px)}
+@media(max-width:1000px){.asks{grid-template-columns:1fr 1fr}.pillars{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.asks,.pillars{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -123,11 +153,14 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   </div></section>
 
   <div class="wrap">
-    <div class="thread reveal" id="aThread"></div>
-    <div class="trans reveal" id="aTrans"></div>
+    <section class="sec now-sec reveal" id="aNow"></section>
+    <section class="sec how-sec reveal" id="aHow"></section>
+    <section class="sec learn-sec reveal" id="aLearn"></section>
+    <section class="sec quest-sec reveal" id="aQuests"></section>
 
     <section class="bring reveal">
       <h2 id="aBringTitle"></h2>
+      <p class="b-sub" id="aBringSub"></p>
       <div class="bring-grid" id="aBringGrid"></div>
     </section>
 
@@ -163,18 +196,48 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   document.getElementById("aLede").textContent = noEdit(ABOUT_INTRO.lede);
   document.getElementById("aPortrait").innerHTML = slot(ABOUT_INTRO.portrait);
 
-  // Thread band
-  document.getElementById("aThread").innerHTML =
-    '<p class="thread-line">&ldquo;'+esc(noEdit(ABOUT_THREAD.line))+'&rdquo;</p>'+
-    '<p class="thread-body">'+esc(noEdit(ABOUT_THREAD.body))+'</p>';
+  function head(o){return '<span class="s-kicker">'+esc(o.kicker)+'</span><h2 class="s-title">'+esc(o.title)+'</h2>'+(o.intro||o.body?'<p class="s-intro">'+esc(o.intro||o.body)+'</p>':'');}
 
-  // Transparency
-  document.getElementById("aTrans").innerHTML =
-    '<div class="kicker">'+esc(ABOUT_TRANSPARENCY.kicker)+'</div>'+
-    '<div class="t-line">'+esc(noEdit(ABOUT_TRANSPARENCY.line))+'</div>'+
-    '<div class="t-body">'+esc(noEdit(ABOUT_TRANSPARENCY.body))+'</div>';
+  // Right now
+  document.getElementById("aNow").innerHTML = head(ABOUT_RIGHTNOW)+
+    '<div class="asks">'+ABOUT_RIGHTNOW.asks.map(function(a){
+      return '<div class="ask"><span class="ask-k">'+esc(a.k)+'</span><p>'+esc(a.d)+'</p></div>';
+    }).join("")+'</div>';
 
-  // What I bring — v2 cards (receipts + proof links), promoted with story v2 (R21)
+  // How I work
+  document.getElementById("aHow").innerHTML = head(STORY2_PILLARS)+
+    '<div class="pillars">'+STORY2_PILLARS.items.map(function(p,i){
+      return '<div class="pillar"><span class="p-n">'+(i+1)+'</span><span class="p-t">'+esc(p.t)+'</span><p>'+esc(p.d)+'</p></div>';
+    }).join("")+'</div>';
+
+  // What I'm learning
+  document.getElementById("aLearn").innerHTML = head(ABOUT_LEARNING)+
+    '<ol class="questions">'+ABOUT_LEARNING.questions.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ol>'+
+    '<div class="shelf"><span class="shelf-k">'+esc(ABOUT_LEARNING.shelfTitle)+'</span>'+
+      '<div class="books">'+ABOUT_LEARNING.shelf.map(function(b){
+        return '<div class="book"><span class="b-t">'+esc(b.t)+'</span><span class="b-a">'+esc(b.a)+'</span></div>';
+      }).join("")+'</div>'+
+      '<a class="shelf-go" href="'+esc(ABOUT_LEARNING.shelfLink.href)+'">'+esc(ABOUT_LEARNING.shelfLink.go)+' &rarr;</a>'+
+    '</div>';
+
+  // Side quests
+  var ICON = {
+    run:'<path d="M3 15l2-6 4 1 2 3 7 1c1.5.3 3 1.3 3 3v1H3z"/><path d="M3 19h18"/><path d="M9 10l1-2"/>',
+    guitar:'<circle cx="8" cy="16" r="4.5"/><circle cx="8" cy="16" r="1.2"/><path d="M11 13l8-8"/><path d="M17.5 3.5l3 3"/>',
+    sit:'<circle cx="12" cy="5" r="2"/><path d="M12 8v4"/><path d="M8 12l4 2 4-2"/><path d="M5 18c1.5-3 4.5-4 7-4s5.5 1 7 4"/><path d="M4 20h16"/>',
+    sail:'<path d="M12 3v14"/><path d="M12 4l7 11h-7"/><path d="M11 7l-6 8h6"/><path d="M3 18h18c-1 2-3 3-5 3H8c-2 0-4-1-5-3z"/>',
+    dance:'<path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/>',
+    book:'<path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 6v13"/>',
+    path:'<path d="M12 3v18"/><path d="M12 5h7l2 2-2 2h-7"/><path d="M12 11H5l-2 2 2 2h7"/>'
+  };
+  document.getElementById("aQuests").innerHTML = head(ABOUT_SIDEQUESTS)+
+    '<div class="quests">'+ABOUT_SIDEQUESTS.items.map(function(q){
+      return '<div class="quest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICON[q.icon]||"")+'</svg>'+
+        '<span class="q-k">'+esc(q.k)+'</span><p>'+esc(q.line)+'</p></div>';
+    }).join("")+'</div>';
+
+  // Where I can help
+  document.getElementById("aBringSub").textContent = ABOUT_NOW2.sub;
   document.getElementById("aBringTitle").textContent = ABOUT_NOW2.title;
   document.getElementById("aBringGrid").innerHTML = ABOUT_NOW2.items.map(function(it){
     return '<div class="bcard">'+
@@ -187,21 +250,21 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   // Door cards
   document.getElementById("aDoors").innerHTML =
     '<a class="door" href="story.html">'+
-      '<div class="d-title">My story &mdash; the same thing, at every scale</div>'+
-      '<p class="d-desc">Six chapters told honestly &mdash; including the one that didn&rsquo;t work.</p>'+
+      '<div class="d-title">My story</div>'+
+      '<p class="d-desc">How I got here, chapter by chapter, and who helped along the way.</p>'+
       '<span class="d-link">Read the story &rarr;</span>'+
     '</a>'+
     '<a class="door" href="work.html">'+
       '<div class="d-title">Work &amp; case studies</div>'+
-      '<p class="d-desc">The projects, the numbers, and the decisions behind them.</p>'+
+      '<p class="d-desc">The projects, what we built together, and what each one taught me.</p>'+
       '<span class="d-link">See the work &rarr;</span>'+
     '</a>';
 
   // Contact
   document.getElementById("aContact").innerHTML =
-    '<p class="c-line">'+esc(noEdit(ABOUT_CTA.line))+'</p>'+
-    '<p class="c-sub">'+esc(ABOUT_CTA.sub)+'</p>'+
-    '<a class="btn-pill" href="mailto:'+esc(ABOUT_CTA.email)+'">'+esc(ABOUT_CTA.email)+'</a>';
+    '<p class="c-line">'+esc(ABOUT_CLOSE.line)+'</p>'+
+    '<p class="c-sub">'+esc(ABOUT_CLOSE.sub)+'</p>'+
+    '<a class="btn-pill" href="mailto:'+esc(ABOUT_CLOSE.email)+'">'+esc(ABOUT_CLOSE.email)+'</a>';
 
   // Scroll reveals
   var io = new IntersectionObserver(function(entries){
