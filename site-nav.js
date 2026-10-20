@@ -247,6 +247,16 @@
     });
   }
 
+  /* deployed site: unfilled photo slots stay out of sight. Locally they still read
+     "Photo — wanted" as P-A's reminder (add ?live to preview the public view). */
+  (function hidePhotoSlots() {
+    var local = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+    if (local && !/[?&]live/.test(location.search)) return;
+    var st = document.createElement("style");
+    st.textContent = ".ph,.v-ph,.c-ph{display:none!important}";
+    document.head.appendChild(st);
+  })();
+
   /* visual edit mode (local only — edit-mode.js gates itself on file://) */
   function mountEditMode() {
     if (document.querySelector('script[src$="edit-mode.js"]')) return;

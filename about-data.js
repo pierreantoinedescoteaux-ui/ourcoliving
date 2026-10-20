@@ -177,8 +177,8 @@ const STORY2_TEXTURE = {
   kicker: "Before any of it had a name",
   intro: "The short version of the first twenty years, because you have things to do.",
   items: [
-    { slug: "stone-house", years: "Age 5", line: "I stacked a playhouse out of stone bricks — twice my height, zero permits — and invited the neighbourhood in. I've been told the career plan hasn't changed much since.", image: { scene: "PHOTO WANTED — childhood: building something or playing outside. Grainy family photo is perfect." } },
-    { slug: "organizer", years: "School years", line: "I was the kid who organized things. Class rep, school president in sixth grade, eventually 'organizer of the year' — mostly because nobody else wanted to run the student radio AND the dance AND the fair.", image: { scene: "PHOTO WANTED — school-years P-A mid-organizing: on stage, at the radio, with a team." } },
+    { slug: "stone-house", years: "Age 5", line: "I stacked a playhouse out of stone bricks — twice my height, zero permits — and invited the neighbourhood in. I've been told the career plan hasn't changed much since.", image: { src: "images/story/story-age5-1.jpg", scene: "Me at five, in a hard hat, building a tower." } },
+    { slug: "organizer", years: "School years", line: "I was the kid who organized things. Class rep, school president in sixth grade, eventually 'organizer of the year' — mostly because nobody else wanted to run the student radio AND the dance AND the fair.", image: { src: "images/story/story-organizer-1.jpg", scene: "End-of-year school gala, 2017." } },
     { slug: "coach", years: "16 – 20", line: "I coached improv teams and tennis players, kids and adults. Someone was paying me to care about other people's progress. I couldn't believe my luck.", image: { src: "images/story/story-coach-1.jpg", scene: "Coaching improv and tennis." } },
     { slug: "first-company", years: "19", line: "I started a little accessories company between classes. It taught me every job at once — including the humbling ones, like selling face to face and doing my own books.", image: { src: "images/story/story-first-company-1.jpg", scene: "The Sway Accessories years." } }
   ]
