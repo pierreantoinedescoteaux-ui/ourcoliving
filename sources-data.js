@@ -18,7 +18,7 @@ const SOURCES = [
     kind: "website", lang: "fr", topics: ["cohousing", "quebec", "affordability"], usedOn: ["projects-data.js"], added: "2026-10-21", checked: true,
     note: "Québec non-profit developer of affordable cohabitat; started 2019; flagship Un Village à Lachine." },
   { id: "kollektivhus-nu", title: "Kollektivhus NU", author: "Kollektivhus NU", year: 2025, url: "https://kollektivhus.se/",
-    kind: "website", lang: "sv", topics: ["kollektivhus"], usedOn: ["map-data.js"], added: "2026-10-21", checked: true,
+    kind: "website", lang: "sv", topics: ["cohousing", "kollektivhus"], usedOn: ["map-data.js"], added: "2026-10-21", checked: true,
     note: "Swedish national association of collective houses." },
   { id: "gen", title: "Global Ecovillage Network", author: "GEN", url: "https://ecovillage.org",
     kind: "directory", lang: "en", topics: ["ecovillage"], usedOn: ["map-data.js", "resources.html"], added: "2026-10-21", checked: true },

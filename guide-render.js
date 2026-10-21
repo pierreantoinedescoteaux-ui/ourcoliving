@@ -38,8 +38,6 @@ var TYPE_ICONS = {
     '<path d="M10 8V5.6l2-1.7 2 1.7V8h-4z"/><path d="M3 19.5v-2.4l2-1.7 2 1.7v2.4H3z"/><path d="M17 19.5v-2.4l2-1.7 2 1.7v2.4h-4z"/><path d="M10.7 8.6L6 15M13.3 8.6L18 15M7.5 18h9"/>',
   "student-coop":
     '<path d="M4 20v-8.4L12 5.4l8 6.2V20H4z"/><path d="M12 11.6l4.4 1.7-4.4 1.7-4.4-1.7z"/><path d="M16.4 13.5v2.4"/>',
-  "kollektivhus":
-    '<path d="M5 20V8.5L12 4l7 4.5V20"/><path d="M9 20v-4.5h6V20"/><path d="M8.5 11.5h7"/><path d="M10 11.5v1.6M14 11.5v1.6"/>',
   "_default": '<circle cx="12" cy="12" r="5"/>'
 };
 

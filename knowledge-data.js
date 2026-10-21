@@ -17,18 +17,6 @@ const THEMES = {
 };
 
 const TYPE_KNOWLEDGE = {
-  "kollektivhus": {
-    origin: "Sweden, 1930s. The first collective houses, like the one Sven Markelius and Alva Myrdal built in Stockholm in 1935, had a central kitchen and paid staff to free women from housework. From the late 1970s a new model took over: the residents share the cooking themselves, and that is the form that lives on.",
-    teaches: "A shared dinner a few nights a week can carry a whole building's community.",
-    best: ["community", "space"],
-    themes: {
-      governance: "A residents' association runs the shared life: cooking teams, the common rooms, who does what. The landlord, often a public housing company, runs the building.",
-      financing: "Usually rental flats from a public or non-profit landlord, so people can join without buying in. A few are tenant-owned co-ops.",
-      space: "Complete private flats, plus a big shared kitchen and dining room, and often a workshop, laundry, guest room or sauna.",
-      community: "The shared dinner is the heart of it. Residents cook in teams, so you cook a few times a month and eat with your neighbours on the other evenings.",
-      operations: "Cooking duty is the main job. Each house sets rules about how often you cook and what happens when people stop."
-    }
-  },
   "ecovillage": {
     hero: { src: "images/ex-tamera.jpg", cap: "Tamera ecovillage, Portugal — a whole re-watered valley settlement" },
     diagram: { src: "images/generated/diagram-ecovillage.jpg", cap: "How an ecovillage organizes: homes clustered around a commons, gardens and energy systems at the edges" },
@@ -46,7 +34,7 @@ const TYPE_KNOWLEDGE = {
   "cohousing": {
     hero: { src: "images/cohousing-denmark.jpg", cap: "A Danish cohousing courtyard — shared ground between private homes" },
     diagram: { src: "images/generated/diagram-cohousing.jpg", cap: "Cohousing layout: private homes ring shared kitchen, dining, and outdoor spaces" },
-    origin: "Denmark, 1972: Sættedammen was built after Bodil Graae's essay argued 'children should have a hundred parents.' Architect-led, resident-designed — and copied worldwide ever since.",
+    origin: "Denmark, 1972: Sættedammen was built after Bodil Graae's essay argued 'children should have a hundred parents.' Architect-led, resident-designed — and copied worldwide ever since. Sweden grew its own version, the collective house: from the 1930s with paid staff in a central kitchen, and from the late 1970s with residents cooking for each other.",
     teaches: "Design the common house right and community becomes the default instead of the effort.",
     best: ["space", "community"],
     themes: {

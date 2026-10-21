@@ -74,30 +74,75 @@ const TYPE_FAMILIES = {
 /* retired types: old links land on the right part of the Workshop hub */
 const ARCHIVED_TYPES = {
   "housing-coop":      { to: "themes.html#legal", note: "A co-op is a legal set-up almost any way of living can use." },
-  "intergenerational": { to: "themes.html#who",   note: "Intergenerational is about who a place is for, and any way of living can be." }
+  "intergenerational": { to: "themes.html#who",   note: "Intergenerational is about who a place is for, and any way of living can be." },
+  "kollektivhus":      { to: "type.html?t=cohousing", note: "Sweden's collective house is a kind of cohousing, so it lives in the cohousing guide." }
 };
 
 /* labels for set-up and possibility pills. layer = pill colour:
    setup = gold, who = sky, place = terracotta (ways of living = green). */
 const TAG_VOCAB = {
-  legal: { layer: "setup", label: "Legal form", values: {
+  legal: { layer: "setup", label: "Legal set-up", values: {
     "public": "Public housing", "coop": "Co-op", "solidarity-coop": "Solidarity co-op", "nonprofit": "Non-profit", "condo": "Condo",
-    "company": "Company", "land-trust": "Land trust", "informal": "Shared lease", "hybrid": "Hybrid set-up" } },
-  money: { layer: "setup", label: "Money", values: {
+    "company": "Company", "land-trust": "Land trust", "informal": "Shared lease", "hybrid": "Hybrid set-up" }, descs: {
+    "public": "Homes owned by a city or public housing company, rented at a set price.",
+    "coop": "Residents own the building together through a co-op, one vote each.",
+    "solidarity-coop": "A Quebec co-op where residents share membership with workers or supporters of the project.",
+    "nonprofit": "A non-profit owns the place and keeps it for its mission, so nobody profits from a sale.",
+    "condo": "Each household owns its unit, and the shared spaces are owned together.",
+    "company": "A business owns or runs the place, and residents are its customers.",
+    "land-trust": "A trust holds the land for good, so homes stay affordable from one owner to the next.",
+    "informal": "Housemates share one lease or a simple agreement, with no formal structure behind it.",
+    "hybrid": "A mix of legal forms, like a co-op for the homes and a non-profit for the common spaces." } },
+  money: { layer: "setup", label: "Financial set-up", values: {
     "members": "Members' own money", "public": "Public funding", "patron": "One founder or patron",
-    "investors": "Investors", "donors": "Donors and crowdfunding" } },
-  holding: { layer: "setup", label: "How you hold your home", values: {
-    "own": "Own", "rent": "Rent", "shares": "Member shares", "use-rights": "Use rights", "membership": "Membership" } },
-  decisions: { layer: "setup", label: "How decisions are made", values: {
+    "investors": "Investors", "donors": "Donors and crowdfunding" }, descs: {
+    "members": "The future residents put in their own savings and take out the loans.",
+    "public": "Grants or public loans from a city or government help pay for it.",
+    "patron": "One founder or patron puts up most of the money.",
+    "investors": "Investors fund it and expect a return.",
+    "donors": "Gifts from many people, often through crowdfunding or a foundation." } },
+  holding: { layer: "setup", label: "Your home", values: {
+    "own": "Own", "rent": "Rent", "shares": "Member shares", "use-rights": "Use rights", "membership": "Membership" }, descs: {
+    "own": "You own your home and can sell it.",
+    "rent": "You pay rent and can leave without selling anything.",
+    "shares": "You buy a share in the co-op and get it back when you leave.",
+    "use-rights": "You have the right to live there, but the home belongs to the group or a trust.",
+    "membership": "You pay a membership, often monthly, and your room comes with it." } },
+  decisions: { layer: "setup", label: "Decisions", values: {
     "founder": "Founder or operator decides", "vote": "Majority vote", "consensus": "Consensus",
-    "consent": "Consent / sociocracy", "advice": "Advice process" } },
-  forWho: { layer: "who", label: "Who it's for", values: {
+    "consent": "Consent / sociocracy", "advice": "Advice process" }, descs: {
+    "founder": "The founder or company makes the main calls, and residents give input.",
+    "vote": "A decision passes with more than half the votes.",
+    "consensus": "A decision passes only when everyone can agree to it.",
+    "consent": "A decision passes when no one has a serious objection, often in small circles.",
+    "advice": "Anyone can decide, after asking the people affected and those who know the subject." } },
+  forWho: { layer: "who", label: "Who lives there", values: {
     "students": "Students", "young-adults": "Young adults", "entrepreneurs": "Entrepreneurs", "families": "Families",
     "single-parents": "Single parents", "seniors": "Seniors", "intergenerational": "Intergenerational",
-    "newcomers": "Newcomers", "artists": "Artists", "remote-workers": "Remote workers", "care": "People needing care" } },
-  setting: { layer: "place", label: "Setting", values: { "city": "City", "suburb": "Suburb", "countryside": "Countryside" } },
-  building: { layer: "place", label: "Building", values: { "new": "New build", "converted": "Converted building", "mixed": "New + converted" } },
-  hosts: { layer: "place", label: "What it hosts", values: { "homes": "Homes only", "mixed-use": "Homes + shops or work", "farm": "Homes + farm" } }
+    "newcomers": "Newcomers", "artists": "Artists", "remote-workers": "Remote workers", "care": "People needing care" }, descs: {
+    "students": "Built around people in school, with rents and rhythms to match.",
+    "young-adults": "Mostly people in their twenties and early thirties.",
+    "entrepreneurs": "People building their own companies or projects.",
+    "families": "Households with children, often with shared places to play.",
+    "single-parents": "Set up so single parents can share childcare and meals.",
+    "seniors": "Older adults who want to grow old with neighbours close by.",
+    "intergenerational": "Young and old living side by side on purpose.",
+    "newcomers": "A soft landing for people new to the country or the city.",
+    "artists": "Space and rent set up so artists can live and make their work.",
+    "remote-workers": "People who can work from anywhere with good internet.",
+    "care": "Homes designed around people who need daily support." } },
+  setting: { layer: "place", label: "Location", values: { "city": "City", "suburb": "Suburb", "countryside": "Countryside" }, descs: {
+    "city": "Dense and central, close to transit and services.",
+    "suburb": "Quieter streets and more space, where a car often helps.",
+    "countryside": "Low density, more land, close to farms and nature." } },
+  building: { layer: "place", label: "Building", values: { "new": "New build", "converted": "Converted building", "mixed": "New + converted" }, descs: {
+    "new": "Designed and built from scratch for living together.",
+    "converted": "An existing building given a new life as shared homes.",
+    "mixed": "Some new buildings and some old ones brought back to life." } },
+  hosts: { layer: "place", label: "What's on site", values: { "homes": "Homes only", "mixed-use": "Homes + shops or work", "farm": "Homes + farm" }, descs: {
+    "homes": "Only homes and the spaces residents share.",
+    "mixed-use": "Homes alongside shops, workspaces or studios open to others.",
+    "farm": "Homes on working land that grows food." } }
 };
 
 const COLIVING_TYPES = [
@@ -106,7 +151,7 @@ const COLIVING_TYPES = [
     family: "life-project",
     name: "Ecovillage",
     short: "Ecovillage",
-    tagline: "A whole settlement designed around living lightly — food, energy, governance, everything.",
+    tagline: "A whole village built around living lightly on the land, together.",
     ranges: { share: [35, 70], size: [55, 95], time: [60, 95], power: [65, 95], autonomy: [55, 80], ecoTech: [0, 20], effort: [75, 95] },
     backend: { purpose: [55, 85], cost: [25, 45] },
     typicalSetups: [
@@ -128,46 +173,26 @@ const COLIVING_TYPES = [
     family: "own-home",
     name: "Cohousing (bofællesskab)",
     short: "Cohousing",
-    aka: ["cohabitat"],
-    tagline: "Private homes, shared heart. Denmark solved this in 1972 and the world is still catching up.",
+    aka: ["cohabitat", "kollektivhus", "collective house"],
+    tagline: "Your own home, with neighbours who share a common house and a few meals a week.",
     ranges: { share: [15, 35], size: [30, 65], time: [70, 95], power: [80, 100], autonomy: [35, 55], ecoTech: [15, 45], effort: [60, 85] },
     backend: { purpose: [15, 40], cost: [45, 75] },
     typicalSetups: [
       { legal: ["condo"], money: ["members"], holding: ["own"], decisions: ["consensus", "consent"],
         note: "Each household owns its home, and the common house is owned together." },
       { legal: ["coop", "solidarity-coop", "nonprofit"], money: ["public", "members"], holding: ["rent", "shares"], decisions: ["consent"],
-        note: "More and more are rental or co-op, to stay affordable. Un Village à Lachine mixes both." }
+        note: "More and more are rental or co-op, to stay affordable. Un Village à Lachine mixes both." },
+      { legal: ["public"], money: ["public"], holding: ["rent"], decisions: ["consensus", "vote"],
+        label: "In Sweden", note: "A collective house is often rental flats from a public housing company, with daily life run by a residents' association." }
     ],
-    sources: ["guide-cohabitat", "wiki-cohousing", "mccamant-durrett-2011"],
+    sources: ["guide-cohabitat", "wiki-cohousing", "mccamant-durrett-2011", "kollektivhus-nu"],
     body: [
       "You own your own front door — full kitchen, full privacy — but the site is designed around a common house where the community eats together a few nights a week. Cars stay at the edge; the space between homes belongs to people.",
-      "This is the most proven model on the map. Fifty years of Danish data says the common meal is the engine: keep it, and the community holds."
+      "This is the most proven model on the map. Fifty years of Danish data says the common meal is the engine: keep it, and the community holds.",
+      "In Sweden the same idea is called a kollektivhus, or collective house. It's usually one building of complete flats with a big shared kitchen, where residents take turns cooking dinner for everyone. You cook a few times a month and eat with your neighbours on the other evenings."
     ],
     who: "Families and couples who want community without giving up a private household.",
     watch: "Development takes 3–7 years and a core group that survives the process."
-  },
-  {
-    slug: "kollektivhus",
-    family: "own-home",
-    name: "Collective house (kollektivhus)",
-    short: "Collective house",
-    aka: ["kollektivhus"],
-    tagline: "Sweden's version: your own flat, a shared kitchen, and dinner cooked by your neighbours.",
-    ranges: { share: [25, 45], size: [40, 75], time: [60, 90], power: [55, 90], autonomy: [40, 60], ecoTech: [30, 50], effort: [55, 85] },
-    backend: { purpose: [15, 35], cost: [20, 50] },
-    typicalSetups: [
-      { legal: ["public"], money: ["public"], holding: ["rent"], decisions: ["consensus", "vote"],
-        label: "Classically", note: "Rental flats from a public housing company, with daily life run by a residents' association." },
-      { legal: ["coop"], money: ["members"], holding: ["shares"], decisions: ["vote"],
-        note: "Some are tenant-owned co-ops." }
-    ],
-    sources: ["guide-cohabitat", "kollektivhus-nu"],
-    body: [
-      "Every household has a complete flat, and the building adds a big shared kitchen and dining room. Residents take turns cooking for everyone, so most nights you only cook a few times a month and eat with your neighbours the rest.",
-      "The first ones in the 1930s had paid staff and served dinner like a hotel. From the 1980s, residents took the cooking and running of the house into their own hands, which is the form that spread."
-    ],
-    who: "People who want their own home and a shared table, often in the second half of life.",
-    watch: "The shared dinners only last if enough people take their turn. Rules about cooking duty need care."
   },
   {
     slug: "kibbutz",
@@ -175,7 +200,7 @@ const COLIVING_TYPES = [
     name: "Kibbutz",
     short: "Kibbutz",
     aka: ["commune"],
-    tagline: "The most radical experiment in shared living ever run at national scale.",
+    tagline: "Israel's century-long experiment in sharing work and income, still changing today.",
     ranges: { share: [80, 100], size: [70, 95], time: [80, 100], power: [70, 95], autonomy: [75, 100], ecoTech: [10, 45], effort: [85, 100] },
     backend: { purpose: [75, 100], cost: [5, 25] },
     typicalSetups: [
@@ -197,7 +222,7 @@ const COLIVING_TYPES = [
     family: "own-home",
     name: "Baugruppe (building group)",
     short: "Baugruppe",
-    tagline: "Skip the developer: friends hire an architect and build their own apartment house.",
+    tagline: "Friends hire an architect together and build the apartment house they want to live in.",
     ranges: { share: [10, 30], size: [25, 55], time: [75, 95], power: [70, 95], autonomy: [25, 45], ecoTech: [25, 50], effort: [65, 85] },
     backend: { purpose: [10, 30], cost: [40, 70] },
     typicalSetups: [
@@ -219,7 +244,7 @@ const COLIVING_TYPES = [
     family: "share-a-home",
     name: "Hacker house",
     short: "Hacker house",
-    tagline: "Rent a big house, fill it with builders, see what ships. The garage myth, collectivized.",
+    tagline: "A big shared house of people building things, learning from each other at the kitchen table.",
     ranges: { share: [55, 70], size: [5, 20], time: [5, 30], power: [20, 55], autonomy: [15, 35], ecoTech: [80, 100], effort: [5, 25] },
     backend: { purpose: [45, 75], cost: [35, 65] },
     typicalSetups: [
@@ -241,7 +266,7 @@ const COLIVING_TYPES = [
     family: "share-a-home",
     name: "Operator co-living",
     short: "Operator co-living",
-    tagline: "Community as a subscription: furnished room, app, events calendar, one invoice.",
+    tagline: "A furnished room and a ready-made community, run by a company for one monthly price.",
     ranges: { share: [45, 65], size: [20, 80], time: [10, 35], power: [0, 15], autonomy: [5, 20], ecoTech: [55, 80], effort: [40, 70] },
     backend: { purpose: [0, 15], cost: [65, 85] },
     typicalSetups: [
@@ -262,7 +287,7 @@ const COLIVING_TYPES = [
     name: "The entrepreneur house",
     short: "Entrepreneur house",
     mine: true,
-    tagline: "A curated household of builders — my own practice sits here.",
+    tagline: "A small household of people building their own projects, who chose each other with care. It's where my own practice sits.",
     ranges: { share: [55, 70], size: [5, 15], time: [20, 55], power: [15, 45], autonomy: [25, 50], ecoTech: [45, 75], effort: [15, 35] },
     backend: { purpose: [40, 70], cost: [35, 55] },
     typicalSetups: [
@@ -282,7 +307,7 @@ const COLIVING_TYPES = [
     family: "flexible",
     name: "Rural co-living / coworkation",
     short: "Rural co-living",
-    tagline: "Remote workers move into a dying village for a month. Both come back to life.",
+    tagline: "Remote workers spend a month in a quiet village, and the village gets some new life too.",
     ranges: { share: [50, 70], size: [10, 40], time: [0, 15], power: [10, 35], autonomy: [15, 40], ecoTech: [25, 55], effort: [25, 50] },
     backend: { purpose: [15, 40], cost: [30, 50] },
     typicalSetups: [
@@ -302,7 +327,7 @@ const COLIVING_TYPES = [
     family: "flexible",
     name: "Network village",
     short: "Network village",
-    tagline: "Internet communities trying to become physical towns. The frontier — thrilling and unproven.",
+    tagline: "Online communities trying to grow into real towns. Still early and unproven.",
     ranges: { share: [20, 55], size: [60, 100], time: [10, 70], power: [5, 40], autonomy: [15, 45], ecoTech: [80, 100], effort: [80, 100] },
     backend: { purpose: [60, 90], cost: [70, 95] },
     typicalSetups: [
@@ -325,7 +350,7 @@ const COLIVING_TYPES = [
     name: "Co-op house",
     short: "Co-op house",
     aka: ["student housing co-op"],
-    tagline: "The gateway drug: cheap rooms, shared chores, democracy practiced at nineteen.",
+    tagline: "Young people share a big house, the chores and the rent, and run it together.",
     ranges: { share: [60, 75], size: [10, 40], time: [10, 35], power: [75, 95], autonomy: [40, 60], ecoTech: [30, 60], effort: [20, 60] },
     backend: { purpose: [20, 45], cost: [0, 20] },
     typicalSetups: [

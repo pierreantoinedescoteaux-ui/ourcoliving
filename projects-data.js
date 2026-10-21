@@ -1028,11 +1028,11 @@ const COLIVING_PROJECTS = [
   {
     "id": "fardknappen",
     "name": "Färdknäppen",
-    "place": "Stockholm",
-    "type": "kollektivhus",
+    "place": "Stockholm, Sweden",
+    "type": "cohousing",
     "kind": "place",
     "url": "https://boio.se/guide/kollektivhus-bostadsko",
-    "note": "43 rental flats built in 1993 for people over 40 whose children have left home, with a shared kitchen and dinners.",
+    "note": "A Swedish collective house: 43 rental flats built in 1993 for people over 40 whose children have left home, with a shared kitchen and dinners.",
     "homes": 43,
     "opened": "1993",
     "tags": {
@@ -1060,7 +1060,7 @@ const COLIVING_PROJECTS = [
     "id": "stolplyckan",
     "name": "Stolplyckan",
     "place": "Linköping, Sweden",
-    "type": "kollektivhus",
+    "type": "cohousing",
     "kind": "place",
     "url": "https://www.stolplyckan.se",
     "note": "Sweden's largest collective house: about 190 rental flats in 13 stairwells, since 1980.",
@@ -1092,7 +1092,7 @@ function tagPillsHTML(obj, max) {
   [["tags", "forWho"], ["setup", "legal"], ["setup", "holding"], ["setup", "money"], ["setup", "decisions"],
    ["tags", "setting"], ["tags", "building"], ["tags", "hosts"]].forEach(function (g) {
     var vals = (obj[g[0]] || {})[g[1]] || [], v = TAG_VOCAB[g[1]];
-    vals.forEach(function (k) { if (v && v.values[k]) out.push('<span class="pill ' + v.layer + '" title="' + v.label + '">' + v.values[k] + "</span>"); });
+    vals.forEach(function (k) { if (v && v.values[k]) out.push('<span class="pill ' + v.layer + '" title="' + v.label + ((v.descs && v.descs[k]) ? ': ' + v.descs[k] : '') + '">' + v.values[k] + "</span>"); });
   });
   if (max && out.length > max) out = out.slice(0, max);
   return out.length ? '<span class="pills">' + out.join("") + "</span>" : "";

@@ -589,7 +589,20 @@
       }
     }
     mountWorldWhenReady();
+    mountExternalLinks();
     function fill(el) { el.outerHTML = navHtml(); }
+  }
+
+  /* every link to another site opens in a new tab. One click listener, so
+     links the guides and map build later in JS are covered too. */
+  function mountExternalLinks() {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a[href]");
+      var bare = function (h) { return h.replace(/^www\./, ""); };
+      if (!a || a.target || !/^https?:/i.test(a.href) || bare(a.host) === bare(location.host)) return;
+      a.target = "_blank";
+      a.rel = "noopener";
+    }, true);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
