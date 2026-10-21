@@ -1,0 +1,695 @@
+[
+{
+"id": "advice-process",
+"term": "Advice process",
+"aliases": [
+"advice process"
+],
+"area": "governance",
+"wiki": null,
+"link": "https://www.reinventingorganizationswiki.com/en/theory/decision-making/"
+},
+{
+"id": "affordability",
+"term": "Affordability",
+"aliases": [
+"affordable housing",
+"affordable"
+],
+"area": "money",
+"wiki": "Affordable housing"
+},
+{
+"id": "ageing-in-place",
+"term": "Ageing in place",
+"aliases": [
+"aging in place",
+"age in place",
+"grow old"
+],
+"area": "leaving",
+"wiki": "Aging in place"
+},
+{
+"id": "anti-speculation",
+"term": "Anti-speculation clause",
+"aliases": [
+"resale cap",
+"price cap",
+"resale price"
+],
+"area": "money",
+"wiki": null,
+"link": "https://en.wikipedia.org/wiki/Limited_equity_housing_cooperative"
+},
+{
+"id": "baugruppe",
+"term": "Baugruppe",
+"aliases": [
+"building group",
+"baugruppen"
+],
+"area": "type",
+"wiki": "Baugruppe"
+},
+{
+"id": "bylaws",
+"term": "Bylaws",
+"aliases": [
+"by-laws",
+"house rules"
+],
+"area": "governance",
+"wiki": "By-law"
+},
+{
+"id": "car-free",
+"term": "Car-free design",
+"aliases": [
+"car-free",
+"cars at the edge"
+],
+"area": "space",
+"wiki": null,
+"link": "https://en.wikipedia.org/wiki/Carfree_city"
+},
+{
+"id": "circle",
+"term": "Circle",
+"aliases": [
+"circles"
+],
+"area": "governance",
+"wiki": null,
+"link": "https://www.sociocracyforall.org/sociocracy/"
+},
+{
+"id": "cluster-flat",
+"term": "Cluster flat",
+"aliases": [
+"cluster living",
+"cluster apartment",
+"clusterwohnung"
+],
+"area": "space",
+"wiki": null,
+"link": "https://www.archdaily.com/tag/cluster-housing"
+},
+{
+"id": "cohousing",
+"term": "Cohousing",
+"aliases": [
+"cohabitat",
+"bofællesskab"
+],
+"area": "type",
+"wiki": "Cohousing"
+},
+{
+"id": "coliving",
+"term": "Coliving",
+"aliases": [
+"co-living"
+],
+"area": "type",
+"wiki": "Coliving"
+},
+{
+"id": "collective-house",
+"term": "Collective house",
+"aliases": [
+"kollektivhus"
+],
+"area": "type",
+"wiki": null,
+"link": "https://kollektivhus.se/"
+},
+{
+"id": "common-house",
+"term": "Common house",
+"aliases": [
+"common house",
+"common houses"
+],
+"area": "space",
+"wiki": null,
+"link": "https://www.cohousing.org/what-is-cohousing/"
+},
+{
+"id": "common-meal",
+"term": "Common meal",
+"aliases": [
+"shared meal",
+"shared meals",
+"shared dinner",
+"common meals"
+],
+"area": "community",
+"wiki": null,
+"link": "https://www.cohousing.org/what-is-cohousing/"
+},
+{
+"id": "community-land-trust",
+"term": "Community land trust",
+"aliases": [
+"land trust",
+"CLT"
+],
+"area": "legal",
+"wiki": "Community land trust"
+},
+{
+"id": "condo",
+"term": "Condominium",
+"aliases": [
+"condo",
+"divided co-ownership",
+"copropriété divise"
+],
+"area": "legal",
+"wiki": "Condominium"
+},
+{
+"id": "conflict-resolution",
+"term": "Conflict resolution",
+"aliases": [
+"mediation",
+"conflict"
+],
+"area": "privacy",
+"wiki": "Conflict resolution"
+},
+{
+"id": "consensus",
+"term": "Consensus",
+"aliases": [
+"consensus decision-making"
+],
+"area": "governance",
+"wiki": "Consensus decision-making"
+},
+{
+"id": "consent",
+"term": "Consent decision-making",
+"aliases": [
+"consent",
+"no serious objection"
+],
+"area": "governance",
+"wiki": null,
+"link": "https://www.sociocracyforall.org/consent-decision-making/"
+},
+{
+"id": "cooking-team",
+"term": "Cooking team",
+"aliases": [
+"cooking rota",
+"cooking duty",
+"cooking teams"
+],
+"area": "community",
+"wiki": null,
+"link": "https://kollektivhus.se/"
+},
+{
+"id": "co-op",
+"term": "Housing co-op",
+"aliases": [
+"housing co-operative",
+"housing cooperative",
+"co-op",
+"coop"
+],
+"area": "legal",
+"wiki": "Housing cooperative"
+},
+{
+"id": "co-op-house",
+"term": "Co-op house",
+"aliases": [
+"student co-op",
+"student housing co-op"
+],
+"area": "type",
+"wiki": "Student housing cooperative"
+},
+{
+"id": "coworkation",
+"term": "Coworkation",
+"aliases": [
+"rural coliving",
+"rural co-living"
+],
+"area": "type",
+"wiki": null,
+"link": "https://en.wikipedia.org/wiki/Digital_nomad"
+},
+{
+"id": "crowdfunding",
+"term": "Crowdfunding",
+"aliases": [
+"crowdfund"
+],
+"area": "money",
+"wiki": "Crowdfunding"
+},
+{
+"id": "digital-nomad",
+"term": "Digital nomad",
+"aliases": [
+"digital nomads",
+"remote worker",
+"remote workers"
+],
+"area": "who",
+"wiki": "Digital nomad"
+},
+{
+"id": "double-linking",
+"term": "Double linking",
+"aliases": [
+"double link"
+],
+"area": "governance",
+"wiki": null,
+"link": "https://www.sociocracyforall.org/sociocracy/"
+},
+{
+"id": "ecovillage",
+"term": "Ecovillage",
+"aliases": [
+"eco-village",
+"ecovillages"
+],
+"area": "type",
+"wiki": "Ecovillage"
+},
+{
+"id": "emphyteutic-lease",
+"term": "Emphyteutic lease",
+"aliases": [
+"emphyteusis",
+"bail emphytéotique",
+"long lease",
+"ground lease"
+],
+"area": "legal",
+"wiki": "Emphyteusis"
+},
+{
+"id": "equity",
+"term": "Equity",
+"aliases": [
+"home equity"
+],
+"area": "money",
+"wiki": "Home equity"
+},
+{
+"id": "facilitation",
+"term": "Facilitation",
+"aliases": [
+"facilitator"
+],
+"area": "governance",
+"wiki": "Facilitator"
+},
+{
+"id": "general-assembly",
+"term": "General assembly",
+"aliases": [
+"general meeting",
+"assembly"
+],
+"area": "governance",
+"wiki": "General assembly"
+},
+{
+"id": "hacker-house",
+"term": "Hacker house",
+"aliases": [
+"hacker houses",
+"builder house"
+],
+"area": "type",
+"wiki": null,
+"link": "https://en.wikipedia.org/wiki/Hackerspace"
+},
+{
+"id": "intentional-community",
+"term": "Intentional community",
+"aliases": [
+"intentional communities"
+],
+"area": "type",
+"wiki": "Intentional community"
+},
+{
+"id": "intergenerational",
+"term": "Intergenerational living",
+"aliases": [
+"intergenerational",
+"multigenerational"
+],
+"area": "who",
+"wiki": null,
+"link": "https://en.wikipedia.org/wiki/Multigenerational_households"
+},
+{
+"id": "kibbutz",
+"term": "Kibbutz",
+"aliases": [
+"kibbutzim"
+],
+"area": "type",
+"wiki": "Kibbutz"
+},
+{
+"id": "limited-equity",
+"term": "Limited-equity co-op",
+"aliases": [
+"limited equity"
+],
+"area": "legal",
+"wiki": "Limited equity housing cooperative"
+},
+{
+"id": "membership",
+"term": "Membership process",
+"aliases": [
+"joining process",
+"onboarding",
+"new members"
+],
+"area": "community",
+"wiki": null,
+"link": "https://www.ic.org/"
+},
+{
+"id": "mietshauser-syndikat",
+"term": "Mietshäuser Syndikat",
+"aliases": [
+"mietshaeuser syndikat"
+],
+"area": "legal",
+"wiki": "Mietshäuser Syndikat"
+},
+{
+"id": "mixed-use",
+"term": "Mixed use",
+"aliases": [
+"mixed-use"
+],
+"area": "space",
+"wiki": "Mixed-use development"
+},
+{
+"id": "mortgage",
+"term": "Mortgage",
+"aliases": [
+"home loan"
+],
+"area": "money",
+"wiki": "Mortgage loan"
+},
+{
+"id": "mutual-home-ownership",
+"term": "Mutual home ownership",
+"aliases": [
+"mutual home-ownership",
+"MHOS"
+],
+"area": "legal",
+"wiki": null,
+"link": "https://www.lilac.coop/"
+},
+{
+"id": "network-state",
+"term": "Network village",
+"aliases": [
+"network state",
+"pop-up city",
+"pop-up village"
+],
+"area": "type",
+"wiki": "Network state"
+},
+{
+"id": "non-profit",
+"term": "Non-profit housing",
+"aliases": [
+"non-profit",
+"nonprofit",
+"OBNL"
+],
+"area": "legal",
+"wiki": "Nonprofit organization"
+},
+{
+"id": "nvc",
+"term": "Nonviolent Communication",
+"aliases": [
+"NVC",
+"nonviolent communication"
+],
+"area": "privacy",
+"wiki": "Nonviolent Communication"
+},
+{
+"id": "operator",
+"term": "Coliving operator",
+"aliases": [
+"operator",
+"operator co-living"
+],
+"area": "type",
+"wiki": null,
+"link": "https://en.wikipedia.org/wiki/Coliving"
+},
+{
+"id": "participatory-design",
+"term": "Participatory design",
+"aliases": [
+"co-design",
+"resident-designed"
+],
+"area": "space",
+"wiki": "Participatory design"
+},
+{
+"id": "patient-capital",
+"term": "Patient capital",
+"aliases": [
+"social finance",
+"impact investing"
+],
+"area": "money",
+"wiki": "Patient capital"
+},
+{
+"id": "public-housing",
+"term": "Public housing",
+"aliases": [
+"social housing",
+"council housing"
+],
+"area": "legal",
+"wiki": "Public housing"
+},
+{
+"id": "rent",
+"term": "Rental tenure",
+"aliases": [
+"renting",
+"tenancy",
+"lease"
+],
+"area": "legal",
+"wiki": "Leasehold estate"
+},
+{
+"id": "senior-cohousing",
+"term": "Senior cohousing",
+"aliases": [
+"senior co-housing",
+"seniors cohousing"
+],
+"area": "who",
+"wiki": null,
+"link": "https://www.cohousing.org/senior-cohousing/"
+},
+{
+"id": "shared-equity",
+"term": "Shared equity",
+"aliases": [
+"shared ownership"
+],
+"area": "money",
+"wiki": "Shared ownership"
+},
+{
+"id": "sociocracy",
+"term": "Sociocracy",
+"aliases": [
+"sociocratic",
+"dynamic governance"
+],
+"area": "governance",
+"wiki": "Sociocracy"
+},
+{
+"id": "solidarity-coop",
+"term": "Solidarity co-op",
+"aliases": [
+"solidarity cooperative",
+"coopérative de solidarité"
+],
+"area": "legal",
+"wiki": null,
+"link": "https://www.quebec.ca/en/businesses-and-self-employed-workers/cooperatives"
+},
+{
+"id": "speculation",
+"term": "Speculation",
+"aliases": [
+"housing speculation",
+"flipping"
+],
+"area": "money",
+"wiki": "Real estate speculation"
+},
+{
+"id": "tenure",
+"term": "Tenure",
+"aliases": [
+"how you hold your home",
+"housing tenure"
+],
+"area": "legal",
+"wiki": "Housing tenure"
+},
+{
+"id": "undivided-co-ownership",
+"term": "Undivided co-ownership",
+"aliases": [
+"copropriété indivise",
+"tenancy in common",
+"indivision"
+],
+"area": "legal",
+"wiki": "Tenancy in common"
+},
+{
+"id": "universal-design",
+"term": "Universal design",
+"aliases": [
+"step-free",
+"accessible design"
+],
+"area": "space",
+"wiki": "Universal design"
+},
+{
+"id": "use-rights",
+"term": "Use rights",
+"aliases": [
+"right of use",
+"usufruct"
+],
+"area": "legal",
+"wiki": "Usufruct"
+},
+{
+"id": "work-day",
+"term": "Work day",
+"aliases": [
+"work party",
+"work days",
+"chores"
+],
+"area": "operations",
+"wiki": null,
+"link": "https://www.cohousing.org/"
+},
+{
+"id": "zoning",
+"term": "Zoning",
+"aliases": [
+"zoning bylaw",
+"rezoning",
+"land-use rules"
+],
+"area": "legal",
+"wiki": "Zoning"
+},
+{
+"id": "spectrum-share",
+"term": "Private ↔ Shared life",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "share",
+"seed": "How much of daily life is shared."
+},
+{
+"id": "spectrum-size",
+"term": "Household ↔ Village",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "size",
+"seed": "How many people live the model together."
+},
+{
+"id": "spectrum-time",
+"term": "Passing through ↔ For life",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "time",
+"seed": "How long people typically stay."
+},
+{
+"id": "spectrum-power",
+"term": "Founder-run ↔ Resident-run",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "power",
+"seed": "Who holds the power."
+},
+{
+"id": "spectrum-autonomy",
+"term": "Autonomy ↔ Collectivism",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "autonomy",
+"seed": "Whose needs come first when the person and the group disagree."
+},
+{
+"id": "spectrum-ecotech",
+"term": "Ecology ↔ Technology",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "ecoTech",
+"seed": "What the community organizes its life around."
+},
+{
+"id": "spectrum-effort",
+"term": "Easy ↔ Hard to start",
+"aliases": [],
+"area": "map",
+"wiki": null,
+"link": "map.html",
+"spectrum": "effort",
+"seed": "How hard it is to make one exist."
+}
+]

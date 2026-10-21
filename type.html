@@ -231,6 +231,7 @@ img{display:block;max-width:100%}
 <script src="projects-data.js"></script>
 <script src="sources-data.js"></script>
 <script src="knowledge-data.js"></script>
+<script src="guide-content-data.js"></script>
 <script src="guide-render.js"></script>
 <script>
 (function(){
@@ -255,6 +256,7 @@ img{display:block;max-width:100%}
       (k.hero?'<figure class="heroimg"><img src="'+esc(k.hero.src)+'" alt="'+esc(k.hero.cap||t.name)+'" loading="lazy" onerror="this.parentElement.remove()"><figcaption>'+esc(k.hero.cap||"")+'</figcaption></figure>':"")+
     '</header>'+
     guideBodyHTML(t,k);
+  guideEnhance(document);
 
   /* land on the guide's own title, not the shared "many shapes" intro gallery */
   (function(){var h=document.querySelector(".head");if(h){h.style.scrollMarginTop="76px";h.scrollIntoView();}})();

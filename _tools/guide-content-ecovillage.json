@@ -1,0 +1,154 @@
+{
+ "areas": {
+  "governance": {
+   "summary": "Members decide together, usually by consensus or consent, in many small meetings and circles. Most places invest in training people to run meetings well.",
+   "body": "An ecovillage is run by its members, and most of them treat decision-making as a craft to learn. Many use consensus or consent, and some use sociocracy, where small circles each hold a clear area of responsibility. Meetings are frequent, and groups often train people in facilitation and in speaking honestly about conflict. Because an ecovillage is also a legal body, usually a charity, a trust, a co-op or an association, a board or trustees handle the official side. Places with a spiritual or founder-led past have to work out how power is shared once the founders step back. The usual cost is time. Governance can feel like a part-time job, so many groups let small teams settle small things and keep the whole group for the big ones.",
+   "example": {
+    "id": "auroville",
+    "text": "Auroville is governed under a law passed by the Indian parliament, with a Residents' Assembly that every resident can join and a Working Committee that handles daily decisions."
+   },
+   "pitfall": "Consensus fatigue sets in, and meetings drift toward the few who have the time and the stamina.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  },
+  "financing": {
+   "summary": "Land is often held in common through a trust, a co-op or a charity, and homes are paid for by the members. Years of unpaid work fill the gaps that money cannot.",
+   "body": "The land is usually kept off the ordinary property market. A trust, a co-op or a non-profit holds it, and members get the right to use a plot or a home. Some projects sell homes as condominiums on that land, and others rent or lease them. Money comes from member savings, entry fees, loans from ethical lenders and sometimes grants or donations. Income from courses, farm produce and visitors helps cover shared costs. Because members also put in years of building and garden work, a lot of the value is labour that never shows up on a bill. The mix decides who can join. A place that asks for a large entry payment will attract a different crowd from one that runs on small monthly contributions.",
+   "example": {
+    "id": "ecovillage-ithaca",
+    "text": "EcoVillage Ithaca sits on shared land, and the households in its cohousing neighbourhoods own their homes as condominiums."
+   },
+   "pitfall": "Entry costs can climb with the years, and a place meant to be open slowly becomes closed to people with less money.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  },
+  "space": {
+   "summary": "The whole settlement is designed as one thing. Homes are clustered, and food, water and energy are built into the plan alongside paths and meeting places.",
+   "body": "Where cohousing designs a single building or street, an ecovillage plans a small settlement. Homes are usually clustered close together so that most of the land can stay as fields, forest and gardens. Cars are kept to the edge. Alongside the houses there are shared buildings for meals, meetings and workshops, and working systems for the basics of life, such as solar panels, wells, compost and treated wastewater. Many builders choose local or natural materials, such as straw, timber and earth. A good plan tries to cut the distance between where something is made and where it is used. Because everything is built by hand over many years, an ecovillage tends to look unfinished and a little messy for a long time.",
+   "example": {
+    "id": "tamera",
+    "text": "Tamera in Portugal has dug lakes and shaped the slopes to hold rainwater on dry land, and it treats that water landscape as the base for its gardens and homes."
+   },
+   "pitfall": "Building takes far longer and costs more than planned, so some sites stay half finished for years.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  },
+  "community": {
+   "summary": "Belonging comes from working side by side, from regular gatherings and from shared rituals. Seasonal festivals and common meals tie people together.",
+   "body": "Community here is built mostly through work and rhythm. Members spend time on shared tasks like harvests, building days and repairs, and then sit down together afterwards. Many places hold a weekly meeting, regular common meals and festivals tied to the seasons. Some add a practice of their own, such as meditation, circle talks or music. Because members often live close to the people they work and decide with, relationships are layered, so a neighbour may also be a colleague and a committee partner. This can feel deeply supportive. It can also feel crowded when one disagreement spills into every part of life. Most places also run guest programmes and open days, which bring in fresh faces and keep the village connected to the world outside.",
+   "example": {
+    "id": "findhorn",
+    "text": "Findhorn grew from a caravan park into a settlement with its own gathering hall, where members and guests come together for meetings, talks and celebrations."
+   },
+   "pitfall": "Members are asked to share so much that the people who want a quieter life drift away or burn out.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  },
+  "operations": {
+   "summary": "Members run most things themselves through working groups, with a few paid roles. Farms, gardens and workshops need regular hands.",
+   "body": "Day to day, an ecovillage looks like a small town run by its own people. Working teams look after the gardens, the shared buildings, the finances and the paths. Members may take a set number of hours a month, or hold a defined role for a season. As places grow, some jobs become paid, such as bookkeeping, farm management or maintenance. A farm or market garden is often the centre, and some places sell produce through a subscription box, in which neighbours buy a share of the harvest before it is grown. Visitors and volunteers add labour and some income. The hard part is steady work through the dull months, when the first excitement has faded and the tasks are mostly weeding and spreadsheets.",
+   "example": {
+    "id": "ecovillage-ithaca",
+    "text": "EcoVillage Ithaca has a community-supported farm on its land, and residents also join work teams for jobs around the neighbourhoods."
+   },
+   "pitfall": "Skilled work such as farming and bookkeeping rests on a few people, and the place suffers when one of them leaves.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  },
+  "privacy": {
+   "summary": "Most members keep a private home and plenty of personal time. Conflict is handled in the open, with tools for honest talk and sometimes a trained facilitator.",
+   "body": "Homes are private, with a door that closes, although they may be smaller than usual and sit close to neighbours. Beyond the front door, life is more public than in ordinary housing, since people share work, meals and decisions. Because of that, ecovillages tend to be serious about how to handle conflict. Many have regular check-in circles, agreed ways of raising a problem, and trained mediators or outside facilitators for harder cases. Some groups encourage open talk about feelings and relationships, which suits some people and feels like too much for others. Before joining, ask how personal matters are discussed, and how much each person is expected to share with the group.",
+   "example": {
+    "id": "tamera",
+    "text": "Tamera holds a regular gathering called the Forum, where members speak openly in front of the group about personal matters and tensions."
+   },
+   "pitfall": "Open sharing can become pressure, and members may feel they must reveal more than they want to.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  },
+  "leaving": {
+   "summary": "Leaving depends on how the place holds its land and homes. Owners usually sell, sometimes under limits, and others hand back a right to use. Ageing is still an open question.",
+   "body": "Where homes are owned, you sell, and the group may limit the price or the buyer. Where land is held by a trust or foundation, you often hand back your plot or home and get little or nothing for the house itself, and some places repay part of what a member put in. Because ecovillages take a lot of invested labour, leaving can feel like leaving a family and a life's project at once. Many sites are old enough now to have elders and grown children, and have begun to face what care for older residents looks like. Rural sites can be far from hospitals. Some build step-free homes and ask neighbours to help, while still knowing that serious care may mean moving.",
+   "example": {
+    "id": "findhorn",
+    "text": "Findhorn is old enough that people who arrived as young seekers have grown old there, which has pushed the community to think about care for elders."
+   },
+   "pitfall": "Newcomers and elders end up in a gap, with no clear plan for who cares for older members.",
+   "sources": [
+    "wiki-ecovillage",
+    "gen"
+   ]
+  }
+ },
+ "whoPoints": [
+  "People who want to make a settled community the main project of their lives.",
+  "Gardeners, builders and growers who like practical work and long time horizons.",
+  "Families looking for a place where children grow up among many adults and close to land.",
+  "People who can stay patient through slow decisions and long meetings."
+ ],
+ "watchPoints": [
+  "Many places have visitors, courses and volunteer programmes, so find out how a resident differs from a guest.",
+  "The word ecovillage is not protected, and some places use it for little more than a nice name.",
+  "Entry rules differ widely, and a long trial period before membership is common.",
+  "Rural land can mean a long drive to work, school and health care."
+ ],
+ "newSources": [
+  {
+   "title": "Findhorn Foundation",
+   "author": "Findhorn Foundation",
+   "year": "",
+   "url": "https://www.findhorn.org",
+   "topics": [
+    "ecovillage"
+   ]
+  },
+  {
+   "title": "Auroville",
+   "author": "Auroville Foundation",
+   "year": "",
+   "url": "https://www.auroville.org",
+   "topics": [
+    "ecovillage"
+   ]
+  },
+  {
+   "title": "EcoVillage at Ithaca",
+   "author": "EcoVillage at Ithaca",
+   "year": "",
+   "url": "https://ecovillageithaca.org",
+   "topics": [
+    "ecovillage"
+   ]
+  },
+  {
+   "title": "Tamera",
+   "author": "Tamera Peace Research and Education Center",
+   "year": "",
+   "url": "https://www.tamera.org",
+   "topics": [
+    "ecovillage"
+   ]
+  }
+ ],
+ "flags": [
+  "No web searches were run; everything is from memory and should be checked.",
+  "Auroville: Residents' Assembly and Working Committee under the Auroville Foundation Act (1988); check that wording.",
+  "EcoVillage Ithaca: condo ownership in the neighbourhoods, a common house per neighbourhood and the CSA farm are from memory; check, and check whether the land is held by a nonprofit.",
+  "Tamera: water retention landscape and the Forum are well known, but check how the Forum is described today.",
+  "Findhorn: the gathering hall (Universal Hall) and ageing members are general claims; check.",
+  "Generic statements (entry fees, trial periods, rural care) are typical patterns, not tied to a specific place.",
+  "newSources have no year; add years as needed."
+ ]
+}

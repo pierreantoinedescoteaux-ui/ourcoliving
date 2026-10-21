@@ -162,7 +162,7 @@ const COLIVING_TYPES = [
     ],
     sources: ["wiki-ecovillage", "gen"],
     body: [
-      "The maximalist answer. An ecovillage doesn't just share a kitchen — it rebuilds the entire stack of daily life around regeneration: growing food, producing energy, consensus governance, often its own economy.",
+      "The maximalist answer. An ecovillage doesn't just share a kitchen. It rebuilds the entire stack of daily life around regeneration: growing food, producing energy, consensus governance, often its own economy.",
       "It's also the deepest commitment on this map. The successful ones took decades and survived on stubbornness. But nothing else produces the same depth of belonging."
     ],
     who: "People ready to make community the main project of their life, not a feature of it.",
@@ -187,12 +187,12 @@ const COLIVING_TYPES = [
     ],
     sources: ["guide-cohabitat", "wiki-cohousing", "mccamant-durrett-2011", "kollektivhus-nu"],
     body: [
-      "You own your own front door — full kitchen, full privacy — but the site is designed around a common house where the community eats together a few nights a week. Cars stay at the edge; the space between homes belongs to people.",
+      "You own your own front door, full kitchen, full privacy, but the site is designed around a common house where the community eats together a few nights a week. Cars stay at the edge; the space between homes belongs to people.",
       "This is the most proven model on the map. Fifty years of Danish data says the common meal is the engine: keep it, and the community holds.",
       "In Sweden the same idea is called a kollektivhus, or collective house. It's usually one building of complete flats with a big shared kitchen, where residents take turns cooking dinner for everyone. You cook a few times a month and eat with your neighbours on the other evenings."
     ],
     who: "Families and couples who want community without giving up a private household.",
-    watch: "Development takes 3–7 years and a core group that survives the process."
+    watch: "Development takes 3 to 7 years and a core group that survives the process."
   },
   {
     slug: "kibbutz",
@@ -212,7 +212,7 @@ const COLIVING_TYPES = [
     sources: ["wiki-kibbutz"],
     body: [
       "For most of a century, hundreds of villages ran on full income-sharing: communal dining, collective childcare, work assigned by the community. At its peak the kibbutz movement housed over 100,000 people.",
-      "Most kibbutzim privatized after the 1980s — the pure model asked more than most humans can give. But it remains the deepest dataset we have on what total community does to people: the highs and the costs."
+      "Most kibbutzim privatized after the 1980s. The pure model asked more than most humans can give. But it remains the deepest dataset we have on what total community does to people: the highs and the costs."
     ],
     who: "Historically: ideologues and pioneers. Today: people drawn to the renewed urban kibbutz movement.",
     watch: "Total sharing means total governance. The model bends toward the institution, not the individual."
@@ -233,11 +233,11 @@ const COLIVING_TYPES = [
     ],
     sources: ["guide-cohabitat", "wiki-baugruppe"],
     body: [
-      "A German invention: a group of future residents acts as its own developer — buying the plot, hiring the architect, cutting the developer margin (often 20–30%) out of the price.",
+      "A German invention: a group of future residents acts as its own developer, buying the plot, hiring the architect, cutting the developer margin (often 20 to 30%) out of the price.",
       "The result is housing shaped by the people who'll live in it: shared roof terraces, common rooms, flexible walls. Community is a by-product of having survived a construction project together."
     ],
     who: "Organized, patient people with access to financing who want a custom home and built-in neighbors.",
-    watch: "You're the developer now — every risk a developer carries, you carry."
+    watch: "You're the developer now: every risk a developer carries, you carry."
   },
   {
     slug: "hacker-house",
@@ -255,8 +255,8 @@ const COLIVING_TYPES = [
     ],
     sources: [],
     body: [
-      "The easiest square on this map: a lease, some bunk beds or bedrooms, and a filter for who gets in. The house is a talent concentrator — ambition compounds when you cook dinner next to it.",
-      "Most last eighteen months and that's fine — the alumni network *is* the product. A few evolve into institutions with demo days and funding attached."
+      "The easiest square on this map: a lease, some bunk beds or bedrooms, and a filter for who gets in. The house is a talent concentrator. Ambition compounds when you cook dinner next to it.",
+      "Most last eighteen months and that's fine. The alumni network *is* the product. A few evolve into institutions with demo days and funding attached."
     ],
     who: "Early-career founders and researchers who want their living room to be a career accelerant.",
     watch: "Burnout culture is a feature and a bug. Homes need rest, not just output."
@@ -276,7 +276,7 @@ const COLIVING_TYPES = [
     sources: ["guide-cohabitat", "wiki-coliving"],
     body: [
       "Venture capital's read on loneliness: a company owns the building, designs the shared spaces, programs the events, and rents you belonging by the month. Flexible, frictionless, and entirely top-down.",
-      "The cautionary tale is The Collective — 550 rooms in London, a spectacular building, bankrupt by 2021. Community that's bought instead of built is fragile. The survivors (Habyt, Cohabs) run leaner and promise less."
+      "The cautionary tale is The Collective: 550 rooms in London, a spectacular building, bankrupt by 2021. Community that's bought instead of built is fragile. The survivors (Habyt, Cohabs) run leaner and promise less."
     ],
     who: "New-in-town professionals who want an instant social layer with zero setup cost.",
     watch: "When the operator's incentives and the residents' needs diverge, the operator wins."
@@ -296,8 +296,8 @@ const COLIVING_TYPES = [
     ],
     sources: [],
     body: [
-      "Between the hacker house's chaos and the operator's sterility there's a middle path: one house, five to ten carefully chosen people, run by someone who actually lives there and designs the space around behavior — focus rooms, gathering tables, stillness corners.",
-      "This is the model I've built and run in Vancouver and Montreal for years. Almost no capital, no institution — just curation, intention, and a house whose bones get redesigned around the people in it."
+      "Between the hacker house's chaos and the operator's sterility there's a middle path: one house, five to ten carefully chosen people, run by someone who actually lives there and designs the space around behavior: focus rooms, gathering tables, stillness corners.",
+      "This is the model I've built and run in Vancouver and Montreal for years. Almost no capital, no institution, just curation, intention, and a house whose bones get redesigned around the people in it."
     ],
     who: "Entrepreneurs and self-directed people who want their home to push their life forward.",
     watch: "It runs on the host's energy. The design has to make community self-sustaining, or the host burns out."
@@ -316,7 +316,7 @@ const COLIVING_TYPES = [
     ],
     sources: [],
     body: [
-      "The newest pattern here: take laptop workers who can live anywhere, and place them somewhere that desperately needs people — Spanish mountain villages, Galician hamlets. Fiber internet plus grandmother's cooking.",
+      "The newest pattern here: take laptop workers who can live anywhere, and place them somewhere that desperately needs people: Spanish mountain villages, Galician hamlets. Fiber internet plus grandmother's cooking.",
       "The stays are short but the thesis is big: rural depopulation and urban loneliness might be the same problem, solvable in one move."
     ],
     who: "Remote workers craving nature and belonging without quitting their job or their city forever.",
@@ -338,7 +338,7 @@ const COLIVING_TYPES = [
     ],
     sources: [],
     body: [
-      "The crypto-and-AI generation's bet: start with an aligned online community, then buy land and instantiate it — pop-up cities that iterate toward permanence, or whole neighborhoods built from scratch.",
+      "The crypto-and-AI generation's bet: start with an aligned online community, then buy land and instantiate it: pop-up cities that iterate toward permanence, or whole neighborhoods built from scratch.",
       "Almost nothing here is proven. But it's where the most capital and the most ambition currently point, and one of these will eventually work."
     ],
     who: "Early adopters with resources who'd rather build a town than join one.",
@@ -359,11 +359,11 @@ const COLIVING_TYPES = [
     ],
     sources: ["nasco"],
     body: [
-      "Members collectively run their own houses — very often students: cooking rotas, elected officers, rent at half market rate. It's where tens of thousands of people first learn that housing can be something you govern, not just rent.",
+      "Members collectively run their own houses, very often students: cooking rotas, elected officers, rent at half market rate. It's where tens of thousands of people first learn that housing can be something you govern, not just rent.",
       "Berkeley's system alone houses ~1,300 students. Ask anyone who lived in one: it marks you. Half the people on the rest of this map started here."
     ],
     who: "Students and young people who want cheap rent and don't mind learning governance by doing dishes about it.",
-    watch: "Turnover is total every few years — the institution remembers, the community resets."
+    watch: "Turnover is total every few years. The institution remembers, the community resets."
   }
 ];
 

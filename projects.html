@@ -152,6 +152,9 @@ var allTypes=[]; order.forEach(function(k){byKey[k].types.forEach(function(t){if
 allTypes.sort(function(a,b){return a==="Landmark"?1:b==="Landmark"?-1:a.localeCompare(b);});
 
 var cur="all";
+/* a field guide's "See all real places" link lands here already filtered: ?t=<slug> */
+(function(){ var q=new URLSearchParams(location.search).get("t"); if(!q) return;
+  COLIVING_TYPES.forEach(function(t){ if(t.slug===q && allTypes.indexOf(t.short)>=0) cur=t.short; }); })();
 var fEl=document.getElementById("filters"), gEl=document.getElementById("grid");
 function count(t){return order.filter(function(k){return byKey[k].types.indexOf(t)>=0;}).length;}
 function draw(){

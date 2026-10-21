@@ -1,0 +1,108 @@
+{
+ "areas": {
+  "governance": {
+   "summary": "The future residents act as their own developer, so they decide together during the project. Once everyone has moved in, the group usually settles into the routines of an ordinary condo or co-op.",
+   "body": "A Baugruppe starts as a group of people who want to build a home together. They form a legal body, often a civil-law partnership at first, and later a condominium association or a co-op. Members meet to choose the plot, the architect, the budget and the shared rooms. Votes are common, and many groups try to reach broad agreement on the big questions. Because money is at stake, the rules are written down early and members sign them. The decision load is heavy while the building is designed and built, and it drops after move-in. Day-to-day matters then pass to a board, a manager or small working groups. Some groups keep a strong culture of meetings, and others fade into a simple yearly assembly.",
+   "example": {
+    "id": "r50",
+    "text": "R50 in Berlin-Kreuzberg was designed in close cooperation with its future owners by the architects ifau, Jesko Fezer and Heide & von Beckerath."
+   },
+   "pitfall": "The planning years can wear the group down, and members who leave midway shift costs onto the rest.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  "financing": {
+   "summary": "Members pay for the building together and skip the developer's profit. Some groups end up with owned flats, and others hold the building through a co-op.",
+   "body": "The main idea is to remove the developer from the deal. Members pool their savings, take loans in their own names or through the group, and pay the real cost of the plot, the design and the construction. In many Baugruppen each household owns its flat, and the whole group shares the risk until the building is finished. If costs rise, everyone pays more. Other groups build as a co-op, where members buy shares and then pay a monthly fee, and the building stays off the market. Cities sometimes help by selling plots to groups on fixed terms or by judging bids on the concept, not only the price. Either way, entering takes savings and a bank that trusts the group.",
+   "example": {
+    "id": "spreefeld",
+    "text": "Spreefeld in Berlin is run by a building and housing co-op, so members hold shares in a group that owns the buildings."
+   },
+   "pitfall": "Building costs can rise during construction, and every member has to cover their part of the extra.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  "space": {
+   "summary": "The building is designed with its future residents, so flats, shared rooms and outdoor areas match what the group asked for. Plain materials and generous common spaces are typical.",
+   "body": "Because the residents are the clients, the architect can ask what they want and draw it. Flats are often modest in size, with flexible layouts and walls that can move. The shared spaces get real attention. A roof terrace, a courtyard, a guest room, a workshop or a large common room are typical choices. Some buildings give the ground floor to the street, with a studio, a cafe or a space for the neighbourhood. Costs are kept down by simple structures and exposed materials. The result often looks different from the developer buildings nearby, since each group makes its own choices about light, outdoor space and how much to share.",
+   "example": {
+    "id": "r50",
+    "text": "R50 is built in raw concrete, with 19 households and a tall shared room that neighbourhood groups can also use."
+   },
+   "pitfall": "A design made by a committee can take so long to settle that the budget and the group's patience run out.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  "community": {
+   "summary": "Much of the bond forms before anyone moves in, through the years spent planning and building together. After move-in, shared rooms and a few regular events keep it going.",
+   "body": "A Baugruppe has a head start on community. By the time the building opens, members have argued about plans, visited the site and spent many evenings together. They already know whom they live with. After move-in, the bond is kept alive through shared spaces, such as a roof terrace or common room, and a few regular habits, like a house meeting, a summer party or a shared meal. Some buildings reach out to the neighbourhood. Others stay mostly among residents. People who join later, by buying or renting a flat from a member, did not go through the building years, so groups usually need a way to welcome them and explain how things work.",
+   "example": {
+    "id": "spreefeld",
+    "text": "Spreefeld opens its riverside ground floor to the public, so the community also meets the neighbourhood."
+   },
+   "pitfall": "People who arrive after the building phase can feel like guests in a group that already has its history.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  "operations": {
+   "summary": "After move-in the building runs like a well-managed condo or co-op. A board, a manager and a few working groups share the daily jobs.",
+   "body": "Most of the heavy lifting happens before the building opens. Afterwards, the group needs someone to pay the bills, keep the accounts, fix what breaks and look after the shared rooms. Small buildings divide these jobs among residents. Larger ones hire a property manager or an accountant and keep a board of members to oversee them. Monthly fees cover repairs, insurance and a reserve for big works like a new roof. Working groups often look after the garden, the common room or the guest room. Because everyone owns or holds a share, people tend to care about upkeep, but the habit needs to be shared fairly, or the same few people end up doing most of it.",
+   "example": {
+    "id": "spreefeld",
+    "text": "Spreefeld is run by its co-op, which means members take part in running the buildings they live in."
+   },
+   "pitfall": "Upkeep falls to the few who care most, and tired volunteers leave the board with no successor.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  "privacy": {
+   "summary": "Each household has a full private flat, and shared life is optional. Conflicts usually go through the meeting or the board, and sometimes an outside mediator.",
+   "body": "A Baugruppe is usually built from complete flats, each with its own kitchen, bathroom and front door. Shared rooms add to the home and do not replace it. Some groups also build cluster flats, where several private rooms or small units surround a shared kitchen and living area, which gives a middle level between a full flat and a shared house. Conflicts tend to be about money, noise, shared rooms or building rules. The usual path is a talk between neighbours, then the house meeting or board, and for hard cases a mediator. Because members own or hold a share, leaving a dispute is harder than ending a lease, so groups do well to agree on how to handle problems early.",
+   "example": {
+    "id": "spreefeld",
+    "text": "Spreefeld includes cluster flats, where private rooms are grouped around shared living space."
+   },
+   "pitfall": "A quarrel between owners is hard to escape, since neither side can simply move out.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  "leaving": {
+   "summary": "Owners sell their flat, often with the group's say over the buyer or the price. Co-op members hand back their share. Both routes can be slower than ending a lease.",
+   "body": "Leaving a Baugruppe depends on how it holds the building. Owners sell on the open market, and many groups write rules that let them approve the buyer or give current members first choice. Some also cap the price to keep homes within reach. In a co-op, a member gives notice and gets back the share they paid in, and the home goes to someone on a waiting list. Renting out a flat is sometimes allowed and sometimes limited. These rules matter more as members age. Many buildings include step-free access and plan for neighbours to help each other, but they are ordinary apartment houses and do not provide care.",
+   "example": {
+    "id": "spreefeld",
+    "text": "As a co-op, Spreefeld lets members leave by giving up their membership, with the home passing on to others."
+   },
+   "pitfall": "A flat that is hard to sell, or a group with unclear exit rules, can leave someone stuck in a place that no longer fits.",
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  }
+ },
+ "whoPoints": [
+  "People who want a custom-designed home and are ready to be involved in the building process.",
+  "Households with savings and a bank that will lend, who want to pay the cost of building rather than a developer's margin.",
+  "People who value having neighbours they chose and planned with.",
+  "Those with patience for meetings and long timelines."
+ ],
+ "watchPoints": [
+  "Members act as the developer, so cost overruns and delays fall on them.",
+  "Planning and building usually take several years before anyone moves in.",
+  "Entry needs savings, and the group may take time to find replacements if someone drops out.",
+  "Some Baugruppen are mostly about cheaper and better flats, so look at how much a group really shares."
+ ],
+ "newSources": [],
+ "flags": [
+  "R50 legal form (condo owners vs another structure) and how decisions were taken were not confirmed; the governance example only states the architects' close cooperation with the clients.",
+  "Spreefeld: sources differ on unit count (64 or 65) and one profile says plots are subdivided under condominium law inside the co-op, so some members may hold property; the financing example only says it is run by a co-op.",
+  "Spreefeld leaving example: member share refund and waiting list are the usual co-op pattern, not confirmed for Spreefeld specifically.",
+  "Spreefeld public riverside access is confirmed by YES! Magazine; the ground-floor use is described from the brief (public ground floors).",
+  "R50 tall shared room that neighbourhood groups can use comes from ArchDaily description."
+ ]
+}

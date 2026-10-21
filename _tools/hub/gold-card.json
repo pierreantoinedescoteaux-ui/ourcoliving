@@ -1,0 +1,19 @@
+{
+ "id": "land-trust",
+ "name": "Land trust",
+ "summary": "A non-profit owns the land for good and the homes sit on it. When a home changes hands, the price stays capped, so it stays affordable for the next household.",
+ "body": "A community land trust splits a home in two. The land belongs to a non-profit run by residents, neighbours and partners, and it is never sold again. The buildings on it can be owned, rented or held through a co-op, on a long lease of the land that usually runs for most of a century.\n\nThe trick is in the resale formula. When owners move, they sell at a capped price, usually what they paid plus a small share of any rise in value. They leave with some savings, and the next household buys in at a price ordinary incomes can reach. Over time the trust holds a growing pool of homes that never go back to the open market.\n\nThe idea grew out of the civil rights movement in Georgia and spread to cities like Burlington in Vermont, then to Brussels and London. In Quebec the same logic shows up through emphyteutic leases and non-profits that keep the land.\n\nFor a group living together, a land trust brings a steady partner and lasting protection from speculation. You give up some freedom in return: you can't sell for whatever the market pays, and decisions about the land are shared with people beyond your own walls. Many cohousing and co-op projects pair a trust for the land with their own set-up for the buildings.",
+ "pros": ["Homes stay affordable from one household to the next", "The land is protected from speculation for good"],
+ "cons": ["The resale price is capped, so owners gain less", "A second organisation shares decisions about the land"],
+ "impact": {
+  "building": { "dot": "depends", "t": "Any building, on leased land" },
+  "social":   { "dot": "depends", "t": "Neighbours sit on the board too" },
+  "governance": { "dot": "harder", "t": "Two boards to agree with" },
+  "legal":    { "dot": "harder", "t": "Land and buildings held apart" },
+  "money":    { "dot": "easier", "t": "Land cost leaves the price" }
+ },
+ "bestWhen": "When a group wants its homes to stay affordable for good, and is happy to share some control to get there.",
+ "examples": [],
+ "sources": ["https://en.wikipedia.org/wiki/Community_land_trust", "guide-cohabitat"],
+ "flags": []
+}

@@ -1,0 +1,94 @@
+{
+ "areas": {
+  "governance": {
+   "summary": "Whoever holds the lease or runs the program usually decides. House rules are short and often live in a group chat or on a shared page.",
+   "body": "Most hacker houses have no formal structure. One or two people sign the lease, choose who moves in and set the basic rules. Day-to-day questions are settled by chat or at the kitchen table. The founder usually keeps the final say, since they carry the legal and financial risk. Houses run by a company or program, such as a residency, follow the organiser's rules and can end a stay. Residents often have a voice in small matters like chores or guests, and little say in big ones like who joins. This is quick and clear, and it depends on the person in charge being fair. Some houses write a short set of norms to head off friction.",
+   "example": {
+    "id": "hf0",
+    "text": "HF0 is a live-in residency for founders, run by its organisers, who choose each group and set the program."
+   },
+   "pitfall": "When the person in charge is unfair or absent, residents have no formal way to change things.",
+   "sources": []
+  },
+  "financing": {
+   "summary": "Most are funded by the residents' rent. Some are backed by a company, a fund or a patron who covers part of the cost to attract talent.",
+   "body": "The simplest hacker house is a leased house with the rent split among residents. Entry costs are low, since there is no purchase and no large deposit beyond the usual one. Some houses ask for a bit more than the room is worth, to cover shared supplies, meals and events. Others are funded from outside. A company, a fund or a rich host pays for the house, and residents pay little or nothing, in return for being part of the founder's network. Residencies can take a share in the businesses their residents build. Nobody builds equity in the house itself. If the host stops paying, the house usually ends.",
+   "example": {
+    "id": "agi-house",
+    "text": "AGI House is a large house in the Bay Area that hosts AI hackathons and events, and it has relied on sponsors and a host to run."
+   },
+   "pitfall": "A house that depends on one sponsor or one lease holder can vanish when that person changes plans.",
+   "sources": []
+  },
+  "space": {
+   "summary": "Bedrooms, a big shared table and a lot of screens. The living room often doubles as an office and an event hall.",
+   "body": "A hacker house is usually a large existing house, often a mansion or a big rental, that residents adapt to their needs. Bedrooms may be shared or split into bunks to fit more people. The ground floor does most of the work: a long table, whiteboards, monitors, a kitchen that feeds a crowd and a living room that clears out for talks or demos. Quiet rooms are rare, and sleep can compete with work. Houses that host events turn the common spaces into a venue for an evening. Little is purpose-built. The look is functional, and the value comes from how many people are in the same place and what they do there.",
+   "example": {
+    "id": "agi-house",
+    "text": "AGI House hosts hackathons in its living room, so the main shared space doubles as an event floor."
+   },
+   "pitfall": "With no quiet space and a busy event calendar, residents can find it hard to rest.",
+   "sources": []
+  },
+  "community": {
+   "summary": "People are picked for what they build and for fitting in. Closeness comes from working, eating and talking about projects side by side.",
+   "body": "Hacker houses select their residents, often by application or personal introduction. They look for people who are building something and who will add to the house. The community grows from shared work. Residents show each other what they are making, test ideas over dinner and help when someone is stuck. Demo nights, hackathons and visits from guests widen the circle. Friendships and business partnerships often start here, and alumni stay in touch after leaving. The mood tends to be driven and fast. Social life is closely tied to work, which suits people who like that and wears out those who want a break from it.",
+   "example": {
+    "id": "hf0",
+    "text": "HF0 gathers a group of founders to live and build together for 12 weeks."
+   },
+   "pitfall": "When everyone is working, there is little room for a resident who simply wants to relax.",
+   "sources": []
+  },
+  "operations": {
+   "summary": "Daily running is light and informal. Chores, groceries and cleaning are split in a chat, and larger houses hire help.",
+   "body": "A small hacker house runs on goodwill. Residents share chores, buy groceries together and clean in turns, usually arranged through a group chat or a spreadsheet. The person on the lease handles the landlord, utilities and repairs. As a house grows or hosts events, the workload rises and volunteers get tired. Many then pay for a cleaner, a cook or a house manager. Residencies hire staff for meals, scheduling and guest visits, which frees the residents to work. The system is flexible and cheap, and it depends on someone noticing what is not getting done. A house without a clear caretaker can slide into mess quite fast.",
+   "example": {
+    "id": "hf0",
+    "text": "HF0 is run by a team that organises the program and the shared house, so residents do not manage it themselves."
+   },
+   "pitfall": "Chores slide when nobody owns them, and the house gets messy before anyone says so.",
+   "sources": []
+  },
+  "privacy": {
+   "summary": "Privacy is limited. Bedrooms are small or shared, and the house is public much of the time. Disputes go to the person in charge.",
+   "body": "A hacker house offers less privacy than most shared homes. Rooms may be shared, walls thin and the common areas busy at all hours. Visitors and event guests come through often. Residents trade some privacy for being close to others with similar goals. Conflicts tend to involve noise, mess, guests, work habits and money. Most are settled with a direct talk or a message in the house chat. When that fails, the person who holds the lease or runs the program decides, and in the end they can ask someone to leave. Houses that pay attention to rest, quiet hours and guest rules cope better than those that treat constant availability as the norm.",
+   "example": {
+    "id": "agi-house",
+    "text": "Because AGI House hosts public events, its shared rooms are regularly full of outside guests."
+   },
+   "pitfall": "Always being on can build up as stress, and residents may not say so until they burn out.",
+   "sources": []
+  },
+  "leaving": {
+   "summary": "Leaving is easy. Stays are short, there is no equity to sell, and a new resident takes the room. Growing old in one is rare.",
+   "body": "Hacker houses are built for short stays. Residents come for a season or a year, often until a project takes off or funding arrives. On the lease, someone leaving gives notice and the others find a replacement, or the host fills the room. In a residency, the stay ends on a set date. There is nothing to sell and no deposit tied up in the building, apart from the usual one. What residents take with them is a network, skills and sometimes a business. The model does not plan for long-term living. There is little access for people who need care, and few people stay beyond their early career. Alumni groups keep the link alive.",
+   "example": {
+    "id": "hf0",
+    "text": "HF0 is a 12-week residency, so every stay has a built-in end date."
+   },
+   "pitfall": "Residents who stay on after the group moves on can find the house no longer fits.",
+   "sources": []
+  }
+ },
+ "whoPoints": [
+  "Early-career founders and researchers who want to build alongside others.",
+  "People who like a fast, project-driven environment.",
+  "Someone who wants a low-cost way to start a shared home, or to join a strong network.",
+  "People comfortable with little privacy and a lot of noise."
+ ],
+ "watchPoints": [
+  "The person who holds the lease or runs the program has the final say.",
+  "Rest and privacy are easy to lose when the house runs at high intensity.",
+  "A house can end suddenly if the lease, the sponsor or the organiser changes.",
+  "Selection can favour people who already look like the group."
+ ],
+ "newSources": [],
+ "flags": [
+  "AGI House: sponsorship and funding model not confirmed; the financing example is hedged and may need verification.",
+  "AGI House: described only from the brief (Bay Area, hackathons in the living room); location detail not independently checked.",
+  "HF0: 12-week residency and live-in format from the brief only; equity terms mentioned generally ('can take a share') were not checked for HF0.",
+  "HF0 staff running the program and house is assumed from the residency format, not confirmed.",
+  "No sources were found for hacker houses in sources-data.js, so the sources lists are empty."
+ ]
+}

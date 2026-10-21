@@ -1,0 +1,79 @@
+{
+ "areas": {
+  "governance": {
+   "summary": "Residents decide together, usually in meetings and small working circles. Most groups avoid majority votes and look for a decision nobody strongly objects to.",
+   "body": "Cohousing is meant to be run by the people who live in it, so decisions start in a general meeting and move into committees or circles once the group grows. Many groups try to reach agreement before they vote, and some use a method called consent, where a proposal passes if nobody has a reasoned objection. Others lean on plain consensus or on a simple majority for small matters. Where the building has a legal owner, such as a condo corporation or a non-profit, a board handles the paperwork. The part that varies most is how formal things get. Small groups can run on habit and goodwill. Larger ones write down mandates, so everyone knows who may decide what. Every method trades some speed for buy-in, so many groups use one way for urgent questions and another for important ones.",
+   "example": {
+    "id": "cohabitat-quebec",
+    "text": "Cohabitat Québec runs on sociocracy, a system of linked circles that decide by consent, with each circle sending a delegate to the next one."
+   },
+   "pitfall": "Decisions get slow, and a few willing people end up carrying the work while others drift away from meetings."
+  },
+  "financing": {
+   "summary": "Households usually pay for their own home, and the group pays for the shared parts together. Who ends up owning what depends on whether homes are bought, rented or held through a co-op.",
+   "body": "In the classic version, each household buys its own home and owns a share of the common spaces, and a legal body such as a condo corporation looks after the shared part. Banks understand this, which makes it easier to borrow, but it also means a high price to get in and a risk that the home becomes an investment. Other projects are rentals owned by a non-profit, a co-op or a foundation, which keeps costs lower and lets people move more easily. Some use land held in trust or very long leases to take the land out of the market. Many projects mix these. Public funding, ethical lenders and future residents' own savings often sit in the same budget, and the mix decides who can afford to join.",
+   "example": {
+    "id": "un-village-a-lachine",
+    "text": "Un Village à Lachine mixes owners and renters: 16 homes are sold at cost and 42 are affordable rentals, built by the non-profit Village Urbain with public and private backers."
+   },
+   "pitfall": "A home that is affordable on the first day can stop being affordable when it is resold at market price."
+  },
+  "space": {
+   "summary": "Each household has a complete home of its own. The shared spaces sit at the center, so people pass through them on the way to their doors.",
+   "body": "A typical project keeps the private homes fairly compact and puts a good share of the budget into shared rooms, usually a common house with a large kitchen and dining room. Guest rooms, a laundry or a workshop often live there too. The layout matters as much as the rooms. Paths, entrances and windows are arranged so neighbours meet without planning to, and cars are pushed to the edge when the site allows. Often about a tenth of the floor area is shared, against almost nothing in ordinary housing. Urban projects stack these ideas into one building and may add shops or workspaces. Rural ones spread out over land. Some also offer small clusters of rooms around a shared kitchen inside the building.",
+   "example": {
+    "id": "kalkbreite",
+    "text": "Kalkbreite in Zurich puts homes, shops and workspaces on one site, built right over a tram depot."
+   },
+   "pitfall": "Shared rooms that nobody planned a use for end up empty, or end up as storage."
+  },
+  "community": {
+   "summary": "Closeness is built through habits, mainly regular shared meals, work days and small rituals. Taking part is voluntary, and the habits are what hold it together.",
+   "body": "Most cohousing groups choose to eat together on a regular rhythm. Some do it a few nights a week and others once or twice a month, and usually only part of the community comes to any given dinner. Cooking is rotated, so nobody carries it alone. Around the meals sit smaller things, like shared tools, childcare swaps, garden days and the odd party for the whole street. Groups often write down a few agreements so that newcomers know what is expected, while still leaving room to skip an evening. The aim is that people know one another well enough to ask for help, without anyone having to be best friends. The mix of closeness and freedom is the thing each community has to tune for itself.",
+   "example": {
+    "id": "vancouver-cohousing",
+    "text": "Vancouver Cohousing holds shared dinners several nights a week, cooked in turn by the residents."
+   },
+   "pitfall": "Participation fades after the exciting early years, and the same few people end up hosting everything."
+  },
+  "operations": {
+   "summary": "Day to day running is split between residents, a board, and sometimes paid help. The bigger the place, the more of it is done by professionals.",
+   "body": "In small and medium projects, residents handle most of the daily work themselves. Working groups that people join for a season clean the common house, look after the garden and keep the books. Money for repairs and bigger jobs is collected through monthly fees, as in any condo or co-op. As a place grows, volunteers get tired, and groups start hiring a bookkeeper, a cleaner or a property manager. Rental projects add a landlord who holds the building and sometimes a resident group that works with them. The old Swedish collective houses were run with paid staff who cooked for everyone. Today most are closer to resident-managed. How the workload is shared is one of the clearest differences between places.",
+   "example": {
+    "id": "stolplyckan",
+    "text": "Stolplyckan in Linköping is a rental collective house of about 190 flats, far bigger than most places run by their residents."
+   },
+   "pitfall": "Work that depends on volunteers slowly lands on the few who are always willing."
+  },
+  "privacy": {
+   "summary": "Everyone keeps a full private home and chooses how much to join in. Disagreements are handled through agreed ways of talking, and sometimes outside help.",
+   "body": "Privacy is built into the idea. Each household has its own kitchen and front door, and its own money and routines. Shared life is something you opt into, evening by evening. Good projects design for this with a buffer between the front door and the shared path, so you can hide when you need to. Conflict is expected. Groups usually write down how to raise a problem, often with a structured way of speaking about feelings and needs, and some invite a facilitator when talks stall. Many accept a small daily friction as the price of living close. Disputes about children, noise, money or taste are common, and they are rarely about the thing they appear to be about at first.",
+   "example": {
+    "id": "muir-commons",
+    "text": "At Muir Commons in Davis, early design fights gave way to later quarrels, such as whether a space should be a playground or a garden."
+   },
+   "pitfall": "Small irritations go unspoken until they harden into a split between neighbours."
+  },
+  "leaving": {
+   "summary": "How you leave depends on the legal setup. Owners usually sell, sometimes under limits on price or buyer, and renters give back their lease. Many places also plan for older residents.",
+   "body": "Owners normally sell on the open market, and the community may have a say in who buys, or a cap on the price to keep homes affordable. Some co-ops pay members back their share and nothing more. Renters simply end the lease, and the owner reallocates the home, sometimes through a waiting list that the residents help run. Newcomers matter, because a place that cannot refill its homes fades. Places that take growing old seriously build step-free homes and a room for a visiting carer. Neighbours can help with shopping and company, and still some people will one day need more care than a community can give.",
+   "example": {
+    "id": "petaluma-avenue-homes",
+    "text": "Petaluma Avenue Homes in Sebastopol is an affordable rental community run by the non-profit SAHA, so residents give up a lease instead of selling a home."
+   },
+   "pitfall": "With no plan for resale or care, a group of ageing owners can find itself in a crisis."
+  }
+ },
+ "whoPoints": [
+  "People who want neighbours they know, with their own front door to go home to.",
+  "Families who would like other adults around for their children and a bit of shared childcare.",
+  "Older people who want company and mutual help while staying independent.",
+  "People willing to spend evenings in meetings and to negotiate small things with others."
+ ],
+ "watchPoints": [
+  "Building a project from scratch often takes years before anyone moves in.",
+  "Decisions are slower than in an ordinary home, because many people have a say.",
+  "The word cohousing isn't protected, so look at how a place really shares and decides.",
+  "Owned homes can be expensive to enter and may be hard to sell if the group is not a fit."
+ ]
+}

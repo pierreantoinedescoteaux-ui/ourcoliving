@@ -15,7 +15,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/model-findhorn.jpg",
     "url": "https://www.findhorn.org",
-    "note": "The 60-year proof of concept — from caravan park to full eco-settlement.",
+    "note": "The 60-year proof of concept, from caravan park to full eco-settlement.",
     "tags": {
       "setting": [
         "countryside"
@@ -35,7 +35,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-auroville.jpg",
     "url": "https://auroville.org",
-    "note": "The most ambitious version ever attempted — a planned universal township.",
+    "note": "The most ambitious version ever attempted: a planned universal township.",
     "tags": {
       "setting": [
         "countryside"
@@ -76,7 +76,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-tamera.jpg",
     "url": "https://www.tamera.org/our-facilities/",
-    "note": "A 200-person peace-research ecovillage that re-watered its own valley — one of Europe's most complete intentional communities.",
+    "note": "A 200-person peace-research ecovillage that re-watered its own valley, one of Europe's most complete intentional communities.",
     "tags": {
       "setting": [
         "countryside"
@@ -90,7 +90,7 @@ const COLIVING_PROJECTS = [
     "type": "ecovillage",
     "kind": "network",
     "url": "https://ecovillage.org",
-    "note": "The directory — thousands of them, mapped."
+    "note": "The directory: thousands of them, mapped."
   },
   {
     "id": "trudeslund",
@@ -100,7 +100,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/proj-trudeslund.jpg",
     "url": "https://en.wikipedia.org/wiki/Cohousing",
-    "note": "The 1981 benchmark — 33 homes, common house, still thriving.",
+    "note": "The 1981 benchmark: 33 homes, common house, still thriving.",
     "tags": {
       "setting": [
         "suburb"
@@ -140,7 +140,7 @@ const COLIVING_PROJECTS = [
     "type": "cohousing",
     "kind": "place",
     "url": "https://www.nightingalehousing.org",
-    "note": "Architect-led apartment cohousing — sold at cost, no investors.",
+    "note": "Architect-led apartment cohousing, sold at cost, no investors.",
     "tags": {
       "setting": [
         "city"
@@ -169,7 +169,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/model-kalkbreite.jpg",
     "url": "https://www.kalkbreite.net",
-    "note": "97 flats over a tram depot — cluster living, car-free, legendary.",
+    "note": "97 flats over a tram depot: cluster living, car-free, legendary.",
     "tags": {
       "setting": [
         "city"
@@ -198,7 +198,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/proj-mehralswohnen.jpg",
     "url": "https://www.mehralswohnen.ch",
-    "note": "'More than living' — a co-op quarter of 1,200 people.",
+    "note": "'More than living': a co-op quarter of 1,200 people.",
     "tags": {
       "setting": [
         "city"
@@ -226,7 +226,7 @@ const COLIVING_PROJECTS = [
     "type": null,
     "kind": "network",
     "url": "https://www.housinginternational.coop",
-    "note": "The global federation — the model exists everywhere.",
+    "note": "The global federation: the model exists everywhere.",
     "setup": {
       "legal": [
         "coop"
@@ -241,7 +241,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-humanitas.jpg",
     "url": "https://www.humanitasdeventer.nl",
-    "note": "The care home where students live free — the model everyone cites.",
+    "note": "The care home where students live free. The model everyone cites.",
     "tags": {
       "setting": [
         "city"
@@ -304,7 +304,7 @@ const COLIVING_PROJECTS = [
     "type": null,
     "kind": "place",
     "url": "https://www.bethecareconcept.com/en/hogeweyk-dementia-village-hogeweyk-netherlands/",
-    "note": "A village-scale dementia care home where residents live in real streets and shops — radical normalcy for the people who need care most.",
+    "note": "A village-scale dementia care home where residents live in real streets and shops: radical normalcy for the people who need care most.",
     "tags": {
       "setting": [
         "suburb"
@@ -323,7 +323,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/intergen-japan.jpg",
     "url": "https://www.toyproject.net/2017/04/innovative-intergenerational-care-in-fujisawa-japan/",
-    "note": "Daycare children and elderly residents share daily programming — one of the most studied designs for cross-generational contact.",
+    "note": "Daycare children and elderly residents share daily programming, one of the most studied designs for cross-generational contact.",
     "tags": {
       "forWho": [
         "intergenerational",
@@ -340,7 +340,7 @@ const COLIVING_PROJECTS = [
     "kind": "network",
     "img": "images/model-kibbutz.jpg",
     "url": "https://en.wikipedia.org/wiki/Kibbutz",
-    "note": "The full history — rise, crisis, reinvention."
+    "note": "The full history: rise, crisis, reinvention."
   },
   {
     "id": "degania-alef",
@@ -365,7 +365,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-nir-david.jpg",
     "url": "https://medium.com/globetrotters/nir-david-life-on-a-kibbutz-69a93d3ba654",
-    "note": "A working kibbutz in the Jezreel Valley — some of the best first-person writing on what communal life actually costs and gives.",
+    "note": "A working kibbutz in the Jezreel Valley, some of the best first-person writing on what communal life actually costs and gives.",
     "tags": {
       "setting": [
         "countryside"
@@ -380,7 +380,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-neot-smadar.jpg",
     "url": "https://en.wikipedia.org/wiki/Neot_Smadar",
-    "note": "A desert kibbutz in the Arava, founded 1989 — one of the few still running full income-sharing, famous for its art.",
+    "note": "A desert kibbutz in the Arava, founded 1989, one of the few still running full income-sharing, famous for its art.",
     "tags": {
       "setting": [
         "countryside"
@@ -397,7 +397,7 @@ const COLIVING_PROJECTS = [
     "type": "baugruppen",
     "kind": "place",
     "url": "https://www.archdaily.com/593154/r50-nil-cohousing-ifau-und-jesko-fezer-heide-and-von-beckerath",
-    "note": "The famous one — 19 households, raw concrete, shared everything.",
+    "note": "The famous one: 19 households, raw concrete, shared everything.",
     "tags": {
       "setting": [
         "city"
@@ -441,7 +441,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-agi-house.jpg",
     "url": "https://agihouse.org",
-    "note": "The flagship AI-era hacker mansion — hackathons in the living room.",
+    "note": "The flagship AI-era hacker mansion: hackathons in the living room.",
     "tags": {
       "setting": [
         "suburb"
@@ -459,7 +459,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-hf0.jpg",
     "url": "https://www.hf0.com",
-    "note": "A 'monastery for founders' — 12-week live-in residency.",
+    "note": "A 'monastery for founders': 12-week live-in residency.",
     "tags": {
       "setting": [
         "city"
@@ -482,7 +482,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-habyt.jpg",
     "url": "https://www.habyt.com",
-    "note": "The consolidator — absorbed Common and others; the biggest operator standing.",
+    "note": "The consolidator: absorbed Common and others; the biggest operator standing.",
     "tags": {
       "setting": [
         "city"
@@ -528,7 +528,7 @@ const COLIVING_PROJECTS = [
   },
   {
     "id": "the-collective",
-    "name": "The Collective (2016–2021)",
+    "name": "The Collective (2016 to 2021)",
     "place": "London",
     "type": "operator-coliving",
     "kind": "place",
@@ -560,7 +560,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/dunbar-exterior.jpg",
     "url": "https://www.growthhub.house",
-    "note": "My houses — six to nine entrepreneurs, living and working as one community.",
+    "note": "My houses: six to nine entrepreneurs, living and working as one community.",
     "tags": {
       "setting": [
         "city"
@@ -583,7 +583,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/mtl-living-room.jpg",
     "url": "project.html?p=montreal",
-    "note": "Three years of hands-on spatial design — the full case study is on this site.",
+    "note": "Three years of hands-on spatial design. The full case study is on this site.",
     "tags": {
       "setting": [
         "city"
@@ -602,7 +602,7 @@ const COLIVING_PROJECTS = [
     "type": "entrepreneur-house",
     "kind": "place",
     "url": "https://www.livetheresidency.com/",
-    "note": "Curated live-work cohorts for founders and creators — the entrepreneur house, franchised gently.",
+    "note": "Curated live-work cohorts for founders and creators: the entrepreneur house, franchised gently.",
     "tags": {
       "setting": [
         "city"
@@ -620,7 +620,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/rooral-hero.jpg",
     "url": "https://rooral.co",
-    "note": "Curated village stays — the case study is on this site.",
+    "note": "Curated village stays. The case study is on this site.",
     "tags": {
       "setting": [
         "countryside"
@@ -699,7 +699,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-culdesac.jpg",
     "url": "https://culdesac.com",
-    "note": "A car-free neighborhood built from scratch — adjacent proof that new urban fabric is possible.",
+    "note": "A car-free neighborhood built from scratch: adjacent proof that new urban fabric is possible.",
     "tags": {
       "setting": [
         "city"
@@ -728,7 +728,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-network-school.jpg",
     "url": "https://balajis.com/p/network-school-2025",
-    "note": "Balaji's live-in school and co-living community — a network-state proof of concept, running since 2024.",
+    "note": "Balaji's live-in school and co-living community: a network-state proof of concept, running since 2024.",
     "setup": {
       "legal": [
         "company"
@@ -752,7 +752,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-cloyne.jpg",
     "url": "https://www.bsc.coop",
-    "note": "The giant — 17 houses, since 1933.",
+    "note": "The giant: 17 houses, since 1933.",
     "tags": {
       "setting": [
         "city"
@@ -818,7 +818,7 @@ const COLIVING_PROJECTS = [
     "kind": "place",
     "img": "images/ex-campus1-mtl.jpg",
     "url": "https://campus1mtl.ca/montreal-student-housing/",
-    "note": "Purpose-built student co-living downtown — communal programming baked in from day one.",
+    "note": "Purpose-built student co-living downtown: communal programming baked in from day one.",
     "tags": {
       "setting": [
         "city"

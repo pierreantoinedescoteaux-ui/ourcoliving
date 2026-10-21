@@ -1,0 +1,614 @@
+{
+ "nightingale": {
+  "name": "Nightingale",
+  "place": "Melbourne",
+  "candidates": [
+   {
+    "title": "File:NightingaleVillage.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/NightingaleVillage.jpg/960px-NightingaleVillage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/e/e1/NightingaleVillage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:NightingaleVillage.jpg",
+    "w": 5712,
+    "h": 4284,
+    "mime": "image/jpeg",
+    "license": "CC0",
+    "author": "ColonelLight",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+   },
+   {
+    "title": "File:Luscinia megarhynchos MHNT 232 HdB Bouzareah Algérie.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Luscinia_megarhynchos_MHNT_232_HdB_Bouzareah_Alg%C3%A9rie.jpg/960px-Luscinia_megarhynchos_MHNT_232_HdB_Bouzareah_Alg%C3%A9rie.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/7/75/Luscinia_megarhynchos_MHNT_232_HdB_Bouzareah_Alg%C3%A9rie.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Luscinia_megarhynchos_MHNT_232_HdB_Bouzareah_Alg%C3%A9rie.jpg",
+    "w": 4796,
+    "h": 4225,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 3.0",
+    "author": "Didier Descouens",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+   },
+   {
+    "title": "File:Florence Nightingale. Coloured lithograph. Wellcome V0006579.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Florence_Nightingale._Coloured_lithograph._Wellcome_V0006579.jpg/960px-Florence_Nightingale._Coloured_lithograph._Wellcome_V0006579.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Florence_Nightingale._Coloured_lithograph._Wellcome_V0006579.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Florence_Nightingale._Coloured_lithograph._Wellcome_V0006579.jpg",
+    "w": 2362,
+    "h": 3008,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "After Henrietta Rae",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Luscinia megarhynchos - 01.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Luscinia_megarhynchos_-_01.jpg/960px-Luscinia_megarhynchos_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Luscinia_megarhynchos_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Luscinia_megarhynchos_-_01.jpg",
+    "w": 2047,
+    "h": 3071,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Carlos Delgado",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Luscinia megarhynchos, Quackjeswater, Netherlands 126990326.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Luscinia_megarhynchos%2C_Quackjeswater%2C_Netherlands_126990326.jpg/960px-Luscinia_megarhynchos%2C_Quackjeswater%2C_Netherlands_126990326.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Luscinia_megarhynchos%2C_Quackjeswater%2C_Netherlands_126990326.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Luscinia_megarhynchos,_Quackjeswater,_Netherlands_126990326.jpg",
+    "w": 1308,
+    "h": 981,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Michel Langeveld",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Luscinia megarhynchos megarhynchos MHNT.ZOO.2010.11.193.2.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Luscinia_megarhynchos_megarhynchos_MHNT.ZOO.2010.11.193.2.jpg/960px-Luscinia_megarhynchos_megarhynchos_MHNT.ZOO.2010.11.193.2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/2/23/Luscinia_megarhynchos_megarhynchos_MHNT.ZOO.2010.11.193.2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Luscinia_megarhynchos_megarhynchos_MHNT.ZOO.2010.11.193.2.jpg",
+    "w": 2835,
+    "h": 1890,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Roger Culos",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  ]
+ },
+ "hogeweyk": {
+  "name": "Hogeweyk",
+  "place": "Netherlands",
+  "candidates": []
+ },
+ "r50": {
+  "name": "R50",
+  "place": "Berlin",
+  "candidates": [
+   {
+    "title": "File:Canon EOS R50+RF-S 55-210mm f5-7.1 IS STM.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Canon_EOS_R50%2BRF-S_55-210mm_f5-7.1_IS_STM.jpg/960px-Canon_EOS_R50%2BRF-S_55-210mm_f5-7.1_IS_STM.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Canon_EOS_R50%2BRF-S_55-210mm_f5-7.1_IS_STM.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Canon_EOS_R50%2BRF-S_55-210mm_f5-7.1_IS_STM.jpg",
+    "w": 6724,
+    "h": 4251,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Dinkun Chen",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Canon EOS R50 (52694437103).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Canon_EOS_R50_%2852694437103%29.jpg/960px-Canon_EOS_R50_%2852694437103%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Canon_EOS_R50_%2852694437103%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Canon_EOS_R50_(52694437103).jpg",
+    "w": 8358,
+    "h": 5573,
+    "mime": "image/jpeg",
+    "license": "CC BY 2.0",
+    "author": "Henry Söderlund from Helsinki, Finland",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+   },
+   {
+    "title": "File:Canon EOS R50, White, 3.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Canon_EOS_R50%2C_White%2C_3.jpg/960px-Canon_EOS_R50%2C_White%2C_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Canon_EOS_R50%2C_White%2C_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Canon_EOS_R50,_White,_3.jpg",
+    "w": 4000,
+    "h": 3000,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 2.0",
+    "author": "Kent Madsen",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+   },
+   {
+    "title": "File:Canon EOS R50, White, 6.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Canon_EOS_R50%2C_White%2C_6.jpg/960px-Canon_EOS_R50%2C_White%2C_6.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Canon_EOS_R50%2C_White%2C_6.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Canon_EOS_R50,_White,_6.jpg",
+    "w": 4000,
+    "h": 3000,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 2.0",
+    "author": "Kent Madsen",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+   },
+   {
+    "title": "File:Canon EOS R50, White, 8.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Canon_EOS_R50%2C_White%2C_8.jpg/960px-Canon_EOS_R50%2C_White%2C_8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Canon_EOS_R50%2C_White%2C_8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Canon_EOS_R50,_White,_8.jpg",
+    "w": 4000,
+    "h": 3000,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 2.0",
+    "author": "Kent Madsen",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+   },
+   {
+    "title": "File:Canon EOS R50, White, 7.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Canon_EOS_R50%2C_White%2C_7.jpg/960px-Canon_EOS_R50%2C_White%2C_7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/8/84/Canon_EOS_R50%2C_White%2C_7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Canon_EOS_R50,_White,_7.jpg",
+    "w": 4000,
+    "h": 3000,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 2.0",
+    "author": "Kent Madsen",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+   }
+  ]
+ },
+ "the-residency": {
+  "name": "The Residency",
+  "place": "USA",
+  "candidates": [
+   {
+    "title": "File:Residency ground.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Residency_ground.jpg/960px-Residency_ground.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Residency_ground.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Residency_ground.jpg",
+    "w": 1040,
+    "h": 780,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Mohd faheem",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Residency Mosque.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Residency_Mosque.jpg/960px-Residency_Mosque.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Residency_Mosque.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Residency_Mosque.jpg",
+    "w": 1040,
+    "h": 780,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Mohd faheem",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Residency lko110.png",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Residency_lko110.png/960px-Residency_lko110.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Residency_lko110.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Residency_lko110.png",
+    "w": 1042,
+    "h": 801,
+    "mime": "image/png",
+    "license": "CC BY-SA 4.0",
+    "author": "Kumar aj95",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Imambara inside the Residency-Lucknow-Uttar Pradesh-DSC 0001.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Imambara_inside_the_Residency-Lucknow-Uttar_Pradesh-DSC_0001.jpg/960px-Imambara_inside_the_Residency-Lucknow-Uttar_Pradesh-DSC_0001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Imambara_inside_the_Residency-Lucknow-Uttar_Pradesh-DSC_0001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Imambara_inside_the_Residency-Lucknow-Uttar_Pradesh-DSC_0001.jpg",
+    "w": 4175,
+    "h": 2768,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Dey.sandip",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:The Residency, Indore.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/8/82/The_Residency%2C_Indore.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/8/82/The_Residency%2C_Indore.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:The_Residency,_Indore.jpg",
+    "w": 906,
+    "h": 659,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Mrs. Daly",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:British Residency Mosque, Lucknow (2025).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/British_Residency_Mosque%2C_Lucknow_%282025%29.jpg/960px-British_Residency_Mosque%2C_Lucknow_%282025%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/d/d8/British_Residency_Mosque%2C_Lucknow_%282025%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:British_Residency_Mosque,_Lucknow_(2025).jpg",
+    "w": 4000,
+    "h": 6000,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "AJ12119",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  ]
+ },
+ "zuzalu": {
+  "name": "Zuzalu",
+  "place": "Montenegro (2023)",
+  "candidates": []
+ },
+ "un-village-a-lachine": {
+  "name": "Un Village à Lachine",
+  "place": "Lachine, Montréal",
+  "candidates": [
+   {
+    "title": "File:Montreal from the Hill, Behind the Village Of The Tanneries On the Road to Lachine.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Montreal_from_the_Hill%2C_Behind_the_Village_Of_The_Tanneries_On_the_Road_to_Lachine.jpg/960px-Montreal_from_the_Hill%2C_Behind_the_Village_Of_The_Tanneries_On_the_Road_to_Lachine.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Montreal_from_the_Hill%2C_Behind_the_Village_Of_The_Tanneries_On_the_Road_to_Lachine.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Montreal_from_the_Hill,_Behind_the_Village_Of_The_Tanneries_On_the_Road_to_Lachine.jpg",
+    "w": 3170,
+    "h": 2133,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Attribué à Philip John Bainbrigge\n\n« Le style de cette aquarelle rappelle celui d'une oeuvre attribuée à Philip Bainbrigge. Le paysage rural a été représenté en détail alors que seuls les éléments essentiels du village sont soulignés. La perspective aérienne a permis à l'artiste de dépeindre un paysage de plus en plus flou à mesure qu'il se fond dans l'arrière-plan et s'élève vers la haute ligne d'horizon propre à toutes les aquarelles de Bainbrigge. Le rendu ombragé de l'église Notre-Dame, à peine visible au loin, à l'extrême gauche de la ligne d'horizon, est étudié de manière à ne pas détourner l'attention des tanneries et de leur relation avec la ville. »",
+    "licenseUrl": ""
+   }
+  ]
+ },
+ "cohabitat-quebec": {
+  "name": "Cohabitat Québec",
+  "place": "Québec City",
+  "candidates": []
+ },
+ "cohabitat-neuville": {
+  "name": "Cohabitat Neuville",
+  "place": "Neuville, Québec",
+  "candidates": []
+ },
+ "vancouver-cohousing": {
+  "name": "Vancouver Cohousing",
+  "place": "Vancouver, BC",
+  "candidates": []
+ },
+ "windsong": {
+  "name": "WindSong",
+  "place": "Langley, BC",
+  "candidates": [
+   {
+    "title": "File:WInd Rose Aguiar.png",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/WInd_Rose_Aguiar.png/960px-WInd_Rose_Aguiar.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/1/1b/WInd_Rose_Aguiar.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:WInd_Rose_Aguiar.png",
+    "w": 1151,
+    "h": 1152,
+    "mime": "image/png",
+    "license": "CC BY 2.5",
+    "author": "Alvesgaspar",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5"
+   },
+   {
+    "title": "File:Wind Point Lighthouse 071104.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Wind_Point_Lighthouse_071104.jpg/960px-Wind_Point_Lighthouse_071104.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Wind_Point_Lighthouse_071104.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Wind_Point_Lighthouse_071104.jpg",
+    "w": 2500,
+    "h": 1625,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 3.0",
+    "author": "User:JeremyA",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+   },
+   {
+    "title": "File:Middelgrunden wind farm 2009-07-01 edit filtered.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Middelgrunden_wind_farm_2009-07-01_edit_filtered.jpg/960px-Middelgrunden_wind_farm_2009-07-01_edit_filtered.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/9/97/Middelgrunden_wind_farm_2009-07-01_edit_filtered.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Middelgrunden_wind_farm_2009-07-01_edit_filtered.jpg",
+    "w": 2920,
+    "h": 2126,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 3.0",
+    "author": "Photo by Kim Hansen. Postprocessing (crop, rotation, color adjustment, dust spot removal and noise reduction) by Richard Bartz and Kim Hansen.",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+   },
+   {
+    "title": "File:Wind Lift I, Emder Hafen WhiteBalanced.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Wind_Lift_I%2C_Emder_Hafen_WhiteBalanced.jpg/960px-Wind_Lift_I%2C_Emder_Hafen_WhiteBalanced.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/7/72/Wind_Lift_I%2C_Emder_Hafen_WhiteBalanced.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Wind_Lift_I,_Emder_Hafen_WhiteBalanced.jpg",
+    "w": 2680,
+    "h": 1800,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 3.0 de",
+    "author": "kaʁstn (photographer)\n\nderivative work: IdLoveOne",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+   },
+   {
+    "title": "File:Windsong fire.JPG",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Windsong_fire.JPG/960px-Windsong_fire.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Windsong_fire.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Windsong_fire.JPG",
+    "w": 1532,
+    "h": 1134,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 3.0",
+    "author": "Alphayop",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+   },
+   {
+    "title": "File:Power County Wind Farm 002.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Power_County_Wind_Farm_002.jpg/960px-Power_County_Wind_Farm_002.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/5/54/Power_County_Wind_Farm_002.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Power_County_Wind_Farm_002.jpg",
+    "w": 1920,
+    "h": 1349,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "ENERGY.GOV",
+    "licenseUrl": ""
+   }
+  ]
+ },
+ "terra-firma": {
+  "name": "Terra Firma",
+  "place": "Ottawa, ON",
+  "candidates": [
+   {
+    "title": "File:Terra Firma Café at 480 Queen Street, Brisbane.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Terra_Firma_Caf%C3%A9_at_480_Queen_Street%2C_Brisbane.jpg/960px-Terra_Firma_Caf%C3%A9_at_480_Queen_Street%2C_Brisbane.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Terra_Firma_Caf%C3%A9_at_480_Queen_Street%2C_Brisbane.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Terra_Firma_Caf%C3%A9_at_480_Queen_Street,_Brisbane.jpg",
+    "w": 3694,
+    "h": 2609,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Kgbo",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Terra Firma et novum regnum Granatense et Popayan - Guiljelmus Blaeuw excudit - btv1b531778238 (1 of 2).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_%281_of_2%29.jpg/960px-Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_%281_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_%281_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_(1_of_2).jpg",
+    "w": 5942,
+    "h": 4588,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Blaeu, Willem Jansz (1571-1638). Fonction indéterminée",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Terra Firma et novum regnum Granatense et Popayan - Guiljelmus Blaeuw excudit - btv1b531778238 (2 of 2).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_%282_of_2%29.jpg/960px-Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_%282_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/2/23/Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_%282_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_Guiljelmus_Blaeuw_excudit_-_btv1b531778238_(2_of_2).jpg",
+    "w": 5944,
+    "h": 4590,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Blaeu, Willem Jansz (1571-1638). Fonction indéterminée",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Terra Firma et, Novum regnum Granatense et Popayan - btv1b85964038 (1 of 2).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Terra_Firma_et%2C_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_%281_of_2%29.jpg/960px-Terra_Firma_et%2C_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_%281_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/1/16/Terra_Firma_et%2C_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_%281_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Terra_Firma_et,_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_(1_of_2).jpg",
+    "w": 7753,
+    "h": 6076,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Terra Firma et, Novum regnum Granatense et Popayan - btv1b85964038 (2 of 2).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Terra_Firma_et%2C_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_%282_of_2%29.jpg/960px-Terra_Firma_et%2C_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_%282_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/4/49/Terra_Firma_et%2C_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_%282_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Terra_Firma_et,_Novum_regnum_Granatense_et_Popayan_-_btv1b85964038_(2_of_2).jpg",
+    "w": 8121,
+    "h": 6392,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Terra Firma et novum regnum Granatense et Popayan - btv1b8596404p (1 of 2).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_btv1b8596404p_%281_of_2%29.jpg/960px-Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_btv1b8596404p_%281_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/7/72/Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_btv1b8596404p_%281_of_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Terra_Firma_et_novum_regnum_Granatense_et_Popayan_-_btv1b8596404p_(1_of_2).jpg",
+    "w": 7963,
+    "h": 6085,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "",
+    "licenseUrl": ""
+   }
+  ]
+ },
+ "muir-commons": {
+  "name": "Muir Commons",
+  "place": "Davis, CA",
+  "candidates": [
+   {
+    "title": "File:Thousand Island Lake bridge.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Thousand_Island_Lake_bridge.jpg/960px-Thousand_Island_Lake_bridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Thousand_Island_Lake_bridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Thousand_Island_Lake_bridge.jpg",
+    "w": 1200,
+    "h": 1600,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Kaitymh",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:John Muir Cane.JPG",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/2a/John_Muir_Cane.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/2/2a/John_Muir_Cane.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:John_Muir_Cane.JPG",
+    "w": 866,
+    "h": 1210,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Francis M. Fritz",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Muir and Roosevelt restored.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Muir_and_Roosevelt_restored.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Muir_and_Roosevelt_restored.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Muir_and_Roosevelt_restored.jpg",
+    "w": 956,
+    "h": 1146,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Underwood &amp; Underwood",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Muir Beach Overlook.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Muir_Beach_Overlook.jpg/960px-Muir_Beach_Overlook.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Muir_Beach_Overlook.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Muir_Beach_Overlook.jpg",
+    "w": 5184,
+    "h": 3456,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 3.0",
+    "author": "Frank Schulenburg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+   },
+   {
+    "title": "File:Tamsyn Muir at BookExpo (15987).jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Tamsyn_Muir_at_BookExpo_%2815987%29.jpg/960px-Tamsyn_Muir_at_BookExpo_%2815987%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Tamsyn_Muir_at_BookExpo_%2815987%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Tamsyn_Muir_at_BookExpo_(15987).jpg",
+    "w": 2977,
+    "h": 3456,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Rhododendrites",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   },
+   {
+    "title": "File:Pacific coastline as seen from Muir Beach Overlook in January 2020.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Pacific_coastline_as_seen_from_Muir_Beach_Overlook_in_January_2020.jpg/960px-Pacific_coastline_as_seen_from_Muir_Beach_Overlook_in_January_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Pacific_coastline_as_seen_from_Muir_Beach_Overlook_in_January_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Pacific_coastline_as_seen_from_Muir_Beach_Overlook_in_January_2020.jpg",
+    "w": 6720,
+    "h": 4200,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 4.0",
+    "author": "Frank Schulenburg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+   }
+  ]
+ },
+ "petaluma-avenue-homes": {
+  "name": "Petaluma Avenue Homes",
+  "place": "Sebastopol, CA",
+  "candidates": [
+   {
+    "title": "File:P15763coll11 1575 large.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/P15763coll11_1575_large.jpg/960px-P15763coll11_1575_large.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/2/2d/P15763coll11_1575_large.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:P15763coll11_1575_large.jpg",
+    "w": 1290,
+    "h": 877,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Unknown authorUnknown author",
+    "licenseUrl": ""
+   }
+  ]
+ },
+ "fardknappen": {
+  "name": "Färdknäppen",
+  "place": "Stockholm, Sweden",
+  "candidates": []
+ },
+ "stolplyckan": {
+  "name": "Stolplyckan",
+  "place": "Linköping, Sweden",
+  "candidates": [
+   {
+    "title": "File:Cohrs Linköping 1928.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Cohrs_Link%C3%B6ping_1928.jpg/960px-Cohrs_Link%C3%B6ping_1928.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/1/17/Cohrs_Link%C3%B6ping_1928.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Cohrs_Link%C3%B6ping_1928.jpg",
+    "w": 1896,
+    "h": 2952,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Cartographer Edvard Cohrs (1858-1934). Scanned by LA2",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Flygfoto över Livgrenadjärregementet.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Flygfoto_%C3%B6ver_Livgrenadj%C3%A4rregementet.jpg/960px-Flygfoto_%C3%B6ver_Livgrenadj%C3%A4rregementet.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flygfoto_%C3%B6ver_Livgrenadj%C3%A4rregementet.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Flygfoto_%C3%B6ver_Livgrenadj%C3%A4rregementet.jpg",
+    "w": 1200,
+    "h": 732,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Unknown authorUnknown author",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Lådcykel från Kollektivhuset Stolplyckans Lastcykelpool.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/L%C3%A5dcykel_fr%C3%A5n_Kollektivhuset_Stolplyckans_Lastcykelpool.jpg/960px-L%C3%A5dcykel_fr%C3%A5n_Kollektivhuset_Stolplyckans_Lastcykelpool.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/1/15/L%C3%A5dcykel_fr%C3%A5n_Kollektivhuset_Stolplyckans_Lastcykelpool.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:L%C3%A5dcykel_fr%C3%A5n_Kollektivhuset_Stolplyckans_Lastcykelpool.jpg",
+    "w": 1024,
+    "h": 641,
+    "mime": "image/jpeg",
+    "license": "CC BY-SA 2.0",
+    "author": "wilca428",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+   },
+   {
+    "title": "File:Karta över Stolplyckan 1914.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Karta_%C3%B6ver_Stolplyckan_1914.jpg/960px-Karta_%C3%B6ver_Stolplyckan_1914.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Karta_%C3%B6ver_Stolplyckan_1914.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Karta_%C3%B6ver_Stolplyckan_1914.jpg",
+    "w": 1584,
+    "h": 1227,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "Drätselkammaren i Linköping",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Vy mot Linköping - OM.DVE.001167.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Vy_mot_Link%C3%B6ping_-_OM.DVE.001167.jpg/960px-Vy_mot_Link%C3%B6ping_-_OM.DVE.001167.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Vy_mot_Link%C3%B6ping_-_OM.DVE.001167.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Vy_mot_Link%C3%B6ping_-_OM.DVE.001167.jpg",
+    "w": 3000,
+    "h": 2123,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "sv:Didrik von Essen",
+    "licenseUrl": ""
+   },
+   {
+    "title": "File:Vy från Belvederen - OM.L.000566.jpg",
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Vy_fr%C3%A5n_Belvederen_-_OM.L.000566.jpg/960px-Vy_fr%C3%A5n_Belvederen_-_OM.L.000566.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "full": "https://upload.wikimedia.org/wikipedia/commons/4/43/Vy_fr%C3%A5n_Belvederen_-_OM.L.000566.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Vy_fr%C3%A5n_Belvederen_-_OM.L.000566.jpg",
+    "w": 3000,
+    "h": 2194,
+    "mime": "image/jpeg",
+    "license": "Public domain",
+    "author": "sv:Lars Fredrik Lovén",
+    "licenseUrl": ""
+   }
+  ]
+ }
+}

@@ -590,7 +590,18 @@
     }
     mountWorldWhenReady();
     mountExternalLinks();
+    mountGlossary();
     function fill(el) { el.outerHTML = navHtml(); }
+  }
+
+  /* the floating glossary book lives in its own file, loaded once here */
+  function mountGlossary() {
+    if (document.body.hasAttribute("data-nogloss") || document.getElementById("gl-js")) return;
+    var me = document.querySelector('script[src*="site-nav.js"]');
+    var s = document.createElement("script");
+    s.id = "gl-js";
+    s.src = (me ? me.src.replace(/site-nav\.js.*$/, "") : "") + "glossary.js";
+    document.body.appendChild(s);
   }
 
   /* every link to another site opens in a new tab. One click listener, so

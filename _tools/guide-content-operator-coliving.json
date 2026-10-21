@@ -1,0 +1,109 @@
+{
+ "areas": {
+  "governance": {
+   "summary": "The company decides. Residents are customers with a contract, so their say comes through feedback, surveys and the choice to stay or leave.",
+   "body": "In operator coliving, a company owns or leases the building and sets the rules. It decides who can move in, what the house rules are, how events are run and what the price will be. Residents sign an agreement, often for a few months to a year, and have little formal power over the building. Operators usually have a community manager who listens to requests, passes on complaints and organises activities. Some run surveys or resident committees, which advise and do not decide. The clear rules and quick decisions suit people who want no meetings. The trade is that the operator's interests and the residents' interests can diverge, and when they do the operator sets the terms.",
+   "example": {
+    "id": "habyt",
+    "text": "Habyt runs furnished coliving across Europe and Asia and sets the terms centrally for its many buildings."
+   },
+   "pitfall": "Residents can lose their home through a change in policy or price, with no vote on it.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  "financing": {
+   "summary": "Investors fund the buildings, and the monthly rent covers the room, the shared spaces and the services. Residents own nothing and pay one price.",
+   "body": "Operator coliving is a business funded by investors, who put money into leasing or building properties and fitting them out. The operator earns it back through rent. The monthly price usually includes the furnished room, utilities, internet, cleaning and access to the shared areas, which is where the convenience comes from. Compared with a normal rental the price is often higher, and the lease is short and flexible. Operators grow quickly with outside money, and that makes them exposed to changes in demand, rents and credit. Some work on management contracts for property owners and some run their own buildings. Residents have no equity and no stake in how the money is used.",
+   "example": {
+    "id": "the-collective",
+    "text": "The Collective opened a huge London scheme in 2016 and its operating company went into administration in 2021."
+   },
+   "pitfall": "A company that expands faster than demand can fail, and residents lose the community they paid for.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  "space": {
+   "summary": "A private furnished room, often small, with shared kitchens and lounges designed by the company. The quality is polished and consistent.",
+   "body": "Spaces are designed as a product. A resident gets a furnished private room, sometimes with its own bathroom, and access to shared kitchens, lounges, workspaces and often a gym or terrace. The design is professional, with hotel-style finishes and the same look across buildings. Rooms tend to be compact, which pushes people into the shared areas. Some buildings are purpose-built, such as student blocks, and others are converted offices, hotels or apartment houses. Rooms are standardised so they can be rented and cleaned quickly. The result is clean and ready to use on the first day. Residents have little room to change anything, so the place can feel more like a hotel than a home.",
+   "example": {
+    "id": "campus1-mtl",
+    "text": "Campus1 MTL is purpose-built student coliving in downtown Montréal."
+   },
+   "pitfall": "Beautiful shared spaces can still feel empty if nobody uses them.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  "community": {
+   "summary": "The operator plans the events and tries to match residents. Friendships do form, often through the daily overlap, and sometimes in spite of the planning.",
+   "body": "Community is delivered as a service. The operator hires a community manager, runs weekly dinners or workshops, and sometimes screens applicants so the mix feels right. The calendar is full of activities and the app helps residents find each other. For someone new to a city, this gives a quick social start with no effort. Because attendance is voluntary and residents come and go, the community changes often and the bonds are lighter than in a self-built group. Real friendships tend to grow out of the shared kitchen and the late conversations, more than out of the scheduled event. Operators that cut costs often cut the community role first, and the social life fades with it.",
+   "example": {
+    "id": "cohabs",
+    "text": "Cohabs runs coliving house by house in Brussels, New York and Paris, with a host for each location."
+   },
+   "pitfall": "Community that is bought can disappear when the budget for events or staff is cut.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  "operations": {
+   "summary": "This is where operators are strongest. Cleaning, repairs, bills and bookings are handled by staff and an app, so residents do little.",
+   "body": "Operators run buildings as a service. Staff clean the shared areas, fix problems, manage the move-in and move-out, and handle bills and contracts. An app often covers bookings, payments, maintenance requests and event sign-ups. Residents do not share chores or negotiate who does the dishes in the same way. A single monthly price covers all of it. This professional running is a main reason people choose operator coliving, and it is usually reliable. It is also where costs sit, since staff, software and cleaning have to be paid for by rent. When margins get thin, services shrink first, and residents notice quickly.",
+   "example": {
+    "id": "habyt",
+    "text": "Habyt grew by taking over other operators, including Common, and runs the buildings through a single platform."
+   },
+   "pitfall": "When margins tighten, cleaning and support get cut before anything else.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  "privacy": {
+   "summary": "A private room with a lock, and shared areas you can use or skip. Rules are set by contract, and disputes go to the operator.",
+   "body": "Privacy is similar to a good shared flat or a hotel. Residents have a lockable room, and most of the building is shared. Staff may enter for cleaning or repairs under notice, and the operator sets rules for guests, noise and use of common areas. Conflicts between residents go first to the community manager, who can talk to those involved or move someone to another room. For serious breaches, the operator can end a contract, and the resident has little ground to contest it beyond what the agreement and local tenant law say. This is simple and quick, and it offers no neutral third party. Some people like the distance this gives them from neighbours.",
+   "example": {
+    "id": "the-collective",
+    "text": "The Collective offered private studios alongside large shared lounges and kitchens in its London building."
+   },
+   "pitfall": "A dispute with the operator has no neutral place to go beyond the contract and the courts.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  "leaving": {
+   "summary": "Leaving is easy. You give notice, pack a bag and go, with no equity to sell. The cost is that nothing you build there is yours.",
+   "body": "Contracts are designed to be flexible. Residents often sign for a few months to a year and can leave with a short notice period. Furniture, internet and cleaning stay behind, so a move is light. There is no purchase, no resale and no share to recover, beyond a deposit. This makes operator coliving good for transitions, such as a new job, a semester or a move to a new city. It does not offer long-term security. Rents can rise and buildings can be sold or closed, which has left residents looking for new homes at short notice. Most are not designed for growing old, since the model targets young adults and students.",
+   "example": {
+    "id": "the-collective",
+    "text": "When The Collective's operator failed, its London building was left to be sold and run by others."
+   },
+   "pitfall": "A building can be sold or closed, and residents may have little time to find another home.",
+   "sources": [
+    "wiki-coliving"
+   ]
+  }
+ },
+ "whoPoints": [
+  "People new to a city who want a furnished room and an instant social layer.",
+  "Students and young professionals who want flexible terms.",
+  "Those who prefer services and a single monthly price to managing a household.",
+  "People who do not want to attend house meetings or share decisions."
+ ],
+ "watchPoints": [
+  "The company sets the rules and the price, and residents have little formal say.",
+  "Community depends on the operator's budget and can fade if it is cut.",
+  "Rooms are often small and the price can be higher than a regular rental.",
+  "Operators can fail or sell buildings, which can force residents to move."
+ ],
+ "newSources": [],
+ "flags": [
+  "Habyt: 'absorbed Common and others' comes from the brief; central platform and 'sets terms centrally' are inferred, not checked.",
+  "The Collective: 2021 administration confirmed by The Collective's own FAQ and press; room count varies by source (546, 550, 551); a 2016 opening is confirmed. What happened to the building after the failure is unclear (Henderson Park sale, management buyout reported), so the leaving example says only that it was left to be sold and run by others.",
+  "The Collective private studios and lounges: described from general knowledge of the scheme, not checked.",
+  "Cohabs: 'host for each location' is assumed from the 'house by house' brief and not checked.",
+  "Campus1 MTL: only the brief's description (purpose-built student coliving downtown Montréal) is used.",
+  "Contract lengths, staff entry notices and app features are general patterns across operators, not tied to a named operator."
+ ]
+}
