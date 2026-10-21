@@ -62,3 +62,18 @@ finger on things. Out of scope for the mobile round-2 retrofit (his call). If wa
 later: tap-ripples on cards, touch-drag parallax on painted banners, pull-release
 bounce on carousels — all transform/opacity-only, reduced-motion-gated, sticker-kit
 art (never code-drawn shapes).
+
+## "Which coliving fits you?" quiz (MVP later)
+2026-10-21. Interactive form: where you live → what kind of set-up you'd want → your values on the same sliders as
+the map. Output: a recommended way of living, how well it might fit you, likely challenges (living in one AND
+starting one), places to visit, join or take inspiration from, and first steps to start one. Depends on the new
+map data (core sliders as ranges + real projects with set-ups). MVP = 7 sliders + 3 questions → nearest type + 3 projects + challenges.
+
+## Audience + impact section
+2026-10-21. Who coliving helps at each stage of life (kids, young adults, newcomers, people living alone, single
+parents, seniors...), the impact on them, and how coliving answers social challenges (isolation, ageing, housing
+access). Source: Guide du cohabitat (Village Urbain), ch. 3.
+
+## Article: la taxe collective
+2026-10-21. The small frictions you accept as the price of living together (Durrett and McCamant, cited in the
+Guide du cohabitat p70). Fits P-A's voice: honest about the hard parts, still hopeful.

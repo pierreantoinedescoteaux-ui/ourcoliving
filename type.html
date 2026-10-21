@@ -216,10 +216,10 @@ img{display:block;max-width:100%}
 <script src="site-nav.js"></script>
 
 <section class="tintro">
-  <span class="eyebrow">The Coliving Atlas · 12 field guides</span>
+  <span class="eyebrow">The Coliving Atlas · field guides</span>
   <h2 class="ti-title">Co-living takes <em>many shapes.</em></h2>
-  <p class="ti-sub">From a six-person house to a whole village — twelve ways humans share a roof, each with its own field guide. You're reading one of them; jump to any other.</p>
-  <nav class="tgal" id="tgal" aria-label="All twelve field guides"></nav>
+  <p class="ti-sub">From a six-person house to a whole village — many ways humans share a roof, each with its own field guide. You're reading one of them; jump to any other.</p>
+  <nav class="tgal" id="tgal" aria-label="All the field guides"></nav>
 </section>
 
 <div class="crumb"><a id="backMap" href="map.html">← Back to the Coliving Atlas</a></div>
@@ -228,6 +228,8 @@ img{display:block;max-width:100%}
 
 <script src="data.js"></script>
 <script src="map-data.js"></script>
+<script src="projects-data.js"></script>
+<script src="sources-data.js"></script>
 <script src="knowledge-data.js"></script>
 <script src="guide-render.js"></script>
 <script>
@@ -236,6 +238,8 @@ img{display:block;max-width:100%}
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 
   var slug=new URLSearchParams(location.search).get("t")||COLIVING_TYPES[0].slug;
+  /* retired types (data model v2) land on the right part of the Workshop hub */
+  if(typeof ARCHIVED_TYPES!=="undefined"&&ARCHIVED_TYPES[slug]){ location.replace(ARCHIVED_TYPES[slug].to); return; }
   var idx=COLIVING_TYPES.findIndex(function(x){return x.slug===slug;});
   if(idx<0)idx=0;
   var t=COLIVING_TYPES[idx], k=TYPE_KNOWLEDGE[t.slug]||{};

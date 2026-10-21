@@ -17,6 +17,18 @@ const THEMES = {
 };
 
 const TYPE_KNOWLEDGE = {
+  "kollektivhus": {
+    origin: "Sweden, 1930s. The first collective houses, like the one Sven Markelius and Alva Myrdal built in Stockholm in 1935, had a central kitchen and paid staff to free women from housework. From the late 1970s a new model took over: the residents share the cooking themselves, and that is the form that lives on.",
+    teaches: "A shared dinner a few nights a week can carry a whole building's community.",
+    best: ["community", "space"],
+    themes: {
+      governance: "A residents' association runs the shared life: cooking teams, the common rooms, who does what. The landlord, often a public housing company, runs the building.",
+      financing: "Usually rental flats from a public or non-profit landlord, so people can join without buying in. A few are tenant-owned co-ops.",
+      space: "Complete private flats, plus a big shared kitchen and dining room, and often a workshop, laundry, guest room or sauna.",
+      community: "The shared dinner is the heart of it. Residents cook in teams, so you cook a few times a month and eat with your neighbours on the other evenings.",
+      operations: "Cooking duty is the main job. Each house sets rules about how often you cook and what happens when people stop."
+    }
+  },
   "ecovillage": {
     hero: { src: "images/ex-tamera.jpg", cap: "Tamera ecovillage, Portugal — a whole re-watered valley settlement" },
     diagram: { src: "images/generated/diagram-ecovillage.jpg", cap: "How an ecovillage organizes: homes clustered around a commons, gardens and energy systems at the edges" },
@@ -230,7 +242,7 @@ const WHY = {
 
   ways: {
     kicker: "And it can be done in so many ways",
-    lede: "This is what gives me hope: there isn't one model to get right. There are at least twelve, and every one of them has something to teach the others."
+    lede: "This is what gives me hope: there isn't one model to get right. There are many, and every one of them has something to teach the others."
     /* the 12 'teaches' lines render from TYPE_KNOWLEDGE at runtime */
   },
 
@@ -243,7 +255,7 @@ const WHY = {
       { src: "images/solarpunk-harvest.jpg", credit: "“Dear Alice” — The Line" }
     ],
     ctas: [
-      { label: "Explore the twelve models", href: "map.html" },
+      { label: "Explore the ways of living", href: "map.html" },
       { label: "See what's coming next", href: "arts.html" }
     ]
   }

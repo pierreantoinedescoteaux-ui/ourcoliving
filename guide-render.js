@@ -38,6 +38,8 @@ var TYPE_ICONS = {
     '<path d="M10 8V5.6l2-1.7 2 1.7V8h-4z"/><path d="M3 19.5v-2.4l2-1.7 2 1.7v2.4H3z"/><path d="M17 19.5v-2.4l2-1.7 2 1.7v2.4h-4z"/><path d="M10.7 8.6L6 15M13.3 8.6L18 15M7.5 18h9"/>',
   "student-coop":
     '<path d="M4 20v-8.4L12 5.4l8 6.2V20H4z"/><path d="M12 11.6l4.4 1.7-4.4 1.7-4.4-1.7z"/><path d="M16.4 13.5v2.4"/>',
+  "kollektivhus":
+    '<path d="M5 20V8.5L12 4l7 4.5V20"/><path d="M9 20v-4.5h6V20"/><path d="M8.5 11.5h7"/><path d="M10 11.5v1.6M14 11.5v1.6"/>',
   "_default": '<circle cx="12" cy="12" r="5"/>'
 };
 
@@ -57,12 +59,30 @@ function guideBodyHTML(t, k){
       '<p>'+esc((k.themes||{})[key]||"—")+'</p></div>';
   }).join("");
 
+  /* each type is a RANGE on each spectrum: the band is where real places
+     sit, the dot its middle (data model v2) */
   var sig = Object.keys(MAP_PROPS).map(function(pk){
-    var p = MAP_PROPS[pk];
-    return '<div class="sigrow"><span class="e">'+esc(p.low)+'</span>'+
-      '<span class="track"><span class="pin" style="left:'+t.scores[pk]+'%"></span></span>'+
+    var p = MAP_PROPS[pk], r = (t.ranges && t.ranges[pk]) || [t.scores[pk], t.scores[pk]];
+    return '<div class="sigrow" title="'+esc(p.label)+'"><span class="e">'+esc(p.low)+'</span>'+
+      '<span class="track"><span class="rng" style="left:'+r[0]+'%;width:'+Math.max(2, r[1]-r[0])+'%"></span><span class="pin" style="left:'+t.scores[pk]+'%"></span></span>'+
       '<span class="e r">'+esc(p.high)+'</span></div>';
   }).join("");
+
+  var pills = (typeof tagPillsHTML === "function") ? tagPillsHTML : function(){ return ""; };
+  var setupsHTML = (t.typicalSetups||[]).length ? (
+    '<div class="gsetups"><div class="k">How it’s usually set up</div>'+
+    t.typicalSetups.map(function(u, i){
+      return '<div class="gsetup"><span class="gs-n">'+(u.label||(i===0?"Most often":"Also"))+'</span><p>'+esc(u.note)+'</p>'+pills({ setup: u })+'</div>';
+    }).join("")+
+    '<p class="gs-foot">Usually, not always. The real places below show how differently it can be done.</p></div>'
+  ) : "";
+
+  var cmpHTML = '<a class="cmpbtn" href="map.html?compare='+esc(t.slug)+'#map">Compare it with other ways of living →</a>';
+
+  var srcList = (typeof SOURCES !== "undefined" ? SOURCES : []).filter(function(s){ return s.checked && (t.sources||[]).indexOf(s.id) >= 0; });
+  var srcHTML = srcList.length ? '<p class="gsrc">Sources: '+srcList.map(function(s){
+    return s.url ? '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.author && s.author!==s.title ? s.title+" ("+s.author+")" : s.title)+'</a>' : esc(s.title);
+  }).join(" · ")+'</p>' : "";
 
   function exExt(ex){ return /^https?:/i.test(ex.url); }
   function exGo(ex){ return exExt(ex) ? "Visit" : "Read the case study"; }
@@ -81,7 +101,7 @@ function guideBodyHTML(t, k){
       '<div class="featimg"><img src="'+esc(feat.img)+'" alt="'+esc(feat.name)+'" loading="lazy" onerror="this.closest(\'.featimg\').remove()"></div>'+
       '<div class="featcap">'+
         '<div class="featmeta"><span class="fn">'+esc(feat.name)+'</span><span class="fpl">'+esc(feat.place)+'</span></div>'+
-        '<p class="fnote">'+esc(feat.note)+'</p>'+
+        '<p class="fnote">'+esc(feat.note)+'</p>'+pills(feat, 4)+
         '<span class="fgo">'+exGo(feat)+' →</span>'+
       '</div>'+
     '</a></div>'
@@ -92,11 +112,11 @@ function guideBodyHTML(t, k){
     return '<a class="ex" href="'+esc(ex.url)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
       (ex.img?'<span class="exphoto"><img src="'+esc(ex.img)+'" alt="" loading="lazy" onerror="this.parentElement.remove()"></span>':"")+
       '<span class="exmain"><span class="t"><span class="n">'+esc(ex.name)+'</span><span class="pl">'+esc(ex.place)+'</span></span>'+
-      '<p class="note">'+esc(ex.note)+'</p><span class="go">'+(ext?"Visit":"Read the case study")+' →</span></span></a>';
+      '<p class="note">'+esc(ex.note)+'</p>'+pills(ex, 4)+'<span class="go">'+(ext?"Visit":"Read the case study")+' →</span></span></a>';
   }).join("");
 
   var examplesHTML = rest.length ? (
-    '<div class="exs"><div class="k">'+(feat?"Other examples":("Go see it — "+allEx.length+" examples"))+'</div>'+
+    '<div class="exs"><div class="k">'+(allEx.length>1?("Done differently: "+allEx.length+" real places"):"Go see it")+'</div>'+
     '<div class="exgrid">'+restHTML+'</div></div>'
   ) : "";
 
@@ -120,7 +140,9 @@ function guideBodyHTML(t, k){
       '<div class="fnote"><div class="fk">Who it’s for</div><p>'+esc(t.who)+'</p></div>'+
       '<div class="fnote"><div class="fk">Watch out</div><p>'+esc(t.watch)+'</p></div>'+
     '</div>'+
-    '<div class="sig"><div class="k">Where it sits on every axis</div>'+sig+'</div>'+
-    examplesHTML
+    setupsHTML+
+    '<div class="sig"><div class="k">Where it sits on every spectrum</div>'+sig+cmpHTML+'</div>'+
+    examplesHTML+
+    '<div class="gend">'+cmpHTML+srcHTML+'</div>'
   );
 }

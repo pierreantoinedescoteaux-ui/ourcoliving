@@ -19,7 +19,7 @@
       { label: "Hope: books of inspiration", href: "inspiration.html" }
     ]},
     { label: "Coliving Resources", href: "map.html", key: "atlas", sub: [
-      { label: "The map — compare the 12 models", href: "map.html#map" },
+      { label: "The map — compare the ways of living", href: "map.html#map" },
       { label: "Field guides — one per model", href: "type.html?t=ecovillage" },
       { label: "Themes library — the recurring questions", href: "themes.html" },
       { label: "Resources directory", href: "resources.html" },
@@ -57,6 +57,25 @@
   }
 
   var CSS = "" +
+"/* layer pills (data model v2): green = way of living, gold = set-up, sky = who it's for, terracotta = place */" +
+".pills{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}" +
+".pill{display:inline-flex;align-items:center;gap:6px;font:600 .75rem/1.1 Switzer,system-ui,sans-serif;letter-spacing:.01em;padding:6px 10px 6px 9px;border-radius:99px;border:1px solid;white-space:nowrap;text-transform:none}" +
+".pill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.75;flex:none}" +
+".pill.way{color:#3c6b32;background:#e7f0e2;border-color:rgba(60,107,50,.28)}" +
+".pill.setup{color:#7a5310;background:#fbefd0;border-color:rgba(143,98,21,.3)}" +
+".pill.who{color:#2f6377;background:#e3eff3;border-color:rgba(61,114,134,.3)}" +
+".pill.place{color:#8f4a2c;background:#f6e3d8;border-color:rgba(143,74,44,.28)}" +
+"/* field guide additions: ranges, typical set-ups, compare, sources */" +
+".sigrow .track .rng{position:absolute;top:50%;height:8px;transform:translateY(-50%);border-radius:99px;background:rgba(92,158,74,.28)}" +
+".gsetups{margin:clamp(28px,5vh,48px) 0;padding:clamp(20px,3vw,30px);border-radius:20px;background:#fbf4e2;border:1px solid rgba(143,98,21,.18)}" +
+".gsetup{padding:14px 0;border-top:1px dashed rgba(143,98,21,.25)}.gsetup:first-of-type{border-top:0;padding-top:6px}" +
+".gsetup .gs-n{display:block;font:700 .75rem/1 Switzer,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f6215;margin-bottom:8px}" +
+".gsetup p{margin:0;font-size:1rem;line-height:1.55;color:#22301f}" +
+".gs-foot{margin:14px 0 0;font-size:.9rem;font-style:italic;color:#5c6b57}" +
+".cmpbtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 20px;border-radius:99px;background:#3c6b32;color:#fff!important;text-decoration:none!important;font:600 .9rem/1.2 Switzer,system-ui,sans-serif;transition:transform .2s,background .2s}" +
+".cmpbtn:hover{background:#2f5527;transform:translateY(-1px)}" +
+".gend{margin:clamp(30px,6vh,56px) 0 0;padding-top:24px;border-top:1px solid rgba(34,48,31,.14)}" +
+".gsrc{margin:16px 0 0;font-size:.85rem;line-height:1.6;color:#5c6b57}.gsrc a{color:inherit}" +
 ".snav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(20px,5vw,88px);background:rgba(246,242,231,.9);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(34,48,31,.14)}" +
 ".snav .brand{font-family:'Zodiak',Georgia,serif;font-size:1.12rem;font-weight:700;color:#22301f;text-decoration:none}" +
 ".snav .top{display:flex;gap:clamp(12px,2.2vw,30px);align-items:center}" +

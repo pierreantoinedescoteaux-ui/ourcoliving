@@ -241,7 +241,7 @@ const MANIFESTO = {
     },
     ctas: [
       { label: "Explore the Coliving Atlas", href: "map.html",
-        keys: "12 shapes of living together · interactive map · field guides" },
+        keys: "Many shapes of living together · interactive map · field guides" },
       { label: "How design shapes behaviour", href: "design.html",
         keys: "design patterns · connection, intimacy, focus · budget-friendly moves" },
       { label: "About me", href: "about.html",

@@ -103,6 +103,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.4rem)
 
 <script src="data.js"></script>
 <script src="map-data.js"></script>
+<script src="projects-data.js"></script>
 <script src="site-nav.js"></script>
 <script>
 (function(){
@@ -120,17 +121,19 @@ function keyOf(name){
 }
 
 var byKey={}, order=[];
-COLIVING_TYPES.forEach(function(t){
-  (t.examples||[]).forEach(function(ex){
-    var k=keyOf(ex.name);
-    if(EXCLUDE.indexOf(k)>=0) return;
-    if(!byKey[k]){ byKey[k]={name:ex.name,meta:ex.place||"",note:ex.note||"",img:ex.img||"",url:ex.url||"",types:[],slug:""}; order.push(k); }
-    var e=byKey[k];
-    if(e.types.indexOf(t.short)<0) e.types.push(t.short);
-    if(!e.img&&ex.img) e.img=ex.img;
-    if(!e.url&&ex.url) e.url=ex.url;
-    e._tslugs=e._tslugs||{}; e._tslugs[t.short]=t.slug;
-  });
+/* data model v2: one flat list of real projects (projects-data.js).
+   A project without a way of living is filed by who it's for, or as a network. */
+var TYPE_BY_SLUG={}; COLIVING_TYPES.forEach(function(t){TYPE_BY_SLUG[t.slug]=t;});
+COLIVING_PROJECTS.forEach(function(ex){
+  var k=keyOf(ex.name);
+  if(EXCLUDE.indexOf(k)>=0) return;
+  if(!byKey[k]){ byKey[k]={name:ex.name,meta:ex.place||"",note:ex.note||"",img:ex.img||"",url:ex.url||"",types:[],slug:"",proj:ex}; order.push(k); }
+  var e=byKey[k], t=TYPE_BY_SLUG[ex.type];
+  var labels=t?[t.short]:(ex.kind==="network"?["Network"]:(((ex.tags||{}).forWho)||[]).slice(0,1).map(function(w){return TAG_VOCAB.forWho.values[w];}));
+  labels.forEach(function(l){ if(e.types.indexOf(l)<0) e.types.push(l); });
+  if(!e.img&&ex.img) e.img=ex.img;
+  if(!e.url&&ex.url) e.url=ex.url;
+  if(t){ e._tslugs=e._tslugs||{}; e._tslugs[t.short]=t.slug; }
 });
 (INSPIRATION.groups.find(function(g){return g.key==="projects";})||{items:[]}).items.forEach(function(p){
   var k=keyOf(p.title);
@@ -173,6 +176,7 @@ function draw(){
       '<div class="bd"><h3>'+esc(e.name)+"</h3>"+
       (e.meta?'<div class="meta">'+esc(e.meta)+"</div>":"")+
       '<div class="tags">'+e.types.map(function(t){return '<span class="tag'+(t==="Landmark"?" gold":"")+'">'+esc(t)+"</span>";}).join("")+"</div>"+
+      (e.proj&&typeof tagPillsHTML==="function"?tagPillsHTML(e.proj,3):"")+
       "<p>"+esc(e.note)+"</p>"+
       (links?'<div class="row">'+links+"</div>":"")+
       "</div></div>";
