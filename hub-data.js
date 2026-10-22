@@ -59,5 +59,16 @@ const HUB = {
     legal: "Legal forms", holding: "How you hold your home", money: "Where the money comes from",
     who: "Who it’s for", path: "From zero to moving in"
   },
+  /* each group read as a question, one row on the hub */
+  groupQuestions: {
+    setting: "Where will it be?", building: "Will you build new or reuse a building?", size: "How many homes?",
+    hosts: "What else shares the site?", decisions: "How will you make decisions?",
+    govstyles: "How will the group organize itself?", legal: "Which legal form holds it together?",
+    holding: "How does each person hold their home?", money: "Where does the money come from?",
+    who: "Who is it for?", path: "How do you get from an idea to moving in?"
+  },
+  /* the two rows every area can have, besides its choices */
+  waysQuestion: "How does each way of living handle it?",
+  askQuestion: "What do people often ask?",
   closing: "None of these choices is final, and no place gets all of them right. If you’re weighing one of them for your own group, I’d love to hear how it goes."
 };

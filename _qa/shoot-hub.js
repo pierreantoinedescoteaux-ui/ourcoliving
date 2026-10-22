@@ -18,7 +18,7 @@ const OUT = __dirname + '/hub-';
       const r = await page.evaluate(() => ({
         sideways: document.documentElement.scrollWidth - innerWidth,
         areas: document.querySelectorAll('.area').length,
-        cards: document.querySelectorAll('.card').length,
+        cards: document.querySelectorAll('.choice').length, rows: document.querySelectorAll('.qrow').length,
         grids: document.querySelectorAll('.glance table').length,
         ways: document.querySelectorAll('.way').length,
         soon: document.querySelectorAll('.soon').length,
@@ -26,8 +26,8 @@ const OUT = __dirname + '/hub-';
         y: Math.round(scrollY)
       }));
       if (name === 'themes') {
-        const b = await page.$('.card .open'); await b.scrollIntoViewIfNeeded(); await b.click(); await page.waitForTimeout(300);
-        r.opened = await page.evaluate(() => !!document.querySelector('.card.is-open .full p'));
+        const q = await page.$('.qbtn'); await q.scrollIntoViewIfNeeded(); await q.click(); await page.waitForTimeout(400); const b = await page.$('.qrow.open .cbtn'); await b.click(); await page.waitForTimeout(500);
+        r.opened = await page.evaluate(() => !!document.querySelector('.choice.open .cfull p') && document.querySelectorAll('.qrow.open').length === 1);
         await page.screenshot({ path: OUT + 'card-' + w + '.png' });
         await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(300);
         await page.screenshot({ path: OUT + 'top-' + w + '.png' });
