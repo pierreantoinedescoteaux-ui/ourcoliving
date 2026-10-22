@@ -117,7 +117,8 @@ window.GLOSSARY_DATA = {
    "term": "Cohousing",
    "aliases": [
     "cohabitat",
-    "bofællesskab"
+    "bofællesskab",
+    "co-housing"
    ],
    "area": "type",
    "def": "Private homes built around shared spaces, usually a common house with a big kitchen and dining room. Residents help design and run the place, and often eat together. The first ones were built in Denmark in the early 1970s.",
@@ -177,7 +178,10 @@ window.GLOSSARY_DATA = {
    "term": "Community land trust",
    "aliases": [
     "land trust",
-    "CLT"
+    "CLT",
+    "land trusts",
+    "community land trusts",
+    "CLTs"
    ],
    "area": "legal",
    "def": "A non-profit that owns land for good and leases it to the homes built on it. Because the land is never resold, the homes stay affordable from one household to the next.",
@@ -190,7 +194,10 @@ window.GLOSSARY_DATA = {
    "aliases": [
     "condo",
     "divided co-ownership",
-    "copropriété divise"
+    "copropriété divise",
+    "condominium",
+    "condominiums",
+    "condos"
    ],
    "area": "legal",
    "def": "A building where each household owns its own unit, and everyone owns the shared parts, like the roof and hallways, together. In Quebec this is called divided co-ownership.",
@@ -202,7 +209,9 @@ window.GLOSSARY_DATA = {
    "term": "Conflict resolution",
    "aliases": [
     "mediation",
-    "conflict"
+    "conflict",
+    "mediator",
+    "mediators"
    ],
    "area": "privacy",
    "def": "Ways to end a disagreement peacefully, like talking it through with a neutral helper. Housemates who live close together often agree on how to handle conflict before it happens.",
@@ -252,7 +261,11 @@ window.GLOSSARY_DATA = {
     "housing co-operative",
     "housing cooperative",
     "co-op",
-    "coop"
+    "coop",
+    "co-ops",
+    "coops",
+    "housing co-ops",
+    "housing co-operatives"
    ],
    "area": "legal",
    "def": "A group of residents who own their building together through a shared organisation. Each member holds a share and has a say in how the place is run.",
@@ -276,7 +289,8 @@ window.GLOSSARY_DATA = {
    "term": "Coworkation",
    "aliases": [
     "rural coliving",
-    "rural co-living"
+    "rural co-living",
+    "workation"
    ],
    "area": "type",
    "def": "A short stay, often in the countryside, that mixes remote work with shared living, like a coworking space and a holiday in one. People come for a while, then move on.",
@@ -337,7 +351,10 @@ window.GLOSSARY_DATA = {
     "emphyteusis",
     "bail emphytéotique",
     "long lease",
-    "ground lease"
+    "ground lease",
+    "ground leases",
+    "long leases",
+    "emphyteutic leases"
    ],
    "area": "legal",
    "def": "A very long lease on land, often for decades, where the holder can build on it and must look after it. The owner keeps the land, which can keep the homes on top cheaper. It is used in Quebec and France.",
@@ -348,7 +365,9 @@ window.GLOSSARY_DATA = {
    "id": "equity",
    "term": "Equity",
    "aliases": [
-    "home equity"
+    "home equity",
+    "equity stake",
+    "equity stakes"
    ],
    "area": "money",
    "def": "The part of your home you truly own: what it is worth minus what you still owe on loans. It grows as you pay down the loan or the value rises.",
@@ -359,7 +378,8 @@ window.GLOSSARY_DATA = {
    "id": "facilitation",
    "term": "Facilitation",
    "aliases": [
-    "facilitator"
+    "facilitator",
+    "facilitators"
    ],
    "area": "governance",
    "def": "Guiding a meeting so everyone is heard and the group reaches a decision. The facilitator keeps time and order and stays neutral on the topic.",
@@ -371,7 +391,9 @@ window.GLOSSARY_DATA = {
    "term": "General assembly",
    "aliases": [
     "general meeting",
-    "assembly"
+    "assembly",
+    "general assemblies",
+    "assemblies"
    ],
    "area": "governance",
    "def": "A meeting of all the members of a co-op or association, where the big decisions are made. Many communities hold one every year.",
@@ -444,7 +466,7 @@ window.GLOSSARY_DATA = {
     "new members"
    ],
    "area": "community",
-   "def": "The steps for joining a community, often visits and a trial period. It lets newcomers and residents check that they fit before anyone commits.",
+   "def": "How a community welcomes someone new. A trial stay usually comes first, and then the group and the newcomer each decide whether to commit. In some colivings, “membership” also means the monthly fee that comes with your room.",
    "link": "https://www.ic.org/",
    "linkLabel": "Intentional Communities"
   },
@@ -474,10 +496,11 @@ window.GLOSSARY_DATA = {
    "id": "mortgage",
    "term": "Mortgage",
    "aliases": [
-    "home loan"
+    "home loan",
+    "mortgages"
    ],
    "area": "money",
-   "def": "A loan used to buy a home, where the home itself is the lender's security. If the loan is not repaid, the lender can take and sell it. Groups often take one out together.",
+   "def": "A loan used to buy a home, where the home itself is the lender’s security. If the loan is not repaid, the lender can take and sell it. Groups often take one out together.",
    "link": "https://en.wikipedia.org/wiki/Mortgage",
    "linkLabel": "Wikipedia"
   },
@@ -502,7 +525,7 @@ window.GLOSSARY_DATA = {
     "pop-up village"
    ],
    "area": "type",
-   "def": "A community that forms online around shared values, then gathers in real places like pop-up villages. The idea is linked to Balaji Srinivasan's book The Network State.",
+   "def": "A community that forms online around shared values, then gathers in real places like pop-up villages. The idea is linked to Balaji Srinivasan’s book The Network State.",
    "link": "https://thenetworkstate.com/",
    "linkLabel": "The Network State"
   },
@@ -512,7 +535,10 @@ window.GLOSSARY_DATA = {
    "aliases": [
     "non-profit",
     "nonprofit",
-    "OBNL"
+    "OBNL",
+    "non-profits",
+    "nonprofits",
+    "OBNLs"
    ],
    "area": "legal",
    "def": "An organisation that puts any extra money back into its purpose instead of paying owners. In housing, a non-profit can own a building to keep it for residents. In Quebec it is often called an OBNL.",
@@ -536,7 +562,8 @@ window.GLOSSARY_DATA = {
    "term": "Coliving operator",
    "aliases": [
     "operator",
-    "operator co-living"
+    "operator co-living",
+    "operators"
    ],
    "area": "type",
    "def": "A company that rents out rooms in shared homes and runs them as a service. The company makes the main calls, and stays are usually short.",
@@ -560,7 +587,8 @@ window.GLOSSARY_DATA = {
    "term": "Patient capital",
    "aliases": [
     "social finance",
-    "impact investing"
+    "impact investing",
+    "impact investors"
    ],
    "area": "money",
    "def": "Money from investors who accept slow or modest returns in exchange for long-term benefit. Housing projects use it to buy land without pressure for a quick profit.",
@@ -632,7 +660,10 @@ window.GLOSSARY_DATA = {
    "term": "Solidarity co-op",
    "aliases": [
     "solidarity cooperative",
-    "coopérative de solidarité"
+    "coopérative de solidarité",
+    "solidarity co-op",
+    "solidarity co-ops",
+    "solidarity cooperatives"
    ],
    "area": "legal",
    "def": "A Quebec type of co-op that brings different kinds of members together, such as residents and local supporters. They share ownership of the project.",
@@ -724,6 +755,301 @@ window.GLOSSARY_DATA = {
    "area": "legal",
    "def": "City rules that say what can be built where, and how big. Zoning can allow or block shared housing, so groups often have to ask for a change.",
    "link": "https://en.wikipedia.org/wiki/Zoning",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "member-shares",
+   "term": "Member shares",
+   "aliases": [
+    "member share",
+    "share in the co-op"
+   ],
+   "area": "legal",
+   "def": "In a co-op, you buy a share that makes you a member and gives you the right to live in a home. It is not an investment: when you leave, the co-op usually pays your share back at the price you paid.",
+   "link": "https://en.wikipedia.org/wiki/Housing_cooperative",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "down-payment",
+   "term": "Down payment",
+   "aliases": [
+    "down payments"
+   ],
+   "area": "money",
+   "def": "The part of a home’s price you pay up front from your own savings, with a mortgage covering the rest. A bigger down payment means a smaller loan to repay. A group buying together adds up the savings of every household.",
+   "link": "https://en.wikipedia.org/wiki/Down_payment",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "construction-loan",
+   "term": "Construction loan",
+   "aliases": [
+    "construction loans",
+    "construction mortgage",
+    "building loan"
+   ],
+   "area": "money",
+   "def": "A short-term loan that pays for a building while it is still going up. The bank usually releases the money in steps as the work moves along, and it is repaid once the households close their own mortgages or long-term financing arrives.",
+   "link": "https://en.wikipedia.org/wiki/Construction_loan",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "bridge-loan",
+   "term": "Bridge loan",
+   "aliases": [
+    "bridge loans",
+    "bridge financing"
+   ],
+   "area": "money",
+   "def": "A short loan that covers a gap until longer-term money arrives. A group might use one to buy a site before its permanent mortgage is approved.",
+   "link": "https://en.wikipedia.org/wiki/Bridge_loan",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "ethical-lender",
+   "term": "Ethical lender",
+   "aliases": [
+    "ethical lenders"
+   ],
+   "area": "money",
+   "def": "A lender, such as a credit union or a fund, that weighs social goals alongside profit. Co-ops, non-profits and group projects often find them more open than a regular bank. In Quebec, the Caisse d’économie solidaire is one.",
+   "link": "https://en.wikipedia.org/wiki/Ethical_banking",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "amortization",
+   "term": "Amortization",
+   "aliases": [
+    "amortisation",
+    "amortization period"
+   ],
+   "area": "money",
+   "def": "The number of years a mortgage is spread over until it is fully repaid. A longer amortization lowers each payment but adds up to more interest overall.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "right-of-first-refusal",
+   "term": "Right of first refusal",
+   "aliases": [
+    "first refusal"
+   ],
+   "area": "legal",
+   "def": "A rule that lets a certain person or group buy something before it can be sold to anyone else. In a shared property, it often lets the other owners or the co-op buy a departing member’s share first.",
+   "link": "https://en.wikipedia.org/wiki/Right_of_first_refusal",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "sweat-equity",
+   "term": "Sweat equity",
+   "aliases": [],
+   "area": "money",
+   "def": "Value you add to a project with your own work instead of money, like painting walls or managing the build. Some groups count it toward a member’s stake.",
+   "link": "https://en.wikipedia.org/wiki/Sweat_equity",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "legal-entity",
+   "term": "Legal entity",
+   "aliases": [
+    "legal body",
+    "incorporation",
+    "incorporated"
+   ],
+   "area": "legal",
+   "def": "An organisation the law treats as its own person. It can sign contracts and own a building in its own name, so the people behind it do not each have to. A co-op is one example.",
+   "link": "https://en.wikipedia.org/wiki/Legal_person",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "shared-lease",
+   "term": "Shared lease",
+   "aliases": [
+    "shared leases",
+    "joint lease"
+   ],
+   "area": "legal",
+   "def": "One rental contract signed together by several housemates. It is simple to set up, and it works best when everyone agrees early on what happens if one person leaves.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "duplex",
+   "term": "Duplex",
+   "aliases": [
+    "duplexes",
+    "triplex",
+    "triplexes",
+    "plex"
+   ],
+   "area": "space",
+   "def": "A building with two homes, one above the other or side by side. A triplex has three. In Quebec, plexes are a common way for a few households to buy a building together.",
+   "link": "https://en.wikipedia.org/wiki/Duplex_(building)",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "decommodified",
+   "term": "Decommodified housing",
+   "aliases": [
+    "decommodified",
+    "decommodification"
+   ],
+   "area": "money",
+   "def": "Housing taken out of the market, so it serves as a home and cannot be bought and sold for profit. Community land trusts and some co-ops work this way.",
+   "link": "https://en.wikipedia.org/wiki/Decommodification",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "income-sharing",
+   "term": "Income sharing",
+   "aliases": [
+    "income-sharing",
+    "pooled income"
+   ],
+   "area": "money",
+   "def": "Members hand their earnings to the community, which meets everyone’s needs from one shared purse. Some kibbutzim worked this way for decades, and a few still do.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "co-ownership",
+   "term": "Co-ownership",
+   "aliases": [
+    "co-owners",
+    "co-owner",
+    "coownership"
+   ],
+   "area": "legal",
+   "def": "Two or more people owning the same property together. In Quebec the law separates divided co-ownership, where each household owns its own unit (a condo), from undivided co-ownership, where everyone owns a share of the whole.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "working-group",
+   "term": "Working group",
+   "aliases": [
+    "working groups",
+    "mandate",
+    "mandates"
+   ],
+   "area": "governance",
+   "def": "A small team that looks after one topic, like the garden or the money, so the whole group does not have to. A written mandate says what the team may decide alone and what it must bring back.",
+   "link": "https://en.wikipedia.org/wiki/Working_group",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "board-of-directors",
+   "term": "Board of directors",
+   "aliases": [
+    "elected board",
+    "board members"
+   ],
+   "area": "governance",
+   "def": "A small group elected by the members to run an organisation between general meetings. In a co-op or a non-profit, the board answers to the members who chose it.",
+   "link": "https://en.wikipedia.org/wiki/Board_of_directors",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "check-in-circle",
+   "term": "Check-in circle",
+   "aliases": [
+    "check-in circles",
+    "check-in round"
+   ],
+   "area": "community",
+   "def": "A short round where each person says how they are doing, before a meeting or on a regular day. It lets small tensions come up early, while they are still easy to talk about.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "restorative-circle",
+   "term": "Restorative circle",
+   "aliases": [
+    "restorative circles"
+   ],
+   "area": "privacy",
+   "def": "A guided conversation between someone who caused harm and someone who was hurt, often with others affected. The aim is to understand what happened and agree together how to make it right.",
+   "link": "https://en.wikipedia.org/wiki/Restorative_justice",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "passive-house",
+   "term": "Passive house",
+   "aliases": [
+    "passivhaus",
+    "passive-house"
+   ],
+   "area": "space",
+   "def": "A building standard for very low energy use. Thick insulation, airtight walls and good windows keep the heat in, so a home needs very little heating.",
+   "link": "https://en.wikipedia.org/wiki/Passive_house",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "permaculture",
+   "term": "Permaculture",
+   "aliases": [],
+   "area": "space",
+   "def": "A way of designing gardens, farms and whole settlements by copying how natural ecosystems work, so that plants, animals and people support each other.",
+   "link": "https://en.wikipedia.org/wiki/Permaculture",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "coworking",
+   "term": "Coworking",
+   "aliases": [
+    "co-working",
+    "coworking space",
+    "co-working space"
+   ],
+   "area": "space",
+   "def": "A shared workspace where people from different jobs rent a desk or a room. Some coliving and mixed-use projects put one on the ground floor.",
+   "link": "https://en.wikipedia.org/wiki/Coworking",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "homeshare",
+   "term": "Homeshare",
+   "aliases": [
+    "home sharing",
+    "homesharing"
+   ],
+   "area": "who",
+   "def": "An arrangement where someone with a spare room, often an older person, shares their home with a younger person. The housemate pays little or no rent and helps around the house in return.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "solarpunk",
+   "term": "Solarpunk",
+   "aliases": [],
+   "area": "space",
+   "def": "A hopeful style of art and storytelling that imagines green, community-minded futures, where people live well beside nature and technology.",
+   "link": "https://en.wikipedia.org/wiki/Solarpunk",
+   "linkLabel": "Wikipedia"
+  },
+  {
+   "id": "grt",
+   "term": "Technical resource group",
+   "aliases": [
+    "GRT",
+    "technical resource groups",
+    "groupe de ressources techniques"
+   ],
+   "area": "legal",
+   "def": "In Quebec, a non-profit that helps groups build social and co-op housing. Its team guides a group from the first idea to the finished building.",
+   "link": "",
+   "linkLabel": ""
+  },
+  {
+   "id": "cmhc",
+   "term": "CMHC",
+   "aliases": [
+    "Canada Mortgage and Housing Corporation",
+    "SCHL"
+   ],
+   "area": "money",
+   "def": "Canada Mortgage and Housing Corporation, the federal housing agency. It runs funding programmes and mortgage insurance, and publishes guides for new housing projects.",
+   "link": "https://en.wikipedia.org/wiki/Canada_Mortgage_and_Housing_Corporation",
    "linkLabel": "Wikipedia"
   }
  ]

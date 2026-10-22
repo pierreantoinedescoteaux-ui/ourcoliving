@@ -286,7 +286,7 @@
     DATA.terms.forEach(function (t) {
       if (t.area === "map") return;
       [t.term].concat(t.aliases || []).forEach(function (w) {
-        if (w && w.length > 2) matchers.push({ id: t.id, w: w, re: new RegExp("(^|[^\\p{L}])(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")(?![\\p{L}])", "iu") });
+        if (w && w.length > 2) matchers.push({ id: t.id, w: w, re: new RegExp("(^|[^\\p{L}])(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:e?s)?)(?![\\p{L}])", "iu") });
       });
     });
     matchers.sort(function (a, b) { return b.w.length - a.w.length; });

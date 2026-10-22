@@ -100,7 +100,8 @@
 "term": "Cohousing",
 "aliases": [
 "cohabitat",
-"bofællesskab"
+"bofællesskab",
+"co-housing"
 ],
 "area": "type",
 "wiki": "Cohousing"
@@ -153,7 +154,10 @@
 "term": "Community land trust",
 "aliases": [
 "land trust",
-"CLT"
+"CLT",
+"land trusts",
+"community land trusts",
+"CLTs"
 ],
 "area": "legal",
 "wiki": "Community land trust"
@@ -164,7 +168,10 @@
 "aliases": [
 "condo",
 "divided co-ownership",
-"copropriété divise"
+"copropriété divise",
+"condominium",
+"condominiums",
+"condos"
 ],
 "area": "legal",
 "wiki": "Condominium"
@@ -174,7 +181,9 @@
 "term": "Conflict resolution",
 "aliases": [
 "mediation",
-"conflict"
+"conflict",
+"mediator",
+"mediators"
 ],
 "area": "privacy",
 "wiki": "Conflict resolution"
@@ -218,7 +227,11 @@
 "housing co-operative",
 "housing cooperative",
 "co-op",
-"coop"
+"coop",
+"co-ops",
+"coops",
+"housing co-ops",
+"housing co-operatives"
 ],
 "area": "legal",
 "wiki": "Housing cooperative"
@@ -238,7 +251,8 @@
 "term": "Coworkation",
 "aliases": [
 "rural coliving",
-"rural co-living"
+"rural co-living",
+"workation"
 ],
 "area": "type",
 "wiki": null,
@@ -291,7 +305,10 @@
 "emphyteusis",
 "bail emphytéotique",
 "long lease",
-"ground lease"
+"ground lease",
+"ground leases",
+"long leases",
+"emphyteutic leases"
 ],
 "area": "legal",
 "wiki": "Emphyteusis"
@@ -300,7 +317,9 @@
 "id": "equity",
 "term": "Equity",
 "aliases": [
-"home equity"
+"home equity",
+"equity stake",
+"equity stakes"
 ],
 "area": "money",
 "wiki": "Home equity"
@@ -309,7 +328,8 @@
 "id": "facilitation",
 "term": "Facilitation",
 "aliases": [
-"facilitator"
+"facilitator",
+"facilitators"
 ],
 "area": "governance",
 "wiki": "Facilitator"
@@ -319,7 +339,9 @@
 "term": "General assembly",
 "aliases": [
 "general meeting",
-"assembly"
+"assembly",
+"general assemblies",
+"assemblies"
 ],
 "area": "governance",
 "wiki": "General assembly"
@@ -407,7 +429,8 @@
 "id": "mortgage",
 "term": "Mortgage",
 "aliases": [
-"home loan"
+"home loan",
+"mortgages"
 ],
 "area": "money",
 "wiki": "Mortgage loan"
@@ -440,7 +463,10 @@
 "aliases": [
 "non-profit",
 "nonprofit",
-"OBNL"
+"OBNL",
+"non-profits",
+"nonprofits",
+"OBNLs"
 ],
 "area": "legal",
 "wiki": "Nonprofit organization"
@@ -460,7 +486,8 @@
 "term": "Coliving operator",
 "aliases": [
 "operator",
-"operator co-living"
+"operator co-living",
+"operators"
 ],
 "area": "type",
 "wiki": null,
@@ -481,7 +508,8 @@
 "term": "Patient capital",
 "aliases": [
 "social finance",
-"impact investing"
+"impact investing",
+"impact investors"
 ],
 "area": "money",
 "wiki": "Patient capital"
@@ -542,7 +570,10 @@
 "term": "Solidarity co-op",
 "aliases": [
 "solidarity cooperative",
-"coopérative de solidarité"
+"coopérative de solidarité",
+"solidarity co-op",
+"solidarity co-ops",
+"solidarity cooperatives"
 ],
 "area": "legal",
 "wiki": null,
@@ -621,5 +652,250 @@
 ],
 "area": "legal",
 "wiki": "Zoning"
+},
+{
+"id": "member-shares",
+"term": "Member shares",
+"aliases": [
+"member share",
+"share in the co-op"
+],
+"area": "legal",
+"wiki": null
+},
+{
+"id": "down-payment",
+"term": "Down payment",
+"aliases": [
+"down payments"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "construction-loan",
+"term": "Construction loan",
+"aliases": [
+"construction loans",
+"construction mortgage",
+"building loan"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "bridge-loan",
+"term": "Bridge loan",
+"aliases": [
+"bridge loans",
+"bridge financing"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "ethical-lender",
+"term": "Ethical lender",
+"aliases": [
+"ethical lenders"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "amortization",
+"term": "Amortization",
+"aliases": [
+"amortisation",
+"amortization period"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "right-of-first-refusal",
+"term": "Right of first refusal",
+"aliases": [
+"first refusal"
+],
+"area": "legal",
+"wiki": null
+},
+{
+"id": "sweat-equity",
+"term": "Sweat equity",
+"aliases": [],
+"area": "money",
+"wiki": null
+},
+{
+"id": "legal-entity",
+"term": "Legal entity",
+"aliases": [
+"legal body",
+"incorporation",
+"incorporated"
+],
+"area": "legal",
+"wiki": null
+},
+{
+"id": "shared-lease",
+"term": "Shared lease",
+"aliases": [
+"shared leases",
+"joint lease"
+],
+"area": "legal",
+"wiki": null
+},
+{
+"id": "duplex",
+"term": "Duplex",
+"aliases": [
+"duplexes",
+"triplex",
+"triplexes",
+"plex"
+],
+"area": "space",
+"wiki": null
+},
+{
+"id": "decommodified",
+"term": "Decommodified housing",
+"aliases": [
+"decommodified",
+"decommodification"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "income-sharing",
+"term": "Income sharing",
+"aliases": [
+"income-sharing",
+"pooled income"
+],
+"area": "money",
+"wiki": null
+},
+{
+"id": "co-ownership",
+"term": "Co-ownership",
+"aliases": [
+"co-owners",
+"co-owner",
+"coownership"
+],
+"area": "legal",
+"wiki": null
+},
+{
+"id": "working-group",
+"term": "Working group",
+"aliases": [
+"working groups",
+"mandate",
+"mandates"
+],
+"area": "governance",
+"wiki": null
+},
+{
+"id": "board-of-directors",
+"term": "Board of directors",
+"aliases": [
+"elected board",
+"board members"
+],
+"area": "governance",
+"wiki": null
+},
+{
+"id": "check-in-circle",
+"term": "Check-in circle",
+"aliases": [
+"check-in circles",
+"check-in round"
+],
+"area": "community",
+"wiki": null
+},
+{
+"id": "restorative-circle",
+"term": "Restorative circle",
+"aliases": [
+"restorative circles"
+],
+"area": "privacy",
+"wiki": null
+},
+{
+"id": "passive-house",
+"term": "Passive house",
+"aliases": [
+"passivhaus",
+"passive-house"
+],
+"area": "space",
+"wiki": null
+},
+{
+"id": "permaculture",
+"term": "Permaculture",
+"aliases": [],
+"area": "space",
+"wiki": null
+},
+{
+"id": "coworking",
+"term": "Coworking",
+"aliases": [
+"co-working",
+"coworking space",
+"co-working space"
+],
+"area": "space",
+"wiki": null
+},
+{
+"id": "homeshare",
+"term": "Homeshare",
+"aliases": [
+"home sharing",
+"homesharing"
+],
+"area": "who",
+"wiki": null
+},
+{
+"id": "solarpunk",
+"term": "Solarpunk",
+"aliases": [],
+"area": "space",
+"wiki": null
+},
+{
+"id": "grt",
+"term": "Technical resource group",
+"aliases": [
+"GRT",
+"technical resource groups",
+"groupe de ressources techniques"
+],
+"area": "legal",
+"wiki": null
+},
+{
+"id": "cmhc",
+"term": "CMHC",
+"aliases": [
+"Canada Mortgage and Housing Corporation",
+"SCHL"
+],
+"area": "money",
+"wiki": null
 }
 ]

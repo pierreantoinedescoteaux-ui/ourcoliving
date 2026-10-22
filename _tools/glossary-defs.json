@@ -217,7 +217,7 @@
 },
 {
 "id": "membership",
-"def": "The steps for joining a community, often visits and a trial period. It lets newcomers and residents check that they fit before anyone commits.",
+"def": "How a community welcomes someone new. A trial stay usually comes first, and then the group and the newcomer each decide whether to commit. In some colivings, “membership” also means the monthly fee that comes with your room.",
 "link": "https://www.ic.org/",
 "linkLabel": "Intentional Communities"
 },
@@ -235,7 +235,7 @@
 },
 {
 "id": "mortgage",
-"def": "A loan used to buy a home, where the home itself is the lender's security. If the loan is not repaid, the lender can take and sell it. Groups often take one out together.",
+"def": "A loan used to buy a home, where the home itself is the lender’s security. If the loan is not repaid, the lender can take and sell it. Groups often take one out together.",
 "link": "https://en.wikipedia.org/wiki/Mortgage",
 "linkLabel": "Wikipedia"
 },
@@ -247,7 +247,7 @@
 },
 {
 "id": "network-state",
-"def": "A community that forms online around shared values, then gathers in real places like pop-up villages. The idea is linked to Balaji Srinivasan's book The Network State.",
+"def": "A community that forms online around shared values, then gathers in real places like pop-up villages. The idea is linked to Balaji Srinivasan’s book The Network State.",
 "link": "https://thenetworkstate.com/",
 "linkLabel": "The Network State"
 },
@@ -400,5 +400,141 @@
 "def": "How hard it is to make one exist. At one end you could start this year; at the other it takes years of finding land and money.",
 "link": "map.html",
 "linkLabel": "See it on the map"
+},
+{
+"id": "member-shares",
+"def": "In a co-op, you buy a share that makes you a member and gives you the right to live in a home. It is not an investment: when you leave, the co-op usually pays your share back at the price you paid.",
+"link": "https://en.wikipedia.org/wiki/Housing_cooperative",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "down-payment",
+"def": "The part of a home’s price you pay up front from your own savings, with a mortgage covering the rest. A bigger down payment means a smaller loan to repay. A group buying together adds up the savings of every household.",
+"link": "https://en.wikipedia.org/wiki/Down_payment",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "construction-loan",
+"def": "A short-term loan that pays for a building while it is still going up. The bank usually releases the money in steps as the work moves along, and it is repaid once the households close their own mortgages or long-term financing arrives.",
+"link": "https://en.wikipedia.org/wiki/Construction_loan",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "bridge-loan",
+"def": "A short loan that covers a gap until longer-term money arrives. A group might use one to buy a site before its permanent mortgage is approved.",
+"link": "https://en.wikipedia.org/wiki/Bridge_loan",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "ethical-lender",
+"def": "A lender, such as a credit union or a fund, that weighs social goals alongside profit. Co-ops, non-profits and group projects often find them more open than a regular bank. In Quebec, the Caisse d’économie solidaire is one.",
+"link": "https://en.wikipedia.org/wiki/Ethical_banking",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "amortization",
+"def": "The number of years a mortgage is spread over until it is fully repaid. A longer amortization lowers each payment but adds up to more interest overall."
+},
+{
+"id": "right-of-first-refusal",
+"def": "A rule that lets a certain person or group buy something before it can be sold to anyone else. In a shared property, it often lets the other owners or the co-op buy a departing member’s share first.",
+"link": "https://en.wikipedia.org/wiki/Right_of_first_refusal",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "sweat-equity",
+"def": "Value you add to a project with your own work instead of money, like painting walls or managing the build. Some groups count it toward a member’s stake.",
+"link": "https://en.wikipedia.org/wiki/Sweat_equity",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "legal-entity",
+"def": "An organisation the law treats as its own person. It can sign contracts and own a building in its own name, so the people behind it do not each have to. A co-op is one example.",
+"link": "https://en.wikipedia.org/wiki/Legal_person",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "shared-lease",
+"def": "One rental contract signed together by several housemates. It is simple to set up, and it works best when everyone agrees early on what happens if one person leaves."
+},
+{
+"id": "duplex",
+"def": "A building with two homes, one above the other or side by side. A triplex has three. In Quebec, plexes are a common way for a few households to buy a building together.",
+"link": "https://en.wikipedia.org/wiki/Duplex_(building)",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "decommodified",
+"def": "Housing taken out of the market, so it serves as a home and cannot be bought and sold for profit. Community land trusts and some co-ops work this way.",
+"link": "https://en.wikipedia.org/wiki/Decommodification",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "income-sharing",
+"def": "Members hand their earnings to the community, which meets everyone’s needs from one shared purse. Some kibbutzim worked this way for decades, and a few still do."
+},
+{
+"id": "co-ownership",
+"def": "Two or more people owning the same property together. In Quebec the law separates divided co-ownership, where each household owns its own unit (a condo), from undivided co-ownership, where everyone owns a share of the whole."
+},
+{
+"id": "working-group",
+"def": "A small team that looks after one topic, like the garden or the money, so the whole group does not have to. A written mandate says what the team may decide alone and what it must bring back.",
+"link": "https://en.wikipedia.org/wiki/Working_group",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "board-of-directors",
+"def": "A small group elected by the members to run an organisation between general meetings. In a co-op or a non-profit, the board answers to the members who chose it.",
+"link": "https://en.wikipedia.org/wiki/Board_of_directors",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "check-in-circle",
+"def": "A short round where each person says how they are doing, before a meeting or on a regular day. It lets small tensions come up early, while they are still easy to talk about."
+},
+{
+"id": "restorative-circle",
+"def": "A guided conversation between someone who caused harm and someone who was hurt, often with others affected. The aim is to understand what happened and agree together how to make it right.",
+"link": "https://en.wikipedia.org/wiki/Restorative_justice",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "passive-house",
+"def": "A building standard for very low energy use. Thick insulation, airtight walls and good windows keep the heat in, so a home needs very little heating.",
+"link": "https://en.wikipedia.org/wiki/Passive_house",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "permaculture",
+"def": "A way of designing gardens, farms and whole settlements by copying how natural ecosystems work, so that plants, animals and people support each other.",
+"link": "https://en.wikipedia.org/wiki/Permaculture",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "coworking",
+"def": "A shared workspace where people from different jobs rent a desk or a room. Some coliving and mixed-use projects put one on the ground floor.",
+"link": "https://en.wikipedia.org/wiki/Coworking",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "homeshare",
+"def": "An arrangement where someone with a spare room, often an older person, shares their home with a younger person. The housemate pays little or no rent and helps around the house in return."
+},
+{
+"id": "solarpunk",
+"def": "A hopeful style of art and storytelling that imagines green, community-minded futures, where people live well beside nature and technology.",
+"link": "https://en.wikipedia.org/wiki/Solarpunk",
+"linkLabel": "Wikipedia"
+},
+{
+"id": "grt",
+"def": "In Quebec, a non-profit that helps groups build social and co-op housing. Its team guides a group from the first idea to the finished building."
+},
+{
+"id": "cmhc",
+"def": "Canada Mortgage and Housing Corporation, the federal housing agency. It runs funding programmes and mortgage insurance, and publishes guides for new housing projects.",
+"link": "https://en.wikipedia.org/wiki/Canada_Mortgage_and_Housing_Corporation",
+"linkLabel": "Wikipedia"
 }
 ]
