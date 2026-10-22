@@ -1,0 +1,143 @@
+{
+ "group": "hosts",
+ "options": [
+  {
+   "id": "homes",
+   "name": "Homes only",
+   "summary": "The site holds homes and the spaces residents share, and nothing else. It is the simplest set-up to plan and run.",
+   "body": "In a homes only project, every square metre serves the residents. There are private homes and a common house, plus shared outdoor spaces. No shop or farm serves outsiders. This is the classic cohousing shape, and the Quebec guide treats living space as the core of any project.\n\nKeeping to homes makes life easier. Banks and city planners know how to assess it, there is one set of rules to follow, and nobody has to manage tenants or opening hours.\n\nThe downside is that the project depends on its residents alone. There are no extra rents to help pay costs, and fewer reasons for neighbours to walk through.",
+   "pros": [
+    "Simplest to design and manage",
+    "One clear set of rules to follow"
+   ],
+   "cons": [
+    "No extra income from other uses",
+    "Fewer reasons for neighbours to visit"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "One use, one kind of building"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Quiet, but less contact outside"
+    },
+    "governance": {
+     "dot": "easier",
+     "t": "Only residents to manage"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "Ordinary residential zoning"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Lenders know this model"
+    }
+   },
+   "bestWhen": "When the group wants calm and simplicity, and plans to put its energy into daily life together.",
+   "examples": [],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mixed-use",
+   "name": "Homes + shops or work",
+   "summary": "Part of the site holds shops or public rooms open to others. It ties the project to the neighbourhood but adds complexity.",
+   "body": "A mixed use project puts other activities next to the homes, such as a cafe. Some hold a clinic. The Quebec guide says they root the project in its area and cut daily travel.\n\nKalkbreite in Zurich is the guide's main example. It sits over a tram depot and combines homes with shops and a cinema.\n\nThe guide is clear that this is never just an extra room. Each use needs its own entrance and its own sound control. Zoning and fire rules differ, lenders ask for different terms, and empty commercial space is a risk. Someone must also manage hours and tenants.",
+   "pros": [
+    "Rents from shops help pay costs",
+    "Opens the project to its neighbourhood"
+   ],
+   "cons": [
+    "More complex to design and finance",
+    "Visitors and noise reach residents' doors"
+   ],
+   "impact": {
+    "building": {
+     "dot": "harder",
+     "t": "Separate entrances and sound control"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "More contact, less privacy"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Tenants and hours to manage"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Zoning and fire rules per use"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Extra rent, but vacancy risk"
+    }
+   },
+   "bestWhen": "When the project is in a lively area, and the group wants a presence in the neighbourhood and can handle more management.",
+   "examples": [
+    "kalkbreite",
+    "mehr-als-wohnen",
+    "spreefeld"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "farm",
+   "name": "Homes + farm",
+   "summary": "The homes stand on or beside working land that grows food. Living and farming feed each other, and the group takes on a second business.",
+   "body": "In a farm project, the homes sit close together. The rest of the land is kept for growing. The Quebec guide describes Belfast Cohousing in the United States. About thirty households sit on a compact part of a large site, which leaves most of the land open. A small farm sells shares of its harvest to members in advance, and a barn supports storage and group use.\n\nFor residents, this means fresh food close by and a stronger tie to the land.\n\nThe cost is that the group runs a housing project and a farm at once. Farming needs skills and time. Good years and bad years change the budget. Not everyone wants to work the land.",
+   "pros": [
+    "Fresh food and shared work on the land",
+    "Most of the site stays open and green"
+   ],
+   "cons": [
+    "Farming is a second business to run",
+    "Harvests and income change from year to year"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Barns and farm buildings added"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Shared work on the land"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Farm decisions on top of home ones"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Farmland rules limit building"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Farm sales can help or strain"
+    }
+   },
+   "bestWhen": "When the group has land and real farming skills, and wants to grow food together.",
+   "examples": [
+    "neot-smadar"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "Farmland rules limiting building is general knowledge, not from the guide pages read; check for Quebec before leaning on it."
+   ]
+  }
+ ],
+ "newSources": [],
+ "flags": [
+  "Guide gives Belfast only as 'Belfast, États-Unis', so the body says United States. Homes only has no example because none is tagged."
+ ]
+}

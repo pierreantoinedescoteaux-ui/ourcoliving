@@ -21,10 +21,10 @@
     { label: "Coliving Resources", href: "map.html", key: "atlas", sub: [
       { label: "The map — compare the ways of living", href: "map.html#map" },
       { label: "Field guides — one per model", href: "type.html?t=ecovillage" },
-      { label: "Themes library — the recurring questions", href: "themes.html" },
+      { label: "How a place comes together: the choices", href: "themes.html" },
       { label: "Resources directory", href: "resources.html" },
       { label: "Networks & movements", href: "networks.html" },
-      { label: "How-to guides", href: "how-to.html" }
+      { label: "The toolbox: outside tools", href: "how-to.html" }
     ]},
     { label: "Design for Connection", href: "design.html", key: "design", sub: [
       { label: "Design for Connection — start here", href: "design.html" },
@@ -217,7 +217,7 @@
           '<a href="design.html">Design for Connection</a>' +
           '<a href="talkpieces.html">Writings</a>' +
           '<a href="projects.html">Real communities</a>' +
-          '<a href="themes.html">Themes library</a>' +
+          '<a href="themes.html">How a place comes together</a>' +
           '<a href="resources.html">Resources</a>' +
           '<a href="about.html">About</a>' +
           '<a href="mailto:' + EMAIL + '">Say hello</a>' +
@@ -313,8 +313,8 @@
      Connection = the gardens. The me-pages = the homes. Map = lookout. */
   var PAGE_SCENE = {
     "projects.html": "commons", "resources.html": "commons", "detail.html": "commons",
-    "inspiration.html": "library", "talkpieces.html": "library", "themes.html": "library",
-    "type.html": "makers", "designers.html": "makers",
+    "inspiration.html": "library", "talkpieces.html": "library",
+    "type.html": "makers", "designers.html": "makers", "themes.html": "makers", "how-to.html": "makers",
     "design.html": "gardens",
     "story.html": "homes", "about.html": "homes", "project.html": "homes", "work.html": "homes",
     "map.html": "lookout"

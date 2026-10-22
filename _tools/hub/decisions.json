@@ -1,0 +1,108 @@
+{
+ "group": "decisions",
+ "options": [
+  {
+   "id": "founder",
+   "name": "Founder or operator decides",
+   "summary": "One person or one company makes the main calls. Residents can share ideas and complaints, but the final say stays with the operator. That keeps things fast and puts the risk on one pair of shoulders.",
+   "body": "In this set-up one person or one company makes the main calls. It might be the founder who rents out the rooms, or an operator who runs several houses. Residents can give opinions and raise problems, but the decision stays with the operator.\n\nThis is how most coliving businesses and hacker houses work. It is also how many community projects begin, before a real group has formed. Decisions are quick. Someone can sign a lease or change the house rules in a day, without a meeting. People who live there do not have to run anything, which suits those who want a good place to live and no committee.\n\nThe weak point is that everything rests on one person. If the founder loses interest or sells, the place can change overnight. The same can happen if the money runs out. Residents hold little power, so they have little to lean on when they disagree. Trust depends on how fair and open the operator is.\n\nFor people living together, this fits a group that wants a service more than a shared project. It is a poor match for residents who expect to shape the place over many years. Some founder-led houses soften the model by asking for advice first, or by handing a whole area, such as the events, to the residents. This gives the group some say without giving up the operator's lead.",
+   "pros": ["Decisions are fast and clear", "Residents carry no meetings or management"],
+   "cons": ["The place depends on one person", "Residents have little say or protection"],
+   "impact": {
+    "building": { "dot": "easier", "t": "One person can act quickly" },
+    "social": { "dot": "depends", "t": "Rests on the operator's style" },
+    "governance": { "dot": "easier", "t": "No meetings needed to decide" },
+    "legal": { "dot": "easier", "t": "One owner, one set of papers" },
+    "money": { "dot": "depends", "t": "Operator carries the risk and profit" }
+   },
+   "bestWhen": "When residents want a ready-made home and an operator they trust, and do not need a say in how the place is run.",
+   "examples": ["network-school"],
+   "sources": ["guide-cohabitat"],
+   "flags": []
+  },
+  {
+   "id": "vote",
+   "name": "Majority vote",
+   "summary": "A proposal passes when more than half of the votes are in favour. It is quick and easy to follow, but a split group always leaves some people on the losing side.",
+   "body": "With majority voting, a proposal passes when more than half of the votes are in favour. Some groups ask for more on big matters, such as two thirds to change the house rules or to sell the building. The rules on who can vote, how many must be present and what counts as a majority are usually written in the by-laws.\n\nVoting is the standard way in co-ops and condo associations. The law behind many of them sets out votes at the general assembly. It is simple. Everybody can see the result, the meeting ends on time, and a quiet member holds the same vote as a loud one.\n\nThe cost is that someone always loses. A group that splits down the middle can send nearly half its members home unhappy. If the same people lose again and again, they start to stay away. A vote also tends to skip the stage where people shape a proposal together, and debate can turn into campaigning for a side.\n\nFor people living together, voting works well for money and house rules, where a clear answer matters more than perfect agreement. It also scales better than consensus when the group is large. Groups that vote well tend to talk first and vote last. Many use votes for the small things and a slower method for the choices that shape daily life.",
+   "pros": ["Quick and easy to run", "Works for large groups"],
+   "cons": ["Always leaves some people on the losing side", "Skips the work of shaping a shared proposal"],
+   "impact": {
+    "building": { "dot": "easier", "t": "Design choices settle quickly" },
+    "social": { "dot": "depends", "t": "Losing votes can leave a sting" },
+    "governance": { "dot": "easier", "t": "Familiar rules everyone knows" },
+    "legal": { "dot": "easier", "t": "Matches what the law expects" },
+    "money": { "dot": "easier", "t": "Budgets pass without long talks" }
+   },
+   "bestWhen": "When a group is large or short on time, or when the choice is small enough that a clear answer matters most.",
+   "examples": ["berkeley-student-cooperative"],
+   "sources": ["guide-cohabitat", "https://en.wikipedia.org/wiki/Majority_rule"],
+   "flags": ["The Berkeley Student Cooperative is tagged vote in projects-data; its board is elected by members, so check how much it decides by direct vote before the editor keeps it as an example."]
+  },
+  {
+   "id": "consensus",
+   "name": "Consensus",
+   "summary": "The group shapes a proposal until everyone can live with it. It builds strong buy-in and gives each person real weight, but it can stall in big groups or under time pressure.",
+   "body": "In consensus, the group works on a proposal until every person can accept it. Nobody has to love the result. They only have to be able to live with it and support it. A typical meeting hears the proposal and collects concerns. Then it changes the wording and tests for agreement. A person who cannot accept it can block it, or step aside and let the others go ahead.\n\nThe method has deep roots. Quakers have used it for centuries to run their meetings. Many intentional communities and cohousing groups took it up later. The American author Diana Leafe Christian writes about it at length in her guide for new communities.\n\nIts strength is buy-in. Because everyone shaped the outcome, people tend to follow through and the decision rarely gets reopened. Its weakness is speed. One person can hold up a whole group, and the process can drag in larger groups or when a decision is urgent. Some groups add a fallback, such as a vote with a high bar, if talks stall.\n\nFor people living together, consensus fits big, lasting choices, like which land to buy or how the shared spaces should work. It asks for good facilitation and a group that trusts each other. Most groups that use it keep it for the important matters and hand smaller ones to a team or a person.",
+   "pros": ["Everyone shapes the result, so people back it", "Each voice carries real weight"],
+   "cons": ["One person can hold up the whole group", "Slow in big groups or when time is short"],
+   "impact": {
+    "building": { "dot": "harder", "t": "Design talks can drag on" },
+    "social": { "dot": "depends", "t": "Builds trust or wears people out" },
+    "governance": { "dot": "harder", "t": "Needs skill and patient meetings" },
+    "legal": { "dot": "depends", "t": "Formal votes still needed on paper" },
+    "money": { "dot": "depends", "t": "Slow talks can delay deadlines" }
+   },
+   "bestWhen": "When the group is small and the choice is big and lasting. People also need the time and trust to work through disagreement.",
+   "examples": [],
+   "sources": ["https://en.wikipedia.org/wiki/Consensus_decision-making", "christian-2003", "guide-cohabitat"],
+   "flags": ["No project in projects-data is tagged consensus, so there is no example. The Quaker origin and Christian's coverage are from general knowledge; the editor may want to confirm them."]
+  },
+  {
+   "id": "consent",
+   "name": "Consent / sociocracy",
+   "summary": "A proposal goes ahead when nobody has a serious, reasoned objection. Small circles run their own areas, so the group can move on without needing everyone to be enthusiastic.",
+   "body": "Consent is a lighter test than consensus. A proposal goes ahead if nobody has a serious, reasoned objection to it. The question is not whether people love the idea. It is whether it is good enough for now and safe enough to try. An objection is treated as useful information, and the group changes the proposal to answer it.\n\nSociocracy is a full way of running a group built on consent. It began in the Netherlands in the 1970s with the engineer Gerard Endenburg. The group splits into small circles, each with its own area and a clear mandate. One circle might look after the garden, for example. Each circle sends two people to the circle above it, so information travels both ways. Decisions in every circle use consent, and the group reviews them on a set date.\n\nThe guide to cohousing in Quebec says sociocracy is a common frame in cohousing, and it notes that consent takes practice. Teams need training and a good facilitator. Without them, meetings can feel heavy.\n\nFor people living together, the method gives everyone a voice without forcing every choice through a full group meeting. It fits a group that expects to be around for years and is ready to learn a method. A single house with a handful of friends may find it more than it needs.",
+   "pros": ["Moves forward without needing full enthusiasm", "Circles share the load across the group"],
+   "cons": ["Takes training and practice to do well", "Adds structure that small groups may not need"],
+   "impact": {
+    "building": { "dot": "depends", "t": "A circle can own design choices" },
+    "social": { "dot": "easier", "t": "Objections are heard and used" },
+    "governance": { "dot": "depends", "t": "Strong once the group has learned it" },
+    "legal": { "dot": "depends", "t": "Sits alongside the formal board" },
+    "money": { "dot": "depends", "t": "A finance circle can run the budget" }
+   },
+   "bestWhen": "When a group of some size wants shared power and steady decisions, and will invest the time to learn the method.",
+   "examples": ["cohabitat-quebec"],
+   "sources": ["https://www.sociocracyforall.org/consent-decision-making/", "https://www.sociocracyforall.org/sociocracy/", "guide-cohabitat"],
+   "flags": ["The Endenburg origin and the 1970s date are from general knowledge; the editor may want to confirm them against Sociocracy For All."]
+  },
+  {
+   "id": "advice",
+   "name": "Advice process",
+   "summary": "Anyone can make a call, as long as they first ask the people it affects and those who know the topic. They listen to the advice and then choose, and the choice is theirs to own.",
+   "body": "In an advice process, any person can make a decision. The rule is that before deciding, they must ask the people the choice will affect and the people who know the subject. They listen to what comes back and weigh it. Then they decide and carry the result. The advice does not bind them. Ignoring it would still cost them the trust of the group.\n\nThe approach was made popular by Dennis Bakke, who used it at the energy company AES, and by the writer Frédéric Laloux in his book Reinventing Organizations. The Quebec cohousing guide describes a close cousin: one person or a committee decides after asking the group. It calls this very efficient for avoiding overload while still respecting what the group knows.\n\nIts strength is speed with respect. Few people sit through meetings, and the person closest to a problem acts on it. Its weakness is that it needs real trust and a clear sense of what is a small decision and what is a big one. A person can also ask too few people, or only those who agree.\n\nFor people living together, this suits everyday matters such as buying something for the shared kitchen or fixing a rule that keeps causing friction. Big choices that cannot be undone, like buying land, still need a stronger method that the whole group joins.",
+   "pros": ["Quick, with few meetings needed", "Puts the choice with the person closest to it"],
+   "cons": ["Needs a lot of trust and honesty", "Can be misused by asking only friendly people"],
+   "impact": {
+    "building": { "dot": "easier", "t": "Small fixes happen without meetings" },
+    "social": { "dot": "depends", "t": "Works where trust is high" },
+    "governance": { "dot": "easier", "t": "Fewer meetings, clearer owners" },
+    "legal": { "dot": "depends", "t": "Formal body still signs and votes" },
+    "money": { "dot": "depends", "t": "Needs limits on spending power" }
+   },
+   "bestWhen": "When trust is high and the group wants day-to-day choices made quickly by whoever knows the issue best.",
+   "examples": [],
+   "sources": ["https://www.reinventingorganizationswiki.com/en/theory/decision-making/", "guide-cohabitat"],
+   "flags": ["No project in projects-data is tagged advice, so there is no example. The Bakke and AES link and the Laloux book are from general knowledge; the editor may want to confirm them. The guide describes the closely related practice of deciding after consulting the group (sollicitation d'avis), which may not be exactly the same thing as the advice process."]
+  }
+ ],
+ "newSources": [
+  { "title": "Majority rule", "author": "Wikipedia", "year": 2025, "url": "https://en.wikipedia.org/wiki/Majority_rule", "topics": ["decisions", "governance"] },
+  { "title": "Consensus decision-making", "author": "Wikipedia", "year": 2025, "url": "https://en.wikipedia.org/wiki/Consensus_decision-making", "topics": ["decisions", "governance"] },
+  { "title": "Consent decision-making", "author": "Sociocracy For All", "year": 2025, "url": "https://www.sociocracyforall.org/consent-decision-making/", "topics": ["decisions", "governance"] },
+  { "title": "Sociocracy", "author": "Sociocracy For All", "year": 2025, "url": "https://www.sociocracyforall.org/sociocracy/", "topics": ["decisions", "governance"] },
+  { "title": "Decision-making (advice process)", "author": "Reinventing Organizations Wiki", "year": 2025, "url": "https://www.reinventingorganizationswiki.com/en/theory/decision-making/", "topics": ["decisions", "governance"] }
+ ],
+ "flags": ["Pages 193 to 227 cover governance in general (structure, roles, tools) and do not describe the five decision methods. The method facts come from the guide's annexes 3 and 4 (pages 347 to 352), plus general knowledge. No web searches were used.", "Only three of the five options have a tagged example in projects-data (founder, vote, consent)."]
+}

@@ -1,0 +1,64 @@
+{
+ "group": "govstyles",
+ "options": [
+  {
+   "id": "informal-gov",
+   "name": "Informal (kitchen-table)",
+   "summary": "No formal bodies. The group talks things through over dinner or in a chat, and a couple of people keep things moving. It is simple and fast while the group is small.",
+   "body": "An informal set-up has no board and no committees. The group settles things over dinner or in a chat thread. A couple of people tend to carry the project forward. Roles are shared loosely, and rules appear only when a need shows up.\n\nThe Quebec cohousing guide says this is usually enough in the first stage, when a few people are shaping an idea. Building heavy structure too early only slows things down. The cost shows later. Work piles up on a few people, nobody is sure who decides what, and the project struggles when a key person leaves. Lenders and funders also expect a legal body with clear roles once money or land is involved.",
+   "pros": ["Simple and fast to start", "No meetings or paperwork to keep up"],
+   "cons": ["Work and power gather around a few people", "Hard to keep going when those people leave"],
+   "impact": {
+    "building": { "dot": "depends", "t": "Fine for small, simple projects" },
+    "social": { "dot": "easier", "t": "Feels like friends, not a committee" },
+    "governance": { "dot": "easier", "t": "Almost nothing to set up" },
+    "legal": { "dot": "harder", "t": "Lenders want clear roles on paper" },
+    "money": { "dot": "harder", "t": "Hard to share costs and risk fairly" }
+   },
+   "bestWhen": "When a small group is just starting out, or when the place is a shared rental among people who already trust each other.",
+   "examples": [],
+   "sources": ["guide-cohabitat"],
+   "flags": ["The guide's annex 4 describes this as informal or implicit governance, with power held by a small core. No project in projects-data is tagged to it, so there is no example."]
+  },
+  {
+   "id": "assembly",
+   "name": "General assembly",
+   "summary": "All members meet, usually at least once a year, to approve the big decisions. It gives the group a clear and fair voice, but it gets heavy if too much is sent to it.",
+   "body": "In this style the main authority sits with a meeting of all members. The assembly approves the big directions and the yearly accounts. It also elects the board and changes the by-laws. Co-ops and non-profits are usually required by law to hold one.\n\nThe Quebec guide gives a simple picture. The board and the working teams meet each month to handle daily matters. The assembly meets once a year to look at the long-term plan and the finances. That split keeps the big questions with everyone.\n\nThe strength is legitimacy and openness, since each member can see and shape the major choices. The weakness is weight. If the assembly decides too many things, daily life stalls. If it meets rarely, members lose touch.",
+   "pros": ["Gives every member a clear and fair voice", "Matches what the law asks of co-ops and non-profits"],
+   "cons": ["Slow if too many decisions land there", "Meets rarely, so daily life needs another body"],
+   "impact": {
+    "building": { "dot": "depends", "t": "Big design choices wait for meetings" },
+    "social": { "dot": "easier", "t": "Everyone sees the big decisions" },
+    "governance": { "dot": "depends", "t": "Needs a board for daily work" },
+    "legal": { "dot": "easier", "t": "Fits co-op and non-profit rules" },
+    "money": { "dot": "easier", "t": "Budget approved in the open" }
+   },
+   "bestWhen": "When the group is a co-op or a condo that must hold formal meetings and wants every member to share the big decisions.",
+   "examples": [],
+   "sources": ["guide-cohabitat", "https://en.wikipedia.org/wiki/General_assembly"],
+   "flags": ["The legal duty to hold an assembly is true for Quebec co-ops and non-profits, as the guide notes, but varies by country; the body text keeps it general. No project is tagged to this style, so there is no example."]
+  },
+  {
+   "id": "delegation",
+   "name": "Working groups with mandates (structured delegation)",
+   "summary": "The whole group keeps the final say but hands clear jobs to a board or to teams. Each has set limits and a duty to report back. It keeps things moving without losing fairness.",
+   "body": "With structured delegation, the group keeps the final authority and hands clear mandates to a board or to teams. A good mandate says the goal and which decisions the team can make. It also sets limits and an end date, and says how the team reports back.\n\nThe Quebec guide suggests what to hand off and what to keep. Following a budget and carrying out a decision already made can be delegated. The vision and the land stay with the whole group. So do the legal structure and the basic rules.\n\nThe strength is speed with fairness. It needs clearly written mandates, because vague ones create grey zones and tight ones leave teams stuck. Teams should also be checked now and then to see that they are still useful.",
+   "pros": ["Spreads the work and keeps decisions moving", "Keeps the final say with the whole group"],
+   "cons": ["Needs clear, written mandates to work", "Too many teams can mean too many meetings"],
+   "impact": {
+    "building": { "dot": "easier", "t": "A design team can move fast" },
+    "social": { "dot": "depends", "t": "Some people hold more information" },
+    "governance": { "dot": "depends", "t": "Needs clear mandates and reports" },
+    "legal": { "dot": "easier", "t": "Fits a board and committees" },
+    "money": { "dot": "easier", "t": "A finance team can track the budget" }
+   },
+   "bestWhen": "When the project has grown too big for every decision to go through the full group, but members still want the last word.",
+   "examples": [],
+   "sources": ["guide-cohabitat"],
+   "flags": ["The guide's annex 4 names this style structured delegation. The pages on roles and structure support the mandate details. No project is tagged to it, so there is no example."]
+  }
+ ],
+ "newSources": [],
+ "flags": ["Pages 193 to 227 support the three styles directly (structure, roles, evolution). The one-line labels for each style come from the guide's annex 4 summary table. No web searches were used."]
+}

@@ -1,8 +1,8 @@
 {
  "areas": {
   "governance": {
-   "summary": "The general assembly of members makes the big decisions by vote, and elected officers and committees handle the rest. The community usually outranks any single person.",
-   "body": "A kibbutz is run by its members through a general assembly, which meets often and votes on the large questions. Elected officers and committees handle the daily running, such as the secretary, the treasurer and the work organiser, and these jobs rotate so no one holds them forever. Decisions are by vote, with consensus used less often. Voting also decides who is accepted as a new member after a trial period. Historically the assembly had a say in nearly everything, including who studies and what job people take. In kibbutzim that have changed, some of that has moved to private choice, and managers now run the businesses with a board. The balance between member voice and professional management is one of the main things that differs between places.",
+   "summary": "The general assembly of members makes the big decisions by vote, and elected officers and committees handle the rest. The community usually outranks any single person, though the balance has shifted in many places.",
+   "body": "A kibbutz is run by its members through a general assembly, which meets often and votes on the large questions. Elected officers and committees handle the daily running, such as the secretary and the treasurer, and these jobs rotate so no one holds them forever. Decisions are by vote, with consensus used less often. Voting also decides who is accepted as a new member after a trial period. Historically the assembly had a say in nearly everything, including who studies and what job people take. In kibbutzim that have changed, some of that has moved to private choice, and managers now run the businesses with a board. The balance between member voice and professional management is one of the main things that differs between places.",
    "example": {
     "id": "degania-alef",
     "text": "Degania Alef began as a small group of pioneers who decided everything face to face, which helped shape the kibbutz idea of direct democracy."
@@ -13,11 +13,11 @@
    ]
   },
   "financing": {
-   "summary": "In the classic form, the kibbutz owns almost everything and members pool all their earnings. Many have since moved to different pay and private homes.",
-   "body": "In the classic kibbutz, all means of production belong to the community. Members work where they are needed, earn no wage of their own and receive housing, food, health care and education in return. The kibbutz pays for these from the income of its farms and factories. The land is leased from the state and is not owned by the members. After a deep economic crisis in the late twentieth century, most kibbutzim changed. Many now pay different salaries by job, let members own their homes, and keep a safety net for those in need. A smaller number have kept full income-sharing. Which model a kibbutz uses is the most important fact to check before you go.",
+   "summary": "In the classic form, the kibbutz owns almost everything and members pool all their earnings. Many have since moved to different pay and private homes, so the model a place uses matters a great deal.",
+   "body": "In the classic kibbutz, all means of production belong to the community. Members work where they are needed and earn no wage of their own. In return they receive housing, food, health care and education. The kibbutz pays for these from the income of its farms and factories. The land is leased from the state and is not owned by the members. After a deep economic crisis in the late twentieth century, most kibbutzim changed. Many now pay different salaries by job, let members own their homes, and keep a safety net for those in need. A smaller number have kept full income-sharing. Which model a kibbutz uses is the most important fact to check before you go.",
    "example": {
     "id": "neot-smadar",
-    "text": "Neot Smadar, founded in 1989, has kept full income-sharing, which most other kibbutzim have dropped."
+    "text": "Neot Semadar, founded in 1989, has kept full income-sharing, which most other kibbutzim have dropped."
    },
    "pitfall": "When pay is shared, members who earn most can feel they give more than they get, and may leave.",
    "sources": [
@@ -25,8 +25,8 @@
    ]
   },
   "space": {
-   "summary": "The village is laid out around shared buildings, especially the dining hall. Private homes are small and the common spaces are large.",
-   "body": "The classic kibbutz is a compact village with a common centre. The dining hall is the heart of it, and around it sit the cultural hall, the clinic, the laundry and the children's buildings. Homes were small, often one room, because so much of daily life happened in public. Beyond the houses come lawns and paths, and then the fields, orchards, fishponds and factories that provide the income. Many early kibbutzim began as fortified settlements, built quickly behind a wall with a watchtower. Today renewed kibbutzim have added larger private homes and new neighbourhoods, sometimes for people who are not members. The old shared centre often remains but is used differently.",
+   "summary": "The village is laid out around shared buildings, especially the dining hall. Private homes are small and the common spaces are large, though renewed kibbutzim have added bigger houses and new neighbourhoods.",
+   "body": "The classic kibbutz is a compact village with a common centre. The dining hall is the heart of it, and around it sit the cultural hall, the clinic, the laundry and the children's buildings. Homes were small, often one room, because so much of daily life happened in public. Beyond the houses come lawns and shaded paths, and then the fields, orchards, fishponds and factories that provide the income. Many early kibbutzim began as fortified settlements, built quickly behind a wall with a watchtower. Today renewed kibbutzim have added larger private homes and new neighbourhoods, sometimes for people who are not members. The old shared centre often remains but is used differently.",
    "example": {
     "id": "nir-david",
     "text": "Nir David was founded in 1936 as a tower-and-stockade settlement, a fortified village put up in a day, and it later grew into a working farming village in the valley."
@@ -37,11 +37,11 @@
    ]
   },
   "community": {
-   "summary": "Togetherness was built into daily life: shared meals, shared work and shared celebrations. Belonging comes with an expectation to take part.",
+   "summary": "Togetherness was built into daily life through shared meals and shared work. Belonging comes with an expectation to take part, which many members love and some find heavy.",
    "body": "Community in a kibbutz comes from the fact that work, meals, culture and holidays were organised together. Members ate in one dining hall and celebrated the same festivals, and children often grew up together in group settings. That produces strong bonds and a sense of being looked after from birth to old age. It also produces pressure to conform and little room to be anonymous. Today the pattern varies. Many kibbutzim have dropped the daily communal meal and kept the festivals and events. Members who stay tend to value the sense of belonging, and those who leave often say they wanted more choice. Visitors and volunteers have long been part of the picture.",
    "example": {
     "id": "neot-smadar",
-    "text": "Neot Smadar is a small desert community far from the cities, so members rely on one another for work, company and culture."
+    "text": "Neot Semadar is a small desert community far from the cities, so members rely on one another for work and company."
    },
    "pitfall": "A community that expects so much from everyone can feel stifling to people who want more distance.",
    "sources": [
@@ -49,8 +49,8 @@
    ]
   },
   "operations": {
-   "summary": "A kibbutz runs as a single enterprise, with farms, factories and services. Members hold jobs in it, and managers handle the businesses.",
-   "body": "The kibbutz economy runs on more than farming. Most have factories, services, tourism and guest rooms alongside the fields. In the classic form, a work organiser assigned jobs, and members rotated through kitchen, laundry and field work. Today most businesses have professional managers, and some members work outside the kibbutz and bring home an income. Services such as education, health insurance and care for older members were once provided inside, and many are now bought or shared with the state. Some kibbutzim hire outside workers, which changes who does the hard jobs. What a kibbutz makes, and whether it earns enough, can shape the whole community's mood and its decisions.",
+   "summary": "A kibbutz runs as a single enterprise, with farms and factories as well as services. Members hold jobs in it, and managers handle the businesses, which is a big change from the days of rotating work.",
+   "body": "The kibbutz economy runs on more than farming. Most have factories and tourism, with guest rooms alongside the fields. In the classic form, a work organiser assigned jobs, and members rotated through the kitchen and the laundry as well as the fields. Today most businesses have professional managers, and some members work outside the kibbutz and bring home an income. Services such as education and health insurance, and care for older members, were once provided inside, and many are now bought or shared with the state. Some kibbutzim hire outside workers, which changes who does the hard jobs. What a kibbutz makes, and whether it earns enough, can shape the whole community's mood and its decisions.",
    "example": {
     "id": "nir-david",
     "text": "Nir David is well known for its fishponds in the valley, one of the farming businesses that sustain the community."
@@ -61,11 +61,11 @@
    ]
   },
   "privacy": {
-   "summary": "Private life was traditionally small. Homes were modest and many things were shared. Today private space is larger, but community habits still reach far into life.",
-   "body": "Kibbutz life puts many private things in public view. Meals were shared, decisions were open, and everyone knew what others did and earned. In the early decades, children often slept in their own houses and saw parents for a few hours a day. Most kibbutzim abandoned that long ago and children now live with their parents. Private space has grown with larger homes and more personal choices. Conflicts are handled through the assembly, committees and sometimes outside advisers. Gossip is hard to avoid in a small place. For some this feels warm and safe, and for others it feels like being watched. Ask what a kibbutz expects members to share about money and family.",
+   "summary": "Private life was traditionally small. Homes were modest and many things were shared. Today private space is larger, but community habits still reach far into life, and gossip is hard to avoid.",
+   "body": "Kibbutz life puts many private things in public view. Meals were shared and decisions were open, and everyone knew what others did and earned. In the early decades, children often slept in their own houses and saw parents for a few hours a day. Most kibbutzim abandoned that long ago and children now live with their parents. Private space has grown with larger homes and more personal choices. Conflicts are handled through the assembly and its committees, and sometimes by outside advisers. Gossip is hard to avoid in a small place. For some this feels warm and safe, and for others it feels like being watched. Ask what a kibbutz expects members to share about money and family.",
    "example": {
     "id": "degania-alef",
-    "text": "Early Degania was a tiny group where everyone shared the same huts, kitchen and work, so there was almost no separation between private and public life."
+    "text": "Early Degania was a tiny group where everyone shared the same huts and the same kitchen, so there was almost no separation between private and public life."
    },
    "pitfall": "Little room to keep things to yourself can wear people down, especially in disputes.",
    "sources": [
@@ -74,7 +74,7 @@
   },
   "leaving": {
    "summary": "Joining usually follows a trial period and a vote. Leaving means giving up a way of life, and what you take depends on whether the kibbutz has privatised.",
-   "body": "New members are generally accepted after a period of living there and a vote by the assembly. When someone leaves, what they receive depends on the kibbutz. In a full income-sharing kibbutz, members hold no personal wealth, so they leave with little beyond a small grant. In renewed kibbutzim, members who own their homes can sell to someone the community accepts, and the person usually keeps their own savings. Older members were traditionally cared for by the kibbutz. When many kibbutzim ran into financial trouble, pensions and care became a major worry, and the state and the kibbutz now share some of that. Younger people often leave for study or work, and some come back later.",
+   "body": "New members are generally accepted after a period of living there and a vote by the assembly. When someone leaves, what they receive depends on the kibbutz. In a full income-sharing kibbutz, members hold no personal wealth, so they leave with little beyond a small grant. In renewed kibbutzim, members who own their homes can sell to someone the community accepts, and the person usually keeps their own savings. Older members were traditionally cared for by the kibbutz. When many kibbutzim ran into financial trouble, pensions and care became a major worry. The state and the kibbutz now share some of that. Younger people often leave for study or work, and some come back later.",
    "example": {
     "id": "degania-alef",
     "text": "Degania Alef, begun in 1910, has been home to several generations, so its children have long had to choose between staying and leaving."
@@ -86,16 +86,16 @@
   }
  },
  "whoPoints": [
-  "People who want work, income and daily life tied closely to a community.",
+  "People who want work and income tied closely to daily community life.",
   "Those who value belonging and security, and are fine giving up some personal choice.",
   "Volunteers and short-term visitors curious about life in a collective village.",
-  "People drawn to farming, craft or small industry in a shared setting."
+  "People drawn to farming or small industry in a shared setting."
  ],
  "watchPoints": [
   "Check whether a kibbutz still shares income or has moved to differential pay, since the experience is very different.",
   "Becoming a member usually means a trial period and a vote, so it is not a quick move.",
   "Land is leased from the state, so owning a home on a kibbutz works differently from owning one elsewhere.",
-  "Most kibbutzim work in Hebrew, so daily life and meetings are easier with the language."
+  "Most kibbutzim work in Hebrew, so everyday life and meetings are easier with the language."
  ],
  "newSources": [
   {
@@ -129,7 +129,7 @@
  "flags": [
   "No web searches were run; everything is from memory and should be checked.",
   "Nir David: the 1936 tower-and-stockade founding and the fishponds are from memory; check both.",
-  "Neot Smadar: full income-sharing and the 1989 date come from the brief; the remark about being far from the cities is general; Wikipedia spells it Neot Semadar.",
+  "Neot Semadar: full income-sharing and the 1989 date come from the brief; the remark about being far from the cities is general; Wikipedia spells it Neot Semadar.",
   "Generic claims about trial periods, assembly votes, children's sleeping arrangements, state-leased land and pensions are typical patterns; check against current law and each place.",
   "Degania Alef: 'tiny group sharing huts and kitchen' is a loose paraphrase of the early kvutza; check wording.",
   "newSources have no year."

@@ -1,0 +1,110 @@
+{
+ "group": "path",
+ "options": [
+  {
+   "id": "core-group",
+   "name": "Form a core group",
+   "summary": "A small group with a shared intention gets together and starts meeting regularly. Everything later rests on these first people.",
+   "body": "Most projects start with three to eight people or households who share an intention and agree to meet. The first months are for getting to know each other, trying out a simple way of working, and writing down what is known and what is not. The common failure is rushing to find a site before the group trusts itself. Another is relying on one tireless person, so the project dies if they step away. Keep recruiting open and share jobs early. Leave room for people to drop out without drama.",
+   "time": "a few months",
+   "tip": "Meet on a fixed rhythm and write notes after every meeting.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "vision",
+   "name": "Agree on a shared vision",
+   "summary": "The group works out why it exists, what daily life should feel like and which things are negotiable.",
+   "body": "This is where the group says what it wants: how much to share, how many homes, what kind of neighbours, what a normal week looks like. It helps to separate essentials from nice extras. Good groups also pick a simple, temporary way to decide things. What goes wrong is vague agreement. Everyone says community and imagines something different, and the gaps show up later when money is on the table. Writing a short vision and testing it with newcomers exposes these gaps while changes are still cheap.",
+   "time": "a few months",
+   "tip": "Sort wishes into must-haves and negotiables before spending money.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "legal-setup",
+   "name": "Choose a legal set-up",
+   "summary": "The group picks how the place will be owned and who holds the rights, for example through a co-op.",
+   "body": "The legal form decides who owns the building and what happens on resale. Common choices include a co-op or a land trust. Early on, the group also decides who carries the project in the meantime and whether to create a legal entity. Trouble starts when the choice is left late. The form shapes financing and affordability, and it is hard to change later. A lawyer or advisor who knows housing co-ops is worth paying for at this point.",
+   "time": "several months, alongside other steps",
+   "tip": "Compare a couple of legal forms against the vision before choosing.",
+   "sources": [
+    "guide-cohabitat",
+    "wiki-cohousing"
+   ]
+  },
+  {
+   "id": "site",
+   "name": "Find land or a building",
+   "summary": "The group looks for a site that fits the vision and the budget, then secures it with a conditional offer.",
+   "body": "Searching for a site is slow, and good ones go quickly. The group sets criteria and checks local zoning. Talking to the municipality early helps. Once a candidate looks right, an offer to purchase with conditions gives time to study it. Typical problems are zoning that forbids the plan, hidden costs in an old building, and a site that quietly rewrites the vision. Test the site against the vision, and have professionals review it before the group commits any real money.",
+   "time": "several months to over a year",
+   "tip": "Make every offer conditional on financing and on a zoning check.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "programme",
+   "name": "Define needs and plan the money",
+   "summary": "The group writes down which private and shared spaces it needs and estimates costs and who pays what.",
+   "body": "A written programme lists the private homes and the common house, with a first budget. Professionals help turn wishes into numbers. Rough costs per square metre show whether the dream fits the means. This is also when members confirm what each household can put in. The usual mistake is falling in love with a design before checking the budget. Another is leaving out the cost of studies, which must be paid before any loan arrives. Several scenarios, compared honestly, prevent painful cuts later.",
+   "time": "half a year to well over a year",
+   "tip": "Price a modest scenario and an ambitious one side by side.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "design",
+   "name": "Design the building",
+   "summary": "Architects turn the programme into sketches, then plans, with the group steering the big choices.",
+   "body": "Design moves from sketches to preliminary plans and then to full drawings and specifications. A general contractor gives better cost estimates as plans become detailed. The group decides the big choices, such as how homes meet the common house, while professionals handle technical details. Changes get costlier at each step. Groups often go wrong by reopening decisions late or by arguing over small finishes. Setting who decides what, and freezing the main layout before final drawings, saves money.",
+   "time": "about a year, overlapping the programme",
+   "tip": "Decide in advance which choices belong to the group and which to the architect.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "financing",
+   "name": "Secure the financing",
+   "summary": "Loans and member contributions are confirmed so the project can start building.",
+   "body": "Financing is assembled in layers: study money first, then commitments from members, then loans from lenders. Lenders want firm costs and a legal entity before they release funds. Members must be able to show their share, which is where some drop out. A cost overrun or a rate rise can break the budget. A cushion for surprises, regular updates to the cost estimate and honest talks about what each household can afford keep the group from being caught out at the last minute.",
+   "time": "runs through design, closes before building",
+   "tip": "Keep a contingency line in the budget and update it monthly.",
+   "sources": [
+    "guide-cohabitat",
+    "durrett-2009"
+   ]
+  },
+  {
+   "id": "building",
+   "name": "Build",
+   "summary": "The plans become a real building. Decisions are fast and money flows out every month.",
+   "body": "Construction turns years of planning into a site with workers. The project manager and the contractor coordinate with the group, while a few trusted people take daily decisions. Changes now cost the most and delays pile up. Typical troubles include cost surprises and members who want to alter things already built. Keep the essentials of the vision when cutting costs. If members help build or finish, make clear who does what, and check the insurance. Meanwhile the group should start planning how it will run the place.",
+   "time": "one to two years",
+   "tip": "Give one small team the authority to decide urgent site questions.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "moving-in",
+   "name": "Move in and start living together",
+   "summary": "Keys are handed over and flaws are fixed. The group moves from building a project to running a home.",
+   "body": "Moving in is more than getting keys. Systems are tested, defects are listed, the construction loan becomes permanent financing and development committees give way to everyday ones. The first weeks are a settling period. People find routines, and rules that looked fine on paper meet real life. Common mistakes include piling on activities at once and forgetting to pass on what the builders know. Stagger arrivals, get the common rooms working early and hold a review after a few months to fix what does not work.",
+   "time": "a few weeks to a few months",
+   "tip": "Hold a review a few months after move-in, and another a year in.",
+   "sources": [
+    "guide-cohabitat"
+   ]
+  }
+ ],
+ "newSources": [],
+ "flags": [
+  "durrett-2009 is cited generally for senior cohousing and financing context; verify against the book if it matters."
+ ]
+}

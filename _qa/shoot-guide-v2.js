@@ -1,7 +1,7 @@
 /* Field guide v2 QA: chapters, index, areas, places capped at 4, pop-up short version.
    Run: node _qa/shoot-guide-v2.js [slug]   (server on :8123) */
 const { chromium } = require('./node_modules/playwright-core');
-const B = 'http://localhost:8123/', OUT = __dirname + '/fg2-';
+const B = process.env.BASE || 'http://localhost:8123/', OUT = __dirname + '/fg2-';
 const slug = process.argv[2] || 'cohousing';
 (async () => {
   const browser = await chromium.launch({ channel: 'chrome' });

@@ -1,19 +1,19 @@
 {
  "areas": {
   "governance": {
-   "summary": "Members run the houses through weekly house meetings and elected officers. A board of members oversees the whole system.",
-   "body": "A student co-op teaches democracy by doing it. Each house usually holds a regular meeting where members vote on the budget, the rules and shared decisions. Members elect officers such as a house manager, a treasurer and a kitchen lead, and these roles change often since people move through quickly. The whole system is typically a non-profit with a board elected from the houses, which handles the legal and financial matters. Some houses vote, and others prefer consensus. Training new officers matters, because every year the experienced people leave. Paid staff often hold the long memory, such as keeping the books and the repair schedule, while members keep the real say. How much control the staff have is worth asking about.",
+   "summary": "Members run the houses through weekly house meetings and elected officers. A board of members oversees the whole system, and paid staff often keep the long memory while students hold the real say.",
+   "body": "A student co-op teaches democracy by doing it. Each house usually holds a regular meeting where members vote on the budget and the rules, along with other shared decisions. Members elect officers such as a house manager and a treasurer, and these roles change often since people move through quickly. The whole system is typically a non-profit with a board elected from the houses, which handles the legal and financial matters. Some houses vote, and others prefer consensus. Training new officers matters, because every year the experienced people leave. Paid staff often hold the long memory, such as keeping the books and the repair schedule, while members keep the real say. How much control the staff have is worth asking about.",
    "example": {
     "id": "berkeley-student-cooperative",
     "text": "Berkeley Student Cooperative is overseen by a board that its members elect, and each of its houses has its own meetings and officers."
    },
-   "pitfall": "With constant turnover, hard-won knowledge is lost and the same mistakes return every few years.",
+   "pitfall": "With constant turnover, hard-won knowledge is lost, and the same mistakes return every few years.",
    "sources": [
     "nasco"
    ]
   },
   "financing": {
-   "summary": "The houses are owned by a non-profit, and members pay rent at cost. Everyone shares the work in exchange for lower prices.",
+   "summary": "The houses are owned by a non-profit, and members pay rent at cost. Everyone shares the work in exchange for lower prices, and no one builds equity in the house or can sell it.",
    "body": "Student co-ops are usually owned by a non-profit or a co-op society, not by the residents. The organisation buys or leases the buildings, often with help from a university or public programmes, and charges members only what it costs to run them. Because members do chores and often cook, the rent comes out well below the local market. Fees cover the mortgage, repairs, food and insurance. Members do not build equity in the house, and when they leave there is nothing to sell. This keeps rents low for the next group. Many systems also try to keep a reserve for repairs, since the old buildings are costly to maintain. Pay attention to what is included in the monthly fee.",
    "example": {
     "id": "icc-ann-arbor",
@@ -25,8 +25,8 @@
    ]
   },
   "space": {
-   "summary": "Houses are usually large older buildings with a big shared kitchen and dining room. Bedrooms are small, often shared, and the rest is common space.",
-   "body": "Most student co-ops live in big old houses or apartment blocks near a campus. Rooms are small and sometimes shared, which keeps the cost down. What is generous is the common space: a large kitchen, a dining room, a living room, a laundry and often a garden. The houses have a worn, lived-in look that comes from many years of use and quick repairs. Kitchens tend to be set up for cooking in large amounts. Some systems also hold apartments, theme houses or a vegetarian or quiet house, so members can choose a style that suits them. The buildings are rarely designed for co-op living, so the layout is made to work, not planned for it.",
+   "summary": "Houses are usually large older buildings with a big shared kitchen and dining room. Bedrooms are small and often shared, so the generous part of the house is the common space.",
+   "body": "Most student co-ops live in big old houses or apartment blocks near a campus. Rooms are small and sometimes shared, which keeps the cost down. What is generous is the common space: a large kitchen and a dining room, a living room, a laundry and often a garden. The houses have a worn, lived-in look that comes from many years of use and quick repairs. Kitchens tend to be set up for cooking in large amounts. Some systems also hold apartments or theme houses, such as a vegetarian or quiet house, so members can choose a style that suits them. The buildings are rarely designed for co-op living, so the layout is made to work, not planned for it.",
    "example": {
     "id": "berkeley-student-cooperative",
     "text": "Berkeley Student Cooperative runs 17 houses and apartment buildings near the university, in a mix of sizes and styles."
@@ -37,8 +37,8 @@
    ]
   },
   "community": {
-   "summary": "Shared meals, chore routines and house events create quick closeness. Because people move in together at a young age, bonds form fast and last.",
-   "body": "Community in a student co-op comes from doing ordinary tasks together. Houses share meals, split the cooking and cleaning, and hold parties, theme nights and study evenings. Since members are young and often new to a city, the house becomes a family of sorts, and friendships formed there can last for decades. Each house develops its own culture, from loud and social to calm and bookish. Members who are shy can find it easier to join in because the structure gives them a role. The cost is that cliques form, and people who do not fit the house culture can feel left out. Houses with a long tradition tend to pass on their habits to new arrivals.",
+   "summary": "Shared meals and chore routines create quick closeness. Because people move in together young, bonds form fast, and friendships made in the house often last for decades afterwards.",
+   "body": "Community in a student co-op comes from doing ordinary tasks together. Houses share meals and split the cooking and cleaning. They also hold parties and theme nights, and study evenings. Since members are young and often new to a city, the house becomes a family of sorts, and friendships formed there can last for decades. Each house develops its own culture, from loud and social to calm and bookish. Members who are shy can find it easier to join in because the structure gives them a role. The cost is that cliques form, and people who do not fit the house culture can feel left out. Houses with a long tradition tend to pass on their habits to new arrivals.",
    "example": {
     "id": "icc-ann-arbor",
     "text": "ICC Ann Arbor is the oldest continuous student co-op system in North America, so many of its alumni have lived through the same house traditions."
@@ -49,8 +49,8 @@
    ]
   },
   "operations": {
-   "summary": "Members do a few hours of house work each week, such as cooking, cleaning and repairs. Elected officers and a small paid staff keep the system going.",
-   "body": "Work is the price of cheap rent. Each member takes on a few hours of chores a week, covering cooking, cleaning, shopping and small repairs. A chore chart assigns the shifts, and peers check that the jobs are done. Fines or extra shifts follow for those who skip. Bigger tasks such as major repairs, accounting and insurance are usually handled by paid staff at the system's office. Houses buy food in bulk, and some have a paid or stipended head cook. Keeping the chores fair is one of the biggest sources of daily friction. A system that checks the work gently but firmly tends to stay fair and stay friendly.",
+   "summary": "Members do a few hours of house work each week, such as cooking and cleaning. Elected officers and a small paid staff keep the system going, and the chores are the price of cheap rent.",
+   "body": "Work is the price of cheap rent. Each member takes on a few hours of chores a week, covering cooking and cleaning as well as shopping and small repairs. A chore chart assigns the shifts, and peers check that the jobs are done. Fines or extra shifts follow for those who skip. Bigger tasks, such as major repairs and the accounts, are usually handled by paid staff at the system's office, along with the insurance. Houses buy food in bulk, and some have a paid or stipended head cook. Keeping the chores fair is one of the biggest sources of daily friction. A system that checks the work gently but firmly tends to stay fair and stay friendly.",
    "example": {
     "id": "berkeley-student-cooperative",
     "text": "In Berkeley Student Cooperative, members do weekly work shifts in their houses, while a central office looks after the bigger jobs."
@@ -61,8 +61,8 @@
    ]
   },
   "privacy": {
-   "summary": "Privacy is limited. Rooms are small and often shared, and most of life happens in common spaces. House meetings and agreed rules are used to settle conflicts.",
-   "body": "A student co-op gives you a bed and a desk and shares most of the rest. Bedrooms may be doubles, bathrooms are shared, and the kitchen is busy. People see one another's habits, so privacy relies on respect and on quiet hours. Houses usually have written rules on noise, guests, cleanliness and drugs or alcohol, with a process to deal with breaches. Disputes go to the house meeting, then to officers or a board committee, and in serious cases a member can be asked to leave. Because everyone is young, many conflicts are about sleep, cleaning and money. Learning to raise a problem kindly is part of what the co-op teaches.",
+   "summary": "Privacy is limited. Rooms are small and often shared, and most of life happens in common spaces. House meetings and agreed rules are used to settle conflicts when quiet hours and respect are not enough.",
+   "body": "A student co-op gives you a bed and a desk and shares most of the rest. Bedrooms may be doubles and the bathrooms are shared, and the kitchen is busy. People see one another's habits, so privacy relies on respect and on quiet hours. Houses usually have written rules on noise, guests, cleanliness, and drugs or alcohol, with a process to deal with breaches. Disputes go to the house meeting, then to officers or a board committee, and in serious cases a member can be asked to leave. Because everyone is young, many conflicts are about sleep and cleaning, or about money. Learning to raise a problem kindly is part of what the co-op teaches.",
    "example": {
     "id": "icc-ann-arbor",
     "text": "ICC Ann Arbor houses are run with agreed rules that each house meeting can adjust, so living standards vary from one house to the next."
@@ -73,8 +73,8 @@
    ]
   },
   "leaving": {
-   "summary": "Most members stay a year or two and move out when they graduate. Contracts are short, and there is no equity to take with you.",
-   "body": "Student co-ops are designed for turnover. Members sign a contract for a term or a year, and many move on at graduation. If you leave early, you may sublet or find a replacement, depending on the system. Since the houses belong to the organisation, you take no money out beyond a deposit. What you do take is practical experience of running a budget, chairing a meeting and cooking for a crowd. Many alumni stay in touch and some serve on boards or donate. Older people are rarely part of the picture, since most student co-ops limit membership to students, although a few systems accept young workers. Check how long you can stay and who is eligible.",
+   "summary": "Most members stay a year or two and move out when they graduate. Contracts are short, there is no equity to take with you, and the whole community mostly resets each year.",
+   "body": "Student co-ops are designed for turnover. Members sign a contract for a term or a year, and many move on at graduation. If you leave early, you may sublet or find a replacement, depending on the system. Since the houses belong to the organisation, you take no money out beyond a deposit. What you do take is practical experience of running a budget and chairing a meeting, and of cooking for a crowd. Many alumni stay in touch and some serve on boards or donate. Older people are rarely part of the picture, since most student co-ops limit membership to students, although a few systems accept young workers. Check how long you can stay and who is eligible.",
    "example": {
     "id": "berkeley-student-cooperative",
     "text": "Berkeley Student Cooperative has run since 1933, so thousands of former members have passed through its houses."
@@ -87,8 +87,8 @@
  },
  "whoPoints": [
   "Students and young adults who want low rent and a ready-made circle of friends.",
-  "People curious about running a budget, a kitchen and a meeting for the first time.",
-  "Anyone who likes cooking, sharing chores and a lively house.",
+  "People curious about running a budget and a kitchen for the first time.",
+  "Anyone who likes cooking and sharing chores in a lively house.",
   "Newcomers to a city who want a house that takes them in quickly."
  ],
  "watchPoints": [

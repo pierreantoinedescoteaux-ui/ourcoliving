@@ -1,0 +1,200 @@
+{
+ "group": "who",
+ "options": [
+  {
+   "id": "students",
+   "name": "Students",
+   "summary": "Rent is split and meals are shared, so company comes built in. Student co-ops also teach members to run meetings and a budget.",
+   "body": "Sharing a house or a co-op cuts rent and cooking time, and gives company during a stressful stretch of life. Many student co-ops are run by the members themselves, so living there is also practice at chairing a meeting and keeping accounts. The thing to watch is turnover. When people graduate every year, the group's memory leaves with them, and chores slip during exams. Written routines and a simple handover for each new batch keep the house steady.",
+   "fits": [
+    "student-coop",
+    "operator-coliving"
+   ],
+   "examples": [
+    "berkeley-student-cooperative",
+    "nasco",
+    "icc-ann-arbor",
+    "campus1-mtl"
+   ],
+   "sources": [
+    "nasco"
+   ]
+  },
+  {
+   "id": "young-adults",
+   "name": "Young adults",
+   "summary": "A first step toward independence with lower costs and new friends, with room to change plans. Easy to enter, easy to outgrow.",
+   "body": "For people in their twenties and early thirties, living together can make a city affordable and help build a circle of friends after school ends. It also gives some support when jobs and plans keep shifting. The guide notes this stage is often marked by moving around and instability, which shared homes can soften. What to watch is the pull of the exit. If everyone leaves after a year, no community forms, so a mix of stayers and short stays helps.",
+   "fits": [
+    "operator-coliving",
+    "student-coop",
+    "hacker-house"
+   ],
+   "examples": [],
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "entrepreneurs",
+   "name": "Entrepreneurs",
+   "summary": "People building a company get peers and quick feedback, and the costs are shared. The risk is a house that turns into an office.",
+   "body": "Founders often work alone and hit the same walls. A house full of other builders gives quick advice and a reason to keep going on slow days, and tools get shared. Costs drop, and introductions happen over breakfast. The risk is that work takes over every room and every conversation, leaving no real rest. Rules about quiet hours and work-free spaces matter. Short stays also mean friendships can stay shallow, so a few long-term residents give the place some roots.",
+   "fits": [
+    "entrepreneur-house",
+    "hacker-house",
+    "network-village"
+   ],
+   "examples": [
+    "agi-house",
+    "hf0",
+    "growth-hub",
+    "the-residency"
+   ],
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  {
+   "id": "families",
+   "name": "Families",
+   "summary": "Parents share childcare and errands while children get a wider circle of friends and adults. Privacy must stay protected.",
+   "body": "Families get the most from daily help. Neighbours can cover a school pickup or watch the kids play outside. Children grow up with other children and trusted adults nearby, and many parents report a lighter mental load. Parents still need a closed front door and time apart. Watch for different views on raising children, and for who supervises the shared spaces. Agreeing on a few simple house habits early prevents most quarrels.",
+   "fits": [
+    "cohousing",
+    "baugruppen",
+    "ecovillage"
+   ],
+   "examples": [
+    "bridge-meadows",
+    "petaluma-avenue-homes",
+    "trudeslund"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "wiki-cohousing"
+   ]
+  },
+  {
+   "id": "single-parents",
+   "name": "Single parents",
+   "summary": "One adult carrying everything can lean on neighbours for childcare and company. Help works only if it goes both ways.",
+   "body": "Raising children alone brings a heavy load of planning and a higher risk of isolation. Living near trusted neighbours can make the day safer and lighter: someone to watch the children for an hour, a shared dinner, another adult to talk to. The guide points to informal mutual help and shared resources as the main gain. The catch is balance. Help should flow both ways, or resentment builds. Be clear early about what neighbours are happy to offer, and what stays a parent's own job.",
+   "fits": [
+    "cohousing",
+    "student-coop"
+   ],
+   "examples": [],
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "seniors",
+   "name": "Seniors",
+   "summary": "Retirees stay socially active and have people nearby if health changes. Planning for later years matters early.",
+   "body": "After retirement, daily contact with neighbours keeps people active and feeling useful. A group of nearby friends also watches out for each other in an informal way. Senior cohousing is a known model, with homes built for easy access and a common house for shared meals. What to watch is aging inside the group. When members need more support than neighbours can give, the community needs a plan, such as outside care.",
+   "fits": [
+    "cohousing",
+    "baugruppen"
+   ],
+   "examples": [
+    "humanitas-deventer",
+    "petaluma-avenue-homes",
+    "bridge-meadows"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "durrett-2009"
+   ]
+  },
+  {
+   "id": "intergenerational",
+   "name": "Intergenerational",
+   "summary": "Young and old share a roof on purpose. Each gets company and help the other has to offer.",
+   "body": "Mixing ages is the point. Older residents bring time and a steady presence. Younger ones bring energy and help with errands or technology. Children get grandparent figures, and elders stay connected to daily life. These places work when the exchange is real and fair. Some programs give students cheap rent in return for hours of company. Watch for unequal expectations and for different sleep and noise rhythms. A named coordinator and clear written give-and-take keep the deal honest.",
+   "fits": [
+    "cohousing",
+    "ecovillage"
+   ],
+   "examples": [
+    "humanitas-deventer",
+    "bridge-meadows",
+    "generations-united",
+    "fujisawa-care-model"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "newcomers",
+   "name": "Newcomers",
+   "summary": "A soft landing in a new country or city, with neighbours who explain how things work and a ready-made network.",
+   "body": "Arriving somewhere new is lonely and confusing. Neighbours can explain local habits and point to services. Everyday contact teaches language and local codes informally, and a ready network often matters most in the first years. What to watch is that the help does not turn into dependence or pressure to fit in. Clear house agreements and respect for different customs let newcomers be members and not just guests.",
+   "fits": [
+    "cohousing",
+    "operator-coliving"
+   ],
+   "examples": [],
+   "sources": [
+    "guide-cohabitat"
+   ]
+  },
+  {
+   "id": "artists",
+   "name": "Artists",
+   "summary": "Cheap space and studios close at hand, among people who understand odd hours. Money stays tight for everyone.",
+   "body": "Artists need room to make work and rent that does not eat the budget. A shared building can offer studios and fellow makers who understand late nights and irregular income. Neighbours also become first audiences and collaborators. The risk is that rents rise once a place becomes known, and income swings make monthly payments hard. Owning or leasing the building through a co-op or non-profit protects the arrangement. Noise and mess also need agreed limits.",
+   "fits": [
+    "cohousing",
+    "baugruppen",
+    "operator-coliving"
+   ],
+   "examples": [],
+   "sources": [
+    "wiki-baugruppe"
+   ]
+  },
+  {
+   "id": "remote-workers",
+   "name": "Remote workers",
+   "summary": "People who can work anywhere pick a place for its setting and company. The Wi-Fi has to be solid.",
+   "body": "Anyone with a laptop and a good connection can choose a village or a quiet region over a pricey city. Rural coliving spaces offer desks and other remote workers for company, so a quiet place does not turn lonely. What to watch is the link between work and home. Calls collide, and everyone shares the same walls. Separate work rooms and clear quiet hours help. Remote workers also move on often, which can leave local friendships thin.",
+   "fits": [
+    "rural-coliving",
+    "network-village",
+    "operator-coliving"
+   ],
+   "examples": [
+    "rooral",
+    "sende",
+    "coconat"
+   ],
+   "sources": [
+    "wiki-coliving"
+   ]
+  },
+  {
+   "id": "care",
+   "name": "People needing care",
+   "summary": "Homes designed around daily support, with the load shared between neighbours and staff. Safety and dignity guide the design.",
+   "body": "Some people need regular help to live well. Housing built around that need puts support close by, so people stay in a home setting and not an institution. Neighbours offer company and informal watchfulness, and trained staff cover what volunteers cannot. The guide stresses adapted buildings and clear organisation, with professional support in some cases. The danger is that volunteers get overloaded or that residents lose control over their lives. Plan paid help and define roles, so residents can shape their own days.",
+   "fits": [
+    "cohousing",
+    "ecovillage"
+   ],
+   "examples": [
+    "hogeweyk",
+    "fujisawa-care-model"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ]
+  }
+ ],
+ "newSources": [],
+ "flags": [
+  "No project in projects-data is tagged for young-adults, single-parents, newcomers or artists, so examples are empty for those. Add one only if a source supports it."
+ ]
+}

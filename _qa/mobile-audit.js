@@ -22,7 +22,7 @@ fs.mkdirSync(outDir, { recursive: true });
 // its seven text elements ended up under the floor (P-A, 2026-07-30).
 const pages = [
   "story.html", "work.html", "design.html", "project.html?p=montreal", "why.html",
-  "map.html", "type.html?t=intergenerational", "manifesto.html", "hope.html",
+  "map.html", "type.html?t=cohousing", "how-to.html", "manifesto.html", "hope.html",
   "about.html", "resources.html", "talkpieces.html", "designers.html",
   "themes.html", "inspiration.html", "separation.html", "credits.html",
   "detail.html?item=rooral",

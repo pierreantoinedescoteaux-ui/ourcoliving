@@ -2,7 +2,7 @@
  "areas": {
   "governance": {
    "summary": "The host decides most things, and the house runs on shared habits more than written rules. Bigger questions get talked through at the dinner table, and the host closes the talk when it drags.",
-   "body": "An entrepreneur house usually has one person at its centre. The host signs the lease, chooses who joins and sets the tone. Written rules stay few and short. Most of what holds the house together is culture, meaning the habits new people pick up from the people already living there. Decisions get made in the kitchen or around the dinner table, often with everyone present. When a conversation goes in circles, the host settles it. Some houses add a short weekly check-in to air small problems early. Because the host picked each resident, the group tends to share a pace and a set of goals, which makes agreement easier. The price is that the house leans on one person's judgment, and residents have little formal power if they disagree with it.",
+   "body": "An entrepreneur house usually has one person at its centre. The host signs the lease and chooses who joins. The host also sets the tone for the whole house. Written rules stay few and short. Most of what holds the house together is culture, meaning the habits new people pick up from the people already living there. Decisions get made in the kitchen or around the dinner table, often with everyone present. When a conversation goes in circles, the host settles it. Some houses add a short weekly check-in to air small problems early. Because the host picked each resident, the group tends to share a pace and a set of goals, which makes agreement easier. The price is that the house leans on one person's judgment, and residents have little formal power if they disagree with it.",
    "example": {
     "id": "montreal-house",
     "text": "In the Montreal house, the host set the house culture and decisions often happened around the shared table."
@@ -15,7 +15,7 @@
   },
   "financing": {
    "summary": "Houses of this kind are usually rented, and the residents pay rent between them. There is very little outside money, so the host carries the risk of the lease.",
-   "body": "Most entrepreneur houses start with a lease. The host rents a large home, and each resident pays a share every month that covers rent, utilities and the shared supplies. Nobody builds up ownership, so the entry cost is low compared with buying into a community. That makes the model easy to start with little capital and easy to stop. It also puts the weight on the host. If a room sits empty, the host often covers the gap. Rooms of different size may cost different amounts, and some houses add a small fee for the shared upkeep. Because residents are rarely owners, they tend to think of the house as a place to be useful for a while rather than a long term asset.",
+   "body": "Most entrepreneur houses start with a lease. The host rents a large home, and each resident pays a share every month that covers the rent and the utilities, plus the shared supplies. Nobody builds up ownership, so the entry cost is low compared with buying into a community. That makes the model easy to start with little capital and easy to stop. It also puts the weight on the host. If a room sits empty, the host often covers the gap. Rooms of different size may cost different amounts, and some houses add a small fee for the shared upkeep. Because residents are rarely owners, they tend to think of the house as a place to be useful for a while rather than a long term asset.",
    "example": {
     "id": "growth-hub",
     "text": "Growth Hub in Vancouver started in 2021 as an informal house for young entrepreneurs, in rented homes."
@@ -28,7 +28,7 @@
   },
   "space": {
    "summary": "The house is arranged to support what the residents do. Rooms get clear jobs, such as a place to focus, a table to gather at and a corner to be quiet in.",
-   "body": "The ordinary rented house is a poor fit for people who both live and work in it, so the host redesigns it around how people behave. Bedrooms stay private. The rest is split by purpose. There are rooms for focused work with doors that close, a large table where meals and chance conversations happen, and a corner for rest or reflection. Small changes such as moving a desk, adding a lamp or opening a wall can shift how often people meet. Since the host usually rents, the changes have to be cheap and reversible, and good design comes from watching how the house is actually used. The house gets rearranged as residents come and go, so the space is never quite finished.",
+   "body": "The ordinary rented house is a poor fit for people who both live and work in it, so the host redesigns it around how people behave. Bedrooms stay private. The rest is split by purpose. There are rooms for focused work with doors that close, a large table where meals and chance conversations happen, and a corner for rest or reflection. Small changes such as moving a desk or opening a wall can shift how often people meet. Since the host usually rents, the changes have to be cheap and reversible, and good design comes from watching how the house is actually used. The house gets rearranged as residents come and go, so the space is never quite finished.",
    "example": {
     "id": "montreal-house",
     "text": "The Montreal house is a full case study on this site, about designing rooms so people work and live well together."
@@ -40,8 +40,8 @@
    ]
   },
   "community": {
-   "summary": "Togetherness comes from careful selection, then from shared meals and a rhythm of small rituals. The group is picked to fit, so chemistry matters as much as résumé.",
-   "body": "These houses select their members the way a small founding team does. Applicants fill in a form, talk with the host and sometimes meet the residents before anyone is accepted. The aim is a group with similar energy and different skills, so people can learn from each other. After that, shared meals, a weekly gathering and informal help with each other's projects do most of the work. Residents often become each other's first readers, testers and introducers. The closeness is real, yet it depends on who is in the house this year. When someone leaves, the mix shifts, so hosts keep an eye on how the group feels. A good house gives people enough company without making it a duty.",
+   "summary": "Togetherness starts with careful selection and grows through shared meals and small rituals in the house. The group is picked to fit, so chemistry matters as much as résumé.",
+   "body": "These houses select their members the way a small founding team does. Applicants fill in a form and talk with the host. Some also meet the residents before anyone is accepted. The aim is a group with similar energy and different skills, so people can learn from each other. After that, shared meals and a weekly gathering do most of the work, along with informal help on each other's projects. Residents often become each other's first testers and introducers. The closeness is real, yet it depends on who is in the house this year. When someone leaves, the mix shifts, so hosts keep an eye on how the group feels. A good house gives people enough company without making it a duty.",
    "example": {
     "id": "the-residency",
     "text": "The Residency runs curated live-work cohorts for founders and creators, so the group is chosen before it starts."
@@ -53,8 +53,8 @@
    ]
   },
   "operations": {
-   "summary": "The host does most of the daily running, with chores and routines shared among residents. As the house grows, some tasks move to paid help or a small team.",
-   "body": "Someone has to buy supplies, fix the Wi-Fi, deal with the landlord and keep the kitchen clean. In most entrepreneur houses the host takes the largest share, and the rest is spread through a chore rota or simple habits. A small house can run on goodwill. A larger one needs clearer routines, a shared list of tasks and sometimes a paid cleaner. Operators who run several houses or cohorts usually add staff, so the host is free to focus on the people. The risk is the same everywhere. A house that depends on one person's energy slows when that person is tired. The best setups write the routines down early, so the house keeps running when the host is away.",
+   "summary": "The host does most of the daily running, and residents share the chores and routines between them. As the house grows, some tasks move to paid help or a small team.",
+   "body": "Someone has to buy supplies and fix the Wi-Fi. Someone also has to deal with the landlord and keep the kitchen clean. In most entrepreneur houses the host takes the largest share, and the rest is spread through a chore rota or simple habits. A small house can run on goodwill. A larger one needs clearer routines, a shared list of tasks and sometimes a paid cleaner. Operators who run several houses or cohorts usually add staff, so the host is free to focus on the people. The risk is the same everywhere. A house that depends on one person's energy slows when that person is tired. The best setups write the routines down early, so the house keeps running when the host is away.",
    "example": {
     "id": "the-residency",
     "text": "The Residency organises its stays as curated cohorts, which puts the running of the programme in the hands of its organisers."
@@ -67,10 +67,10 @@
   },
   "privacy": {
    "summary": "Each person has a private room, and the rest of the house is shared. Living and working together blurs the line, so privacy has to be made on purpose.",
-   "body": "In a house where people also work, home and office overlap. A resident may share the same kitchen with a colleague, a cofounder or a friend, and the day never fully switches off. Good houses protect time and space for being alone. Bedrooms are private, there are quiet hours, and some rooms are set aside for solitude. Many ask residents to say what they need, so nobody has to guess. Conflict tends to come from noise, mess, money and uneven effort. Most houses deal with it through a direct conversation first, and then through the host. Because the host chose the residents and also decides, a complaint about the host is the hardest one to raise.",
+   "body": "In a house that doubles as a workplace, the two parts of life overlap. A resident may share the same kitchen with a colleague or a cofounder, and the day never fully switches off. Good houses protect time and space for being alone. Bedrooms are private and there are quiet hours. Some rooms are set aside for solitude. Many ask residents to say what they need, so nobody has to guess. Conflict tends to come from noise and mess. Money and uneven effort cause friction too. Most houses deal with it through a direct conversation first, and then through the host. Because the host chose the residents and also decides, a complaint about the host is the hardest one to raise.",
    "example": {
     "id": "the-residency",
-    "text": "The Residency offers live-work cohorts, so founders and creators share their home and their working life with the same group."
+    "text": "The Residency offers live-work cohorts. Founders and creators there share their home and their working life with the same group."
    },
    "pitfall": "With home and work in the same place, people never fully switch off.",
    "sources": [
@@ -79,8 +79,8 @@
    ]
   },
   "leaving": {
-   "summary": "Leaving is simple, since residents rent and nobody owns a share. The cost is that stays are often short, so the group changes often.",
-   "body": "Because most residents rent a room, leaving means giving notice, finding or accepting a replacement and moving out. Nothing needs to be sold. Some houses ask for a month or two of notice so the host can fill the room. The host's concern is the next person, since a new arrival changes the mix of the house. Residents take away their own belongings, their projects and their network. Few houses are planned for growing old, because the model suits a stage of life when people are building something. Many people stay a year or two, then move on to a company, a partner or a home of their own. The friendships often last longer than the house does.",
+   "summary": "Leaving is simple because residents rent a room and nobody owns a share. The cost is that stays are often short, so the group keeps changing and friendships need rebuilding.",
+   "body": "Because most residents rent a room, leaving means giving notice and moving out, with a replacement found or accepted along the way. Nothing needs to be sold. Some houses ask for a month or two of notice so the host can fill the room. The host's concern is the next person, since a new arrival changes the mix of the house. Residents take away their own belongings and their network. Few houses are planned for growing old, because the model suits a stage of life when people are building something. Many people stay a year or two, then move on to a company or a home of their own. The friendships often last longer than the house does.",
    "example": {
     "id": "growth-hub",
     "text": "Growth Hub homes are rented, so leaving means ending a rental arrangement and not selling anything."

@@ -1,8 +1,8 @@
 {
  "areas": {
   "governance": {
-   "summary": "Most network villages are led by a founder or a small company, and a few experiment with votes. Everything is still being tried, and little is proven.",
-   "body": "The common pattern is a founder who starts the project, sets the rules and decides what happens next. Residents join as members and can give feedback, though the company keeps the final say. Some pop-up villages run more like a community gathering, where organisers and participants talk openly and try different ways of deciding, from open discussion to online voting. Several projects want to move toward shared governance one day, with a council or a token vote. In practice, a small team often makes the quick decisions, since events have deadlines. The big question is how a group that began online turns into a place with rules about land, safety, noise and taxes. Few have answered it, because most have not lasted long enough to find out.",
+   "summary": "Most network villages are led by a founder or a small company, and a few experiment with votes. Everything is still being tried, and little is proven so far.",
+   "body": "The common pattern is a founder who starts the project and sets the rules. The founder also decides what happens next. Residents join as members and can give feedback, though the company keeps the final say. Some pop-up villages run more like a community gathering. Organisers and participants talk openly and try different ways of deciding, from open discussion to online voting. Several projects want to move toward shared governance one day. A council or a token vote is the usual idea. In practice, a small team often makes the quick decisions, since events have deadlines. The big question is how a group that began online turns into a place with rules about land and safety. Noise and taxes come into it too. Few have answered it, because most have not lasted long enough to find out.",
    "example": {
     "id": "network-school",
     "text": "Network School is run as a company with a founder in charge, and residents take part as members."
@@ -14,8 +14,8 @@
    ]
   },
   "financing": {
-   "summary": "These projects attract the most money of any type here, from investors, patrons and member fees. Raising it is easier than turning it into a lasting place.",
-   "body": "Network villages sit close to the technology world, so they often have access to venture money, wealthy supporters and crypto funds. Residents usually pay a fee or a membership, and pop-ups also draw on tickets and sponsors. Some projects are companies with investors expecting a return, and others are non-profit gatherings that rely on donations. The land question differs by project. Some rent hotels and venues for a few weeks, and others buy or build. Money lets a project move fast, yet it also shapes who feels welcome, since high fees filter out people with less. A project funded by one backer can also change direction when the backer's interest changes. Most have yet to show that the model pays for itself without outside money.",
+   "summary": "These projects attract the most money of any type here, mostly from investors and patrons. Member fees add to it. Raising it is easier than turning it into a lasting place.",
+   "body": "Network villages sit close to the technology world, so they often have access to venture money and to wealthy supporters. Crypto funds are another source. Residents usually pay a fee or a membership, and pop-ups also draw on tickets and sponsors. Some projects are companies with investors expecting a return, and others are non-profit gatherings that rely on donations. The land question differs by project. Some rent hotels and venues for a few weeks. Others buy or build. Money lets a project move fast, yet it also shapes who feels welcome, since high fees filter out people with less. A project funded by one backer can also change direction when the backer's interest changes. Most have yet to show that the model pays for itself without outside money.",
    "example": {
     "id": "network-school",
     "text": "Network School in Malaysia is a company backed by investors, and its residents pay a membership."
@@ -27,8 +27,8 @@
    ]
   },
   "space": {
-   "summary": "Most start with rented hotels and venues and aim at built neighbourhoods later. Space is often chosen for an event, not yet for daily life.",
-   "body": "A pop-up village takes over an existing place for a few weeks. It might be a resort, a conference site or a rented set of houses. Participants live, work and meet in the same few buildings, and the schedule fills the shared spaces. Permanent projects try to go further and design the place itself. Some focus on new neighbourhoods with fewer cars, more walking and shared courtyards, so daily life supports the community. Building takes years and a lot of capital, so many projects stay in the pop-up stage for a long time. The gap between a fun event and a working town is large. A good week in a hotel tells you little about a year of ordinary life.",
+   "summary": "Most start with rented hotels and venues and aim at built neighbourhoods later. Space is often chosen for an event, and not yet for the needs of daily life.",
+   "body": "A pop-up village takes over an existing place for a few weeks. It might be a resort or a conference site, or simply a rented set of houses. Participants live and work in the same few buildings, and they meet there too, and the schedule fills the shared spaces. Permanent projects try to go further and design the place itself. Some focus on new neighbourhoods with fewer cars and more walking, with shared courtyards, so daily life supports the community. Building takes years and a lot of capital, so many projects stay in the pop-up stage for a long time. The gap between a fun event and a working town is large. A good week in a hotel tells you little about a year of ordinary life.",
    "example": {
     "id": "culdesac",
     "text": "Culdesac in Tempe, Arizona is a car-free neighbourhood built from scratch."
@@ -40,8 +40,8 @@
    ]
   },
   "community": {
-   "summary": "People arrive already sharing interests, so connection is quick and intense. The same filter can leave the group very similar.",
-   "body": "These villages draw people who met online or follow the same ideas, so the first conversations come easily. Days are filled with talks, workshops, shared meals and projects, and the schedule pushes people together. Many residents describe a strong sense of purpose and energy. The tradeoff is sameness. A group selected by interest, income and taste tends to look alike, and it may lack the neighbours who make a place feel ordinary and human, such as children, older people or shopkeepers. Organisers are aware of the problem and try to invite a wider range. Whether a lively gathering can become a lasting neighbourhood is still an open question, since most have only run for weeks or months.",
+   "summary": "People arrive already sharing interests. Connection comes quickly and feels intense from the very start. The same filter can leave the group very similar in background and taste.",
+   "body": "These villages draw people who met online or follow the same ideas, so the first conversations come easily. Days are filled with talks and workshops, and the schedule pushes people together. Shared meals and projects do the rest. Many residents describe a strong sense of purpose and energy. The tradeoff is sameness. A group selected by interest and taste, and often by income, tends to look alike. It may lack the neighbours who make a place feel ordinary and human. Children and shopkeepers are often missing, and so are older people. Organisers are aware of the problem and try to invite a wider range. Whether a lively gathering can become a lasting neighbourhood is still an open question, since most have only run for weeks or months.",
    "example": {
     "id": "zuzalu",
     "text": "Zuzalu was a two-month pop-up in Montenegro in 2023, and it started the wider movement."
@@ -53,8 +53,8 @@
    ]
   },
   "operations": {
-   "summary": "Event teams are learning to run towns. They handle the programme well and are still working out everyday services such as waste, repairs and safety.",
-   "body": "Running a pop-up is a hospitality and events job. A team books the venue, plans the schedule, feeds people and answers questions. Running a town means more. Someone must handle rubbish, repairs, security, health, permits and neighbours over many years. Network villages are slowly moving from the first kind of work to the second. Some hire staff, some rely on volunteers, and some partner with property companies that already know the field. The pace of the event world can clash with the slower demands of a lasting place. Organisers who treat the ordinary tasks as seriously as the programme tend to do better. Most have a long way to go before they can run a place without a heroic team.",
+   "summary": "Event teams are learning to run towns. They handle the programme well and are still working out everyday services such as waste and repairs, plus safety, that a lasting place needs.",
+   "body": "Running a pop-up is a hospitality and events job. A team books the venue and plans the schedule. It also feeds people. The team also answers questions. Running a town means more. Someone must handle rubbish and repairs. Security and health need attention too. So do permits and the neighbours, year after year. Network villages are slowly moving from the first kind of work to the second. Some hire staff and some rely on volunteers. Others partner with property companies that already know the field. The pace of the event world can clash with the slower demands of a lasting place. Organisers who treat the ordinary tasks as seriously as the programme tend to do better. Most have a long way to go before they can run a place without a heroic team.",
    "example": {
     "id": "edge-esmeralda",
     "text": "Edge Esmeralda is a month-long pop-up village in Healdsburg, California that is meant to prototype a future permanent town."
@@ -66,8 +66,8 @@
    ]
   },
   "privacy": {
-   "summary": "Residents usually have their own room or home, and the programme fills the days. Because the group is tight, it is easy to feel watched.",
-   "body": "Housing is generally private. Residents sleep in their own room or apartment, and the shared life takes place in common areas and events. Still, a packed schedule and a small group leave less room for being alone. Many people feel they must attend everything, and being absent gets noticed. Conflict usually goes through the organisers, since there is often no formal process of the kind a housing co-op would have. Residents who disagree with the founder can leave, but they rarely have a say over rules. Some projects have started to write codes of conduct and name people to handle complaints. As places become permanent, expect clearer rules about noise, safety and what is shared online.",
+   "summary": "Residents usually have their own room or home, and the programme fills the days. Because the group is tight and everyone is in view, it is easy to feel watched.",
+   "body": "Housing is generally private. Residents sleep in their own room or apartment, and the shared life takes place in common areas and events. Still, a packed schedule leaves less room for being alone, and so does a small group. Many people feel they must attend everything, and being absent gets noticed. Conflict usually goes through the organisers, since there is often no formal process of the kind a housing co-op would have. Residents who disagree with the founder can leave, but they rarely have a say over rules. Some projects have started to write codes of conduct and name people to handle complaints. As places become permanent, expect clearer rules about noise and safety, and about what is shared online.",
    "example": {
     "id": "culdesac",
     "text": "Culdesac is a rented neighbourhood run by a company, so residents live in private homes inside a shared, car-free setting."
@@ -79,8 +79,8 @@
    ]
   },
   "leaving": {
-   "summary": "Leaving is usually easy, since people rent or pay a membership and own little. The open question is whether anyone can build a long life in these places.",
-   "body": "Most residents arrive for a short stay, a season or a membership period. Leaving means ending the membership or the lease. Nothing has to be sold, and the investment you leave behind is mostly time. That freedom comes with a downside. The projects are new, so no one knows if they will still exist in ten years. Residents who like a place cannot count on it staying open on the same terms. The founder can change prices, rules or location, and a place may expand to a new site, as Network School has done in Astana. Few of these projects have thought through families, older residents or care. If they succeed as towns, those questions will arrive quickly.",
+   "summary": "Leaving is usually easy because people rent or pay a membership and own little. The open question is whether anyone can build a long life in these places.",
+   "body": "Most residents arrive for a short stay or a season. Others pay for a membership period. Leaving means ending the membership or the lease. Nothing has to be sold, and the investment you leave behind is mostly time. That freedom comes with a downside. The projects are new, so no one knows if they will still exist in ten years. Residents who like a place cannot count on it staying open on the same terms. The founder can change the prices or the location. Rules can change as well, and a place may expand to a new site, as Network School has done in Astana. Few of these projects have thought through families and older residents. Care is a question too. If they succeed as towns, those questions will arrive quickly.",
    "example": {
     "id": "network-school",
     "text": "Network School works on a membership, and it now also runs a site in Astana besides Malaysia."
@@ -99,7 +99,7 @@
   "Builders who would like to help shape a town and not simply join one."
  ],
  "watchPoints": [
-  "Almost everything here is early and unproven, and projects can change or close.",
+  "Almost everything here is early and unproven. Projects can change or close.",
   "High fees and investor backing can filter out the people who make a place feel ordinary.",
   "Founder-led decisions mean residents have little formal power.",
   "A good event does not show how daily life will go over a year."

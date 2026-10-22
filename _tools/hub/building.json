@@ -1,0 +1,146 @@
+{
+ "group": "building",
+ "options": [
+  {
+   "id": "new",
+   "name": "New build",
+   "summary": "The group builds on empty land and designs the place from scratch. It gets the most freedom, and also the most work and risk.",
+   "body": "A new build starts with a blank site. The group works with an architect to decide where the common house goes, how homes face each other and which rooms are shared. The Quebec guide says empty land gives the most freedom in design.\n\nThe price of that freedom is work. Empty land usually needs roads and pipes before anything goes up, and each choice is paid for. Designing with future residents takes many workshops, and the group has to agree on trade-offs when the budget runs short.\n\nFor people living together, a new building can be planned for good soundproofing and step-free access. It can also include rooms that change as households grow.",
+   "pros": [
+    "Full freedom to design for shared life",
+    "Modern standards for access and sound"
+   ],
+   "cons": [
+    "Empty land needs costly site work",
+    "Long design and permit process before moving in"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Total freedom, total responsibility"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Design built around the group"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Many design choices to agree on"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Permits for every stage"
+    },
+    "money": {
+     "dot": "harder",
+     "t": "Site work adds to the cost"
+    }
+   },
+   "bestWhen": "When the group has a clear idea of how it wants to live and the money and patience to build it.",
+   "examples": [
+    "lilac",
+    "kalkbreite",
+    "windsong"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "converted",
+   "name": "Converted building",
+   "summary": "The group takes an existing building, such as a farm. It becomes shared homes. It can save time and keep a place's history.",
+   "body": "A converted building starts from what already stands. The group may take over an old school or an office block and reshape the rooms for shared living. The Quebec guide says an existing building can bring a site back to life and honour its heritage. It usually brings tighter technical and legal limits.\n\nThe walls and roof are already there, which can shorten the wait before people move in. The group has to work with them, though. Old plumbing and thick walls make soundproofing and energy upgrades harder. Zoning may need to change if the use changes.\n\nFor residents, a conversion often gives a place with character. The guide adds that the best choice is the one that fits what the group wants, even when it costs more.",
+   "pros": [
+    "Keeps a building and its history alive",
+    "Walls and roof are already in place"
+   ],
+   "cons": [
+    "Old structures limit layout and sound",
+    "Change of use may need new permits"
+   ],
+   "impact": {
+    "building": {
+     "dot": "harder",
+     "t": "Old structure limits the layout"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Rooms may not suit shared life"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "Group decides what to keep"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Change of use needs approval"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Savings or surprises behind walls"
+    }
+   },
+   "bestWhen": "When a fitting building is available, and the group values its character more than a perfect plan.",
+   "examples": [
+    "sende",
+    "coconat"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mixed",
+   "name": "New + converted",
+   "summary": "The project adds new buildings next to an older one. It joins the character of the old with the comfort of the new.",
+   "body": "Some projects use both. The group keeps an older building, such as a barn. New homes go up beside it. Or a new wing joins an old block. The old part often holds the common house, and the new part holds the private homes.\n\nThis lets the group choose what to keep and what to start fresh. Old rooms can give character to shared spaces, while new construction can meet today's rules for access and energy. It also lets a project grow in stages as money and members arrive.\n\nThe trade-off is that the group manages two kinds of work at once. Old and new parts need different builders and permits, and the joins between them need care.",
+   "pros": [
+    "Keeps older character and adds modern comfort",
+    "Can be built in stages as money arrives"
+   ],
+   "cons": [
+    "Two kinds of building work to manage",
+    "The join between old and new needs care"
+   ],
+   "impact": {
+    "building": {
+     "dot": "harder",
+     "t": "Two kinds of work at once"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Old rooms add character to shared life"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "More choices on what to keep"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Different rules for each part"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Phasing helps, mixing adds cost"
+    }
+   },
+   "bestWhen": "When a site already has a building worth keeping that is too small for the whole group.",
+   "examples": [
+    "terra-firma"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "Terra Firma is tagged mixed in projects-data.js; confirm its details before the page leans on it."
+   ]
+  }
+ ],
+ "newSources": [],
+ "flags": [
+  "The guide only compares vacant land with an existing building (p. 252). The mixed option rests on the site's own TAG_VOCAB definition and the Terra Firma tag, not on the guide."
+ ]
+}

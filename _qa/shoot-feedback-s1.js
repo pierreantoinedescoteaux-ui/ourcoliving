@@ -2,7 +2,7 @@
    pill hover sentences, external links open in a new tab.
    Run: node _qa/shoot-feedback-s1.js   (server on :8123) */
 const { chromium } = require('./node_modules/playwright-core');
-const B = 'http://localhost:8123/';
+const B = process.env.BASE || 'http://localhost:8123/';
 const OUT = __dirname + '/fb1-';
 const PAGES = [
   ['map', 'map.html?live'],

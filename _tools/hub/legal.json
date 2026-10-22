@@ -1,0 +1,495 @@
+{
+ "group": "legal",
+ "options": [
+  {
+   "id": "public",
+   "name": "Public housing",
+   "summary": "A city or a public housing company owns the building and rents the homes at set prices. Residents are tenants, and the rules come from public policy.",
+   "body": "In public housing, a public body owns the building and rents out the homes. That owner can be a city or a public housing company. In Quebec, municipal housing offices run much of it. Rents are set by public rules, and those rules also decide who qualifies for a home. Tenants rarely own anything in the building.\n\nPublic owners usually work from the top down. A central office handles waiting lists and repairs, and tenants rarely choose their neighbours or change how the building is run. That sits badly with groups who want to pick who joins and share many decisions. The Quebec guide says shared-living projects rarely fit strict public housing for exactly this reason.\n\nThere are still ways in. Some public bodies back a project without running it. They can sell or lease land, and they can lend money. In Sweden, public landlords rent whole collective houses to their residents. Färdknäppen in Stockholm is one: a municipal housing company owns the building, and the flats come with a shared kitchen and common dinners.\n\nFor a group, this route brings low rents and a steady, well-funded owner. In return, there is less say over who moves in and how the place changes over time. It works best for a group that cares most about affordability and is happy to work inside a public partner's rules.",
+   "pros": [
+    "Rents stay low and the owner is steady",
+    "No need to raise purchase money"
+   ],
+   "cons": [
+    "Little say over who moves in",
+    "Rules and decisions come from the owner"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Owner decides on changes and repairs"
+    },
+    "social": {
+     "dot": "harder",
+     "t": "Tenants are placed, not chosen"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Owner holds the final say"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "Tenants only sign a lease"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Low set rents, no purchase"
+    }
+   },
+   "bestWhen": "When affordability matters most and the group can work with a public partner that supports its way of living.",
+   "examples": [
+    "fardknappen"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Public_housing"
+   ],
+   "flags": [
+    "Strict public housing rarely allows residents to choose neighbours; the example is a Swedish collective house with a public landlord, not a Quebec HLM."
+   ]
+  },
+  {
+   "id": "coop",
+   "name": "Co-op",
+   "summary": "The residents own the building together through a co-operative. Each member gets one vote, and members hold their home through shares or a right to live there.",
+   "body": "A housing co-op is a legal body owned by the people who live in it. The co-op owns the building, and each household is a member with one vote, whatever it paid in. Members elect a board and meet in a general assembly to decide the big things.\n\nMost members do not own their flat. They hold a right to live in it, often tied to a share in the co-op. They pay a monthly charge that covers the loan and the upkeep, plus some savings. When a member leaves, the share is paid back and a new household takes the home. No one sells a flat on the open market, so prices stay steady. Profit has little room to creep in.\n\nCo-ops are common in Zurich. Kalkbreite and Mehr als Wohnen are well known there. In England, LILAC in Leeds uses a mutual co-op where members hold shares. Spreefeld in Berlin also uses a co-op, and a student co-op system like ICC in Ann Arbor shows the same idea at house scale.\n\nFor a group living together, a co-op fits shared ownership and shared decisions. It also asks for steady work. Someone has to keep the books and hold meetings. Someone also answers to lenders, and members carry that load together. Banks can be slower to lend to co-ops than to private owners, so many groups lean on public programmes or ethical lenders.",
+   "pros": [
+    "Shared ownership with one vote each",
+    "Homes stay out of the speculative market"
+   ],
+   "cons": [
+    "Members do the admin and board work",
+    "Banks can be slower to lend"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Co-op can own any kind of building"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Members already share a stake"
+    },
+    "governance": {
+     "dot": "easier",
+     "t": "One member, one vote, built in"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Statutes and yearly duties"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Shared loan, but lenders can hesitate"
+    }
+   },
+   "bestWhen": "When a group wants to own its building together and share decisions equally.",
+   "examples": [
+    "kalkbreite",
+    "mehr-als-wohnen",
+    "lilac",
+    "spreefeld",
+    "icc-ann-arbor"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Housing_cooperative"
+   ],
+   "flags": [
+    "Spreefeld is listed as a co-op in the site data but was not checked against a primary source."
+   ]
+  },
+  {
+   "id": "solidarity-coop",
+   "name": "Solidarity co-op",
+   "summary": "A Quebec kind of co-op that lets residents and supporters of the project belong to one body, with a vote each.",
+   "body": "A solidarity co-op is a form set out in Quebec's co-operative law. It works like an ordinary co-op, with one vote per member. The difference is that it can hold more than one kind of member. Some use its services and some work there. Others simply back the project.\n\nThat mix matters for a group that wants more than residents around the table. A neighbourhood organisation or a care provider can sit beside the households. Each kind of member can have its own seats on the board, so no single group runs everything. The co-op can also take on tasks beyond housing, like running a shared space or services open to the neighbourhood.\n\nIn Quebec cohousing, the form often shows up inside a hybrid. A solidarity co-op carries the project and the shared parts, while households own their homes as condos. Sources describe Cohabitat Québec and Cohabitat Neuville as a mix of co-op and divided co-ownership. The exact legal wording of each project was not confirmed.\n\nFor a group in Quebec, a solidarity co-op gives a democratic body that can bring partners in. It also carries the usual co-op load of meetings and rules. It also needs advice from people who know Quebec law. Outside Quebec, similar forms exist under other names, such as multi-stakeholder co-ops.",
+   "pros": [
+    "Residents and supporters share one democratic body",
+    "Partners can join without taking over"
+   ],
+   "cons": [
+    "Quebec law only, so it does not travel",
+    "Meetings and rules take steady effort"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Works for any building the co-op holds"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Neighbours and supporters can join in"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "Member groups need balanced board seats"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Quebec co-op law and yearly duties"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Supporters can add funds and trust"
+    }
+   },
+   "bestWhen": "When a Quebec group wants partners such as local groups or workers to belong to the project alongside the households.",
+   "examples": [],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Multi-stakeholder_cooperative"
+   ],
+   "flags": [
+    "Legal structure of Cohabitat Québec, Cohabitat Neuville and Un Village à Lachine is not confirmed as solidarity co-op in official sources, so no examples are listed.",
+    "Check exact member categories and minimums under the Quebec Cooperatives Act."
+   ]
+  },
+  {
+   "id": "nonprofit",
+   "name": "Non-profit",
+   "summary": "A non-profit owns the place and keeps it for its mission. Surplus goes back into the project, and nobody can take profit out when the building changes hands.",
+   "body": "A non-profit is a legal body with a mission and no owners. It can own land and buildings and sign loans, but it cannot pay out profit to anyone. Any surplus goes back into the place or the mission. If the non-profit closes, its assets usually pass to a similar organisation.\n\nIn housing, that makes it a steady keeper. The non-profit holds the building for good, so the homes cannot be sold off one by one. Residents are most often tenants. A board elected by members runs the organisation. Residents may hold seats on it, though not always a majority.\n\nThe form turns up in many kinds of project. Findhorn in Scotland is run through a non-profit. Humanitas in Deventer and Bridge Meadows in Portland use non-profits for their care and housing mix. Petaluma Avenue Homes in California is non-profit rental cohousing, and the Berkeley Student Cooperative has housed students since 1933. In Quebec, Village Urbain is a non-profit that develops affordable cohousing.\n\nFor a group, a non-profit is easier to set up than a co-op in many places and attracts grants and gifts. The trade-off is control. Residents may not own the thing they live in, and the board must serve the mission, not only the households. It works best when a group wants to protect affordability and is happy to be tenants.",
+   "pros": [
+    "Profit cannot be taken out of the place",
+    "Open to grants and public support"
+   ],
+   "cons": [
+    "Residents may only be tenants",
+    "Board must serve the mission first"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Can own land and any building type"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Depends on how members are chosen"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "Board may include non-residents"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Simple to start, yearly duties"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Grants and gifts are open to it"
+    }
+   },
+   "bestWhen": "When a group wants a place to stay affordable for good and is fine with a board that guards the mission.",
+   "examples": [
+    "findhorn",
+    "humanitas-deventer",
+    "bridge-meadows",
+    "petaluma-avenue-homes",
+    "berkeley-student-cooperative"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Nonprofit_organization",
+    "village-urbain"
+   ],
+   "flags": [
+    "Humanitas Deventer is tagged non-profit in site data; operator details not rechecked."
+   ]
+  },
+  {
+   "id": "condo",
+   "name": "Condo / divided co-ownership",
+   "summary": "Each household owns its own unit outright, and everyone owns the shared parts together. An owners' association runs the building under a set of written rules.",
+   "body": "In a condo, which Quebec calls divided co-ownership, the building is cut into private units and shared parts. Each household owns its unit and can sell it or mortgage it, and can pass it to family. The shared parts belong to all owners together, in shares set by the size or value of each unit. That covers the hallways and the common house.\n\nThe owners form an association, called a syndicate in Quebec. It runs the building through a written set of rules. Owners vote at a yearly meeting and elect a board. They also pay monthly fees into a repair fund. Those rules can be written to suit a group, with clauses about shared spaces and new owners.\n\nBanks know this form well, so each household can usually get its own mortgage. That is a real advantage next to co-ops. Nightingale in Melbourne is built this way and sells its homes at cost. In Quebec, Cohabitat Québec and Cohabitat Neuville pair a condo structure with a co-op, according to the 2025 law article cited in the project checks.\n\nThe weak spot is price. Units sell at market value, so the place can drift out of reach for people with less money, and the group has no hold over who buys. A condo works best when members are comfortable owning and can write strong rules from the start.",
+   "pros": [
+    "Each household can get its own mortgage",
+    "Owners build savings and can sell"
+   ],
+   "cons": [
+    "Prices follow the market and can climb",
+    "Little say over who buys a unit"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Banks and builders know this form"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Owners can sell to anyone"
+    },
+    "governance": {
+     "dot": "easier",
+     "t": "Syndicate rules are well tested"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "Standard law and templates exist"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Individual mortgages are available"
+    }
+   },
+   "bestWhen": "When members want to own their own home and can agree on firm rules for shared parts and new buyers.",
+   "examples": [
+    "nightingale",
+    "cohabitat-quebec",
+    "cohabitat-neuville"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Condominium"
+   ],
+   "flags": [
+    "Cohabitat Québec and Cohabitat Neuville are described as a hybrid of co-op and divided co-ownership (Revue de droit de l'Université de Sherbrooke, 2025); official sites do not state it."
+   ]
+  },
+  {
+   "id": "company",
+   "name": "Company",
+   "summary": "A business owns or runs the place, and residents are its customers. The company sets the rules and the prices. It also decides who moves in, and aims to earn a return.",
+   "body": "In this set-up, a business runs the place. It either owns the building or leases it. Residents sign a lease or a membership with the company. The company decides on prices and house rules. It also picks who gets a room. Its owners expect to earn money from the place.\n\nThat makes it the quickest route. One owner can buy or lease a building and fit it out, then fill it, without a vote among future residents. It is how many coliving operators work. Habyt and Cohabs rent rooms in furnished shared homes, and The Collective in London is often studied as a case where a fast-growing company ran into trouble. Culdesac in Arizona builds a whole car-free neighbourhood under a company.\n\nResidents get convenience. Rent often covers furniture and cleaning, with utilities included. The company handles the paperwork. The trade-off is that residents have little say in how the place is run, and they can lose their home if the company changes course or closes. Rents follow what the market will pay.\n\nA company also suits a founder who wants to start something hands-on, like the live-in residency run by HF0 in San Francisco. For a group that wants to own and shape its home together, this is the opposite path, since the group buys a service and does not hold the place.",
+   "pros": [
+    "Fast to set up with one clear owner",
+    "Services like cleaning and repairs are handled"
+   ],
+   "cons": [
+    "Residents have little say or security",
+    "Rents follow the market, not need"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "One owner can buy or lease fast"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "The operator picks who joins"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Company decides, residents advise"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "Residents sign a simple lease"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "No purchase, but market rents"
+    }
+   },
+   "bestWhen": "When a founder or operator wants to start quickly, or residents want a flexible home without any ownership duties.",
+   "examples": [
+    "habyt",
+    "cohabs",
+    "the-collective",
+    "culdesac",
+    "hf0"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Coliving"
+   ],
+   "flags": [
+    "The Collective's troubles are cited from general knowledge; confirm with a dated source."
+   ]
+  },
+  {
+   "id": "undivided",
+   "name": "Undivided co-ownership",
+   "summary": "Several people own the whole building together, each with a share of the whole and no unit of their own. It is a Quebec form called copropriété indivise.",
+   "body": "In undivided co-ownership, which Quebec calls copropriété indivise, the building is not cut into units. Each owner holds a share of the whole property, and the group agrees in writing who uses which part. It works like owning a house together with friends.\n\nThe written agreement does the heavy lifting. It sets each person's share and how bills are split. It also says what happens when someone wants out or dies. Quebec's Civil Code limits how long owners can agree to stay locked in, and any owner can ask to end it, so the agreement needs care. It is simpler than a condo but much looser, and lenders may treat it with caution. It suits small groups of people who trust each other.",
+   "pros": [
+    "Simple and cheap to set up",
+    "Flexible rules written by the owners"
+   ],
+   "cons": [
+    "Any owner leaving can strain the group",
+    "Lenders may be wary of it"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Usually a house or small building"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Rests on trust between owners"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "Only what the agreement says"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Few rules, so the agreement matters"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Shared loan, exits can be costly"
+    }
+   },
+   "bestWhen": "When a small group of trusted people wants to buy one house together and will write a careful agreement.",
+   "examples": [],
+   "sources": [
+    "guide-cohabitat",
+    "https://www.legisquebec.gouv.qc.ca/en/document/cs/CCQ-1991"
+   ],
+   "flags": [
+    "Quebec-specific details (time limit on staying in indivision, right to ask for partition, lender attitudes) are from general knowledge of the Civil Code and should be checked.",
+    "No example project in the site data."
+   ]
+  },
+  {
+   "id": "informal",
+   "name": "Shared lease",
+   "summary": "Housemates share one lease or a simple agreement with no formal structure behind it. It is the easiest way to begin and also the most fragile.",
+   "body": "A shared lease is how most people first live together. A group of housemates rents a home from a landlord. Everyone may share one lease, or each person may sign their own. No company or co-op stands behind the group. House rules sit in a shared document, or are agreed over dinner.\n\nIt is fast and cheap, and easy to end. That ease is also the weakness. If everyone is on one lease, one person who stops paying can leave the rest owing. The landlord can sell the home or end the lease, and the group has no say. New members can only join if the landlord agrees.\n\nMany groups start here, then move to something firmer. A written housemate agreement that covers rent and notice periods helps a lot.",
+   "pros": [
+    "Quick and easy to leave",
+    "Good way to test living together"
+   ],
+   "cons": [
+    "One missed payment can hit everyone",
+    "The landlord, not the group, has control"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Rent an existing home"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Rests on how well you get along"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Only what you agree among yourselves"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "Just a lease and a housemate agreement"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "No purchase, deposit only"
+    }
+   },
+   "bestWhen": "When a group wants to test living together before committing money or setting up a legal body.",
+   "examples": [],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "No example in the site data is tagged shared lease."
+   ]
+  },
+  {
+   "id": "hybrid",
+   "name": "Hybrid set-up",
+   "summary": "A mix of legal forms, like a co-op for the homes and a non-profit for the common spaces. Each form handles the job it suits best.",
+   "body": "A hybrid set-up uses two or more legal forms in one project. The Quebec guide suggests asking what jobs the project needs done: who builds it, who owns it, who decides, what rights each household has and who actually lives there. Different bodies can take different jobs.\n\nFor example, a non-profit can develop the project and keep the land. A co-op or condo then holds the homes. Cohabitat Québec and Cohabitat Neuville are described as a mix of co-op and divided co-ownership. Split jobs can limit risk and let a project change over time. They also need clear written deals between the bodies, and everyone has to understand who does what. Without that, gaps follow.",
+   "pros": [
+    "Each form does the job it suits best",
+    "Can change as the project grows"
+   ],
+   "cons": [
+    "More bodies mean more paperwork",
+    "Roles must be clear to everyone"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Fits mixed buildings and uses"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Residents must grasp the layers"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Several boards to coordinate"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Several bodies and written deals"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Can open more funding routes"
+    }
+   },
+   "bestWhen": "When one legal form cannot cover the project, such as owners mixed with renters.",
+   "examples": [
+    "cohabitat-quebec",
+    "cohabitat-neuville"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "Hybrid status of both Quebec projects comes from a 2025 law article; official sites do not state it."
+   ]
+  }
+ ],
+ "newSources": [
+  {
+   "title": "Public housing",
+   "author": "Wikipedia",
+   "year": 2026,
+   "url": "https://en.wikipedia.org/wiki/Public_housing",
+   "topics": [
+    "legal"
+   ]
+  },
+  {
+   "title": "Housing cooperative",
+   "author": "Wikipedia",
+   "year": 2026,
+   "url": "https://en.wikipedia.org/wiki/Housing_cooperative",
+   "topics": [
+    "legal"
+   ]
+  },
+  {
+   "title": "Multi-stakeholder cooperative",
+   "author": "Wikipedia",
+   "year": 2026,
+   "url": "https://en.wikipedia.org/wiki/Multi-stakeholder_cooperative",
+   "topics": [
+    "legal"
+   ]
+  },
+  {
+   "title": "Nonprofit organization",
+   "author": "Wikipedia",
+   "year": 2026,
+   "url": "https://en.wikipedia.org/wiki/Nonprofit_organization",
+   "topics": [
+    "legal"
+   ]
+  },
+  {
+   "title": "Condominium",
+   "author": "Wikipedia",
+   "year": 2026,
+   "url": "https://en.wikipedia.org/wiki/Condominium",
+   "topics": [
+    "legal"
+   ]
+  },
+  {
+   "title": "Civil Code of Quebec",
+   "author": "Government of Quebec",
+   "year": 1991,
+   "url": "https://www.legisquebec.gouv.qc.ca/en/document/cs/CCQ-1991",
+   "topics": [
+    "legal"
+   ]
+  }
+ ],
+ "flags": []
+}

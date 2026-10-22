@@ -1,0 +1,236 @@
+{
+ "group": "holding",
+ "options": [
+  {
+   "id": "own",
+   "name": "Own",
+   "summary": "You own your home outright. You can sell it or borrow against it, and you can pass it on, within the rules your group has agreed.",
+   "body": "Owning means your name is on the title. You can sell the home or mortgage it, and you can leave it to family. You also carry the costs: the loan and the taxes, plus your share of shared spaces. In a group, ownership usually comes with written rules about who can buy when you sell, because new neighbours are a big deal when you share a house. Condos are the usual legal frame. Nightingale in Melbourne and Cohabitat Québec are lived this way. The upside is savings and freedom. The downside is a big starting sum and a price that follows the market.",
+   "pros": [
+    "Your savings grow in your own home",
+    "You can sell or pass it on"
+   ],
+   "cons": [
+    "Large sum needed to get in",
+    "Price follows the market"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Banks lend against homes"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Buyers are not always chosen"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "Owners vote, not all agree"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "Well known law and templates"
+    },
+    "money": {
+     "dot": "harder",
+     "t": "Large deposit and a mortgage"
+    }
+   },
+   "bestWhen": "When members have savings or can borrow, and want to build equity and freedom to sell.",
+   "examples": [
+    "nightingale",
+    "cohabitat-quebec"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "rent",
+   "name": "Rent",
+   "summary": "You pay rent and can leave without selling anything. The owner might be a landlord or a company, or it might be a non-profit or a public body.",
+   "body": "Renting means you pay monthly for the right to live in the home, and the owner looks after the building. You put in little money to start, and you can leave when the lease allows. The owner might be a company like Habyt, a non-profit like the one behind Petaluma Avenue Homes, or a public landlord like the one at Färdknäppen. Who the owner is matters more than the renting itself. A caring non-profit can keep rents fair, while a company follows the market. Renters build no equity and have less say about the building.",
+   "pros": [
+    "Low upfront cost and easy to leave",
+    "The owner handles big repairs"
+   ],
+   "cons": [
+    "No savings grow from the home",
+    "Little say over the building"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "No building to buy or repair"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Depends on who picks tenants"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Owner has the final say"
+    },
+    "legal": {
+     "dot": "easier",
+     "t": "A lease is all you sign"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Low entry cost, flexible exit"
+    }
+   },
+   "bestWhen": "When members want a flexible home with little money up front, or are not sure how long they will stay.",
+   "examples": [
+    "habyt",
+    "petaluma-avenue-homes",
+    "fardknappen"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "shares",
+   "name": "Member shares",
+   "summary": "You buy a share in the co-op and get it back when you leave. The co-op owns the building, and your share is your stake and your right to live there.",
+   "body": "In a co-op with member shares, you pay in a sum when you join. This share is your stake in the co-op, and it gives you the right to live in a home. You also pay a monthly charge. The co-op owns the building, so there is no sale of the home. When you leave, you get your share back, and the co-op's rules say whether interest is added. The next member buys in. Your loss is limited to what you put in. Kalkbreite and Mehr als Wohnen in Zurich work this way, and so does LILAC in Leeds. It keeps prices steady, though your share does not grow with the market.",
+   "pros": [
+    "Entry sum is paid back when you leave",
+    "Prices stay steady between members"
+   ],
+   "cons": [
+    "Your share does not grow with the market",
+    "You still need a sum to join"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Co-op owns the building"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "All members share a stake"
+    },
+    "governance": {
+     "dot": "easier",
+     "t": "Members vote and elect the board"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Co-op law, shares set by statutes"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Smaller sum than buying, no gain"
+    }
+   },
+   "bestWhen": "When members want a lasting home with steady prices and are happy to give up market gains.",
+   "examples": [
+    "kalkbreite",
+    "mehr-als-wohnen",
+    "lilac"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": []
+  },
+  {
+   "id": "use-rights",
+   "name": "Use rights",
+   "summary": "You have the right to live in the home, but the home belongs to the group or a trust. You cannot sell it, and the group's rules say what happens next.",
+   "body": "With use rights, you are neither an owner nor an ordinary tenant. You have a long-term right to live in a home, usually because you belong to a group or trust that holds the property. The Quebec guide describes this as separating the value of land from the use of a home. You cannot sell it for a profit, and the rules say what happens when you leave or die. This keeps prices low and speculation out. It can be hard to get a bank loan, and some forms are less tested in Canadian law. Auroville in India works this way.",
+   "pros": [
+    "Secure home with little speculation",
+    "Low cost compared with buying"
+   ],
+   "cons": [
+    "You cannot sell for profit",
+    "Banks and law are less familiar with it"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Group or trust holds the property"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Everyone shares the same status"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "The holder sets the rules"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Unusual forms, fewer templates"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "Low cost, but loans are harder"
+    }
+   },
+   "bestWhen": "When a group wants homes kept out of the market for good and accepts that residents will not sell.",
+   "examples": [
+    "auroville"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "Use rights are less tested in Canadian and Quebec law, per the guide."
+   ]
+  },
+  {
+   "id": "membership",
+   "name": "Membership",
+   "summary": "You pay a monthly membership and your room comes with it. The operator runs the home and the services around it.",
+   "body": "A membership lets you join a community for a monthly fee. The fee covers your room and the services that come with it. Meals and a workspace are common extras, and so are events. You do not hold a lease in the usual sense, and the terms can change when the operator updates them. Network School in Malaysia sells housing this way. It is quick to join and easy to leave. It also gives you fewer legal protections than a normal lease, so read the terms closely before you move in.",
+   "pros": [
+    "Easy to join with housing and extras together",
+    "Little paperwork to start"
+   ],
+   "cons": [
+    "Fewer legal protections than a lease",
+    "Operator can change the terms"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Operator provides the building"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Community comes with the fee"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Operator sets the terms"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Membership terms, not a normal lease"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "One fee, no purchase"
+    }
+   },
+   "bestWhen": "When someone wants to join a ready-made community quickly and is fine with a short, flexible stay.",
+   "examples": [
+    "network-school"
+   ],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "Membership terms and tenant protections vary by place; Network School is the only example in the site data."
+   ]
+  }
+ ],
+ "newSources": [],
+ "flags": []
+}

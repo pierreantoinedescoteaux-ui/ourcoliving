@@ -71,7 +71,29 @@ const RESOURCES = [
     name: "GEN — Global Ecovillage Network",
     cat: "networks",
     url: "https://ecovillage.org",
+    logo: "images/logos/logo-global-ecovillage-network.webp",
     def: "Also the closest thing this movement has to a governing body — regional chapters, a members' assembly and Ecovillage Design Education convene ecovillagers across every continent, not just list them. If you want to find your people, not just find a place, this is where they gather."
+  },
+  {
+    name: "NASCO, North American Students of Cooperation",
+    cat: "networks",
+    url: "https://www.nasco.coop",
+    logo: "images/logos/logo-nasco.webp",
+    def: "The network behind student housing co-ops in the US and Canada. It helps new co-ops get started, and every year it gathers the students who run their own houses so they can learn from each other."
+  },
+  {
+    name: "Co-op Housing International",
+    cat: "networks",
+    url: "https://www.housinginternational.coop",
+    logo: "images/logos/logo-co-op-housing-international.webp",
+    def: "The international voice of housing co-operatives. It gathers country profiles and research on how co-ops work around the world, which helps when you want to see how another country solved the same problem."
+  },
+  {
+    name: "Generations United",
+    cat: "networks",
+    url: "https://www.gu.org",
+    logo: "images/logos/logo-generations-united.webp",
+    def: "A US organization that brings young and old together on purpose. Its guides and research on intergenerational housing are a good start if your project mixes ages."
   },
   {
     name: "FIC — Foundation for Intentional Community",

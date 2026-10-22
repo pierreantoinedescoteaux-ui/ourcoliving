@@ -54,6 +54,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
   .rcat .cathead h2{font-size:1.4rem}
   .rcat .cathead .catline{font-size:.95rem}
 }
+.rcard .rlogo{height:44px;width:auto;max-width:160px;object-fit:contain;margin-bottom:12px}
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -81,7 +82,7 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.2rem)
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 function shortUrl(u){return u.replace(/^https?:\/\/(www\.)?/,"").replace(/\/$/,"");}
 function card(r){
-  return '<div class="rcard"><h3>'+esc(r.name)+"</h3>"+
+  return '<div class="rcard">'+(r.logo?'<img class="rlogo" src="'+esc(r.logo)+'" alt="" loading="lazy" onerror="this.remove()">':"")+'<h3>'+esc(r.name)+"</h3>"+
     "<p>"+esc(r.def)+"</p>"+
     '<a class="visit" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.linkLabel||("Visit "+shortUrl(r.url)))+" →</a></div>";
 }

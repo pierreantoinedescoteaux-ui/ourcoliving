@@ -2,7 +2,7 @@
  "areas": {
   "governance": {
    "summary": "A small host company or association decides who comes and what the programme looks like. The village has its own rules and rhythm, which the guests are expected to respect.",
-   "body": "In rural coliving, the host organisation makes most of the decisions. It chooses the dates, picks the guests, sets the house rules and handles the relationship with the village. Guests are not owners or members with a vote. They are visitors for a few weeks, and they join in what the host organises. The village adds a second layer of authority without any formal structure. Church bells, siesta hours, market days and neighbours' expectations all shape what is polite. Good hosts spend a lot of time with the locals, since a project in a small place lives on their goodwill. Some groups hold short meetings with the cohort to settle practical questions, though the final say stays with the host.",
+   "body": "In rural coliving, the host organisation makes most of the decisions. It chooses the dates and picks the guests. It also sets the house rules and handles the relationship with the village. Guests are not owners or members with a vote. They are visitors for a few weeks, and they join in what the host organises. The village adds a second layer of authority without any formal structure. Church bells and market days, along with the neighbours' expectations, all shape what is polite. Good hosts spend a lot of time with the locals, since a project in a small place lives on their goodwill. Some groups hold short meetings with the cohort to settle practical questions, though the final say stays with the host.",
    "example": {
     "id": "rooral",
     "text": "Rooral offers curated village stays, so the host chooses the cohort before anyone arrives."
@@ -14,8 +14,8 @@
    ]
   },
   "financing": {
-   "summary": "Guests pay for each stay, and the host rents or restores cheap village buildings. Low property prices make it work.",
-   "body": "The money usually comes from the stay itself. Guests pay a fee per week or month that covers a room, a workspace and shared meals or activities. The host side is lean. Village houses are cheap compared with city ones, and some are old buildings the host rents or slowly restores. A small company or association holds the lease or the property, so the guests never own anything. Funding from outside, such as regional grants for rural revival, can help, and so can partnerships with local councils. The numbers depend on how full the calendar is. Stays are seasonal, with a quiet winter in many places. A host who relies on one kind of guest is exposed whenever remote work trends shift.",
+   "summary": "Guests pay a fee for each stay. The host rents or restores cheap village buildings, and low property prices in small places are what make the model work.",
+   "body": "The money usually comes from the stay itself. Guests pay a fee per week or month that covers a room and a workspace. Shared meals or activities are usually part of the price. The host side is lean. Village houses are cheap compared with city ones, and some are old buildings the host rents or slowly restores. A small company or association holds the lease or the property, so the guests never own anything. Outside funding, such as regional grants for rural revival, can help. So can partnerships with local councils. The numbers depend on how full the calendar is. Stays are seasonal, with a quiet winter in many places. A host who relies on one kind of guest is exposed whenever remote work trends shift.",
    "example": {
     "id": "coconat",
     "text": "Coconat is a workation retreat that is rebuilding a rural estate in Brandenburg."
@@ -28,20 +28,20 @@
   },
   "space": {
    "summary": "The project uses what the village already has: old houses, a square, a bakery, fields. Guests live in repurposed buildings and share the places where villagers already meet.",
-   "body": "Rural coliving rarely builds from scratch. It takes empty houses, barns or a small estate and adds what remote workers need, such as strong internet, good desks and a shared kitchen. Rooms are usually simple. Work happens in a common room or a converted space, and meals can happen in the host house or in a local restaurant. The village around it is part of the design. A square becomes an outdoor office, a path becomes a morning walk, and a neighbour's garden might host a dinner. Because the buildings are old and the climate matters, comfort varies from place to place. Cold stone houses in winter and heat in summer are common themes.",
+   "body": "Rural coliving rarely builds from scratch. It takes an empty house or a small estate and adds what remote workers need. Strong internet comes first. A shared kitchen and good desks matter too. Rooms are usually simple. Work happens in a common room or a converted space, and meals can happen in the host house or in a local restaurant. The village around it is part of the design. A square becomes an outdoor office, a path becomes a morning walk, and a neighbour's garden might host a dinner. Because the buildings are old and the climate matters, comfort varies from place to place. Cold stone houses in winter and heat in summer are common themes.",
    "example": {
     "id": "sende",
     "text": "Sende runs a coworking village inside a hamlet of about 30 people in Galicia."
    },
-   "pitfall": "An old building without good heating, cooling or internet turns the charm into a daily complaint.",
+   "pitfall": "An old building without good heating or internet turns the charm into a daily complaint.",
    "sources": [
     "wiki-coliving",
     "https://sende.co"
    ]
   },
   "community": {
-   "summary": "There are two kinds of closeness. The guests bond quickly as a cohort, and the village slowly gets to know them.",
-   "body": "A month together builds a bond fast. Guests arrive at the same time, eat together, work in the same room and explore the area on weekends. The host plans a few shared moments, like a welcome dinner or a hike, and the rest comes from living close. The second layer is slower. Locals meet the guests at the shop or the bar, invite them to festivals, and sometimes teach them a skill or a recipe. Some projects hire villagers as cooks, guides or cleaners, which ties the village to the programme through wages. Each cohort starts over, though. The warmth is real and it resets, so the lasting relationships are usually with the host and the village, and less often with other guests.",
+   "summary": "There are two kinds of closeness in a village stay. The guests bond quickly as a cohort over meals and work, and the village slowly gets to know them.",
+   "body": "A month together builds a bond fast. Guests arrive at the same time, eat together, work in the same room and explore the area on weekends. The host plans a welcome dinner and a hike, and the rest comes from living close. The second layer is slower. Locals meet the guests at the shop or the bar and invite them to festivals. Some also teach a skill or a recipe. Some projects hire villagers as cooks or guides, which ties the village to the programme through wages. Each cohort starts over, though. The warmth is real and it resets, so the lasting relationships are usually with the host and the village, and less often with other guests.",
    "example": {
     "id": "rooral",
     "text": "Rooral groups its guests into cohorts, and its photos show them sharing lunch together above the Andalusian hills."
@@ -53,8 +53,8 @@
    ]
   },
   "operations": {
-   "summary": "The host handles the logistics, so guests arrive with a laptop and little else. A small team, often with local staff, keeps meals, rooms and workspace running.",
-   "body": "Running a village stay is closer to running a small hotel than a shared house. The host books the rooms, arranges meals, cleans, fixes things, handles the internet and answers questions at any hour. Teams are small, and local hires matter, since they know the area and can solve problems the host cannot. Seasonality makes planning hard. A group arrives, a group leaves, and the rooms are turned over in between. Some projects run all year, and others close in the cold months. Guests pay for convenience, so the details count. A broken router or a missed meal is noticed at once. Strong hosts keep a simple routine and build trust with local suppliers.",
+   "summary": "The host handles the logistics, so guests arrive with a laptop and little else. A small team, often with local staff, keeps the meals and the rooms running smoothly day after day.",
+   "body": "Running a village stay is closer to running a small hotel than a shared house. The host books the rooms and arranges meals. The host also cleans and fixes things. The internet is the host's job too, and questions arrive at any hour. Teams are small, and local hires matter, since they know the area and can solve problems the host cannot. Seasonality makes planning hard. A group arrives and another leaves, and the rooms are turned over in between. Some projects run all year, and others close in the cold months. Guests pay for convenience, so the details count. A broken router or a missed meal is noticed at once. Strong hosts keep a simple routine and build trust with local suppliers.",
    "example": {
     "id": "sende",
     "text": "Sende has been running since 2013, which makes it one of the longer-lived examples of a village host company."
@@ -66,8 +66,8 @@
    ]
   },
   "privacy": {
-   "summary": "Guests have their own room and their own workday. In a village this small, everybody sees everybody, so privacy is more about manners than walls.",
-   "body": "Most guests sleep in a private room and share the kitchen and the workspace. Beyond the house, a small village has its own kind of closeness. Neighbours notice who arrives, what time lights go off and who sits alone at the bar. Many guests enjoy being recognised, and others find it a lot. Good hosts explain local customs early, like quiet hours, how to greet people and when shops close. Conflict inside the cohort is usually mild, since stays are short and people can wait it out. Trouble with villagers is more delicate. A noisy night or a careless comment can spread through the village in a day, so hosts act as go-betweens.",
+   "summary": "Guests have their own room and their own workday. In a village this small, everybody sees everybody, so privacy is more about manners and local habits than about walls.",
+   "body": "Most guests sleep in a private room and share the kitchen and the workspace. Beyond the house, a small village has its own kind of closeness. Neighbours notice who arrives, what time lights go off and who sits alone at the bar. Many guests enjoy being recognised, and others find it a lot. Good hosts explain local customs early. Quiet hours and greetings matter, and so do shop closing times. Conflict inside the cohort is usually mild because stays are short. People can wait it out. Trouble with villagers is more delicate. A noisy night or a careless comment can spread through the village in a day, so hosts act as go-betweens.",
    "example": {
     "id": "sende",
     "text": "In a hamlet of about 30 people, Sende's guests live in view of the whole village."
@@ -80,7 +80,7 @@
   },
   "leaving": {
    "summary": "Guests leave when the stay ends, and nothing is owned, so leaving is easy. The harder questions are whether anyone stays on and whether the village keeps the benefit.",
-   "body": "Most stays are built to end. A guest books a month, packs up and goes home or on to the next place. Nothing needs to be sold. Some come back every year, and a few settle in the village, buying or renting a house. Hosts often hope for this, because newcomers who stay bring lasting life to the village. A stay is not a path to belonging, however. Guests have no claim on the building and no vote on the project, and the host can change prices, dates or rules. Growing old is outside the model. Villages already struggle to keep older residents close to doctors and shops, and a short-stay programme does not change that.",
+   "body": "Most stays are built to end. A guest books a month and then goes home or on to the next place. Nothing needs to be sold. Some come back every year, and a few settle in the village by buying or renting a house. Hosts often hope for this, because newcomers who stay bring lasting life to the village. A stay is not a path to belonging, however. Guests have no claim on the building and no vote on the project, and the host can change the rules. Prices and dates can shift too. Growing old is outside the model. Villages already struggle to keep older residents close to doctors and shops, and a short-stay programme does not change that.",
    "example": {
     "id": "rooral",
     "text": "Rooral sells village stays, so guests leave when the stay ends."
@@ -99,7 +99,7 @@
   "People who prefer a ready-made setup to organising their own house."
  ],
  "watchPoints": [
-  "A month is a visit, so friendships and warmth restart with each cohort.",
+  "A month is only a visit. Friendships and warmth start over with each cohort.",
   "Guests have no vote and no ownership, and the host sets the terms.",
   "Old buildings in winter or summer can be cold or hot, and internet may vary.",
   "The village can feel watched, and the benefit to locals depends on the host."

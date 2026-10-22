@@ -1,7 +1,7 @@
 /* Glossary book QA: button, underlines, hover card, open, search, letters, close.
    Run: node _qa/shoot-glossary.js   (server on :8123) */
 const { chromium } = require('./node_modules/playwright-core');
-const B = 'http://localhost:8123/';
+const B = process.env.BASE || 'http://localhost:8123/';
 const OUT = __dirname + '/gl-';
 const PAGES = [['type', 'type.html?t=cohousing&live'], ['map', 'map.html?live'], ['projects', 'projects.html?live'], ['index', 'index.html?live'], ['why', 'why.html?live']];
 const SIZES = [[1512, 950], [390, 844]];

@@ -1,0 +1,251 @@
+{
+ "group": "money",
+ "options": [
+  {
+   "id": "members",
+   "name": "Members' own money",
+   "summary": "The people who will live there pay for it from their own savings and their own loans. No outside owner or funder has a claim on the place.",
+   "body": "In this set-up the future residents are the main source of money. Each household puts in savings, often called an equity stake, and takes out a personal mortgage for the rest. Together the households fund the land and the building. They also cover the costs that come before either.\n\nTiming matters here. Early costs come long before any bank lends a cent. These include studies and professional fees. The Quebec guide notes that this early money is the most exposed, because the project can still change or stop. It also shows the group is serious. That helps when lenders and other partners decide whether to join.\n\nWhen the homes are sold to members, the construction loan is usually repaid as each household closes its own mortgage. If building runs late or costs rise, the group may have to find more of its own money. Too few pre-sold homes can force a rethink of the project.\n\nFor people living together this means a lot of control. Nobody outside expects a return or sits on the board because of a cheque. It also means the project is only open to those who can afford the entry price, and gaps in savings between members can strain the group. Talking about money early and openly is a habit the guide recommends. Some groups soften the gap with a shared fund or flexible payment schedules.",
+   "pros": [
+    "No outside funder to answer to or pay back",
+    "Real commitment from everyone who joins"
+   ],
+   "cons": [
+    "Only people with savings or credit can take part",
+    "Members carry the risk if costs rise or the build is late"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Scale follows what members can raise"
+    },
+    "social": {
+     "dot": "harder",
+     "t": "Wealth gaps show up in the group"
+    },
+    "governance": {
+     "dot": "easier",
+     "t": "No outside funder has a say"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Works with several legal shapes"
+    },
+    "money": {
+     "dot": "harder",
+     "t": "Households must raise a large sum"
+    }
+   },
+   "bestWhen": "When a group has enough savings and trust to carry the project itself and wants to keep every decision in its own hands.",
+   "examples": [
+    "nightingale"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "wiki-cohousing"
+   ],
+   "flags": []
+  },
+  {
+   "id": "public",
+   "name": "Public funding",
+   "summary": "Governments help pay through grants or cheap loans. A guarantee from a city or province can also back the project. Rules such as lasting affordability usually come with it.",
+   "body": "Public funding means a government body puts money or backing into the project. It can come as a grant or a loan on easy terms. Tax credits and cheap land also count, as does technical help from a public agency. In some countries the state builds and owns the housing itself, as with a municipal housing company.\n\nThis money almost always comes with conditions. Programmes set who can live there and how high rents or prices may go. They also say which costs they cover and how the group must report back. Payments often arrive in stages. A delay or a missed condition can cost the project its support. The Quebec guide advises looking past the size of a grant to the rules and the schedule. How long the promises last matters too.\n\nPublic funds are often paired with other sources. A project can mix them with members' savings and a bank loan. Each lender has its own timetable, so the pieces have to move together.\n\nFor people living together, public money is the main way to reach households that could never raise a large down payment. It can make rents truly affordable. The trade is time and paperwork, plus rules that limit who joins and what the group can later change. The guide's case sheet for Un Village à Lachine lists the Société d'habitation du Québec among its funders. The federal housing agency and the City of Montréal appear there too. Groups elsewhere face different programmes, so each project has to check what exists in its own place.",
+   "pros": [
+    "Can bring rents and prices within reach of ordinary incomes",
+    "Often unlocks other lenders who trust public backing"
+   ],
+   "cons": [
+    "Strict rules on who can live there and what can change",
+    "Slow approvals and reporting that take real time"
+   ],
+   "impact": {
+    "building": {
+     "dot": "harder",
+     "t": "Standards and budgets set from outside"
+    },
+    "social": {
+     "dot": "depends",
+     "t": "Wider mix of households, set by rules"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Funder conditions limit group choices"
+    },
+    "legal": {
+     "dot": "harder",
+     "t": "Agreements run for many years"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Lowers cost for households"
+    }
+   },
+   "bestWhen": "When affordability for lower-income households is a core goal and the group can handle long approvals and paperwork.",
+   "examples": [
+    "fardknappen",
+    "un-village-a-lachine",
+    "auroville"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "village-urbain"
+   ],
+   "flags": [
+    "Funder names for Un Village à Lachine come from the Quebec guide's case sheet only. A web search found only that all levels of government funded it (CTV), not which programmes.",
+    "Auroville public-funding tag comes from projects-data.js; not re-verified.",
+    "No Quebec programme beyond the Lachine funders in the guide is named."
+   ]
+  },
+  {
+   "id": "patron",
+   "name": "One founder or patron",
+   "summary": "A single person or family puts up most of the money. Things move fast, and the whole project depends on that one person's wealth and goodwill.",
+   "body": "Here one founder or sponsor provides most of the money. This often happens by buying or building the property and then letting others in. The patron may be an idealist who wants a community to exist, or an entrepreneur who treats it as a venture. Sometimes the money is a loan, sometimes a gift, sometimes a purchase that the group will later buy back.\n\nThe big advantage is speed. There is no need to convince a bank or win a grant round. Nobody waits for twenty households to save a down payment. One decision-maker can sign for land and start work. A small group with a wealthy supporter can reach a finished building years ahead of one that has to raise money from many sources.\n\nThe weak point is dependence. The patron usually owns the property or holds the loan, so they hold the real power, whatever the group's rules say. If their wealth changes or their health fails, the project can stall. It can also be sold if they lose interest. Residents also find it hard to claim that the place is truly theirs.\n\nFor people living together this works best when everyone is honest about who holds what. Written agreements help. They can say how the patron is repaid, what happens if they die or leave, and whether residents can later buy the place. Without them, a generous start can turn into a quiet imbalance in daily life, because the person who paid is also a housemate.",
+   "pros": [
+    "One person pays and decides, so it moves quickly",
+    "Needs no big savings from the residents"
+   ],
+   "cons": [
+    "The whole project leans on one person's money and mood",
+    "Residents may never fully own or steer the place"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "One buyer can move quickly"
+    },
+    "social": {
+     "dot": "harder",
+     "t": "The payer is also a housemate"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Patron holds the real power"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Needs clear written terms"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "No large sums from households"
+    }
+   },
+   "bestWhen": "When a trusted backer wants to start a community and everyone agrees in writing how control and repayment will work.",
+   "examples": [],
+   "sources": [
+    "guide-cohabitat"
+   ],
+   "flags": [
+    "No project on the site is tagged with a patron set-up, so no examples are given.",
+    "Body is general reasoning; the Quebec guide pages read (p280-306) do not discuss single-patron funding. Editor may want a source."
+   ]
+  },
+  {
+   "id": "investors",
+   "name": "Investors",
+   "summary": "Outside investors fund the building and expect a return, usually paid from rents. The place is run as a business, and residents are usually tenants.",
+   "body": "Investor funding means people or firms outside the group put in money and want it back with a profit. They may buy shares in a company or lend at a set rate. Some own the building outright. The residents then pay rent or fees that cover the loans and leave something for the investors.\n\nThis is how most commercial coliving works. An operator raises money and leases or buys buildings. Then it fits them out and rents out rooms. Investors expect steady results, so rents are set to hit targets and the operator is under pressure to fill rooms. The Collective in London rose and then closed, and it is a well-known study of what happens when the numbers stop working.\n\nThe Quebec guide describes gentler forms. Subordinated debt, sometimes called mezzanine, sits behind the main bank loan and costs more because it is riskier. Patient capital comes from social-mission bodies and foundations. Impact investors also offer it. All accept a longer wait and softer terms. Even these funders set conditions that can affect timing and control.\n\nFor people living together, investors can make a large project possible without any resident needing savings. The cost is that residents rarely own anything, and decisions follow the return. Rents may rise, and a sale of the building can end the community overnight. Groups that want a say in how the place runs often limit investor money or choose patient capital with clear terms.",
+   "pros": [
+    "Large projects can start without resident savings",
+    "Professional operators handle running the place"
+   ],
+   "cons": [
+    "Rents must pay a return, so costs stay higher",
+    "Residents have little say and no lasting claim"
+   ],
+   "impact": {
+    "building": {
+     "dot": "easier",
+     "t": "Capital for bigger, faster projects"
+    },
+    "social": {
+     "dot": "harder",
+     "t": "Turnover and rent pressure"
+    },
+    "governance": {
+     "dot": "harder",
+     "t": "Investor return shapes decisions"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Company or lender sets the terms"
+    },
+    "money": {
+     "dot": "depends",
+     "t": "No savings needed, rents stay high"
+    }
+   },
+   "bestWhen": "When the goal is a larger place with professional management, and residents are happy to rent without owning or steering it.",
+   "examples": [
+    "habyt",
+    "cohabs",
+    "the-collective",
+    "culdesac",
+    "network-school"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "wiki-coliving"
+   ],
+   "flags": [
+    "Investor tags for the five examples come from projects-data.js setups; no separate source checked for each.",
+    "Guide pages p280-307 describe mezzanine debt and patient capital without naming Quebec lenders, so none is named."
+   ]
+  },
+  {
+   "id": "donors",
+   "name": "Donors and crowdfunding",
+   "summary": "Gifts from foundations and supporters cover part of the cost. Many small backers can add to it. The money is usually small and slow, so it works best beside other sources.",
+   "body": "Donor funding means money that is given rather than lent or invested. It can come from a foundation or a wealthy supporter. A faith group or a crowd of small backers can give too, often through a crowdfunding campaign. Nobody expects repayment or a share of the profits.\n\nIn practice gifts rarely build a whole place. They tend to cover a piece, such as the early studies or a common house. A fund that helps a household that cannot afford its share is another use. The Quebec guide lists foundations among the outside partners that can support a project's solidarity fund, and it names donations as one way to feed such a fund. Foundations often fund with a particular aim in mind, such as housing for a certain group, so the project has to fit what they care about.\n\nA public campaign adds a different kind of work. Someone must write the story and keep backers informed. Rewards or updates also have to be delivered. Success depends on how large and engaged the group's network already is. Campaigns can bring visibility and early members as well as money.\n\nFor people living together, donors lower the amount households must raise and can open the door to those with little savings. The price is uncertainty, because gifts are never guaranteed and arrive on someone else's schedule. Groups usually plan as if donations might shrink, and treat them as a bonus on top of a plan that already works. The guide's case sheet names a private foundation, Chagnon, among the funders of Un Village à Lachine.",
+   "pros": [
+    "Lowers what households must raise and repay",
+    "Can bring visibility and early supporters"
+   ],
+   "cons": [
+    "Gifts are uncertain and arrive on the giver's schedule",
+    "Funders may steer the project toward their own aims"
+   ],
+   "impact": {
+    "building": {
+     "dot": "depends",
+     "t": "Pays for pieces, rarely the whole"
+    },
+    "social": {
+     "dot": "easier",
+     "t": "Backers become a wider circle"
+    },
+    "governance": {
+     "dot": "depends",
+     "t": "Light unless a funder sets terms"
+    },
+    "legal": {
+     "dot": "depends",
+     "t": "Gifts need a non-profit or clear receiver"
+    },
+    "money": {
+     "dot": "easier",
+     "t": "Cuts what households must repay"
+    }
+   },
+   "bestWhen": "When a group has a strong cause and a wide network, and needs extra money to complete a plan that already stands on its own.",
+   "examples": [
+    "un-village-a-lachine"
+   ],
+   "sources": [
+    "guide-cohabitat",
+    "https://en.wikipedia.org/wiki/Crowdfunding"
+   ],
+   "flags": [
+    "Chagnon foundation as a Lachine funder comes from the guide's case sheet only; a web search could not link it to the project.",
+    "Crowdfunding and foundation points beyond the guide are general knowledge; no project on the site is tagged donors."
+   ]
+  }
+ ],
+ "newSources": [],
+ "flags": [
+  "Lachine funders (SHQ, CMHC, City of Montréal, Chagnon, Desjardins, FTQ fund) appear only in the guide case sheet; a web search confirmed only government funding at all levels.",
+  "Patron and donors have no tagged example projects."
+ ]
+}
