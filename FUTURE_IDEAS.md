@@ -69,6 +69,15 @@ the map. Output: a recommended way of living, how well it might fit you, likely 
 starting one), places to visit, join or take inspiration from, and first steps to start one. Depends on the new
 map data (core sliders as ranges + real projects with set-ups). MVP = 7 sliders + 3 questions → nearest type + 3 projects + challenges.
 
+**IN PROGRESS 2026-10-22 — decisions (P-A):** quiz is the centrepiece; the "Audience + impact" section and "la taxe
+collective" article below get written as its content. ~25 taps, 5 steps (you today · values on the 7 map sliders with a
+"matters a lot" tap · a bit about you · set-up across the five areas with the painted mini stickers · join or start).
+One step per screen. Result = a LETTER sealed with wax that you open and read (not a postcard): fit (always warm, never
+"not for you"), top way of living + runner-up with why, one set-up choice per area, your pin on the map, 3 real places,
+"things to know for your profile" (positive, no "challenges"), first steps (join vs start), share link (answers in the
+URL, no server). English only. Linked from map.html + the menu (menu link last, after the other chat's shared-file work).
+Phase 2: compare with a friend (two results overlaid). Process (round 2, P-A): build autonomously from `FOR PIERRE-ANTOINE/QUIZ-CONTENT-DRAFT.md`, commit locally, NO push, P-A reviews at the end. Letter signed by Pierre-Antoine on behalf of Our Coliving ("from us"). Existing art only (no Higgsfield credits); P-A may generate envelope / letter paper / shared-meals sticker later with GPT, so leave prompts. Collective-tax article ships without P-A's personal-story slot (add later). Audience piece = its own page.
+
 ## Audience + impact section
 2026-10-21. Who coliving helps at each stage of life (kids, young adults, newcomers, people living alone, single
 parents, seniors...), the impact on them, and how coliving answers social challenges (isolation, ageing, housing
