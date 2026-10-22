@@ -155,7 +155,10 @@ img{display:block;max-width:100%}
 .stage{isolation:isolate}
 .mapdeco{position:absolute;pointer-events:none;z-index:0;opacity:.95}
 .mapdeco.compass{right:7%;bottom:4.5%;width:clamp(64px,8vw,112px)}
-@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.compass{right:8%;bottom:5%;width:58px}}
+/* P-A's stamp and wax seal: the map was posted, and signed */
+.mapdeco.stamp{left:4%;top:4%;width:clamp(56px,6.2vw,92px);transform:rotate(-6deg)}
+.mapdeco.seal{left:2.6%;bottom:3%;width:clamp(44px,4.6vw,64px);transform:rotate(8deg)}
+@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.compass{right:8%;bottom:5%;width:58px}.mapdeco.stamp{left:8%;top:2%;width:46px}.mapdeco.seal{display:none}}
 /* axis lines stay on the paper: clear of the torn top and bottom edges and of the rollers */
 .chart::before,.chart::after{content:"";position:absolute;background:rgba(74,52,24,.38);pointer-events:none}
 .chart::before{left:50%;top:30px;bottom:30px;width:1px}
@@ -420,7 +423,9 @@ img{display:block;max-width:100%}
   html.m-map .stage .chart::before{top:30px}
   html.m-map .stage .chart .axl.yhi{top:40px;max-width:42%}
   html.m-map .stage .chart .axl.ylo{bottom:34px;max-width:32%}
-  html.m-map .stage .node .lab{font-size:13px !important;white-space:normal;max-width:110px;line-height:1.1;padding:1px 5px;word-break:normal;overflow-wrap:normal}
+  html.m-map .stage .chart{height:min(720px,165vw) !important}
+  html.m-map .stage .node .mark{width:36px;height:36px}
+  html.m-map .stage .node .lab{font-size:12px !important;white-space:normal;max-width:96px;line-height:1.1;padding:1px 5px;word-break:normal;overflow-wrap:normal}
   html.m-map .stage .node.mine .lab::after{font-size:12px}
 }
 </style>
@@ -468,6 +473,8 @@ img{display:block;max-width:100%}
     <div class="scrollbg" aria-hidden="true"></div>
     <span class="plate" id="plate"></span>
     <img class="mapdeco compass" src="images/hub/mini-map-compass.webp" alt="" aria-hidden="true">
+    <img class="mapdeco stamp" src="images/hub/mini-map-stamp.webp" alt="" aria-hidden="true">
+    <img class="mapdeco seal" src="images/hub/mini-map-seal.webp" alt="" aria-hidden="true">
     <span class="axl xlo" id="xlo"></span>
     <span class="axl xhi" id="xhi"></span>
     <span class="axl yhi" id="yhi"></span>
