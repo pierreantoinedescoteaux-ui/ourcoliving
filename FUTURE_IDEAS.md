@@ -86,3 +86,47 @@ access). Source: Guide du cohabitat (Village Urbain), ch. 3.
 ## Article: la taxe collective
 2026-10-21. The small frictions you accept as the price of living together (Durrett and McCamant, cited in the
 Guide du cohabitat p70). Fits P-A's voice: honest about the hard parts, still hopeful.
+
+## Teach through questions, sitewide
+2026-10-22. P-A, while testing the quiz: "asking a question for people and then having information as a way to
+supplement that question is a good way to educate. Like actually an amazing way to educate. We should do that more
+throughout the website." Pattern: a question first, then a small "?" that opens a side note (summarised from the hub /
+glossary content), with an optional short read-more link, never pulling the reader away from finishing. First use:
+quiz v2 option explanations. Later: field guides, hub, map.
+
+## Quiz v2 (P-A's first feedback, 2026-10-22, verbatim intent)
+- More questions multi-select (e.g. setting: "city or countryside but not suburbs").
+- Drop the housing-budget question (depends too much on where you live). Replace with RANKING what you want coliving
+  to solve, 5-7 options: raising kids, fighting loneliness, affordable housing, a community of like-minded people...
+- Sliders push people to the poles. Show the middle: as you slide, a new answer appears for that position (ranges and
+  approximations, e.g. "How long do you picture staying": a season / a year or two / five years or so / for good).
+  He is "not sold" on one end label getting highlighted.
+- Some spectrum questions should be other formats: "what should the place be organised around" = multi-select of up
+  to ~20 things that matter (food and energy self-sufficiency, art, childcare / kids raised by a village...).
+- Step 3 may have too many questions unless genuinely useful; explore a light way to skip some.
+- Education inside the form: a "?" on options (e.g. "a share in the whole", "membership with my room included") that
+  opens a pop-up or a side note in the margin, summarised from the themes/hub page.
+- Result must stop feeling like a personality test that assigns one type. Start with what matters to you, reflected
+  back visually (keywords, icons, your own positioning on values). He prefers the set-up/design choices as the core
+  ("building blocks", maybe with icons). Places to visit must say WHY they're relevant, linked to the person's answers.
+- Signature: a real cursive that fits the site, not Caveat.
+- BUG: he said someone else should run it, yet the letter said "You'd rather design your home than buy someone
+  else's idea of one" (Baugruppe text). Type blurbs must never claim things the person didn't say.
+- Save results: download, email to yourself, or remembered in the browser so nobody has to redo it, with the option
+  to redo. Results can be improved iteratively.
+- He loves the map pin.
+
+## Map + projects follow-ups (P-A, 2026-10-22) -> separate chat
+- projects.html "who maps it better" section: he hates the text list. Wants a small world map with pins; hover shows
+  the organisation that maps projects there, as a pop-up; worldwide ones above the map. Add: the Foundation for
+  Intentional Community directory + map (ic.org), GEN ecovillage map, the Quebec ecovillage network map, better
+  European mappers (eurotopia, Diggers & Dreamers, national cohousing networks...). He said "an agartha should be
+  there": unclear, ask him (Agartha? or ic.org?). Keep scope small.
+- Map "why it sits here": hovering a way of living should explain WHY it sits where it does on the two visible
+  spectrums, with a few examples (and say when real projects spread across the range). Same content in the field
+  guide's "On the map" chapter: after each spectrum, a toggle opening the why + examples. Must stay visually light,
+  not overcrowded. Content = 10 ways of living x 7 spectrums.
+- Map labels still collide where ways of living sit close (e.g. Baugruppe/Rural co-living, Network village/Hacker
+  house on the classic view; phone map crowded top-right).
+- Places still without a photo: The Residency, Zuzalu, Muir Commons, Fardknappen, Hogeweyk (its only photo shows an
+  identifiable dementia-village resident, deliberately not used), plus the 4 networks.
