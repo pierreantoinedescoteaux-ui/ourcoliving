@@ -90,3 +90,11 @@ Swap in by adding `src:` to the entry in work-data.js — placeholder auto-repla
 
 ## Reusable generated assets
 - `assets/village/` — the floating-island village (P-A favorite, 2026-07-27): final/empty/construction stills, 16s growth master, 8s seamless idle loop, generation prompts + README with the alpha-key/regrade recipes. Site-served encodes in `assets/world/village*`.
+
+## Sticker objects art direction (hub cards, icons) — P-A, 2026-10-21
+- **One object per image cell**, painted exactly like the site's stickers (`assets/world/orn-*`, `flyer-*`, `loader-*`): fine ink lines, soft watercolour and gouache, warm light from the upper left, calm palette (cream, moss and leaf greens, teal, brass, honey wood, small terracotta touches). Never cartoonish, glossy, plastic or oversaturated. No scenes, no crowds, no text.
+- **Solarpunk, not antique.** A hopeful future where nature and technology live side by side.
+- **Plausible.** Organic things stay organic (a plant is just a plant: no solar panels growing in leaves). Tech sits where it really would (solar panels on a roof or a bike, a hologram above a device).
+- **About a third of the objects carry positive mechanical tech:** brass mechanisms, small solar panels, soft teal holograms like the workshop's blueprint table, a friendly brass helper robot. The rest are crafted or organic objects.
+- Sheets: 6 per image (3 × 2), highest resolution, transparent background. Refs: `Downloads/coliving-art-refs/style-sheet.png` + `ref-1-workshop.png`. Cut with `python _tools/cut-art.py`.
+- Rejected: glossy toy-shop dioramas on carved pedestals; symbolic props as giant objects; mini-scenes with many people (too complex for the model).
