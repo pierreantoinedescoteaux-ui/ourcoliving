@@ -139,6 +139,7 @@ const COLIVING_PROJECTS = [
     "place": "Melbourne",
     "type": "cohousing",
     "kind": "place",
+    "img": "images/places/nightingale.webp",
     "url": "https://www.nightingalehousing.org",
     "note": "Architect-led apartment cohousing, sold at cost, no investors.",
     "tags": {
@@ -396,6 +397,7 @@ const COLIVING_PROJECTS = [
     "place": "Berlin",
     "type": "baugruppen",
     "kind": "place",
+    "img": "images/places/r50.webp",
     "url": "https://www.archdaily.com/593154/r50-nil-cohousing-ifau-und-jesko-fezer-heide-and-von-beckerath",
     "note": "The famous one: 19 households, raw concrete, shared everything.",
     "tags": {
@@ -889,7 +891,8 @@ const COLIVING_PROJECTS = [
         "consent"
       ]
     },
-    "source": "https://www.cohabitat.ca/"
+    "source": "https://www.cohabitat.ca/",
+    "img": "images/places/cohabitat-quebec.webp"
   },
   {
     "id": "cohabitat-neuville",
@@ -913,7 +916,8 @@ const COLIVING_PROJECTS = [
         "own"
       ]
     },
-    "source": "https://www.cohabitatneuville.com/"
+    "source": "https://www.cohabitatneuville.com/",
+    "img": "images/places/cohabitat-neuville.webp"
   },
   {
     "id": "vancouver-cohousing",
@@ -959,7 +963,8 @@ const COLIVING_PROJECTS = [
         "new"
       ]
     },
-    "source": "https://windsong.bc.ca/"
+    "source": "https://windsong.bc.ca/",
+    "img": "images/places/windsong.webp"
   },
   {
     "id": "terra-firma",
@@ -978,7 +983,8 @@ const COLIVING_PROJECTS = [
         "mixed"
       ]
     },
-    "source": "https://cohousing.ca/communities/on/terra-firma/"
+    "source": "https://cohousing.ca/communities/on/terra-firma/",
+    "img": "images/places/terra-firma.webp"
   },
   {
     "id": "muir-commons",
@@ -1075,7 +1081,8 @@ const COLIVING_PROJECTS = [
         "rent"
       ]
     },
-    "source": "https://www.stolplyckan.se"
+    "source": "https://www.stolplyckan.se",
+    "img": "images/places/stolplyckan.webp"
   }
 ];
 
