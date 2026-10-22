@@ -58,5 +58,9 @@ const SOURCES = [
   { id: "larsen-2019", title: "Three phases of Danish cohousing: tenure and the development of an alternative housing form", author: "Henrik Gutzon Larsen", year: 2019,
     kind: "article", lang: "en", topics: ["cohousing", "tenure", "history"], usedOn: [], added: "2026-10-21", checked: false, note: "Housing Studies 34(8)."},
   { id: "star-network-school-2026", title: "Network School heading to Kazakhstan after Johor operations halted", author: "The Star", year: 2026, url: "https://www.thestar.com.my/news/nation/2026/07/22/network-school-heading-to-kazakhstan-after-johor-operations-halted",
-    kind: "article", lang: "en", topics: ["network village"], usedOn: ["guide-content-network-village.json"], added: "2026-10-21", checked: true, note: "Malaysian site ordered to stop in July 2026; move to Kazakhstan reported (Astana)." }
+    kind: "article", lang: "en", topics: ["network village"], usedOn: ["guide-content-network-village.json"], added: "2026-10-21", checked: true, note: "Malaysian site ordered to stop in July 2026; move to Kazakhstan reported (Astana)." },
+  { id: "simonprize-kalkbreite", title: "Live-work complex Kalkbreite", author: "Simon Prize", year: 2026, url: "https://www.simonprize.org/live-work-complex-kalkbreite/",
+    kind: "article", lang: "en", topics: ["cohousing", "city"], usedOn: ["projects.html", "map.html"], added: "2026-10-21", checked: true, note: "Source of the Kalkbreite photo." },
+  { id: "saha-petaluma-avenue-homes", title: "Petaluma Avenue Homes", author: "SAHA (Satellite Affordable Housing Associates)", year: 2026, url: "https://www.sahahomes.org/property/petaluma-avenue-homes/",
+    kind: "article", lang: "en", topics: ["cohousing", "affordable housing"], usedOn: ["projects.html", "map.html"], added: "2026-10-21", checked: true, note: "Source of the Petaluma Avenue Homes photo." }
 ];

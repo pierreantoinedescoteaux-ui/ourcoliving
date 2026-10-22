@@ -65,13 +65,19 @@ var GUIDE_SPECTRUM_GLOSS = { share: "spectrum-share", size: "spectrum-size", tim
 (function injectGuideCss(){
   if (typeof document === "undefined" || document.getElementById("fg-css")) return;
   var c =
-  ".fg-index{position:sticky;top:var(--navh,64px);z-index:20;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--gutter,18px));padding:10px var(--gutter,18px);" +
-  "background:rgba(246,242,231,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line,rgba(34,48,31,.14))}" +
-  ".fg-index::-webkit-scrollbar{display:none}" +
-  ".fg-index a{flex:0 0 auto;font-size:.8rem;font-weight:600;color:var(--ink-soft,#5c6b57);padding:10px 14px;border-radius:99px;min-height:44px;display:flex;align-items:center;gap:6px;transition:background .25s,color .25s}" +
+  ".fg-full-wrap{display:block}" +
+  ".fg-index{position:sticky;top:calc(var(--navh,64px) + 8px);z-index:20;height:0}" +
+  ".fg-idx-btn{position:absolute;left:0;top:0;font:600 .8rem/1 var(--sans,inherit);color:var(--ink,#22301f);background:rgba(246,242,231,.95);backdrop-filter:blur(10px);border:1px solid var(--line-strong,rgba(34,48,31,.3));border-radius:99px;padding:0 14px;min-height:44px;cursor:pointer}" +
+  ".fg-idx-list{display:none;position:absolute;left:0;top:50px;width:min(300px,calc(100vw - 2 * var(--gutter,18px)));background:rgba(251,249,242,.98);border:1px solid var(--line-strong,rgba(34,48,31,.3));border-radius:14px;padding:6px;box-shadow:0 18px 40px -18px rgba(34,48,31,.5)}" +
+  ".fg-index.open .fg-idx-list{display:block}" +
+  ".fg-index a{font-size:.85rem;font-weight:600;color:var(--ink-soft,#5c6b57);padding:10px 12px;border-radius:10px;min-height:44px;display:flex;align-items:center;gap:8px;transition:background .25s,color .25s}" +
   ".fg-index a i{font-family:var(--serif,Georgia,serif);font-style:italic;font-weight:400;color:var(--gold-deep,#8f6215)}" +
   ".fg-index a:hover{background:var(--sky-wash,#e3eff3);color:var(--ink,#22301f)}" +
   ".fg-index a.on{background:var(--green-deep,#3c6b32);color:#fff}.fg-index a.on i{color:#f3d9a6}" +
+  "@media(min-width:1000px){.fg-full-wrap{display:grid;grid-template-columns:176px minmax(0,1fr);column-gap:clamp(20px,3vw,44px);align-items:start}" +
+  ".fg-index{height:auto;align-self:start;padding-top:clamp(40px,7vh,84px)}.fg-idx-btn{display:none}" +
+  ".fg-idx-list{display:block;position:static;width:auto;background:none;border:0;border-radius:0;padding:0;box-shadow:none}" +
+  ".fg-index a{font-size:.78rem;min-height:0;padding:7px 10px;border-radius:8px;line-height:1.25}}" +
   ".fg-ch{padding:clamp(40px,7vh,84px) 0 clamp(10px,2vh,20px);scroll-margin-top:calc(var(--navh,64px) + 64px)}" +
   ".fg-h{display:flex;align-items:baseline;gap:16px;border-top:1.5px solid var(--ink,#22301f);padding-top:16px;margin-bottom:clamp(20px,3.5vh,34px)}" +
   ".fg-h .fg-n{font-family:var(--serif,Georgia,serif);font-style:italic;font-size:clamp(1.1rem,1.6vw,1.4rem);color:var(--gold-deep,#8f6215);min-width:2.2em}" +
@@ -258,17 +264,17 @@ function guideBodyHTML(t, k, opts){
     return '<div class="fg fg-short">'+out+'</div>';
   }
   out = chapter("glance", "At a glance", glance + cmpHTML) +
+    chapter("map", "On the map", '<div class="sig">'+sig+'</div>'+cmpHTML) +
     chapter("origin", "Where it comes from", origin) +
     chapter("how", "How it works", howHTML) +
     (setups.length ? chapter("setup", "How it’s usually set up", setupHTML) : "") +
     chapter("who", "Who it’s for, and what to watch", whoHTML) +
     (allEx.length ? chapter("places", "Real places", (placesHTML || "") + allLink) : "") +
-    chapter("map", "On the map", '<div class="sig">'+sig+'</div>'+cmpHTML) +
     (srcHTML ? '<div class="fg-end">'+srcHTML+'</div>' : "");
-  var index = '<nav class="fg-index" aria-label="Chapters">'+chapters.map(function(c){
-    return '<a href="#fg-'+c.id+'"><i>'+String(c.n).padStart(2,"0")+'</i>'+esc(c.title.replace(/, and what to watch$/,"").replace(/^How it’s usually /,""))+'</a>';
-  }).join("")+'</nav>';
-  return '<div class="fg">'+index+out+'</div>';
+  var index = '<nav class="fg-index" aria-label="Chapters"><button type="button" class="fg-idx-btn" aria-expanded="false">Chapters</button><div class="fg-idx-list">'+chapters.map(function(c){
+    return '<a href="#fg-'+c.id+'"><i>'+String(c.n).padStart(2,"0")+'</i>'+esc(c.title.replace(/, and what to watch$/,"").replace(/^How it’s usually set up$/,"How it’s set up"))+'</a>';
+  }).join("")+'</div></nav>';
+  return '<div class="fg fg-full-wrap">'+index+'<div class="fg-main">'+out+'</div></div>';
 }
 
 /* highlight the chapter being read in the sticky index */
@@ -283,8 +289,13 @@ function guideEnhance(root){
       if (!e.isIntersecting) return;
       links.forEach(function(a){ a.classList.remove("on"); });
       var a = map[e.target.id];
-      if (a) { var p = a.parentNode; p.scrollTo({ left: p.scrollLeft + a.getBoundingClientRect().left - p.getBoundingClientRect().left - 24, behavior: "smooth" }); a.classList.add("on"); }
+      if (a) a.classList.add("on");
     });
   }, { rootMargin: "-30% 0px -60% 0px" });
   root.querySelectorAll(".fg-ch").forEach(function(s){ io.observe(s); });
+  var nav = root.querySelector(".fg-index"), btn = nav && nav.querySelector(".fg-idx-btn");
+  if (btn) {
+    btn.addEventListener("click", function(){ var o = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", o); });
+    links.forEach(function(a){ a.addEventListener("click", function(){ nav.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); }); });
+  }
 }

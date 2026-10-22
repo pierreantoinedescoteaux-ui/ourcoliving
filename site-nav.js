@@ -14,31 +14,35 @@
 
   var ITEMS = [
     { label: "Manifesto", href: "manifesto.html", key: "manifesto", sub: [
-      { label: "The manifesto — start here", href: "manifesto.html" },
-      { label: "Hope: real communities", href: "projects.html" },
-      { label: "Hope: books of inspiration", href: "inspiration.html" }
+      { label: "Real communities", href: "projects.html" },
+      { label: "Inspiring books", href: "inspiration.html" }
     ]},
     { label: "Coliving Resources", href: "map.html", key: "atlas", sub: [
-      { label: "The map — compare the ways of living", href: "map.html#map" },
-      { label: "Field guides — one per model", href: "type.html?t=ecovillage" },
-      { label: "How a place comes together: the choices", href: "themes.html" },
-      { label: "Resources directory", href: "resources.html" },
-      { label: "Networks & movements", href: "networks.html" },
-      { label: "The toolbox: outside tools", href: "how-to.html" }
+      { label: "The map", href: "map.html#map" },
+      { label: "Field guides", href: "type.html?t=ecovillage" },
+      { label: "Design choices", href: "themes.html" },
+      { label: "Toolbox", href: "how-to.html" }
     ]},
     { label: "Design for Connection", href: "design.html", key: "design", sub: [
-      { label: "Design for Connection — start here", href: "design.html" },
-      { label: "Designers that inspire me", href: "designers.html" }
+      { label: "Inspiring designers", href: "designers.html" }
     ]},
     { label: "Writings", href: "talkpieces.html", key: "writings", sub: [
-      { label: "The story we were handed", href: "separation.html" }
+      { label: "Our inherited story", href: "separation.html" }
     ]},
     { label: "About", href: "about.html", key: "about", sub: [
       { label: "My story", href: "story.html" },
-      { label: "Work & case studies", href: "work.html" }
-    ]},
-    { label: "The Community", href: "community.html", key: "community", sub: [] }
+      { label: "Work & cases", href: "work.html" }
+    ]}
   ];
+
+  /* pages still being built (they carry the data-building banner from
+     building.js): one small group at the left end of the menu */
+  var BUILDING = [
+    { label: "Resources", href: "resources.html", key: "atlas" },
+    { label: "Networks", href: "networks.html", key: "atlas" },
+    { label: "The Community", href: "community.html", key: "community" }
+  ];
+  var CONE = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 L16.5 19 H7.5 Z"/><path d="M9.6 11 H14.4"/><path d="M5 19 H19 V21 H5 Z"/></svg>';
 
   var PAGE_KEY = {
     "manifesto.html": "manifesto", "separation.html": "writings", "projects.html": "manifesto",
@@ -108,6 +112,13 @@
 "body:has(.snav.menuopen) .pa-editbtn,body:has(.snav.menuopen) .stotop{opacity:0;pointer-events:none}" +
 ".snav .mpanel a{display:block;font-family:'Switzer',system-ui,sans-serif;font-size:1rem;font-weight:600;color:#22301f;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(34,48,31,.08)}" +
 ".snav .mpanel a.subm{font-weight:400;font-size:.92rem;color:#5c6b57;padding:10px 0 10px 16px}" +
+".snav .bld-nav .drop{left:0;transform:translate(0,8px)}" +
+".snav .bld-nav:hover .drop,.snav .bld-nav:focus-within .drop{transform:translate(0,2px)}" +
+".snav .item>a.bldbtn{padding:6px 4px;color:#8f6215}" +
+".snav .item.bld-nav.on>a.bldbtn,.snav .item>a.bldbtn:hover{color:#3c6b32}" +
+".snav .drop .dhead,.snav .mhead{display:flex;align-items:center;gap:7px;font:700 .72rem/1 Switzer,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8f6215;padding:8px 13px 4px}" +
+".snav .mhead{padding:14px 0 4px}" +
+".snav .mgroup{margin-top:6px;border-top:1px solid rgba(34,48,31,.14)}" +
 "@media(max-width:900px){.snav .top{display:none}.snav .mbtn{display:inline-block}}" +
 ".sfooter{margin-top:clamp(36px,6vh,64px);border-top:1px solid rgba(34,48,31,.14);background:rgba(246,242,231,.7);padding:clamp(18px,3vh,28px) clamp(20px,5vw,88px) 12px;font-family:'Switzer',system-ui,sans-serif;color:#22301f}" +
 ".sfooter .fbrand{display:flex;align-items:flex-start;gap:16px}" +
@@ -183,13 +194,18 @@
       return '<div class="item' + (it.key === act ? " on" : "") + '">' +
         '<a href="' + esc(it.href) + '">' + esc(it.label) + (it.sub.length ? ' <span class="car">▾</span>' : "") + "</a>" + drop + "</div>";
     }).join("");
+    var bAct = BUILDING.some(function (b) { return (location.pathname.split("/").pop() || "").toLowerCase() === b.href; });
+    var bld = '<div class="item bld-nav' + (bAct ? " on" : "") + '"><a class="bldbtn" href="' + esc(BUILDING[0].href) + '" aria-label="Still being built" title="Still being built">' + CONE + "</a>" +
+      '<div class="drop"><span class="dhead">Still being built</span>' + BUILDING.map(function (s) { return '<a href="' + esc(s.href) + '">' + esc(s.label) + "</a>"; }).join("") + "</div></div>";
+    var mobB = '<div class="mgroup" role="group" aria-label="Still being built"><span class="mhead">' + CONE + ' Still being built</span>' +
+      BUILDING.map(function (s) { return '<a class="subm" href="' + esc(s.href) + '">' + esc(s.label) + "</a>"; }).join("") + "</div>";
     var mob = ITEMS.map(function (it) {
       return '<a href="' + esc(it.href) + '">' + esc(it.label) + "</a>" +
         it.sub.map(function (s) { return '<a class="subm" href="' + esc(s.href) + '">' + esc(s.label) + "</a>"; }).join("");
-    }).join("");
+    }).join("") + mobB;
     return '<nav class="snav" aria-label="Site">' +
       '<a class="brand" href="index.html">Our Coliving</a>' +
-      '<div class="top">' + tops + "</div>" +
+      '<div class="top">' + bld + tops + "</div>" +
       /* the nav wears .menuopen while the panel is down, so a page that has
          made the bar see-through (the homepage does, to give the tower back
          its peak) can put its own background back for as long as the menu

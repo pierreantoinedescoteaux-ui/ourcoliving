@@ -154,25 +154,22 @@ img{display:block;max-width:100%}
 .scrollbg{position:absolute;inset:-14% -6.5%;background:url(images/hub/map-scroll.webp) center/100% 100% no-repeat;z-index:-1;pointer-events:none;filter:drop-shadow(0 24px 30px rgba(34,48,31,.25))}
 .stage{isolation:isolate}
 .mapdeco{position:absolute;pointer-events:none;z-index:0;opacity:.95}
-.mapdeco.compass{right:2%;bottom:3%;width:clamp(70px,9vw,130px)}
-.mapdeco.ship{left:3%;bottom:4%;width:clamp(50px,6vw,90px);transform:rotate(-4deg)}
-.mapdeco.bird{right:24%;top:9%;width:clamp(36px,4vw,60px)}
-.mapdeco.sat{left:52%;top:5%;width:clamp(56px,6vw,96px);transform:rotate(-8deg)}
-.mapdeco.drone{left:74%;top:28%;width:clamp(48px,5vw,80px);animation:hover 4s ease-in-out infinite alternate}
-@keyframes hover{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-@media(prefers-reduced-motion:reduce){.mapdeco.drone{animation:none}}
-@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.bird,.mapdeco.sat{display:none}}
-.chart::before,.chart::after{content:"";position:absolute;background:var(--line-strong);pointer-events:none}
-.chart::before{left:50%;top:0;bottom:0;width:1px}
-.chart::after{top:50%;left:0;right:0;height:1px}
+.mapdeco.compass{right:7%;bottom:4.5%;width:clamp(64px,8vw,112px)}
+@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.compass{right:8%;bottom:5%;width:58px}}
+/* axis lines stay on the paper: clear of the torn top and bottom edges and of the rollers */
+.chart::before,.chart::after{content:"";position:absolute;background:rgba(74,52,24,.38);pointer-events:none}
+.chart::before{left:50%;top:30px;bottom:30px;width:1px}
+.chart::after{top:50%;left:6.5%;right:6.5%;height:1px}
 
-.axl{position:absolute;font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);z-index:5;pointer-events:none;transition:opacity .3s}
-.axl b{color:var(--green-deep);font-weight:700}
-.axl.xlo{left:16px;bottom:14px}
-.axl.xhi{right:16px;bottom:14px;text-align:right}
-.axl.ylo{left:16px;bottom:48px;writing-mode:vertical-rl;transform:rotate(180deg)}
-.axl.yhi{left:16px;top:16px;writing-mode:vertical-rl;transform:rotate(180deg)}
-.plate{position:absolute;right:18px;top:14px;font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--ink-faint);pointer-events:none}
+/* map lettering: serif, dark sepia ink, all inside the paper */
+.axl{position:absolute;font-family:var(--serif);font-size:1rem;font-weight:700;letter-spacing:.02em;line-height:1.2;color:#4a3418;z-index:5;pointer-events:none;transition:opacity .3s;max-width:30%}
+.axl b{color:#4a3418;font-weight:700}
+.axl.xlo{left:7.5%;top:calc(50% - 30px)}
+.axl.xhi{right:7.5%;top:calc(50% - 30px);text-align:right}
+.axl.yhi{left:calc(50% + 12px);top:38px}
+.axl.ylo{left:calc(50% + 12px);bottom:38px}
+.plate{position:absolute;left:7.5%;bottom:28px;max-width:58%;font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.4;color:#4a3418;pointer-events:none;z-index:5}
+.plate b{font-style:normal;font-weight:700}
 
 /* ---------- nodes: minimalist symbols ---------- */
 .node{
@@ -187,15 +184,15 @@ img{display:block;max-width:100%}
   transition:transform .35s cubic-bezier(.2,.8,.3,1.3),border-color .35s,background .35s;
 }
 .node .mark svg{width:30px;height:30px}
-.node .lab{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;color:var(--ink-soft);transition:color .3s;background:rgba(246,242,231,.8);padding:1px 7px;border-radius:8px}
+.node .lab{font-family:var(--serif);font-variant:small-caps;font-size:1rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;color:#4a3418;transition:color .3s;background:rgba(250,238,208,.88);padding:1px 8px;border-radius:3px;box-shadow:0 0 0 1px rgba(74,52,24,.22)}
 .node.up{flex-direction:column-reverse}
 .node:hover{z-index:40}
 .node:hover .mark{transform:scale(1.16);border-color:var(--green)}
-.node:hover .lab{color:var(--ink)}
+.node:hover .lab{color:#2a1c08}
 .node:focus-visible{outline:none}
 .node:focus-visible .mark{border-color:var(--green-deep);transform:scale(1.16)}
 .node.mine .mark{border-color:var(--clay);color:var(--clay-deep)}
-.node.mine .lab::after{content:"★ my practice";display:block;font-size:.6rem;letter-spacing:.2em;color:var(--clay-deep);margin-top:2px}
+.node.mine .lab::after{content:"★ my practice";display:block;font-size:.72rem;letter-spacing:.08em;color:var(--clay-deep);margin-top:2px}
 
 .stage.focused .node{opacity:.18;filter:grayscale(.8)}
 .stage.focused .node.active{opacity:1;filter:none;z-index:45}
@@ -380,9 +377,8 @@ img{display:block;max-width:100%}
 @media(max-width:760px){
   .node .mark{width:42px;height:42px}
   .node .mark svg{width:24px;height:24px}
-  .node .lab{font-size:.6rem;letter-spacing:.08em}
+  .node .lab{letter-spacing:.03em}
   .chart{height:max(470px,86vw)}
-  .axl.ylo,.axl.yhi{display:none}
   .hcard{display:none} /* touch devices: tap opens the field notes directly */
 }
 /* v2: slide without a photo, compare highlight, "same name, many shapes" */
@@ -415,6 +411,18 @@ img{display:block;max-width:100%}
 .shp-pol .pills{margin:12px 4px 0}
 .shp-more{display:inline-block;margin-top:clamp(34px,6vh,52px);font:600 1rem/1.3 var(--grotesk);color:var(--green-deep);text-decoration:underline;text-underline-offset:4px}
 @media(prefers-reduced-motion:reduce){.shp-pol{transition:none}}
+@media(max-width:760px){
+  html.m-map .stage .chart .axl{font-size:13px;max-width:38%}
+  html.m-map .stage .chart .axl.xlo{left:6%}
+  html.m-map .stage .chart .axl.xhi{right:6%}
+  html.m-map .stage .chart .plate{display:block;font-size:13px;left:6%;max-width:100%;top:calc(100% + 40px);bottom:auto;line-height:1.3}
+  html.m-map .stage .chart{margin-bottom:92px}
+  html.m-map .stage .chart::before{top:30px}
+  html.m-map .stage .chart .axl.yhi{top:40px;max-width:42%}
+  html.m-map .stage .chart .axl.ylo{bottom:34px;max-width:32%}
+  html.m-map .stage .node .lab{font-size:13px !important;white-space:normal;max-width:110px;line-height:1.1;padding:1px 5px;word-break:normal;overflow-wrap:normal}
+  html.m-map .stage .node.mine .lab::after{font-size:12px}
+}
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -458,12 +466,8 @@ img{display:block;max-width:100%}
 <div class="stage" id="stage">
   <div class="chart" id="chart">
     <div class="scrollbg" aria-hidden="true"></div>
-    <span class="plate">Pl. I — the co-living territory</span>
+    <span class="plate" id="plate"></span>
     <img class="mapdeco compass" src="images/hub/mini-map-compass.webp" alt="" aria-hidden="true">
-    <img class="mapdeco ship" src="images/hub/mini-map-ship.webp" alt="" aria-hidden="true">
-    <img class="mapdeco bird" src="images/hub/mini-map-bird.webp" alt="" aria-hidden="true">
-    <img class="mapdeco sat" src="images/hub/mini-maptech-satellite.webp" alt="" aria-hidden="true">
-    <img class="mapdeco drone" src="images/hub/mini-maptech-drone.webp" alt="" aria-hidden="true">
     <span class="axl xlo" id="xlo"></span>
     <span class="axl xhi" id="xhi"></span>
     <span class="axl yhi" id="yhi"></span>
@@ -517,7 +521,7 @@ img{display:block;max-width:100%}
 
 <script src="data.js"></script>
 <script src="map-data.js"></script>
-<script src="projects-data.js"></script>
+<script src="projects-data.js?v=20261021"></script>
 <script src="sources-data.js"></script>
 <script src="knowledge-data.js"></script>
 <script src="guide-content-data.js"></script>
@@ -693,8 +697,9 @@ img{display:block;max-width:100%}
     var px=MAP_PROPS[axisX], py=MAP_PROPS[axisY];
     document.getElementById("xlo").innerHTML="&larr; <b>"+esc(px.low)+"</b>";
     document.getElementById("xhi").innerHTML="<b>"+esc(px.high)+"</b> &rarr;";
-    document.getElementById("yhi").innerHTML="<b>"+esc(py.high)+"</b> &rarr;";
-    document.getElementById("ylo").innerHTML="&larr; <b>"+esc(py.low)+"</b>";
+    document.getElementById("yhi").innerHTML="&uarr; <b>"+esc(py.high)+"</b>";
+    document.getElementById("ylo").innerHTML="&darr; <b>"+esc(py.low)+"</b>";
+    document.getElementById("plate").innerHTML="<b>Left to right:</b> "+esc(px.label||"")+"<br><b>Bottom to top:</b> "+esc(py.label||"");
     COLIVING_TYPES.forEach(function(t){
       var x=t.scores[axisX], y=t.scores[axisY];
       t._el.style.left=(6+x*0.88)+"%";

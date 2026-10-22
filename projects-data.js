@@ -168,7 +168,7 @@ const COLIVING_PROJECTS = [
     "place": "Zurich",
     "type": "cohousing",
     "kind": "place",
-    "img": "images/model-kalkbreite.jpg",
+    "img": "images/places/kalkbreite.webp",
     "url": "https://www.kalkbreite.net",
     "note": "97 flats over a tram depot: cluster living, car-free, legendary.",
     "tags": {
@@ -1029,7 +1029,8 @@ const COLIVING_PROJECTS = [
         "rent"
       ]
     },
-    "source": "https://www.sahahomes.org/property/petaluma-avenue-homes"
+    "source": "https://www.sahahomes.org/property/petaluma-avenue-homes",
+    "img": "images/places/petaluma-avenue-homes.webp"
   },
   {
     "id": "fardknappen",
