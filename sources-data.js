@@ -12,7 +12,7 @@
 const SOURCES = [
   { id: "guide-cohabitat", title: "Guide du cohabitat", author: "Village Urbain", year: 2026, url: "https://villageurbain.org",
     kind: "guide", lang: "fr", topics: ["cohousing", "definition", "legal", "money", "governance", "building", "setting", "size", "phases"],
-    usedOn: ["map-data.js"], added: "2026-10-21", checked: true,
+    usedOn: ["map-data.js", "who.html"], added: "2026-10-21", checked: true,
     note: "359 pages, all rights reserved: original writing only, short credited quotes. Its own facts and bibliography need checking: several case facts were wrong (Lachine move-in date, Petaluma operator) and some references look garbled. Full text + English summaries: ~/wiki/raw/specialized-knowledge/guide-du-cohabitat/." },
   { id: "village-urbain", title: "Village Urbain", author: "Village Urbain", year: 2026, url: "https://villageurbain.org",
     kind: "website", lang: "fr", topics: ["cohousing", "quebec", "affordability"], usedOn: ["projects.html", "projects-data.js"], added: "2026-10-21", checked: true,
@@ -37,7 +37,7 @@ const SOURCES = [
 
   /* from the guide's bibliography: exist as far as we know, but confirm the details before citing */
   { id: "mccamant-durrett-2011", title: "Creating Cohousing: Building Sustainable Communities", author: "Kathryn McCamant, Charles Durrett", year: 2011,
-    kind: "book", lang: "en", topics: ["cohousing", "design", "phases"], usedOn: ["map-data.js"], added: "2026-10-21", checked: true,
+    kind: "book", lang: "en", topics: ["cohousing", "design", "phases"], usedOn: ["map-data.js", "collective-tax.html"], added: "2026-10-21", checked: true,
     note: "The standard cohousing handbook (New Society Publishers)." },
   { id: "durrett-2009", title: "The Senior Cohousing Handbook (2nd ed.)", author: "Charles Durrett", year: 2009,
     kind: "book", lang: "en", topics: ["cohousing", "seniors"], usedOn: [], added: "2026-10-21", checked: false },

@@ -12,7 +12,7 @@ const QUIZ = {
   intro: {
     eyebrow: "The lookout · find your fit",
     title: "Find your way of living together",
-    lede: "About thirty questions on how you live and what you hope for. At the end there’s a letter waiting for you: the way of living that suits you best, how you might set it up, and a few real places to go and see.",
+    lede: "About thirty questions on how you live and what you hope for. At the end there’s a letter waiting for you, with the way of living that suits you best and a few real places to go and see.",
     note: "About 6 minutes. Skip anything you like. Nothing is saved anywhere: your answers stay in your browser, and in the link if you choose to share it.",
     start: "Begin"
   },
@@ -165,7 +165,7 @@ const QUIZ = {
     fitTitle: "You and living together",
     fit: [
       { min: 68, h: "You’d thrive in most shared places",
-        p: "You recharge around people, you say things when they matter, and a busy kitchen doesn’t faze you. For you the question is which kind of togetherness, more than whether." },
+        p: "You recharge around people, and a busy kitchen doesn’t faze you. For you the question is which kind of togetherness, more than whether." },
       { min: 54, h: "Living together comes naturally to you",
         p: "You have most of what shared life asks for. A few choices in how the place is set up will make the difference between good and great." },
       { min: 40, h: "You’ll love it with the right set-up",
@@ -174,19 +174,19 @@ const QUIZ = {
         p: "You’d be happiest with your own home and a circle of neighbours close by. Cohousing was made for people like you: a private front door, a common house down the path, dinner together when you feel like it.",
         alt: "You’d be happiest with a space that’s fully yours and good people close by. Look for a place where shared life is an invitation you accept when you feel like it, never an obligation." }
     ],
-    fullLife: "And if life is very full right now, that’s fine. Living together often fits best at a turning point, like a move, a new child or retirement. It will still be here.",
+    fullLife: "And if life is very full right now, that’s fine. Living together often fits best at a turning point, like a move or a new child. It will still be here.",
     wayTitle: "Your way of living",
     strength: [ [88, "a very strong match"], [72, "a strong match"], [-1, "a good match"] ],
     because: "Because ",
     closeBehind: "Close behind: ",
     readGuide: "Read the field guide",
     why: {
-      ecovillage: "You want a whole way of life more than an address: land, food and decisions held in common, for the long run. Ecovillages are the deepest kind of living together on our map, and the people in them often say nothing else gives the same sense of belonging.",
+      ecovillage: "You want a whole way of life more than an address: land and decisions held in common, for the long run. Ecovillages are the deepest kind of living together on our map, and the people in them often say nothing else gives the same sense of belonging.",
       cohousing: "You want your own front door and neighbours who know your name. In cohousing every household has a full home, and the community gathers in a common house a few evenings a week. It’s the most proven model on our map, with fifty years of Danish experience behind it.",
       kibbutz: "You’d share almost everything, and you’d want it to mean something. The kibbutz is the boldest experiment in shared life still running, and its newer urban versions are smaller and closer to what you described.",
-      baugruppen: "You’d rather design your home than buy someone else’s idea of one. In a Baugruppe, a group of future neighbours becomes the developer, builds together and moves in together. It suits patient, organised people, and your answers say that’s you.",
+      baugruppen: "You’d rather design your home than buy someone else’s idea of one. In a Baugruppe, a group of future neighbours becomes the developer and builds the place it will live in. It suits patient, organised people, and your answers say that’s you.",
       "hacker-house": "You want your home to be where the ideas happen. A hacker house puts a few builders under one roof for a season of focused work and late conversations in the kitchen.",
-      "operator-coliving": "You want community to be ready the day you arrive, without having to run anything. Operator co-living gives you a furnished room, shared spaces and a team that looks after the social life.",
+      "operator-coliving": "You want community to be ready the day you arrive, without having to run anything. Operator co-living gives you a furnished room and a team that looks after the social life.",
       "entrepreneur-house": "You want a home that pushes your life forward, shared with a handful of people chasing their own projects. It’s the kind of house this whole project grew out of.",
       "rural-coliving": "You’d like nature and good company for a while, without leaving your work behind. Rural co-living gives you weeks or months in the countryside with other people who work from anywhere.",
       "network-village": "You’d rather help build a new kind of town than join an old one. Network villages gather people around shared ideas, often for a season, sometimes for good.",
@@ -232,7 +232,7 @@ const QUIZ = {
     stepsTitle: "First steps",
     steps: [
       ["Visit two of the places above, and stay a few days if they host guests.",
-       "Ask the people who live there about their week: the meals, the meetings, what they wish they’d known.",
+       "Ask the people who live there what their week looks like, and what they wish they’d known.",
        "Find a network near you. <a href=\"networks.html\">Here are some to start with</a>."],
       ["Find two or three people who’d want this too, and send them this quiz. A first group is usually three to eight people.",
        "Ask yourselves whether you want to build it or mostly to live in it. Some groups hand much of the building to professionals.",
@@ -283,12 +283,12 @@ const QUIZ = {
     { id: "own-share", when: "ownHigh && shareHigh",
       h: "Owning and sharing can live together", p: "Cohousing and Baugruppen let you own your home and share the rest." },
     { id: "visit", when: "always", fallback: true,
-      h: "Visit before you decide", p: "Every shared place has its own rhythm. A few days as a guest will show you the meals, the meetings and the mood better than any description." },
+      h: "Visit before you decide", p: "Every shared place has its own rhythm. A few days as a guest will show you the real rhythm better than any description." },
     { id: "seasons", when: "always", fallback: true,
-      h: "Your part can change with your life", p: "How much you give to a shared place goes up and down with work, children and health. Good places expect that, and nobody keeps score." }
+      h: "Your part can change with your life", p: "How much you give to a shared place goes up and down with work and family. Good places expect that, and nobody keeps score." }
   ],
   knowLast: { id: "tax", h: "Every shared place asks a small price",
-    p: "A meeting you’d skip, a dinner when you’re tired, a decision that didn’t go your way. Durrett and McCamant, who brought cohousing to North America, call these the thorns that come with the roses. <a href=\"collective-tax.html\">Read about the collective tax</a>." },
+    p: "A meeting you’d skip, or a decision that didn’t go your way. Durrett and McCamant, who brought cohousing to North America, call these the thorns that come with the roses. <a href=\"collective-tax.html\">Read about the collective tax</a>." },
 
   setup: {
     size: [ [34, "small", "A small group, about 6 to 14 homes", "Everyone knows everyone and decisions are quick."],
@@ -322,7 +322,7 @@ const QUIZ = {
       members: "Members’ own savings and a group mortgage.",
       public: "Public funding or a non-profit partner. Quebec and Canada have programmes for co-ops and non-profits doing exactly this.",
       patron: "You could be its patron or one of its first funders. Choose terms that keep the residents in charge.",
-      operator: "Someone else carries the building: an operator, a co-op or a non-profit. You pay rent or a membership."
+      operator: "Someone else carries the building, like an operator or a co-op. You pay rent or a membership."
     }
   }
 };
