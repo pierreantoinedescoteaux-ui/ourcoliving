@@ -157,7 +157,11 @@ img{display:block;max-width:100%}
 .mapdeco.compass{right:2%;bottom:3%;width:clamp(70px,9vw,130px)}
 .mapdeco.ship{left:3%;bottom:4%;width:clamp(50px,6vw,90px);transform:rotate(-4deg)}
 .mapdeco.bird{right:24%;top:9%;width:clamp(36px,4vw,60px)}
-@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.bird{display:none}}
+.mapdeco.sat{left:52%;top:5%;width:clamp(56px,6vw,96px);transform:rotate(-8deg)}
+.mapdeco.drone{left:74%;top:28%;width:clamp(48px,5vw,80px);animation:hover 4s ease-in-out infinite alternate}
+@keyframes hover{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.mapdeco.drone{animation:none}}
+@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.bird,.mapdeco.sat{display:none}}
 .chart::before,.chart::after{content:"";position:absolute;background:var(--line-strong);pointer-events:none}
 .chart::before{left:50%;top:0;bottom:0;width:1px}
 .chart::after{top:50%;left:0;right:0;height:1px}
@@ -458,6 +462,8 @@ img{display:block;max-width:100%}
     <img class="mapdeco compass" src="images/hub/mini-map-compass.webp" alt="" aria-hidden="true">
     <img class="mapdeco ship" src="images/hub/mini-map-ship.webp" alt="" aria-hidden="true">
     <img class="mapdeco bird" src="images/hub/mini-map-bird.webp" alt="" aria-hidden="true">
+    <img class="mapdeco sat" src="images/hub/mini-maptech-satellite.webp" alt="" aria-hidden="true">
+    <img class="mapdeco drone" src="images/hub/mini-maptech-drone.webp" alt="" aria-hidden="true">
     <span class="axl xlo" id="xlo"></span>
     <span class="axl xhi" id="xhi"></span>
     <span class="axl yhi" id="yhi"></span>
