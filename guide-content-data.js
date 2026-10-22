@@ -144,7 +144,7 @@ var GUIDE_CONTENT = {
     "body": "Most cohousing groups choose to eat together on a regular rhythm. Some do it a few nights a week and others once or twice a month, and usually only part of the community comes to any given dinner. Cooking is rotated, so nobody carries it alone. Around the meals sit smaller things, like shared tools, childcare swaps, garden days and the odd party for the whole street. Groups often write down a few agreements so that newcomers know what is expected, while still leaving room to skip an evening. The aim is that people know one another well enough to ask for help, without anyone having to be best friends. The mix of closeness and freedom is the thing each community has to tune for itself.",
     "example": {
      "id": "vancouver-cohousing",
-     "text": "Vancouver Cohousing holds shared dinners several nights a week, cooked in turn by the residents."
+     "text": "Vancouver Cohousing has regular shared dinners in its common house, cooked in turn by the residents."
     },
     "pitfall": "Participation fades after the exciting early years, and the same few people end up hosting everything."
    },
@@ -153,7 +153,7 @@ var GUIDE_CONTENT = {
     "body": "In small and medium projects, residents handle most of the daily work themselves. Working groups that people join for a season clean the common house, look after the garden and keep the books. Money for repairs and bigger jobs is collected through monthly fees, as in any condo or co-op. As a place grows, volunteers get tired, and groups start hiring a bookkeeper, a cleaner or a property manager. Rental projects add a landlord who holds the building and sometimes a resident group that works with them. The old Swedish collective houses were run with paid staff who cooked for everyone. Today most are closer to resident-managed. How the workload is shared is one of the clearest differences between places.",
     "example": {
      "id": "stolplyckan",
-     "text": "Stolplyckan in Linköping is a rental collective house of about 190 flats, far bigger than most places run by their residents."
+     "text": "Stolplyckan in Linköping is a rental collective house of about 190 flats, one of the biggest in Sweden."
     },
     "pitfall": "Work that depends on volunteers slowly lands on the few who are always willing."
    },
@@ -571,7 +571,7 @@ var GUIDE_CONTENT = {
     "body": "In the classic kibbutz, all means of production belong to the community. Members work where they are needed and earn no wage of their own. In return they receive housing, food, health care and education. The kibbutz pays for these from the income of its farms and factories. The land is leased from the state and is not owned by the members. After a deep economic crisis in the late twentieth century, most kibbutzim changed. Many now pay different salaries by job, let members own their homes, and keep a safety net for those in need. A smaller number have kept full income-sharing. Which model a kibbutz uses is the most important fact to check before you go.",
     "example": {
      "id": "neot-smadar",
-     "text": "Neot Semadar, founded in 1989, has kept full income-sharing, which most other kibbutzim have dropped."
+     "text": "Neot Semadar, founded in 1989, has kept a strongly communal way of life, which most other kibbutzim have dropped."
     },
     "pitfall": "When pay is shared, members who earn most can feel they give more than they get, and may leave.",
     "sources": [
@@ -774,7 +774,7 @@ var GUIDE_CONTENT = {
     "body": "Most residents arrive for a short stay or a season. Others pay for a membership period. Leaving means ending the membership or the lease. Nothing has to be sold, and the investment you leave behind is mostly time. That freedom comes with a downside. The projects are new, so no one knows if they will still exist in ten years. Residents who like a place cannot count on it staying open on the same terms. The founder can change the prices or the location. Rules can change as well, and a place may expand to a new site, as Network School has done in Astana. Few of these projects have thought through families and older residents. Care is a question too. If they succeed as towns, those questions will arrive quickly.",
     "example": {
      "id": "network-school",
-     "text": "Network School works on a membership, and it now also runs a site in Astana besides Malaysia."
+     "text": "Network School works on a membership, and in 2026 it reported moving its main base from Malaysia to Astana in Kazakhstan."
     },
     "pitfall": "People can build a life around a place whose terms change without their consent.",
     "sources": [

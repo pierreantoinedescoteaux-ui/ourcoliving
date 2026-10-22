@@ -35,7 +35,7 @@
     "money": { "dot": "easier", "t": "Budgets pass without long talks" }
    },
    "bestWhen": "When a group is large or short on time, or when the choice is small enough that a clear answer matters most.",
-   "examples": ["berkeley-student-cooperative"],
+   "examples": [],
    "sources": ["guide-cohabitat", "https://en.wikipedia.org/wiki/Majority_rule"],
    "flags": ["The Berkeley Student Cooperative is tagged vote in projects-data; its board is elected by members, so check how much it decides by direct vote before the editor keeps it as an example."]
   },

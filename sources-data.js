@@ -56,5 +56,7 @@ const SOURCES = [
     kind: "article", lang: "en", topics: ["cohousing", "research"], usedOn: [], added: "2026-10-21", checked: false,
     note: "Housing, Theory and Society. The guide lists a different title and journal; confirm before citing." },
   { id: "larsen-2019", title: "Three phases of Danish cohousing: tenure and the development of an alternative housing form", author: "Henrik Gutzon Larsen", year: 2019,
-    kind: "article", lang: "en", topics: ["cohousing", "tenure", "history"], usedOn: [], added: "2026-10-21", checked: false, note: "Housing Studies 34(8)." }
+    kind: "article", lang: "en", topics: ["cohousing", "tenure", "history"], usedOn: [], added: "2026-10-21", checked: false, note: "Housing Studies 34(8)."},
+  { id: "star-network-school-2026", title: "Network School heading to Kazakhstan after Johor operations halted", author: "The Star", year: 2026, url: "https://www.thestar.com.my/news/nation/2026/07/22/network-school-heading-to-kazakhstan-after-johor-operations-halted",
+    kind: "article", lang: "en", topics: ["network village"], usedOn: ["guide-content-network-village.json"], added: "2026-10-21", checked: true, note: "Malaysian site ordered to stop in July 2026; move to Kazakhstan reported (Astana)." }
 ];

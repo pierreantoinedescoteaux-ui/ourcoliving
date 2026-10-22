@@ -725,69 +725,6 @@ window.GLOSSARY_DATA = {
    "def": "City rules that say what can be built where, and how big. Zoning can allow or block shared housing, so groups often have to ask for a change.",
    "link": "https://en.wikipedia.org/wiki/Zoning",
    "linkLabel": "Wikipedia"
-  },
-  {
-   "id": "spectrum-share",
-   "term": "Private ↔ Shared life",
-   "aliases": [],
-   "area": "map",
-   "def": "How much of daily life people share. At one end you have your own home and only share some spaces; at the other you share the home and often the money.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
-  },
-  {
-   "id": "spectrum-size",
-   "term": "Household ↔ Village",
-   "aliases": [],
-   "area": "map",
-   "def": "How many people live the model together. At one end it is a single household in one house; at the other it is a whole village-sized community.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
-  },
-  {
-   "id": "spectrum-time",
-   "term": "Passing through ↔ For life",
-   "aliases": [],
-   "area": "map",
-   "def": "How long people usually stay. At one end people stay a few weeks or months; at the other they plan to live there for good.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
-  },
-  {
-   "id": "spectrum-power",
-   "term": "Founder-run ↔ Resident-run",
-   "aliases": [],
-   "area": "map",
-   "def": "Who holds the power. At one end a founder or a company makes the main calls; at the other all the residents decide together.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
-  },
-  {
-   "id": "spectrum-autonomy",
-   "term": "Autonomy ↔ Collectivism",
-   "aliases": [],
-   "area": "map",
-   "def": "Whose needs come first when a person and the group disagree. At one end the person comes first; at the other the group does.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
-  },
-  {
-   "id": "spectrum-ecotech",
-   "term": "Ecology ↔ Technology",
-   "aliases": [],
-   "area": "map",
-   "def": "What the community organizes its life around. At one end it is living lightly on the land; at the other it is building with technology.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
-  },
-  {
-   "id": "spectrum-effort",
-   "term": "Easy ↔ Hard to start",
-   "aliases": [],
-   "area": "map",
-   "def": "How hard it is to make one exist. At one end you could start this year; at the other it takes years of finding land and money.",
-   "link": "map.html",
-   "linkLabel": "See it on the map"
   }
  ]
 };

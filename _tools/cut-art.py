@@ -32,10 +32,15 @@ def sheet_map():
 
 
 def alpha_or_white(im):
-    """Transparent PNGs pass through; a white background becomes transparent."""
+    """Transparent PNGs pass through; a white background becomes transparent;
+    a painted background returns None and cut() removes it with rembg."""
     im = im.convert("RGBA")
     if im.getextrema()[3][0] < 250:
         return im
+    w, h = im.size
+    corners = [im.getpixel(p)[:3] for p in ((2, 2), (w - 3, 2), (2, h - 3), (w - 3, h - 3))]
+    if min(min(c) for c in corners) < 230:
+        return None
     px = im.load()
     for y in range(im.size[1]):
         for x in range(im.size[0]):
@@ -45,15 +50,42 @@ def alpha_or_white(im):
     return im
 
 
+def object_cells(im, cols, rows):
+    """Gives each grid cell the shapes whose centre falls in it, so objects that
+    spill over a cell line stay whole and no neighbour's edge leaks in. Soft glow
+    pixels follow the nearest solid shape."""
+    import numpy as np
+    from scipy import ndimage
+    full = np.array(im)
+    full[..., 3] = np.where(full[..., 3] < 12, 0, full[..., 3])
+    h, w = full.shape[:2]
+    labels, n = ndimage.label(full[..., 3] > 128)
+    centres = ndimage.center_of_mass(np.ones_like(labels), labels, range(1, n + 1))
+    owner = np.zeros(n + 1, dtype=int) - 1
+    for k, (cy, cx) in enumerate(centres, start=1):
+        owner[k] = min(int(cy * rows / h), rows - 1) * cols + min(int(cx * cols / w), cols - 1)
+    _, (iy, ix) = ndimage.distance_transform_edt(labels == 0, return_indices=True)
+    cell_of = owner[labels[iy, ix]]
+    cells = []
+    for i in range(cols * rows):
+        mine = full.copy()
+        mine[..., 3] = np.where(cell_of == i, full[..., 3], 0)
+        cells.append(Image.fromarray(mine, "RGBA"))
+    return cells
+
+
 def cut(path, cols, rows, names, max_px, prefix):
-    im = alpha_or_white(Image.open(path))
-    w, h = im.size
+    src = Image.open(path).convert("RGBA")
+    im = alpha_or_white(src.copy())
+    if im is None:
+        from rembg import remove, new_session
+        im = remove(src, session=new_session("isnet-general-use"))
+    cells = object_cells(im, cols, rows)
     done = 0
     for i, name in enumerate(names[: cols * rows]):
         if not name or name.startswith("spare"):
             continue
-        c, r = i % cols, i // cols
-        cell = im.crop((c * w // cols, r * h // rows, (c + 1) * w // cols, (r + 1) * h // rows))
+        cell = cells[i]
         box = cell.getbbox()
         if not box:
             print("  empty cell:", name)

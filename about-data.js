@@ -140,9 +140,9 @@ const ABOUT_CHAPTERS = [
 
 /* ------- the honest-footing statement (rendered between chapters and on about.html) ------- */
 const ABOUT_TRANSPARENCY = {
-  kicker: "Said plainly",
-  line: "I created what I wished existed for myself.",
-  body: "The houses, the alliances, the gatherings — nobody assigned them to me. I built them because I wanted to live in them, and they taught me everything on this site."
+  kicker: "Built with others",
+  line: "Each of these places was built with the people who lived in it.",
+  body: "We made the houses and the gatherings together because we wanted to live in them. Most of what I know about living together, I learned from them."
 };
 
 /* ------- what working with me looks like (about.html) ------- */
