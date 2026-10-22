@@ -130,3 +130,8 @@ quiz v2 option explanations. Later: field guides, hub, map.
   house on the classic view; phone map crowded top-right).
 - Places still without a photo: The Residency, Zuzalu, Muir Commons, Fardknappen, Hogeweyk (its only photo shows an
   identifiable dementia-village resident, deliberately not used), plus the 4 networks.
+
+## Landing page shortcuts
+2026-10-22. P-A: a few shortcuts on the landing to the most-seen and most useful pages: the map, the guide (hub),
+the field guides, My work or My story, maybe the quiz. "3 to 5 max, otherwise it's too crowded." In the handoff
+2026-10-22_coliving-map-why-and-mappers.md.
