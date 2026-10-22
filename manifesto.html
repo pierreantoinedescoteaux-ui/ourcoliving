@@ -1033,14 +1033,14 @@ function sceneUpdate(){
 }
 var ticking=false;
 window.addEventListener("scroll",function(){ if(!ticking){ticking=true;requestAnimationFrame(sceneUpdate);} },{passive:true});
-/* desktop: a reader who stops for 5 s while the village is on screen and not
+/* desktop: a reader who stops for 3.5 s while the village is on screen and not
    fully grown sees it finish by itself (3 s glide). Any input hands control back. */
 (function(){
   if(reduced) return;
   var desk=window.matchMedia("(min-width:701px)"), idle=null, gliding=false;
   function arm(){
     clearTimeout(idle);
-    if(desk.matches) idle=setTimeout(glide,5000);
+    if(desk.matches) idle=setTimeout(glide,3500);
   }
   function glide(){
     var r=wrapEl.getBoundingClientRect(), vh=window.innerHeight;

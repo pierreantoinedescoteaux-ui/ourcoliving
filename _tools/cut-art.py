@@ -4,7 +4,8 @@ Reads the cell ids ([group/id]) from FOR PIERRE-ANTOINE/art-queue-prompts.md, so
 the prompt file is the single map of which cell is which. Any sheet not saved yet
 is skipped, so it can run after every new image.
 
-  sheet-N.png  (3 x 2 objects)  -> images/hub/mini-<group>-<id>.webp
+  sheet-N.png, map-pieces.png, extras.png (3 x 2, any block with [ids])
+                                -> images/hub/mini-<group>-<id>.webp
   icons.png    (5 x 2 icons)    -> images/hub/icon-<area>.webp
   hero.png / toolwall.png       -> images/hub/hero.webp / toolwall.webp
 
@@ -25,9 +26,10 @@ def sheet_map():
     text = open(PROMPTS, encoding="utf-8").read()
     out = {}
     for block in re.split(r"\n## ", text):
-        m = re.search(r"→\s*(sheet-\d+\.png)", block.split("\n")[0])
-        if m:
-            out[m.group(1)] = re.findall(r"\[([a-z-]+(?:/[a-z-]+)?)\]", block)
+        m = re.search(r"→\s*([a-z0-9-]+\.png)", block.split("\n")[0])
+        ids = re.findall(r"\[([a-z-]+(?:/[a-z-]+)?)\]", block)
+        if m and ids:
+            out[m.group(1)] = ids
     return out
 
 
@@ -101,7 +103,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     if not os.path.isdir(ART):
         sys.exit("no folder " + ART)
-    for sheet, ids in sorted(sheet_map().items(), key=lambda kv: int(re.search(r"\d+", kv[0]).group())):
+    for sheet, ids in sorted(sheet_map().items(), key=lambda kv: (0, int(re.search(r"\d+", kv[0]).group())) if kv[0].startswith("sheet-") else (1, kv[0])):
         p = os.path.join(ART, sheet)
         if os.path.exists(p):
             cut(p, 3, 2, ids, 440, "mini-")
