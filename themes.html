@@ -74,6 +74,8 @@ img{display:block;max-width:100%}
 .strip .in::-webkit-scrollbar{display:none}
 .strip a{flex:0 0 auto;display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;border-radius:99px;font-size:.8rem;font-weight:600;color:var(--ink-soft);transition:background .3s,color .3s,box-shadow .3s}
 .strip a svg,.strip a img{width:24px;height:24px;flex:0 0 auto}
+.strip a img{width:30px;height:30px;object-fit:contain;margin:-3px 0}
+.ahead .ic img{width:clamp(48px,5vw,64px);height:auto}
 .strip a:hover{background:var(--sky-wash);color:var(--ink)}
 .strip a.on{background:var(--green-deep);color:#fff;box-shadow:0 0 0 3px rgba(217,154,61,.35)}
 
@@ -115,6 +117,8 @@ img{display:block;max-width:100%}
 .glance td{color:var(--ink-soft)}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}
 .dot.easier{background:var(--green)}.dot.depends{background:var(--gold)}.dot.harder{background:var(--clay)}
+/* the dot tables read as heavy (P-A): hidden until the hub rebuild */
+.glance{display:none}
 .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:var(--ink-faint);margin-top:8px}
 
 /* option cards */
@@ -214,7 +218,9 @@ var ICON={
   who:'<circle cx="7" cy="8" r="2.4"/><circle cx="16" cy="7" r="2.8"/><circle cx="12" cy="13" r="1.8"/><path d="M3 20c0-3 2-5 4-5s4 2 4 5M12 20c0-3.5 2-6 4-6s4 2.5 4 6"/>',
   path:'<path d="M5 20c2-4 8-3 9-7s-3-5-1-8"/><path d="M15 4h4v3h-4z"/><path d="M17 7v4"/>'
 };
+/* the painted icons (P-A's sheet); the line icons stay as fallback */
 function icon(id){
+  if(ICON[id]) return '<img src="images/hub/icon-'+id+'.webp" alt="" aria-hidden="true">';
   return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICON[id]||"")+'</svg>';
 }
 
