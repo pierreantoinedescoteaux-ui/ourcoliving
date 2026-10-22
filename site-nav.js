@@ -15,9 +15,11 @@
   var ITEMS = [
     { label: "Manifesto", href: "manifesto.html", key: "manifesto", sub: [
       { label: "Real communities", href: "projects.html" },
+      { label: "Who it helps", href: "who.html" },
       { label: "Inspiring books", href: "inspiration.html" }
     ]},
     { label: "Coliving Resources", href: "map.html", key: "atlas", sub: [
+      { label: "Find your fit", href: "quiz.html" },
       { label: "The map", href: "map.html#map" },
       { label: "Field guides", href: "type.html?t=ecovillage" },
       { label: "Design choices", href: "themes.html" },
@@ -27,7 +29,8 @@
       { label: "Inspiring designers", href: "designers.html" }
     ]},
     { label: "Writings", href: "talkpieces.html", key: "writings", sub: [
-      { label: "Our inherited story", href: "separation.html" }
+      { label: "Our inherited story", href: "separation.html" },
+      { label: "The collective tax", href: "collective-tax.html" }
     ]},
     { label: "About", href: "about.html", key: "about", sub: [
       { label: "My story", href: "story.html" },
@@ -48,7 +51,7 @@
     "manifesto.html": "manifesto", "separation.html": "writings", "projects.html": "manifesto",
     "inspiration.html": "manifesto", "detail.html": "manifesto",
     "map.html": "atlas", "type.html": "atlas", "resources.html": "atlas", "themes.html": "atlas",
-    "networks.html": "atlas", "how-to.html": "atlas",
+    "networks.html": "atlas", "how-to.html": "atlas", "quiz.html": "atlas", "who.html": "manifesto", "collective-tax.html": "writings",
     "design.html": "design", "talkpieces.html": "writings", "designers.html": "design",
     "about.html": "about", "story.html": "about", "story-v1.html": "about", "work.html": "about", "project.html": "about",
     "community.html": "community"

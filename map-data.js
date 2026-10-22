@@ -58,10 +58,10 @@ const BACKEND_SPECTRUMS = {
 };
 
 const MAP_PRESETS = [
-  { name: "The classic",     x: "ecoTech", y: "autonomy" },
-  { name: "Hard mode",       x: "effort",  y: "size" },
-  { name: "Shape of life",   x: "share",   y: "time" },
-  { name: "Who's in charge", x: "power",   y: "autonomy" }
+  { name: "What is life built around?", x: "ecoTech", y: "autonomy" },
+  { name: "How hard is it to start?",   x: "effort",  y: "size" },
+  { name: "How much do people share?",  x: "share",   y: "time" },
+  { name: "Who’s in charge?",           x: "power",   y: "autonomy" }
 ];
 
 const TYPE_FAMILIES = {
@@ -286,8 +286,7 @@ const COLIVING_TYPES = [
     family: "share-a-home",
     name: "The entrepreneur house",
     short: "Entrepreneur house",
-    mine: true,
-    tagline: "A small household of people building their own projects, who chose each other with care. It's where my own practice sits.",
+    tagline: "A small household of people building their own projects, who chose each other with care.",
     ranges: { share: [55, 70], size: [5, 15], time: [20, 55], power: [15, 45], autonomy: [25, 50], ecoTech: [45, 75], effort: [15, 35] },
     backend: { purpose: [40, 70], cost: [35, 55] },
     typicalSetups: [

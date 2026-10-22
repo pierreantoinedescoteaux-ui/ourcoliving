@@ -25,7 +25,7 @@ const pages = [
   "map.html", "type.html?t=cohousing", "how-to.html", "manifesto.html", "hope.html",
   "about.html", "resources.html", "talkpieces.html", "designers.html",
   "themes.html", "inspiration.html", "separation.html", "credits.html",
-  "detail.html?item=rooral",
+  "detail.html?item=rooral", "quiz.html", "who.html", "collective-tax.html",
 ].concat(BASE ? ["index.html"] : []);
 
 // MOBILE-RULES.md v2. These are the numbers the site is built to; the audit

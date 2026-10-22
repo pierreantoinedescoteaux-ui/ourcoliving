@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="m-collective-tax">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The collective tax · Our Coliving</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#6f7c6a;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --sun-soft:#fbe29a;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1000px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.66;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(16px,3vh,26px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,5.6vw,4.6rem);line-height:1.03;letter-spacing:-.02em;margin:16px 0 22px}
+.stand{font-size:clamp(1.02rem,1.35vw,1.2rem);color:var(--ink-soft)}
+.stand p{margin-bottom:1em}
+.outro{margin:clamp(44px,6vh,70px) 0 clamp(30px,4vh,40px);padding:clamp(26px,4vw,40px);background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-align:center}
+.outro p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.4;color:#3c4636;max-width:46ch;margin:0 auto 18px}
+.outro .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.outro .ctas a{font-size:.9rem;font-weight:600;padding:13px 24px;border:2px solid rgba(34,48,31,.3);border-radius:99px;transition:all .3s}
+.outro .ctas a:hover{border-color:var(--green-deep);color:var(--green-deep)}
+
+.bookrow{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin:clamp(22px,3.5vh,34px) 0;flex-wrap:wrap}
+.bookrow .bmark{flex:0 0 44px;height:62px;border-radius:5px;overflow:hidden;background:linear-gradient(150deg,var(--gold),var(--sun-soft));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;color:#fff;font-size:1.2rem}
+.bookrow .bt{flex:1;min-width:220px}
+.bookrow .bt b{display:block;font-family:var(--serif);font-weight:400;font-size:1rem;line-height:1.25}
+.bookrow .bt span{font-size:.8rem;color:var(--ink-faint)}
+.bookrow a{display:inline-flex;align-items:center;min-height:44px;font-size:.78rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--clay-deep);border-bottom:1px solid currentColor;padding-bottom:2px;white-space:nowrap}
+.bookrow a:hover{opacity:.75}
+.piece{max-width:680px}
+.piece p{margin-bottom:1.1em;color:#3c4636}
+</style>
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+<header class="head wrap">
+  <span class="eyebrow">Talk piece 04 · Living together</span>
+  <h1>The collective tax</h1>
+  <div class="stand"><p>Charles Durrett and Kathryn McCamant, who brought cohousing from Denmark to North America, have a name for the small irritations of living together. They call them the thorns that come with the roses. Many residents call it the collective tax.</p></div>
+  <div class="bookrow">
+    <div class="bmark" aria-hidden="true">C</div>
+    <div class="bt"><b>Creating Cohousing: Building Sustainable Communities</b><span>Kathryn McCamant &amp; Charles Durrett · 2011, the book this idea comes from</span></div>
+    <a href="https://newsociety.com/books/c/creating-cohousing" target="_blank" rel="noopener">Find the book →</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="piece">
+    <p>It’s the meeting you’d rather skip. The dinner you join when you’re tired. The colour of the common-house kitchen that wasn’t your choice. The neighbour’s kid who borrowed your bike again.</p>
+    <p>And here’s what it pays for, as they tell it: shared dinners most evenings of the week, a car you can borrow when you need one, gardens no one could build alone, someone else’s home cooking, and conversations that get deeper every year as you come to know the people next door. Their argument is simple. You can’t have a community without people, and you can’t live with people without a few annoyances.</p>
+    <p>Muir Commons, the first new-build cohousing in the United States, paid its tax early. The group argued for months over kitchen finishes. A play structure built on part of the vegetable garden split the community, and some friendships didn’t survive it. A few families left over whether toy guns belonged in shared spaces. Years later, a resident told a Quebec newspaper that you can’t love everyone, and reaching consensus takes a lot of talking, but what a wonderful place it is to raise your kids.</p>
+<!-- P-A story slot: one true friction from one of his houses goes here -->
+    <p>What I’ve come to believe is that the tax is part of the gift. Raising something small before it grows, losing a vote gracefully, showing up for dinner when you didn’t feel like it: these are the skills of living with other people, and they make us better at it everywhere else too.</p>
+    <p>If you’re thinking of living together, ask about the tax when you visit a place. What do people argue about? How do they sort it out? The answers will tell you more than the floor plans.</p>
+  </div>
+
+  <div class="outro">
+    <div class="ctas">
+      <a href="quiz.html">Find your way of living together</a>
+      <a href="who.html">Who living together helps</a>
+      <a href="talkpieces.html">All talk pieces</a>
+    </div>
+  </div>
+</main>
+<script src="site-nav.js"></script>
+</body>
+</html>

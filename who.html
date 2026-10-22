@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="m-who">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who living together helps · Our Coliving</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f2e7;--card:#fffdf8;
+  --ink:#22301f;--ink-soft:#5c6b57;--ink-faint:#6f7c6a;
+  --green:#5c9e4a;--green-deep:#3c6b32;
+  --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay-deep:#8f4a2c;
+  --sun-soft:#fbe29a;
+  --line:rgba(34,48,31,.14);
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;
+  --max:1000px;--gutter:clamp(20px,5vw,88px);--r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:radial-gradient(120% 70% at 88% -5%, var(--sky-wash) 0%, transparent 50%),var(--paper);
+  color:var(--ink);font-family:var(--grotesk);font-size:clamp(18px,1.5vw,21px);line-height:1.66;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--green-deep)}
+.head{padding:clamp(50px,8vh,90px) 0 clamp(16px,3vh,26px)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,5.6vw,4.6rem);line-height:1.03;letter-spacing:-.02em;margin:16px 0 22px}
+.stand{font-size:clamp(1.02rem,1.35vw,1.2rem);color:var(--ink-soft)}
+.stand p{margin-bottom:1em}
+.outro{margin:clamp(44px,6vh,70px) 0 clamp(30px,4vh,40px);padding:clamp(26px,4vw,40px);background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-align:center}
+.outro p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.4;color:#3c4636;max-width:46ch;margin:0 auto 18px}
+.outro .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.outro .ctas a{font-size:.9rem;font-weight:600;padding:13px 24px;border:2px solid rgba(34,48,31,.3);border-radius:99px;transition:all .3s}
+.outro .ctas a:hover{border-color:var(--green-deep);color:var(--green-deep)}
+
+.profiles{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px);margin:clamp(20px,3vh,30px) 0 0}
+@media(max-width:760px){.profiles{grid-template-columns:1fr}}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.4vw,28px);box-shadow:0 18px 40px -34px rgba(23,58,44,.5)}
+.pcard .ic{width:56px;height:56px;margin-bottom:12px}
+.pcard .ic img{width:100%;height:100%;object-fit:contain}
+.pcard h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.12;letter-spacing:-.01em;margin:0 0 8px}
+.pcard p{font-size:.92em;line-height:1.6;color:#3c4636}
+.answers{margin:clamp(40px,6vh,64px) 0 0;padding-top:clamp(28px,4vh,40px);border-top:1px solid var(--line)}
+.answers h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.7rem);line-height:1.08;letter-spacing:-.015em;margin:0 0 18px}
+.answers ul{list-style:none;display:grid;gap:16px}
+.answers li{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:6px 24px;align-items:baseline;color:#3c4636}
+@media(max-width:760px){.answers li{grid-template-columns:1fr}}
+.answers em{font-family:var(--serif);font-style:italic;font-size:1.2em;color:var(--gold-deep)}
+.src{margin-top:clamp(22px,3vh,30px);font-size:clamp(16px,.9rem,1rem);line-height:1.55;color:var(--ink-faint)}
+.src a{color:var(--clay-deep);border-bottom:1px solid currentColor}
+</style>
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div data-sitenav></div>
+<header class="head wrap">
+  <span class="eyebrow">Who it’s for</span>
+  <h1>Who living together helps</h1>
+  <div class="stand"><p>When I tell people I live with others on purpose, they often picture students or young founders. That’s part of it. The Quebec cohousing guide makes a longer list, and it moved me: children, teenagers, newcomers, single parents, people living alone, seniors well past seventy-five. Nobody is too young or too old for this.</p></div>
+</header>
+
+<main class="wrap">
+  <div class="profiles">
+    <article class="pcard"><div class="ic"><img src="images/hub/icon-social.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>Children and teenagers</h2><p>A child in a shared place grows up with a wider circle of trusted adults and other kids right outside the door. Teenagers get something rare: a space between the family home and the street, where they can test their freedom with grown-ups nearby who aren’t their parents.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/icon-path.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>Young adults</h2><p>These years are often a time of moving and starting over. Sharing a home lowers the cost of getting started and builds a circle of friends while the rest of life is still settling.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/mini-map-compass.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>Newcomers</h2><p>Daily life with neighbours is how you learn the small codes of a new place: how the bank works, where to buy good bread, what people mean when they say “à la prochaine”. The guide says this support often decides how the first years go.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/icon-privacy.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>People living alone</h2><p>About three in ten households in Canada are now one person. A shared place lets you choose your level of company each day, with places to retreat and places to meet, without making you live a collective life all the time.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/icon-who.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>Couples and families</h2><p>Couples keep their own home and gain a livelier everyday life. Parents share pickups, meals and the mental load, which the guide notes tends to fall hardest on women.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/mini-hosts-homes.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>Single parents</h2><p>One adult carrying everything can lean on trusted neighbours. Help works when it goes both ways, and in a good shared place it does.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/icon-leaving.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>Seniors</h2><p>Shared places keep older people active and useful, with neighbours close by if health changes. For people over seventy-five, the guide describes a middle ground between living alone and moving into an institution, as long as the design and the support are there.</p></article>
+    <article class="pcard"><div class="ic"><img src="images/hub/mini-extra-mailbox.webp" alt="" aria-hidden="true" loading="lazy"></div><h2>People on the margins</h2><p>Designed inclusively and backed by the right partners, shared housing can steady people who’ve had a hard time finding a stable home: young adults leaving youth protection, people in a precarious situation, LGBTQ+ people facing isolation.</p></article>
+  </div>
+
+  <section class="answers">
+    <h2>What it answers</h2>
+    <ul>
+      <li><em>Loneliness</em><span>The guide, citing a large review of studies, says isolation raises the risk of dying early by about as much as smoking does. Neighbours who know your name are a quiet kind of health care.</span></li>
+      <li><em>Growing old</em><span>Places where people look out for each other help seniors stay in their own homes longer.</span></li>
+      <li><em>The cost of living</em><span>Sharing tools, cars, gardens and big pots of soup adds up. Cohousing households tend to live in smaller homes and say they’re happier in them.</span></li>
+      <li><em>The planet</em><span>Smaller homes, shared things and fewer cars lighten a community’s footprint.</span></li>
+    </ul>
+  </section>
+
+  <p class="src">Source: Guide du cohabitat, <a href="https://villageurbain.org" target="_blank" rel="noopener">Village Urbain</a> (2026), chapter 3, which cites Holt-Lunstad et al. (2010), Statistics Canada (2021 census) and Bamford (2001).</p>
+
+  <div class="outro">
+    <p>The guide is honest that cohousing has mostly been a middle-class story so far, and many new projects are working to change that through co-ops, non-profits and partnerships. It’s one of the reasons I care about it: done well, it’s a way of living that can include everyone.</p>
+    <div class="ctas">
+      <a href="quiz.html">Find your way of living together</a>
+      <a href="projects.html">See the real communities</a>
+      <a href="type.html?t=cohousing">Read the field guide on cohousing</a>
+    </div>
+  </div>
+</main>
+<script src="site-nav.js"></script>
+</body>
+</html>

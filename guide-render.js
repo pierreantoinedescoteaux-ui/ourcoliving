@@ -264,9 +264,9 @@ function guideBodyHTML(t, k, opts){
     return '<div class="fg fg-short">'+out+'</div>';
   }
   out = chapter("glance", "At a glance", glance + cmpHTML) +
-    chapter("map", "On the map", '<div class="sig">'+sig+'</div>'+cmpHTML) +
     chapter("origin", "Where it comes from", origin) +
     chapter("how", "How it works", howHTML) +
+    chapter("map", "On the map", '<div class="sig">'+sig+'</div>'+cmpHTML) +
     (setups.length ? chapter("setup", "How it’s usually set up", setupHTML) : "") +
     chapter("who", "Who it’s for, and what to watch", whoHTML) +
     (allEx.length ? chapter("places", "Real places", (placesHTML || "") + allLink) : "") +

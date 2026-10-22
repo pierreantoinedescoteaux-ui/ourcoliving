@@ -36,6 +36,16 @@ const TALKPIECES = {
       title: "What brought me here in the first place.",
       dek: "Every experience of living together I've had, end to end — from the first shared house to the dream of a village — and what each one taught me. The piece behind the story.",
       meta: "In the workshop — source notes gathered, waiting for a proper telling"
+    },
+    {
+      slug: "collective-tax",
+      status: "live",
+      href: "collective-tax.html",
+      img: "images/cohousing-afternoon.jpg",
+      kicker: "Piece 04 · Living together",
+      title: "The collective tax.",
+      dek: "The small frictions you accept as the price of living together, and what they buy.",
+      meta: "A short read · from Durrett and McCamant, via the Quebec cohousing guide"
     }
   ],
   young: "This room is young — pieces arrive slowly, on purpose. If one sparks a thought, write me: these are invitations, not verdicts."
