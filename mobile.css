@@ -1294,3 +1294,17 @@
      just under the thumb floor */
   .inspo-out a, .ilinks a { min-height: 44px; display: inline-flex; align-items: center; }
 }
+
+/* 2026-10-22: the last pages under the phone floors (12px labels, 16px reading),
+   flagged by _qa/mobile-audit.js */
+@media (max-width: 760px) {
+  html.m-story .built-with, html.m-story .end-kicker, html.m-story .s-kicker,
+  html.m-about .s-kicker, html.m-about .me-facts dt, html.m-about .shelf-k,
+  html.m-about .pc-lbl, html.m-about .postcard .btn-pill { font-size: 12px !important; }
+  html.m-story .margin-note, html.m-about .pc-how, html.m-about .q-k + p,
+  html.m-map .shp-pol p { font-size: 16px !important; }
+  html.m-map .stage .chart .plate { font-size: 16px !important; }
+  html.m-story .end-door span { font-size: 12px !important; }
+  html.m-story p.built-with { font-size: 16px !important; letter-spacing: .06em !important; }
+  html.m-about .ask p, html.m-about .how-sec p { font-size: 16px !important; }
+}
