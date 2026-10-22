@@ -359,6 +359,8 @@ a{color:inherit;text-decoration:none}
 /* the photo IS the bubble now — faded so the centred line pops on top of it */
 .cardp .cardbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;z-index:0}
 .cardp::after{content:"";position:absolute;inset:0;z-index:1;background:var(--ctone);opacity:.55}
+/* the small line needs calmer paper under it than the big one: a soft tone pool behind the text block */
+.cardp .cardfront::before{content:"";position:absolute;inset:6% 4%;z-index:-1;background:var(--ctone);opacity:.7;filter:blur(14px);border-radius:40%}
 .cardp .cardfront{position:relative;z-index:2;min-height:122px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 16px 14px}
 .bub.pop .gray{display:none}
 .bub.pop .cardp{display:block;animation:bloom .55s cubic-bezier(.34,1.56,.64,1)}
@@ -369,7 +371,7 @@ a{color:inherit;text-decoration:none}
 .cardp .im img{width:74px;height:74px;object-fit:cover}
 /* secondary sentence + "go deeper" are HIDDEN until hover — that's what lets
    the primary line and the image be big. Hover zooms the card and reveals them. */
-.cardp .vil{font-size:.92rem;line-height:1.45;color:var(--ink-soft);max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .35s ease}
+.cardp .vil{font-size:.92rem;line-height:1.45;color:var(--ink);font-weight:500;text-shadow:0 1px 10px rgba(255,253,248,.95),0 0 3px rgba(255,253,248,.9);max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .35s ease}
 .cardp .deep{display:inline-block;margin-top:0;max-height:0;opacity:0;overflow:hidden;font-size:.66rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px;transition:max-height .4s ease,opacity .35s ease,margin .3s ease}
 .cardp .deep:hover{opacity:.75}
 .bub.pop .cardp{transition:transform .35s cubic-bezier(.34,1.4,.6,1),box-shadow .35s ease}
@@ -1031,6 +1033,33 @@ function sceneUpdate(){
 }
 var ticking=false;
 window.addEventListener("scroll",function(){ if(!ticking){ticking=true;requestAnimationFrame(sceneUpdate);} },{passive:true});
+/* desktop: a reader who stops for 5 s while the village is on screen and not
+   fully grown sees it finish by itself (3 s glide). Any input hands control back. */
+(function(){
+  if(reduced) return;
+  var desk=window.matchMedia("(min-width:701px)"), idle=null, gliding=false;
+  function arm(){
+    clearTimeout(idle);
+    if(desk.matches) idle=setTimeout(glide,5000);
+  }
+  function glide(){
+    var r=wrapEl.getBoundingClientRect(), vh=window.innerHeight;
+    var p=(-r.top)/(r.height-vh);
+    if(r.top>vh*0.5||p>=0.985) return;
+    var from=window.scrollY, to=from+r.top+r.height-vh, t0=performance.now();
+    gliding=true;
+    (function step(now){
+      if(!gliding) return;
+      var t=Math.min(1,(now-t0)/3000), e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      window.scrollTo({top:from+(to-from)*e,behavior:"instant"});
+      if(t<1) requestAnimationFrame(step); else gliding=false;
+    })(t0);
+  }
+  function input(){ gliding=false; arm(); }
+  ["wheel","touchstart","keydown","pointerdown"].forEach(function(ev){ window.addEventListener(ev,input,{passive:true}); });
+  window.addEventListener("scroll",function(){ if(!gliding) arm(); },{passive:true});
+  arm();
+})();
 window.addEventListener("resize",sceneUpdate);
 if(reduced){ possItems.forEach(function(li){li.classList.add("litp");}); finale.classList.add("litp"); }
 else sceneUpdate();

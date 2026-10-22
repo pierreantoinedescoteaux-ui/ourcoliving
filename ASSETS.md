@@ -96,5 +96,6 @@ Swap in by adding `src:` to the entry in work-data.js — placeholder auto-repla
 - **Solarpunk, not antique.** A hopeful future where nature and technology live side by side.
 - **Plausible.** Organic things stay organic (a plant is just a plant: no solar panels growing in leaves). Tech sits where it really would (solar panels on a roof or a bike, a hologram above a device).
 - **About a third of the objects carry positive mechanical tech:** brass mechanisms, small solar panels, soft teal holograms like the workshop's blueprint table, a friendly brass helper robot. The rest are crafted or organic objects.
+- **Living things too (P-A, sheets 5+):** about a third of cells are animals, plants or fungi that carry the card's meaning (owl for advice, beehive for assembly, glowing mycelium for delegation, ducks for families). Painted real and calm, no cartoon eyes. Magic only as nature does it: glowing fungi, fireflies.
 - Sheets: 6 per image (3 × 2), highest resolution, transparent background. Refs: `Downloads/coliving-art-refs/style-sheet.png` + `ref-1-workshop.png`. Cut with `python _tools/cut-art.py`.
 - Rejected: glossy toy-shop dioramas on carved pedestals; symbolic props as giant objects; mini-scenes with many people (too complex for the model).

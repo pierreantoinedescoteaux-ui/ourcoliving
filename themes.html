@@ -6,6 +6,7 @@
 <title>How a place comes together — Our Coliving</title>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet">
 <style>
 /* THE HUB, "How a place comes together" (Workshop, the model city).
    Data: hub-data.js (areas, intros), hub-cards-data.js (option cards),
@@ -36,26 +37,36 @@ img{display:block;max-width:100%}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 .eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--green-deep)}
 
-/* hero: the painted model city, labels jump to each area */
-.hhead{padding:clamp(36px,6vh,64px) 0 clamp(18px,3vh,28px)}
-.hhead h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6vw,5rem);line-height:1;letter-spacing:-.02em;margin:14px 0 16px;max-width:14ch}
+/* top: the title on a blueprint taped to the bench, a polaroid of the
+   workshop and the lantern hanging over it. One menu: the sticky strip. */
+.hhead{position:relative;padding:clamp(70px,11vh,110px) 0 clamp(22px,4vh,40px)}
+.hhead .desk{position:relative;display:flex;align-items:flex-start;gap:clamp(18px,3vw,40px);margin-bottom:clamp(22px,3.5vh,34px)}
+.blueprint{position:relative;flex:0 1 auto;max-width:720px;padding:clamp(24px,3.5vw,44px) clamp(26px,4vw,52px) clamp(26px,3.5vw,42px);transform:rotate(-1.2deg);
+  background:linear-gradient(rgba(63,116,136,.13) 1px,transparent 1px) 0 0/22px 22px,linear-gradient(90deg,rgba(63,116,136,.13) 1px,transparent 1px) 0 0/22px 22px,#eef5f6;
+  box-shadow:0 1px 0 rgba(34,48,31,.06),0 22px 40px -28px rgba(34,48,31,.55)}
+.blueprint::before,.blueprint::after{content:"";position:absolute;width:92px;height:26px;background:rgba(217,154,61,.42);box-shadow:0 1px 2px rgba(34,48,31,.12)}
+.blueprint::before{top:-11px;left:22px;transform:rotate(-7deg)}
+.blueprint::after{top:-11px;right:26px;transform:rotate(6deg)}
+.hhead h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6vw,5rem);line-height:1;letter-spacing:-.02em;margin:14px 0 0;max-width:14ch}
+.hhead .eyebrow{color:var(--sky-deep)}
+.lamp{position:absolute;left:clamp(-14px,-1vw,0px);top:calc(-1 * clamp(70px,11vh,110px));width:clamp(44px,4.4vw,62px);z-index:2;transform-origin:50% 0;animation:sway 7s ease-in-out infinite alternate;filter:drop-shadow(0 14px 18px rgba(143,98,21,.35))}
+@keyframes sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+@media(prefers-reduced-motion:reduce){.lamp{animation:none}}
+.polaroid{flex:0 0 auto;width:clamp(170px,19vw,250px);margin-top:clamp(18px,3vw,40px);padding:10px 10px 0;background:#fffdf8;transform:rotate(3deg);box-shadow:0 18px 36px -20px rgba(34,48,31,.55)}
+.polaroid img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.polaroid figcaption{font-family:"Caveat",cursive;font-size:1.35rem;color:var(--ink-soft);text-align:center;padding:4px 0 8px}
 .hhead .lede{color:var(--ink-soft);max-width:60ch;font-size:clamp(1.02rem,1.3vw,1.15rem)}
-.hero{position:relative;max-width:var(--max);margin:0 auto clamp(10px,2vh,20px);padding:0 var(--gutter)}
-.hero-img{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(34,48,31,.5)}
-.hero-img img{width:100%;height:clamp(240px,42vh,460px);object-fit:cover}
-.hlabel{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:8px 14px;border-radius:99px;
-  background:rgba(255,253,248,.92);border:1px solid rgba(143,98,21,.4);color:var(--ink);font-size:.82rem;font-weight:600;white-space:nowrap;
-  box-shadow:0 10px 24px -12px rgba(34,48,31,.5);transition:transform .25s,background .25s}
-.hlabel:hover{background:var(--green-deep);color:#fff;transform:translate(-50%,-50%) scale(1.05)}
-.hlabel i{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--gold-deep)}
-.hlabel:hover i{color:#f3d9a6}
-.hero.placeholder .hlabel{position:static;transform:none}
-.hero.placeholder .hlabels{position:absolute;left:0;right:0;bottom:14px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:0 14px}
-@media(max-width:760px){
-  .hero .hlabels{position:static!important;display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding:0!important}
-  .hero .hlabel{position:static;transform:none}
-  .hero-img img{height:220px}
-}
+.hand{font-family:"Caveat",cursive;font-size:clamp(1.35rem,1.9vw,1.6rem);line-height:1.15;color:var(--clay-deep);max-width:24ch}
+.hand-top{position:absolute;right:0;bottom:clamp(26px,4.5vh,46px);transform:rotate(-3deg);text-align:right}
+.hand-top::before{content:"";display:block;width:46px;height:30px;margin:0 0 4px auto;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 30' fill='none' stroke='%238f4a2c' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M42 4c-6 14-20 20-34 20'/%3E%3Cpath d='M14 18l-6 6 8 3'/%3E%3C/svg%3E") no-repeat;transform:scaleY(-1)}
+.hand-area{display:block;margin:10px 0 18px clamp(0px,4vw,60px);transform:rotate(-1.5deg)}
+@media(max-width:1100px){.hand-top{position:static;margin-top:18px;text-align:left;transform:rotate(-2deg)}.hand-top::before{display:none}}
+@media(max-width:760px){.hhead .desk{flex-direction:column;gap:0}.polaroid{width:150px;margin:-14px 0 0 auto;transform:rotate(4deg)}.blueprint{transform:rotate(-.8deg)}.lamp{left:auto;right:8px}}
+/* the lamp's light: the area being read is warm, the others rest a little dimmer */
+.spot .area{transition:opacity .6s ease}
+.spot .area:not(.lit){opacity:.86}
+.spot .area.lit{background:radial-gradient(70% 380px at 50% 0,rgba(217,154,61,.13),transparent 75%)}
 
 /* sticky strip of area icons */
 .strip{position:sticky;top:var(--navh,64px);z-index:30;background:rgba(246,242,231,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -157,11 +168,18 @@ img{display:block;max-width:100%}
 <script src="site-nav.js"></script>
 
 <header class="hhead wrap">
-  <span class="eyebrow" id="hEyebrow"></span>
-  <h1 id="hTitle"></h1>
+  <div class="desk">
+    <img class="lamp" src="assets/world/orn-lantern.webp" alt="" aria-hidden="true">
+    <div class="blueprint">
+      <span class="eyebrow" id="hEyebrow"></span>
+      <h1 id="hTitle"></h1>
+    </div>
+    <figure class="polaroid"><img src="assets/tower/S4.webp" alt="The workshop: people building a model city at a long bench"><figcaption>the workshop</figcaption></figure>
+  </div>
   <p class="lede" id="hLede"></p>
+  <!-- handwritten notes: Claude's draft, P-A to edit -->
+  <p class="hand hand-top">Start with the area your group talks about most. The rest will follow.</p>
 </header>
-<div class="hero" id="hero"></div>
 <nav class="strip" aria-label="Areas"><div class="in" id="strip"></div></nav>
 <main class="wrap" id="main"></main>
 
@@ -204,14 +222,6 @@ document.getElementById("hEyebrow").textContent=H.eyebrow;
 document.getElementById("hTitle").textContent=H.title;
 document.getElementById("hLede").textContent=H.lede;
 
-/* hero: the painting if it exists, else the workshop placeholder with a row of labels */
-var heroEl=document.getElementById("hero");
-var labels=H.areas.map(function(a,i){
-  return '<a class="hlabel" href="#'+a.id+'" style="left:'+a.hero.x+'%;top:'+a.hero.y+'%"><i>'+String(i+1).padStart(2,"0")+'</i>'+esc(a.label)+'</a>';
-}).join("");
-heroEl.innerHTML='<div class="hero-img"><img src="'+esc(H.hero.src)+'" alt="'+esc(H.hero.alt)+'"><div class="hlabels">'+labels+'</div></div>';
-var heroImg=heroEl.querySelector("img");
-heroImg.addEventListener("error",function(){ heroEl.classList.add("placeholder"); heroImg.src=H.hero.fallback; },{once:true});
 
 /* sticky strip */
 document.getElementById("strip").innerHTML=H.areas.map(function(a){
@@ -301,9 +311,16 @@ document.getElementById("main").addEventListener("click",function(e){
 
 /* the strip follows the reader */
 var links=document.querySelectorAll(".strip a");
+/* the lantern's light follows the reader (not under reduced motion) */
+var lamp=!window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(lamp) document.getElementById("main").classList.add("spot");
+/* one handwritten note inside the first area (Claude's draft, P-A to edit) */
+var firstHead=document.querySelector(".area .ahead");
+if(firstHead) firstHead.insertAdjacentHTML("afterend",'<p class="hand hand-area">Tap any card to open it. Each one shows real places that made that choice.</p>');
 if("IntersectionObserver" in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){
     if(!e.isIntersecting) return;
+    if(lamp) document.querySelectorAll(".area").forEach(function(s){s.classList.toggle("lit",s===e.target);});
     links.forEach(function(l){var on=l.getAttribute("data-a")===e.target.id;l.classList.toggle("on",on);if(on){var p=l.parentNode;p.scrollTo({left:p.scrollLeft+l.getBoundingClientRect().left-p.getBoundingClientRect().left-24,behavior:"smooth"});}});
   });},{rootMargin:"-35% 0px -60% 0px"});
   document.querySelectorAll(".area").forEach(function(s){io.observe(s);});

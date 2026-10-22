@@ -323,6 +323,9 @@
   var VIDEO_PAGES = { "resources.html": 1, "about.html": 1, "map.html": 1 };
   /* the landing IS the world — no banner, no extra grain there */
   var WORLD_SKIP = { "index.html": 1, "tower.html": 1, "home-classic.html": 1, "index-v2.html": 1, "manifesto.html": 1 };
+  /* rooms rebuilt with their own top (title on a room object): keep the scene
+     accent and grain, drop the painted band and the back pill */
+  var WORLD_CLEAN = { "themes.html": 1 };
 
   function pageFile() {
     return (location.pathname.split("/").pop() || "index.html").toLowerCase();
@@ -401,6 +404,7 @@
     var nav = document.querySelector(".snav");
     if (!nav) return;
     document.documentElement.style.setProperty("--scene-accent", sc.accent);
+    if (WORLD_CLEAN[f]) return;
     injectWorldCss();
 
     var wrap = document.createElement("div");
