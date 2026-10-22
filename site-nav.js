@@ -325,7 +325,8 @@
   var WORLD_SKIP = { "index.html": 1, "tower.html": 1, "home-classic.html": 1, "index-v2.html": 1, "manifesto.html": 1 };
   /* rooms rebuilt with their own top (title on a room object): keep the scene
      accent and grain, drop the painted band and the back pill */
-  var WORLD_CLEAN = { "themes.html": 1 };
+  var WORLD_CLEAN = { "themes.html": 1, "projects.html": 1, "resources.html": 1, "detail.html": 1, "inspiration.html": 1, "talkpieces.html": 1,
+    "type.html": 1, "designers.html": 1, "how-to.html": 1, "design.html": 1, "story.html": 1, "about.html": 1, "project.html": 1, "work.html": 1, "map.html": 1 };
 
   function pageFile() {
     return (location.pathname.split("/").pop() || "index.html").toLowerCase();

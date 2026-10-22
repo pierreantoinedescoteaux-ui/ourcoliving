@@ -148,6 +148,16 @@ img{display:block;max-width:100%}
   background-size:10% 10%,10% 10%,100% 100%;
   transition:opacity .4s;
 }
+/* the map is drawn on P-A's painted scroll: the parchment fills the chart, the
+   rollers sit just outside it, a compass, a boat and a swallow in the margins */
+.chart{border:0;border-radius:0;background:none;margin:clamp(30px,5vw,70px) 0}
+.scrollbg{position:absolute;inset:-14% -6.5%;background:url(images/hub/map-scroll.webp) center/100% 100% no-repeat;z-index:-1;pointer-events:none;filter:drop-shadow(0 24px 30px rgba(34,48,31,.25))}
+.stage{isolation:isolate}
+.mapdeco{position:absolute;pointer-events:none;z-index:0;opacity:.95}
+.mapdeco.compass{right:2%;bottom:3%;width:clamp(70px,9vw,130px)}
+.mapdeco.ship{left:3%;bottom:4%;width:clamp(50px,6vw,90px);transform:rotate(-4deg)}
+.mapdeco.bird{right:24%;top:9%;width:clamp(36px,4vw,60px)}
+@media(max-width:760px){.scrollbg{inset:-6% -7%}.mapdeco.bird{display:none}}
 .chart::before,.chart::after{content:"";position:absolute;background:var(--line-strong);pointer-events:none}
 .chart::before{left:50%;top:0;bottom:0;width:1px}
 .chart::after{top:50%;left:0;right:0;height:1px}
@@ -443,7 +453,11 @@ img{display:block;max-width:100%}
 
 <div class="stage" id="stage">
   <div class="chart" id="chart">
+    <div class="scrollbg" aria-hidden="true"></div>
     <span class="plate">Pl. I — the co-living territory</span>
+    <img class="mapdeco compass" src="images/hub/mini-map-compass.webp" alt="" aria-hidden="true">
+    <img class="mapdeco ship" src="images/hub/mini-map-ship.webp" alt="" aria-hidden="true">
+    <img class="mapdeco bird" src="images/hub/mini-map-bird.webp" alt="" aria-hidden="true">
     <span class="axl xlo" id="xlo"></span>
     <span class="axl xhi" id="xhi"></span>
     <span class="axl yhi" id="yhi"></span>
