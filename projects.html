@@ -34,15 +34,63 @@ a{color:inherit;text-decoration:none}
 .head{padding:clamp(50px,8vh,90px) 0 clamp(10px,2vh,16px)}
 h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.4rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px;max-width:16ch}
 .lede{color:var(--ink-soft);max-width:58ch;font-size:clamp(1rem,1.3vw,1.15rem)}
-/* who maps this better: the big directories, before P-A's own list */
-.others{margin-top:clamp(26px,4vh,40px);padding:clamp(20px,3vw,30px) clamp(20px,3vw,34px);background:var(--card,#fffdf8);border:1px solid var(--line);border-radius:14px;max-width:var(--max,1160px)}
+/* who maps this better: worldwide directories as cards, then a small map with one tack per regional network */
+.others{margin-top:clamp(26px,4vh,40px);padding:clamp(20px,3vw,30px) clamp(20px,3vw,34px);background:var(--card,#fffdf8);border:1px solid var(--line);border-radius:14px;max-width:var(--max,1160px);position:relative;z-index:5}
 .others h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.15}
-.others>p{color:var(--ink-soft);max-width:62ch;margin:8px 0 14px}
-.olist{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px 30px;padding:0}
-.olist li{padding:10px 0;border-top:1px solid var(--line)}
-.olist a{font-weight:700;color:var(--green-deep,#3c6b32);min-height:32px;display:inline-flex;align-items:center}
-.olist .reg{display:block;margin:0;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint,#93a08d)}
-.olist p{color:var(--ink-soft);font-size:max(16px,.92em);line-height:1.5;margin:2px 0 0}
+.others>p{color:var(--ink-soft);max-width:62ch;margin:8px 0 0}
+.others .sub{font-size:max(12px,.7rem);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin:22px 0 10px}
+.others .sub .hint{letter-spacing:.04em;text-transform:none;font-weight:500;margin-left:8px}
+.wwlist{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding:0}
+.wwlist a{display:flex;flex-direction:column;height:100%;padding:13px 16px 12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);transition:border-color .25s,transform .25s,box-shadow .25s}
+.wwlist a:hover,.wwlist a:focus-visible{border-color:var(--green);transform:translateY(-2px);box-shadow:0 12px 26px -18px rgba(34,48,31,.4);outline:none}
+.wwlist b{font-family:var(--serif);font-weight:400;font-size:1.08rem;line-height:1.2;color:var(--ink)}
+.wwlist span{font-size:max(16px,.8em);line-height:1.45;color:var(--ink-soft);margin-top:4px;flex:1}
+.wwlist i{font-style:normal;font-size:max(12px,.66rem);font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--clay-deep);margin-top:8px}
+/* the map: parchment card, land drawn once offline (images/projects-map/) */
+.wm{position:relative;margin:0;border:1px solid rgba(111,81,25,.22);border-radius:12px;
+  background:radial-gradient(90% 80% at 50% 45%,#fffaf0 0%,#f7efdd 100%)}
+.wm-clip{overflow:hidden;border-radius:12px}
+.wm-in{position:relative}
+.wm-in>img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.wm-eu{display:none}
+.wm figcaption{display:none;position:absolute;left:12px;top:10px;z-index:3;pointer-events:none;font-family:var(--serif);font-style:italic;font-size:15px;color:#4a3418}
+.tack{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;padding:0;border:0;background:none;cursor:pointer;
+  display:grid;place-items:center;z-index:2;-webkit-tap-highlight-color:transparent}
+.tack .tk{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,#fff7da 0%,#f3dc9c 14%,#d4ad5c 38%,#a77d2f 66%,#6f5119 100%);
+  border:1.5px solid #6f5119;color:#3f2c0e;font:700 12px/1 var(--grotesk);
+  box-shadow:inset 0 1px 2px rgba(255,249,225,.85),inset 0 -2px 3px rgba(60,38,8,.45),0 4px 6px -2px rgba(50,32,8,.5);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1.3),border-color .3s}
+.tack.many .tk{width:22px;height:22px}
+.tack:hover .tk,.tack:focus-visible .tk,.tack[aria-expanded="true"] .tk{transform:scale(1.22);border-color:var(--green-deep)}
+.tack:focus-visible{outline:none}
+.tack:focus-visible .tk{box-shadow:0 0 0 3px rgba(92,158,74,.45)}
+.tack .lab{position:absolute;pointer-events:none;white-space:nowrap;font-family:var(--serif);font-variant:small-caps;font-weight:700;
+  font-size:13px;letter-spacing:.05em;color:#4a3418;background:rgba(250,240,214,.86);padding:0 6px;border-radius:3px}
+.tack .lab.r{left:34px;top:50%;transform:translateY(-50%)}
+.tack .lab.l{right:34px;top:50%;transform:translateY(-50%)}
+.tack .lab.t{bottom:33px;left:50%;transform:translateX(-50%)}
+.tack .lab.b{top:33px;left:50%;transform:translateX(-50%)}
+.wm-pop{position:absolute;z-index:20;width:min(310px,calc(100% - 16px));background:var(--card);border:1px solid rgba(111,81,25,.28);border-radius:12px;
+  padding:13px 16px 12px;box-shadow:0 22px 44px -22px rgba(34,48,31,.5);font-size:16px;line-height:1.45}
+.wm-pop[hidden]{display:none}
+.wm-pop .rg{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep);padding-right:30px}
+.wm-pop .org{padding:8px 0 2px}
+.wm-pop .org+.org{border-top:1px solid var(--line);margin-top:8px;padding-top:10px}
+.wm-pop b{display:block;font-family:var(--serif);font-weight:400;font-size:1.1rem;line-height:1.2}
+.wm-pop p{color:var(--ink-soft);margin:3px 0 0}
+.wm-pop a{display:inline-flex;align-items:center;min-height:32px;font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--clay-deep)}
+.wm-pop a span{border-bottom:1px solid currentColor;padding-bottom:1px}
+.wm-pop .x{position:absolute;top:4px;right:4px;width:36px;height:36px;border:0;background:none;color:var(--ink-faint);font-size:18px;cursor:pointer;border-radius:50%}
+.wm-pop .x:hover{color:var(--ink)}
+/* phone: Europe's tacks sit too close together, so they move to an inset map of Europe below */
+@media(max-width:640px){
+  .wm-main .tack.eu{display:none}
+  .wm-main .wm-in{width:190%}   /* North America fills the frame; Europe gets its own map below */
+  .wm-eu{display:block;margin-top:10px}
+  .wm figcaption{display:block}
+  .wwlist{grid-template-columns:1fr}
+}
 .filters{display:flex;gap:9px;flex-wrap:wrap;margin:clamp(26px,4vh,40px) 0 clamp(22px,3vh,32px)}
 .filters button{border:1.5px solid rgba(34,48,31,.22);background:transparent;border-radius:99px;padding:8px 16px;
   font-family:var(--grotesk);font-size:.78rem;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:all .25s}
@@ -102,7 +150,11 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.4rem)
 <section class="others wrap" aria-labelledby="othersH">
   <h2 id="othersH">Who maps this better than I do</h2>
   <p>My list below is small and personal. These groups keep the big maps and directories, and they have been at it for years. If you are looking for a place near you, start with them.</p>
-  <ul class="olist" id="olist"></ul>
+  <h3 class="sub">Across the world</h3>
+  <ul class="wwlist" id="wwlist"></ul>
+  <h3 class="sub">Country and regional networks <span class="hint">Pick a pin to see who it is.</span></h3>
+  <figure class="wm wm-main" id="wmMain"><div class="wm-clip"><div class="wm-in"><img src="images/projects-map/north-atlantic.svg" alt="Map of North America and Europe" width="1000" height="462"></div></div><figcaption>North America</figcaption></figure>
+  <figure class="wm wm-eu" id="wmEu"><div class="wm-clip"><div class="wm-in"><img src="images/projects-map/europe.svg" alt="Map of Europe" width="600" height="525"></div></div><figcaption>Europe</figcaption></figure>
 </section>
 
 <main class="wrap">
@@ -117,15 +169,140 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.4rem)
 </div>
 
 <script src="data.js"></script>
-<script src="map-data.js"></script>
+<script src="map-data.js?v=20261024"></script>
 <script src="projects-data.js?v=20261024"></script>
-<script src="sources-data.js?v=20261022"></script>
+<script src="sources-data.js?v=20261024"></script>
 <script>
-/* the directories that map far more places than this list (sources-data.js) */
-(function(){var el=document.getElementById("olist");if(!el||typeof SOURCES==="undefined")return;
+/* who maps this better (sources-data.js): worldwide directories as cards,
+   regional networks as brass tacks on a small map. Entries that share a
+   region share one tack. The land was drawn once offline with d3-geo
+   (conic equal-area); the same projection places the tacks here. */
+(function(){
+  var ww=document.getElementById("wwlist"), mainFig=document.getElementById("wmMain"), euFig=document.getElementById("wmEu");
+  if(!ww||!mainFig||typeof SOURCES==="undefined") return;
   function e(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
-  el.innerHTML=SOURCES.filter(function(x){return x.blurb&&(x.usedOn||[]).indexOf("projects.html")>=0;}).map(function(x){
-    return '<li><a href="'+e(x.mapUrl||x.url)+'">'+e(x.title)+' ↗</a><span class="reg">'+e(x.region)+'</span><p>'+e(x.blurb)+'</p></li>';}).join("");
+  var list=SOURCES.filter(function(x){return x.blurb&&(x.usedOn||[]).indexOf("projects.html")>=0;});
+  function href(x){return x.mapUrl||x.url;}
+
+  /* 1. worldwide: compact cards, the biggest maps first */
+  var WW_ORDER=["ic-directory","gen","agartha","coliving-com"];
+  var wwl=list.filter(function(x){return !x.pin;}).sort(function(a,b){
+    var i=WW_ORDER.indexOf(a.id), j=WW_ORDER.indexOf(b.id); return (i<0?99:i)-(j<0?99:j);});
+  ww.innerHTML=wwl.map(function(x){
+    return '<li><a href="'+e(href(x))+'" target="_blank" rel="noopener"><b>'+e(x.title)+'</b><span>'+e(x.blurb)+'</span><i>Open ↗</i></a></li>';
+  }).join("");
+
+  /* 2. regional: one tack per region */
+  var groups=[], byReg={};
+  list.filter(function(x){return x.pin;}).forEach(function(x){
+    if(!byReg[x.region]){ byReg[x.region]={region:x.region,pin:x.pin,orgs:[]}; groups.push(byReg[x.region]); }
+    byReg[x.region].orgs.push(x);
+  });
+  /* short map label + the side of the tack it sits on */
+  var LAB={"Quebec":["Quebec","r"],"Canada":["Canada","t"],"United States":["United States","b"],
+    "United Kingdom":["UK","l"],"France":["France","b"],"Germany":["Germany","t"],"Sweden":["Sweden","r"],"Across Europe":["Europe","r"]};
+  function conic(o){
+    var rad=Math.PI/180, sy0=Math.sin(o.par[0]*rad), n=(sy0+Math.sin(o.par[1]*rad))/2,
+        c=1+sy0*(2*n-sy0), r0=Math.sqrt(c)/n,
+        y0=r0-Math.sqrt(c-2*n*Math.sin(33.6442*rad))/n;   /* d3's default centre for this projection */
+    return function(lon,lat){
+      var l=(lon+o.rot)*rad; if(l>Math.PI) l-=2*Math.PI; if(l<-Math.PI) l+=2*Math.PI;
+      var r=Math.sqrt(c-2*n*Math.sin(lat*rad))/n, x=r*Math.sin(l*n), y=r0-r*Math.cos(l*n);
+      x=x*o.k+o.t[0]; y=o.t[1]-(y-y0)*o.k;
+      return [(x-o.vb[0])/o.vb[2]*100,(y-o.vb[1])/o.vb[3]*100];
+    };
+  }
+  var MAPS=[
+    {fig:mainFig,proj:conic({rot:42,par:[32,64],k:453.3158,t:[500,409.093],vb:[-1,0,1000,462]}),euOnly:false},
+    {fig:euFig,proj:conic({rot:-8,par:[40,62],k:1012.6482,t:[286.088,565.138],vb:[0,0,600,525]}),euOnly:true}
+  ];
+  MAPS.forEach(function(m,mi){
+    if(!m.fig) return;
+    groups.forEach(function(g){
+      var eu=g.pin[0]>-30; if(m.euOnly&&!eu) return;
+      var p=m.proj(g.pin[0],g.pin[1]), lab=LAB[g.region]||[g.region,"r"], many=g.orgs.length>1;
+      var b=document.createElement("button");
+      b.type="button"; b.className="tack"+(eu?" eu":"")+(many?" many":"");
+      b.style.left=p[0]+"%"; b.style.top=p[1]+"%";
+      b.setAttribute("aria-label",g.region+": "+g.orgs.map(function(x){return x.title;}).join(" and "));
+      b.setAttribute("aria-expanded","false");
+      b.innerHTML='<span class="tk" aria-hidden="true">'+(many?g.orgs.length:"")+'</span><span class="lab '+lab[1]+'" aria-hidden="true">'+e(lab[0])+'</span>';
+      b._g=g; m.fig.querySelector(".wm-in").appendChild(b);
+    });
+    var pop=document.createElement("div");
+    pop.className="wm-pop"; pop.hidden=true; pop.id="wmPop"+mi; pop.setAttribute("role","dialog");
+    m.fig.appendChild(pop); m.pop=pop;
+  });
+
+  var cur=null, sticky=false, closeT=0;
+  function popOf(btn){ return btn.closest(".wm").querySelector(".wm-pop"); }
+  function place(btn,pop){
+    var fig=btn.closest(".wm"), fw=fig.clientWidth, fh=fig.clientHeight, fr=fig.getBoundingClientRect(), br=btn.getBoundingClientRect();
+    var x=br.left+br.width/2-fr.left, y=br.top+br.height/2-fr.top, pw=pop.offsetWidth, ph=pop.offsetHeight, gap=20, L, T;
+    if(fw<520){ /* narrow: centred under the tack, or above it when the tack sits low */
+      L=(fw-pw)/2; T=(y<fh*.55)?y+gap:y-gap-ph;
+    } else {
+      L=x+gap; if(L+pw>fw-8) L=x-gap-pw;
+      T=y-ph/2; if(T<8) T=8;
+    }
+    if(L<8) L=8;
+    pop.style.left=L+"px"; pop.style.top=T+"px";
+  }
+  function open(btn,isSticky,focusIn){
+    clearTimeout(closeT);
+    if(cur&&cur!==btn) close(false);
+    var g=btn._g, pop=popOf(btn);
+    pop.innerHTML='<button type="button" class="x" aria-label="Close">✕</button><div class="rg">'+e(g.region)+'</div>'+
+      g.orgs.map(function(x){
+        return '<div class="org"><b>'+e(x.title)+'</b><p>'+e(x.blurb)+'</p><a href="'+e(href(x))+'" target="_blank" rel="noopener"><span>Open the '+(/map/i.test(x.mapUrl||"")?'map':(x.kind==="directory"?'directory':'site'))+'</span>&nbsp;↗</a></div>';
+      }).join("");
+    pop.setAttribute("aria-label",g.region);
+    pop.hidden=false; place(btn,pop);
+    btn.setAttribute("aria-expanded","true"); btn.setAttribute("aria-controls",pop.id);
+    cur=btn; sticky=isSticky;
+    if(isSticky&&btn.closest(".wm").clientWidth<520&&pop.scrollIntoView) pop.scrollIntoView({block:"nearest",behavior:"smooth"});   /* phone: bring the whole card on screen */
+    if(focusIn){ var a=pop.querySelector("a"); if(a) a.focus(); }
+  }
+  function close(refocus){
+    clearTimeout(closeT);
+    if(!cur) return;
+    var b=cur; popOf(b).hidden=true; b.setAttribute("aria-expanded","false"); cur=null; sticky=false;
+    if(refocus) b.focus();
+  }
+  function later(){ clearTimeout(closeT); closeT=setTimeout(function(){ if(!sticky) close(false); },260); }
+
+  MAPS.forEach(function(m){
+    if(!m.fig) return;
+    m.fig.addEventListener("click",function(ev){
+      if(ev.target.closest(".wm-pop .x")){ close(true); return; }
+      var b=ev.target.closest(".tack"); if(!b) return;
+      if(cur===b&&sticky){ close(false); return; }
+      open(b,true,ev.detail===0);   /* detail 0 = keyboard: move focus into the card */
+    });
+    /* desktop: hovering a tack previews its card; moving onto the card keeps it open */
+    m.fig.addEventListener("pointerover",function(ev){
+      if(ev.pointerType!=="mouse") return;
+      var b=ev.target.closest(".tack");
+      if(b){ if(cur!==b) open(b,false,false); clearTimeout(closeT); return; }
+      if(ev.target.closest(".wm-pop")) clearTimeout(closeT);
+    });
+    m.fig.addEventListener("pointerout",function(ev){
+      if(ev.pointerType!=="mouse") return;
+      var to=ev.relatedTarget;
+      if(to&&to.closest&&(to.closest(".wm-pop")||to.closest(".tack")===cur)) return;
+      if(ev.target.closest(".tack")||ev.target.closest(".wm-pop")) later();
+    });
+    m.pop.addEventListener("focusout",function(ev){
+      var to=ev.relatedTarget; if(!to||m.pop.contains(to)||to===cur) return;
+      close(false);
+    });
+  });
+  document.addEventListener("click",function(ev){
+    if(!cur||ev.target.closest(".wm-pop")||ev.target.closest(".tack")) return;
+    close(false);
+  });
+  document.addEventListener("keydown",function(ev){ if(ev.key==="Escape"&&cur) close(true); });
+  window.addEventListener("resize",function(){ if(cur) place(cur,popOf(cur)); });
 })();
 </script>
 <script src="site-nav.js"></script>
