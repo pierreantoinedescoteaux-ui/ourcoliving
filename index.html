@@ -233,7 +233,8 @@
 
 /* the hero */
 .lv3-hero{position:absolute;left:clamp(18px,5vw,64px);top:clamp(78px,10vh,116px);
-  width:min(46vw,470px);pointer-events:auto;}
+  width:min(46vw,470px);pointer-events:auto;
+  z-index:5;} /* the text sits above the space names; a highlighted name (z 6) rises over it (P-A) */
 .lv3-eyebrow{display:block;font-size:clamp(.75rem,.71rem + .1vw,.88rem);font-weight:700;letter-spacing:.22em;
   text-transform:uppercase;color:#8a6a2f;}
 .lv3-hero h1{font-family:var(--sw-font-display);font-weight:300;
