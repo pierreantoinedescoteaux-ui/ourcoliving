@@ -86,6 +86,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "global-ecovillage-network",
     "name": "Global Ecovillage Network",
+    "img": "images/places/global-ecovillage-network.webp",
     "place": "Worldwide",
     "type": "ecovillage",
     "kind": "network",
@@ -223,6 +224,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "co-op-housing-international",
     "name": "Co-op Housing International",
+    "img": "images/places/co-op-housing-international.webp",
     "place": "Worldwide",
     "type": null,
     "kind": "network",
@@ -287,6 +289,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "generations-united",
     "name": "Generations United",
+    "img": "images/places/generations-united.webp",
     "place": "USA",
     "type": null,
     "kind": "network",
@@ -301,6 +304,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "hogeweyk",
     "name": "Hogeweyk",
+    "img": "images/places/hogeweyk.webp",
     "place": "Netherlands",
     "type": null,
     "kind": "place",
@@ -459,7 +463,7 @@ const COLIVING_PROJECTS = [
     "place": "San Francisco",
     "type": "hacker-house",
     "kind": "place",
-    "img": "images/ex-hf0.jpg",
+    "img": "images/places/hf0.webp",
     "url": "https://www.hf0.com",
     "note": "A 'monastery for founders': 12-week live-in residency.",
     "tags": {
@@ -600,6 +604,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "the-residency",
     "name": "The Residency",
+    "img": "images/places/the-residency.webp",
     "place": "USA",
     "type": "entrepreneur-house",
     "kind": "place",
@@ -687,6 +692,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "zuzalu",
     "name": "Zuzalu",
+    "img": "images/places/zuzalu-lustica.webp",
     "place": "Montenegro (2023)",
     "type": "network-village",
     "kind": "place",
@@ -778,6 +784,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "nasco",
     "name": "NASCO",
+    "img": "images/places/nasco.webp",
     "place": "North America",
     "type": "student-coop",
     "kind": "network",
@@ -991,6 +998,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "muir-commons",
     "name": "Muir Commons",
+    "img": "images/places/muir-commons.webp",
     "place": "Davis, CA",
     "type": "cohousing",
     "kind": "place",
@@ -1037,6 +1045,7 @@ const COLIVING_PROJECTS = [
   {
     "id": "fardknappen",
     "name": "Färdknäppen",
+    "img": "images/places/fardknappen.webp",
     "place": "Stockholm, Sweden",
     "type": "cohousing",
     "kind": "place",
