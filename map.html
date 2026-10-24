@@ -196,6 +196,7 @@ img{display:block;max-width:100%}
 .node:hover .mark{border-color:#5a4012;filter:brightness(1.08)}
 .node .lab{font-family:var(--serif);font-variant:small-caps;font-size:1rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;color:#4a3418;transition:color .3s;background:rgba(250,238,208,.88);padding:1px 8px;border-radius:3px;box-shadow:0 0 0 1px rgba(74,52,24,.22)}
 .node.up{flex-direction:column-reverse}
+.node .lab{position:absolute;left:0;top:0;width:max-content;transition:transform .6s cubic-bezier(.22,1,.36,1),color .3s}
 .node:hover{z-index:40}
 .node:hover .mark{transform:scale(1.16)}
 .node:hover .lab{color:#2a1c08}
@@ -235,6 +236,10 @@ img{display:block;max-width:100%}
 .hcard .hbody{padding:15px 18px 17px}
 .hcard h4{font-family:var(--serif);font-weight:400;font-size:1.25rem;line-height:1.15;margin-bottom:7px}
 .hcard p{font-size:.9rem;color:var(--ink-soft);line-height:1.5}
+.hcard .hwhy{margin-top:10px;border-top:1px solid var(--line);padding-top:9px;display:grid;gap:8px}
+.hcard .hwhy div{font-size:.84rem;line-height:1.45;color:var(--ink-soft)}
+.hcard .hwhy span{display:block;font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8f6215;margin-bottom:2px}
+.hcard.why{width:340px}.hcard.why .hphoto{height:72px}
 .hcard .hint{margin-top:10px;font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep)}
 
 /* ---------- field-notes popup (full guide) ---------- */
@@ -433,6 +438,8 @@ img{display:block;max-width:100%}
   html.m-map .stage .chart .axl{font-size:13px;max-width:38%}
   html.m-map .stage .chart .axl.xlo{left:6%}
   html.m-map .stage .chart .axl.xhi{right:6%}
+  /* phone: pins on the far edges covered these; the legend under the map says left to right */
+  html.m-map .stage .chart .axl.xlo,html.m-map .stage .chart .axl.xhi{display:none}
   html.m-map .stage .chart .plate{display:block;font-size:13px;left:6%;max-width:100%;top:calc(100% + 40px);bottom:auto;line-height:1.3}
   html.m-map .stage .chart{margin-bottom:92px}
   html.m-map .stage .chart::before{top:30px}
@@ -544,12 +551,12 @@ img{display:block;max-width:100%}
 </div>
 
 <script src="data.js"></script>
-<script src="map-data.js"></script>
+<script src="map-data.js?v=20261024"></script>
 <script src="projects-data.js?v=20261024"></script>
 <script src="sources-data.js"></script>
 <script src="knowledge-data.js"></script>
 <script src="guide-content-data.js"></script>
-<script src="guide-render.js"></script>
+<script src="guide-render.js?v=20261024"></script>
 <script>
 (function(){
   "use strict";
@@ -702,7 +709,7 @@ img{display:block;max-width:100%}
   /* ---- nodes: minimalist symbols ---- */
   COLIVING_TYPES.forEach(function(t,i){
     var n=document.createElement("button");
-    n.className="node"+(t.mine?" mine":"")+(i%2?" up":"");
+    n.className="node"+(t.mine?" mine":"");
     n.setAttribute("data-slug",t.slug);
     n.setAttribute("aria-label",t.name);
     n.innerHTML='<span class="mark">'+typeIcon(t.slug)+'</span><span class="lab">'+esc(t.short)+'</span>';
@@ -721,21 +728,31 @@ img{display:block;max-width:100%}
     var k=kOf(t);
     hcard.innerHTML=
       (k.hero?'<div class="hphoto"><img src="'+esc(k.hero.src)+'" alt="" onerror="this.parentElement.remove()"></div>':"")+
-      '<div class="hbody"><h4>'+esc(t.name)+'</h4><p>'+esc(t.tagline)+'</p>'+
+      '<div class="hbody"><h4>'+esc(t.name)+'</h4><p>'+esc(t.tagline)+'</p>'+whyHTML(t)+
       '<div class="hint">Click for the full field notes →</div></div>';
+    hcard.classList.toggle("why",!!whyHTML(t));
     var leftPct=parseFloat(n.style.left), topPct=parseFloat(n.style.top);
     var r=chart.getBoundingClientRect(), s=stage.getBoundingClientRect();
     var x=(r.left-s.left)+r.width*leftPct/100;
     var y=(r.top-s.top)+r.height*topPct/100;
-    var below=topPct<40;
+    /* below the pin when there is no room above it (the card is taller with the why lines) */
+    var below=y-(r.top-s.top)<hcard.offsetHeight+50 && topPct<70;
     hcard.classList.toggle("below",below);
-    var half=155, minX=(r.left-s.left)+half+4, maxX=(r.left-s.left)+r.width-half-4;
+    var half=hcard.offsetWidth/2, minX=(r.left-s.left)+half+4, maxX=(r.left-s.left)+r.width-half-4;
     x=Math.max(minX,Math.min(maxX,x));
     hcard.style.left=x+"px";
     hcard.style.top=y+"px";
     hcard.classList.add("show");
   }
   function hideCard(){hcard.classList.remove("show");}
+  /* why it sits here, for the two spectrums on screen (MAP_WHY in map-data.js) */
+  function whyHTML(t){
+    var w=(typeof MAP_WHY!=="undefined")&&MAP_WHY[t.slug];
+    if(!w) return "";
+    return '<div class="hwhy">'+[axisX,axisY].filter(function(k){return w[k];}).map(function(k){
+      return '<div><span>'+esc(SPECTRUM_SHORT[k]||MAP_PROPS[k].label)+'</span>'+esc(w[k])+'</div>';
+    }).join("")+'</div>';
+  }
 
   /* ---- layout ---- */
   function layout(){
@@ -751,7 +768,77 @@ img{display:block;max-width:100%}
       t._el.style.top=(6+(100-y)*0.88)+"%";
     });
     if(youPos) placeYou();
+    placeLabels();
   }
+  /* labels: each name goes below, above, right or left of its pin, wherever
+     it overlaps least with other pins, names and the axis words (P-A: labels
+     collided, e.g. Baugruppe / Rural co-living). The pin itself stays exactly
+     on its spot; only the name moves. Same idea as dots() in quiz.html. */
+  /* candidate spots for a name, around its pin (offsets of the label's
+     top-left corner from the pin centre; m = pin radius), cheapest first */
+  var SIDES=[
+    {c:0,  f:function(n,m,g){return [-n.lw/2, m+g];}},
+    {c:40, f:function(n,m,g){return [-n.lw/2, -m-g-n.lh];}},
+    {c:80, f:function(n,m,g){return [m+g, -n.lh/2];}},
+    {c:80, f:function(n,m,g){return [-m-g-n.lw, -n.lh/2];}},
+    {c:120,f:function(n,m,g){return [m*.55, m*.55+g/2];}},
+    {c:120,f:function(n,m,g){return [-n.lw-m*.55, m*.55+g/2];}},
+    {c:120,f:function(n,m,g){return [m*.55, -m*.55-g/2-n.lh];}},
+    {c:120,f:function(n,m,g){return [-n.lw-m*.55, -m*.55-g/2-n.lh];}}
+  ];
+  function placeLabels(){
+    var W=chart.clientWidth, H=chart.clientHeight; if(!W) return;
+    var cr=chart.getBoundingClientRect(), gap=8;
+    var fixed=[].map.call(chart.querySelectorAll(".axl, .plate"),function(a){var b=a.getBoundingClientRect();return {x:b.left-cr.left,y:b.top-cr.top,w:b.width,h:b.height};});
+    var N=COLIVING_TYPES.map(function(t){
+      var el=t._el, mk=el.querySelector(".mark").offsetWidth, lab=el.querySelector(".lab");
+      return {t:t,el:el,lab:lab,mk:mk,lw:lab.offsetWidth,lh:lab.offsetHeight,cx:W*parseFloat(el.style.left)/100,cy:H*parseFloat(el.style.top)/100,side:0};
+    });
+    /* pins that land on top of each other get nudged apart, never further
+       than a pin and a bit from their true spot */
+    N.forEach(function(n){ n.ox=n.cx; n.oy=n.cy; });
+    for(var it=0;it<40;it++) N.forEach(function(a,i){ N.forEach(function(c,j){
+      if(j<=i) return;
+      var D=(a.mk+c.mk)/2*1.5, dx=c.cx-a.cx, dy=c.cy-a.cy, d=Math.sqrt(dx*dx+dy*dy);
+      if(d>=D) return;
+      if(d<.5){ dx=1; dy=(i%2?1:-1)*.5; d=Math.sqrt(1.25); }
+      var push=(D-d)/2; dx/=d; dy/=d;
+      a.cx-=dx*push; a.cy-=dy*push; c.cx+=dx*push; c.cy+=dy*push;
+    }); });
+    N.forEach(function(n){
+      var lim=n.mk*1.2, dx=n.cx-n.ox, dy=n.cy-n.oy, d=Math.sqrt(dx*dx+dy*dy);
+      if(d>lim){ n.cx=n.ox+dx/d*lim; n.cy=n.oy+dy/d*lim; }
+      n.cx=Math.max(n.mk/2,Math.min(W-n.mk/2,n.cx)); n.cy=Math.max(n.mk/2,Math.min(H-n.mk/2,n.cy));
+      if(Math.abs(n.cx-n.ox)>.5||Math.abs(n.cy-n.oy)>.5){ n.el.style.left=(n.cx/W*100)+"%"; n.el.style.top=(n.cy/H*100)+"%"; }
+    });
+    function box(n,s){ var o=SIDES[s].f(n,n.mk/2,gap); return {x:n.cx+o[0],y:n.cy+o[1],w:n.lw,h:n.lh}; }
+    function edge(b,x,y){ var dx=Math.max(b.x-x,0,x-(b.x+b.w)), dy=Math.max(b.y-y,0,y-(b.y+b.h)); return Math.sqrt(dx*dx+dy*dy); }
+    function ov(a,b){var x=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x), y=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y);return x>0&&y>0?x*y:0;}
+    function cost(n,s){
+      var b=box(n,s), c=SIDES[s].c;
+      c+=(Math.max(0,-b.x)+Math.max(0,b.x+b.w-W))*b.h*30+(Math.max(0,-b.y)+Math.max(0,b.y+b.h-H))*b.w*30;
+      var mine=edge(b,n.cx,n.cy);
+      N.forEach(function(o){ if(o===n) return;
+        var pad=4, pin={x:o.cx-o.mk/2-pad,y:o.cy-o.mk/2-pad,w:o.mk+pad*2,h:o.mk+pad*2};
+        c+=ov(b,pin)*6;
+        c+=ov(b,box(o,o.side))*4;
+        /* a name must sit closer to its own pin than to any other, or it reads as the wrong place */
+        if(edge(b,o.cx,o.cy)<mine-2) c+=3000;
+      });
+      fixed.forEach(function(f){ c+=ov(b,f)*2; });
+      return c;
+    }
+    for(var pass=0;pass<8;pass++) N.forEach(function(n){
+      var best=n.side, bc=cost(n,n.side);
+      for(var s=0;s<SIDES.length;s++){ var c=cost(n,s); if(c<bc-1){bc=c;best=s;} }
+      n.side=best;
+    });
+    N.forEach(function(n){
+      var o=SIDES[n.side].f(n,n.mk/2,gap);
+      n.lab.style.transform="translate("+(n.mk/2+o[0])+"px,"+(n.mk/2+o[1])+"px)";
+    });
+  }
+  var relabelT; window.addEventListener("resize",function(){ clearTimeout(relabelT); relabelT=setTimeout(placeLabels,150); });
   selX.addEventListener("change",function(){axisX=selX.value;markPreset();layout();});
   selY.addEventListener("change",function(){axisY=selY.value;markPreset();layout();});
 

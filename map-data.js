@@ -373,3 +373,107 @@ COLIVING_TYPES.forEach(function (t) {
   Object.keys(t.ranges).forEach(function (k) { t.scores[k] = Math.round((t.ranges[k][0] + t.ranges[k][1]) / 2); });
   t.examples = t.examples || [];
 });
+
+/* ---- WHY IT SITS HERE (draft for P-A to curate, 2026-10-24) ----
+   One line per way of living and spectrum: why it sits where it does,
+   with a real place from projects-data.js when one shows it. Shown on
+   the map's hover card (the two spectrums on screen) and in each field
+   guide's "On the map" chapter. SPECTRUM_SHORT = the small label above
+   each line. Keep lines short; a wide range says so in the line. */
+const SPECTRUM_SHORT = {
+  share: "How much is shared", size: "How many people", time: "How long people stay",
+  power: "Who’s in charge", autonomy: "Person or group first", ecoTech: "What life is built around",
+  effort: "How hard it is to start"
+};
+const MAP_WHY = {
+  "ecovillage": {
+    share: "Most households keep their own home and share the land and its gardens. Some, like Tamera, share much more, so places spread across the middle.",
+    size: "It takes a village on purpose. Findhorn and Tamera hold hundreds of people, and EcoVillage Ithaca is several neighbourhoods on one piece of land.",
+    time: "People come to put down roots, since growing food and building from the land only pays off over many years.",
+    power: "Residents run it together, usually by consensus or in sociocratic circles, and long meetings are part of the deal.",
+    autonomy: "The land and the long-term plan often come first, so people bend their own wishes toward the shared project.",
+    ecoTech: "Living lightly on the land is the reason it exists. Tamera rebuilt the water of its whole valley, and Findhorn began with a famous garden.",
+    effort: "It needs land, permits, money and years of shared work. Findhorn grew over decades from a caravan park."
+  },
+  "cohousing": {
+    share: "Each household keeps a full private home and kitchen, and shares the common house and a few dinners a week, as at Trudeslund.",
+    size: "Usually 20 to 40 homes, enough for a shared dinner most nights without everyone cooking. Stolplyckan in Sweden goes much bigger.",
+    time: "People buy or rent for the long run, to raise children or grow old there. WindSong has had neighbours living side by side since 1996.",
+    power: "Residents design and run it together, often by consensus or consent. Cohabitat Québec uses sociocracy.",
+    autonomy: "It sits in the middle: your home stays your own, and the group asks for a share of your time through meals and work days.",
+    ecoTech: "Many lean green, like straw-bale LILAC or car-free Kalkbreite, though daily life centres on neighbours more than on a cause.",
+    effort: "A core group usually needs 3 to 7 years to find land, money and build. Swedish rental versions came together with public housing companies, which shortens the road."
+  },
+  "kibbutz": {
+    share: "Traditionally members pooled their income and ate together every day. Neot Smadar still runs full income sharing, while many others now let members keep more.",
+    size: "A kibbutz is a whole village, often several hundred people, with its own farm and dining hall.",
+    time: "People join for life, and many were born there. Degania Alef has been home to families since 1910.",
+    power: "The general assembly of members makes the big decisions, and elected members take turns in the main roles.",
+    autonomy: "The group comes first by design. For decades the community decided who did which work and how money was spent.",
+    ecoTech: "Most began as farms on hard land, and many later added factories, so they spread from the field toward industry.",
+    effort: "Starting one meant land, a farm, shared money and a lifetime of commitment. Very few new ones begin today."
+  },
+  "baugruppen": {
+    share: "Each household owns its own flat. They share the building decisions and a few common rooms, like Spreefeld’s ground floor open to the neighbourhood.",
+    size: "One apartment building planned by its future residents, like the 19 households of R50 in Berlin.",
+    time: "People build to stay. They put their savings into homes they designed for the long run.",
+    power: "The future residents hire the architect and make every big choice together, with no developer in between.",
+    autonomy: "The person comes first: the group exists to build homes people choose for themselves, and daily life stays private.",
+    ecoTech: "Many aim for low-energy buildings, though the main focus is good, affordable design.",
+    effort: "Buying land and building together takes a few years and real savings. It is still much lighter than founding a village."
+  },
+  "hacker-house": {
+    share: "Bedrooms are private and nearly everything else is shared, from the kitchen to the late nights building in the living room.",
+    size: "One house, from a handful of people to a couple dozen, like AGI House or HF0’s mansion in San Francisco.",
+    time: "People stay for a project or a cohort. HF0’s residency runs 12 weeks, then the next group moves in.",
+    power: "A founder or host picks who lives there and sets the rhythm, and residents shape the culture inside those choices.",
+    autonomy: "Each person comes for their own company or idea, and the house exists to help them move faster.",
+    ecoTech: "Life is organised around building technology, with hackathons and demo days in place of gardens.",
+    effort: "Rent a big house, invite builders, and it can open within months."
+  },
+  "operator-coliving": {
+    share: "Private bedrooms, often with their own bathroom, around shared kitchens and lounges that staff keep clean and stocked.",
+    size: "From one brownstone, like a Cohabs house, to buildings with hundreds of rooms, like The Collective in London, so places spread widely.",
+    time: "People stay months, sometimes a year or two, often while new to a city. Flexible leases are the point.",
+    power: "A company owns or runs the place and makes the rules. Residents are customers who can give feedback.",
+    autonomy: "The person comes first: you pay for ease and company, and little is asked of you in return.",
+    ecoTech: "Daily life runs through an app and paid services, which puts it on the tech side.",
+    effort: "It needs a building and real capital, so it starts as a business. The rise and fall of The Collective shows how hard the money can be."
+  },
+  "entrepreneur-house": {
+    share: "Bedrooms are private, while meals and work talk happen together. My Growth Hub houses worked this way.",
+    size: "One house of six to nine people, small enough that everyone knows what the others are building.",
+    time: "People stay a season to a couple of years, long enough to grow a company alongside each other.",
+    power: "Usually a host or founder curates who joins and keeps the culture, and residents help shape the house rules.",
+    autonomy: "Each person has their own goals, and the house is set up so those goals push each other forward.",
+    ecoTech: "Somewhere in the middle: life is organised around work and ambition, whatever the field.",
+    effort: "Lease a big house and find the right people, and it can start within a few months. Finding the people is the hard part."
+  },
+  "rural-coliving": {
+    share: "Private rooms, with the kitchen and the coworking space shared, as in Sende’s hamlet in Galicia.",
+    size: "A rural house or a small hamlet, usually a few dozen people at a time at most.",
+    time: "Most guests come for a few weeks to work remotely, then head home. Rooral builds village stays this way.",
+    power: "A host or small team runs it and sets the program, and guests join in.",
+    autonomy: "You come for your own work and rest, and the community is there when you want it.",
+    ecoTech: "Close to nature, with a laptop: it mixes slow country life with remote work.",
+    effort: "A rural building costs less than a city one, though turning it into a place people travel to takes a few seasons of work."
+  },
+  "network-village": {
+    share: "Some share a whole month of meals and talks, like Edge Esmeralda, and others are mostly neighbours, like Culdesac, so they spread widely.",
+    size: "Hundreds of people at once, with some hoping to grow into a whole town.",
+    time: "Pop-ups like Zuzalu last weeks, while Network School and Culdesac are meant for living, so they spread across the line.",
+    power: "Organisers or a company set the frame and residents fill the program. Few are run by their residents yet.",
+    autonomy: "People come as individuals around shared ideas, and keep their own work and lives.",
+    ecoTech: "Born in tech circles, they organise life around ideas about technology and the future.",
+    effort: "A permanent town needs land, laws and a lot of money, which makes it the hardest to build. Pop-ups are the first step."
+  },
+  "student-coop": {
+    share: "Students cook together and split the chores, often sharing bedrooms too, as at the Berkeley Student Cooperative.",
+    size: "One big house of a few dozen students, often linked into a system of many houses.",
+    time: "People stay for their studies, usually a few years, then a new class moves in.",
+    power: "Residents run everything, from choosing new members to fixing the roof, through house meetings and votes.",
+    autonomy: "In the middle: your studies come first, and the house asks for a few hours of work each week.",
+    ecoTech: "Neither green nor tech by design. Each house takes on whatever its members care about.",
+    effort: "Easier with a federation behind you: ICC Ann Arbor and NASCO help new houses start. Buying a building is the slow part."
+  }
+};

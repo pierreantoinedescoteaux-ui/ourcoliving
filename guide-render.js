@@ -137,6 +137,14 @@ var GUIDE_SPECTRUM_GLOSS = { share: "spectrum-share", size: "spectrum-size", tim
   ".fg-place .fg-go{font-size:.85rem;font-weight:700;color:var(--green-deep,#3c6b32)}" +
   ".fg-all{display:inline-flex;align-items:center;min-height:44px;margin-top:clamp(18px,3vh,28px);font-weight:700;color:var(--green-deep,#3c6b32);border-bottom:2px solid var(--green,#5c9e4a)}" +
   ".fg-ch .sigrow .e{cursor:help}" +
+  /* why it sits here: each spectrum line opens to show its reason (MAP_WHY) */
+  ".fg-whyhint{font-size:max(16px,.9em);font-style:italic;color:var(--ink-faint,#93a08d);margin:0 0 10px}" +
+  ".fg-why summary{list-style:none;cursor:pointer;border-radius:6px;transition:background .3s}" +
+  ".fg-why summary::-webkit-details-marker{display:none}" +
+  ".fg-why summary:hover,.fg-why summary:focus-visible{background:rgba(232,180,80,.12);outline:none}" +
+  ".fg-why summary .sigrow{margin:0;min-height:44px}" +
+  ".fg-why[open] summary .e{color:#8f6215}" +
+  ".fg-why p{margin:2px 0 12px;padding:10px 14px;max-width:800px;background:rgba(232,180,80,.12);border-left:2px solid #d9a441;border-radius:0 8px 8px 0;font-size:max(16px,.92em);line-height:1.5;color:var(--ink-soft,#4b5a47)}" +
   ".fg-ch .gs-foot{font-size:max(16px,.9em);color:var(--ink-faint,#93a08d)}" +
   ".fg .cmpbtn{min-height:44px;display:inline-flex;align-items:center}" +
   ".fg-end{padding:clamp(28px,5vh,48px) 0 clamp(40px,7vh,72px);border-top:1px solid var(--line,rgba(34,48,31,.14));margin-top:clamp(28px,5vh,48px)}" +
@@ -241,13 +249,17 @@ function guideBodyHTML(t, k, opts){
   var allLink = allEx.length ? '<a class="fg-all" href="projects.html?t='+esc(t.slug)+'#grid">See all '+allEx.length+' real places on Real communities →</a>' : "";
 
   /* 7 On the map */
+  var WHY = (typeof MAP_WHY !== "undefined" && MAP_WHY[t.slug]) || {};
   var sig = Object.keys(MAP_PROPS).map(function(pk){
     var p = MAP_PROPS[pk], r = (t.ranges && t.ranges[pk]) || [t.scores[pk], t.scores[pk]];
     var g = GUIDE_SPECTRUM_GLOSS[pk] ? ' data-gloss="'+GUIDE_SPECTRUM_GLOSS[pk]+'"' : "";
-    return '<div class="sigrow" title="'+esc(p.label)+'"><span class="e"'+g+'>'+esc(p.low)+'</span>'+
+    var why = WHY[pk], tagN = why ? "span" : "div";
+    var row = '<'+tagN+' class="sigrow" title="'+esc(p.label)+'"><span class="e"'+g+'>'+esc(p.low)+'</span>'+
       '<span class="track"><span class="rng" style="left:'+r[0]+'%;width:'+Math.max(2, r[1]-r[0])+'%"></span><span class="pin" style="left:'+t.scores[pk]+'%"></span></span>'+
-      '<span class="e r"'+g+'>'+esc(p.high)+'</span></div>';
+      '<span class="e r"'+g+'>'+esc(p.high)+'</span></'+tagN+'>';
+    return why ? '<details class="fg-why"><summary>'+row+'</summary><p>'+esc(why)+'</p></details>' : row;
   }).join("");
+  if (Object.keys(WHY).length) sig = '<p class="fg-whyhint">Tap a line to see why it sits there.</p>' + sig;
 
   var srcList = (typeof SOURCES !== "undefined" ? SOURCES : []).filter(function(s){ return s.checked && (t.sources||[]).indexOf(s.id) >= 0; });
   var srcHTML = srcList.length ? '<p class="gsrc">Sources: '+srcList.map(function(s){
