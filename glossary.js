@@ -7,7 +7,9 @@
    focus shows a small definition card. The first card a reader ever
    sees makes the book glow gold for 3s.
    Turn off: <body data-nogloss> (everything) or data-nogloss-underline
-   (no underlines). Elements with data-gloss="term-id" get the card too.
+   (no underlines). Elements with data-gloss="term-id" get the card too, and
+   so do label pills whose whole text is a glossary word ("Land trust").
+   Other names (t.see) get their own row in the A to Z, under their own letter.
    Definitions live in glossary-data.js, fetched when the browser is idle. */
 (function () {
   "use strict";
@@ -23,7 +25,7 @@
     if (loading) return loading;
     loading = new Promise(function (res) {
       var s = document.createElement("script");
-      s.src = BASE + "glossary-data.js";
+      s.src = BASE + "glossary-data.js?v=20261024";
       s.onload = function () {
         DATA = window.GLOSSARY_DATA || { terms: [] };
         DATA.terms.sort(function (a, b) { return a.term.localeCompare(b.term); });
@@ -75,6 +77,10 @@
     ".gl-entry a{display:inline-block;margin-top:6px;font-size:13px;font-weight:700;color:#3c6b32;border-bottom:1.5px solid rgba(60,107,50,.4)}" +
     ".gl-entry.hit{background:rgba(232,180,80,.22)}" +
     ".gl-none{color:#6b6350;font-style:italic;padding:10px 0}" +
+    ".gl-see{padding:8px 0 10px}.gl-see h3{font-style:italic;color:#4b4535}" +
+    ".gl-see p{color:#6b6350}.gl-go{font:inherit;color:#3c6b32;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(60,107,50,.45);text-decoration-thickness:1.5px;text-underline-offset:3px}" +
+    ".gl-aka{display:block;font-size:13px;font-style:italic;color:#8f6215;margin:-2px 0 4px}" +
+    ".gl-lab{text-decoration:underline dotted rgba(143,98,21,.6);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help}" +
     ".gl-close{position:absolute;top:1%;right:3.5%;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(34,48,31,.3);background:#fffdf8;color:#22301f;font-size:1.3rem;cursor:pointer;opacity:0;transition:opacity .3s .3s}" +
     ".gl-ov.ready .gl-close{opacity:1}" +
     ".gl-flip{position:absolute;left:50.3%;top:3.6%;width:42.6%;height:81.5%;transform-origin:left center;background:linear-gradient(90deg,#efe3c4,#f7eedb 30%,#f3e8cf);" +
@@ -96,7 +102,7 @@
     ".gl-page{position:static;width:auto;height:auto}" +
     ".gl-list{overflow:visible;padding:0;margin-top:22px}" +
     ".gl-az{grid-template-columns:repeat(9,1fr)}.gl-az button{min-height:44px;font-size:16px}" +
-    ".gl-entry p{font-size:16px}.gl-entry a{padding:12px 0 6px}" +
+    ".gl-entry p{font-size:16px}.gl-entry a{padding:12px 0 6px}.gl-go{min-height:44px;display:inline-flex;align-items:center}" +
     ".gl-close{position:fixed;top:12px;right:12px}.gl-flip{display:none}}" +
     "@media(prefers-reduced-motion:reduce){.gl-btn{animation:none}.gl-book,.gl-page{transition:none}.gl-ov.flip .gl-flip{animation:none;opacity:0}}";
 
@@ -149,6 +155,7 @@
     ov.addEventListener("click", function (e) { if (e.target === ov) close(); });
     ov.querySelector(".gl-close").addEventListener("click", close);
     search.addEventListener("input", function () { render(search.value); });
+    list.addEventListener("click", function (e) { var g = e.target.closest(".gl-go"); if (g) goTo(g.dataset.go); });
     az.addEventListener("click", function (e) {
       var b = e.target.closest("button[data-l]"); if (!b) return;
       search.value = ""; render("");
@@ -160,23 +167,46 @@
   }
 
   function letterOf(t) { return t.term.charAt(0).toUpperCase(); }
+  /* every entry plus a "see" row for each other name, in A to Z order */
+  function rows() {
+    if (DATA.rows) return DATA.rows;
+    var r = DATA.terms.slice();
+    DATA.terms.forEach(function (t) { (t.see || []).forEach(function (w) { r.push({ term: w, to: t }); }); });
+    r.sort(function (a, b) { return a.term.localeCompare(b.term); });
+    return (DATA.rows = r);
+  }
   function render(q) {
     q = (q || "").trim().toLowerCase();
-    var terms = DATA.terms.filter(function (t) {
+    var hits = {};
+    var items = rows().filter(function (t) {
+      if (t.to) return !q || t.term.toLowerCase().indexOf(q) >= 0;
       if (!q) return true;
-      return (t.term + " " + (t.aliases || []).join(" ") + " " + t.def).toLowerCase().indexOf(q) >= 0;
+      var ok = (t.term + " " + (t.aliases || []).join(" ") + " " + (t.see || []).join(" ") + " " + t.def).toLowerCase().indexOf(q) >= 0;
+      if (ok) hits[t.id] = 1;
+      return ok;
     });
-    var used = {}, html = "", cur = "";
-    terms.forEach(function (t) {
+    /* while searching, a "see" row is redundant once its entry is listed */
+    if (q) items = items.filter(function (t) { return !t.to || !hits[t.to.id]; });
+    var html = "", cur = "";
+    items.forEach(function (t) {
       var L = letterOf(t);
-      if (L !== cur) { cur = L; used[L] = 1; html += '<div class="gl-letter" data-letter="' + L + '">' + L + "</div>"; }
+      if (L !== cur) { cur = L; html += '<div class="gl-letter" data-letter="' + L + '">' + L + "</div>"; }
+      if (t.to) {
+        html += '<div class="gl-entry gl-see"><h3>' + esc(t.term) + '</h3><p>See <button type="button" class="gl-go" data-go="' + esc(t.to.id) + '">' + esc(t.to.term) + " →</button></p></div>";
+        return;
+      }
+      var aka = "";
+      if (q && t.term.toLowerCase().indexOf(q) < 0) {
+        var m = (t.see || []).concat(t.aliases || []).filter(function (w) { return w.toLowerCase().indexOf(q) >= 0; })[0];
+        if (m) aka = '<span class="gl-aka">Also called “' + esc(m) + "”</span>";
+      }
       var ext = /^https?:/.test(t.link || "");
-      html += '<div class="gl-entry" id="gl-' + esc(t.id) + '"><h3>' + esc(t.term) + "</h3><p>" + esc(t.def) + "</p>" +
+      html += '<div class="gl-entry" id="gl-' + esc(t.id) + '"><h3>' + esc(t.term) + "</h3>" + aka + "<p>" + esc(t.def) + "</p>" +
         (t.link ? '<a href="' + esc(t.link) + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(t.linkLabel || "Read more") + (ext ? " ↗" : " →") + "</a>" : "") + "</div>";
     });
     list.innerHTML = html || '<p class="gl-none">No word matches yet. If it should be here, tell me and we’ll add it.</p>';
     if (!q) {
-      var all = {}; DATA.terms.forEach(function (t) { all[letterOf(t)] = 1; });
+      var all = {}; rows().forEach(function (t) { all[letterOf(t)] = 1; });
       az.innerHTML = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(function (L) {
         return '<button type="button" data-l="' + L + '"' + (all[L] ? "" : " disabled") + ">" + L + "</button>";
       }).join("");
@@ -272,7 +302,8 @@
     document.addEventListener("focusout", function (e) { if (e.target.matches && e.target.matches("[data-gloss]")) hideCardSoon(); });
     /* touch: first tap shows the card, the card's button opens the book */
     document.addEventListener("click", function (e) {
-      var el = e.target.closest && e.target.closest(".gl-term");
+      var el = e.target.closest && e.target.closest(".gl-term, .gl-lab");
+      if (el && el.classList.contains("gl-lab") && el.closest("a, button")) return; /* a label inside a link keeps its link */
       if (el && DATA) { e.preventDefault(); showCard(el); }
     });
   }
@@ -321,12 +352,34 @@
       }
     });
   }
+  /* label pills and card names: the whole text is the word, so the label
+     itself gets the card (no underline span inside it) */
+  var LABELS = ".pill, .tag, .nm, [data-gloss-label]";
+  var LABEL_WORDS = { "rent": "rent", "consent / sociocracy": "consent", "donors and crowdfunding": "crowdfunding", "membership": "membership" };
+  var words = null;
+  function labels(root) {
+    if (!words) {
+      words = {};
+      DATA.terms.forEach(function (t) { [t.term].concat(t.aliases || [], t.see || []).forEach(function (w) { words[w.toLowerCase()] = t.id; }); });
+      for (var k in LABEL_WORDS) words[k] = LABEL_WORDS[k];
+    }
+    var els = root.querySelectorAll ? root.querySelectorAll(LABELS) : [];
+    if (root.matches && root.matches(LABELS)) els = [root];
+    Array.prototype.forEach.call(els, function (el) {
+      if (el.hasAttribute("data-gloss") || el.closest(".gl-ov, .gl-card")) return;
+      var id = words[(el.textContent || "").replace(/^[•·\s]+/, "").trim().toLowerCase()];
+      if (!id || !byId[id]) return;
+      el.setAttribute("data-gloss", id);
+      el.classList.add("gl-lab");
+    });
+  }
   function watch() {
     scan(document.body);
+    labels(document.body);
     var pending = [], timer = null;
     new MutationObserver(function (muts) {
       muts.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.nodeType === 1 && !n.closest(".gl-ov, .gl-card")) pending.push(n); }); });
-      if (pending.length && !timer) timer = setTimeout(function () { var p = pending; pending = []; timer = null; p.forEach(function (n) { if (n.isConnected) scan(n); }); }, 250);
+      if (pending.length && !timer) timer = setTimeout(function () { var p = pending; pending = []; timer = null; p.forEach(function (n) { if (n.isConnected) { scan(n); labels(n); } }); }, 250);
     }).observe(document.body, { childList: true, subtree: true });
   }
 

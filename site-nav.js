@@ -624,7 +624,7 @@
     var me = document.querySelector('script[src*="site-nav.js"]');
     var s = document.createElement("script");
     s.id = "gl-js";
-    s.src = (me ? me.src.replace(/site-nav\.js.*$/, "") : "") + "glossary.js";
+    s.src = (me ? me.src.replace(/site-nav\.js.*$/, "") : "") + "glossary.js?v=20261024";
     document.body.appendChild(s);
   }
 

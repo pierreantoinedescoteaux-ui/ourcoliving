@@ -40,7 +40,10 @@
 ],
 "area": "money",
 "wiki": null,
-"link": "https://en.wikipedia.org/wiki/Limited_equity_housing_cooperative"
+"link": "https://en.wikipedia.org/wiki/Limited_equity_housing_cooperative",
+"see": [
+"Resale cap"
+]
 },
 {
 "id": "baugruppe",
@@ -50,7 +53,10 @@
 "baugruppen"
 ],
 "area": "type",
-"wiki": "Baugruppe"
+"wiki": "Baugruppe",
+"see": [
+"Building group"
+]
 },
 {
 "id": "bylaws",
@@ -60,7 +66,10 @@
 "house rules"
 ],
 "area": "governance",
-"wiki": "By-law"
+"wiki": "By-law",
+"see": [
+"House rules"
+]
 },
 {
 "id": "car-free",
@@ -104,7 +113,10 @@
 "co-housing"
 ],
 "area": "type",
-"wiki": "Cohousing"
+"wiki": "Cohousing",
+"see": [
+"Bofællesskab"
+]
 },
 {
 "id": "coliving",
@@ -123,7 +135,10 @@
 ],
 "area": "type",
 "wiki": null,
-"link": "https://kollektivhus.se/"
+"link": "https://kollektivhus.se/",
+"see": [
+"Kollektivhus"
+]
 },
 {
 "id": "common-house",
@@ -147,7 +162,10 @@
 ],
 "area": "community",
 "wiki": null,
-"link": "https://www.cohousing.org/what-is-cohousing/"
+"link": "https://www.cohousing.org/what-is-cohousing/",
+"see": [
+"Shared meal"
+]
 },
 {
 "id": "community-land-trust",
@@ -160,7 +178,11 @@
 "CLTs"
 ],
 "area": "legal",
-"wiki": "Community land trust"
+"wiki": "Community land trust",
+"see": [
+"Land trust",
+"CLT"
+]
 },
 {
 "id": "condo",
@@ -174,7 +196,11 @@
 "condos"
 ],
 "area": "legal",
-"wiki": "Condominium"
+"wiki": "Condominium",
+"see": [
+"Divided co-ownership",
+"Copropriété divise"
+]
 },
 {
 "id": "conflict-resolution",
@@ -186,7 +212,10 @@
 "mediators"
 ],
 "area": "privacy",
-"wiki": "Conflict resolution"
+"wiki": "Conflict resolution",
+"see": [
+"Mediation"
+]
 },
 {
 "id": "consensus",
@@ -218,7 +247,10 @@
 ],
 "area": "community",
 "wiki": null,
-"link": "https://kollektivhus.se/"
+"link": "https://kollektivhus.se/",
+"see": [
+"Cooking rota"
+]
 },
 {
 "id": "co-op",
@@ -234,7 +266,11 @@
 "housing co-operatives"
 ],
 "area": "legal",
-"wiki": "Housing cooperative"
+"wiki": "Housing cooperative",
+"see": [
+"Co-op",
+"Cooperative housing"
+]
 },
 {
 "id": "co-op-house",
@@ -244,7 +280,10 @@
 "student housing co-op"
 ],
 "area": "type",
-"wiki": "Student housing cooperative"
+"wiki": "Student housing cooperative",
+"see": [
+"Student co-op"
+]
 },
 {
 "id": "coworkation",
@@ -256,7 +295,11 @@
 ],
 "area": "type",
 "wiki": null,
-"link": "https://en.wikipedia.org/wiki/Digital_nomad"
+"link": "https://en.wikipedia.org/wiki/Digital_nomad",
+"see": [
+"Rural co-living",
+"Workation"
+]
 },
 {
 "id": "crowdfunding",
@@ -276,7 +319,10 @@
 "remote workers"
 ],
 "area": "who",
-"wiki": "Digital nomad"
+"wiki": "Digital nomad",
+"see": [
+"Remote worker"
+]
 },
 {
 "id": "double-linking",
@@ -311,7 +357,12 @@
 "emphyteutic leases"
 ],
 "area": "legal",
-"wiki": "Emphyteusis"
+"wiki": "Emphyteusis",
+"see": [
+"Ground lease",
+"Long lease",
+"Bail emphytéotique"
+]
 },
 {
 "id": "equity",
@@ -322,7 +373,10 @@
 "equity stakes"
 ],
 "area": "money",
-"wiki": "Home equity"
+"wiki": "Home equity",
+"see": [
+"Home equity"
+]
 },
 {
 "id": "facilitation",
@@ -344,7 +398,10 @@
 "assemblies"
 ],
 "area": "governance",
-"wiki": "General assembly"
+"wiki": "General assembly",
+"see": [
+"General meeting"
+]
 },
 {
 "id": "hacker-house",
@@ -375,7 +432,10 @@
 ],
 "area": "who",
 "wiki": null,
-"link": "https://en.wikipedia.org/wiki/Multigenerational_households"
+"link": "https://en.wikipedia.org/wiki/Multigenerational_households",
+"see": [
+"Multigenerational living"
+]
 },
 {
 "id": "kibbutz",
@@ -405,7 +465,10 @@
 ],
 "area": "community",
 "wiki": null,
-"link": "https://www.ic.org/"
+"link": "https://www.ic.org/",
+"see": [
+"Joining process"
+]
 },
 {
 "id": "mietshauser-syndikat",
@@ -433,7 +496,10 @@
 "mortgages"
 ],
 "area": "money",
-"wiki": "Mortgage loan"
+"wiki": "Mortgage loan",
+"see": [
+"Home loan"
+]
 },
 {
 "id": "mutual-home-ownership",
@@ -455,7 +521,11 @@
 "pop-up village"
 ],
 "area": "type",
-"wiki": "Network state"
+"wiki": "Network state",
+"see": [
+"Network state",
+"Pop-up city"
+]
 },
 {
 "id": "non-profit",
@@ -469,7 +539,10 @@
 "OBNLs"
 ],
 "area": "legal",
-"wiki": "Nonprofit organization"
+"wiki": "Nonprofit organization",
+"see": [
+"OBNL"
+]
 },
 {
 "id": "nvc",
@@ -491,7 +564,10 @@
 ],
 "area": "type",
 "wiki": null,
-"link": "https://en.wikipedia.org/wiki/Coliving"
+"link": "https://en.wikipedia.org/wiki/Coliving",
+"see": [
+"Operator"
+]
 },
 {
 "id": "participatory-design",
@@ -501,7 +577,10 @@
 "resident-designed"
 ],
 "area": "space",
-"wiki": "Participatory design"
+"wiki": "Participatory design",
+"see": [
+"Co-design"
+]
 },
 {
 "id": "patient-capital",
@@ -512,7 +591,11 @@
 "impact investors"
 ],
 "area": "money",
-"wiki": "Patient capital"
+"wiki": "Patient capital",
+"see": [
+"Social finance",
+"Impact investing"
+]
 },
 {
 "id": "public-housing",
@@ -522,7 +605,10 @@
 "council housing"
 ],
 "area": "legal",
-"wiki": "Public housing"
+"wiki": "Public housing",
+"see": [
+"Social housing"
+]
 },
 {
 "id": "rent",
@@ -533,7 +619,11 @@
 "lease"
 ],
 "area": "legal",
-"wiki": "Leasehold estate"
+"wiki": "Leasehold estate",
+"see": [
+"Renting",
+"Lease"
+]
 },
 {
 "id": "senior-cohousing",
@@ -553,7 +643,10 @@
 "shared ownership"
 ],
 "area": "money",
-"wiki": "Shared ownership"
+"wiki": "Shared ownership",
+"see": [
+"Shared ownership"
+]
 },
 {
 "id": "sociocracy",
@@ -563,7 +656,10 @@
 "dynamic governance"
 ],
 "area": "governance",
-"wiki": "Sociocracy"
+"wiki": "Sociocracy",
+"see": [
+"Dynamic governance"
+]
 },
 {
 "id": "solidarity-coop",
@@ -577,7 +673,10 @@
 ],
 "area": "legal",
 "wiki": null,
-"link": "https://www.quebec.ca/en/businesses-and-self-employed-workers/cooperatives"
+"link": "https://www.quebec.ca/en/businesses-and-self-employed-workers/cooperatives",
+"see": [
+"Coopérative de solidarité"
+]
 },
 {
 "id": "speculation",
@@ -587,7 +686,10 @@
 "flipping"
 ],
 "area": "money",
-"wiki": "Real estate speculation"
+"wiki": "Real estate speculation",
+"see": [
+"Flipping"
+]
 },
 {
 "id": "tenure",
@@ -597,7 +699,10 @@
 "housing tenure"
 ],
 "area": "legal",
-"wiki": "Housing tenure"
+"wiki": "Housing tenure",
+"see": [
+"Housing tenure"
+]
 },
 {
 "id": "undivided-co-ownership",
@@ -608,7 +713,12 @@
 "indivision"
 ],
 "area": "legal",
-"wiki": "Tenancy in common"
+"wiki": "Tenancy in common",
+"see": [
+"Tenancy in common",
+"Indivision",
+"Copropriété indivise"
+]
 },
 {
 "id": "universal-design",
@@ -618,7 +728,11 @@
 "accessible design"
 ],
 "area": "space",
-"wiki": "Universal design"
+"wiki": "Universal design",
+"see": [
+"Accessible design",
+"Step-free"
+]
 },
 {
 "id": "use-rights",
@@ -628,7 +742,11 @@
 "usufruct"
 ],
 "area": "legal",
-"wiki": "Usufruct"
+"wiki": "Usufruct",
+"see": [
+"Right of use",
+"Usufruct"
+]
 },
 {
 "id": "work-day",
@@ -640,7 +758,10 @@
 ],
 "area": "operations",
 "wiki": null,
-"link": "https://www.cohousing.org/"
+"link": "https://www.cohousing.org/",
+"see": [
+"Work party"
+]
 },
 {
 "id": "zoning",
@@ -651,7 +772,11 @@
 "land-use rules"
 ],
 "area": "legal",
-"wiki": "Zoning"
+"wiki": "Zoning",
+"see": [
+"Land-use rules",
+"Rezoning"
+]
 },
 {
 "id": "member-shares",
@@ -661,7 +786,10 @@
 "share in the co-op"
 ],
 "area": "legal",
-"wiki": null
+"wiki": null,
+"see": [
+"Shares in the co-op"
+]
 },
 {
 "id": "down-payment",
@@ -719,7 +847,10 @@
 "first refusal"
 ],
 "area": "legal",
-"wiki": null
+"wiki": null,
+"see": [
+"First refusal"
+]
 },
 {
 "id": "sweat-equity",
@@ -737,7 +868,10 @@
 "incorporated"
 ],
 "area": "legal",
-"wiki": null
+"wiki": null,
+"see": [
+"Incorporation"
+]
 },
 {
 "id": "shared-lease",
@@ -747,7 +881,10 @@
 "joint lease"
 ],
 "area": "legal",
-"wiki": null
+"wiki": null,
+"see": [
+"Joint lease"
+]
 },
 {
 "id": "duplex",
@@ -759,7 +896,11 @@
 "plex"
 ],
 "area": "space",
-"wiki": null
+"wiki": null,
+"see": [
+"Triplex",
+"Plex"
+]
 },
 {
 "id": "decommodified",
@@ -779,7 +920,10 @@
 "pooled income"
 ],
 "area": "money",
-"wiki": null
+"wiki": null,
+"see": [
+"Pooled income"
+]
 },
 {
 "id": "co-ownership",
@@ -811,7 +955,10 @@
 "board members"
 ],
 "area": "governance",
-"wiki": null
+"wiki": null,
+"see": [
+"Elected board"
+]
 },
 {
 "id": "check-in-circle",
@@ -886,7 +1033,11 @@
 "groupe de ressources techniques"
 ],
 "area": "legal",
-"wiki": null
+"wiki": null,
+"see": [
+"GRT",
+"Groupe de ressources techniques"
+]
 },
 {
 "id": "cmhc",
@@ -896,6 +1047,10 @@
 "SCHL"
 ],
 "area": "money",
-"wiki": null
+"wiki": null,
+"see": [
+"SCHL",
+"Canada Mortgage and Housing Corporation"
+]
 }
 ]

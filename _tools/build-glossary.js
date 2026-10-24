@@ -3,6 +3,8 @@
    node _tools/build-glossary.js <definitions.json>   -> glossary-data.js */
 const fs = require('fs'), path = require('path');
 const terms = JSON.parse(fs.readFileSync(path.join(__dirname, 'glossary-terms.json'), 'utf8'));
+/* see: other names a newcomer might look up under another letter. Each one gets
+   its own "Land trust → see Community land trust" row in the A to Z. */
 const defs = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const byId = {}; defs.forEach(d => { byId[d.id] = d; });
 const INTRO = "Living together comes with its own words, and some of them only made sense to me after a few long meetings. " +
@@ -15,7 +17,7 @@ const out = terms.map(t => {
   if (/[—–]/.test(d.def)) bad.push(t.id + ': long dash');
   if (/\b(not just|isn't just|but rather)\b/i.test(d.def)) bad.push(t.id + ': contrast pattern');
   if (words > 55) bad.push(t.id + ': ' + words + ' words');
-  return { id: t.id, term: t.term, aliases: t.aliases || [], area: t.area, def: d.def, link: d.link || t.link || '', linkLabel: d.linkLabel || '' };
+  return { id: t.id, term: t.term, aliases: t.aliases || [], see: t.see || [], area: t.area, def: d.def, link: d.link || t.link || '', linkLabel: d.linkLabel || '' };
 }).filter(Boolean);
 if (bad.length) { console.log('PROBLEMS:\n ' + bad.join('\n ')); }
 fs.writeFileSync(path.join(__dirname, '..', 'glossary-data.js'),
