@@ -1212,6 +1212,8 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
      empty) and drops back to its usual corner the moment the doors rise. */
   html.lv3-map:not(.lv3-doorsup) .gl-btn{bottom:calc(158px + env(safe-area-inset-bottom));}
   .gl-btn{transition:filter .4s,bottom .35s ease;}
+  /* doors up: the corner is the last door, so the book waits above the doors */
+  html.lv3-doorsup .gl-btn{bottom:calc(var(--gl-doors,390px) + env(safe-area-inset-bottom));}
 }
 /* short phones hide the lede, so the headline runs the full width there:
    the book goes above it instead */
