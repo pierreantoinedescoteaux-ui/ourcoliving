@@ -195,8 +195,8 @@ button{font:inherit;color:inherit}
 .places{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:700px){.places{grid-template-columns:1fr}}
 .place{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-.place .ph{aspect-ratio:4/3;background:linear-gradient(150deg,#e9dfc6,#d9ccad)}
-.place .ph img{width:100%;height:100%;object-fit:cover}
+.place .pimg{aspect-ratio:4/3;background:linear-gradient(150deg,#e9dfc6,#d9ccad)}
+.place .pimg img{width:100%;height:100%;object-fit:cover}
 .place .pb{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
 .place b{font-family:var(--serif);font-weight:400;font-size:1.1rem;line-height:1.2}
 .place .loc{font-size:.78rem;font-weight:600;letter-spacing:.06em;color:var(--ink-faint)}
@@ -420,7 +420,7 @@ button{font:inherit;color:inherit}
     }).join("")+'</div></section>';
 
     if(R.places.length) h+='<section><h3>'+esc(L.placesTitle[R.role])+'</h3><div class="places">'+R.places.map(function(p){
-      return '<div class="place"><div class="ph">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" onerror="this.remove()">':'')+'</div><div class="pb"><b>'+esc(p.name)+'</b><span class="loc">'+esc(p.place)+'</span><p>'+esc(p.note||"")+'</p>'+
+      return '<div class="place"><div class="pimg">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" onerror="this.remove()">':'')+'</div><div class="pb"><b>'+esc(p.name)+'</b><span class="loc">'+esc(p.place)+'</span><p>'+esc(p.note||"")+'</p>'+
         (p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">Visit their site ↗</a>':'')+'</div></div>';
     }).join("")+'</div></section>';
 

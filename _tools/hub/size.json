@@ -5,7 +5,7 @@
    "id": "small",
    "name": "Small (about 6 to 14 homes)",
    "summary": "A close group where everyone knows everyone. Decisions are quick and the bond is strong, but costs per home run higher.",
-   "body": "A small project feels like a large shared house. Neighbours know each other well and talking things through is simple. The Quebec guide notes that people feel directly responsible for the place. Decisions stay light and quick.\n\nThe flip side is fragility. With few households, one person who steps back leaves a gap. Being close all the time can raise tension, so the group needs good habits for talking things out. Costs per home are higher, and there is less money for shared rooms and equipment.\n\nBelow six homes, the guide says people usually speak of shared living rather than cohousing.",
+   "body": "A small project feels like a large shared house. Neighbours know each other well and talking things through is simple. People feel directly responsible for the place. Decisions stay light and quick.\n\nThe flip side is fragility. With few households, one person who steps back leaves a gap. Being close all the time can raise tension, so the group needs good habits for talking things out. Costs per home are higher, and there is less money for shared rooms and equipment.\n\nBelow six homes, people usually speak of shared living rather than cohousing.",
    "pros": [
     "Close bonds and quick decisions",
     "Everyone feels responsible for the place"
@@ -47,7 +47,7 @@
    "id": "medium",
    "name": "Medium (15 to 35)",
    "summary": "The classic size for cohousing. Big enough for variety and shared costs, small enough that people still know each other.",
-   "body": "This is the size most cohousing has been built at. The Quebec guide calls it a practical sweet spot, especially for groups led by the future residents themselves. There is room for different ages and skills, and the group can handle people coming and going.\n\nPrivacy and community balance well here. Shared rooms are affordable, and no one has to attend every event. Decades of experience mean the habits for this size are well documented.\n\nDecisions get harder as the group grows, so clear meeting habits matter. Many Danish practitioners say a project should stay under 35 households. One Danish community that grew past that sold some units as ordinary condos to shrink its group.",
+   "body": "This is the size most cohousing has been built at. It is often seen as a practical sweet spot, especially for groups led by the future residents themselves. There is room for different ages and skills, and the group can handle people coming and going.\n\nPrivacy and community balance well here. Shared rooms are affordable, and no one has to attend every event. Decades of experience mean the habits for this size are well documented.\n\nDecisions get harder as the group grows, so clear meeting habits matter. Many Danish practitioners say a project should stay under 35 households. One Danish community that grew past that sold some units as ordinary condos to shrink its group.",
    "pros": [
     "The best-tested size, with lots of experience",
     "Enough people for variety and shared costs"
@@ -92,7 +92,7 @@
    "id": "large",
    "name": "Large (36 to 59)",
    "summary": "A mature community with many subgroups. It shares costs well and needs firmer structure.",
-   "body": "At this size, a project holds many interest groups. Gardeners and musicians each find their circle, which gives more points of contact while keeping a sense of belonging. The Quebec guide describes it as a stage where variety and organisation reach a good balance.\n\nCosts spread over more homes, so shared rooms can be larger and better. Roles can be divided, and each person can give time in their own way.\n\nBelonging needs deliberate effort, and informal talk is no longer enough. Decisions need clearer rules, and the money plan is more complex. The guide says these projects are usually led by an experienced cohousing developer. Un Village à Lachine in Montreal mixes owners and renters in this range.",
+   "body": "At this size, a project holds many interest groups. Gardeners and musicians each find their circle, which gives more points of contact while keeping a sense of belonging. At this stage, variety and organisation reach a good balance.\n\nCosts spread over more homes, so shared rooms can be larger and better. Roles can be divided, and each person can give time in their own way.\n\nBelonging needs deliberate effort, and informal talk is no longer enough. Decisions need clearer rules, and the money plan is more complex. These projects are usually led by an experienced cohousing developer. Un Village à Lachine in Montreal mixes owners and renters in this range.",
    "pros": [
     "Shared costs allow better common spaces",
     "Many subgroups mean many ways to join in"
@@ -137,7 +137,7 @@
    "id": "very-large",
    "name": "Very large (60 and more)",
    "summary": "A small neighbourhood under one roof, often split into clusters. It can host shops and services, and leans on paid staff.",
-   "body": "A very large project works like a micro-neighbourhood. It is often split into smaller clusters, each with its own common rooms, living side by side in one complex. Each cluster runs daily life by itself, while the whole group shares bigger events.\n\nThe Quebec guide points to real strengths. Such projects can host shops and cultural spaces, offer many kinds of homes and keep costs per home lower.\n\nNot everyone takes part to the same degree here, so the project needs several ways to join in. Paid staff usually help with coordination, so governance mixes citizen groups with professionals. Ecojonction in Geneva, with 115 homes, pays some residents for community roles.",
+   "body": "A very large project works like a micro-neighbourhood. It is often split into smaller clusters, each with its own common rooms, living side by side in one complex. Each cluster runs daily life by itself, while the whole group shares bigger events.\n\nProjects this size have real strengths. Such projects can host shops and cultural spaces, offer many kinds of homes and keep costs per home lower.\n\nNot everyone takes part to the same degree here, so the project needs several ways to join in. Paid staff usually help with coordination, so governance mixes citizen groups with professionals. Ecojonction in Geneva, with 115 homes, pays some residents for community roles.",
    "pros": [
     "Can host shops and many home types",
     "Lower cost per home through scale"
@@ -181,7 +181,7 @@
    "id": "neighbourhood",
    "name": "A neighbourhood of projects",
    "summary": "Several separate cohousing groups share a district. Each keeps its own life and rules while sharing squares and services.",
-   "body": "Some projects are more than one building. A neighbourhood of projects links several independent communities in one network. Each keeps its own character and way of deciding, and together they share things like parking and a mobility hub.\n\nThe Quebec guide sees this as a way to treat a district as a web of collectives. It also allows shops and cultural rooms that no single group could support alone.\n\nMehr als Wohnen in Zurich is the guide's example, with a cluster of separate buildings. About 1,300 people live there. Each building runs its own governance, while a site-wide group shares bikes and maintenance staff.\n\nThe cost is coordination. Many groups must agree on shared rules, and such a project takes years to build.",
+   "body": "Some projects are more than one building. A neighbourhood of projects links several independent communities in one network. Each keeps its own character and way of deciding, and together they share things like parking and a mobility hub.\n\nIt is a way to treat a district as a web of collectives. It also allows shops and cultural rooms that no single group could support alone.\n\nMehr als Wohnen in Zurich is one example, with a cluster of separate buildings. About 1,300 people live there. Each building runs its own governance, while a site-wide group shares bikes and maintenance staff.\n\nThe cost is coordination. Many groups must agree on shared rules, and such a project takes years to build.",
    "pros": [
     "Shared services and public spaces at district scale",
     "Each community keeps its own identity"

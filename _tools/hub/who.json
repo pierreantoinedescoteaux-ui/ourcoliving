@@ -24,7 +24,7 @@
    "id": "young-adults",
    "name": "Young adults",
    "summary": "A first step toward independence with lower costs and new friends, with room to change plans. Easy to enter, easy to outgrow.",
-   "body": "For people in their twenties and early thirties, living together can make a city affordable and help build a circle of friends after school ends. It also gives some support when jobs and plans keep shifting. The guide notes this stage is often marked by moving around and instability, which shared homes can soften. What to watch is the pull of the exit. If everyone leaves after a year, no community forms, so a mix of stayers and short stays helps.",
+   "body": "For people in their twenties and early thirties, living together can make a city affordable and help build a circle of friends after school ends. It also gives some support when jobs and plans keep shifting. This stage is often marked by moving around and instability, which shared homes can soften. What to watch is the pull of the exit. If everyone leaves after a year, no community forms, so a mix of stayers and short stays helps.",
    "fits": [
     "operator-coliving",
     "student-coop",
@@ -79,7 +79,7 @@
    "id": "single-parents",
    "name": "Single parents",
    "summary": "One adult carrying everything can lean on neighbours for childcare and company. Help works only if it goes both ways.",
-   "body": "Raising children alone brings a heavy load of planning and a higher risk of isolation. Living near trusted neighbours can make the day safer and lighter: someone to watch the children for an hour, a shared dinner, another adult to talk to. The guide points to informal mutual help and shared resources as the main gain. The catch is balance. Help should flow both ways, or resentment builds. Be clear early about what neighbours are happy to offer, and what stays a parent's own job.",
+   "body": "Raising children alone brings a heavy load of planning and a higher risk of isolation. Living near trusted neighbours can make the day safer and lighter: someone to watch the children for an hour, a shared dinner, another adult to talk to. The main gain is informal mutual help and shared resources. The catch is balance. Help should flow both ways, or resentment builds. Be clear early about what neighbours are happy to offer, and what stays a parent's own job.",
    "fits": [
     "cohousing",
     "student-coop"
@@ -179,7 +179,7 @@
    "id": "care",
    "name": "People needing care",
    "summary": "Homes designed around daily support, with the load shared between neighbours and staff. Safety and dignity guide the design.",
-   "body": "Some people need regular help to live well. Housing built around that need puts support close by, so people stay in a home setting and not an institution. Neighbours offer company and informal watchfulness, and trained staff cover what volunteers cannot. The guide stresses adapted buildings and clear organisation, with professional support in some cases. The danger is that volunteers get overloaded or that residents lose control over their lives. Plan paid help and define roles, so residents can shape their own days.",
+   "body": "Some people need regular help to live well. Housing built around that need puts support close by, so people stay in a home setting and not an institution. Neighbours offer company and informal watchfulness, and trained staff cover what volunteers cannot. Adapted buildings and clear organisation matter most, with professional support in some cases. The danger is that volunteers get overloaded or that residents lose control over their lives. Plan paid help and define roles, so residents can shape their own days.",
    "fits": [
     "cohousing",
     "ecovillage"

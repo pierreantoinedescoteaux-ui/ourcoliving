@@ -102,9 +102,9 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5.2vw,4.4rem)
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
 .pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,box-shadow .3s,transform .3s}
 .pcard:hover{border-color:var(--green);box-shadow:0 20px 48px -22px rgba(34,48,31,.32);transform:translateY(-3px)}
-.pcard .ph{height:150px;background:linear-gradient(140deg,#e9efdc,#dfe9ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.pcard .ph img{width:100%;height:100%;object-fit:cover}
-.pcard .ph .mark{font-family:var(--serif);font-style:italic;font-weight:300;font-size:2.2rem;color:var(--green-deep);opacity:.55}
+.pcard .pimg{height:150px;background:linear-gradient(140deg,#e9efdc,#dfe9ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pcard .pimg img{width:100%;height:100%;object-fit:cover}
+.pcard .pimg .mark{font-family:var(--serif);font-style:italic;font-weight:300;font-size:2.2rem;color:var(--green-deep);opacity:.55}
 .pcard .bd{padding:20px 22px 20px;display:flex;flex-direction:column;flex:1}
 .pcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,1.6vw,1.4rem);line-height:1.15}
 .pcard .meta{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:5px 0 10px}
@@ -376,7 +376,7 @@ function draw(){
     if(e.url) links+='<a href="'+esc(e.url)+'" target="_blank" rel="noopener">Website →</a>';
     if(e.slug) links+='<a href="detail.html?item='+esc(e.slug)+'">Case study →</a>';
     return '<div class="pcard" data-k="'+esc(k)+'">'+
-      '<div class="ph">'+(e.img?'<img loading="lazy" src="'+esc(e.img)+'" alt="'+esc(e.name)+'">':'<span class="mark">'+esc(e.name.charAt(0))+"</span>")+"</div>"+
+      '<div class="pimg">'+(e.img?'<img loading="lazy" src="'+esc(e.img)+'" alt="'+esc(e.name)+'">':'<span class="mark">'+esc(e.name.charAt(0))+"</span>")+"</div>"+
       '<div class="bd"><h3>'+esc(e.name)+"</h3>"+
       (e.meta?'<div class="meta">'+esc(e.meta)+"</div>":"")+
       '<div class="tags">'+e.types.map(function(t){return '<span class="tag'+(t==="Landmark"?" gold":"")+'">'+esc(t)+"</span>";}).join("")+"</div>"+

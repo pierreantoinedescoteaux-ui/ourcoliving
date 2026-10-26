@@ -425,9 +425,9 @@ img{display:block;max-width:100%}
 .shp-pol{display:block;background:#fffdf8;padding:10px 10px 18px;border-radius:6px;box-shadow:0 18px 40px -22px rgba(34,48,31,.55);text-decoration:none;color:inherit;transition:transform .4s}
 .shp-pol:nth-child(1){transform:rotate(-1.6deg)}.shp-pol:nth-child(2){transform:rotate(1.1deg) translateY(14px)}.shp-pol:nth-child(3){transform:rotate(-.7deg)}
 .shp-pol:hover,.shp-pol:focus-visible{transform:rotate(0) translateY(-4px)}
-.shp-pol .ph{aspect-ratio:4/3;border-radius:3px;overflow:hidden;background:var(--sky-wash);display:grid;place-items:center}
-.shp-pol .ph img{width:100%;height:100%;object-fit:cover;display:block}
-.shp-pol .ph .mk{font-family:var(--serif);font-style:italic;font-size:3rem;color:var(--ink-faint)}
+.shp-pol .pimg{aspect-ratio:4/3;border-radius:3px;overflow:hidden;background:var(--sky-wash);display:grid;place-items:center}
+.shp-pol .pimg img{width:100%;height:100%;object-fit:cover;display:block}
+.shp-pol .pimg .mk{font-family:var(--serif);font-style:italic;font-size:3rem;color:var(--ink-faint)}
 .shp-pol h3{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin:14px 4px 2px;color:var(--ink)}
 .shp-pol .pl{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:0 4px}
 .shp-pol p{font-size:.98rem;line-height:1.5;color:var(--ink-soft);margin:8px 4px 0}
@@ -661,7 +661,7 @@ img{display:block;max-width:100%}
      hovers, focuses or scrolls it; the glide resumes 3 s after they leave. */
   (function(){
     if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var SPEED=22, on=false, held=false, visible=true, pos=0, last=0, resumeT;
+    var SPEED=55, on=false, held=false, visible=true, pos=0, last=0, resumeT;
     function start(){ if(on||held||!visible||document.hidden) return; on=true; pos=track.scrollLeft;
       track.style.scrollSnapType="none"; track.style.scrollBehavior="auto"; last=performance.now(); requestAnimationFrame(tick); }
     function stop(){ if(!on) return; on=false; track.style.scrollSnapType=""; track.style.scrollBehavior=""; }
@@ -960,7 +960,7 @@ img{display:block;max-width:100%}
     shpGrid.innerHTML=pickVaried(places(t)).map(function(p){
       var ext=/^https?:/i.test(p.url||"");
       return '<a class="shp-pol" href="'+esc(p.url||"#")+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
-        '<div class="ph">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" loading="lazy">':'<span class="mk">'+esc(p.name.charAt(0))+'</span>')+'</div>'+
+        '<div class="pimg">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" loading="lazy">':'<span class="mk">'+esc(p.name.charAt(0))+'</span>')+'</div>'+
         '<h3>'+esc(p.name)+'</h3><div class="pl">'+esc(p.place||"")+'</div><p>'+esc(p.note||"")+'</p>'+
         (typeof tagPillsHTML==="function"?tagPillsHTML(p,4):"")+'</a>';
     }).join("");
