@@ -25,9 +25,9 @@ const DFC_INTRO = {
   lede: "Every room quietly tells people how to act. Name the feeling you want — then design backwards."
 };
 
-/* Contrast section — hero's proof. Two REAL photos, hard contrast, so you feel
-   the claim before you read it. Photos target images/generated/dfc2/contrast-*.jpg
-   (photorealistic, NOT the sketch style — the realism is the point). */
+/* Contrast section, the hero's proof: the same shared home drawn twice, so you feel
+   the claim before you read it. Watercolour sketches (2026-10-29) replaced the
+   photorealistic pair, which was off brand. The scene lines below are the old photo briefs. */
 const DFC_CONTRAST = {
   eyebrow: "Before the how, the why",
   title: "A space is never neutral.",
@@ -35,7 +35,7 @@ const DFC_CONTRAST = {
   pair: [
     {
       kind: "cold",
-      src: "images/generated/dfc2/contrast-cold.jpg", pos: "center",
+      src: "images/generated/dfc2/contrast-cold.webp", pos: "center",
       label: "A home designed for isolation",
       caption: "Sealed doors down a dim hallway nobody lingers in. Everything you need is behind your own door — so you pass the people you live with like strangers.",
       feeling: "You end up: alone, together.",
@@ -43,7 +43,7 @@ const DFC_CONTRAST = {
     },
     {
       kind: "warm",
-      src: "images/generated/dfc2/contrast-warm.jpg", pos: "center",
+      src: "images/generated/dfc2/contrast-warm.webp", pos: "center",
       label: "A home designed for connection",
       caption: "One warm room the whole house drifts through, a table big enough for everyone, light worth staying in. The building keeps handing you each other.",
       feeling: "You end up: held.",

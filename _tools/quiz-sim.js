@@ -17,9 +17,10 @@ const band3 = v => { const x = v / 6 * 100; return x < 34 ? 0 : x > 66 ? 2 : 1; 
 
 function rnd(n) { return Math.floor(Math.random() * n); }
 function randomState(skip) {
-  const st = { a: {}, h: {} };
+  const st = { a: {}, h: {}, o: {} };
   qs.forEach(q => {
     if (Math.random() < skip) return;
+    if (QS.hasOpen(q) && Math.random() < .08) { st.o[q.id] = true; return; }   /* "Not sure" / "Open to many things" */
     if (q.kind === "slider") { st.a[q.id] = rnd(7); if (q.heart && Math.random() < .25) st.h[q.id] = true; }
     else if (q.kind === "rank") { const o = q.options.map((_, i) => i).sort(() => Math.random() - .5); const n = rnd(6); if (n) st.a[q.id] = o.slice(0, n); }
     else if (q.multi) { const a = []; q.options.forEach((o, i) => { if (Math.random() < (q.id === "care" ? .2 : .3)) a.push(i); }); if (a.length) st.a[q.id] = a; }
@@ -53,6 +54,10 @@ for (let i = 0; i < N; i++) {
     const back = QS.decode("#" + QS.encode(st));
     if (JSON.stringify(QS.result(back).fits.map(f => f.slug)) !== JSON.stringify(r.fits.map(f => f.slug))) throw new Error("share link round-trip changed the result");
     if (back.a.name !== st.a.name) throw new Error("name lost in link: " + st.a.name + " → " + back.a.name);
+    if (JSON.stringify(Object.keys(back.o).sort()) !== JSON.stringify(Object.keys(st.o).sort())) throw new Error("not-sure answers lost in link");
+    if (r.mirror.stand.some(s => s.x == null && s.label !== QUIZ.open.one)) throw new Error("open slider without its label");
+    if (["pool", "give", "conflict"].some(k => QS.gateOf(st.a) !== "shared" && QS.clean(st).a[k] != null)) throw new Error("another gate's answer kept");
+    if (!r.mirror.gate || !r.mirror.gate.t) throw new Error("no gate in the letter");
     if (r.fits.length !== 3 || r.places.length < 1 || r.blocks.length !== 5 || r.know.length < 2) throw new Error("thin letter " + JSON.stringify([r.fits.length, r.places.length, r.blocks.length, r.know.length]));
     if (r.places.some(p => !p.reason)) throw new Error("place without a reason");
     if (r.blocks.some(b => !b.pick && !b.because)) throw new Error("block without a because: " + r.blocks.filter(b => !b.pick && !b.because).map(b => b.area));
@@ -87,7 +92,13 @@ const P = [
   ["P-A style entrepreneur house", "entrepreneur-house", { with: 0, life: [2], setting: [0], hopes: [6, 0, 3], share: 4, size: 0, time: 2, power: 2, autonomy: 2, effort: 1, purpose: 3, care: [12, 10], savings: 0 }],
   /* P-A's bug (2026-10-22): someone else runs it, owns nothing. No reason may claim he wants to run or design it. */
   ["someone else runs it, owns nothing", null, { with: 0, setting: [0], hopes: [0], share: 3, size: 2, time: 2, power: 0, autonomy: 2, effort: 0, own: 0, holding: [2, 3], savings: 0, decisions: 0 }],
-  ["founder-run, picks a founder", null, { power: 1, decisions: 0, own: 1, savings: 0 }]
+  ["founder-run, picks a founder", null, { power: 1, decisions: 0, own: 1, savings: 0 }],
+  /* v4 gates: the gate answers must pull in the expected direction */
+  ["own home, walkable street, helping out", "cohousing", { with: 1, setting: [1], share: 1, size: 3, time: 5, power: 4, community: [0, 4, 1], space: 3, recharge: 2 }],
+  ["shared home, pools income, a day a week", "kibbutz", { with: 0, setting: [2], share: 6, size: 5, time: 6, power: 5, autonomy: 5, pool: [0, 1, 3], give: 2, space: 0, conflict: 5 }],
+  ["shared home, roomy with a gym", "operator-coliving", { with: 0, setting: [0], share: 4, size: 3, time: 1, power: 0, effort: 0, pool: [1], give: 0, space: 6, recharge: 3 }],
+  /* answers from another gate (share changed afterwards) must not count */
+  ["changed to own home, old shared answers left", "cohousing", { with: 2, setting: [1], share: 1, size: 3, time: 6, power: 5, pool: [3], give: 2, community: [1, 4] }]
 ];
 console.log("\nPersonas:");
 let fails = 0;

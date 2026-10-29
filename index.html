@@ -46,9 +46,11 @@
      Swap it for a soft top-left wash that only backs the hero. */
   html.lv3-map .sw-copylayer::before{display:block;
     width:min(52vw,660px);height:min(74vh,620px);top:0;
-    background:linear-gradient(155deg,var(--sw-bg) 0%,
-      color-mix(in srgb,var(--sw-bg) 74%,transparent) 32%,
-      color-mix(in srgb,var(--sw-bg) 30%,transparent) 62%,transparent 88%);
+    /* an ellipse from the top-left corner, fully clear before it reaches the
+       box's right and bottom edges, so no lighter rectangle shows (P-A, 2026-10-29) */
+    background:radial-gradient(ellipse farthest-corner at 0 0,var(--sw-bg) 0%,
+      color-mix(in srgb,var(--sw-bg) 74%,transparent) 30%,
+      color-mix(in srgb,var(--sw-bg) 30%,transparent) 52%,transparent 69%);
   }
 
 /* A1 — S1 (map mode) shows the WHOLE tower, not a crop: contain-fit,
@@ -62,6 +64,14 @@
   #world .sw-stage .sw-scene:first-child .sw-scene__still{
     object-fit:contain;object-position:center center;}
   #world .sw-stage .sw-scene:first-child .sw-scene__still{transform:none !important;}
+  /* the painting's own field is not one flat colour, and the video encodes a
+     shade lighter, so on narrower windows its letterboxed rectangle showed as a
+     paler band. Its edges now dissolve into the field: the mask is a 16:9 SVG
+     fitted with "contain", exactly like the picture (P-A, 2026-10-29). */
+  #world .sw-stage .sw-scene:first-child .sw-scene__video,
+  #world .sw-stage .sw-scene:first-child .sw-scene__still{
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'%3E%3Cdefs%3E%3ClinearGradient id='h'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.09' stop-color='%23fff'/%3E%3Cstop offset='.91' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='v' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.03' stop-color='%23fff'/%3E%3Cstop offset='.965' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='1600' height='900' fill='url(%23v)'/%3E%3C/mask%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23h)' mask='url(%23m)'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'%3E%3Cdefs%3E%3ClinearGradient id='h'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.09' stop-color='%23fff'/%3E%3Cstop offset='.91' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='v' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.03' stop-color='%23fff'/%3E%3Cstop offset='.965' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='1600' height='900' fill='url(%23v)'/%3E%3C/mask%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23h)' mask='url(%23m)'/%3E%3C/svg%3E") center/contain no-repeat;}
   /* P-A 2026-07-28: the letterbox bands beside the contain-fit tower must be the
      PAINTING's own field (#F1DBC0), not the page cream — otherwise the drawing
      sits on a visibly lighter rectangle. Map mode only; the climb keeps cream. */
@@ -320,8 +330,9 @@
    looking for. It leaves on its own after fifteen seconds, or when closed.
    --------------------------------------------------------------------- */
 #lv3end{position:fixed;z-index:1160;
-  /* clear of the colour legend, which lives in the same bottom-left corner */
-  left:clamp(18px,5vw,64px);bottom:clamp(58px,7vh,78px);
+  /* P-A, 2026-10-29: the card no longer links out. It sits under the five
+     hanging tags and the tags shake, so the tags themselves are the way on */
+  right:clamp(22px,2.6vw,40px);top:calc(var(--navh,56px) + 132px);
   width:min(92vw,392px);
   padding:20px 22px 18px;border-radius:20px;
   background:rgba(253,250,240,.93);border:1px solid rgba(34,48,31,.14);
@@ -1179,6 +1190,19 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 @keyframes lv3swing{0%{opacity:0;transform:translateY(-12px) rotate(-5deg)}
   35%{opacity:1;transform:translateY(0) rotate(3deg)}65%{transform:rotate(-1.4deg)}100%{opacity:1;transform:none}}
 @keyframes lv3sway{0%,100%{transform:none}30%{transform:rotate(2.4deg)}65%{transform:rotate(-1.6deg)}}
+/* the end of the tour: the tags ring like bells on a beam, one after the other,
+   and keep a coloured glow while the end card is up */
+@keyframes lv3ring{0%,100%{transform:none}12%{transform:rotate(7deg)}28%{transform:rotate(-6deg)}
+  44%{transform:rotate(4deg)}60%{transform:rotate(-2.5deg)}76%{transform:rotate(1deg)}}
+#lv3jump.lv3-call li{animation:lv3ring 1.3s ease-in-out 3 both;
+  filter:drop-shadow(0 0 7px color-mix(in srgb,var(--rc,#2b8b8f) 70%,transparent)) drop-shadow(0 6px 10px rgba(35,28,10,.22));}
+#lv3jump.lv3-call li:nth-child(2){animation-delay:.12s}
+#lv3jump.lv3-call li:nth-child(3){animation-delay:.24s}
+#lv3jump.lv3-call li:nth-child(4){animation-delay:.36s}
+#lv3jump.lv3-call li:nth-child(5){animation-delay:.48s}
+#lv3jump.lv3-call a::after{opacity:1;}
+.lv3.is-hot #lv3jump.lv3-call{opacity:1;}
+@media (prefers-reduced-motion:reduce){#lv3jump.lv3-call li{animation:none;}}
 /* a space opening on the map: the tags step back with the other labels */
 .lv3.is-hot .lv3-jump{opacity:.38;}
 
@@ -1328,10 +1352,6 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
   <p class="lv3-end__line">That was the whole tower, top to bottom.</p>
   <p class="lv3-end__sub">A project, resource and portfolio by Pierre-Antoine Descoteaux.
     Every room stays open. Go and look around.</p>
-  <p class="lv3-end__go">
-    <a href="work.html">See the work</a>
-    <a href="resources.html">The resources</a>
-  </p>
 </aside>
 
 <div id="lv3invite" role="dialog" aria-modal="false" aria-labelledby="lv3invitetitle">
@@ -3162,6 +3182,7 @@ function showEnd(){
   endEl.hidden = false;
   void endEl.offsetWidth;
   endEl.classList.add('on');
+  document.getElementById('lv3jump').classList.add('lv3-call');
   clearTimeout(endTimer);
   endTimer = setTimeout(hideEnd, END_MS);
 }
@@ -3170,6 +3191,7 @@ function hideEnd(){
   endOn = false;
   clearTimeout(endTimer);
   endEl.classList.remove('on');
+  document.getElementById('lv3jump').classList.remove('lv3-call');
   setTimeout(function(){ if (!endOn) endEl.hidden = true; }, 560);
 }
 /* the hold the card carries, read by descending() */

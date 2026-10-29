@@ -153,8 +153,10 @@ var GUIDE_SPECTRUM_GLOSS = { share: "spectrum-share", size: "spectrum-size", tim
   ".fg-short .fg-ch{padding-top:clamp(26px,4vh,40px)}" +
   ".fg-short .fg-h h2{font-size:clamp(1.5rem,2.6vw,2rem)}" +
   ".fg-sumlist{margin:0;padding:0;list-style:none}" +
-  ".fg-sumlist li{padding:12px 0;border-top:1px solid var(--line,rgba(34,48,31,.14))}" +
-  ".fg-sumlist b{display:block;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:1.15rem;color:var(--ink,#22301f)}" +
+  ".fg-sumlist li{padding:18px 0 16px;border-top:1px solid var(--line,rgba(34,48,31,.14))}" +
+  /* each area's name reads as a heading over its summary (P-A, 2026-10-29: it was no bigger than the text) */
+  ".fg-sumlist b{display:block;font-family:var(--serif,Georgia,serif);font-weight:400;font-size:clamp(1.4rem,1.25rem + .5vw,1.65rem);line-height:1.2;color:var(--ink,#22301f);margin-bottom:6px}" +
+  ".fg-howgo{margin:0 0 26px}.fg-howgo .fg-full{margin-top:0}" +
   ".fg-sumlist span{color:var(--ink-soft,#5c6b57);line-height:1.55}" +
   ".fg-full{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:99px;background:var(--green-deep,#3c6b32);color:#fff!important;font-weight:700;margin-top:14px}";
   var st = document.createElement("style"); st.id = "fg-css"; st.textContent = c;
@@ -201,7 +203,8 @@ function guideBodyHTML(t, k, opts){
   var diag = k.diagram ? '<figure class="fg-plate fg-diag"><img src="'+esc(k.diagram.src)+'" alt="'+esc(k.diagram.cap||("How a "+t.name+" is laid out"))+'" loading="lazy" onerror="this.parentElement.remove()"><figcaption><b>Plate</b>'+esc(k.diagram.cap||"")+'</figcaption></figure>' : "";
   var howHTML;
   if (SHORT) {
-    howHTML = '<ul class="fg-sumlist">'+areas.map(function(a){
+    /* the preview shows the drawing plain; its labels and arrows live in the full guide (P-A, 2026-10-29) */
+    howHTML = diag + '<p class="fg-howgo"><a class="fg-full" href="type.html?t='+esc(t.slug)+'">Read the full guide →</a></p>' + '<ul class="fg-sumlist">'+areas.map(function(a){
       return '<li><b>'+esc(THEMES[a].label)+'</b><span>'+esc(areaOf(a).summary)+'</span></li>';
     }).join("")+'</ul>';
   } else {

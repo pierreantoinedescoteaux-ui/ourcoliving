@@ -35,16 +35,33 @@ var QuizScore = (function () {
   function has(arr, i) { return Array.isArray(arr) && arr.indexOf(i) >= 0; }
   function picks(v) { return Array.isArray(v) ? v : typeof v === "number" ? [v] : []; }
   function isMulti(q) { return q.multi || q.kind === "rank"; }
-  /* 7 slider positions → 5 labels */
-  function stopIndex(v) { return [0, 1, 1, 2, 3, 3, 4][v]; }
-  function stopLabel(q, v) { return q && q.stops && v != null ? q.stops[stopIndex(Math.max(0, Math.min(6, Math.round(v))))] : null; }
+  /* v3: one label per slider position */
+  function stopLabel(q, v) { return q && q.stops && v != null ? q.stops[Math.max(0, Math.min(6, Math.round(v)))] : null; }
+  function hasOpen(q) { return q.kind !== "text" && !q.noOpen; }
+
+  /* ---------- the gate: how much you'd share picks own home, a bit of both or a shared home ---------- */
+  function gateOf(a) { if (a.gatePick != null) return ["own", "between", "shared"][a.gatePick]; var v = a.share; return v == null ? "between" : v <= 2 ? "own" : v === 3 ? "between" : "shared"; }
+  function inGate(q, a) { return !q.gates || q.gates.indexOf(gateOf(a)) >= 0; }
+  /* answers to another gate's questions (share changed afterwards) are dropped */
+  function clean(st) {
+    var out = { a: {}, h: {}, o: {} };
+    allQuestions().forEach(function (q) {
+      if (!inGate(q, st.a)) return;
+      if (st.a[q.id] != null) out.a[q.id] = st.a[q.id];
+      if (st.h && st.h[q.id]) out.h[q.id] = true;
+      if (st.o && st.o[q.id]) out.o[q.id] = true;
+    });
+    return out;
+  }
   function joinList(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; }
   function lower(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
 
   /* ---------- share link: one token per question, in order ---------- */
   function encode(st) {
+    var o = st.o || {};
     var toks = allQuestions().map(function (q) {
       var v = st.a[q.id];
+      if (o[q.id] && v == null) return "_";
       if (q.kind === "slider") return v == null ? "" : String(v) + (st.h[q.id] ? "h" : "");
       if (q.kind === "rank") return (v || []).map(function (i) { return i.toString(36); }).join("-");
       if (q.multi) { var m = 0; (v || []).forEach(function (i) { m |= 1 << i; }); return m ? m.toString(36) : ""; }
@@ -57,10 +74,11 @@ var QuizScore = (function () {
   function decode(hash) {
     var m = /q=(\d+)\.([^&]*)/.exec(hash || "");
     if (!m || +m[1] !== QUIZ.version) return null;
-    var toks = m[2].split("."), st = { a: {}, h: {} };
+    var toks = m[2].split("."), st = { a: {}, h: {}, o: {} };
     allQuestions().forEach(function (q, i) {
       var t = toks[i];
       if (t == null || t === "") return;
+      if (t === "_") { if (hasOpen(q)) st.o[q.id] = true; return; }
       if (q.kind === "slider") {
         var n = parseInt(t, 10);
         if (n >= 0 && n <= 6) { st.a[q.id] = n; if (/h/.test(t)) st.h[q.id] = true; }
@@ -100,6 +118,10 @@ var QuizScore = (function () {
     grp(picks(a.setting).map(function (i) { return N.setting[i]; }));
     grp(picks(a.hosts).map(function (i) { return N.hosts[i]; }));
     if (a.savings != null) grp([N.savings[a.savings]]);
+    ["community", "keep", "pool"].forEach(function (k) { grp(picks(a[k]).map(function (i) { return N[k][i]; })); });
+    if (a.give != null) grp([N.give[a.give]]);
+    if (a.space != null && a.space <= 1) grp([N.space[0]]);
+    if (a.space != null && a.space >= 5) grp([N.space[1]]);
     return g;
   }
 
@@ -137,7 +159,7 @@ var QuizScore = (function () {
       score += Math.min(3, careHits.length);
       var hold = setups(t, "holding"), dec = setups(t, "decisions");
       var holdHit = holdPicks.filter(function (h) { return hold.indexOf(h) >= 0; });
-      if (holdHit.length) score += 3;
+      if (holdHit.length) score += [3, 2, 1][Math.min(2, holdPicks.indexOf(holdHit[0]))];   /* ranked: first choice weighs most */
       var decHit = typeof a.decisions === "number" && dec.indexOf(DK[a.decisions]) >= 0 ? DK[a.decisions] : null;
       if (decHit) score += 2;
       if (a.own != null) {
@@ -182,7 +204,7 @@ var QuizScore = (function () {
       if (!q || !q.stops || g.d < 12) return false;
       if (g.k === "effort" && st.a.role !== 1) return false;   /* effort to start it only matters to founders */
       var mid = (g.r[0] + g.r[1]) / 2 / 100 * 6, theirs = stopLabel(q, mid), yours = stopLabel(q, st.a[g.k]);
-      if (Math.abs(stopIndex(Math.round(mid)) - stopIndex(st.a[g.k])) < 2 && g.d < 25) return false;
+      if (Math.abs(Math.round(mid) - st.a[g.k]) < 3 && g.d < 25) return false;
       best = { d: g.d, txt: L.differsLine(q.topic, lower(theirs), lower(yours)) };
       return true;
     });
@@ -192,8 +214,9 @@ var QuizScore = (function () {
 
   /* ---------- fit with living together ---------- */
   function fit(a) {
-    var keys = ["recharge", "conflict", "dishes", "cook", "share"], s = 0, n = 0;
+    var keys = ["recharge", "conflict", "share"], s = 0, n = 0;
     keys.forEach(function (k) { if (a[k] != null) { s += pos(a[k]); n++; } });
+    if (typeof a.meals === "number") { s += pos(a.meals * 2); n++; }
     var v = n ? s / n : 60, F = QUIZ.letter.fit, i = 0;
     while (i < F.length - 1 && v < F[i].min) i++;
     return { value: Math.round(v), band: i };
@@ -233,8 +256,9 @@ var QuizScore = (function () {
     // social life
     var mealsQ = qById("meals"), meals, mBecause = "";
     if (typeof a.meals === "number") meals = a.meals;
-    else if (a.cook == null) { meals = 1; mBecause = B.mealsNone; }
-    else { meals = [0, 0, 1, 1, 2, 2, 3][a.cook]; mBecause = B.meals(a.cook); }
+    else if (has(a.community, 1)) { meals = 2; mBecause = B.meals.community; }
+    else if (gateOf(a) === "shared") { meals = 2; mBecause = B.meals.shared; }
+    else { meals = 1; mBecause = B.mealsNone; }
     var mo = mealsQ.options[meals];
     rows.push({ area: "Social life", img: "icon-social.webp", pick: typeof a.meals === "number",
       title: mo === "Now and then" ? "Dinner together now and then" : "Dinner together " + mo.toLowerCase(),
@@ -244,8 +268,8 @@ var QuizScore = (function () {
     var dec, dBecause = "", decPick = typeof a.decisions === "number";
     if (decPick) dec = DK[a.decisions];
     else if (n(power, 60) < 34) { dec = "founder"; dBecause = B.decisions.founder; }
-    else if (a.meetings != null && a.meetings <= 2) { dec = "advice"; dBecause = B.decisions.advice; }
-    else if ((a.meetings != null && a.meetings >= 4 && n(a.conflict, 3) >= 4) || n(size, 50) >= 67) { dec = "consent"; dBecause = B.decisions.consent; }
+    else if (a.recharge != null && a.recharge <= 1) { dec = "advice"; dBecause = B.decisions.advice; }
+    else if ((a.conflict != null && a.conflict >= 4) || n(size, 50) >= 67) { dec = "consent"; dBecause = B.decisions.consent; }
     else { dec = setups(top.t, "decisions")[0] || "consent"; dBecause = B.decisions.type; }
     var gov = n(size, 50) < 34 && dec !== "founder" ? S.govStyle.small : n(size, 50) >= 67 ? S.govStyle.large : "";
     rows.push({ area: "Decisions", img: "mini-decisions-" + dec + ".webp", pick: decPick,
@@ -336,8 +360,9 @@ var QuizScore = (function () {
     var a = st.a, f = {
       rechargeLow: a.recharge != null && a.recharge <= 2, rechargeHigh: a.recharge != null && a.recharge >= 4,
       conflictLow: a.conflict != null && a.conflict <= 2, conflictHigh: a.conflict != null && a.conflict >= 4,
-      meetingsLow: a.meetings != null && a.meetings <= 2, meetingsHigh: a.meetings != null && a.meetings >= 5,
-      dishesLow: a.dishes != null && a.dishes <= 1, cookHigh: a.cook != null && a.cook >= 5,
+      gateOwn: gateOf(a) === "own", gateShared: gateOf(a) === "shared",
+      poolIncome: has(a.pool, 3), valuesPick: has(a.community, 3), giveLow: a.give === 0,
+      comfortHigh: a.space != null && a.space >= 5, mealsLove: has(a.community, 1) || a.meals === 3,
       timeHigh: a.time != null && a.time >= 5, shortStayType: top.t.ranges.time[1] < 60,
       start: a.role === 1, effortLow: a.effort != null && a.effort <= 1, hoursLow: a.hours === 0,
       ownHigh: a.own != null && a.own >= 5, shareHigh: a.share != null && a.share >= 4, fitBand: fitBand
@@ -368,18 +393,24 @@ var QuizScore = (function () {
 
   /* ---------- what matters to you, reflected back ---------- */
   function mirror(st) {
-    var a = st.a, hq = qById("hopes"), cq = qById("care"), stand = [];
-    QUIZ.steps.filter(function (s) { return s.id === "values"; })[0].questions.forEach(function (q) {
-      if (q.kind === "slider" && a[q.id] != null) stand.push({ k: q.id, topic: q.topic, label: stopLabel(q, a[q.id]), x: pos(a[q.id]), heart: !!st.h[q.id] });
-    });
+    var a = st.a, hq = qById("hopes"), cq = qById("care"), stand = [], G = QUIZ.steps.filter(function (s) { return s.gate; })[0], g = gateOf(a);
+    var around = [];
+    ["community", "keep", "pool"].forEach(function (k) { if (inGate(qById(k), a)) picks(a[k]).forEach(function (i) { var o = qById(k).options[i]; around.push(o.t || o); }); });
+    QUIZ.steps.filter(function (s) { return s.id === "values" || s.gate; }).forEach(function (S) { S.questions.forEach(function (q) {
+      if (q.kind !== "slider" || !q.stops) return;
+      if (a[q.id] != null) stand.push({ k: q.id, topic: q.topic, label: stopLabel(q, a[q.id]), x: pos(a[q.id]), heart: !!st.h[q.id] });
+      else if ((st.o || {})[q.id]) stand.push({ k: q.id, topic: q.topic, label: QUIZ.open.one, x: null, heart: false });
+    }); });
     return {
       hopes: (a.hopes || []).map(function (i, j) { var o = hq.options[i]; return { t: o.t, img: o.img, rank: j < 3 ? j + 1 : 0 }; }),
       care: (a.care || []).map(function (i) { return cq.options[i]; }),
-      stand: stand
+      stand: stand,
+      gate: { t: G.gates[g].title, img: G.gates[g].img }, around: around
     };
   }
 
   function result(st) {
+    st = clean(st);
     var ranked = matchAll(st), top = ranked[0], a = st.a, L = QUIZ.letter;
     var F = fit(a), su = setup(st, top);
     var fitText = L.fit[F.band];
@@ -399,6 +430,7 @@ var QuizScore = (function () {
   }
 
   return { encode: encode, decode: decode, result: result, matchAll: matchAll, allQuestions: allQuestions, derive: derive,
-    stopLabel: stopLabel, qById: qById, MAP_KEYS: MAP_KEYS, isMulti: isMulti };
+    stopLabel: stopLabel, qById: qById, MAP_KEYS: MAP_KEYS, isMulti: isMulti, hasOpen: hasOpen,
+    gateOf: gateOf, inGate: inGate, clean: clean };
 })();
 if (typeof module !== "undefined") module.exports = QuizScore;

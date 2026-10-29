@@ -5,13 +5,16 @@
    projects-data.js. Draft + rationale: FOR PIERRE-ANTOINE/QUIZ-CONTENT-DRAFT.md.
    Answer order is part of the share link: ADD new questions at the END
    of a step's list and bump QUIZ.version, never reorder.
+   v4 (2026-10-29): step 4 is a gate. How much you'd share picks one of
+   three (own home, a bit of both, a shared home); each shows only the
+   questions with that gate in `gates` (no `gates` = every gate).
    v2 (2026-10-28): multi-select stickers, a ranked "hopes" step, slider
    stops, 20 things to care about, "?" notes from hub-cards-data.js.
    A sticker's `hub: "group:id"` points at HUB_CARDS for its "?" note.
    ===================================================================== */
 const QUIZ_IMG = "images/hub/";
 const QUIZ = {
-  version: 2,
+  version: 5,
   intro: {
     eyebrow: "The lookout · find your fit",
     title: "Find your way of living together",
@@ -23,21 +26,23 @@ const QUIZ = {
     fresh: "Start fresh"
   },
   helpImg: "mini-maptech-lens.webp",
+  /* every question but the factual ones has a way out: "Open to many things" (pick-any) or "Not sure" */
+  open: { multi: "Open to many things", one: "Not sure", img: "mini-quiz-open.webp", mapMore: "See it on the map" },
   more: "Read more in the guide",
 
   steps: [
     { id: "you", title: "You, today", img: "icon-who.webp",
       lede: "A little about where you are in life, so the letter speaks to you.",
       questions: [
-        { id: "base", kind: "chips", q: "Where are you based?",
+        { id: "base", kind: "chips", noOpen: true, q: "Where are you based?",
           options: ["Quebec", "Elsewhere in Canada", "United States", "Europe", "Somewhere else"] },
-        { id: "with", kind: "chips", q: "Who would come with you?",
+        { id: "with", kind: "chips", noOpen: true, q: "Who would come with you?",
           options: ["Just me", "My partner", "My family, with kids", "A few friends", "I’m open"] },
-        { id: "life", kind: "chips", multi: true, q: "Which of these sound like you right now?", hint: "Pick any.",
+        { id: "life", kind: "chips", noOpen: true, multi: true, q: "Which of these sound like you right now?", hint: "Pick any.",
           options: ["Studying", "Starting out in my 20s or 30s", "Building a company or project", "Raising kids",
             "Raising kids on my own", "Working remotely", "New to the city or the country", "An artist or maker",
             "Going through a change (a move, a breakup, kids leaving home)", "Retired, or getting close"] },
-        { id: "setting", kind: "stickers", multi: true, q: "Where would you love to live?", hint: "Pick any. Leave it empty if anywhere good would do.",
+        { id: "setting", kind: "stickers", multi: true, openLabel: "Anywhere good", q: "Where would you love to live?", hint: "Pick any.",
           options: [{ t: "City", img: "mini-setting-city.webp", hub: "setting:city" }, { t: "Suburb", img: "mini-setting-suburb.webp", hub: "setting:suburb" },
             { t: "Countryside", img: "mini-setting-countryside.webp", hub: "setting:countryside" }] }
       ] },
@@ -68,26 +73,29 @@ const QUIZ = {
     { id: "values", title: "What matters to you", img: "mini-map-compass.webp",
       lede: "Each slider is one of the spectrums on our map. Slide to the spot that sounds like you, and tap the heart on the ones that matter most.",
       questions: [
-        { id: "share", kind: "slider", spectrum: "share", heart: true, q: "How much of daily life would you share?", topic: "Sharing",
-          stops: ["My own place, a few shared rooms", "My own place, plus a common house", "Some rooms and meals shared", "A shared home, most meals together", "Shared home, maybe shared money"],
+        { id: "share", kind: "slider", img: "icon-governance.webp", spectrum: "share", heart: true, q: "How much of daily life would you share?", topic: "Sharing",
+          stops: ["My own home, a few shared rooms nearby", "My own home, plus a common house", "My own home, and meals together now and then", "My own room, a shared kitchen and living room", "A shared home, most meals together", "A shared home, groceries and chores too", "A shared home, and some of our money"],
+          note: { name: "Sharing daily life", href: "map.html?x=share&y=size#map", summary: "At one end you keep your own home and share a few rooms, like in cohousing. At the other end you share a home, meals and even money, like on a kibbutz." },
           said: ["you want your own place with a few shared rooms", "you’d share some of daily life", "you’d share most of daily life"] },
-        { id: "size", kind: "slider", spectrum: "size", heart: true, q: "How many neighbours feels right?", topic: "Size",
-          stops: ["A handful of housemates", "About ten people", "Fifteen to thirty-five homes", "A neighbourhood of fifty or more", "A whole village"],
+        { id: "size", kind: "slider", img: "mini-size-medium.webp", spectrum: "size", heart: true, q: "How many neighbours feels right?", topic: "Size",
+          stops: ["Two or three housemates", "A handful of housemates", "About ten people", "Fifteen to thirty homes", "Thirty to fifty homes", "A neighbourhood, fifty homes or more", "A whole village"],
           said: ["a handful of housemates feels right", "you’d like a group big enough for variety", "you’d love a whole village"] },
-        { id: "time", kind: "slider", spectrum: "time", heart: true, q: "How long do you picture staying?", topic: "Staying",
-          stops: ["A season", "About a year", "A few years", "Five years or more", "For good"],
+        { id: "time", kind: "slider", img: "mini-quiz-time.webp", spectrum: "time", heart: true, q: "How long do you picture staying?", topic: "Staying",
+          stops: ["A season", "About a year", "A couple of years", "A few years", "Five years or so", "Ten years or more", "For good"],
           said: ["you picture staying a season or a year", "you picture staying a few years", "you picture staying for good"] },
-        { id: "power", kind: "slider", spectrum: "power", heart: true, q: "How much say do you want in how it runs?", topic: "Running it",
-          stops: ["Someone else runs it", "Run for me, I give ideas", "A say in some things", "A real say in most things", "We all run it together"],
+        { id: "power", kind: "slider", img: "mini-quiz-power.webp", spectrum: "power", heart: true, q: "Who runs the place?", topic: "Running it",
+          stops: ["Someone else runs it, I just live there", "Someone else runs it, and asks for my ideas", "They run it, we decide a few things", "We share it with whoever runs it", "We run most of it ourselves", "We run it, with a few people leading", "We all run it together, equally"],
+          note: { name: "Who runs the place", href: "map.html?x=power&y=autonomy#map", summary: "Some places are run by a founder or a company, and you mostly get to live there. In others every resident has a say, and the group runs the place itself." },
           said: ["you’d rather someone else ran it", "you’d like some say in how it runs", "you want everyone to run it together"] },
-        { id: "autonomy", kind: "slider", spectrum: "autonomy", heart: true, q: "When you and the group want different things…", topic: "You and the group",
-          stops: ["Mostly my own needs", "Leaning to my needs", "Half and half", "Leaning to the group", "Mostly the group’s needs"],
+        { id: "autonomy", kind: "slider", img: "mini-quiz-autonomy.webp", spectrum: "autonomy", heart: true, q: "When you and the group want different things…", topic: "You and the group",
+          stops: ["My own needs, nearly always", "Mostly my own needs", "Leaning to my needs", "Half and half", "Leaning to the group", "Mostly the group’s needs", "The group’s needs, nearly always"],
+          note: { name: "You and the group", href: "map.html?x=power&y=autonomy#map", summary: "Every shared place balances what each person needs with what the group needs. Some leave you lots of freedom, others ask you to put the group first more often." },
           said: ["you’d keep plenty of room for yourself", "you’d balance your needs with the group’s", "you’d often put the group first"] },
-        { id: "effort", kind: "slider", spectrum: "effort", heart: true, oneWay: true, q: "How much would you put in to make it exist?", topic: "Effort to get there",
-          stops: ["Move in this year", "A year or two of work", "A few years of meetings", "Years of planning and money", "Land, permits, money, the lot"],
+        { id: "effort", kind: "slider", img: "mini-quiz-effort.webp", spectrum: "effort", heart: true, oneWay: true, q: "How much would you put in to make it exist?", topic: "Effort to get there",
+          stops: ["Move in this year", "Move in next year", "A year or two of work", "A few years of meetings", "Years of planning, some of my savings", "Years of planning and real money", "Land, permits, money, the lot"],
           said: ["you’d like to move in soon", "you’d give a project a few years", "you’d put years into making it exist"] },
-        { id: "purpose", kind: "slider", spectrum: "purpose", heart: true, q: "Do you want a shared purpose?", topic: "Shared purpose",
-          stops: ["Good neighbours is plenty", "A few shared habits", "A loose shared purpose", "Shared values we act on", "A mission or belief we share"],
+        { id: "purpose", kind: "slider", img: "mini-quiz-purpose.webp", spectrum: "purpose", heart: true, q: "Do you want a shared purpose?", topic: "Shared purpose",
+          stops: ["Good neighbours is plenty", "Friendly neighbours, a few traditions", "A few shared habits", "A loose shared purpose", "Shared values we live by", "Shared values we act on together", "A mission or belief we share"],
           said: ["good neighbours is plenty for you", "a loose shared purpose appeals to you", "you want a mission you share"] },
         { id: "care", kind: "chips", multi: true, q: "What would you love the place to care about?", hint: "Pick as many as you like.",
           options: ["Growing food", "Making our own energy", "Gardens and nature", "Art and music", "A workshop to make and repair",
@@ -96,14 +104,46 @@ const QUIZ = {
             "Car-free living", "Animals", "Low waste", "Celebrations and rituals", "Quiet and retreat"] }
       ] },
 
-    { id: "about", title: "A bit about you", img: "icon-privacy.webp", skippable: true, skip: "Skip this step",
-      lede: "No right answers here. This shapes the advice more than the result.",
+    { id: "gate", gate: true, title: "Your kind of home", img: "mini-quiz-gate-between.webp", skippable: true, skip: "Skip this step",
+      eyebrow: "Halfway there",
+      change: "Not quite you? Change how much you’d share",
+      /* the pause before the gate: a likely direction, never a verdict */
+      pause: { lead: "From your answers so far, you might lean toward", yes: "That sounds like me",
+        others: "Or one of these might fit you better", switchTo: "Not this one? Switch to" },
+      gates: {
+        own: { title: "Your own front door", img: "mini-quiz-gate-own.webp", likely: "a home of your own", what: "Your own home, with shared spaces and neighbours close by.",
+          pause: "A front door that’s yours, with neighbours you know by name close by.",
+          lede: "You’d like a home of your own, with good neighbours close by. A few questions about the life around it." },
+        between: { title: "A bit of both", img: "mini-quiz-gate-between.webp", likely: "a bit of both", what: "Your own room or flat, plus shared rooms like a kitchen or a garden.",
+          pause: "Some of your own and some shared. Many people start right here, and it keeps lots of doors open.",
+          lede: "Some of your own and some shared, or not sure yet. Many people start right here. A few questions to find your balance." },
+        shared: { title: "A shared home", img: "mini-quiz-gate-shared.webp", likely: "a shared home", what: "One home shared with others, the kitchen and evenings included.",
+          pause: "Sharing a home, with the kitchen and the evenings that come with it.",
+          lede: "You’d like to share a home. A few questions about what that looks like day to day." }
+      },
       questions: [
-        { id: "recharge", kind: "slider", q: "After a long day, you recharge…", lo: "Alone, door closed", hi: "Around people" },
-        { id: "conflict", kind: "slider", q: "When something about a housemate bugs you…", lo: "I mostly let it go", hi: "I bring it up and talk it through" },
-        { id: "meetings", kind: "slider", q: "A two-hour house meeting sounds…", lo: "Draining", hi: "Kind of fun, honestly" },
-        { id: "dishes", kind: "slider", q: "Someone else’s dishes in the sink…", lo: "Ruin my evening", hi: "I barely notice" },
-        { id: "cook", kind: "slider", q: "Cooking dinner for fifteen, once a month?", lo: "Please, no", hi: "Yes please" }
+        { id: "community", gates: ["own", "between"], kind: "stickers", multi: true, q: "How would you feel the community, day to day?", hint: "Pick any.",
+          options: [{ t: "Bumping into neighbours on a walkable street", img: "mini-quiz-walk.webp" },
+            { t: "Shared meals now and then", img: "mini-quiz-eat.webp" },
+            { t: "Activities and celebrations", img: "mini-quiz-activities.webp" },
+            { t: "Neighbours who share my values", img: "mini-quiz-values.webp" },
+            { t: "Helping each other out, like with kids or rides", img: "mini-quiz-help.webp" },
+            { t: "Growing food together", img: "mini-quiz-food.webp" }] },
+        { id: "keep", gates: ["between"], kind: "stickers", multi: true, q: "What would you keep for yourself?", hint: "Pick any.",
+          options: [{ t: "My own bathroom", img: "mini-quiz-bath.webp" }, { t: "A small kitchen", img: "mini-quiz-kitchenette.webp" },
+            { t: "My own entrance", img: "mini-quiz-entrance.webp" }, { t: "A room to work in", img: "mini-quiz-work.webp" }] },
+        { id: "pool", gates: ["shared"], kind: "stickers", multi: true, q: "What would you pool together?", hint: "Pick any.",
+          options: [{ t: "Groceries", img: "mini-quiz-groceries.webp" }, { t: "The bills", img: "mini-quiz-bills.webp" },
+            { t: "Tools and cars", img: "mini-quiz-tools.webp" }, { t: "Some of our income", img: "mini-quiz-income.webp" }] },
+        { id: "give", gates: ["shared"], kind: "chips", img: "icon-toolbox.webp", q: "How much time would you give the house each week?",
+          options: ["An hour or two", "Half a day", "A day or more"] },
+        { id: "space", kind: "slider", img: "mini-quiz-comfort.webp", q: "How much space and comfort would you like?", topic: "Space and comfort",
+          stops: ["Small and simple, light on the earth", "Small, with good shared spaces", "Modest and comfortable", "Comfortable, nothing fancy",
+            "Comfortable, with a few nice extras", "Roomy, with shared amenities", "Roomy, with a gym or a pool"] },
+        { id: "recharge", kind: "slider", img: "icon-privacy.webp", q: "After a long day, you recharge…", lo: "Alone, door closed", hi: "Around people" },
+        { id: "conflict", gates: ["shared"], kind: "slider", img: "mini-govstyles-informal-gov.webp", q: "When something about a housemate bugs you…", lo: "I mostly let it go", hi: "I bring it up and talk it through" },
+        /* set when someone picks another gate than the one their answers point to; never shown as a question */
+        { id: "gatePick", kind: "chips", hidden: true, noOpen: true, options: ["own", "between", "shared"] }
       ] },
 
     { id: "setup", title: "How you’d set it up", img: "icon-toolbox.webp",
@@ -117,28 +157,28 @@ const QUIZ = {
           options: [{ t: "Just homes", img: "mini-hosts-homes.webp", hub: "hosts:homes" },
             { t: "Homes with shops, studios or workspaces", img: "mini-hosts-mixed-use.webp", hub: "hosts:mixed-use" },
             { t: "Homes on a farm", img: "mini-hosts-farm.webp", hub: "hosts:farm" }] },
-        { id: "meals", kind: "chips", area: "Social life", q: "How often would you love to eat together?",
+        { id: "meals", kind: "chips", img: "mini-quiz-eat.webp", area: "Social life", q: "How often would you love to eat together?",
           options: ["Now and then", "Once a week", "A few nights a week", "Most nights"] },
-        { id: "decisions", kind: "stickers", area: "Decisions", q: "How should decisions get made?", help: true,
+        { id: "decisions", kind: "stickers", noOpen: true, area: "Decisions", q: "How should decisions get made?", help: true,
           options: [{ t: "Someone I trust decides", img: "mini-decisions-founder.webp", hub: "decisions:founder" },
             { t: "We vote", img: "mini-decisions-vote.webp", hub: "decisions:vote" },
             { t: "We only go ahead when everyone agrees", img: "mini-decisions-consensus.webp", hub: "decisions:consensus" },
             { t: "We go ahead unless someone has a serious objection", img: "mini-decisions-consent.webp", hub: "decisions:consent" },
             { t: "Whoever cares most decides, after asking around", img: "mini-decisions-advice.webp", hub: "decisions:advice" }] },
-        { id: "own", kind: "slider", area: "Your home", q: "How important is owning your own space?",
-          stops: ["Not at all, I’d rather stay free to leave", "Not very", "Nice to have", "Important", "Essential, I want it to be mine"] },
-        { id: "holding", kind: "stickers", multi: true, area: "Your home", q: "How would you like to hold your home?", hint: "Pick any you’d consider.",
+        { id: "own", kind: "slider", img: "mini-extra-mailbox.webp", area: "Your home", q: "How important is owning your own space?",
+          stops: ["Not at all, I’d rather stay free to leave", "Not much, renting suits me", "Not very", "Nice to have", "Important", "Very important", "Essential, I want it to be mine"] },
+        { id: "holding", kind: "rank", area: "Your home", q: "How would you like to hold your home?", hint: "Tap in order of preference. Your first three are ranked 1, 2, 3.", also: "also",
           options: [{ t: "Own it", img: "mini-holding-own.webp", hub: "holding:own" }, { t: "A share in the whole", img: "mini-holding-shares.webp", hub: "holding:shares" },
             { t: "Rent", img: "mini-holding-rent.webp", hub: "holding:rent" }, { t: "A membership with my room included", img: "mini-holding-membership.webp", hub: "holding:membership" },
             { t: "The right to live there, held by the group", img: "mini-holding-use-rights.webp", hub: "holding:use-rights" }] },
-        { id: "savings", kind: "chips", area: "Money", q: "Would you put your savings into it?",
+        { id: "savings", kind: "chips", img: "icon-money.webp", area: "Money", q: "Would you put your savings into it?",
           options: ["No, I’d rather keep my savings free", "Some, for a share I get back when I leave", "Yes, I’d buy my home", "I could help fund the whole thing"] }
       ] },
 
     { id: "path", title: "Join or start", img: "icon-path.webp",
       lede: "Last one. Then your letter.",
       questions: [
-        { id: "role", kind: "chips", q: "Are you looking to…", options: ["Join a place that exists", "Start one with others", "Not sure yet"] },
+        { id: "role", kind: "chips", noOpen: true, q: "Are you looking to…", options: ["Join a place that exists", "Start one with others", "Not sure yet"] },
         { id: "hours", kind: "chips", q: "How much time could you give it, each month?", options: ["A few hours", "A day or two", "A lot, it would be my project"] },
         { id: "name", kind: "text", q: "Who should the letter be addressed to?", hint: "Your first name, if you like.", placeholder: "Your first name" }
       ] }
@@ -173,6 +213,36 @@ const QUIZ = {
     ],
     hosts: [ null, { "network-village": 2, "entrepreneur-house": 1, why: "you’d like work and shops on site" },
       { ecovillage: 5, kibbutz: 3, why: "you’d love homes on a farm" } ],
+    community: [
+      { "network-village": 3, cohousing: 2, baugruppen: 1, why: "you’d love a walkable street where you bump into neighbours" },
+      { cohousing: 3, kibbutz: 1, "student-coop": 1, why: "shared meals are part of community for you" },
+      { cohousing: 2, ecovillage: 1, "rural-coliving": 2, "entrepreneur-house": 1, why: "you’d love activities and celebrations together" },
+      { ecovillage: 3, kibbutz: 3, why: "you want neighbours who share your values" },
+      { cohousing: 3, "network-village": 1, why: "you’d love neighbours who help each other out" },
+      { ecovillage: 4, kibbutz: 2, "rural-coliving": 1, why: "you’d love to grow food together" }
+    ],
+    keep: [
+      { "operator-coliving": 3, "entrepreneur-house": 1, why: "you’d want your own bathroom" },
+      { cohousing: 3, baugruppen: 2, "operator-coliving": 1, why: "you’d want a small kitchen of your own" },
+      { cohousing: 3, baugruppen: 3, why: "you’d want your own entrance" },
+      { "entrepreneur-house": 2, "hacker-house": 2, "rural-coliving": 2, why: "you’d want a room to work in" }
+    ],
+    pool: [
+      { "student-coop": 3, "hacker-house": 1, "entrepreneur-house": 1, why: "you’d pool the groceries" },
+      { "student-coop": 2, "operator-coliving": 1, why: "you’d share the bills" },
+      { ecovillage: 2, cohousing: 1, kibbutz: 1, why: "you’d share tools and cars" },
+      { kibbutz: 6, why: "you’d pool some of your income" }
+    ],
+    give: [
+      { "operator-coliving": 3, "hacker-house": 1, why: "an hour or two a week for the house suits you" },
+      { "student-coop": 2, cohousing: 1, why: "you’d give the house half a day a week" },
+      { kibbutz: 3, ecovillage: 3, "student-coop": 1, why: "you’d give the house a day or more a week" }
+    ],
+    /* the space-and-comfort slider: 0 to 1 = simple, 5 to 6 = roomy with extras */
+    space: [
+      { ecovillage: 3, kibbutz: 2, "student-coop": 2, "hacker-house": 1, why: "you’d keep things small and simple" },
+      { "operator-coliving": 4, "entrepreneur-house": 2, baugruppen: 1, why: "you’d like room to spread out, with nice extras" }
+    ],
     savings: [
       { "operator-coliving": 2, "student-coop": 2, "entrepreneur-house": 2, "rural-coliving": 2, baugruppen: -3, why: "you’d keep your savings free" },
       { cohousing: 2, "student-coop": 1, ecovillage: 2, why: "you’d put in some savings for a share" },
@@ -216,6 +286,7 @@ const QUIZ = {
     hopesLead: "What you hope it brings",
     careLead: "What you’d love the place to care about",
     standLead: "Where you stand",
+    gateLead: "Your kind of home",
     mirrorEmpty: "You kept your hopes to yourself, and that’s fine. The rest of this letter comes from your other answers.",
     blocksTitle: "Your building blocks",
     blocksLead: "The pieces of a home that fits your answers. Each one says where it came from.",
@@ -291,16 +362,17 @@ const QUIZ = {
     placesTitle: ["Places you could visit or join", "Places to learn from", "Places to go and see"],
     knowTitle: "Things to know, for your profile",
     stepsTitle: "First steps",
+    /* one link at most per list; the collective tax lives in "Things to know" only */
     steps: [
       ["Visit two of the places above, and stay a few days if they host guests.",
        "Ask the people who live there what their week looks like, and what they wish they’d known.",
-       "Find a network near you. <a href=\"networks.html\">Here are some to start with</a>."],
-      ["Find two or three people who’d want this too, and send them this quiz. A first group is usually three to eight people.",
+       "Ask how people join. Many places have a trial stay or a waiting list, and some open only a few times a year. <a href=\"networks.html\">A network near you</a> can point you to more."],
+      ["Find two or three people who’d want this too, and send them this quiz. Compare your letters over a meal.",
        "Ask yourselves whether you want to build it or mostly to live in it. Some groups hand much of the building to professionals.",
-       "Read <a href=\"themes.html#path\">the path from first meeting to moving in</a>, and pick your legal set-up early, because it shapes who can join."],
+       "Pick your legal set-up early, because it shapes who can join and how the money comes in."],
       ["Visit first. A weekend in a shared place will tell you more than any quiz, this one included.",
-       "Read about <a href=\"collective-tax.html\">the small price of living together</a>, and see how it sits with you.",
-       "Come back and take this again in a year. Answers change, and that’s part of it."]
+       "Send this letter to someone you’d live with, and talk about where your answers differ.",
+       "Write down the one thing you’d never give up and the one you’d happily share. Take both with you when you visit."]
     ],
     closing: "Whatever you choose, we hope it brings you closer to the people around you. If you start something, we’d love to hear about it.",
     signoff: "With care,",
@@ -324,13 +396,15 @@ const QUIZ = {
       h: "Say the small things early", p: "Living close, small frictions add up quietly. Places with a regular check-in make it easy to raise them, so look for one." },
     { id: "talker", when: "conflictHigh",
       h: "Groups need people like you", p: "The places that last treat disagreement as a normal part of the week. Your habit of talking things through will be welcome." },
-    { id: "light-decisions", when: "meetingsLow",
-      h: "Look for light decision-making", p: "An advice process or clear working groups keep meetings short and few." },
-    { id: "facilitator", when: "meetingsHigh",
-      h: "Your patience with meetings is rare", p: "Most groups need one or two people who enjoy running a good meeting. Learning facilitation, sociocracy for instance, would make you a gift to any group." },
-    { id: "dishes", when: "dishesLow",
-      h: "Agree on the dishes on day one", p: "Your standards help a house when they’re written down early. A cleaning rota with clear jobs keeps the peace." },
-    { id: "table", when: "cookHigh",
+    { id: "pool-income", when: "poolIncome",
+      h: "Put the money rules on paper early", p: "Groups that pool income last longer when the rules are written down before anyone moves in, including what happens when someone leaves." },
+    { id: "values", when: "valuesPick",
+      h: "Values show in what people do", p: "Most groups agree on values easily. Look for one that acts on them every week, with a work day or a table everyone is welcome at." },
+    { id: "comfort", when: "comfortHigh",
+      h: "Extras usually come with an operator", p: "A gym or weekly cleaning is easiest where an operator runs the place. Where residents run it, the extras are planned and paid for together." },
+    { id: "small-jobs", when: "gateShared && giveLow",
+      h: "A shared home runs on small jobs", p: "Cooking and repairs add up. Houses that work make the jobs visible and fair, so an hour or two from each person is enough." },
+    { id: "table", when: "mealsLove",
       h: "The shared table may be yours to start", p: "Shared meals hold most communities together, and they need someone who loves them." },
     { id: "turnover", when: "timeHigh && shortStayType",
       h: "Ask how long people stay", p: "Some places welcome new residents every season, and you picture staying longer. Ask about it when you visit, and look for a core group that stays." },
@@ -365,9 +439,9 @@ const QUIZ = {
     because: {
       building: { new: "you picture staying for good and would put years into it", converted: "you’d rather move in sooner", mixed: "you sit in the middle on time and effort" },
       hosts: { farm: "you care about growing food or animals, and want the countryside", "mixed-use": "you’re building something or want work close to home", homes: "a place with just homes is the simplest to plan and run" },
-      meals: function (v) { return v >= 4 ? "you’d happily cook for fifteen" : v <= 2 ? "cooking for fifteen isn’t your thing" : "you were in two minds about cooking for fifteen"; },
+      meals: { community: "shared meals are part of how you’d feel the community", shared: "you’d share a home, and shared homes often eat together" },
       mealsNone: "most places that last start with one shared dinner a week",
-      decisions: { founder: "you’d rather someone else ran it", advice: "long meetings sound draining to you", consent: "you’d talk things through, or want a bigger group", type: "it’s the most common choice in your closest fit" },
+      decisions: { founder: "you’d rather someone else ran it", advice: "you recharge alone, and an advice process keeps meetings few", consent: "you’d talk things through, or want a bigger group", type: "it’s the most common choice in your closest fit" },
       holding: { "use-rights": "you’d stay for good and live close to the land", own: "owning your space matters to you", shares: "you’d put in some savings for a share", membership: "you’d rather stay free to leave, and not for long", rent: "you’d rather stay free to leave", type: "it’s the usual set-up in your closest fit" },
       money: { members: "you’d put your own savings in", patron: "you could help fund the whole thing", operator: "you’d rather keep your savings free",
         "public": "you hope for a home you can afford, and would stay a while", derived: "it follows from how you’d hold your home" }

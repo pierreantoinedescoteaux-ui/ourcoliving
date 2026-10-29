@@ -17,13 +17,13 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ART = os.path.join(os.path.expanduser("~"), "Downloads", "coliving-art")
 OUT = os.path.join(ROOT, "images", "hub")
-PROMPTS = os.path.join(ROOT, "FOR PIERRE-ANTOINE", "art-queue-prompts.md")
+PROMPTS = [os.path.join(ROOT, "FOR PIERRE-ANTOINE", f) for f in ("art-queue-prompts.md", "quiz-art-prompts.md")]
 ICONS = ["building", "social", "governance", "legal", "money", "privacy", "leaving", "who", "path", "toolbox"]
 
 
 def sheet_map():
     """{'sheet-1.png': ['legal/coop', ...], ...} in reading order."""
-    text = open(PROMPTS, encoding="utf-8").read()
+    text = "\n".join(open(f, encoding="utf-8").read() for f in PROMPTS if os.path.exists(f))
     out = {}
     for block in re.split(r"\n## ", text):
         m = re.search(r"→\s*([a-z0-9-]+\.png)", block.split("\n")[0])

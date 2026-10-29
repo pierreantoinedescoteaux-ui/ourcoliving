@@ -195,6 +195,29 @@ img{display:block;max-width:100%}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* a teaching drawing with its labels written on it (design system: Imagery, Explainer). The words are
+   handwritten notes in Caveat, the arrows hand-drawn in ink; both live in code so they stay editable.
+   Wide screens: labels with arrows, one label can point at several things. Phones: numbered dots.
+   Hover, focus or tap opens one or two sentences. */
+.dg{position:relative;margin:34px 0 52px}
+.dg img{width:100%;display:block;max-height:none!important}
+.dg svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.dg svg path{fill:none;stroke:#3a2a16;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.78;vector-effect:non-scaling-stroke;transition:stroke .2s,opacity .2s}
+.dg svg g.on path{stroke:#9a4a2a;opacity:1}
+.dg .lab{position:absolute;transform:translate(-50%,-50%) rotate(var(--r,0deg));white-space:nowrap;border:0;background:none;padding:2px 6px;min-height:36px;cursor:pointer;
+  font:600 clamp(1.2rem,1.75vw,1.5rem)/1 "Caveat",cursive;color:#3a2a16;
+  text-shadow:0 0 3px #f6f2e7,0 0 6px #f6f2e7,0 0 10px #f6f2e7;transition:color .2s}
+.dg .lab:hover,.dg .lab[aria-expanded="true"]{color:#9a4a2a;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px}
+.dg .dot{display:none;position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2px solid #f6f2e7;background:#3a2a16;color:#f6f2e7;
+  font:600 1.15rem/1 "Caveat",cursive;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.dg .dot:after{content:"";position:absolute;inset:-8px}
+.dgnote{position:absolute;z-index:70;width:min(280px,calc(100vw - 32px));padding:14px 16px 12px;background:#fffbea;border-radius:3px;transform:rotate(-.6deg);
+  box-shadow:0 14px 28px -16px rgba(60,40,10,.5);font-size:.95rem;line-height:1.5;color:#3c4636}
+.dgnote b{display:block;font:600 1.4rem/1.1 "Caveat",cursive;color:#3a2a16;margin-bottom:4px}
+@media(max-width:760px){.dg .lab,.dg svg{display:none}.dg .dot{display:block}.dg{margin:18px 0 24px}}
+</style>
 <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
@@ -218,9 +241,9 @@ img{display:block;max-width:100%}
 <script src="map-data.js?v=20261024"></script>
 <script src="projects-data.js?v=20261024"></script>
 <script src="sources-data.js"></script>
-<script src="knowledge-data.js"></script>
+<script src="knowledge-data.js?v=20261029d"></script>
 <script src="guide-content-data.js"></script>
-<script src="guide-render.js?v=20261024"></script>
+<script src="guide-render.js?v=20261029b"></script>
 <script>
 (function(){
   "use strict";
@@ -232,6 +255,60 @@ img{display:block;max-width:100%}
   var idx=COLIVING_TYPES.findIndex(function(x){return x.slug===slug;});
   if(idx<0)idx=0;
   var t=COLIVING_TYPES[idx], k=TYPE_KNOWLEDGE[t.slug]||{};
+
+  /* labelled spots on the guide's drawing: handwritten labels with hand-drawn arrows (wide screens),
+     numbered dots (phones); one note at a time, Esc or a tap elsewhere closes it */
+  function diagramSpots(spots){
+    var fig=document.querySelector(".fg-diag"), img=fig&&fig.querySelector("img"); if(!img) return;
+    var wrap=document.createElement("div"); wrap.className="dg"; img.parentNode.insertBefore(wrap,img); wrap.appendChild(img);
+    var W=100, H=100*937/1678;
+    spots.forEach(function(s){ if(!s.to) s.to=[[s.x,s.y]]; });
+    /* a hand-drawn arrow: a curve that wavers a little (fixed per arrow, so it never jumps) and a
+       two-stroke head, starting just off the label */
+    function f(n){ return n.toFixed(2); }
+    function arrow(s,i,j){
+      var x0=s.lx, y0=s.ly*H/100, x1=s.to[j][0], y1=s.to[j][1]*H/100, dx=x1-x0, dy=y1-y0, L=Math.sqrt(dx*dx+dy*dy)||1;
+      var st=Math.min(2.6,L*.3); x0+=dx/L*st; y0+=dy/L*st; dx=x1-x0; dy=y1-y0;
+      var w1=((i*7+j*3)%5-2)*.5, w2=((i*3+j*5)%5-2)*.45, nx=-dy/L, ny=dx/L, bend=L*.18;
+      var c1x=x0+dx*.3+nx*(bend+w1), c1y=y0+dy*.3+ny*(bend+w1), c2x=x0+dx*.72+nx*(bend*.6+w2), c2y=y0+dy*.72+ny*(bend*.6+w2);
+      var tx=x1-c2x, ty=y1-c2y, tl=Math.sqrt(tx*tx+ty*ty)||1; tx/=tl; ty/=tl;
+      var h=1.7, c=Math.cos(.45), sn=Math.sin(.45);
+      var hx1=x1-h*(tx*c-ty*sn), hy1=y1-h*(ty*c+tx*sn), hx2=x1-h*(tx*c+ty*sn), hy2=y1-h*(ty*c-tx*sn);
+      return '<path d="M'+f(x0)+' '+f(y0)+' C'+f(c1x)+' '+f(c1y)+' '+f(c2x)+' '+f(c2y)+' '+f(x1)+' '+f(y1)+'"/>'+
+        '<path d="M'+f(hx1)+' '+f(hy1)+' L'+f(x1)+' '+f(y1)+' L'+f(hx2)+' '+f(hy2)+'"/>';
+    }
+    var svg='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true">'+spots.map(function(s,i){
+      return '<g data-i="'+i+'">'+s.to.map(function(p,j){ return arrow(s,i,j); }).join("")+'</g>';
+    }).join("")+'</svg>';
+    wrap.insertAdjacentHTML("beforeend",svg+spots.map(function(s,i){
+      var r=((i*3)%5-2)*.7;
+      return '<button class="lab" type="button" data-i="'+i+'" aria-expanded="false" style="left:'+s.lx+'%;top:'+s.ly+'%;--r:'+r+'deg">'+esc(s.t)+'</button>'+
+        '<button class="dot" type="button" data-i="'+i+'" aria-expanded="false" aria-label="'+esc(s.t)+'" style="left:'+s.to[0][0]+'%;top:'+s.to[0][1]+'%">'+(i+1)+'</button>';
+    }).join(""));
+    var open=null;
+    function close(){ if(!open) return; open.n.remove(); open.b.setAttribute("aria-expanded","false"); open=null;
+      wrap.querySelectorAll("svg g.on").forEach(function(g){ g.classList.remove("on"); }); }
+    function show(b,pin){
+      if(open&&open.b===b){ if(pin){ if(open.pin) close(); else open.pin=true; } return; }
+      close(); var s=spots[+b.dataset.i], n=document.createElement("div");
+      n.className="dgnote"; n.setAttribute("role","note"); n.innerHTML='<b>'+esc(s.t)+'</b>'+esc(s.p);
+      document.body.appendChild(n);
+      var r=b.getBoundingClientRect(), w=n.offsetWidth, h=n.offsetHeight, vw=document.documentElement.clientWidth;
+      var left=Math.max(16,Math.min(vw-16-w,r.left+r.width/2-w/2)), top=r.bottom+8;
+      if(top+h>innerHeight-8&&r.top-8-h>8) top=r.top-8-h;
+      n.style.left=(left+scrollX)+"px"; n.style.top=(top+scrollY)+"px";
+      b.setAttribute("aria-expanded","true"); open={n:n,b:b,pin:pin};
+      var g=wrap.querySelector('svg g[data-i="'+b.dataset.i+'"]'); if(g) g.classList.add("on");
+    }
+    wrap.querySelectorAll(".lab,.dot").forEach(function(b){
+      b.addEventListener("click",function(){ show(b,true); });
+      b.addEventListener("focus",function(){ show(b,false); });
+      if(b.classList.contains("lab")) b.addEventListener("mouseenter",function(){ show(b,false); });
+    });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape") close(); });
+    document.addEventListener("pointerdown",function(e){ if(open&&!open.b.contains(e.target)&&!open.n.contains(e.target)) close(); });
+    window.addEventListener("resize",close);
+  }
 
   document.title=t.name+" — field guide — Pierre-Antoine Descoteaux";
   document.getElementById("backMap").href="map.html#"+t.slug;
@@ -245,6 +322,7 @@ img{display:block;max-width:100%}
     '</header>'+
     guideBodyHTML(t,k);
   guideEnhance(document);
+  if(k.diagram&&k.diagram.spots) diagramSpots(k.diagram.spots);
 
   /* land on the guide's own title, not the shared "many shapes" intro gallery */
   (function(){var h=document.querySelector(".head");if(h){h.style.scrollMarginTop="76px";h.scrollIntoView();}})();
