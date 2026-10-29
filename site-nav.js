@@ -83,8 +83,10 @@
 ".cmpbtn:hover{background:#2f5527;transform:translateY(-1px)}" +
 ".gend{margin:clamp(30px,6vh,56px) 0 0;padding-top:24px;border-top:1px solid rgba(34,48,31,.14)}" +
 ".gsrc{margin:16px 0 0;font-size:.85rem;line-height:1.6;color:#5c6b57}.gsrc a{color:inherit}" +
-".snav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(20px,5vw,88px);background:rgba(246,242,231,.9);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(34,48,31,.14)}" +
-".snav .brand{font-family:'Zodiak',Georgia,serif;font-size:1.12rem;font-weight:700;color:#22301f;text-decoration:none}" +
+".snav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:5px clamp(20px,5vw,88px);background:rgba(246,242,231,.9);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(34,48,31,.14)}" +
+".snav .brand{font-family:'Zodiak',Georgia,serif;font-size:1.12rem;font-weight:700;color:#22301f;text-decoration:none;display:inline-flex;align-items:center;gap:10px}" +
+  /* the painted mark beside the name (design system: Logo, never under 48px) */
+  ".snav .brand img{width:44px;height:48px;flex:none;display:block;filter:drop-shadow(0 1px 2px rgba(60,40,10,.18))}" +
 ".snav .top{display:flex;gap:clamp(12px,2.2vw,30px);align-items:center}" +
 ".snav .item{position:relative}" +
 ".snav .item>a{display:inline-flex;align-items:center;gap:5px;font-family:'Switzer',system-ui,sans-serif;font-size:.92rem;font-weight:500;color:#22301f;text-decoration:none;padding:6px 2px}" +
@@ -207,7 +209,7 @@
         it.sub.map(function (s) { return '<a class="subm" href="' + esc(s.href) + '">' + esc(s.label) + "</a>"; }).join("");
     }).join("") + mobB;
     return '<nav class="snav" aria-label="Site">' +
-      '<a class="brand" href="index.html">Our Coliving</a>' +
+      '<a class="brand" href="index.html"><img src="assets/world/logo-nav.webp" alt="" width="44" height="48">Our Coliving</a>' +
       '<div class="top">' + bld + tops + "</div>" +
       /* the nav wears .menuopen while the panel is down, so a page that has
          made the bar see-through (the homepage does, to give the tower back

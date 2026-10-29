@@ -681,6 +681,8 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 .lv3s .lv3-label.is-hot .lv3-name::before{box-shadow:0 0 0 3px rgba(251,243,226,.35);}
 .lv3s .lv3-label.is-hot .lv3-desc{font-size:clamp(.98rem,.92rem + .2vw,1.12rem);}
 .lv3s:not(.is-on) .lv3-name,.lv3s:not(.is-on) .lv3-hit{pointer-events:none !important;}
+.lv3s .lv3-labels,.lv3s .lv3lines{transition:opacity .45s ease;}
+html.lv3-scrolling .lv3s:not(.is-hot) .lv3-labels,html.lv3-scrolling .lv3s:not(.is-hot) .lv3lines{opacity:.42;}
 /* on desktop the anchored spots ARE the in-scene links — the engine's tag
    pills stand down (page CSS is unlayered, engine CSS sits in @layer sw,
    so this wins without touching tower-engine.js) */
@@ -1368,7 +1370,7 @@ html.lv3-map .sw-hint{opacity:0 !important;pointer-events:none;}
 <div id="lv3veil"></div>
 <div id="lv3tourhint" role="status"></div>
 
-<script src="site-nav.js"></script>
+<script src="site-nav.js?v=20261029b"></script>
 <script src="assets/tower/tower-engine.js"></script>
 <script>
 /* ---------------------------------------------------------------------
@@ -1391,39 +1393,39 @@ var LV3_SECTIONS = [
     { id:'commons', label:'The commons', accent:'#c96b32',
       still:'assets/tower/S2.webp', stillMobile:'assets/tower/S2-m.webp', clip:'assets/tower/vid/loop-s2.mp4', clipMobile:'assets/tower/vid/loop-s2-m.mp4',
       eyebrow:'The commons · find your people',
-      title:'Building villages in community. Find yours.',
-      body:'No one builds a village alone. Meet the people, networks and movements already at it, and pull up a chair at the long table if you’d like to talk.',
+      title:'And you find your people.',
+      body:'Networks and communities already building new ways to live. There’s a seat at the long table for you.',
       tags:[{label:'The community', href:'community.html'},{label:'Networks & movements', href:'networks.html'},{label:'Say hello', href:EMAIL}] },
     { id:'library', label:'The library', accent:'#2b8b8f',
       still:'assets/tower/S3.webp', stillMobile:'assets/tower/S3-m.webp', clip:'assets/tower/vid/loop-s3.mp4', clipMobile:'assets/tower/vid/loop-s3-m.mp4',
       eyebrow:'The library · learn and get inspired',
-      title:'Everything I’ve been learning from, on the shelves for you.',
-      body:'Books, designers, art and courses that shaped how I think about living together. Take what helps, and tell me what’s missing.',
+      title:'You learn from the ones who went first.',
+      body:'The books and designers who shaped how I see living together, on the shelves for you.',
       tags:[{label:'Books of inspiration', href:'inspiration.html'},{label:'Designers that inspire me', href:'designers.html'},{label:'Arts & multimedia', href:'arts.html'},{label:'Learning & how-to', href:'resources.html#learning'}] },
     { id:'makers', label:'The workshop', accent:'#a8712c',
       still:'assets/tower/S4.webp', stillMobile:'assets/tower/S4-m.webp', clip:'assets/tower/vid/loop-s4.mp4', clipMobile:'assets/tower/vid/loop-s4-m.mp4',
       eyebrow:'The workshop · let’s build it',
-      title:'Where we figure out how to build it, together.',
-      body:'Tools and guides for turning the dream into a real place: design for connection, the twenty questions every project faces, and practical how-tos. I’m still learning too.',
+      title:'Then you want to build it.',
+      body:'How real places get designed and run, one question at a time. Come figure it out with me.',
       tags:[{label:'Design for Connection', href:'design.html'},{label:'How a place comes together', href:'themes.html'},{label:'The toolbox', href:'how-to.html'}] },
     { id:'gardens', label:'The garden', accent:'#d08a2e',
       still:'assets/tower/S5.webp', stillMobile:'assets/tower/S5-m.webp', clip:'assets/tower/vid/loop-s5.mp4', clipMobile:'assets/tower/vid/loop-s5-m.mp4',
       eyebrow:'The garden · why it matters',
-      title:'Where we grow hope.',
-      body:'A manifesto for what our homes could become, and the writings growing around it. Mostly seeds for now. I’d love to see what grows.',
+      title:'Then you start to hope for more.',
+      body:'What could our homes become? A manifesto and a few writings, planted to grow.',
       tags:[{label:'Read the manifesto', href:'manifesto.html'},{label:'Talk pieces, my writings', href:'talkpieces.html'}] },
     { id:'homes', label:'The house', accent:'#b3543e',
       still:'assets/tower/S6.webp', stillMobile:'assets/tower/S6-m.webp', clip:'assets/tower/vid/loop-s6.mp4', clipMobile:'assets/tower/vid/loop-s6-m.mp4',
       eyebrow:'The house · about me',
-      title:'Make yourself at home.',
-      body:'How I got here, the houses and projects I’ve lived in and run, and what they taught me.',
+      title:'It starts with one home.',
+      body:'Mine was a shared house full of friends and strangers. Here is how it changed me.',
       tags:[{label:'My story', href:'story.html'},{label:'Work & experience', href:'work.html'},{label:'About me', href:'about.html'}] },
     { id:'lookout', label:'The summit', accent:'#3e7db0',
       still:'assets/tower/S7.webp', stillMobile:'assets/tower/S7-m.webp', clip:'assets/tower/vid/loop-s7.mp4', clipMobile:'assets/tower/vid/loop-s7-m.mp4',
       scroll: 1.8,
       eyebrow:'The summit · the view from the top',
-      title:'From up here, you can see all the ways we can live together.',
-      body:'A map of the many forms coliving takes, from cohousing to ecovillages, and the real communities already living them.',
+      title:'Imagine waking up somewhere you belong.',
+      body:'From up here you can see every way people already share a home. One of them might feel like yours.',
       /* P-A, 2026-07-31: "when I open the summit there's a duplicate — the
          coliving atlas, which is the coliving map... and the say hello
          doesn't make any sense either. Just keep the pills."
@@ -2542,6 +2544,13 @@ if (EDIT){
 var slayer = document.getElementById('lv3scenes');
 var sfx = document.getElementById('lv3sfx');
 var slines = document.getElementById('lv3slines');
+(function(){                        /* marks the page as scrolling until it rests for 0.9s */
+  var t = null, root = document.documentElement;
+  window.addEventListener('scroll', function(){
+    root.classList.add('lv3-scrolling');
+    clearTimeout(t); t = setTimeout(function(){ root.classList.remove('lv3-scrolling'); }, 900);
+  }, { passive: true });
+})();
 var slabelHost = document.getElementById('lv3slabels');
 
 sfx.innerHTML =

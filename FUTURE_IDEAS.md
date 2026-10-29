@@ -136,3 +136,29 @@ quiz v2 option explanations. Later: field guides, hub, map.
 2026-10-22. P-A: a few shortcuts on the landing to the most-seen and most useful pages: the map, the guide (hub),
 the field guides, My work or My story, maybe the quiz. "3 to 5 max, otherwise it's too crowded." In the handoff
 2026-10-22_coliving-map-why-and-mappers.md.
+
+## Coliving types rethink (P-A, 2026-10-29) — ON HOLD
+P-A asked whether the types are all genuinely distinct. Claude's read, not yet acted on:
+- **Hacker house + entrepreneur house:** almost the same quiz ranges; the real difference is the crowd and the vibe
+  (cheap and chaotic vs small and chosen with care). Option: merge into one guide with two flavours.
+- **Baugruppe:** more than a buying group (the group acts as its own developer and designs together), but it is a way
+  to BUILD, not a way to LIVE; once built it usually lives like cohousing. Option: keep it, framed as "how a group
+  builds its own house", and link it from the quiz's "start one" answer.
+- **Kibbutz:** not an intense ecovillage. Roots are pooled income and shared work, ecology optional. Option: widen to
+  "income-sharing communities (kibbutz, Twin Oaks)", more relevant outside Israel.
+Touches: map-data.js types, knowledge-data.js, guide-content-data.js, quiz scoring (quiz-score.js fit ranges), field
+guide drawings and labels. Keep many groups to show diversity.
+
+## Leftovers from the 2026-10-29 session
+- **Story page animation:** the block tower that built itself on scroll is off (tower-climb.js kept). Build a proper one.
+- **Quiz stickers v2:** regenerate the 24 with the warm-tech third (FOR PIERRE-ANTOINE/quiz-art-prompts.md Part A). P-A on it.
+- **Design for Connection, the rest of the page:** the images after the opening pair are still flat paper-cut posters
+  (design system: off brand, not urgent). Its captions also carry long dashes.
+- **Manifesto "Dear Alice" still:** another studio's style, to replace (design system off-brand list).
+- **Robot sticker (flyer-robot):** too quirky, to replace.
+- **Interfaces as objects still planned:** manifesto as a letter or scroll, directories as a shelf or drawers, projects
+  as postcards on a board.
+- **Texture queue:** most tiles and pieces in the design system's queue are not generated yet.
+- **Design system backlog:** art that went live before 2026-10-29 and is missing from its asset list and Lock log.
+- **Landing at ~950px wide:** the headline sits over the tip of the tower (readable, not broken).
+- **about.html:** "More in the library" link is a small tap target (29px, floor is 44px).
