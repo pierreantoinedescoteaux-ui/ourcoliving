@@ -7,7 +7,7 @@
 <meta name="description" content="About thirty questions, then a letter: the way of living together that suits you, how you might set it up, and real places to go and see.">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,700&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <style>
 /* FIND YOUR FIT: a quiz in five calm screens, then a wax-sealed letter.
    Content: quiz-data.js · scoring: quiz-score.js · answers live in the
@@ -18,7 +18,7 @@
   --green:#5c9e4a;--green-deep:#3c6b32;--green-wash:rgba(92,158,74,.12);
   --sky-wash:#e3eff3;--gold:#d99a3d;--gold-deep:#8f6215;--clay:#b3543e;--clay-deep:#8f4a2c;
   --line:rgba(34,48,31,.14);
-  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;--hand:"Caveat",cursive;
+  --serif:"Zodiak",Georgia,serif;--grotesk:"Switzer",system-ui,sans-serif;--hand:"Caveat",cursive;--sig:"Mrs Saint Delafield",cursive;
   --gutter:clamp(16px,5vw,88px);--r:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -75,6 +75,7 @@ button{font:inherit;color:inherit}
 .chip{min-height:44px;padding:9px 18px;border-radius:99px;border:1.5px solid rgba(34,48,31,.2);background:#fff;cursor:pointer;font-size:.95rem;line-height:1.3;text-align:left;transition:all .2s}
 .chip:hover{border-color:var(--green)}
 .chip[aria-pressed="true"]{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
+@media(max-width:520px){.chips.dense{gap:8px}.chips.dense .chip{padding:8px 13px;font-size:.9rem}}
 .stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:12px;margin-top:14px}
 .stk{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px 12px;border-radius:18px;border:1.5px solid rgba(34,48,31,.14);background:#fff;cursor:pointer;
   font-size:.9rem;line-height:1.3;text-align:center;min-height:44px;transition:transform .2s,border-color .2s,box-shadow .2s}
@@ -103,10 +104,52 @@ button{font:inherit;color:inherit}
 .ticks{display:flex;justify-content:space-between;padding:0 11px;margin-top:-10px;pointer-events:none}
 .ticks i{width:2px;height:7px;background:rgba(34,48,31,.18);border-radius:2px}
 .ends{display:flex;justify-content:space-between;gap:18px;font-size:.88rem;line-height:1.35;color:var(--ink-faint);margin-top:6px}
-.ends span{max-width:46%;transition:color .2s}
+.ends span{max-width:46%}
 .ends span:last-child{text-align:right}
-.ends span.near{color:var(--ink);font-weight:600}
-.unsetnote{font-size:.78rem;color:var(--ink-faint);margin-top:4px;font-style:italic}
+.unsetnote{font-size:.875rem;color:var(--ink-faint);margin-top:4px;font-style:italic}
+/* v2: a bubble that rides the thumb and says what that spot means */
+.slider.stops{position:relative;padding-top:46px}
+.bubble{position:absolute;top:0;left:50%;transform:translateX(-50%);max-width:min(300px,92%);padding:7px 14px;border-radius:12px;background:var(--green-deep);color:#fff;
+  font-size:.92rem;font-weight:600;line-height:1.25;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;transition:left .12s ease-out}
+.bubble:after{content:"";position:absolute;left:var(--tail,50%);bottom:-6px;width:12px;height:12px;background:inherit;transform:translateX(-50%) rotate(45deg);border-radius:2px}
+.slider.unset .bubble{display:none}
+@media(prefers-reduced-motion:reduce){.bubble{transition:none}}
+/* v2: pick-any stickers carry a "?" that opens a taped note from the guide */
+.stkw{position:relative;display:flex}
+.stkw .stk{flex:1}
+.qm{position:absolute;top:2px;right:2px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;cursor:pointer;border-radius:50%}
+.qm span{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper);border:1.5px solid rgba(34,48,31,.25);
+  font-family:var(--serif);font-size:15px;font-weight:700;color:var(--green-deep);transition:background .2s,border-color .2s}
+.qm:hover span,.qm[aria-expanded="true"] span{background:var(--gold);border-color:var(--gold-deep);color:#2c2209}
+/* taped note: reusable "teach through questions" side note (.tnote) */
+.tnote{position:relative;margin-top:16px;padding:22px 20px 16px;background:#fffbea;border-radius:3px;box-shadow:0 14px 28px -18px rgba(60,40,10,.45),0 1px 0 rgba(0,0,0,.04);
+  transform:rotate(-.6deg);font-size:.95rem;line-height:1.5;color:#3c4636;animation:noteIn .35s cubic-bezier(.2,.8,.2,1)}
+.tnote .tp{position:absolute;top:-13px;left:50%;width:96px;height:28px;overflow:hidden;transform:translateX(-50%) rotate(-4deg);opacity:.9;pointer-events:none}
+.tnote .tp img{width:96px;max-width:none}
+.tnote b{display:block;font-family:var(--serif);font-weight:400;font-size:1.12rem;line-height:1.25;color:var(--ink);margin-bottom:4px;padding-right:30px}
+.tnote p{margin:0 0 8px}
+.tnote a{font-size:.9rem;font-weight:600;color:var(--clay-deep);text-underline-offset:3px;display:inline-flex;align-items:center;min-height:44px}
+.tnote .x{position:absolute;top:6px;right:6px;width:44px;height:44px;border:0;background:transparent;cursor:pointer;font-size:1.3rem;line-height:1;color:var(--ink-soft)}
+@keyframes noteIn{from{opacity:0;transform:translateY(-6px) rotate(-.6deg)}to{opacity:1;transform:rotate(-.6deg)}}
+@media(prefers-reduced-motion:reduce){.tnote{animation:none}}
+@media(min-width:1300px){.q{position:relative}.tnote.side{position:absolute;margin:0;left:calc(100% + clamp(22px,4vw,46px) + 26px);width:240px;top:var(--nt,0);transform:rotate(1.2deg);z-index:2}
+  @keyframes noteSide{from{opacity:0;transform:translateX(-8px) rotate(1.2deg)}to{opacity:1;transform:rotate(1.2deg)}}.tnote.side{animation-name:noteSide}}
+/* v2: ranked hopes */
+.ranks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:14px}
+.rk{display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 14px 8px 8px;border-radius:16px;border:1.5px solid rgba(34,48,31,.16);background:#fff;cursor:pointer;
+  font-size:.98rem;line-height:1.3;text-align:left;transition:border-color .2s,background .2s}
+.rk img{width:48px;height:48px;object-fit:contain;flex:0 0 auto}
+.rk span{flex:1}
+.rk .badge{flex:0 0 auto;min-width:32px;height:32px;padding:0 8px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.05rem;font-weight:700;
+  border:1.5px dashed rgba(34,48,31,.22);color:transparent}
+.rk:hover{border-color:var(--green)}
+.rk[aria-pressed="true"]{border-color:var(--green-deep);background:var(--green-wash)}
+.rk[aria-pressed="true"] .badge{background:var(--green-deep);border:0;color:#fff}
+.rk[aria-pressed="true"] .badge.also{background:transparent;border:1.5px solid var(--green-deep);color:var(--green-deep);font-family:var(--grotesk);font-size:.875rem;font-weight:600}
+.skiplink{border:0;background:transparent;cursor:pointer;color:var(--clay-deep);font-size:.95rem;font-weight:600;text-decoration:underline;text-underline-offset:3px;min-height:44px;padding:0}
+.welcome{margin:4px 0 26px;padding:16px 18px;border-radius:16px;background:var(--green-wash);max-width:36em}
+.welcome p{font-family:var(--serif);font-size:1.15rem;margin-bottom:12px}
+.welcome .row{display:flex;gap:10px;flex-wrap:wrap}
 .textin{margin-top:12px;width:100%;max-width:340px;font-family:var(--hand);font-size:1.7rem;color:var(--ink);border:0;border-bottom:1.5px solid rgba(63,116,136,.45);background:transparent;padding:4px 2px;min-height:48px}
 .textin:focus{outline:none;border-bottom-color:var(--green-deep)}
 .navrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line);flex-wrap:wrap}
@@ -157,10 +200,38 @@ button{font:inherit;color:inherit}
 .letter h4{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.15;margin-bottom:10px}
 .letter p{color:#3c4636;margin-bottom:.9em}
 .letter a{color:var(--clay-deep);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-.way .name{font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,5.4vw,3.6rem);line-height:1;letter-spacing:-.02em;color:var(--green-deep);margin:4px 0 8px}
-.way .strength{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--green-wash);color:var(--green-deep);border-radius:99px;padding:6px 14px;margin-bottom:16px}
-.because{border-left:3px solid var(--gold);padding:2px 0 2px 16px;color:var(--ink-soft);font-size:.98rem}
-.behind{font-size:.98rem}
+/* v2 letter: what matters to you, reflected back */
+.lead2{font-family:var(--serif);font-size:1.12rem;color:var(--ink);margin:22px 0 10px}
+.lead2:first-of-type{margin-top:0}
+.hopes{display:flex;flex-wrap:wrap;gap:10px}
+.hope{display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:99px;background:#fff;border:1px solid var(--line)}
+.hope img{width:44px;height:44px;object-fit:contain}
+.hope i{font-style:normal;min-width:28px;height:28px;border-radius:99px;display:flex;align-items:center;justify-content:center;background:var(--green-deep);color:#fff;font-family:var(--serif);font-weight:700;font-size:.95rem}
+.hope i.also{background:transparent;color:var(--green-deep);border:1.5px solid var(--green-deep);font-family:var(--grotesk);font-size:.875rem;font-weight:600;padding:0 8px}
+.hope span{font-size:.98rem}
+.kw{display:flex;flex-wrap:wrap;gap:8px}
+.kw span{padding:7px 14px;border-radius:99px;background:var(--green-wash);color:var(--green-deep);font-size:.92rem;font-weight:600}
+.stand{display:grid;gap:12px}
+.strow{display:grid;grid-template-columns:150px 1fr 200px;gap:14px;align-items:center}
+.strow .tp{font-size:.875rem;font-weight:700;letter-spacing:.06em;color:var(--ink-soft)}
+.strow .ln{position:relative;height:4px;border-radius:4px;background:rgba(34,48,31,.12)}
+.strow .ln i{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--green-deep);border:3px solid var(--letter);box-shadow:0 0 0 1.5px var(--green-deep);transform:translate(-50%,-50%)}
+.strow .lb{font-size:.95rem;line-height:1.3}
+.strow .lb svg{width:15px;height:15px;fill:var(--clay);vertical-align:-2px;margin-left:6px}
+@media(max-width:620px){.strow{grid-template-columns:1fr auto;gap:4px 12px}.strow .ln{grid-column:1/-1;grid-row:2;margin:8px 0 4px}.strow .lb{text-align:right}}
+.srow .bc{font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:6px}
+/* v2 letter: ways of living that fit, none crowned */
+.fitcards{display:grid;gap:14px}
+.fitc{padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.7);border:1px solid var(--line)}
+.fitc .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.fitc .nm{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.8vw,1.95rem);line-height:1.1;color:var(--green-deep)}
+.fitc .strength{font-size:.875rem;font-weight:600;background:var(--green-wash);color:var(--green-deep);border-radius:99px;padding:5px 12px}
+.fitc .tag{color:var(--ink-soft);margin:6px 0 10px;font-size:.98rem}
+.fitc .fb{margin:0 0 6px;font-size:.98rem}
+.fitc .df{margin:0 0 8px;font-size:.98rem}
+.fitc .fb b,.fitc .df b{font-weight:600;color:var(--ink)}
+.fitc a{font-size:.9rem;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.place p.why{font-size:.88rem;line-height:1.45;color:var(--green-deep);font-weight:600;margin:2px 0 6px;flex:0 0 auto}
 .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .links a{font-size:.85rem;font-weight:600;text-decoration:none;color:var(--clay-deep);background:rgba(143,74,44,.08);border-radius:99px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center}
 .links a:hover{background:rgba(143,74,44,.16)}
@@ -211,13 +282,14 @@ button{font:inherit;color:inherit}
 .steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
 .steps li:before{content:counter(s);font-family:var(--hand);font-size:1.7rem;line-height:1;color:var(--gold-deep);text-align:center}
 .sign{margin-top:clamp(30px,4.5vh,44px)}
-.sign .who{font-family:var(--hand);font-size:clamp(2.2rem,4vw,2.8rem);line-height:1;color:#2c3a28;margin:6px 0 4px}
+.sign .who{font-family:var(--sig);font-size:clamp(2.8rem,5vw,3.6rem);line-height:1.1;color:#22301f;margin:2px 0 2px}
 .sign .for{font-size:.9rem;color:var(--ink-faint)}
 .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:34px auto 0;max-width:780px}
 .toast{text-align:center;font-size:.9rem;color:var(--green-deep);min-height:1.5em;margin-top:12px}
 @media(max-width:560px){.srow{grid-template-columns:48px 1fr;gap:12px;padding:14px}.srow img{width:48px;height:48px}.letter .lstamp{width:58px;top:14px;right:14px}}
 @media print{
-  [data-sitenav],.grain,.actions,.toast,.mail,.intro,.quiz,footer,.site-foot{display:none!important}
+  [data-sitenav],.grain,.actions,.toast,.mail,.intro,.quiz,footer,.site-foot,.tnote{display:none!important}
+  .fitc,.srow,.place{break-inside:avoid}
   body{background:#fff}
   .letter{box-shadow:none;animation:none;padding:0}
   .letterwrap{padding:0}
@@ -236,6 +308,7 @@ button{font:inherit;color:inherit}
       <h1 id="iTitle"></h1>
       <p class="lede" id="iLede"></p>
       <p class="note" id="iNote"></p>
+      <div class="welcome" id="welcome" hidden><p id="wText"></p><div class="row"><button class="btn" id="reopenBtn" type="button"></button><button class="btn ghost" id="freshBtn" type="button"></button></div></div>
       <button class="btn" id="startBtn" type="button"></button>
     </div>
     <div class="art" aria-hidden="true"><img src="images/hub/mini-map-compass.webp" alt=""><img class="st" src="images/hub/mini-extra-stamp.webp" alt=""></div>
@@ -269,19 +342,25 @@ button{font:inherit;color:inherit}
 
 <script src="map-data.js?v=20261024"></script>
 <script src="projects-data.js?v=20261024"></script>
-<script src="quiz-data.js"></script>
-<script src="quiz-score.js"></script>
+<script src="hub-cards-data.js?v=20261028"></script>
+<script src="quiz-data.js?v=2"></script>
+<script src="quiz-score.js?v=2"></script>
 <script src="site-nav.js"></script>
 <script>
 (function(){
-  var L=QUIZ.letter, IMG=QUIZ_IMG;
+  var L=QUIZ.letter, IMG=QUIZ_IMG, KEEP="quizLetter";
   var st={a:{},h:{}}, step=0;
   var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   function $(id){return document.getElementById(id);}
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function show(view){["introView","quizView","mailView","letterView"].forEach(function(v){$(v).hidden=(v!==view);});}
-  function saveDraft(){try{sessionStorage.setItem("quizDraft",JSON.stringify({st:st,step:step}));}catch(e){}}
-  function loadDraft(){try{var d=JSON.parse(sessionStorage.getItem("quizDraft")||"null");if(d&&d.st){st=d.st;step=d.step||0;return true;}}catch(e){}return false;}
+  function saveDraft(){try{sessionStorage.setItem("quizDraft",JSON.stringify({st:st,step:step,v:QUIZ.version}));}catch(e){}}
+  function loadDraft(){try{var d=JSON.parse(sessionStorage.getItem("quizDraft")||"null");if(d&&d.st&&d.v===QUIZ.version){st=d.st;step=Math.min(d.step||0,QUIZ.steps.length-1);return true;}}catch(e){}return false;}
+  /* the letter is remembered in this browser only (localStorage), so a returning visitor doesn't redo it */
+  function keep(hash){try{localStorage.setItem(KEEP,JSON.stringify({h:hash,t:Date.now()}));}catch(e){}}
+  function kept(){try{var k=JSON.parse(localStorage.getItem(KEEP)||"null");return k&&k.h&&QuizScore.decode(k.h)?k:null;}catch(e){return null;}}
+  function forget(){try{localStorage.removeItem(KEEP);sessionStorage.removeItem("quizDraft");}catch(e){}}
+  function qOf(S,id){return S.questions.filter(function(x){return x.id===id;})[0];}
 
   /* ---------- intro ---------- */
   $("iEyebrow").textContent=QUIZ.intro.eyebrow;
@@ -290,6 +369,11 @@ button{font:inherit;color:inherit}
   $("iNote").textContent=QUIZ.intro.note;
   $("startBtn").textContent=QUIZ.intro.start;
   $("startBtn").addEventListener("click",function(){ if(!loadDraft()){st={a:{},h:{}};step=0;} renderStep(); show("quizView"); scrollTop(); });
+  $("wText").textContent=QUIZ.intro.welcome;
+  $("reopenBtn").textContent=QUIZ.intro.reopen;
+  $("freshBtn").textContent=QUIZ.intro.fresh;
+  $("reopenBtn").addEventListener("click",function(){ var k=kept(); if(!k) return; st=QuizScore.decode(k.h); history.replaceState(null,"","#"+k.h.replace(/^#/,"")); show("letterView"); renderLetter(); scrollTop(); });
+  $("freshBtn").addEventListener("click",function(){ forget(); st={a:{},h:{}}; step=0; renderStep(); show("quizView"); scrollTop(); });
   function scrollTop(){ window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
 
   /* ---------- one step ---------- */
@@ -299,26 +383,35 @@ button{font:inherit;color:inherit}
     h+='<div class="stephead"><img src="'+IMG+S.img+'" alt="" aria-hidden="true"><div><div class="k">Step '+(step+1)+' of '+n+'</div><h2 id="stepTitle" tabindex="-1">'+esc(S.title)+'</h2></div></div>';
     h+='<div class="dots" aria-hidden="true">'+QUIZ.steps.map(function(x,i){return '<i class="'+(i<=step?"on":"")+'"></i>';}).join("")+'</div>';
     h+='<p class="steplede">'+esc(S.lede)+'</p>';
+    if(S.skippable) h+='<button class="skiplink" type="button" id="skipBtn">'+esc(S.skip)+'</button>';
     S.questions.forEach(function(q){ h+=qHtml(q); });
     h+='<div class="navrow">'+(step>0?'<button class="btn ghost" type="button" id="prevBtn">Back</button>':'<span class="skipnote">You can skip any question.</span>')+
        '<button class="btn" type="button" id="nextBtn">'+(step===n-1?"Seal my letter":"Next")+'</button></div>';
     $("card").innerHTML=h;
     wire(S);
   }
+  function isOn(q,i){ var v=st.a[q.id]; return QuizScore.isMulti(q)?(v||[]).indexOf(i)>=0:v===i; }
   function qHtml(q){
-    var id="q_"+q.id, v=st.a[q.id], h='<div class="q" role="group" aria-labelledby="'+id+'"><div class="qrow"><div><div class="qlabel" id="'+id+'">'+(q.area?'<span class="qarea">'+esc(q.area)+'</span>':'')+esc(q.q)+'</div>'+(q.hint?'<div class="qhint">'+esc(q.hint)+'</div>':'')+'</div>';
+    var id="q_"+q.id, v=st.a[q.id], h='<div class="q" role="group" aria-labelledby="'+id+'" data-qid="'+q.id+'"><div class="qrow"><div><div class="qlabel" id="'+id+'">'+(q.area?'<span class="qarea">'+esc(q.area)+'</span>':'')+esc(q.q)+'</div>'+(q.hint?'<div class="qhint">'+esc(q.hint)+'</div>':'')+'</div>';
     if(q.heart) h+='<button class="heart" type="button" data-heart="'+q.id+'" aria-pressed="'+(st.h[q.id]?"true":"false")+'">'+HEART+'This matters a lot</button>';
     h+='</div>';
     if(q.kind==="chips"){
-      h+='<div class="chips">'+q.options.map(function(o,i){var on=q.multi?(v||[]).indexOf(i)>=0:v===i;return '<button class="chip" type="button" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+on+'">'+esc(o)+'</button>';}).join("")+'</div>';
+      h+='<div class="chips'+(q.options.length>12?' dense':'')+'">'+q.options.map(function(o,i){return '<button class="chip" type="button" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+isOn(q,i)+'">'+esc(o)+'</button>';}).join("")+'</div>';
     } else if(q.kind==="stickers"){
-      h+='<div class="stickers">'+q.options.map(function(o,i){return '<button class="stk" type="button" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+(v===i)+'"><img src="'+IMG+o.img+'" alt="" loading="lazy">'+esc(o.t)+'</button>';}).join("")+
-        (q.help?'<button class="stk help" type="button" data-q="'+q.id+'" data-i="help" aria-pressed="'+(v==="help")+'"><img src="'+IMG+QUIZ.helpImg+'" alt="" loading="lazy">Help me choose</button>':'')+'</div>';
+      h+='<div class="stickers">'+q.options.map(function(o,i){
+        var card=hubCard(o.hub);
+        return '<div class="stkw"><button class="stk" type="button" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+isOn(q,i)+'"><img src="'+IMG+o.img+'" alt="" loading="lazy">'+esc(o.t)+'</button>'+
+          (card?'<button class="qm" type="button" data-hub="'+esc(o.hub)+'" aria-expanded="false" aria-label="'+esc("What is “"+o.t+"”?")+'"><span aria-hidden="true">?</span></button>':'')+'</div>';
+      }).join("")+
+        (q.help?'<div class="stkw"><button class="stk help" type="button" data-q="'+q.id+'" data-i="help" aria-pressed="'+(v==="help")+'"><img src="'+IMG+QUIZ.helpImg+'" alt="" loading="lazy">Help me choose</button></div>':'')+'</div>';
+    } else if(q.kind==="rank"){
+      h+='<div class="ranks">'+q.options.map(function(o,i){return '<button class="rk" type="button" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+isOn(q,i)+'"><img src="'+IMG+o.img+'" alt="" loading="lazy"><span>'+esc(o.t)+'</span><b class="badge" aria-hidden="true"></b></button>';}).join("")+'</div>';
     } else if(q.kind==="slider"){
-      var set=v!=null;
-      h+='<div class="slider'+(set?"":" unset")+'"><input type="range" min="0" max="6" step="1" value="'+(set?v:3)+'" data-q="'+q.id+'" aria-labelledby="'+id+'" aria-valuetext="'+esc(valText(q,set?v:null))+'">'+
+      var set=v!=null, lo=q.stops?q.stops[0]:q.lo, hi=q.stops?q.stops[q.stops.length-1]:q.hi;
+      h+='<div class="slider'+(q.stops?" stops":"")+(set?"":" unset")+'">'+(q.stops?'<div class="bubble" aria-hidden="true"></div>':'')+
+        '<input type="range" min="0" max="6" step="1" value="'+(set?v:3)+'" data-q="'+q.id+'" aria-labelledby="'+id+'" aria-valuetext="'+esc(valText(q,set?v:null))+'">'+
         '<div class="ticks" aria-hidden="true">'+"<i></i>".repeat(7)+'</div>'+
-        '<div class="ends" aria-hidden="true"><span>'+esc(q.lo)+'</span><span>'+esc(q.hi)+'</span></div>'+
+        '<div class="ends" aria-hidden="true"><span>'+esc(lo)+'</span><span>'+esc(hi)+'</span></div>'+
         '<div class="unsetnote"'+(set?' hidden':'')+'>Not answered yet. Move it to answer.</div></div>';
     } else if(q.kind==="text"){
       h+='<input class="textin" type="text" maxlength="40" autocomplete="given-name" data-q="'+q.id+'" aria-labelledby="'+id+'" placeholder="'+esc(q.placeholder||"")+'" value="'+esc(v||"")+'">';
@@ -327,33 +420,77 @@ button{font:inherit;color:inherit}
   }
   function valText(q,v){
     if(v==null) return "Not answered";
+    if(q.stops) return QuizScore.stopLabel(q,v);
     if(v===3) return "In between: "+q.lo+" and "+q.hi;
     var side=v<3?q.lo:q.hi, d=Math.abs(v-3);
     return (d===3?"Fully: ":d===2?"Mostly: ":"Leaning: ")+side;
   }
-  function nearEnds(wrap,v){
-    var sp=wrap.querySelectorAll(".ends span");
-    sp[0].classList.toggle("near",v!=null&&v<3); sp[1].classList.toggle("near",v!=null&&v>3);
+  /* the bubble follows the thumb (30px wide) and stays inside the track */
+  function placeBubble(wrap,inp,q){
+    var b=wrap.querySelector(".bubble"); if(!b||st.a[q.id]==null) return;
+    b.textContent=QuizScore.stopLabel(q,+inp.value);
+    var W=inp.clientWidth, x=15+(+inp.value)/6*(W-30), bw=b.offsetWidth, left=Math.max(bw/2,Math.min(W-bw/2,x));
+    b.style.left=left+"px"; b.style.setProperty("--tail",(bw/2+x-left)+"px");
+  }
+  function rankBadges(q){
+    var v=st.a[q.id]||[];
+    $("card").querySelectorAll('.rk[data-q="'+q.id+'"]').forEach(function(b){
+      var k=v.indexOf(+b.dataset.i), badge=b.querySelector(".badge");
+      b.setAttribute("aria-pressed",k>=0);
+      badge.textContent=k<0?"":k<3?String(k+1):q.also; badge.classList.toggle("also",k>=3);
+      b.setAttribute("aria-label",b.querySelector("span").textContent+(k<0?"":k<3?", ranked "+(k+1):", also matters"));
+    });
+  }
+  function hubCard(ref){
+    if(!ref||typeof HUB_CARDS==="undefined") return null;
+    var p=ref.split(":"), list=HUB_CARDS[p[0]]||[];
+    return list.filter(function(c){return c.id===p[1];})[0]||null;
+  }
+  /* "?" note: taped in the margin on wide screens, unfolded under the options on phones */
+  function toggleNote(btn){
+    var qd=btn.closest(".q"), open=qd.querySelector(".tnote"), was=open&&open.dataset.hub===btn.dataset.hub;
+    qd.querySelectorAll(".qm").forEach(function(b){b.setAttribute("aria-expanded","false");});
+    if(open) open.remove();
+    if(was) return;
+    var c=hubCard(btn.dataset.hub), p=btn.dataset.hub.split(":");
+    var n=document.createElement("div");
+    n.className="tnote"+(matchMedia("(min-width:1300px)").matches?" side":""); n.dataset.hub=btn.dataset.hub; n.setAttribute("role","note");
+    n.innerHTML='<div class="tp" aria-hidden="true"><img src="'+IMG+L.tape+'" alt=""></div><button class="x" type="button" aria-label="Close the note">×</button>'+
+      '<b>'+esc(c.name)+'</b><p>'+esc(c.summary)+'</p><a href="themes.html#o-'+esc(p[0])+'-'+esc(p[1])+'" target="_blank" rel="noopener">'+esc(QUIZ.more)+' ↗</a>';
+    qd.appendChild(n);
+    if(n.classList.contains("side")) n.style.setProperty("--nt",Math.max(0,btn.closest(".stkw").offsetTop-qd.offsetTop-10)+"px");
+    btn.setAttribute("aria-expanded","true");
+    n.querySelector(".x").addEventListener("click",function(){ n.remove(); btn.setAttribute("aria-expanded","false"); btn.focus(); });
   }
   function wire(S){
     var card=$("card");
     card.querySelectorAll(".chip,.stk").forEach(function(b){
       b.addEventListener("click",function(){
-        var q=S.questions.filter(function(x){return x.id===b.dataset.q;})[0], i=b.dataset.i==="help"?"help":+b.dataset.i;
-        if(q.multi){ var arr=(st.a[q.id]||[]).slice(), k=arr.indexOf(i); if(k>=0)arr.splice(k,1); else arr.push(i); if(arr.length)st.a[q.id]=arr; else delete st.a[q.id]; b.setAttribute("aria-pressed",k<0); }
+        var q=qOf(S,b.dataset.q), i=b.dataset.i==="help"?"help":+b.dataset.i;
+        if(q.multi){ var arr=(st.a[q.id]||[]).slice(), k=arr.indexOf(i); if(k>=0)arr.splice(k,1); else arr.push(i); if(arr.length)st.a[q.id]=arr.sort(function(x,y){return x-y;}); else delete st.a[q.id]; b.setAttribute("aria-pressed",k<0); }
         else { if(st.a[q.id]===i){delete st.a[q.id];} else st.a[q.id]=i;
           card.querySelectorAll('[data-q="'+q.id+'"]').forEach(function(o){o.setAttribute("aria-pressed",String(st.a[q.id]===(o.dataset.i==="help"?"help":+o.dataset.i)));}); }
         saveDraft();
       });
     });
+    card.querySelectorAll(".rk").forEach(function(b){
+      b.addEventListener("click",function(){
+        var q=qOf(S,b.dataset.q), i=+b.dataset.i, arr=(st.a[q.id]||[]).slice(), k=arr.indexOf(i);
+        if(k>=0) arr.splice(k,1); else arr.push(i);
+        if(arr.length) st.a[q.id]=arr; else delete st.a[q.id];
+        rankBadges(q); saveDraft();
+      });
+    });
+    S.questions.forEach(function(q){ if(q.kind==="rank") rankBadges(q); });
+    card.querySelectorAll(".qm").forEach(function(b){ b.addEventListener("click",function(){ toggleNote(b); }); });
     card.querySelectorAll(".heart").forEach(function(b){
       b.addEventListener("click",function(){ var k=b.dataset.heart; if(st.h[k])delete st.h[k]; else st.h[k]=true; b.setAttribute("aria-pressed",!!st.h[k]); saveDraft(); });
     });
     card.querySelectorAll(".slider input").forEach(function(inp){
-      var q=S.questions.filter(function(x){return x.id===inp.dataset.q;})[0], wrap=inp.parentNode;
-      nearEnds(wrap,st.a[q.id]);
+      var q=qOf(S,inp.dataset.q), wrap=inp.parentNode;
+      placeBubble(wrap,inp,q);
       function set(){ st.a[q.id]=+inp.value; wrap.classList.remove("unset"); wrap.querySelector(".unsetnote").hidden=true;
-        inp.setAttribute("aria-valuetext",valText(q,+inp.value)); nearEnds(wrap,+inp.value); saveDraft(); }
+        inp.setAttribute("aria-valuetext",valText(q,+inp.value)); placeBubble(wrap,inp,q); saveDraft(); }
       inp.addEventListener("input",set);
       inp.addEventListener("change",set);
       inp.addEventListener("pointerup",set);
@@ -362,17 +499,26 @@ button{font:inherit;color:inherit}
       inp.addEventListener("input",function(){ var t=inp.value.trim(); if(t)st.a[inp.dataset.q]=t; else delete st.a[inp.dataset.q]; saveDraft(); });
     });
     if($("prevBtn")) $("prevBtn").addEventListener("click",function(){ step--; renderStep(); focusTop(); });
-    $("nextBtn").addEventListener("click",function(){
-      if(step<QUIZ.steps.length-1){ step++; saveDraft(); renderStep(); focusTop(); }
-      else finish();
-    });
+    if($("skipBtn")) $("skipBtn").addEventListener("click",next);
+    $("nextBtn").addEventListener("click",next);
   }
+  function next(){
+    if(step<QUIZ.steps.length-1){ step++; saveDraft(); renderStep(); focusTop(); }
+    else finish();
+  }
+  window.addEventListener("resize",function(){
+    if($("quizView").hidden) return;
+    var S=QUIZ.steps[step];
+    $("card").querySelectorAll(".slider.stops input").forEach(function(inp){ placeBubble(inp.parentNode,inp,qOf(S,inp.dataset.q)); });
+  });
   function focusTop(){ scrollTop(); var t=$("stepTitle"); if(t) t.focus({preventScroll:true}); }
 
   /* ---------- finish → envelope → letter ---------- */
   function finish(){
-    history.replaceState(null,"","#"+QuizScore.encode(st));
+    var hash=QuizScore.encode(st);
+    history.replaceState(null,"","#"+hash);
     try{sessionStorage.removeItem("quizDraft");}catch(e){}
+    keep(hash);
     envelope();
   }
   function envelope(){
@@ -390,62 +536,81 @@ button{font:inherit;color:inherit}
   function pct(v){return (6+v*0.88)+"%";}
   function center(t,k){var r=t.ranges[k];return (r[0]+r[1])/2;}
   function renderLetter(){
-    var R=QuizScore.result(st), t=R.top.t, s=R.second.t, h='';
+    var R=QuizScore.result(st), M=R.mirror, h='';
     h+='<div class="tape" aria-hidden="true"><img src="'+IMG+L.tape+'" alt=""></div><img class="lstamp" src="'+IMG+L.stamp+'" alt="" aria-hidden="true">';
     h+='<div class="hand">'+esc(L.greeting(R.name))+'</div><p class="open">'+esc(L.opening)+'</p>';
 
-    h+='<section class="way"><h3>'+esc(L.wayTitle)+'</h3><div class="name">'+esc(t.short||t.name)+'</div><span class="strength">'+esc(R.strength)+'</span>'+
-       '<p>'+esc(L.why[t.slug])+'</p>'+
-       (R.reasons.length?'<p class="because">'+esc(L.because)+esc(joinList(R.reasons))+'.</p>':'')+
-       '<p class="behind">'+esc(L.closeBehind)+'<b>'+esc(s.short||s.name)+'</b>, if you’d rather '+esc(R.rather)+'.</p>'+
-       '<div class="links"><a href="type.html?t='+esc(t.slug)+'">'+esc(L.readGuide)+': '+esc(t.short||t.name)+'</a><a href="type.html?t='+esc(s.slug)+'">'+esc(s.short||s.name)+'</a></div></section>';
+    /* 1. what matters to you, reflected back */
+    h+='<section class="mirror"><h3>'+esc(L.mirrorTitle)+'</h3>';
+    if(M.hopes.length) h+='<p class="lead2">'+esc(L.hopesLead)+'</p><div class="hopes">'+M.hopes.map(function(x){
+      return '<div class="hope"><img src="'+IMG+x.img+'" alt="">'+(x.rank?'<i>'+x.rank+'</i>':'<i class="also">'+esc(QuizScore.qById("hopes").also)+'</i>')+'<span>'+esc(x.t)+'</span></div>';}).join("")+'</div>';
+    if(M.care.length) h+='<p class="lead2">'+esc(L.careLead)+'</p><div class="kw">'+M.care.map(function(c){return '<span>'+esc(c)+'</span>';}).join("")+'</div>';
+    if(M.stand.length) h+='<p class="lead2">'+esc(L.standLead)+'</p><div class="stand">'+M.stand.map(function(s){
+      return '<div class="strow"><span class="tp">'+esc(s.topic)+'</span><div class="ln" aria-hidden="true"><i style="left:'+s.x+'%"></i></div><span class="lb">'+esc(s.label)+(s.heart?HEART.replace('aria-hidden="true"','role="img" aria-label="matters a lot"'):'')+'</span></div>';}).join("")+'</div>';
+    if(!M.hopes.length&&!M.care.length&&!M.stand.length) h+='<p>'+esc(L.mirrorEmpty)+'</p>';
+    h+='</section>';
 
-    h+='<section><h3>'+esc(L.fitTitle)+'</h3><h4>'+esc(R.fitText.h)+'</h4><p>'+esc(R.fitText.p)+'</p>'+(R.fullLife?'<p>'+esc(L.fullLife)+'</p>':'')+'</section>';
+    /* 2. building blocks */
+    h+='<section><h3>'+esc(L.blocksTitle)+'</h3><p>'+esc(L.blocksLead)+'</p><div class="rows">'+R.blocks.map(function(r){
+      return '<div class="srow"><img src="'+IMG+r.img+'" alt=""><div><div class="a">'+esc(r.area)+(r.pick?'<em>'+esc(L.yourPick)+'</em>':'')+'</div><b>'+esc(r.title)+'</b><p>'+esc(r.text)+'</p>'+
+        (!r.pick&&r.because?'<p class="bc">Because '+esc(r.because)+'.</p>':'')+'</div></div>';
+    }).join("")+'</div></section>';
 
-    if(R.people.length) h+='<section><h3>'+esc(L.peopleTitle)+'</h3>'+R.people.map(function(p){return '<p>'+esc(p)+'</p>';}).join("")+
-       '<div class="links"><a href="who.html">'+esc(L.peopleMore)+'</a></div></section>';
+    /* 3. ways of living that fit, none crowned */
+    h+='<section><h3>'+esc(L.fitsTitle)+'</h3><p>'+esc(L.fitsLead)+'</p><div class="fitcards">'+R.fits.map(function(f){
+      var t=f.t;
+      return '<div class="fitc"><div class="top"><div class="nm">'+esc(t.short||t.name)+'</div><span class="strength">'+esc(f.words)+'</span></div>'+
+        '<p class="tag">'+esc(t.tagline)+'</p>'+
+        (f.because.length?'<p class="fb"><b>'+esc(L.fitsBecause.trim())+'</b> '+esc(joinList(f.because))+'.</p>':'')+
+        '<p class="df"><b>'+esc(L.differs.trim())+'</b> '+esc(f.differs)+'</p>'+
+        '<a href="type.html?t='+esc(t.slug)+'">'+esc(L.readGuide)+': '+esc(t.short||t.name)+'</a></div>';
+    }).join("")+'</div></section>';
 
-    var P=R.pin, X=SPECTRUMS[P.x], Y=SPECTRUMS[P.y];
+    /* 4. your pin */
     var P=R.pin, X=SPECTRUMS[P.x], Y=SPECTRUMS[P.y];
     var yx=pct(P.you[P.x]), yy=(6+Math.max(12,100-P.you[P.y])*0.88)+"%";
     h+='<section><h3>'+esc(L.mapTitle)+'</h3><div class="axl c" aria-hidden="true">↑ '+esc(Y.high)+'</div>'+
        '<div class="minimap" role="img" aria-label="'+esc("Your pin on the map. Left to right: "+X.label+". Bottom to top: "+Y.label+".")+'">'+
-       '<div class="ax x"></div><div class="ax y"></div>'+dots(t,P)+
+       '<div class="ax x"></div><div class="ax y"></div>'+dots(R.fits.map(function(f){return f.slug;}),P)+
        '<img class="you" src="'+IMG+L.pin+'" alt="" style="left:'+yx+';top:'+yy+'"><span class="youl" style="left:'+yx+';top:'+yy+'">you</span>'+
        '</div><div class="axl c" aria-hidden="true">↓ '+esc(Y.low)+'</div><div class="axl" aria-hidden="true" style="margin-top:6px"><span>← '+esc(X.low)+'</span><span>'+esc(X.high)+' →</span></div>'+
        '<p class="caption" style="margin-top:14px">'+esc(L.mapNote)+'</p><div class="links" style="justify-content:center"><a href="'+esc(P.link)+'">'+esc(L.mapLink)+'</a></div></section>';
 
-    h+='<section><h3>'+esc(L.setupTitle)+'</h3><div class="rows">'+R.setup.map(function(r){
-      return '<div class="srow"><img src="'+IMG+r.img+'" alt=""><div><div class="a">'+esc(r.area)+(r.pick?'<em>'+esc(L.yourPick)+'</em>':'')+'</div><b>'+esc(r.title)+'</b><p>'+esc(r.text)+'</p></div></div>';
-    }).join("")+'</div></section>';
+    /* 5. you and living together */
+    h+='<section><h3>'+esc(L.fitTitle)+'</h3><h4>'+esc(R.fitText.h)+'</h4><p>'+esc(R.fitText.p)+'</p>'+(R.fullLife?'<p>'+esc(L.fullLife)+'</p>':'')+'</section>';
+    if(R.people.length) h+='<section><h3>'+esc(L.peopleTitle)+'</h3>'+R.people.map(function(p){return '<p>'+esc(p)+'</p>';}).join("")+
+       '<div class="links"><a href="who.html">'+esc(L.peopleMore)+'</a></div></section>';
 
-    if(R.places.length) h+='<section><h3>'+esc(L.placesTitle[R.role])+'</h3><div class="places">'+R.places.map(function(p){
-      return '<div class="place"><div class="pimg">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" onerror="this.remove()">':'')+'</div><div class="pb"><b>'+esc(p.name)+'</b><span class="loc">'+esc(p.place)+'</span><p>'+esc(p.note||"")+'</p>'+
+    /* 6. places, each with why */
+    if(R.places.length) h+='<section><h3>'+esc(L.placesTitle[R.role])+'</h3><div class="places">'+R.places.map(function(x){
+      var p=x.p;
+      return '<div class="place"><div class="pimg">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.name)+'" loading="lazy" onerror="this.remove()">':'')+'</div><div class="pb"><b>'+esc(p.name)+'</b><span class="loc">'+esc(p.place)+'</span>'+
+        '<p class="why">'+esc(x.reason)+'</p><p>'+esc(p.note||"")+'</p>'+
         (p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">Visit their site ↗</a>':'')+'</div></div>';
     }).join("")+'</div></section>';
 
     h+='<section><h3>'+esc(L.knowTitle)+'</h3><ul class="know">'+R.know.map(function(k){return '<li><b>'+esc(k.h)+'</b><p>'+k.p+'</p></li>';}).join("")+'</ul></section>';
-
     h+='<section><h3>'+esc(L.stepsTitle)+'</h3><ol class="steps">'+L.steps[R.role].map(function(x){return '<li><span>'+x+'</span></li>';}).join("")+'</ol></section>';
-
     h+='<section class="sign"><p>'+esc(L.closing)+'</p><div class="hand" style="font-size:1.7rem;margin-top:14px">'+esc(L.signoff)+'</div><div class="who">'+esc(L.signature)+'</div><div class="for">'+esc(L.signedFor)+'</div></section>';
     $("letter").innerHTML=h;
 
-    $("actions").innerHTML='<button class="btn" type="button" id="shareBtn">'+esc(L.share)+'</button><button class="btn ghost" type="button" id="printBtn">'+esc(L.print)+'</button>'+
+    /* keep it: email · PDF · link · change · start over */
+    var url=location.href;
+    $("actions").innerHTML='<a class="btn" id="mailBtn" href="mailto:?subject='+encodeURIComponent(L.emailSubject)+'&amp;body='+encodeURIComponent(L.emailBody(url))+'">'+esc(L.email)+'</a>'+
+      '<button class="btn ghost" type="button" id="printBtn">'+esc(L.print)+'</button><button class="btn ghost" type="button" id="copyBtn">'+esc(L.copy)+'</button>'+
       '<button class="btn ghost" type="button" id="editBtn">'+esc(L.edit)+'</button><button class="btn ghost" type="button" id="againBtn">'+esc(L.again)+'</button>';
-    $("shareBtn").addEventListener("click",function(){
-      var url=location.href, done=function(){ $("toast").textContent=L.copied; };
-      if(navigator.share&&/Mobi|Android/i.test(navigator.userAgent)){ navigator.share({title:QUIZ.intro.title,url:url}).catch(function(){}); return; }
+    $("copyBtn").addEventListener("click",function(){
+      var done=function(){ $("toast").textContent=L.copied; };
       if(navigator.clipboard) navigator.clipboard.writeText(url).then(done,function(){ prompt("Copy this link:",url); });
       else prompt("Copy this link:",url);
     });
     $("printBtn").addEventListener("click",function(){ window.print(); });
     $("editBtn").addEventListener("click",function(){ step=0; renderStep(); show("quizView"); focusTop(); });
-    $("againBtn").addEventListener("click",function(){ st={a:{},h:{}}; step=0; history.replaceState(null,"",location.pathname); renderStep(); show("quizView"); focusTop(); });
+    $("againBtn").addEventListener("click",function(){ forget(); st={a:{},h:{}}; step=0; history.replaceState(null,"",location.pathname); renderStep(); show("quizView"); focusTop(); });
   }
   /* type dots on the mini map: each label takes the first free spot
      around its dot (below, above, right, left), in % of the map */
-  function dots(t,P){
+  function dots(tops,P){
     var boxes=[], lw=$("letter").clientWidth, W=lw>200?Math.min(440,lw-0.12*lw):400;
     function cost(b){
       var c=(b.x0<2||b.x1>98||b.y0<1||b.y1>99)?1e4:0;
@@ -461,15 +626,18 @@ button{font:inherit;color:inherit}
                 ["r",{x0:p.x+2,x1:p.x+2+w,y0:p.y-hh/2,y1:p.y+hh/2}],["l",{x0:p.x-2-w,x1:p.x-2,y0:p.y-hh/2,y1:p.y+hh/2}]];
       var pick=opts.map(function(o){return [o,cost(o[1])];}).sort(function(x,y){return x[1]-y[1];})[0][0];
       boxes.push(pick[1]);
-      return '<div class="dot '+pick[0]+(p.tt.slug===t.slug?" top":"")+'" style="left:'+p.x+'%;top:'+p.y+'%"><i></i><span>'+esc(name)+'</span></div>';
+      return '<div class="dot '+pick[0]+(tops.indexOf(p.tt.slug)>=0?" top":"")+'" style="left:'+p.x+'%;top:'+p.y+'%"><i></i><span>'+esc(name)+'</span></div>';
     }).join("");
   }
   function joinList(a){ return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1]; }
 
-  /* ---------- arriving with a shared link ---------- */
+  /* ---------- arriving with a shared link, or coming back ---------- */
   var fromLink=QuizScore.decode(location.hash);
   if(fromLink){ st=fromLink; envelope(); }
-  else show("introView");
+  else {
+    if(kept()){ $("welcome").hidden=false; $("startBtn").hidden=true; }
+    show("introView");
+  }
 })();
 </script>
 </body>

@@ -3,19 +3,29 @@
    tested in node (_tools/quiz-sim.js). Needs map-data.js,
    projects-data.js and quiz-data.js loaded first.
    How it works, in plain words: FOR PIERRE-ANTOINE/QUIZ-CONTENT-DRAFT.md §4.
+   v2: no single winner. result() returns what the person said (mirror),
+   building blocks with a "because" each, the 3 closest ways of living
+   with reasons built ONLY from real answers, and places with a reason.
    ===================================================================== */
 var QuizScore = (function () {
   var MAP_KEYS = ["share", "size", "time", "power", "autonomy", "ecoTech", "effort"];
-  var BUDGET_POS = [15, 45, 85];
+  var SPECTRA = MAP_KEYS.concat(["purpose"]);
+  var SET = ["city", "suburb", "countryside"], BK = ["new", "converted", "mixed"], HO = ["homes", "mixed-use", "farm"];
+  var DK = ["founder", "vote", "consensus", "consent", "advice"], HK = ["own", "shares", "rent", "membership", "use-rights"];
+  var LIFE_FOR = ["students", "young-adults", "entrepreneurs", "families", "single-parents", "remote-workers", "newcomers", "artists", null, "seniors"];
 
+  var QS = null;
   function allQuestions() {
     var out = [];
     QUIZ.steps.forEach(function (s) { s.questions.forEach(function (q) { out.push(q); }); });
     return out;
   }
+  function qById(id) {
+    if (!QS) { QS = {}; allQuestions().forEach(function (q) { QS[q.id] = q; }); }
+    return QS[id];
+  }
   function pos(v) { return v == null ? null : v / 6 * 100; }
   function band3(x) { return x < 34 ? 0 : x > 66 ? 2 : 1; }
-  function typeBy(slug) { return COLIVING_TYPES.filter(function (t) { return t.slug === slug; })[0]; }
   function rangeOf(t, k) { return (t.ranges && t.ranges[k]) || (t.backend && t.backend[k]) || null; }
   function setups(t, field) {
     var o = [];
@@ -23,14 +33,22 @@ var QuizScore = (function () {
     return o;
   }
   function has(arr, i) { return Array.isArray(arr) && arr.indexOf(i) >= 0; }
+  function picks(v) { return Array.isArray(v) ? v : typeof v === "number" ? [v] : []; }
+  function isMulti(q) { return q.multi || q.kind === "rank"; }
+  /* 7 slider positions → 5 labels */
+  function stopIndex(v) { return [0, 1, 1, 2, 3, 3, 4][v]; }
+  function stopLabel(q, v) { return q && q.stops && v != null ? q.stops[stopIndex(Math.max(0, Math.min(6, Math.round(v))))] : null; }
+  function joinList(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; }
+  function lower(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
 
   /* ---------- share link: one token per question, in order ---------- */
   function encode(st) {
     var toks = allQuestions().map(function (q) {
       var v = st.a[q.id];
       if (q.kind === "slider") return v == null ? "" : String(v) + (st.h[q.id] ? "h" : "");
-      if (q.kind === "chips" && q.multi) { var m = 0; (v || []).forEach(function (i) { m |= 1 << i; }); return m ? m.toString(36) : ""; }
-      if (q.kind === "text") return v ? encodeURIComponent(v).replace(/\./g, "%2E") : "";
+      if (q.kind === "rank") return (v || []).map(function (i) { return i.toString(36); }).join("-");
+      if (q.multi) { var m = 0; (v || []).forEach(function (i) { m |= 1 << i; }); return m ? m.toString(36) : ""; }
+      if (q.kind === "text") return v ? encodeURIComponent(v).replace(/\./g, "%2E").replace(/-/g, "%2D") : "";
       if (v === "help") return "x";
       return v == null ? "" : String(v);
     });
@@ -38,7 +56,7 @@ var QuizScore = (function () {
   }
   function decode(hash) {
     var m = /q=(\d+)\.([^&]*)/.exec(hash || "");
-    if (!m) return null;
+    if (!m || +m[1] !== QUIZ.version) return null;
     var toks = m[2].split("."), st = { a: {}, h: {} };
     allQuestions().forEach(function (q, i) {
       var t = toks[i];
@@ -46,7 +64,11 @@ var QuizScore = (function () {
       if (q.kind === "slider") {
         var n = parseInt(t, 10);
         if (n >= 0 && n <= 6) { st.a[q.id] = n; if (/h/.test(t)) st.h[q.id] = true; }
-      } else if (q.kind === "chips" && q.multi) {
+      } else if (q.kind === "rank") {
+        var r = [];
+        t.split("-").forEach(function (x) { var k = parseInt(x, 36); if (k >= 0 && k < q.options.length && r.indexOf(k) < 0) r.push(k); });
+        if (r.length) st.a[q.id] = r;
+      } else if (q.multi) {
         var mask = parseInt(t, 36), arr = [];
         q.options.forEach(function (o, j) { if (mask & (1 << j)) arr.push(j); });
         if (arr.length) st.a[q.id] = arr;
@@ -58,160 +80,206 @@ var QuizScore = (function () {
     return st;
   }
 
+  /* ---------- answers the scoring uses: the map's ecoTech comes from the care picks ---------- */
+  function derive(a) {
+    var d = {}, C = QUIZ.care, care = a.care || [], e = 0, t = 0;
+    Object.keys(a).forEach(function (k) { d[k] = a[k]; });
+    care.forEach(function (i) { if (has(C.eco, i)) e++; if (has(C.tech, i)) t++; });
+    if (e + t) d.ecoTech = Math.round(3 + 3 * Math.min(1, (e + t) / 3) * (t - e) / (e + t));
+    if (care.some(function (i) { return has(C.purpose, i); })) d.purpose = a.purpose == null ? 4 : Math.min(6, a.purpose + 1);
+    return d;
+  }
+
   /* ---------- matching ---------- */
-  function nudgesFor(a) {
-    var N = QUIZ.nudges, list = [];
-    function add(n) { if (n) list.push(n); }
-    if (a["with"] != null) add(N["with"][a["with"]]);
-    (a.life || []).forEach(function (i) { add(N.life[i]); });
-    if (typeof a.setting === "number") add(N.setting[a.setting]);
-    if (typeof a.hosts === "number") add(N.hosts[a.hosts]);
-    if (a.savings != null) add(N.savings[a.savings]);
-    return list;
+  /* one group per question; a multi-pick question counts its best pick per way of living */
+  function nudgeGroups(a) {
+    var N = QUIZ.nudges, g = [];
+    function grp(list) { list = list.filter(Boolean); if (list.length) g.push(list); }
+    if (a["with"] != null) grp([N["with"][a["with"]]]);
+    (a.life || []).forEach(function (i) { grp([N.life[i]]); });
+    grp(picks(a.setting).map(function (i) { return N.setting[i]; }));
+    grp(picks(a.hosts).map(function (i) { return N.hosts[i]; }));
+    if (a.savings != null) grp([N.savings[a.savings]]);
+    return g;
   }
 
   function matchAll(st) {
-    var a = st.a, nudges = nudgesFor(a);
-    var spectra = MAP_KEYS.concat(["purpose"]);
+    var a = st.a, d = derive(a), groups = nudgeGroups(a), hopeQ = qById("hopes"), careFit = QUIZ.care.fit;
+    var holdPicks = picks(a.holding).map(function (i) { return HK[i]; });
     return COLIVING_TYPES.map(function (t) {
-      var sw = 0, sd = 0, inside = [];
-      spectra.forEach(function (k) {
-        var x = pos(a[k]), r = rangeOf(t, k);
+      var sw = 0, sd = 0, inside = [], gaps = [];
+      SPECTRA.forEach(function (k) {
+        var x = pos(d[k]), r = rangeOf(t, k);
         if (x == null || !r) return;
-        var w = st.h[k] ? 2 : 1;
-        var q = allQuestions().filter(function (qq) { return qq.id === k; })[0];
-        var d = q.oneWay ? Math.max(0, r[0] - x) : Math.max(0, r[0] - x, x - r[1]);
-        sw += w; sd += w * d * d;
-        if (d === 0) inside.push({ k: k, x: x, w: w });
+        var w = st.h[k] ? 2 : 1, q = qById(k);
+        var dd = q && q.oneWay ? Math.max(0, r[0] - x) : Math.max(0, r[0] - x, x - r[1]);
+        sw += w; sd += w * dd * dd;
+        if (a[k] == null) return;            /* only real answers become reasons, at their real value */
+        var xr = pos(a[k]), dr = q && q.oneWay ? Math.max(0, r[0] - xr) : Math.max(0, r[0] - xr, xr - r[1]);
+        if (dr === 0) inside.push({ k: k, x: xr, w: w });
+        else gaps.push({ k: k, x: xr, d: dr, w: w, r: r });
       });
-      if (a.budget != null && t.backend && t.backend.cost) {
-        var dc = Math.max(0, t.backend.cost[0] - BUDGET_POS[a.budget]);
-        sw += 1; sd += dc * dc;
-      }
       var D = sw ? Math.sqrt(sd / sw) : 25;
       var score = 100 - D * 1.5, why = [];
-      nudges.forEach(function (n) {
-        var v = n[t.slug] || 0;
-        if (v) { score += v; if (v > 0) why.push({ v: v, txt: n.why }); }
+      groups.forEach(function (list) {
+        var best = null;
+        list.forEach(function (n) { var v = n[t.slug] || 0; if (best === null || v > best.v) best = { v: v, txt: n.why }; });
+        if (best && best.v) { score += best.v; if (best.v > 0) why.push(best); }
       });
-      /* set-up compatibility */
+      var hopeHits = [];
+      (a.hopes || []).forEach(function (i, j) {
+        var o = hopeQ.options[i], v = o && o.fit[t.slug] || 0;
+        if (!v) return;
+        var w = j < 3 ? [3, 2, 1][j] : 1;
+        score += v * w; hopeHits.push({ v: v * w, j: j, txt: o.said });
+      });
+      var careHits = (a.care || []).filter(function (i) { return has(careFit[t.slug], i); });
+      score += Math.min(3, careHits.length);
       var hold = setups(t, "holding"), dec = setups(t, "decisions");
-      var HK = ["own", "shares", "rent", "membership", "use-rights"], DK = ["founder", "vote", "consensus", "consent", "advice"];
-      if (typeof a.holding === "number" && hold.indexOf(HK[a.holding]) >= 0) score += 3;
-      if (typeof a.decisions === "number" && dec.indexOf(DK[a.decisions]) >= 0) score += 2;
+      var holdHit = holdPicks.filter(function (h) { return hold.indexOf(h) >= 0; });
+      if (holdHit.length) score += 3;
+      var decHit = typeof a.decisions === "number" && dec.indexOf(DK[a.decisions]) >= 0 ? DK[a.decisions] : null;
+      if (decHit) score += 2;
       if (a.own != null) {
         var ownish = hold.indexOf("own") >= 0 || hold.indexOf("shares") >= 0;
         if (a.own >= 5) score += ownish ? 3 : -4;
         if (a.own <= 1 && hold.indexOf("own") >= 0 && hold.indexOf("rent") < 0) score -= 3;
       }
-      return { t: t, slug: t.slug, raw: score, match: Math.max(30, Math.min(99, Math.round(score))), inside: inside,
-        why: why.sort(function (x, y) { return y.v - x.v; }) };
+      return { t: t, slug: t.slug, raw: score, match: Math.max(30, Math.min(99, Math.round(score))),
+        inside: inside, gaps: gaps.sort(function (x, y) { return y.d * y.w - x.d * x.w; }),
+        why: why.sort(function (x, y) { return y.v - x.v; }), hopeHits: hopeHits.sort(function (x, y) { return y.v - x.v || x.j - y.j; }),
+        careHits: careHits, holdHit: holdHit, holdMiss: holdPicks.length && !holdHit.length ? hold : null, decHit: decHit };
     }).sort(function (x, y) { return y.raw - x.raw; });
   }
 
-  function reasons(r) {
-    var qs = allQuestions(), out = [];
-    var ranked = r.inside.slice().sort(function (x, y) { return y.w * Math.abs(y.x - 50) - x.w * Math.abs(x.x - 50); });
-    var nud = r.why[0];
-    var nSpec = nud ? 2 : 3;
-    ranked.slice(0, nSpec).forEach(function (s) {
-      var q = qs.filter(function (qq) { return qq.id === s.k; })[0];
-      out.push(q.said[band3(s.x)]);
+  /* "Fits because …": up to 3 reasons, each one a thing the person actually said */
+  function reasons(r, st) {
+    var a = st.a, L = QUIZ.letter, c = [];
+    r.inside.forEach(function (s) {
+      var q = qById(s.k);
+      if (q && q.said) c.push({ w: s.w * Math.abs(s.x - 50) / 5, txt: q.said[band3(s.x)], spec: 1 });
     });
-    if (nud) out.push(nud.txt);
+    if (r.hopeHits.length) c.push({ w: 10 + r.hopeHits[0].v / 3, txt: L.hopeSaid(joinList(r.hopeHits.slice(0, 2).map(function (h) { return h.txt; }))) });
+    if (r.careHits.length) c.push({ w: 7 + r.careHits.length, txt: L.careSaid(joinList(r.careHits.slice(0, 2).map(function (i) { return lower(qById("care").options[i]); }))) });
+    if (r.why.length) c.push({ w: 5 + r.why[0].v / 2, txt: r.why[0].txt });
+    if (r.holdHit.length) c.push({ w: 6, txt: L.setupSaid.holding(L.holdingVerb[r.holdHit[0]]) });
+    if (r.decHit) c.push({ w: 5, txt: L.setupSaid.decisions(L.decBy[r.decHit]) });
+    c.sort(function (x, y) { return y.w - x.w; });
+    var out = [], nSpec = 0;
+    c.forEach(function (x) {
+      if (out.length >= 3 || (x.spec && nSpec >= 2) || out.indexOf(x.txt) >= 0) return;
+      if (x.spec) nSpec++;
+      out.push(x.txt);
+    });
     return out;
   }
 
-  function rather(top, second, a) {
-    var best = null, bestD = -1;
-    MAP_KEYS.forEach(function (k) {
-      var r1 = top.t.ranges[k], r2 = second.t.ranges[k];
-      var d = (r2[0] + r2[1]) / 2 - (r1[0] + r1[1]) / 2;
-      var wt = a[k] != null ? 1 : 0.6;
-      if (Math.abs(d) * wt > bestD) { bestD = Math.abs(d) * wt; best = { k: k, dir: d < 0 ? 0 : 1 }; }
+  /* "Where it differs": the biggest gap between a real answer and the way of living */
+  function differs(r, st) {
+    var L = QUIZ.letter, best = null;
+    r.gaps.some(function (g) {
+      var q = qById(g.k);
+      if (!q || !q.stops || g.d < 12) return false;
+      if (g.k === "effort" && st.a.role !== 1) return false;   /* effort to start it only matters to founders */
+      var mid = (g.r[0] + g.r[1]) / 2 / 100 * 6, theirs = stopLabel(q, mid), yours = stopLabel(q, st.a[g.k]);
+      if (Math.abs(stopIndex(Math.round(mid)) - stopIndex(st.a[g.k])) < 2 && g.d < 25) return false;
+      best = { d: g.d, txt: L.differsLine(q.topic, lower(theirs), lower(yours)) };
+      return true;
     });
-    return QUIZ.letter.rather[best.k][best.dir];
+    if (r.holdMiss && (!best || best.d < 20)) best = { d: 20, txt: L.differsHolding(L.holdingVerb[r.holdMiss[0]]) };
+    return best ? best.txt : L.differsNone;
   }
 
   /* ---------- fit with living together ---------- */
   function fit(a) {
-    var keys = ["recharge", "conflict", "dishes", "cook", "faces", "share"], s = 0, n = 0;
+    var keys = ["recharge", "conflict", "dishes", "cook", "share"], s = 0, n = 0;
     keys.forEach(function (k) { if (a[k] != null) { s += pos(a[k]); n++; } });
     var v = n ? s / n : 60, F = QUIZ.letter.fit, i = 0;
     while (i < F.length - 1 && v < F[i].min) i++;
     return { value: Math.round(v), band: i };
   }
 
-  /* ---------- set-up, one row per area ---------- */
+  /* ---------- building blocks, one row per area ---------- */
   function setup(st, top) {
-    var a = st.a, S = QUIZ.setup, V = TAG_VOCAB, rows = [], fam = top.t.family;
-    var size = pos(a.size), time = pos(a.time), effort = pos(a.effort), eco = pos(a.ecoTech);
+    var a = st.a, d = derive(a), S = QUIZ.setup, B = S.because, V = TAG_VOCAB, rows = [], fam = top.t.family;
+    var size = pos(a.size), time = pos(a.time), effort = pos(a.effort), eco = pos(d.ecoTech);
     var power = pos(a.power), auto = pos(a.autonomy);
-    function n(v, d) { return v == null ? d : v; }
+    function n(v, dflt) { return v == null ? dflt : v; }
 
     // building: setting + kind + size + what's on site
-    var SET = ["city", "suburb", "countryside"], setting = typeof a.setting === "number" && a.setting < 3 ? SET[a.setting] : null;
+    var setPicks = picks(a.setting).map(function (i) { return SET[i]; });
+    var setting = setPicks[0];
     if (!setting) setting = ["ecovillage", "rural-coliving", "kibbutz"].indexOf(top.slug) >= 0 ? "countryside" : "city";
-    var BK = ["new", "converted", "mixed"], bld, bldPick = typeof a.building === "number";
-    if (bldPick) bld = BK[a.building];
-    else if (n(time, 50) >= 67 && n(effort, 50) >= 50) bld = "new";
-    else if (n(time, 50) < 50 || n(effort, 50) < 34) bld = "converted";
-    else bld = "mixed";
-    var HO = ["homes", "mixed-use", "farm"], ho, hoPick = typeof a.hosts === "number";
-    if (hoPick) ho = HO[a.hosts];
-    else if (n(eco, 50) < 25 && setting === "countryside") ho = "farm";
-    else if (has(a.life, 2) || has(a.life, 5) || n(eco, 50) > 70) ho = "mixed-use";
-    else ho = "homes";
+    var where = (setPicks.length ? setPicks : [setting]).map(function (s) { return s === "countryside" ? "the countryside" : s === "suburb" ? "the suburbs" : "the city"; });
+    var bPicks = picks(a.building).map(function (i) { return BK[i]; }), bld, bBecause = "";
+    if (bPicks.length) bld = bPicks[0];
+    else if (n(time, 50) >= 67 && n(effort, 50) >= 50) { bld = "new"; bBecause = B.building["new"]; }
+    else if (n(time, 50) < 50 || n(effort, 50) < 34) { bld = "converted"; bBecause = B.building.converted; }
+    else { bld = "mixed"; bBecause = B.building.mixed; }
+    var hPicks = picks(a.hosts).map(function (i) { return HO[i]; }), ho, hBecause = "";
+    if (hPicks.length) ho = hPicks[0];
+    else if (n(eco, 50) < 25 && setting === "countryside") { ho = "farm"; hBecause = B.hosts.farm; }
+    else if (has(a.life, 2) || has(a.life, 5) || n(eco, 50) > 70) { ho = "mixed-use"; hBecause = B.hosts["mixed-use"]; }
+    else { ho = "homes"; hBecause = B.hosts.homes; }
     var sz;
     if ((fam === "share-a-home" || fam === "flexible") && n(size, 30) < 50) sz = { img: "mini-size-small.webp", t: S.smallHousehold[0], p: S.smallHousehold[1] };
     else { var row = S.size.filter(function (r) { return n(size, 50) < r[0]; })[0]; sz = { img: "mini-size-" + row[1] + ".webp", t: row[2], p: row[3] }; }
-    rows.push({ area: "Building", img: "mini-building-" + bld + ".webp", pick: bldPick,
-      title: sz.t + ", " + V.building.values[bld].toLowerCase() + " in the " + (setting === "countryside" ? "countryside" : setting === "suburb" ? "suburbs" : "city"),
-      text: sz.p + " " + V.hosts.descs[ho] });
+    var kinds = (bPicks.length ? bPicks : [bld]).map(function (b) { return V.building.values[b].toLowerCase(); });
+    rows.push({ area: "Building", img: "mini-building-" + bld + ".webp", pick: !!bPicks.length,
+      title: sz.t + ", " + joinList(kinds).replace(/ and /g, " or ") + " in " + where.join(" or "),
+      text: sz.p + " " + V.hosts.descs[ho],
+      because: bBecause || hBecause });
 
     // social life
-    var meals = typeof a.meals === "number" ? a.meals : (a.cook == null ? 1 : [0, 0, 1, 1, 2, 2, 3][a.cook]);
+    var mealsQ = qById("meals"), meals, mBecause = "";
+    if (typeof a.meals === "number") meals = a.meals;
+    else if (a.cook == null) { meals = 1; mBecause = B.mealsNone; }
+    else { meals = [0, 0, 1, 1, 2, 2, 3][a.cook]; mBecause = B.meals(a.cook); }
+    var mo = mealsQ.options[meals];
     rows.push({ area: "Social life", img: "icon-social.webp", pick: typeof a.meals === "number",
-      title: QUIZ.steps[3].questions[2].options[meals] === "Now and then" ? "Dinner together now and then" : "Dinner together " + QUIZ.steps[3].questions[2].options[meals].toLowerCase(),
-      text: S.meals[meals] + (a.rhythm != null && a.rhythm >= 4 ? " " + S.mealsFlex : "") });
+      title: mo === "Now and then" ? "Dinner together now and then" : "Dinner together " + mo.toLowerCase(),
+      text: S.meals[meals], because: mBecause });
 
     // decisions
-    var DK = ["founder", "vote", "consensus", "consent", "advice"], dec, decPick = typeof a.decisions === "number";
+    var dec, dBecause = "", decPick = typeof a.decisions === "number";
     if (decPick) dec = DK[a.decisions];
-    else if (n(power, 60) < 34) dec = "founder";
-    else if (a.meetings != null && a.meetings <= 2) dec = "advice";
-    else if ((a.meetings != null && a.meetings >= 4 && n(a.conflict, 3) >= 4) || n(size, 50) >= 67) dec = "consent";
-    else dec = setups(top.t, "decisions")[0] || "consent";
+    else if (n(power, 60) < 34) { dec = "founder"; dBecause = B.decisions.founder; }
+    else if (a.meetings != null && a.meetings <= 2) { dec = "advice"; dBecause = B.decisions.advice; }
+    else if ((a.meetings != null && a.meetings >= 4 && n(a.conflict, 3) >= 4) || n(size, 50) >= 67) { dec = "consent"; dBecause = B.decisions.consent; }
+    else { dec = setups(top.t, "decisions")[0] || "consent"; dBecause = B.decisions.type; }
     var gov = n(size, 50) < 34 && dec !== "founder" ? S.govStyle.small : n(size, 50) >= 67 ? S.govStyle.large : "";
     rows.push({ area: "Decisions", img: "mini-decisions-" + dec + ".webp", pick: decPick,
-      title: V.decisions.values[dec], text: S.decisions[dec] + (gov ? " " + gov : "") });
+      title: V.decisions.values[dec], text: S.decisions[dec] + (gov ? " " + gov : ""), because: dBecause });
 
     // your home + legal
-    var HK = ["own", "shares", "rent", "membership", "use-rights"], hold, holdPick = typeof a.holding === "number";
-    if (holdPick) hold = HK[a.holding];
-    else if (n(eco, 50) < 25 && n(time, 50) >= 67 && n(auto, 50) >= 60) hold = "use-rights";
-    else if (a.own != null && a.own >= 5) hold = a.savings === 2 || a.savings == null ? "own" : "shares";
-    else if (a.savings === 1) hold = "shares";
-    else if (a.own != null && a.own <= 1) hold = n(time, 50) < 50 ? "membership" : "rent";
-    else hold = setups(top.t, "holding")[0] || "rent";
+    var hp = picks(a.holding).map(function (i) { return HK[i]; }), hold, hoBecause = "";
+    if (hp.length) { var fits = setups(top.t, "holding"); hold = hp.filter(function (h) { return fits.indexOf(h) >= 0; })[0] || hp[0]; }
+    else if (n(eco, 50) < 25 && n(time, 50) >= 67 && n(auto, 50) >= 60) { hold = "use-rights"; hoBecause = B.holding["use-rights"]; }
+    else if (a.own != null && a.own >= 5) { hold = a.savings === 2 || a.savings == null ? "own" : "shares"; hoBecause = B.holding.own; }
+    else if (a.savings === 1) { hold = "shares"; hoBecause = B.holding.shares; }
+    else if (a.own != null && a.own <= 1) { hold = n(time, 50) < 50 ? "membership" : "rent"; hoBecause = B.holding[hold]; }
+    else { hold = setups(top.t, "holding")[0] || "rent"; hoBecause = B.holding.type; }
     var legal = S.holdingLegal[hold];
-    rows.push({ area: "Legal and your home", img: "mini-holding-" + hold + ".webp", pick: holdPick,
-      title: V.holding.values[hold] + " · " + V.legal.values[legal], text: S.holding[hold] });
+    rows.push({ area: "Legal and your home", img: "mini-holding-" + hold + ".webp", pick: !!hp.length,
+      title: V.holding.values[hold] + " · " + V.legal.values[legal], text: S.holding[hold], because: hoBecause });
 
     // money
-    var money;
-    if (a.savings === 1 || a.savings === 2) money = "members";
-    else if (a.savings === 3) money = "patron";
-    else if (a.savings === 0) money = a.budget === 0 && n(time, 50) >= 50 ? "public" : "operator";
-    else money = hold === "own" || hold === "shares" ? "members" : "operator";
-    var mImg = { members: "mini-money-members.webp", public: "mini-money-public.webp", patron: "mini-money-patron.webp", operator: "mini-money-investors.webp" }[money];
-    var mTitle = { members: V.money.values.members, public: V.money.values["public"], patron: V.money.values.patron, operator: "Carried by an operator or co-op" }[money];
-    rows.push({ area: "Money", img: mImg, pick: a.savings != null, title: mTitle, text: S.money[money] });
+    var money, moBecause;
+    if (a.savings === 1 || a.savings === 2) { money = "members"; moBecause = B.money.members; }
+    else if (a.savings === 3) { money = "patron"; moBecause = B.money.patron; }
+    else if (a.savings === 0) {
+      money = has(a.hopes, 1) && n(time, 50) >= 50 ? "public" : "operator";
+      moBecause = B.money[money];
+    }
+    else { money = hold === "own" || hold === "shares" ? "members" : "operator"; moBecause = B.money.derived; }
+    var mImg = { members: "mini-money-members.webp", "public": "mini-money-public.webp", patron: "mini-money-patron.webp", operator: "mini-money-investors.webp" }[money];
+    var mTitle = { members: V.money.values.members, "public": V.money.values["public"], patron: V.money.values.patron, operator: "Carried by an operator or co-op" }[money];
+    rows.push({ area: "Money", img: mImg, pick: false, title: mTitle, text: S.money[money], because: moBecause });
 
     return { rows: rows, setting: setting };
   }
 
-  /* ---------- real places ---------- */
+  /* ---------- real places, each with a reason ---------- */
   var REGION = [
     [/Montr|Qu[eé]bec|Lachine|Neuville/i, [0, 1]],
     [/BC|ON\b|Vancouver|Ottawa|Langley/i, [1]],
@@ -222,21 +290,45 @@ var QuizScore = (function () {
     for (var i = 0; i < REGION.length; i++) if (REGION[i][0].test(place || "")) return REGION[i][1];
     return [4];
   }
-  function places(st, top, second, setting) {
-    var base = st.a.base;
+  function places(st, fits) {
+    var a = st.a, base = a.base, W = QUIZ.letter.placeWhy, Lt = QUIZ.letter;
+    var setPicks = picks(a.setting).map(function (i) { return SET[i]; });
+    var holdPicks = picks(a.holding).map(function (i) { return HK[i]; });
+    var dec = typeof a.decisions === "number" ? DK[a.decisions] : null;
+    var forWho = (a.life || []).map(function (i) { return LIFE_FOR[i]; }).filter(Boolean);
+    if (a["with"] === 2) forWho.push("families");
+    function hits(p) {
+      var tg = p.tags || {}, su = p.setup || {}, h = {};
+      h.setting = setPicks.filter(function (s) { return has(tg.setting, s); })[0];
+      h.holding = holdPicks.filter(function (x) { return has(su.holding, x); })[0];
+      h.decisions = dec && has(su.decisions, dec) ? dec : null;
+      h.forWho = forWho.filter(function (f) { return has(tg.forWho, f); })[0];
+      h.near = base != null && regions(p.place).indexOf(base) >= 0;
+      return h;
+    }
     function rank(slug) {
       return COLIVING_PROJECTS.filter(function (p) { return p.kind === "place" && p.type === slug; }).map(function (p) {
-        var s = 0;
-        if (base != null && regions(p.place).indexOf(base) >= 0) s += 3;
-        if (p.tags && p.tags.setting && p.tags.setting.indexOf(setting) >= 0) s += 2;
-        if (p.img) s += 1.5;
-        return { p: p, s: s };
-      }).sort(function (x, y) { return y.s - x.s; }).map(function (x) { return x.p; });
+        var h = hits(p), s = 0;
+        if (h.near) s += 3; if (h.setting) s += 2; if (p.img) s += 1.5;
+        if (h.holding) s += 1; if (h.decisions) s += 1; if (h.forWho) s += 1;
+        return { p: p, s: s, h: h };
+      }).sort(function (x, y) { return y.s - x.s; });
     }
-    var A = rank(top.slug), B = rank(second.slug), out = A.slice(0, 2);
-    if (B.length) out.push(B[0]);
-    var i = 2; while (out.length < 3 && i < A.length) out.push(A[i++]);
-    return out;
+    var lists = fits.map(function (f) { return rank(f.slug); }), out = [], seen = {};
+    function take(x, f) { if (x && !seen[x.p.id]) { seen[x.p.id] = 1; out.push({ x: x, f: f }); } }
+    lists.forEach(function (l, i) { take(l[0], fits[i]); });
+    for (var i = 1; out.length < 3 && i < lists[0].length; i++) take(lists[0][i], fits[0]);
+    return out.map(function (o) {
+      var h = o.x.h, bits = [W.fit(o.f.t.short || o.f.t.name)];
+      if (h.setting) bits.push(W.setting[h.setting]);
+      if (h.forWho && W.forWho[h.forWho]) bits.push(W.forWho[h.forWho]);
+      if (h.holding) bits.push(W.holding(Lt.holdingVerb[h.holding]));
+      else if (h.decisions) bits.push(W.decisions(Lt.decBy[h.decisions]));
+      if (h.near) bits.push(W.near);
+      /* "Cohousing, one of your close fits. In a city like you want · close to you" */
+      var tail = bits.slice(1, 4).map(function (b, i) { return i ? b : b.charAt(0).toUpperCase() + b.slice(1); });
+      return { p: o.x.p, reason: bits[0] + "." + (tail.length ? " " + tail.join(" · ") : "") };
+    });
   }
 
   /* ---------- things to know ---------- */
@@ -246,7 +338,7 @@ var QuizScore = (function () {
       conflictLow: a.conflict != null && a.conflict <= 2, conflictHigh: a.conflict != null && a.conflict >= 4,
       meetingsLow: a.meetings != null && a.meetings <= 2, meetingsHigh: a.meetings != null && a.meetings >= 5,
       dishesLow: a.dishes != null && a.dishes <= 1, cookHigh: a.cook != null && a.cook >= 5,
-      facesLow: a.faces != null && a.faces <= 2, shortStayType: top.t.ranges.time[1] < 60,
+      timeHigh: a.time != null && a.time >= 5, shortStayType: top.t.ranges.time[1] < 60,
       start: a.role === 1, effortLow: a.effort != null && a.effort <= 1, hoursLow: a.hours === 0,
       ownHigh: a.own != null && a.own >= 5, shareHigh: a.share != null && a.share >= 4, fitBand: fitBand
     };
@@ -265,7 +357,7 @@ var QuizScore = (function () {
 
   /* ---------- your pin ---------- */
   function pin(st) {
-    var a = st.a, c = MAP_KEYS.filter(function (k) { return a[k] != null; })
+    var a = derive(st.a), c = MAP_KEYS.filter(function (k) { return a[k] != null; })
       .sort(function (x, y) { return Math.abs(pos(a[y]) - 50) * (st.h[y] ? 1.2 : 1) - Math.abs(pos(a[x]) - 50) * (st.h[x] ? 1.2 : 1); });
     var x = c[0] || "ecoTech", y = c[1] || (x === "autonomy" ? "ecoTech" : "autonomy");
     var you = {};
@@ -274,24 +366,39 @@ var QuizScore = (function () {
     return { x: x, y: y, you: you, link: link };
   }
 
+  /* ---------- what matters to you, reflected back ---------- */
+  function mirror(st) {
+    var a = st.a, hq = qById("hopes"), cq = qById("care"), stand = [];
+    QUIZ.steps.filter(function (s) { return s.id === "values"; })[0].questions.forEach(function (q) {
+      if (q.kind === "slider" && a[q.id] != null) stand.push({ k: q.id, topic: q.topic, label: stopLabel(q, a[q.id]), x: pos(a[q.id]), heart: !!st.h[q.id] });
+    });
+    return {
+      hopes: (a.hopes || []).map(function (i, j) { var o = hq.options[i]; return { t: o.t, img: o.img, rank: j < 3 ? j + 1 : 0 }; }),
+      care: (a.care || []).map(function (i) { return cq.options[i]; }),
+      stand: stand
+    };
+  }
+
   function result(st) {
-    var ranked = matchAll(st), top = ranked[0], second = ranked[1], a = st.a;
+    var ranked = matchAll(st), top = ranked[0], a = st.a, L = QUIZ.letter;
     var F = fit(a), su = setup(st, top);
-    var fitText = QUIZ.letter.fit[F.band];
-    var peopleIdx = (a.life || []).slice(0, 2);
-    var people = peopleIdx.map(function (i) { return QUIZ.letter.people[i]; });
-    if (!people.length && a["with"] != null && QUIZ.letter.peopleWith[a["with"]]) people = [QUIZ.letter.peopleWith[a["with"]]];
+    var fitText = L.fit[F.band];
+    var fits = ranked.slice(0, 3).map(function (r) {
+      return { r: r, t: r.t, slug: r.slug, match: r.match, words: L.strength.filter(function (s) { return r.match >= s[0]; })[0][1],
+        because: reasons(r, st), differs: differs(r, st) };
+    });
+    var people = (a.life || []).slice(0, 2).map(function (i) { return L.people[i]; });
+    if (!people.length && a["with"] != null && L.peopleWith[a["with"]]) people = [L.peopleWith[a["with"]]];
     var full = a.hours === 0 && (has(a.life, 2) || has(a.life, 3) || has(a.life, 4));
     return {
-      name: a.name || "", ranked: ranked, top: top, second: second,
-      strength: QUIZ.letter.strength.filter(function (s) { return top.match >= s[0]; })[0][1],
-      reasons: reasons(top), rather: rather(top, second, a),
+      name: a.name || "", ranked: ranked, top: top, fits: fits, mirror: mirror(st),
       fit: F, fitText: { h: fitText.h, p: (F.band === 3 && top.t.family !== "own-home" && fitText.alt) ? fitText.alt : fitText.p },
-      fullLife: full, people: people, setup: su.rows, places: places(st, top, second, su.setting),
+      fullLife: full, people: people, blocks: su.rows, places: places(st, fits),
       know: know(st, top, F.band), pin: pin(st), role: a.role == null ? 2 : a.role
     };
   }
 
-  return { encode: encode, decode: decode, result: result, matchAll: matchAll, allQuestions: allQuestions, MAP_KEYS: MAP_KEYS };
+  return { encode: encode, decode: decode, result: result, matchAll: matchAll, allQuestions: allQuestions, derive: derive,
+    stopLabel: stopLabel, qById: qById, MAP_KEYS: MAP_KEYS, isMulti: isMulti };
 })();
 if (typeof module !== "undefined") module.exports = QuizScore;
