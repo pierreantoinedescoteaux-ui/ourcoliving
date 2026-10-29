@@ -95,6 +95,7 @@ glossary content), with an optional short read-more link, never pulling the read
 quiz v2 option explanations. Later: field guides, hub, map.
 
 ## Quiz v2 (P-A's first feedback, 2026-10-22, verbatim intent)
+**BUILT 2026-10-28 (local commit 6b83b30, not pushed).** Kept below as the record of what he asked for.
 - More questions multi-select (e.g. setting: "city or countryside but not suburbs").
 - Drop the housing-budget question (depends too much on where you live). Replace with RANKING what you want coliving
   to solve, 5-7 options: raising kids, fighting loneliness, affordable housing, a community of like-minded people...
